@@ -42,11 +42,11 @@ jobs:
           foreach($mode in @('Debug','Release')) {
             $product="recovery/artifacts/neutral-product/$mode"
             $receipt=Get-Content "$product/build.json" -Raw|ConvertFrom-Json
-            $host=Get-Content "$product/validation/build.json" -Raw|ConvertFrom-Json
+            $validationReceipt=Get-Content "$product/validation/build.json" -Raw|ConvertFrom-Json
             $actual=(Get-FileHash "$product/bin/NewModCompiler.exe" -Algorithm SHA256).Hash.ToLowerInvariant()
-            if($receipt.sourceCommit -cne $source -or $receipt.configuration -cne $mode -or $receipt.exeSha256 -cne $actual -or $host.productExeSha256 -cne $actual){throw "$mode product/source identity mismatch"}
-            foreach($input in $receipt.sources) {
-              if((Get-FileHash $input.path -Algorithm SHA256).Hash.ToLowerInvariant() -cne $input.sha256){throw "Product source changed: $($input.path)"}
+            if($receipt.sourceCommit -cne $source -or $receipt.configuration -cne $mode -or $receipt.exeSha256 -cne $actual -or $validationReceipt.productExeSha256 -cne $actual){throw "$mode product/source identity mismatch"}
+            foreach($sourceEntry in $receipt.sources) {
+              if((Get-FileHash $sourceEntry.path -Algorithm SHA256).Hash.ToLowerInvariant() -cne $sourceEntry.sha256){throw "Product source changed: $($sourceEntry.path)"}
             }
           }
           Move-Item recovery/artifacts/neutral-cli recovery/artifacts/neutral-cli-original-failure
