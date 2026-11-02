@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Threading;
 using System.Web.Script.Serialization;
 
 namespace NewModCompiler.Application
@@ -78,15 +79,29 @@ namespace NewModCompiler.Application
             if (offset < 0 || count < 0 || offset > Length - count)
                 throw new InvalidDataException("Worldbuilder payload range differs: " + path);
             byte[] result = new byte[count];
+            using(var output=new MemoryStream(result))CopyTo(output,offset,count,CancellationToken.None);
+            return result;
+        }
+        public void CopyTo(Stream output,long offset,long count,CancellationToken cancellation)
+        {
+            if (offset < 0 || count < 0 || offset > Length - count)
+                throw new InvalidDataException("Worldbuilder payload range differs: " + path);
+            cancellation.ThrowIfCancellationRequested();
             if (index == null) {
                 using (var input = File.OpenRead(path)) {
                     input.Position = offset;
-                    ReadExactly(input, result, 0, count);
+                    byte[] buffer=new byte[64*1024];
+                    while(count>0) {
+                        cancellation.ThrowIfCancellationRequested();
+                        int read=input.Read(buffer,0,(int)Math.Min(buffer.Length,count));
+                        if(read==0)throw new EndOfStreamException("Worldbuilder payload ended before its declared length.");
+                        output.Write(buffer,0,read);count-=read;
+                    }
                 }
-                return result;
+                return;
             }
-            int done = 0;
-            while (done < count) {
+            while (count > 0) {
+                cancellation.ThrowIfCancellationRequested();
                 int number = (int)(offset / index.blockSize), within = (int)(offset % index.blockSize);
                 if (cachedBlock != number) {
                     Block block = index.blocks[number];
@@ -99,12 +114,11 @@ namespace NewModCompiler.Application
                     cachedData = data;
                     cachedBlock = number;
                 }
-                int copy = Math.Min(count - done, cachedData.Length - within);
-                Buffer.BlockCopy(cachedData, within, result, done, copy);
-                done += copy;
+                int copy = (int)Math.Min(Math.Min(count,64*1024), cachedData.Length - within);
+                output.Write(cachedData,within,copy);
+                count -= copy;
                 offset += copy;
             }
-            return result;
         }
         static void ReadExactly(Stream input, byte[] data, int offset, int count)
         {
