@@ -1,11 +1,14 @@
-# 当前：BIG 超过 2 GiB 内存修复已快测，PR #50 待审
+# 当前：BIG 超过 2 GiB 内存修复已验证并打包，PR #50 待审
 
 基于用户指定的 `fix/neutral-worldbuilder-config` / `9a1c93a1`，修复中立资源处理
 整文件读取/多份复制 MOD 载荷导致的 2 GiB 限制及 x86 内存溢出，改为流式插入和复制。
 生产/测试 `788566c0` 的 [Windows x86 41433492176](https://github.com/wu162/NewSdk/actions/runs/41433492176)
 整体 success：Debug/Release App、超过 2 GiB 的实际 resolver→BIG 和原工具字节差分通过。
 [范围与验收](docs/BIG_LARGE_FILES.md)、[PR #50](https://github.com/wu162/NewSdk/pull/50)。
-未运行大型 MOD/全量 SDK、正式发行构建或游戏验证；未发布、未合并，禁止强推。
+按用户要求提供[修复版 D/R 运行包](https://github.com/wu162/NewSdk/actions/runs/41435748800/artifacts/13137145304)：
+原 `41434055130` 新构建/Core 成功，保留后续历史 UI blob 缺失失败；完整检出重放
+`41435748800` 的真实 CLI、小 MOD 原工具 BIG 及独立 ZIP 验证整体 success。
+归档/三个运行文件/修复源码身份已核对。未运行大型 MOD/全量 SDK或游戏验证；未发布 GitHub Release、未合并，禁止强推。
 
 # 当前：地编缓存改为SDK共享，已快测发布
 

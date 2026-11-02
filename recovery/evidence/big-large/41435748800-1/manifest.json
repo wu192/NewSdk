@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "788566c07449eb0e223ad21e64bc28d15c3d8c56",
+  "runId": "41435748800",
+  "runAttempt": "1",
+  "scope": "Debug/Release current products; App/Core/CLI and official neutral small MOD original postprocess/BIG raw differential. SDK assets are separate; no in-game/full MOD acceptance.",
+  "packages": [
+    {
+      "configuration": "Debug",
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 2104124,
+      "sha256": "a6159704e64c2c929f2ef4f807fd60440713ede8b5d72d79eed2acc774a8cc53",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 7726080,
+          "sha256": "860aeb4d0ec97ebb8b039ccd07ac1f36b81baccc8f08226ef77bb83323855946"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 330,
+          "sha256": "57926cc13c550bbf4ae2d3b152dfca5dc7ee32566854b0e390b414538e0598f9"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "neutralAcceptance": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "caseCount": 8,
+        "rawOriginalMembers": true
+      },
+      "independentZipDeployment": {
+        "succeeded": true,
+        "sourceCommit": "788566c07449eb0e223ad21e64bc28d15c3d8c56",
+        "configuration": "Debug",
+        "zipSha256": "a6159704e64c2c929f2ef4f807fd60440713ede8b5d72d79eed2acc774a8cc53",
+        "coldSmallMod": true,
+        "exactAcceptedRawOutputs": true,
+        "arguments": [
+          "build",
+          "--mod",
+          "D:\\nwz-ogld5e70\\NeutralWbProbe",
+          "--sdk-root",
+          "D:\\nwz-ogld5e70\\sdk",
+          "--out",
+          "D:\\nwz-ogld5e70\\out",
+          "--mod-version",
+          "1.0"
+        ],
+        "runtimeFiles": [
+          {
+            "name": "NewModCompiler.exe",
+            "sha256": "860aeb4d0ec97ebb8b039ccd07ac1f36b81baccc8f08226ef77bb83323855946"
+          },
+          {
+            "name": "NewModCompiler.exe.config",
+            "sha256": "57926cc13c550bbf4ae2d3b152dfca5dc7ee32566854b0e390b414538e0598f9"
+          },
+          {
+            "name": "antlr.runtime.dll",
+            "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ]
+      }
+    },
+    {
+      "configuration": "Release",
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 1609940,
+      "sha256": "7e78a123467d4758f5bb2baa1bc213a15fd689249eae559b153dce5e92d1ab96",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 5024768,
+          "sha256": "ef3f2662fa1661d2401d455fb2e8e6f28e2bd4ef92caa17b2e310676c627a2d1"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 330,
+          "sha256": "57926cc13c550bbf4ae2d3b152dfca5dc7ee32566854b0e390b414538e0598f9"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "neutralAcceptance": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "caseCount": 8,
+        "rawOriginalMembers": true
+      },
+      "independentZipDeployment": {
+        "succeeded": true,
+        "sourceCommit": "788566c07449eb0e223ad21e64bc28d15c3d8c56",
+        "configuration": "Release",
+        "zipSha256": "7e78a123467d4758f5bb2baa1bc213a15fd689249eae559b153dce5e92d1ab96",
+        "coldSmallMod": true,
+        "exactAcceptedRawOutputs": true,
+        "arguments": [
+          "build",
+          "--mod",
+          "D:\\nwz-61xggzky\\NeutralWbProbe",
+          "--sdk-root",
+          "D:\\nwz-61xggzky\\sdk",
+          "--out",
+          "D:\\nwz-61xggzky\\out",
+          "--mod-version",
+          "1.0"
+        ],
+        "runtimeFiles": [
+          {
+            "name": "NewModCompiler.exe",
+            "sha256": "ef3f2662fa1661d2401d455fb2e8e6f28e2bd4ef92caa17b2e310676c627a2d1"
+          },
+          {
+            "name": "NewModCompiler.exe.config",
+            "sha256": "57926cc13c550bbf4ae2d3b152dfca5dc7ee32566854b0e390b414538e0598f9"
+          },
+          {
+            "name": "antlr.runtime.dll",
+            "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ]
+      }
+    }
+  ]
+}
