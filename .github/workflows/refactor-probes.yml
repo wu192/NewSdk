@@ -50,15 +50,36 @@ jobs:
           python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
           if($LASTEXITCODE -ne 0){throw 'PE audit dependencies failed'}
           ./recovery/scripts/TestTextureRedirect.ps1 -OutputDirectory "recovery/evidence/refactor/g2-complete/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TargetExe recovery/artifacts/texture-host/bin/NewModCompiler.exe -RequireComplete
-      - uses: actions/upload-artifact@v4
+      - name: Summarize results and selected upload size
         if: always()
-        with:
-          name: refactor-texture-complete-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/artifacts/texture-host/*.log
             recovery/artifacts/texture-host/build.json
-          if-no-files-found: error
+        run: python recovery/scripts/WriteCiSummary.py --title "Compiler isolated probes"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: refactor-texture-complete-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 1
+          path: |
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/g2-complete/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/texture-host/*.log
+            recovery/artifacts/texture-host/build.json
+          if-no-files-found: warn
   audio-source-identity:
     if: contains(github.event.head_commit.message, '[refactor-full]') || contains(github.event.head_commit.message, '[refactor-audio-path]')
     runs-on: ubuntu-latest
@@ -111,16 +132,74 @@ jobs:
           python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
           if($LASTEXITCODE -ne 0){throw 'PE audit dependencies failed'}
           ./recovery/scripts/TestTextureRedirect.ps1 -OutputDirectory "recovery/evidence/refactor/g2-full/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TargetExe recovery/artifacts/refactor-link/Release/bin/NewModCompiler.exe -RequireComplete
-      - uses: actions/upload-artifact@v4
+      - name: Summarize results and selected upload size
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "Compiler isolated probes"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
           name: refactor-full-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 1
           path: |
-            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/g1-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/g2-full/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/product/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+          if-no-files-found: warn
   app-contract:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]') || contains(github.event.head_commit.message, '[refactor-app]')
     runs-on: windows-2022
@@ -132,12 +211,32 @@ jobs:
         run: |
           ./recovery/scripts/TestApp.ps1 -Configuration Debug
           ./recovery/scripts/TestApp.ps1 -Configuration Release
-      - uses: actions/upload-artifact@v4
+      - name: Summarize results and selected upload size
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/app/**/*.json
+            recovery/artifacts/app/**/*.jsonl
+            recovery/artifacts/app/**/*.log
+            recovery/artifacts/app/**/*.txt
+            recovery/artifacts/app/**/*.md
+            recovery/artifacts/app/**/*.csv
+            recovery/artifacts/app/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "Compiler isolated probes"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
           name: refactor-app-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/artifacts/app
-          if-no-files-found: error
+          retention-days: 1
+          path: |
+            recovery/artifacts/app/**/*.json
+            recovery/artifacts/app/**/*.jsonl
+            recovery/artifacts/app/**/*.log
+            recovery/artifacts/app/**/*.txt
+            recovery/artifacts/app/**/*.md
+            recovery/artifacts/app/**/*.csv
+            recovery/artifacts/app/**/*.tsv
+          if-no-files-found: warn
   link-probe:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]') || contains(github.event.head_commit.message, '[refactor-link]')
     runs-on: windows-2022
@@ -150,12 +249,32 @@ jobs:
       - name: Real Armor and Hash unified-link differential
         shell: pwsh
         run: ./recovery/scripts/TestSingleExeProbe.ps1 -OutputDirectory "recovery/evidence/refactor/g1/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -Minimal
-      - uses: actions/upload-artifact@v4
+      - name: Summarize results and selected upload size
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "Compiler isolated probes"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
           name: refactor-link-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          retention-days: 1
+          path: |
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/g1/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+          if-no-files-found: warn
   texture-roundtrip:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[refactor-probes]') || contains(github.event.head_commit.message, '[refactor-texture]')
     runs-on: windows-2022
@@ -171,9 +290,29 @@ jobs:
           python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
           if($LASTEXITCODE -ne 0){throw 'PE audit dependencies failed'}
           ./recovery/scripts/TestTextureRedirect.ps1
-      - uses: actions/upload-artifact@v4
+      - name: Summarize results and selected upload size
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "Compiler isolated probes"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
           name: refactor-texture-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          retention-days: 1
+          path: |
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/g2-${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+          if-no-files-found: warn

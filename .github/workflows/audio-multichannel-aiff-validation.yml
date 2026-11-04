@@ -58,10 +58,41 @@ jobs:
         if: success()
         shell: pwsh
         run: ./recovery/scripts/TestAudioSdk.ps1 -MultichannelAiffOnly -TimeoutSeconds 900
-      - name: Upload exact batch evidence
+      - name: Summarize CI evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+            !**/Original-calls.tsv
+            !**/Recovered-calls.tsv
+            !**/original-calls.tsv
+            !**/recovered-calls.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: audio-multichannel-aiff-${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
-          path: recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'audio-multichannel-aiff-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+            !**/Original-calls.tsv
+            !**/Recovered-calls.tsv
+            !**/original-calls.tsv
+            !**/recovered-calls.tsv
+          retention-days: 1
+          if-no-files-found: warn

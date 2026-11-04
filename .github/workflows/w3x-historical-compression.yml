@@ -34,9 +34,31 @@ jobs:
       - name: Compare all real channels and original selected formats on one VM
         shell: pwsh
         run: python recovery/scripts/BenchmarkW3xHistoricalCompression.py --output "recovery/evidence/w3x/historical-compression/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: w3x-historical-compression-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          name: 'w3x-historical-compression-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

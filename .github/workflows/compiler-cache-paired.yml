@@ -154,9 +154,39 @@ jobs:
           $result=$LASTEXITCODE
           if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'Paired cache measurement failed; partial evidence retained'}
+      - name: Summarize compiler-cache-paired reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.json', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.json', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.md', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.md', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.csv', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.csv', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.tsv', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.tsv', github.run_id, github.run_attempt) }}
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-cache-paired reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: ${{ inputs.measurement_mode == 'upheaval-edits' && format('compiler-upheaval-edits-{0}-{1}-{2}', github.run_id, github.run_attempt, inputs.scenario_group) || format('compiler-cache-paired-{0}-{1}', github.run_id, github.run_attempt) }}
-          path: ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**', github.run_id, github.run_attempt) }}
+          path: |
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.json', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.json', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.md', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.md', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.csv', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.csv', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.tsv', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.tsv', github.run_id, github.run_attempt) }}
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-cache-paired failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.log', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.log', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.jsonl', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.jsonl', github.run_id, github.run_attempt) }}
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-cache-paired failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: ${{ inputs.measurement_mode == 'upheaval-edits' && format('compiler-upheaval-edits-{0}-{1}-{2}', github.run_id, github.run_attempt, inputs.scenario_group) || format('compiler-cache-paired-{0}-{1}', github.run_id, github.run_attempt) }}-diagnostics
+          path: |
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.log', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.log', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.jsonl', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.jsonl', github.run_id, github.run_attempt) }}
+          retention-days: 1
           if-no-files-found: warn

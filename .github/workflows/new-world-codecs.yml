@@ -41,12 +41,36 @@ jobs:
       - name: Recover original WAVE eight-channel import ordering and PCM XAS bytes
         shell: pwsh
         run: ./recovery/scripts/TestAudioMultichannelOriginal.ps1 -Channels @(8) -Frames @(127,128,129) -BitDepths @(8,16,24) -Repetitions 1
-      - uses: actions/upload-artifact@v4
+      - name: Summarize results and selected upload size
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference.txt
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/Original-calls.tsv
+            !recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered-calls.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "New World original codec evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
           name: new-world-codec-original-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          retention-days: 1
+          path: |
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference.txt
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/Original-calls.tsv
+            !recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered-calls.tsv
+          if-no-files-found: warn
   validate-codecs:
     if: (github.event_name == 'workflow_dispatch' && inputs.stage == 'validate') || contains(github.event.head_commit.message, '[new-world-codecs]')
     runs-on: windows-2022
@@ -132,12 +156,55 @@ jobs:
           foreach($name in @('raw_textures','texture_routes','texture_common','audio','audio_cli')){
             if($steps.$name.outcome -ne 'success'){throw "Codec validation incomplete or failed: $name ($($steps.$name.outcome))"}
           }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize results and selected upload size
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference.txt
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/Original-calls.tsv
+            !recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered-calls.tsv
+            recovery/artifacts/new-world-codecs-product/Release/build.json
+            recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe
+            recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe.config
+            recovery/artifacts/new-world-codecs-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
+            recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/audio-cli/validation.json
+        run: python recovery/scripts/WriteCiSummary.py --title "New World codec acceptance"
+      # Seven days for explicit cross-run MOD benchmarks; Release only plus a small evidence anchor preserves the recovery-root ZIP layout.
+      - uses: actions/upload-artifact@v4
+        if: success()
         with:
           name: new-world-codecs-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 7
           path: |
-            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**
-            recovery/artifacts/new-world-codecs-product/*/build.json
-            recovery/artifacts/new-world-codecs-product/*/bin/**
+            recovery/artifacts/new-world-codecs-product/Release/build.json
+            recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe
+            recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe.config
+            recovery/artifacts/new-world-codecs-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
+            recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/audio-cli/validation.json
           if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: new-world-codecs-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 1
+          path: |
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference.txt
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/Original-calls.tsv
+            !recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered-calls.tsv
+          if-no-files-found: warn

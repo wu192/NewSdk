@@ -97,6 +97,17 @@ jobs:
           if(Test-Path $out){Copy-Item "$env:RUNNER_TEMP/cb/preparation.json" "$out/preparation.json"}
           if(Test-Path "$out/benchmark.md"){Get-Content "$out/benchmark.md"|Add-Content $env:GITHUB_STEP_SUMMARY}
           if($benchmarkExit -ne 0){throw 'Benchmark failed or exhausted its time budget; partial evidence retained'}
+      - name: Summarize compiler-cache-benchmark reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/preparation.json
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/benchmark.json
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/benchmark.md
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/summary.csv
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/request.json
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/report.json
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-cache-benchmark reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -106,9 +117,27 @@ jobs:
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/benchmark.json
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/benchmark.md
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/summary.csv
-            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stdout.log
-            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stderr.log
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/request.json
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/report.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-cache-benchmark failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stdout.log
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stderr.log
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/stdout.log
             recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/stderr.log
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-cache-benchmark failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: compiler-cache-benchmark-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stdout.log
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stderr.log
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/stdout.log
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/stderr.log
+          retention-days: 1
+          if-no-files-found: warn

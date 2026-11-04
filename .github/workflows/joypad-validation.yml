@@ -60,15 +60,39 @@ jobs:
       - name: Small Joypad MOD exact original SDK four-stream comparison
         shell: pwsh
         run: ./recovery/scripts/TestXmljoypadMod.ps1 -CompilerDirectory recovery/artifacts/joypad-product -OutputDirectory "recovery/evidence/joypad/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/mod"
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
-        with:
-          name: joypad-validation-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/artifacts/joypad-product/*/build.json
             recovery/artifacts/joypad-product/*/link-inputs.json
             recovery/artifacts/joypad-product/*/validation/build.json
-            recovery/artifacts/joypad-product/*/bin/**
             recovery/artifacts/joypad-product/**/*.log
-          if-no-files-found: error
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'joypad-validation-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/joypad/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/joypad-product/*/build.json
+            recovery/artifacts/joypad-product/*/link-inputs.json
+            recovery/artifacts/joypad-product/*/validation/build.json
+            recovery/artifacts/joypad-product/**/*.log
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

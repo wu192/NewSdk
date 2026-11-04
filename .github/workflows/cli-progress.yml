@@ -58,20 +58,55 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCliProgress.ps1 -ProductBuildDirectory recovery/artifacts/cli-progress-product -OutputDirectory recovery/artifacts/cli-progress-validation -Pairs 3
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
-        with:
-          name: cli-progress-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
+        env:
+          ARTIFACT_PATHS: |
             recovery/artifacts/cli-progress-app/contracts.log
-            recovery/artifacts/cli-progress-validation/
+            recovery/artifacts/cli-progress-validation/**/*.json
+            recovery/artifacts/cli-progress-validation/**/*.log
+            recovery/artifacts/cli-progress-validation/**/*.md
+            recovery/artifacts/cli-progress-validation/**/*.csv
+            recovery/artifacts/cli-progress-validation/**/*.tsv
             recovery/artifacts/cli-progress-product/build.json
             recovery/artifacts/cli-progress-product/link-inputs.json
             recovery/artifacts/cli-progress-product/*-build.log
             recovery/artifacts/cli-progress-product/link.log
             recovery/artifacts/cli-progress-product/obj/foundation/*.log
-            recovery/artifacts/cli-progress-product/obj/native/logs/
-            recovery/artifacts/cli-progress-product/bin/
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.json
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.log
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.md
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.csv
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.tsv
             recovery/artifacts/cli-progress-product/validation/build.json
-            recovery/artifacts/cli-progress-product/validation/bin/
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'cli-progress-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/cli-progress-app/contracts.log
+            recovery/artifacts/cli-progress-validation/**/*.json
+            recovery/artifacts/cli-progress-validation/**/*.log
+            recovery/artifacts/cli-progress-validation/**/*.md
+            recovery/artifacts/cli-progress-validation/**/*.csv
+            recovery/artifacts/cli-progress-validation/**/*.tsv
+            recovery/artifacts/cli-progress-product/build.json
+            recovery/artifacts/cli-progress-product/link-inputs.json
+            recovery/artifacts/cli-progress-product/*-build.log
+            recovery/artifacts/cli-progress-product/link.log
+            recovery/artifacts/cli-progress-product/obj/foundation/*.log
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.json
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.log
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.md
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.csv
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.tsv
+            recovery/artifacts/cli-progress-product/validation/build.json
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
           if-no-files-found: warn

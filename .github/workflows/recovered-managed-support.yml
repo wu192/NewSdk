@@ -30,12 +30,34 @@ jobs:
       - name: Build original-identity DLLs and compare complete support behavior
         shell: pwsh
         run: ./recovery/scripts/TestManagedSupport.ps1
-      - name: Upload validation evidence
+      - name: Summarize CI evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: managed-support-validation-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'managed-support-validation-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/managed-support/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn
       - name: Save successful immutable validation
         shell: pwsh
         run: |

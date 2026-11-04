@@ -80,13 +80,43 @@ jobs:
           $evidence="recovery/evidence/refactor/ui-unicode/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           python recovery/scripts/ValidateAppProtocol.py $evidence --source-commit $env:GITHUB_SHA --output "$evidence/ui-protocol.json"
           if($LASTEXITCODE -ne 0){throw 'Real UI Unicode protocol validation failed'}
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
-        with:
-          name: refactor-ui-unicode-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/artifacts/ui-unicode-runtime/reuse.json
-            recovery/artifacts/ui-unicode-output-contracts/**
-          include-hidden-files: true
-          if-no-files-found: error
+            recovery/artifacts/ui-unicode-output-contracts/**/*.json
+            recovery/artifacts/ui-unicode-output-contracts/**/*.log
+            recovery/artifacts/ui-unicode-output-contracts/**/*.md
+            recovery/artifacts/ui-unicode-output-contracts/**/*.csv
+            recovery/artifacts/ui-unicode-output-contracts/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'refactor-ui-unicode-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/ui-unicode/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/ui-unicode-runtime/reuse.json
+            recovery/artifacts/ui-unicode-output-contracts/**/*.json
+            recovery/artifacts/ui-unicode-output-contracts/**/*.log
+            recovery/artifacts/ui-unicode-output-contracts/**/*.md
+            recovery/artifacts/ui-unicode-output-contracts/**/*.csv
+            recovery/artifacts/ui-unicode-output-contracts/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

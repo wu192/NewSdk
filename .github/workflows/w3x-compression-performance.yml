@@ -66,15 +66,45 @@ jobs:
         if: ${{ !cancelled() && steps.product.outcome == 'success' }}
         shell: pwsh
         run: ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -CompilerDirectory recovery/artifacts/w3x-compression-product -OutputDirectory "recovery/evidence/w3x/compression-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Summarize w3x-compression-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/w3x-compression-product/*/build.json
+            recovery/artifacts/w3x-compression-product/*/validation/build.json
+        run: python recovery/scripts/WriteCiSummary.py --title "w3x-compression-performance reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: w3x-compression-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/artifacts/w3x-compression-product/*/build.json
-            recovery/artifacts/w3x-compression-product/*/bin/*
             recovery/artifacts/w3x-compression-product/*/validation/build.json
-            recovery/artifacts/w3x-compression-product/*/validation/bin/*
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize w3x-compression-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
             recovery/artifacts/w3x-compression-product/**/*.log
-          if-no-files-found: error
+        run: python recovery/scripts/WriteCiSummary.py --title "w3x-compression-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: w3x-compression-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/w3x-compression-product/**/*.log
+          retention-days: 1
+          if-no-files-found: warn

@@ -52,12 +52,51 @@ jobs:
           $result=$LASTEXITCODE
           if(Test-Path recovery/evidence/refactor/backend-parallel-performance/measurement.md){Get-Content recovery/evidence/refactor/backend-parallel-performance/measurement.md|Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'Full same-VM backend parallel A/B failed'}
+      - name: Summarize compiler-backend-parallel-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/backend-parallel-performance/**/*.json
+            recovery/evidence/refactor/backend-parallel-performance/**/*.md
+            recovery/evidence/refactor/backend-parallel-performance/**/*.csv
+            recovery/evidence/refactor/backend-parallel-performance/**/*.tsv
+            recovery/artifacts/accepted-parallel-runtime/**/*.json
+            recovery/artifacts/accepted-parallel-runtime/**/*.md
+            recovery/artifacts/accepted-parallel-runtime/**/*.csv
+            recovery/artifacts/accepted-parallel-runtime/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-backend-parallel-performance reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: accepted-backend-parallel-performance-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            recovery/evidence/refactor/backend-parallel-performance/**
-            recovery/artifacts/accepted-parallel-runtime/**
-          include-hidden-files: true
+            recovery/evidence/refactor/backend-parallel-performance/**/*.json
+            recovery/evidence/refactor/backend-parallel-performance/**/*.md
+            recovery/evidence/refactor/backend-parallel-performance/**/*.csv
+            recovery/evidence/refactor/backend-parallel-performance/**/*.tsv
+            recovery/artifacts/accepted-parallel-runtime/**/*.json
+            recovery/artifacts/accepted-parallel-runtime/**/*.md
+            recovery/artifacts/accepted-parallel-runtime/**/*.csv
+            recovery/artifacts/accepted-parallel-runtime/**/*.tsv
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-backend-parallel-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/backend-parallel-performance/**/*.log
+            recovery/evidence/refactor/backend-parallel-performance/**/*.jsonl
+            recovery/artifacts/accepted-parallel-runtime/**/*.log
+            recovery/artifacts/accepted-parallel-runtime/**/*.jsonl
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-backend-parallel-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: accepted-backend-parallel-performance-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/backend-parallel-performance/**/*.log
+            recovery/evidence/refactor/backend-parallel-performance/**/*.jsonl
+            recovery/artifacts/accepted-parallel-runtime/**/*.log
+            recovery/artifacts/accepted-parallel-runtime/**/*.jsonl
+          retention-days: 1
           if-no-files-found: warn

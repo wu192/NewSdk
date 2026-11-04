@@ -43,9 +43,30 @@ jobs:
           $path="recovery/evidence/refactor/baseline/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json"
           $receipt=Get-Content $path -Raw|ConvertFrom-Json
           if(!$receipt.succeeded -or !$receipt.originalBaselinePassed -or $receipt.sourceCommit -ne '87cf54e254dfb44a129da087316fd04806ed2b10' -or $receipt.harnessCommit -ne $env:GITHUB_SHA -or $receipt.runId -ne $env:GITHUB_RUN_ID -or !$receipt.customData.identical -or !$receipt.audioCalls.identical){throw 'Missing, unsuccessful or mismatched G0 evidence'}
-      - uses: actions/upload-artifact@v4
+      - name: Summarize results and selected upload size
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "Compiler fixed baseline"
+      # The replay consumer is pinned to historical run 40269297741; new baseline runs need reports only.
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
           name: refactor-baseline-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          retention-days: 1
+          path: |
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+          if-no-files-found: warn

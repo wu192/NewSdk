@@ -31,10 +31,20 @@ jobs:
         run: |
           python -m pip install unicorn==2.1.4 pefile==2024.8.26
           python recovery/scripts/GenerateAudioResamplerOracle.py --output oracle/original.tsv.gz
+      - name: Summarize results and selected upload size
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            oracle/original.tsv.gz
+        run: python recovery/scripts/WriteCiSummary.py --title "Audio resampler oracle transfer"
+      # Required original oracle transfer to the Windows validation job in this run.
       - uses: actions/upload-artifact@v4
+        if: success()
         with:
           name: audio-resampler-oracle-${{ github.run_id }}-${{ github.run_attempt }}
-          path: oracle/original.tsv.gz
+          retention-days: 1
+          path: |
+            oracle/original.tsv.gz
           if-no-files-found: error
   validate:
     needs: oracle
@@ -51,8 +61,29 @@ jobs:
       - name: Compare original CPU and Debug/Release kernel
         shell: pwsh
         run: ./recovery/scripts/TestAudioResampler.ps1 -OracleInput oracle/original.tsv.gz
-      - uses: actions/upload-artifact@v4
+      - name: Summarize results and selected upload size
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "Audio resampler validation"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
           name: audio-resampler-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 1
+          path: |
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/resampler-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+          if-no-files-found: warn

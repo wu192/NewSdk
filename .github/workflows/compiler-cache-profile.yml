@@ -50,8 +50,39 @@ jobs:
           ./recovery/scripts/ProfileCompilerCacheIdentity.ps1 -RuntimeDirectory $prepared.runtimeDirectory -SdkRoot $prepared.sdkRoot -ModRoot $prepared.workloads[0].modRoot -OutputDirectory $out
           if($LASTEXITCODE -ne 0){throw 'Read-only identity/preflight diagnostic failed'}
           Copy-Item "$env:RUNNER_TEMP/cb/preparation.json" "$out/preparation.json"
+      - name: Summarize compiler-cache-profile reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-cache-profile reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: compiler-cache-profile-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**
+          path: |
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-cache-profile failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-cache-profile failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: compiler-cache-profile-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/cache-profile/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+          retention-days: 1
+          if-no-files-found: warn

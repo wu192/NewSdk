@@ -17,10 +17,22 @@ jobs:
           fetch-depth: 0
       - name: Verify and split pinned original source
         run: python3 recovery/scripts/ExportXmlCompilerSource.py
+      - name: Summarize CI evidence
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/xml-source/manifest.json
+            recovery/evidence/xml-source/method-index.txt
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
       - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: xmlcompiler-original-source
-          path: recovery/evidence/xml-source
+          name: 'xmlcompiler-original-source'
+          path: |
+            recovery/evidence/xml-source/manifest.json
+            recovery/evidence/xml-source/method-index.txt
+          retention-days: 1
+          if-no-files-found: warn
       - name: Save original evidence
         run: |
           set -euo pipefail

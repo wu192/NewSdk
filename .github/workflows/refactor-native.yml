@@ -120,26 +120,179 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerXmlMatrices.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-xml-matrices/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-      - uses: actions/upload-artifact@v4
+      - name: Summarize results and selected upload size
         if: always()
-        with:
-          name: refactor-native-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/artifacts/native-foundation/**/*.log
             recovery/artifacts/native-foundation/**/build.json
             recovery/artifacts/native-product/**/*.log
             recovery/artifacts/native-product/**/build.json
             recovery/artifacts/native-product/**/link-inputs.json
-          if-no-files-found: error
-
+        run: python recovery/scripts/WriteCiSummary.py --title "Compiler native integration"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: refactor-native-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 1
+          path: |
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-managed/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-audio/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-differential/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-product-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-w3x/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.txt
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/native-foundation/**/*.log
+            recovery/artifacts/native-foundation/**/build.json
+            recovery/artifacts/native-product/**/*.log
+            recovery/artifacts/native-product/**/build.json
+            recovery/artifacts/native-product/**/link-inputs.json
+          if-no-files-found: warn

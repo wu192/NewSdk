@@ -75,13 +75,55 @@ jobs:
         run: |
           ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/session-replay-product -AcceptanceReceipt recovery/artifacts/session-replay-product/accepted-cli.json -OutputDirectory "recovery/evidence/refactor/release/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if($LASTEXITCODE -ne 0){throw 'Exact-runtime release ZIP validation failed'}
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/session-replay-product/session-replay.json
+            recovery/artifacts/session-replay-product/accepted-cli.json
+            recovery/evidence/refactor/core-replay/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-replay/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-replay/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-replay/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-replay/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/release/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/release/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/release/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/release/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/release/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: refactor-session-replay-${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'refactor-session-replay-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
             recovery/artifacts/session-replay-product/session-replay.json
             recovery/artifacts/session-replay-product/accepted-cli.json
-            recovery/evidence/refactor/core-replay/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/release/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/core-replay/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-replay/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-replay/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-replay/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-replay/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/release/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/release/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/release/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/release/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/release/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

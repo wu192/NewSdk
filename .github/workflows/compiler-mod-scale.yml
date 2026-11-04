@@ -48,15 +48,49 @@ jobs:
           $result=$LASTEXITCODE
           if(Test-Path recovery/evidence/refactor/mod-scale/measurement.md){Get-Content recovery/evidence/refactor/mod-scale/measurement.md|Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'At least one MOD tier did not complete; partial timings and original failures retained'}
+      - name: Summarize compiler-mod-scale reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/mod-scale/**/*.json
+            recovery/evidence/refactor/mod-scale/**/*.md
+            recovery/evidence/refactor/mod-scale/**/*.csv
+            recovery/evidence/refactor/mod-scale/**/*.tsv
+            recovery/artifacts/mod-scale-product/*.json
+            recovery/artifacts/mod-scale-product/obj/foundation/*.json
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-mod-scale reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: compiler-mod-scale-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            recovery/evidence/refactor/mod-scale/**
+            recovery/evidence/refactor/mod-scale/**/*.json
+            recovery/evidence/refactor/mod-scale/**/*.md
+            recovery/evidence/refactor/mod-scale/**/*.csv
+            recovery/evidence/refactor/mod-scale/**/*.tsv
             recovery/artifacts/mod-scale-product/*.json
-            recovery/artifacts/mod-scale-product/*.log
             recovery/artifacts/mod-scale-product/obj/foundation/*.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-mod-scale failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/mod-scale/**/*.log
+            recovery/evidence/refactor/mod-scale/**/*.jsonl
+            recovery/artifacts/mod-scale-product/*.log
             recovery/artifacts/mod-scale-product/obj/foundation/*.log
             recovery/artifacts/mod-scale-product/obj/native/logs/*.log
-            recovery/artifacts/mod-scale-product/bin/*
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-mod-scale failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: compiler-mod-scale-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/mod-scale/**/*.log
+            recovery/evidence/refactor/mod-scale/**/*.jsonl
+            recovery/artifacts/mod-scale-product/*.log
+            recovery/artifacts/mod-scale-product/obj/foundation/*.log
+            recovery/artifacts/mod-scale-product/obj/native/logs/*.log
+          retention-days: 1
+          if-no-files-found: warn

@@ -26,11 +26,34 @@ jobs:
       - name: Build serializer and compare original ProcessInstance
         shell: pwsh
         run: ./recovery/scripts/TestArmor.ps1
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/armor/**/*.json
+            recovery/evidence/armor/**/*.log
+            recovery/evidence/armor/**/*.md
+            recovery/evidence/armor/**/*.csv
+            recovery/evidence/armor/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: recovered-armor-oracle
-          path: recovery/evidence/armor
+          name: 'recovered-armor-oracle'
+          path: |
+            recovery/evidence/armor/**/*.json
+            recovery/evidence/armor/**/*.log
+            recovery/evidence/armor/**/*.md
+            recovery/evidence/armor/**/*.csv
+            recovery/evidence/armor/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn
       - name: Save differential result
         if: always()
         shell: pwsh
@@ -42,8 +65,3 @@ jobs:
           git commit -m 'recovery: record ArmorTemplate ProcessInstance differential results'
           git pull --rebase origin recovery/compiler-source
           git push origin HEAD:recovery/compiler-source
-      - uses: actions/upload-artifact@v4
-        if: success()
-        with:
-          name: recovered-armor-component-x86
-          path: ${{ runner.temp }}/ra3-recovered-armor/Recovered.Armor.dll

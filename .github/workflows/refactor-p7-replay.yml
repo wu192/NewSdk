@@ -49,14 +49,47 @@ jobs:
         run: |
           ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/p7-fixed-product -AcceptanceReceipt recovery/artifacts/p7-fixed-product/accepted-cli.json -VerifyBigDeployment -OutputDirectory "recovery/artifacts/p7-release/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if($LASTEXITCODE -ne 0){throw 'P7 or ZIP recovery acceptance failed'}
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/p7-fixed-product/p7-replay.json
+            recovery/artifacts/p7-fixed-product/accepted-cli.json
+            recovery/artifacts/p7-fixed-product/original-failed-big.json
+            recovery/artifacts/p7-fixed-product/acceptance/**/*.json
+            recovery/artifacts/p7-fixed-product/acceptance/**/*.log
+            recovery/artifacts/p7-fixed-product/acceptance/**/*.md
+            recovery/artifacts/p7-fixed-product/acceptance/**/*.csv
+            recovery/artifacts/p7-fixed-product/acceptance/**/*.tsv
+            recovery/artifacts/p7-release/**/*.json
+            recovery/artifacts/p7-release/**/*.log
+            recovery/artifacts/p7-release/**/*.md
+            recovery/artifacts/p7-release/**/*.csv
+            recovery/artifacts/p7-release/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: refactor-p7-release-${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'refactor-p7-release-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
             recovery/artifacts/p7-fixed-product/p7-replay.json
             recovery/artifacts/p7-fixed-product/accepted-cli.json
             recovery/artifacts/p7-fixed-product/original-failed-big.json
-            recovery/artifacts/p7-fixed-product/acceptance/**
-            recovery/artifacts/p7-release/**
-          if-no-files-found: error
+            recovery/artifacts/p7-fixed-product/acceptance/**/*.json
+            recovery/artifacts/p7-fixed-product/acceptance/**/*.log
+            recovery/artifacts/p7-fixed-product/acceptance/**/*.md
+            recovery/artifacts/p7-fixed-product/acceptance/**/*.csv
+            recovery/artifacts/p7-fixed-product/acceptance/**/*.tsv
+            recovery/artifacts/p7-release/**/*.json
+            recovery/artifacts/p7-release/**/*.log
+            recovery/artifacts/p7-release/**/*.md
+            recovery/artifacts/p7-release/**/*.csv
+            recovery/artifacts/p7-release/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

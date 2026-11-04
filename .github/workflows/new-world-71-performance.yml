@@ -79,13 +79,6 @@ jobs:
           $out="recovery/evidence/refactor/new-world-71/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           python recovery/scripts/PrepareNewWorld71Supported.py --mod 'SDK/Mods/The New World' --backup "$env:RUNNER_TEMP/new-world-original-source" --output "$out/source-adjustments.json" --preserve-media
           if($LASTEXITCODE -ne 0){throw 'Supported input preparation failed'}
-      - uses: actions/upload-artifact@v4
-        if: inputs.supported_fixture == true
-        with:
-          name: new-world-preparation-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/source-adjustments.json
-          if-no-files-found: error
       - name: Measure selected streams once per engine with original media and a new-first cold pair
         shell: pwsh
         env:
@@ -113,12 +106,59 @@ jobs:
             if($env:NEW_WORLD_COLD_ONLY -eq 'true'){$arguments+='--cold-only'}
             python @arguments
             $results+=@($LASTEXITCODE)
-            if(Test-Path "$currentOut/report.md"){Get-Content "$currentOut/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}
           }
           if(@($results|Where-Object{$_ -ne 0}).Count){throw 'Benchmark did not fully pass; raw results retained'}
+      - name: Summarize compact benchmark reports and upload size
+        if: always()
+        shell: pwsh
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/source.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/source-adjustments.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/measurement.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/report.md
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/accepted-build.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/preparation.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/original-preparation.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/request.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/process.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/build-report.json
+        run: python recovery/scripts/WriteCiSummary.py --title 'The New World 7.1 benchmark reports'
+      # Retain metrics, cache counters, complete output inventories/hashes and validation results.
+      # Linked streams, CDATA, caches and runtime reference copies stay on the runner only.
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: new-world-71-performance-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**
-          if-no-files-found: error
+          path: |
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/source.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/source-adjustments.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/measurement.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/report.md
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/accepted-build.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/preparation.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/original-preparation.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/request.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/process.json
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/build-report.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize failure diagnostic upload size
+        if: failure()
+        shell: pwsh
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/build.events.jsonl
+        run: python recovery/scripts/WriteCiSummary.py --title 'The New World 7.1 failure diagnostics'
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: new-world-71-failure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+            recovery/evidence/refactor/new-world-71/${{ github.run_id }}-${{ github.run_attempt }}/**/build.events.jsonl
+          retention-days: 1
+          if-no-files-found: warn

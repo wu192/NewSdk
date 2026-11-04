@@ -93,20 +93,81 @@ jobs:
         run: |
           python recovery/scripts/PackageNeutralCompiler.py --product-root recovery/artifacts/neutral-product --validation-root recovery/artifacts/neutral-mod --output recovery/artifacts/neutral-packages
           if($LASTEXITCODE -ne 0){throw 'Validated package identity check failed'}
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/neutral-app/*/contracts.log
+            recovery/artifacts/neutral-product/*/build.json
+            recovery/artifacts/neutral-product/*/link-inputs.json
+            recovery/artifacts/neutral-product/*/validation/build.json
+            recovery/artifacts/neutral-product/**/*.log
+            recovery/artifacts/neutral-core/**/*.json
+            recovery/artifacts/neutral-core/**/*.log
+            recovery/artifacts/neutral-core/**/*.md
+            recovery/artifacts/neutral-core/**/*.csv
+            recovery/artifacts/neutral-core/**/*.tsv
+            recovery/artifacts/neutral-cli/**/*.json
+            recovery/artifacts/neutral-cli/**/*.log
+            recovery/artifacts/neutral-cli/**/*.md
+            recovery/artifacts/neutral-cli/**/*.csv
+            recovery/artifacts/neutral-cli/**/*.tsv
+            recovery/artifacts/neutral-components/**/*.json
+            recovery/artifacts/neutral-components/**/*.log
+            recovery/artifacts/neutral-components/**/*.md
+            recovery/artifacts/neutral-components/**/*.csv
+            recovery/artifacts/neutral-components/**/*.tsv
+            recovery/artifacts/neutral-mod/**/*.json
+            recovery/artifacts/neutral-mod/**/*.log
+            recovery/artifacts/neutral-mod/**/*.md
+            recovery/artifacts/neutral-mod/**/*.csv
+            recovery/artifacts/neutral-mod/**/*.tsv
+            recovery/artifacts/neutral-packages/**/*.json
+            recovery/artifacts/neutral-packages/**/*.log
+            recovery/artifacts/neutral-packages/**/*.md
+            recovery/artifacts/neutral-packages/**/*.csv
+            recovery/artifacts/neutral-packages/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: neutral-worldbuilder-${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'neutral-worldbuilder-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
             recovery/artifacts/neutral-app/*/contracts.log
             recovery/artifacts/neutral-product/*/build.json
             recovery/artifacts/neutral-product/*/link-inputs.json
             recovery/artifacts/neutral-product/*/validation/build.json
-            recovery/artifacts/neutral-product/*/bin/
             recovery/artifacts/neutral-product/**/*.log
-            recovery/artifacts/neutral-core/
-            recovery/artifacts/neutral-cli/
-            recovery/artifacts/neutral-components/
-            recovery/artifacts/neutral-mod/
-            recovery/artifacts/neutral-packages/
+            recovery/artifacts/neutral-core/**/*.json
+            recovery/artifacts/neutral-core/**/*.log
+            recovery/artifacts/neutral-core/**/*.md
+            recovery/artifacts/neutral-core/**/*.csv
+            recovery/artifacts/neutral-core/**/*.tsv
+            recovery/artifacts/neutral-cli/**/*.json
+            recovery/artifacts/neutral-cli/**/*.log
+            recovery/artifacts/neutral-cli/**/*.md
+            recovery/artifacts/neutral-cli/**/*.csv
+            recovery/artifacts/neutral-cli/**/*.tsv
+            recovery/artifacts/neutral-components/**/*.json
+            recovery/artifacts/neutral-components/**/*.log
+            recovery/artifacts/neutral-components/**/*.md
+            recovery/artifacts/neutral-components/**/*.csv
+            recovery/artifacts/neutral-components/**/*.tsv
+            recovery/artifacts/neutral-mod/**/*.json
+            recovery/artifacts/neutral-mod/**/*.log
+            recovery/artifacts/neutral-mod/**/*.md
+            recovery/artifacts/neutral-mod/**/*.csv
+            recovery/artifacts/neutral-mod/**/*.tsv
+            recovery/artifacts/neutral-packages/**/*.json
+            recovery/artifacts/neutral-packages/**/*.log
+            recovery/artifacts/neutral-packages/**/*.md
+            recovery/artifacts/neutral-packages/**/*.csv
+            recovery/artifacts/neutral-packages/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
           if-no-files-found: warn

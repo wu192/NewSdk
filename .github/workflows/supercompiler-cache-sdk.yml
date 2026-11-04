@@ -79,17 +79,61 @@ jobs:
       - name: Run base cold hot loose and BIG with source write auditing
         shell: pwsh
         run: ./recovery/scripts/TestSuperCompilerCache.ps1 -Compiler recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe -OutputDirectory recovery/artifacts/supercompiler-cache-sdk
-      - uses: actions/upload-artifact@v4
+      - name: Summarize results and selected upload size
         if: always()
-        with:
-          name: supercompiler-cache-sdk-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/artifacts/supercompiler-cache-sdk/
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/supercompiler-cache-sdk/**/*.json
+            recovery/artifacts/supercompiler-cache-sdk/**/*.jsonl
+            recovery/artifacts/supercompiler-cache-sdk/**/*.log
+            recovery/artifacts/supercompiler-cache-sdk/**/*.txt
+            recovery/artifacts/supercompiler-cache-sdk/**/*.md
+            recovery/artifacts/supercompiler-cache-sdk/**/*.csv
+            recovery/artifacts/supercompiler-cache-sdk/**/*.tsv
             recovery/artifacts/supercompiler-cache-product/build.json
             recovery/artifacts/supercompiler-cache-product/*-build.log
             recovery/artifacts/supercompiler-cache-product/link-inputs.json
-            recovery/artifacts/cache-binary-source.txt
-            recovery/artifacts/supercompiler-cache-product/bin/
             recovery/artifacts/supercompiler-cache-product/obj/foundation/*.log
-            recovery/artifacts/supercompiler-cache-product/obj/native/logs/
+            recovery/artifacts/supercompiler-cache-product/obj/native/logs/*.log
+            recovery/artifacts/cache-binary-source.txt
+            recovery/artifacts/supercompiler-cache-product/build.json
+            recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe
+            recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe.config
+            recovery/artifacts/supercompiler-cache-product/bin/antlr.runtime.dll
+            recovery/artifacts/supercompiler-cache-sdk/validation.json
+            recovery/artifacts/cache-binary-source.txt
+        run: python recovery/scripts/WriteCiSummary.py --title "SuperCompilerCache SDK acceptance"
+      # Seven days for explicit [cache-sdk-reuse:RUN] validation; retain product and SDK receipt layout, omit generated MOD outputs.
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: supercompiler-cache-sdk-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 7
+          path: |
+            recovery/artifacts/supercompiler-cache-product/build.json
+            recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe
+            recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe.config
+            recovery/artifacts/supercompiler-cache-product/bin/antlr.runtime.dll
+            recovery/artifacts/supercompiler-cache-sdk/validation.json
+            recovery/artifacts/cache-binary-source.txt
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: supercompiler-cache-sdk-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 1
+          path: |
+            recovery/artifacts/supercompiler-cache-sdk/**/*.json
+            recovery/artifacts/supercompiler-cache-sdk/**/*.jsonl
+            recovery/artifacts/supercompiler-cache-sdk/**/*.log
+            recovery/artifacts/supercompiler-cache-sdk/**/*.txt
+            recovery/artifacts/supercompiler-cache-sdk/**/*.md
+            recovery/artifacts/supercompiler-cache-sdk/**/*.csv
+            recovery/artifacts/supercompiler-cache-sdk/**/*.tsv
+            recovery/artifacts/supercompiler-cache-product/build.json
+            recovery/artifacts/supercompiler-cache-product/*-build.log
+            recovery/artifacts/supercompiler-cache-product/link-inputs.json
+            recovery/artifacts/supercompiler-cache-product/obj/foundation/*.log
+            recovery/artifacts/supercompiler-cache-product/obj/native/logs/*.log
+            recovery/artifacts/cache-binary-source.txt
           if-no-files-found: warn

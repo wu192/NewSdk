@@ -57,12 +57,43 @@ jobs:
       - name: Two paired full MOD builds with identical published bytes
         shell: pwsh
         run: python recovery/scripts/MeasureW3xFullMod.py --baseline-build recovery/artifacts/w3x-fullmod-baseline --optimized-build recovery/artifacts/w3x-accepted/artifacts/w3x-compression-product/Release --work "$env:RUNNER_TEMP/w3x-fullmod" --output "recovery/evidence/w3x/fullmod-compression/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Summarize w3x-fullmod-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/w3x-fullmod-baseline/build.json
+        run: python recovery/scripts/WriteCiSummary.py --title "w3x-fullmod-performance reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: w3x-fullmod-compression-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/artifacts/w3x-fullmod-baseline/build.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize w3x-fullmod-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
             recovery/artifacts/w3x-fullmod-baseline/**/*.log
-          if-no-files-found: error
+        run: python recovery/scripts/WriteCiSummary.py --title "w3x-fullmod-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: w3x-fullmod-compression-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/fullmod-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/w3x-fullmod-baseline/**/*.log
+          retention-days: 1
+          if-no-files-found: warn

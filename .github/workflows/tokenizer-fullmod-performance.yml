@@ -89,12 +89,43 @@ jobs:
           --production-file recovery/src/Native/WeaponTemplate.h
           --work "$env:RUNNER_TEMP/tokenizer-fullmod"
           --output "recovery/evidence/refactor/tokenizer-fullmod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Summarize tokenizer-fullmod-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/tokenizer-before/build.json
+        run: python recovery/scripts/WriteCiSummary.py --title "tokenizer-fullmod-performance reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: tokenizer-fullmod-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/artifacts/tokenizer-before/build.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize tokenizer-fullmod-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
             recovery/artifacts/tokenizer-before/**/*.log
-          if-no-files-found: error
+        run: python recovery/scripts/WriteCiSummary.py --title "tokenizer-fullmod-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: tokenizer-fullmod-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/tokenizer-before/**/*.log
+          retention-days: 1
+          if-no-files-found: warn

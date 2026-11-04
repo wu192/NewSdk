@@ -47,9 +47,43 @@ jobs:
         if: '!cancelled()'
         shell: pwsh
         run: ./recovery/scripts/TestAudioXasPerformance.ps1
+      - name: Summarize audio-xas-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/Original-calls.tsv
+            !**/Recovered-calls.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "audio-xas-performance reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: audio-xas-performance-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          path: |
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/Original-calls.tsv
+            !**/Recovered-calls.tsv
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize audio-xas-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+        run: python recovery/scripts/WriteCiSummary.py --title "audio-xas-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: audio-xas-performance-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+          retention-days: 1
+          if-no-files-found: warn

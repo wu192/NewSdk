@@ -121,14 +121,45 @@ jobs:
             python recovery/scripts/ValidateAppProtocol.py "recovery/artifacts/direct-tests/$scope" --source-commit $env:GITHUB_SHA --output "recovery/artifacts/direct-tests/$scope-protocol.json"
             if($LASTEXITCODE -ne 0){throw "Protocol validation failed: $scope"}
           }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
-        with:
-          name: compiler-direct-output-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/artifacts/direct-app/**
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/direct-app/**/*.json
+            recovery/artifacts/direct-app/**/*.log
+            recovery/artifacts/direct-app/**/*.md
+            recovery/artifacts/direct-app/**/*.csv
+            recovery/artifacts/direct-app/**/*.tsv
             recovery/artifacts/direct-product/**/*.log
             recovery/artifacts/direct-product/**/*.json
-            recovery/artifacts/direct-product/**/bin/*
-            recovery/artifacts/direct-tests/**
-          include-hidden-files: true
+            recovery/artifacts/direct-tests/**/*.json
+            recovery/artifacts/direct-tests/**/*.log
+            recovery/artifacts/direct-tests/**/*.md
+            recovery/artifacts/direct-tests/**/*.csv
+            recovery/artifacts/direct-tests/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'compiler-direct-output-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/direct-app/**/*.json
+            recovery/artifacts/direct-app/**/*.log
+            recovery/artifacts/direct-app/**/*.md
+            recovery/artifacts/direct-app/**/*.csv
+            recovery/artifacts/direct-app/**/*.tsv
+            recovery/artifacts/direct-product/**/*.log
+            recovery/artifacts/direct-product/**/*.json
+            recovery/artifacts/direct-tests/**/*.json
+            recovery/artifacts/direct-tests/**/*.log
+            recovery/artifacts/direct-tests/**/*.md
+            recovery/artifacts/direct-tests/**/*.csv
+            recovery/artifacts/direct-tests/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

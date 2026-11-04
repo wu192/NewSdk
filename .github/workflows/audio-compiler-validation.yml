@@ -110,14 +110,101 @@ jobs:
           } else {
             ./recovery/scripts/TestAudioSdk.ps1
           }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+            !**/Original-calls.tsv
+            !**/Recovered-calls.tsv
+            !**/original-calls.tsv
+            !**/recovered-calls.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: audio-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'audio-validation-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
-            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/pcm-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/xas-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/sdk-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/fft-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/xas-precision-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+            !**/Original-calls.tsv
+            !**/Recovered-calls.tsv
+            !**/original-calls.tsv
+            !**/recovered-calls.tsv
+          retention-days: 1
+          if-no-files-found: warn
