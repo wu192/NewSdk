@@ -17,6 +17,7 @@ jobs:
         with:
           persist-credentials: false
           sparse-checkout: |
+            recovery/scripts
             recovery/preparation/assetmerge
             SDK/tools
       - name: Compare original AssetMerge raw stream and CDATA outputs

@@ -1,4 +1,13 @@
-# 当前：BIG 超过 2 GiB 内存修复已验证并打包，PR #50 待审
+# 当前：compiler-main CI 修复验证中
+
+`fix/compiler-main-ci` 基于 `72aa8f0c`，补齐五份稀疏工作流的汇总脚本检出；
+MakeBig 对比宿主引用现有 BuildApp 的完整依赖构建；XML guard 同步 300 路由/64 分组。
+联合后处理保留原始 raw 断言及失败收据，新增单独的 canonical LoD 验证：
+只接受固定原工具和五个固定输入的末尾 `01/00` 差异，其他十二文件字节仍严格检查。
+本地 XML guards、六个 canonical 接受/拒绝用例及 actionlint 已通过；Windows 五工作流待验证。
+生产源码未改；此处不代表全量 SDK/大型 MOD 验收。禁止强推，合入仍须先 PR 并获用户批准。
+
+# 此前：BIG 超过 2 GiB 内存修复已验证并打包，PR #50 待审
 
 基于用户指定的 `fix/neutral-worldbuilder-config` / `9a1c93a1`，修复中立资源处理
 整文件读取/多份复制 MOD 载荷导致的 2 GiB 限制及 x86 内存溢出，改为流式插入和复制。

@@ -2,10 +2,14 @@ name: Prepared RA3 LoD original differential
 on:
   push:
     branches: [compiler-main, refactor/modcompiler-p0-p3]
-    paths:
+    paths: &paths
+      - 'recovery/scripts/WriteCiSummary.py'
       - '.github/workflows/refactor-lod.yml'
       - 'recovery/preparation/lod/**'
       - 'recovery/src/App/Application/LoDStreamBuilder.cs'
+  pull_request:
+    branches: [compiler-main]
+    paths: *paths
   workflow_dispatch:
 permissions:
   contents: read
@@ -18,6 +22,7 @@ jobs:
         with:
           persist-credentials: false
           sparse-checkout: |
+            recovery/scripts
             recovery/preparation/lod
             recovery/src/App/Application
             SDK/tools

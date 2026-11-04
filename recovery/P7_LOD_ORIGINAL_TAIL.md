@@ -43,3 +43,18 @@
 本次明确采用确定性修复合同：复制完整逻辑名称/来源表，保持长度与末尾 NUL；不模拟原工具数组越界所读取的内存。该异常样本属于有意修复的原工具缺陷，不再作为未决实施任务，也不宣称其与原工具逐字节相等。
 
 `recovery/tests/App/LoDCanonicalTests.cs` 独立构造28–32字节表，每个输入重复三次，校验全部八输出、依赖表替换、资源长度清零、原校验和和主输入不变。原联合差分的全部原始断言、失败终态和已知偏移差异继续保留，不能改为相等；普通真实base/BIG仍须原工具逐字节对照。新增专项已通过Debug/Release应用测试，最终生产/BIG/独立ZIP验收亦已通过，准确身份见 COMPILER_RELEASE.md。
+
+## compiler-main 的 CI 呈现（2026-11-04）
+
+合并后的 `72aa8f0c` 运行 [41815206785](https://github.com/wu192/NewSdk/actions/runs/41815206785)
+在 Debug/Release 的同五个合成输入保留 raw 失败：`no-references`、
+`hash-fixed-before-resolver` 及三个 Static/Global/Audio 纹理引用输入。
+HashFix/Resolver 的十组均原字节一致，其余五组 LoD 也原字节一致。
+
+`TestCompilerBasePostprocess.py` 的原始断言及 `validation.json` 不变。
+工作流另外运行 `CheckCanonicalLoD.py`，校验全部十组、三个阶段和每组十二文件，
+并独立按 v6 格式验证候选的表复制、依赖替换、三项资源长度清零和四字节校验和。
+只有原 LoD EXE SHA256 及五个输入的 SHA256 都匹配时，才允许低/中清 manifest
+最后一个字节为原工具 `01`、候选 `00`；其他任意差异、缺文件/组、错误收据均失败。
+单独的 `canonical-validation.json` 明示 `rawByteIdentical` 和全部已知差异位置，
+不能把它当作联合 raw 相等、生产 BIG 或 SDK 通过。正常组件 raw 差分仍独立执行。
