@@ -65,10 +65,7 @@ Relo::Chunk CompileAnimation(const AnimationInput& input, int platform) {
         AdaptiveDeltaChannel delta;
         bool hasDelta = false;
         if (prepared.settings.allowAdaptiveDelta) {
-            std::vector<std::vector<float> > samples;
-            samples.reserve(channel.frames.size());
-            for (const AnimationExpandedFrame& frame : channel.frames) samples.push_back(frame.values);
-            hasDelta = CompressAdaptiveDelta(channel.type, channel.pivot, samples,
+            hasDelta = CompressAdaptiveDeltaFrames(channel.type, channel.pivot, channel.frames,
                 prepared.settings.maxAdaptiveDeltaError, delta);
         }
         // Timecoded is evaluated unless delta succeeds with timecoded disabled.
@@ -77,16 +74,7 @@ Relo::Chunk CompileAnimation(const AnimationInput& input, int platform) {
         bool hasTimecoded = !hasDelta || prepared.settings.allowTimecoded;
         TimecodedChannel timecoded;
         if (hasTimecoded) {
-            std::vector<TimecodedFrame> frames;
-            frames.reserve(channel.frames.size());
-            for (const AnimationExpandedFrame& frame : channel.frames) {
-                TimecodedFrame converted;
-                converted.index = frame.index;
-                converted.values = frame.values;
-                converted.binaryMove = frame.binaryMove;
-                frames.push_back(converted);
-            }
-            timecoded = CompressTimecoded(channel.type, channel.pivot, frames,
+            timecoded = CompressTimecoded(channel.type, channel.pivot, channel.frames,
                 prepared.settings.maxTranslationError, prepared.settings.maxRotationError,
                 prepared.settings.maxVisibilityError, prepared.settings.forceReductionRate);
         }

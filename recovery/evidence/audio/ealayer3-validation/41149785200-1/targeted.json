@@ -1,0 +1,954 @@
+{
+  "sourceCommit": "4ddac274b859be7fdb537df8d21d1e25e7ef8e06",
+  "runId": "41149785200",
+  "passed": true,
+  "cases": [
+    {
+      "mode": "Debug",
+      "id": "c1_s0_l0",
+      "bytes": 2972,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999833144352769
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c1_s0_l1",
+      "bytes": 3952,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.999929939002281
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c1_s1_l0",
+      "bytes": 3072,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999833144352769
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c1_s1_l1",
+      "bytes": 4032,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.999929939002281
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c2_s0_l0",
+      "bytes": 5339,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c2_s0_l1",
+      "bytes": 7072,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c2_s1_l0",
+      "bytes": 5440,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c2_s1_l1",
+      "bytes": 7168,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c4_s0_l0",
+      "bytes": 10820,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989,
+        0.9999997668414081,
+        0.9999997201380478
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c4_s0_l1",
+      "bytes": 14382,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449,
+        0.9999990914891965,
+        0.9999986569942074
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c4_s1_l0",
+      "bytes": 10944,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989,
+        0.9999997668414081,
+        0.9999997201380478
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c4_s1_l1",
+      "bytes": 14528,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449,
+        0.9999990914891965,
+        0.9999986569942074
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c6_s0_l0",
+      "bytes": 16506,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999998553629088,
+        0.9999998512003865,
+        0.9999999118569973,
+        0.9999998817276442,
+        0.9999998656973704,
+        0.9999998631748334
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c6_s0_l1",
+      "bytes": 22532,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999987246654576,
+        0.9999979191506682,
+        0.9999787358658658,
+        0.9999986072568895,
+        0.999998984023935,
+        0.9999989889596246
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c6_s1_l0",
+      "bytes": 16640,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999998553629088,
+        0.9999998512003865,
+        0.9999999118569973,
+        0.9999998817276442,
+        0.9999998656973704,
+        0.9999998631748334
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "c6_s1_l1",
+      "bytes": 22656,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999987246654576,
+        0.9999979191506682,
+        0.9999787358658658,
+        0.9999986072568895,
+        0.999998984023935,
+        0.9999989889596246
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "rate16000",
+      "bytes": 6336,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999169995952262,
+        0.9999996043208732
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "rate24000",
+      "bytes": 5056,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999996273656725,
+        0.9999996278610781
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "rate32000",
+      "bytes": 5056,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999497683362017,
+        0.9999390566205155
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "rate44100",
+      "bytes": 3968,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999978648055744,
+        0.9999780597844283
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "rate48000",
+      "bytes": 3712,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9994583908560255,
+        0.9997893980822836
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "quality0",
+      "bytes": 6029,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9989316874049088,
+        0.999543522544152
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "quality100",
+      "bytes": 6605,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999960675997,
+        0.9999999584559898
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "qualityNone",
+      "bytes": 5339,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "quality075",
+      "bytes": 5339,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "aiff1",
+      "bytes": 3952,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.999929939002281
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "aiff2",
+      "bytes": 7168,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "aiff4",
+      "bytes": 14528,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449,
+        0.9999986569942074,
+        0.9999990914891965
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "aiff6",
+      "bytes": 22272,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449,
+        0.9999986569942074,
+        0.9999990914891965,
+        0.9999992090005434,
+        0.9999989070155321
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "wave24",
+      "bytes": 5440,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "aiff24",
+      "bytes": 7168,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "resampleLoop",
+      "bytes": 7744,
+      "decodedFrames": 16161,
+      "correlations": [
+        0.9999570431238797,
+        0.9999573022810464
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "short1",
+      "bytes": 128,
+      "decodedFrames": 1,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "short2",
+      "bytes": 1024,
+      "decodedFrames": 2,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "short46",
+      "bytes": 1536,
+      "decodedFrames": 46,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "short47",
+      "bytes": 1536,
+      "decodedFrames": 47,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "short48",
+      "bytes": 1536,
+      "decodedFrames": 48,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "short575",
+      "bytes": 1728,
+      "decodedFrames": 575,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "short576",
+      "bytes": 1728,
+      "decodedFrames": 576,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "short577",
+      "bytes": 1792,
+      "decodedFrames": 577,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "short1105",
+      "bytes": 1472,
+      "decodedFrames": 1105,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "short1152",
+      "bytes": 1856,
+      "decodedFrames": 1152,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "real0",
+      "bytes": 3648,
+      "decodedFrames": 8877,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Debug",
+      "id": "real1",
+      "bytes": 52352,
+      "decodedFrames": 169558,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c1_s0_l0",
+      "bytes": 2972,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999833144352769
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c1_s0_l1",
+      "bytes": 3952,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.999929939002281
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c1_s1_l0",
+      "bytes": 3072,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999833144352769
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c1_s1_l1",
+      "bytes": 4032,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.999929939002281
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c2_s0_l0",
+      "bytes": 5339,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c2_s0_l1",
+      "bytes": 7072,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c2_s1_l0",
+      "bytes": 5440,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c2_s1_l1",
+      "bytes": 7168,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c4_s0_l0",
+      "bytes": 10820,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989,
+        0.9999997668414081,
+        0.9999997201380478
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c4_s0_l1",
+      "bytes": 14382,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449,
+        0.9999990914891965,
+        0.9999986569942074
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c4_s1_l0",
+      "bytes": 10944,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989,
+        0.9999997668414081,
+        0.9999997201380478
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c4_s1_l1",
+      "bytes": 14528,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449,
+        0.9999990914891965,
+        0.9999986569942074
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c6_s0_l0",
+      "bytes": 16506,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999998553629088,
+        0.9999998512003865,
+        0.9999999118569973,
+        0.9999998817276442,
+        0.9999998656973704,
+        0.9999998631748334
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c6_s0_l1",
+      "bytes": 22532,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999987246654576,
+        0.9999979191506682,
+        0.9999787358658658,
+        0.9999986072568895,
+        0.999998984023935,
+        0.9999989889596246
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c6_s1_l0",
+      "bytes": 16640,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999998553629088,
+        0.9999998512003865,
+        0.9999999118569973,
+        0.9999998817276442,
+        0.9999998656973704,
+        0.9999998631748334
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "c6_s1_l1",
+      "bytes": 22656,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999987246654576,
+        0.9999979191506682,
+        0.9999787358658658,
+        0.9999986072568895,
+        0.999998984023935,
+        0.9999989889596246
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "rate16000",
+      "bytes": 6336,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999169995952262,
+        0.9999996043208732
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "rate24000",
+      "bytes": 5056,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999996273656725,
+        0.9999996278610781
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "rate32000",
+      "bytes": 5056,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9999497683362017,
+        0.9999390566205155
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "rate44100",
+      "bytes": 3968,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999978648055744,
+        0.9999780597844283
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "rate48000",
+      "bytes": 3712,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9994583908560255,
+        0.9997893980822836
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "quality0",
+      "bytes": 6029,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.9989316874049088,
+        0.999543522544152
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "quality100",
+      "bytes": 6605,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999960675997,
+        0.9999999584559898
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "qualityNone",
+      "bytes": 5339,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "quality075",
+      "bytes": 5339,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "aiff1",
+      "bytes": 3952,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.999929939002281
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "aiff2",
+      "bytes": 7168,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "aiff4",
+      "bytes": 14528,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449,
+        0.9999986569942074,
+        0.9999990914891965
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "aiff6",
+      "bytes": 22272,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449,
+        0.9999986569942074,
+        0.9999990914891965,
+        0.9999992090005434,
+        0.9999989070155321
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "wave24",
+      "bytes": 5440,
+      "decodedFrames": 8193,
+      "correlations": [
+        0.999999903327844,
+        0.9999999034528989
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "aiff24",
+      "bytes": 7168,
+      "decodedFrames": 8081,
+      "correlations": [
+        0.9999982114937588,
+        0.9999784872117449
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "resampleLoop",
+      "bytes": 7744,
+      "decodedFrames": 16161,
+      "correlations": [
+        0.9999570431238797,
+        0.9999573022810464
+      ],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "short1",
+      "bytes": 128,
+      "decodedFrames": 1,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "short2",
+      "bytes": 1024,
+      "decodedFrames": 2,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "short46",
+      "bytes": 1536,
+      "decodedFrames": 46,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "short47",
+      "bytes": 1536,
+      "decodedFrames": 47,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "short48",
+      "bytes": 1536,
+      "decodedFrames": 48,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "short575",
+      "bytes": 1728,
+      "decodedFrames": 575,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "short576",
+      "bytes": 1728,
+      "decodedFrames": 576,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "short577",
+      "bytes": 1792,
+      "decodedFrames": 577,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "short1105",
+      "bytes": 1472,
+      "decodedFrames": 1105,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "short1152",
+      "bytes": 1856,
+      "decodedFrames": 1152,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "real0",
+      "bytes": 3648,
+      "decodedFrames": 8877,
+      "correlations": [],
+      "jobsEqual": true
+    },
+    {
+      "mode": "Release",
+      "id": "real1",
+      "bytes": 52352,
+      "decodedFrames": 169558,
+      "correlations": [],
+      "jobsEqual": true
+    }
+  ],
+  "gamePlaybackTested": false
+}

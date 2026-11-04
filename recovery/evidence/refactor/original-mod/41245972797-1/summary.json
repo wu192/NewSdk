@@ -1,0 +1,2941 @@
+{
+  "status": "passed",
+  "binarySourceCommit": "8050f22de81539c65aeca3903e9b48f53a572068",
+  "sourceRunId": "41244132060",
+  "requestedHead": "1a73017a5847a5657944866a0b25f4320c2ba00d",
+  "measurementSource": "e89f6bf55b6e6a5216e2e680c511a795043b3c2b",
+  "runId": "41245972797",
+  "runAttempt": "1",
+  "machine": {
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "processor": "AMD64 Family 26 Model 2 Stepping 1, AuthenticAMD",
+    "cpuCount": 4,
+    "imageVersion": "20261026.347.1"
+  },
+  "scope": "Complete mymod and untouched full historical Upheaval inputs, base loose stream only.",
+  "jobs": 4,
+  "performance": "off",
+  "elapsedSeconds": 324.13898989999996,
+  "sdkUnchanged": true,
+  "modInputsUnchanged": true,
+  "runtimeUnchanged": true,
+  "rootExistenceUnchanged": true,
+  "summary": [
+    {
+      "workload": "mymod",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "nPerEngine": 3,
+      "originalWallMsMedian": 556.3246000000106,
+      "originalCpuMsMedian": 531.25,
+      "originalPeakWorkingSetBytesMedian": 56725504,
+      "originalCacheBytesMedian": 255496,
+      "originalWallMsMin": 555.6786000000216,
+      "originalWallMsMax": 1296.5505000000235,
+      "newWallMsMedian": 458.6819999999818,
+      "newCpuMsMedian": 609.375,
+      "newPeakWorkingSetBytesMedian": 53596160,
+      "newCacheBytesMedian": 237763,
+      "newWallMsMin": 453.6342000000104,
+      "newWallMsMax": 464.67949999998837,
+      "newOverOriginalWallRatio": 0.8244862801320904
+    },
+    {
+      "workload": "mymod",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "nPerEngine": 6,
+      "originalWallMsMedian": 354.72500000000196,
+      "originalCpuMsMedian": 343.75,
+      "originalPeakWorkingSetBytesMedian": 46096384.0,
+      "originalCacheBytesMedian": 262707.0,
+      "originalWallMsMin": 344.72130000000334,
+      "originalWallMsMax": 375.2631000000122,
+      "newWallMsMedian": 362.14485000000707,
+      "newCpuMsMedian": 367.1875,
+      "newPeakWorkingSetBytesMedian": 46780416.0,
+      "newCacheBytesMedian": 237763.0,
+      "newWallMsMin": 344.3472000000156,
+      "newWallMsMax": 370.3399999999988,
+      "newOverOriginalWallRatio": 1.020917189372063
+    },
+    {
+      "workload": "mymod",
+      "mode": "none",
+      "phase": "uncached",
+      "nPerEngine": 1,
+      "originalWallMsMedian": 549.7368999999992,
+      "originalCpuMsMedian": 500.0,
+      "originalPeakWorkingSetBytesMedian": 56672256,
+      "originalCacheBytesMedian": 0,
+      "originalWallMsMin": 549.7368999999992,
+      "originalWallMsMax": 549.7368999999992,
+      "newWallMsMedian": 462.64940000000365,
+      "newCpuMsMedian": 671.875,
+      "newPeakWorkingSetBytesMedian": 53239808,
+      "newCacheBytesMedian": 0,
+      "newWallMsMin": 462.64940000000365,
+      "newWallMsMax": 462.64940000000365,
+      "newOverOriginalWallRatio": 0.8415833101252697
+    },
+    {
+      "workload": "upheaval",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "nPerEngine": 3,
+      "originalWallMsMedian": 50839.58910000001,
+      "originalCpuMsMedian": 50328.125,
+      "originalPeakWorkingSetBytesMedian": 181637120,
+      "originalCacheBytesMedian": 110601230,
+      "originalWallMsMin": 50522.59359999999,
+      "originalWallMsMax": 51339.011199999986,
+      "newWallMsMedian": 18607.910800000012,
+      "newCpuMsMedian": 37593.75,
+      "newPeakWorkingSetBytesMedian": 176226304,
+      "newCacheBytesMedian": 151583463,
+      "newWallMsMin": 17089.141900000017,
+      "newWallMsMax": 18761.66820000003,
+      "newOverOriginalWallRatio": 0.3660122186156695
+    },
+    {
+      "workload": "upheaval",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "nPerEngine": 6,
+      "originalWallMsMedian": 1487.7782500000194,
+      "originalCpuMsMedian": 1421.875,
+      "originalPeakWorkingSetBytesMedian": 65865728.0,
+      "originalCacheBytesMedian": 110960798.0,
+      "originalWallMsMin": 1446.1833999999953,
+      "originalWallMsMax": 1515.0790000000143,
+      "newWallMsMedian": 866.7324000000178,
+      "newCpuMsMedian": 968.75,
+      "newPeakWorkingSetBytesMedian": 74174464.0,
+      "newCacheBytesMedian": 151583463.0,
+      "newWallMsMin": 843.3502999999973,
+      "newWallMsMax": 927.6562000000013,
+      "newOverOriginalWallRatio": 0.5825682691624283
+    },
+    {
+      "workload": "upheaval",
+      "mode": "none",
+      "phase": "uncached",
+      "nPerEngine": 1,
+      "originalWallMsMedian": 48779.12789999999,
+      "originalCpuMsMedian": 48562.5,
+      "originalPeakWorkingSetBytesMedian": 180109312,
+      "originalCacheBytesMedian": 0,
+      "originalWallMsMin": 48779.12789999999,
+      "originalWallMsMax": 48779.12789999999,
+      "newWallMsMedian": 16690.810299999954,
+      "newCpuMsMedian": 34296.875,
+      "newPeakWorkingSetBytesMedian": 170442752,
+      "newCacheBytesMedian": 0,
+      "newWallMsMin": 16690.810299999954,
+      "newWallMsMax": 16690.810299999954,
+      "newOverOriginalWallRatio": 0.34217115021443334
+    }
+  ],
+  "runtimeFiles": {
+    "antlr.runtime.dll": {
+      "bytes": 99328,
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    "NewModCompiler.exe": {
+      "bytes": 4953600,
+      "sha256": "2e04db720b2860bf337a66557572eb7ad2bc667b950e5a2ec69d81181c222b43"
+    },
+    "NewModCompiler.exe.config": {
+      "bytes": 201,
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    }
+  },
+  "artifactId": 13059725013,
+  "artifactSha256": "4dd332374c2efe074bc5f9e293ace071961b00c6394d2a16e601e0d5f52cb4ab",
+  "archiveDigestMatched": true,
+  "allProcessesSucceeded": true,
+  "processCount": 40,
+  "pairCount": 20,
+  "allPairsRawBytesEqual": true,
+  "productionRebuilt": false,
+  "acceptedProductionSource": "8050f22de81539c65aeca3903e9b48f53a572068",
+  "acceptedProductionRun": "41244132060",
+  "samples": [
+    {
+      "engine": "original",
+      "workload": "mymod",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 1296.5505000000235,
+      "cpuMs": 531.25,
+      "peakWorkingSetBytes": 57077760,
+      "cacheBytes": 255496,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "new",
+      "workload": "mymod",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 453.6342000000104,
+      "cpuMs": 640.625,
+      "peakWorkingSetBytes": 53596160,
+      "cacheBytes": 237763,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 13,
+        "fileHashReuses": 815,
+        "fileHashBytesRead": 86747,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\mymod\\both-deflate-0\\new\\session"
+      },
+      "reportElapsedMs": 335
+    },
+    {
+      "engine": "new",
+      "workload": "mymod",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 344.3472000000156,
+      "cpuMs": 343.75,
+      "peakWorkingSetBytes": 46727168,
+      "cacheBytes": 237763,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 828,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\mymod\\both-deflate-0\\new\\session"
+      },
+      "reportElapsedMs": 235
+    },
+    {
+      "engine": "original",
+      "workload": "mymod",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 356.77100000000905,
+      "cpuMs": 328.125,
+      "peakWorkingSetBytes": 46129152,
+      "cacheBytes": 262707,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "original",
+      "workload": "mymod",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 348.5684000000049,
+      "cpuMs": 343.75,
+      "peakWorkingSetBytes": 46100480,
+      "cacheBytes": 262707,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "new",
+      "workload": "mymod",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 368.83439999999723,
+      "cpuMs": 375.0,
+      "peakWorkingSetBytes": 46784512,
+      "cacheBytes": 237763,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 828,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\mymod\\both-deflate-0\\new\\session"
+      },
+      "reportElapsedMs": 242
+    },
+    {
+      "engine": "new",
+      "workload": "mymod",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 458.6819999999818,
+      "cpuMs": 609.375,
+      "peakWorkingSetBytes": 53628928,
+      "cacheBytes": 237763,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 13,
+        "fileHashReuses": 815,
+        "fileHashBytesRead": 86747,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\mymod\\both-deflate-1\\new\\session"
+      },
+      "reportElapsedMs": 348
+    },
+    {
+      "engine": "original",
+      "workload": "mymod",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 555.6786000000216,
+      "cpuMs": 562.5,
+      "peakWorkingSetBytes": 56725504,
+      "cacheBytes": 255496,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "original",
+      "workload": "mymod",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 375.2631000000122,
+      "cpuMs": 343.75,
+      "peakWorkingSetBytes": 46092288,
+      "cacheBytes": 262707,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "new",
+      "workload": "mymod",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 370.3399999999988,
+      "cpuMs": 375.0,
+      "peakWorkingSetBytes": 46727168,
+      "cacheBytes": 237763,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 828,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\mymod\\both-deflate-1\\new\\session"
+      },
+      "reportElapsedMs": 244
+    },
+    {
+      "engine": "new",
+      "workload": "mymod",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 358.0261000000178,
+      "cpuMs": 359.375,
+      "peakWorkingSetBytes": 46788608,
+      "cacheBytes": 237763,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 828,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\mymod\\both-deflate-1\\new\\session"
+      },
+      "reportElapsedMs": 247
+    },
+    {
+      "engine": "original",
+      "workload": "mymod",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 352.67899999999486,
+      "cpuMs": 328.125,
+      "peakWorkingSetBytes": 46059520,
+      "cacheBytes": 262707,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "original",
+      "workload": "mymod",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 556.3246000000106,
+      "cpuMs": 531.25,
+      "peakWorkingSetBytes": 56651776,
+      "cacheBytes": 255496,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "new",
+      "workload": "mymod",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 464.67949999998837,
+      "cpuMs": 609.375,
+      "peakWorkingSetBytes": 53542912,
+      "cacheBytes": 237763,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 13,
+        "fileHashReuses": 815,
+        "fileHashBytesRead": 86747,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\mymod\\both-deflate-2\\new\\session"
+      },
+      "reportElapsedMs": 341
+    },
+    {
+      "engine": "new",
+      "workload": "mymod",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 354.98119999999744,
+      "cpuMs": 359.375,
+      "peakWorkingSetBytes": 46784512,
+      "cacheBytes": 237763,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 828,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\mymod\\both-deflate-2\\new\\session"
+      },
+      "reportElapsedMs": 241
+    },
+    {
+      "engine": "original",
+      "workload": "mymod",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 367.4123999999779,
+      "cpuMs": 343.75,
+      "peakWorkingSetBytes": 46112768,
+      "cacheBytes": 262707,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "original",
+      "workload": "mymod",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 344.72130000000334,
+      "cpuMs": 343.75,
+      "peakWorkingSetBytes": 45985792,
+      "cacheBytes": 262707,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "new",
+      "workload": "mymod",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 366.26359999999636,
+      "cpuMs": 375.0,
+      "peakWorkingSetBytes": 46776320,
+      "cacheBytes": 237763,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 828,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\mymod\\both-deflate-2\\new\\session"
+      },
+      "reportElapsedMs": 238
+    },
+    {
+      "engine": "new",
+      "workload": "mymod",
+      "trial": 3,
+      "mode": "none",
+      "phase": "uncached",
+      "round": 0,
+      "wallMs": 462.64940000000365,
+      "cpuMs": 671.875,
+      "peakWorkingSetBytes": 53239808,
+      "cacheBytes": 0,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 13,
+        "fileHashReuses": 815,
+        "fileHashBytesRead": 86747,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "reportElapsedMs": 349
+    },
+    {
+      "engine": "original",
+      "workload": "mymod",
+      "trial": 3,
+      "mode": "none",
+      "phase": "uncached",
+      "round": 0,
+      "wallMs": 549.7368999999992,
+      "cpuMs": 500.0,
+      "peakWorkingSetBytes": 56672256,
+      "cacheBytes": 0,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "original",
+      "workload": "upheaval",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 51339.011199999986,
+      "cpuMs": 50421.875,
+      "peakWorkingSetBytes": 175996928,
+      "cacheBytes": 110601230,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "new",
+      "workload": "upheaval",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 18607.910800000012,
+      "cpuMs": 37734.375,
+      "peakWorkingSetBytes": 176226304,
+      "cacheBytes": 151583462,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 1732,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 910,
+        "instanceCompile": 3235,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 2335,
+        "fileHashReuses": 815,
+        "fileHashBytesRead": 174431499,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\upheaval\\both-deflate-0\\new\\session"
+      },
+      "reportElapsedMs": 18462
+    },
+    {
+      "engine": "new",
+      "workload": "upheaval",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 927.6562000000013,
+      "cpuMs": 968.75,
+      "peakWorkingSetBytes": 75210752,
+      "cacheBytes": 151583462,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 910,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 3150,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\upheaval\\both-deflate-0\\new\\session"
+      },
+      "reportElapsedMs": 801
+    },
+    {
+      "engine": "original",
+      "workload": "upheaval",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 1476.2980000000425,
+      "cpuMs": 1406.25,
+      "peakWorkingSetBytes": 69591040,
+      "cacheBytes": 110960798,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "original",
+      "workload": "upheaval",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 1499.2584999999963,
+      "cpuMs": 1468.75,
+      "peakWorkingSetBytes": 65785856,
+      "cacheBytes": 110960798,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "new",
+      "workload": "upheaval",
+      "trial": 0,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 880.8741000000282,
+      "cpuMs": 937.5,
+      "peakWorkingSetBytes": 73785344,
+      "cacheBytes": 151583462,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 910,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 3150,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\upheaval\\both-deflate-0\\new\\session"
+      },
+      "reportElapsedMs": 745
+    },
+    {
+      "engine": "new",
+      "workload": "upheaval",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 18761.66820000003,
+      "cpuMs": 37593.75,
+      "peakWorkingSetBytes": 178061312,
+      "cacheBytes": 151583463,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 1732,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 910,
+        "instanceCompile": 3235,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 2335,
+        "fileHashReuses": 815,
+        "fileHashBytesRead": 174431499,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\upheaval\\both-deflate-1\\new\\session"
+      },
+      "reportElapsedMs": 18623
+    },
+    {
+      "engine": "original",
+      "workload": "upheaval",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 50839.58910000001,
+      "cpuMs": 50328.125,
+      "peakWorkingSetBytes": 181637120,
+      "cacheBytes": 110601230,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "original",
+      "workload": "upheaval",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 1513.690600000018,
+      "cpuMs": 1437.5,
+      "peakWorkingSetBytes": 65912832,
+      "cacheBytes": 110960798,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "new",
+      "workload": "upheaval",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 904.1995999999699,
+      "cpuMs": 968.75,
+      "peakWorkingSetBytes": 74125312,
+      "cacheBytes": 151583463,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 910,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 3150,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\upheaval\\both-deflate-1\\new\\session"
+      },
+      "reportElapsedMs": 765
+    },
+    {
+      "engine": "new",
+      "workload": "upheaval",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 852.5907000000075,
+      "cpuMs": 890.625,
+      "peakWorkingSetBytes": 75284480,
+      "cacheBytes": 151583463,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 910,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 3150,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\upheaval\\both-deflate-1\\new\\session"
+      },
+      "reportElapsedMs": 724
+    },
+    {
+      "engine": "original",
+      "workload": "upheaval",
+      "trial": 1,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 1515.0790000000143,
+      "cpuMs": 1484.375,
+      "peakWorkingSetBytes": 65847296,
+      "cacheBytes": 110960798,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "original",
+      "workload": "upheaval",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 50522.59359999999,
+      "cpuMs": 50046.875,
+      "peakWorkingSetBytes": 185851904,
+      "cacheBytes": 110601230,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "new",
+      "workload": "upheaval",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "cold",
+      "round": 0,
+      "wallMs": 17089.141900000017,
+      "cpuMs": 35125.0,
+      "peakWorkingSetBytes": 170237952,
+      "cacheBytes": 151583463,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 1732,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 910,
+        "instanceCompile": 3235,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 2335,
+        "fileHashReuses": 815,
+        "fileHashBytesRead": 174431499,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\upheaval\\both-deflate-2\\new\\session"
+      },
+      "reportElapsedMs": 16949
+    },
+    {
+      "engine": "new",
+      "workload": "upheaval",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 848.8811999999939,
+      "cpuMs": 1015.625,
+      "peakWorkingSetBytes": 74223616,
+      "cacheBytes": 151583463,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 910,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 3150,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\upheaval\\both-deflate-2\\new\\session"
+      },
+      "reportElapsedMs": 728
+    },
+    {
+      "engine": "original",
+      "workload": "upheaval",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 1,
+      "wallMs": 1446.1833999999953,
+      "cpuMs": 1406.25,
+      "peakWorkingSetBytes": 65884160,
+      "cacheBytes": 110960798,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "original",
+      "workload": "upheaval",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 1447.4764000000278,
+      "cpuMs": 1390.625,
+      "peakWorkingSetBytes": 65732608,
+      "cacheBytes": 110960798,
+      "exitCode": 0,
+      "status": "passed"
+    },
+    {
+      "engine": "new",
+      "workload": "upheaval",
+      "trial": 2,
+      "mode": "both-deflate",
+      "phase": "hot",
+      "round": 2,
+      "wallMs": 843.3502999999973,
+      "cpuMs": 1031.25,
+      "peakWorkingSetBytes": 73482240,
+      "cacheBytes": 151583463,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 910,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 3150,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\original-mod\\builds\\upheaval\\both-deflate-2\\new\\session"
+      },
+      "reportElapsedMs": 712
+    },
+    {
+      "engine": "new",
+      "workload": "upheaval",
+      "trial": 3,
+      "mode": "none",
+      "phase": "uncached",
+      "round": 0,
+      "wallMs": 16690.810299999954,
+      "cpuMs": 34296.875,
+      "peakWorkingSetBytes": 170442752,
+      "cacheBytes": 0,
+      "exitCode": 0,
+      "status": "passed",
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 910,
+        "instanceCompile": 3235,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 2335,
+        "fileHashReuses": 815,
+        "fileHashBytesRead": 174431499,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "reportElapsedMs": 16564
+    },
+    {
+      "engine": "original",
+      "workload": "upheaval",
+      "trial": 3,
+      "mode": "none",
+      "phase": "uncached",
+      "round": 0,
+      "wallMs": 48779.12789999999,
+      "cpuMs": 48562.5,
+      "peakWorkingSetBytes": 180109312,
+      "cacheBytes": 0,
+      "exitCode": 0,
+      "status": "passed"
+    }
+  ],
+  "outputComparison": {
+    "mymod": {
+      "builds": 20,
+      "pairs": 10,
+      "allRawPairsEqual": true,
+      "members": 4,
+      "bytes": 219199,
+      "linkedStreamsDownloadedAndRawCompared": true,
+      "rawBaselineStreamsIncludedInArtifact": true
+    },
+    "upheaval": {
+      "builds": 20,
+      "pairs": 10,
+      "allRawPairsEqual": true,
+      "members": 1295,
+      "bytes": 75093395,
+      "linkedStreamsDownloadedAndRawCompared": true,
+      "rawBaselineStreamsIncludedInArtifact": true,
+      "audioCdataMembers": 1289,
+      "totalCdataMembers": 1291,
+      "allMemberNamesLengthsHashesAndRawBytesEqual": true
+    }
+  },
+  "mixedAudioMigration": {
+    "passed": true,
+    "sourceCommit": "e89f6bf55b6e6a5216e2e680c511a795043b3c2b",
+    "caseCount": 9,
+    "audioAssetCount": 46,
+    "unchangedEalayer3NamesAndPayloadHashes": 44,
+    "legacyFormatRestoredIdentities": 2,
+    "cases": [
+      {
+        "name": "previous-session",
+        "jobs": 4,
+        "exitCode": 0,
+        "cache": {
+          "status": "SessionCache",
+          "hits": 0,
+          "misses": 46,
+          "sessionCache": true,
+          "sessionPackageHits": 0,
+          "sessionPackageMisses": 1,
+          "documentReuse": 0,
+          "xmlParse": 1,
+          "instanceCompile": 46,
+          "linkedStreamsRestored": 0,
+          "fileHashReads": 45,
+          "fileHashReuses": 815,
+          "fileHashBytesRead": 1689599,
+          "textureCache": true,
+          "compressedSessionCache": true,
+          "partialSessionCache": true,
+          "freezeSessionCache": false,
+          "alwaysTouchCache": false,
+          "partialSessionsSaved": 0,
+          "parallel": {
+            "protocol": "NewModCompiler.ParallelBackend.v1",
+            "requestedJobs": "4",
+            "effectiveJobs": 4,
+            "minimumEffectiveJobs": 4,
+            "backendCalls": 46,
+            "backendCallsByType": {
+              "AudioFile": 46
+            },
+            "maxBackendConcurrency": 4,
+            "prepareMs": 8.3009,
+            "xmlFrontendMs": 70.6037,
+            "frontendComputeMs": 1.5427000000000002,
+            "cpuResourceWaitMs": 122.4805,
+            "memoryResourceWaitMs": 0,
+            "ioQueueWaitMs": 100.5784,
+            "workerVerificationMs": 0.5700000000000001,
+            "workerWaitMs": 143.80280000000002,
+            "workerComputeMs": 486.8097,
+            "assetIoMs": 561.259,
+            "ownerCommitMs": 10.9151,
+            "fallbackByReason": {},
+            "peakCpuTasks": 4,
+            "peakIoTasks": 4,
+            "peakAwaitingOwner": 4,
+            "peakRetainedResultBytes": 2990792,
+            "ioCapacity": 4,
+            "sampledPeakPrivateBytes": 43700224,
+            "resourceQuerySucceeded": true,
+            "backendIntervals": [
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1910618123,
+                "endTicks": 1910946027,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1910616436,
+                "endTicks": 1910946046,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1910616488,
+                "endTicks": 1910946052,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1910616381,
+                "endTicks": 1910946059,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1911712185,
+                "endTicks": 1911754422,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1911714498,
+                "endTicks": 1911767671,
+                "threadId": 11
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1911754677,
+                "endTicks": 1911794241,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1911767756,
+                "endTicks": 1911814162,
+                "threadId": 11
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1911904657,
+                "endTicks": 1911975675,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1911913897,
+                "endTicks": 1912005413,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1911975946,
+                "endTicks": 1912054128,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1911991385,
+                "endTicks": 1912111945,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912019006,
+                "endTicks": 1912163929,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912064179,
+                "endTicks": 1912229248,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912199934,
+                "endTicks": 1912251162,
+                "threadId": 11
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912125228,
+                "endTicks": 1912270067,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912257613,
+                "endTicks": 1912305456,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912250013,
+                "endTicks": 1912310643,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912158922,
+                "endTicks": 1912342378,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912285046,
+                "endTicks": 1912342631,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912310695,
+                "endTicks": 1912355194,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912326529,
+                "endTicks": 1912512295,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912351358,
+                "endTicks": 1912519425,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912355274,
+                "endTicks": 1912555434,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912521065,
+                "endTicks": 1912558037,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912512363,
+                "endTicks": 1912559782,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912534905,
+                "endTicks": 1912595524,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912595770,
+                "endTicks": 1912633890,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912643529,
+                "endTicks": 1912686221,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912565758,
+                "endTicks": 1912690931,
+                "threadId": 11
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912730977,
+                "endTicks": 1912748009,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912749487,
+                "endTicks": 1912768188,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912576136,
+                "endTicks": 1912773779,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912780196,
+                "endTicks": 1912799769,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912780457,
+                "endTicks": 1912801479,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912784609,
+                "endTicks": 1912802731,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912843912,
+                "endTicks": 1912855775,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912855838,
+                "endTicks": 1912867548,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912858117,
+                "endTicks": 1912871103,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912878713,
+                "endTicks": 1912891980,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912917260,
+                "endTicks": 1912932025,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912923750,
+                "endTicks": 1912950510,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912963477,
+                "endTicks": 1912978816,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912990903,
+                "endTicks": 1913038808,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912932246,
+                "endTicks": 1913178767,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1912691214,
+                "endTicks": 1913201630,
+                "threadId": 11
+              }
+            ],
+            "intervalSampleLimit": 512,
+            "clockFrequency": 10000000
+          },
+          "sessionCacheDirectory": "D:\\a\\_temp\\audio-identity-receipt\\migration"
+        },
+        "customFiles": 46,
+        "passed": true
+      },
+      {
+        "name": "jobs1-cold",
+        "jobs": 1,
+        "exitCode": 0,
+        "cache": {
+          "status": "SessionCache",
+          "hits": 0,
+          "misses": 46,
+          "sessionCache": true,
+          "sessionPackageHits": 0,
+          "sessionPackageMisses": 1,
+          "documentReuse": 0,
+          "xmlParse": 1,
+          "instanceCompile": 46,
+          "linkedStreamsRestored": 0,
+          "fileHashReads": 45,
+          "fileHashReuses": 815,
+          "fileHashBytesRead": 1689599,
+          "textureCache": true,
+          "compressedSessionCache": true,
+          "partialSessionCache": true,
+          "freezeSessionCache": false,
+          "alwaysTouchCache": false,
+          "partialSessionsSaved": 0,
+          "parallel": {
+            "protocol": "NewModCompiler.ParallelBackend.v1",
+            "requestedJobs": "1",
+            "effectiveJobs": 1,
+            "minimumEffectiveJobs": 1,
+            "backendCalls": 46,
+            "backendCallsByType": {
+              "AudioFile": 46
+            },
+            "maxBackendConcurrency": 1,
+            "prepareMs": 0,
+            "xmlFrontendMs": 5.565,
+            "frontendComputeMs": 0.9818,
+            "cpuResourceWaitMs": 0,
+            "memoryResourceWaitMs": 0,
+            "ioQueueWaitMs": 121.39200000000001,
+            "workerVerificationMs": 0.2089,
+            "workerWaitMs": 0.5539000000000001,
+            "workerComputeMs": 248.27360000000002,
+            "assetIoMs": 39.8607,
+            "ownerCommitMs": 2.5367,
+            "fallbackByReason": {
+              "resource-capacity": 46
+            },
+            "peakCpuTasks": 0,
+            "peakIoTasks": 1,
+            "peakAwaitingOwner": 1,
+            "peakRetainedResultBytes": 18424,
+            "ioCapacity": 1,
+            "sampledPeakPrivateBytes": 40271872,
+            "resourceQuerySucceeded": true,
+            "backendIntervals": [
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918056965,
+                "endTicks": 1918155485,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918186662,
+                "endTicks": 1918214121,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918215182,
+                "endTicks": 1918233230,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918251830,
+                "endTicks": 1918276799,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918278201,
+                "endTicks": 1918312908,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918314796,
+                "endTicks": 1918357122,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918358471,
+                "endTicks": 1918391037,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918392630,
+                "endTicks": 1918435757,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918437124,
+                "endTicks": 1918504112,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918505709,
+                "endTicks": 1918593045,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918597105,
+                "endTicks": 1918664446,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918666025,
+                "endTicks": 1918753288,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918754923,
+                "endTicks": 1918855502,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1918871500,
+                "endTicks": 1919000272,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919002369,
+                "endTicks": 1919105024,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919106985,
+                "endTicks": 1919236668,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919238529,
+                "endTicks": 1919273467,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919275026,
+                "endTicks": 1919308420,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919310453,
+                "endTicks": 1919343205,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919345321,
+                "endTicks": 1919378117,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919379862,
+                "endTicks": 1919411626,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919413096,
+                "endTicks": 1919454483,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919456163,
+                "endTicks": 1919491775,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919493332,
+                "endTicks": 1919527523,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919529015,
+                "endTicks": 1919562083,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919563562,
+                "endTicks": 1919589261,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919678914,
+                "endTicks": 1919723663,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919725508,
+                "endTicks": 1919815321,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919817464,
+                "endTicks": 1919946000,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919963076,
+                "endTicks": 1919996575,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1919998034,
+                "endTicks": 1920040475,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920042130,
+                "endTicks": 1920366368,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920369690,
+                "endTicks": 1920378098,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920379090,
+                "endTicks": 1920388603,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920390096,
+                "endTicks": 1920399433,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920401003,
+                "endTicks": 1920410859,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920413197,
+                "endTicks": 1920422965,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920424543,
+                "endTicks": 1920434489,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920436024,
+                "endTicks": 1920445935,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920447510,
+                "endTicks": 1920457759,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920459295,
+                "endTicks": 1920468766,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920469979,
+                "endTicks": 1920480076,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920481467,
+                "endTicks": 1920500734,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920501988,
+                "endTicks": 1920727155,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920730683,
+                "endTicks": 1920744240,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1920746168,
+                "endTicks": 1920783141,
+                "threadId": 1
+              }
+            ],
+            "intervalSampleLimit": 512,
+            "clockFrequency": 10000000
+          },
+          "sessionCacheDirectory": "D:\\a\\_temp\\audio-identity-receipt\\j1"
+        },
+        "customFiles": 46,
+        "passed": true
+      },
+      {
+        "name": "jobs4-cold",
+        "jobs": 4,
+        "exitCode": 0,
+        "cache": {
+          "status": "SessionCache",
+          "hits": 0,
+          "misses": 46,
+          "sessionCache": true,
+          "sessionPackageHits": 0,
+          "sessionPackageMisses": 1,
+          "documentReuse": 0,
+          "xmlParse": 1,
+          "instanceCompile": 46,
+          "linkedStreamsRestored": 0,
+          "fileHashReads": 45,
+          "fileHashReuses": 815,
+          "fileHashBytesRead": 1689599,
+          "textureCache": true,
+          "compressedSessionCache": true,
+          "partialSessionCache": true,
+          "freezeSessionCache": false,
+          "alwaysTouchCache": false,
+          "partialSessionsSaved": 0,
+          "parallel": {
+            "protocol": "NewModCompiler.ParallelBackend.v1",
+            "requestedJobs": "4",
+            "effectiveJobs": 4,
+            "minimumEffectiveJobs": 4,
+            "backendCalls": 46,
+            "backendCallsByType": {
+              "AudioFile": 46
+            },
+            "maxBackendConcurrency": 4,
+            "prepareMs": 7.688400000000001,
+            "xmlFrontendMs": 10.9849,
+            "frontendComputeMs": 2.3104,
+            "cpuResourceWaitMs": 94.3202,
+            "memoryResourceWaitMs": 0,
+            "ioQueueWaitMs": 69.0601,
+            "workerVerificationMs": 1.0406,
+            "workerWaitMs": 115.122,
+            "workerComputeMs": 388.1523,
+            "assetIoMs": 434.7841,
+            "ownerCommitMs": 3.0602,
+            "fallbackByReason": {},
+            "peakCpuTasks": 4,
+            "peakIoTasks": 4,
+            "peakAwaitingOwner": 5,
+            "peakRetainedResultBytes": 2663088,
+            "ioCapacity": 4,
+            "sampledPeakPrivateBytes": 43098112,
+            "resourceQuerySucceeded": true,
+            "backendIntervals": [
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1924834781,
+                "endTicks": 1924945351,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1924829174,
+                "endTicks": 1924950889,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1924829086,
+                "endTicks": 1924950894,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1924835088,
+                "endTicks": 1924951006,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1925620520,
+                "endTicks": 1925653854,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1925654109,
+                "endTicks": 1925696283,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1925696528,
+                "endTicks": 1925728286,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1925728480,
+                "endTicks": 1925771891,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1925761533,
+                "endTicks": 1925833069,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1925772129,
+                "endTicks": 1925866013,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1925833284,
+                "endTicks": 1925904729,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1925883285,
+                "endTicks": 1925998283,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1925904842,
+                "endTicks": 1926051982,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1925935728,
+                "endTicks": 1926079914,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1925911648,
+                "endTicks": 1926094542,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926069725,
+                "endTicks": 1926118545,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926094653,
+                "endTicks": 1926142457,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926109482,
+                "endTicks": 1926154649,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926132392,
+                "endTicks": 1926178144,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926154757,
+                "endTicks": 1926198994,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926035942,
+                "endTicks": 1926211503,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926199159,
+                "endTicks": 1926320434,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926217553,
+                "endTicks": 1926320798,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926170661,
+                "endTicks": 1926321733,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926318387,
+                "endTicks": 1926366074,
+                "threadId": 11
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926330685,
+                "endTicks": 1926368988,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926341360,
+                "endTicks": 1926400136,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926392205,
+                "endTicks": 1926439427,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926345244,
+                "endTicks": 1926463454,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926407026,
+                "endTicks": 1926478438,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926468277,
+                "endTicks": 1926482424,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926482482,
+                "endTicks": 1926495110,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926518842,
+                "endTicks": 1926531176,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926501232,
+                "endTicks": 1926534943,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926550841,
+                "endTicks": 1926562323,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926555638,
+                "endTicks": 1926566776,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926374533,
+                "endTicks": 1926571742,
+                "threadId": 11
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926571547,
+                "endTicks": 1926584391,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926584460,
+                "endTicks": 1926600460,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926590894,
+                "endTicks": 1926603953,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926760356,
+                "endTicks": 1926778962,
+                "threadId": 11
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926764059,
+                "endTicks": 1926791579,
+                "threadId": 9
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926786341,
+                "endTicks": 1926809162,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926805017,
+                "endTicks": 1926853494,
+                "threadId": 11
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926767190,
+                "endTicks": 1927016353,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1926448494,
+                "endTicks": 1927017564,
+                "threadId": 10
+              }
+            ],
+            "intervalSampleLimit": 512,
+            "clockFrequency": 10000000
+          },
+          "sessionCacheDirectory": "D:\\a\\_temp\\audio-identity-receipt\\j4"
+        },
+        "customFiles": 46,
+        "passed": true
+      },
+      {
+        "name": "jobs4-hot",
+        "jobs": 4,
+        "exitCode": 0,
+        "cache": {
+          "status": "SessionCache",
+          "hits": 0,
+          "misses": 0,
+          "sessionCache": true,
+          "sessionPackageHits": 1,
+          "sessionPackageMisses": 0,
+          "documentReuse": 1,
+          "xmlParse": 0,
+          "instanceCompile": 0,
+          "linkedStreamsRestored": 1,
+          "fileHashReads": 0,
+          "fileHashReuses": 860,
+          "fileHashBytesRead": 0,
+          "textureCache": true,
+          "compressedSessionCache": true,
+          "partialSessionCache": true,
+          "freezeSessionCache": false,
+          "alwaysTouchCache": false,
+          "partialSessionsSaved": 0,
+          "parallel": {
+            "protocol": "NewModCompiler.ParallelBackend.v1",
+            "requestedJobs": "4",
+            "effectiveJobs": 4,
+            "minimumEffectiveJobs": 4,
+            "backendCalls": 0,
+            "backendCallsByType": {},
+            "maxBackendConcurrency": 0,
+            "prepareMs": 0,
+            "xmlFrontendMs": 0,
+            "frontendComputeMs": 0,
+            "cpuResourceWaitMs": 0,
+            "memoryResourceWaitMs": 0,
+            "ioQueueWaitMs": 136.6342,
+            "workerVerificationMs": 0.0247,
+            "workerWaitMs": 0,
+            "workerComputeMs": 0,
+            "assetIoMs": 2.6220000000000003,
+            "ownerCommitMs": 2.1804,
+            "fallbackByReason": {},
+            "peakCpuTasks": 0,
+            "peakIoTasks": 4,
+            "peakAwaitingOwner": 4,
+            "peakRetainedResultBytes": 0,
+            "ioCapacity": 4,
+            "sampledPeakPrivateBytes": 29593600,
+            "resourceQuerySucceeded": true,
+            "backendIntervals": [],
+            "intervalSampleLimit": 512,
+            "clockFrequency": 10000000
+          },
+          "sessionCacheDirectory": "D:\\a\\_temp\\audio-identity-receipt\\j4"
+        },
+        "customFiles": 46,
+        "passed": true
+      },
+      {
+        "name": "previous-session-upgraded",
+        "jobs": 4,
+        "exitCode": 0,
+        "cache": {
+          "status": "SessionCache",
+          "hits": 0,
+          "misses": 2,
+          "sessionCache": true,
+          "sessionPackageHits": 1,
+          "sessionPackageMisses": 0,
+          "documentReuse": 0,
+          "xmlParse": 1,
+          "instanceCompile": 2,
+          "linkedStreamsRestored": 0,
+          "fileHashReads": 0,
+          "fileHashReuses": 860,
+          "fileHashBytesRead": 0,
+          "textureCache": true,
+          "compressedSessionCache": true,
+          "partialSessionCache": true,
+          "freezeSessionCache": false,
+          "alwaysTouchCache": false,
+          "partialSessionsSaved": 0,
+          "parallel": {
+            "protocol": "NewModCompiler.ParallelBackend.v1",
+            "requestedJobs": "4",
+            "effectiveJobs": 4,
+            "minimumEffectiveJobs": 4,
+            "backendCalls": 2,
+            "backendCallsByType": {
+              "AudioFile": 2
+            },
+            "maxBackendConcurrency": 2,
+            "prepareMs": 3.3416,
+            "xmlFrontendMs": 9.0283,
+            "frontendComputeMs": 1.6034000000000002,
+            "cpuResourceWaitMs": 1.4213,
+            "memoryResourceWaitMs": 0,
+            "ioQueueWaitMs": 24.172800000000002,
+            "workerVerificationMs": 0.8742000000000001,
+            "workerWaitMs": 10.189,
+            "workerComputeMs": 16.327,
+            "assetIoMs": 7.6813,
+            "ownerCommitMs": 2.2176,
+            "fallbackByReason": {},
+            "peakCpuTasks": 4,
+            "peakIoTasks": 4,
+            "peakAwaitingOwner": 5,
+            "peakRetainedResultBytes": 293472,
+            "ioCapacity": 4,
+            "sampledPeakPrivateBytes": 30449664,
+            "resourceQuerySucceeded": true,
+            "backendIntervals": [
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1934451356,
+                "endTicks": 1934523452,
+                "threadId": 7
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1934451516,
+                "endTicks": 1934542690,
+                "threadId": 9
+              }
+            ],
+            "intervalSampleLimit": 512,
+            "clockFrequency": 10000000
+          },
+          "sessionCacheDirectory": "D:\\a\\_temp\\audio-identity-receipt\\migration"
+        },
+        "customFiles": 46,
+        "passed": true
+      },
+      {
+        "name": "previous-session-upgraded-hot",
+        "jobs": 4,
+        "exitCode": 0,
+        "cache": {
+          "status": "SessionCache",
+          "hits": 0,
+          "misses": 0,
+          "sessionCache": true,
+          "sessionPackageHits": 1,
+          "sessionPackageMisses": 0,
+          "documentReuse": 1,
+          "xmlParse": 0,
+          "instanceCompile": 0,
+          "linkedStreamsRestored": 1,
+          "fileHashReads": 0,
+          "fileHashReuses": 860,
+          "fileHashBytesRead": 0,
+          "textureCache": true,
+          "compressedSessionCache": true,
+          "partialSessionCache": true,
+          "freezeSessionCache": false,
+          "alwaysTouchCache": false,
+          "partialSessionsSaved": 0,
+          "parallel": {
+            "protocol": "NewModCompiler.ParallelBackend.v1",
+            "requestedJobs": "4",
+            "effectiveJobs": 4,
+            "minimumEffectiveJobs": 4,
+            "backendCalls": 0,
+            "backendCallsByType": {},
+            "maxBackendConcurrency": 0,
+            "prepareMs": 0,
+            "xmlFrontendMs": 0,
+            "frontendComputeMs": 0,
+            "cpuResourceWaitMs": 0,
+            "memoryResourceWaitMs": 0,
+            "ioQueueWaitMs": 202.4506,
+            "workerVerificationMs": 0.0261,
+            "workerWaitMs": 0.019700000000000002,
+            "workerComputeMs": 0,
+            "assetIoMs": 2.7857000000000003,
+            "ownerCommitMs": 2.8066,
+            "fallbackByReason": {},
+            "peakCpuTasks": 0,
+            "peakIoTasks": 4,
+            "peakAwaitingOwner": 4,
+            "peakRetainedResultBytes": 0,
+            "ioCapacity": 4,
+            "sampledPeakPrivateBytes": 29679616,
+            "resourceQuerySucceeded": true,
+            "backendIntervals": [],
+            "intervalSampleLimit": 512,
+            "clockFrequency": 10000000
+          },
+          "sessionCacheDirectory": "D:\\a\\_temp\\audio-identity-receipt\\migration"
+        },
+        "customFiles": 46,
+        "passed": true
+      },
+      {
+        "name": "modified-audio",
+        "jobs": 4,
+        "exitCode": 0,
+        "cache": {
+          "status": "SessionCache",
+          "hits": 0,
+          "misses": 3,
+          "sessionCache": true,
+          "sessionPackageHits": 1,
+          "sessionPackageMisses": 0,
+          "documentReuse": 0,
+          "xmlParse": 1,
+          "instanceCompile": 3,
+          "linkedStreamsRestored": 0,
+          "fileHashReads": 1,
+          "fileHashReuses": 859,
+          "fileHashBytesRead": 32816,
+          "textureCache": true,
+          "compressedSessionCache": true,
+          "partialSessionCache": true,
+          "freezeSessionCache": false,
+          "alwaysTouchCache": false,
+          "partialSessionsSaved": 0,
+          "parallel": {
+            "protocol": "NewModCompiler.ParallelBackend.v1",
+            "requestedJobs": "4",
+            "effectiveJobs": 4,
+            "minimumEffectiveJobs": 4,
+            "backendCalls": 3,
+            "backendCallsByType": {
+              "AudioFile": 3
+            },
+            "maxBackendConcurrency": 3,
+            "prepareMs": 3.5872,
+            "xmlFrontendMs": 9.4871,
+            "frontendComputeMs": 2.0361000000000002,
+            "cpuResourceWaitMs": 0.7364,
+            "memoryResourceWaitMs": 0,
+            "ioQueueWaitMs": 18.3273,
+            "workerVerificationMs": 1.0044,
+            "workerWaitMs": 10.6073,
+            "workerComputeMs": 31.4994,
+            "assetIoMs": 7.7342,
+            "ownerCommitMs": 2.2640000000000002,
+            "fallbackByReason": {},
+            "peakCpuTasks": 4,
+            "peakIoTasks": 4,
+            "peakAwaitingOwner": 5,
+            "peakRetainedResultBytes": 441656,
+            "ioCapacity": 4,
+            "sampledPeakPrivateBytes": 31690752,
+            "resourceQuerySucceeded": true,
+            "backendIntervals": [
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1942492671,
+                "endTicks": 1942570401,
+                "threadId": 8
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1942494720,
+                "endTicks": 1942596373,
+                "threadId": 10
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1942480653,
+                "endTicks": 1942616264,
+                "threadId": 7
+              }
+            ],
+            "intervalSampleLimit": 512,
+            "clockFrequency": 10000000
+          },
+          "sessionCacheDirectory": "D:\\a\\_temp\\audio-identity-receipt\\j4"
+        },
+        "customFiles": 46,
+        "passed": true
+      },
+      {
+        "name": "modified-independent",
+        "jobs": 1,
+        "exitCode": 0,
+        "cache": {
+          "status": "Disabled",
+          "hits": 0,
+          "misses": 0,
+          "sessionCache": false,
+          "sessionPackageHits": 0,
+          "sessionPackageMisses": 0,
+          "documentReuse": 0,
+          "xmlParse": 1,
+          "instanceCompile": 46,
+          "linkedStreamsRestored": 0,
+          "fileHashReads": 45,
+          "fileHashReuses": 815,
+          "fileHashBytesRead": 1689599,
+          "textureCache": false,
+          "compressedSessionCache": true,
+          "partialSessionCache": true,
+          "freezeSessionCache": false,
+          "alwaysTouchCache": false,
+          "partialSessionsSaved": 0,
+          "parallel": {
+            "protocol": "NewModCompiler.ParallelBackend.v1",
+            "requestedJobs": "1",
+            "effectiveJobs": 1,
+            "minimumEffectiveJobs": 1,
+            "backendCalls": 46,
+            "backendCallsByType": {
+              "AudioFile": 46
+            },
+            "maxBackendConcurrency": 1,
+            "prepareMs": 0,
+            "xmlFrontendMs": 5.2272,
+            "frontendComputeMs": 0.9263,
+            "cpuResourceWaitMs": 0,
+            "memoryResourceWaitMs": 0,
+            "ioQueueWaitMs": 3.0020000000000002,
+            "workerVerificationMs": 0.1948,
+            "workerWaitMs": 0,
+            "workerComputeMs": 244.64970000000002,
+            "assetIoMs": 18.547900000000002,
+            "ownerCommitMs": 2.1622,
+            "fallbackByReason": {
+              "resource-capacity": 46
+            },
+            "peakCpuTasks": 0,
+            "peakIoTasks": 1,
+            "peakAwaitingOwner": 1,
+            "peakRetainedResultBytes": 18424,
+            "ioCapacity": 1,
+            "sampledPeakPrivateBytes": 37150720,
+            "resourceQuerySucceeded": true,
+            "backendIntervals": [
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1946488602,
+                "endTicks": 1946581903,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1946608543,
+                "endTicks": 1946634797,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1946649424,
+                "endTicks": 1946666887,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1946668254,
+                "endTicks": 1946691451,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1946692668,
+                "endTicks": 1946725709,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1946727023,
+                "endTicks": 1946767799,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1946769022,
+                "endTicks": 1946800136,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1946801143,
+                "endTicks": 1946841014,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1946842863,
+                "endTicks": 1946908237,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1946910781,
+                "endTicks": 1946997491,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947000179,
+                "endTicks": 1947065256,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947066440,
+                "endTicks": 1947150090,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947151552,
+                "endTicks": 1947249461,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947251079,
+                "endTicks": 1947374880,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947389834,
+                "endTicks": 1947487618,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947488925,
+                "endTicks": 1947611558,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947612849,
+                "endTicks": 1947646941,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947648289,
+                "endTicks": 1947680429,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947681529,
+                "endTicks": 1947712268,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947713571,
+                "endTicks": 1947743997,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947745099,
+                "endTicks": 1947774736,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947776321,
+                "endTicks": 1947816444,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947817679,
+                "endTicks": 1947850550,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947851743,
+                "endTicks": 1947884041,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947885116,
+                "endTicks": 1947916508,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947917665,
+                "endTicks": 1947942104,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947943225,
+                "endTicks": 1947985707,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1947986839,
+                "endTicks": 1948067356,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948068492,
+                "endTicks": 1948189498,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948190737,
+                "endTicks": 1948311109,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948313698,
+                "endTicks": 1948359176,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948360980,
+                "endTicks": 1948657435,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948672797,
+                "endTicks": 1948680674,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948681714,
+                "endTicks": 1948690586,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948691543,
+                "endTicks": 1948700397,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948701467,
+                "endTicks": 1948710157,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948711135,
+                "endTicks": 1948719534,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948721192,
+                "endTicks": 1948730250,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948731802,
+                "endTicks": 1948740970,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948742213,
+                "endTicks": 1948752411,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948753404,
+                "endTicks": 1948762158,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948763802,
+                "endTicks": 1948774065,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948775371,
+                "endTicks": 1948794184,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1948795155,
+                "endTicks": 1949012280,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1949014202,
+                "endTicks": 1949026416,
+                "threadId": 1
+              },
+              {
+                "typeName": "AudioFile",
+                "startTicks": 1949027566,
+                "endTicks": 1949063356,
+                "threadId": 1
+              }
+            ],
+            "intervalSampleLimit": 512,
+            "clockFrequency": 10000000
+          },
+          "sessionCacheDirectory": null
+        },
+        "customFiles": 46,
+        "passed": true
+      },
+      {
+        "name": "modified-hot",
+        "jobs": 4,
+        "exitCode": 0,
+        "cache": {
+          "status": "SessionCache",
+          "hits": 0,
+          "misses": 0,
+          "sessionCache": true,
+          "sessionPackageHits": 1,
+          "sessionPackageMisses": 0,
+          "documentReuse": 1,
+          "xmlParse": 0,
+          "instanceCompile": 0,
+          "linkedStreamsRestored": 1,
+          "fileHashReads": 0,
+          "fileHashReuses": 860,
+          "fileHashBytesRead": 0,
+          "textureCache": true,
+          "compressedSessionCache": true,
+          "partialSessionCache": true,
+          "freezeSessionCache": false,
+          "alwaysTouchCache": false,
+          "partialSessionsSaved": 0,
+          "parallel": {
+            "protocol": "NewModCompiler.ParallelBackend.v1",
+            "requestedJobs": "4",
+            "effectiveJobs": 4,
+            "minimumEffectiveJobs": 4,
+            "backendCalls": 0,
+            "backendCallsByType": {},
+            "maxBackendConcurrency": 0,
+            "prepareMs": 0,
+            "xmlFrontendMs": 0,
+            "frontendComputeMs": 0,
+            "cpuResourceWaitMs": 0,
+            "memoryResourceWaitMs": 0,
+            "ioQueueWaitMs": 139.5612,
+            "workerVerificationMs": 0.0268,
+            "workerWaitMs": 0,
+            "workerComputeMs": 0,
+            "assetIoMs": 2.9018,
+            "ownerCommitMs": 2.0784000000000002,
+            "fallbackByReason": {},
+            "peakCpuTasks": 0,
+            "peakIoTasks": 4,
+            "peakAwaitingOwner": 4,
+            "peakRetainedResultBytes": 0,
+            "ioCapacity": 4,
+            "sampledPeakPrivateBytes": 29560832,
+            "resourceQuerySucceeded": true,
+            "backendIntervals": [],
+            "intervalSampleLimit": 512,
+            "clockFrequency": 10000000
+          },
+          "sessionCacheDirectory": "D:\\a\\_temp\\audio-identity-receipt\\j4"
+        },
+        "customFiles": 46,
+        "passed": true
+      }
+    ]
+  },
+  "limitations": [
+    "Complete mymod and historical Upheaval inputs, base loose stream only; no APT/global metadata/BIG/SKUDEF benchmark timing.",
+    "Same 4-logical-CPU Windows VM for this run; new jobs4, original serial; OS page cache uncontrolled.",
+    "Cold n3, hot n6 per engine, no-cache n1; no excluded warmup. Small sample counts are descriptive.",
+    "Different VM from 41212813051; do not compare raw times across those runs or attribute timing differences to this identity repair.",
+    "Original failed run and its evidence remain unchanged. No game-runtime acceptance claim."
+  ]
+}

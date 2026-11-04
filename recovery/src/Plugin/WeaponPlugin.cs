@@ -8,7 +8,9 @@ namespace Recovered.Weapon
     public sealed class Plugin : IAssetBuilderPlugin
     {
         private TargetPlatform platform;
-        public void Initialize(object configObject, TargetPlatform target) { platform = target; }
+        private string trace;
+        private static readonly object TraceGate = new object();
+        public void Initialize(object configObject, TargetPlatform target) { platform = target; trace = Environment.GetEnvironmentVariable("RA3_RECOVERED_WEAPON_TRACE"); }
         public void ReInitialize(object configObject, TargetPlatform target) { Initialize(configObject, target); }
         // Retain original compiler metadata so serialized manifests remain comparable.
         public uint GetAllTypesHash() { return 1424942948u; }
@@ -34,7 +36,6 @@ namespace Recovered.Weapon
         {
             // The component checks type IDs and fails explicitly on other types.
             AssetBuffer result = WeaponCompiler.ProcessInstance(instance, platform);
-            string trace = Environment.GetEnvironmentVariable("RA3_RECOVERED_WEAPON_TRACE");
             if (!String.IsNullOrEmpty(trace))
             {
                 Directory.CreateDirectory(trace);
@@ -44,7 +45,7 @@ namespace Recovered.Weapon
                 File.WriteAllBytes(stem + ".bin", result.InstanceData);
                 File.WriteAllBytes(stem + ".relo", result.RelocationData);
                 File.WriteAllBytes(stem + ".imp", result.ImportsData);
-                File.AppendAllText(Path.Combine(trace, "calls.tsv"),
+                lock (TraceGate) File.AppendAllText(Path.Combine(trace, "calls.tsv"),
                     instance.Node.Attributes["id"].Value + "\t" + Path.GetFileName(stem) +
                     "\t" + (int)platform + Environment.NewLine);
             }

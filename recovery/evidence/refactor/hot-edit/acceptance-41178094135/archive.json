@@ -1,0 +1,167 @@
+{
+  "runId": 41178094135,
+  "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "status": "passed-composed-acceptance",
+  "artifactId": 13034316022,
+  "archiveSha256": "de78d9ee19a7307f84c9f09cb4f505512e110ba530273fb87294b7459e38491e",
+  "archiveBytes": 48756764,
+  "downloadedAndRehashed": true,
+  "runtime": {
+    "Debug": {
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "NewModCompiler.exe": "38d79feb8fcc39b916118d516b31c35785b5a2364d6a8c798c5df06072ef91e5",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "b56536d5395da0ce7cef8f81381fd0bd29ffeb46843c8913a20184b09e06c829",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    },
+    "Release": {
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "43b5e2b17563ac11696c5fc57e3b3bde250f107a40ff2b17a8141be23c1ac6e4",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "NewModCompiler.exe": "2f029d20abe1ef75d9730174e7f47ef2b4c0430d14aefafbcc6027acbb95a86b",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    }
+  },
+  "packages": {
+    "Debug": {
+      "path": "artifacts/final-release/41178094135-1/NewModCompiler-Win32-Debug.zip",
+      "sha256": "e79df24e769e1ca6dc746816e36a9d2de69a347328ce889db4e8b341d3168061",
+      "runtimeExactlyMatches": true
+    },
+    "Release": {
+      "path": "artifacts/final-release/41178094135-1/NewModCompiler-Win32-Release.zip",
+      "sha256": "281b08d7bc8042e57d509d96e3dd0b9afc737ebcd358ca1cdd4c79881432abcb",
+      "runtimeExactlyMatches": true
+    }
+  },
+  "completedGates": {
+    "repaired-core": {
+      "path": "evidence/refactor/core-lifecycle/41178094135-1/validation.json",
+      "sha256": "deab5dd28cdd3069490fb3d8b3e24897c594337536deca77cd9aff8d805835da",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "testSourceCommit": "2b4e97f9edd2759334d5a5bb54f2abedf83fac49",
+      "runId": "41178094135"
+    },
+    "performance": {
+      "path": "evidence/refactor/performance/41178094135-1/validation.json",
+      "sha256": "b6044068511abc3fbad4c228e17bb190ca2e962c979173253e80288c9e59f595",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "testSourceCommit": "c15f7b9c8e140bfbf479ea7170d01714da064ca5",
+      "runId": null
+    },
+    "original-backend-Debug": {
+      "path": "evidence/refactor/core-backend-baseline/41178094135-1/Debug/validation.json",
+      "sha256": "bdb04a5a1ef827f3e0e226890d31b9d2f25b91f7acaad2a9f6dc0180509ce511",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": null,
+      "testSourceCommit": null,
+      "runId": "41177598230"
+    },
+    "original-backend-Release": {
+      "path": "evidence/refactor/core-backend-baseline/41178094135-1/Release/validation.json",
+      "sha256": "f2e3f5730006ffcd5494afe5a046e5aaa44c70629d23b9a9447e9e94d7cf644f",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": null,
+      "testSourceCommit": null,
+      "runId": "41177598230"
+    },
+    "original-core-protocol": {
+      "path": "evidence/refactor/hot-edit-repair/41178094135-1/original-core-protocol.json",
+      "sha256": "95415ce9e27fa99b56c58d5606f699f9f4f4a9c4e5ec0f2ff87710e1281b4bbd",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": null,
+      "testSourceCommit": null,
+      "runId": null
+    },
+    "complete-mymod": {
+      "path": "evidence/refactor/sdk-mymod/41178094135-1/validation.json",
+      "sha256": "0aa354a79a66f050f1811605a6f64ccf101b530a594170a5ec54747fc94de2d9",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "testSourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "runId": "41178094135"
+    },
+    "five-file-packages": {
+      "path": "artifacts/final-release/41178094135-1/release.json",
+      "sha256": "e6e1e59ab8b3bd2adab10b970376367ba97308748c50518eef3e9bef81e0face",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "testSourceCommit": null,
+      "runId": "41178094135"
+    },
+    "complete-Upheaval": {
+      "path": "evidence/refactor/backend-parallel-performance/41178094135-1/measurement.json",
+      "sha256": "3803ab90a971ef1b219bee4803eb5892431ed79cdf8f327f0336aa852676e4d9",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "testSourceCommit": null,
+      "runId": "41178094135"
+    }
+  },
+  "testSourceCommit": "2b4e97f9edd2759334d5a5bb54f2abedf83fac49",
+  "originalRunId": "41174952443",
+  "previousRepair": {
+    "runId": "41176937044",
+    "runAttempt": "1",
+    "conclusion": "failure",
+    "testSourceCommit": "fc44f6eaecbbb50849d7fe42fa1ad037754d6fdf",
+    "artifact": {
+      "id": 13032774067,
+      "node_id": "MDg6QXJ0aWZhY3QxMzAzMjc3NDA2Nw==",
+      "name": "compiler-hot-edit-validation-41176937044-1",
+      "size_in_bytes": 8642470,
+      "url": "https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13032774067",
+      "archive_download_url": "https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13032774067/zip",
+      "expired": false,
+      "digest": "sha256:394674b48cf7c1382c373410d21a67f89abcbc1e24335e143c32677dcbb425d3",
+      "created_at": "2026-10-31T06:33:07Z",
+      "updated_at": "2026-10-31T06:33:07Z",
+      "expires_at": "2027-01-29T06:31:05Z",
+      "workflow_run": {
+        "id": 41176937044,
+        "repository_id": 1429296696,
+        "head_repository_id": 1429296696,
+        "head_branch": "perf/compiler-cold-hot-cache",
+        "head_sha": "fc44f6eaecbbb50849d7fe42fa1ad037754d6fdf"
+      }
+    }
+  },
+  "auxiliaryRepair": {
+    "runId": "41177598230",
+    "runAttempt": "1",
+    "conclusion": "failure",
+    "testSourceCommit": "c15f7b9c8e140bfbf479ea7170d01714da064ca5",
+    "artifact": {
+      "id": 13032754992,
+      "node_id": "MDg6QXJ0aWZhY3QxMzAzMjc1NDk5Mg==",
+      "name": "compiler-hot-edit-validation-41177598230-1",
+      "size_in_bytes": 9053296,
+      "url": "https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13032754992",
+      "archive_download_url": "https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13032754992/zip",
+      "expired": false,
+      "digest": "sha256:a67f0c60b004171f707b317fc8d9ebcd9463e3f015423012f365fb3722084f37",
+      "created_at": "2026-10-31T06:42:32Z",
+      "updated_at": "2026-10-31T06:42:32Z",
+      "expires_at": "2027-01-29T06:40:53Z",
+      "workflow_run": {
+        "id": 41177598230,
+        "repository_id": 1429296696,
+        "head_repository_id": 1429296696,
+        "head_branch": "perf/compiler-cold-hot-cache",
+        "head_sha": "c15f7b9c8e140bfbf479ea7170d01714da064ca5"
+      }
+    }
+  },
+  "fullmodDetailed": {
+    "core.xml.instance.references": 1143.0022000000001,
+    "core.xml.schema.validate": 4412.7276,
+    "core.xml.instance.hash": 648.0809,
+    "core.xml.inheritance.frontend": 0,
+    "core.dependencies.inheritance.identity": 0.381
+  },
+  "receiptArchiveSha256": "1fd30e98310280dd98d128f4c1576a42d9911ea18db9e64efe146b022300f0b5",
+  "receiptArchiveMembers": 40
+}

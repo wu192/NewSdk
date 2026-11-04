@@ -1,0 +1,173 @@
+name: Official neutral WorldBuilder small MOD and packages
+on:
+  push:
+    branches: [fix/neutral-worldbuilder-config]
+    paths:
+      - '.github/workflows/neutral-worldbuilder.yml'
+      - 'recovery/src/App/**'
+      - 'recovery/src/Managed/Core/**'
+      - 'recovery/tests/App/**'
+      - 'recovery/scripts/TestNeutralWorldbuilder.py'
+      - 'recovery/scripts/ImportWorldbuilderReferences.py'
+      - 'recovery/scripts/PackageNeutralCompiler.py'
+      - 'recovery/fixtures/neutral-worldbuilder/**'
+      - 'SDK/builtmods/sagexml/Worldbuilder*'
+      - 'SDK/builtmods/sagexml/Worldbuilder.bin.parts/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: neutral-worldbuilder-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[neutral-build]')
+    runs-on: windows-2022
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Preflight official reference bundle and small MOD schema
+        shell: pwsh
+        run: |
+          python -m pip install lxml==6.0.2
+          if($LASTEXITCODE -ne 0){throw 'Schema dependency installation failed'}
+          python recovery/scripts/TestNeutralWorldbuilder.py --preflight
+          if($LASTEXITCODE -ne 0){throw 'Official reference/small MOD preflight failed'}
+      - name: Managed App contracts including global and project option precedence
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            $out="recovery/artifacts/neutral-app/$mode"
+            ./recovery/scripts/BuildApp.ps1 -Tests -Configuration $mode -OutputDirectory $out
+            & "$out/NewModCompiler.AppTests.exe" "C:\neutral-app-$mode" *> "$out/contracts.log"
+            if($LASTEXITCODE -ne 0){Get-Content "$out/contracts.log" -Tail 100;throw "$mode App contracts failed"}
+            Get-Content "$out/contracts.log" -Tail 12
+          }
+      - name: Original HashFix and resolver component differential (LoD canonical is in App)
+        shell: pwsh
+        run: |
+          $vs=& "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
+          $csc=Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe'
+          foreach($mode in @('Debug','Release')) {
+            $out="recovery/artifacts/neutral-components/$mode";New-Item -ItemType Directory -Force $out|Out-Null
+            $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
+            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 /r:System.Web.Extensions.dll $opt "/out:$out/BasePostprocessControl.exe" recovery/src/App/Application/HashFix.cs recovery/src/App/Application/ModAssetResolver.cs recovery/src/App/Application/WorldbuilderPayload.cs recovery/src/App/Application/LoDStreamBuilder.cs recovery/preparation/base-postprocess/BasePostprocessControl.cs
+            if($LASTEXITCODE -ne 0){throw 'Base postprocess validation host compilation failed'}
+            python recovery/preparation/base-postprocess/TestCompilerBasePostprocess.py --tools SDK/tools --candidate "$out/BasePostprocessControl.exe" --output "$out/evidence" --hashfix-resolver-only
+            if($LASTEXITCODE -ne 0){throw "$mode original base postprocess differential failed"}
+          }
+      - name: Build current Debug and Release and production-object validation hosts
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            $out="recovery/artifacts/neutral-product/$mode"
+            ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory $out
+            ./recovery/scripts/BuildCompilerValidationHost.ps1 -ProductBuildDirectory $out -OutputDirectory "$out/validation"
+          }
+      - name: Existing real Core and application pipeline contracts
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/neutral-product -OutputDirectory recovery/artifacts/neutral-core
+      - name: Existing real production CLI success failure cancellation and retry
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerCli.ps1 -CompilerDirectory recovery/artifacts/neutral-product -OutputDirectory recovery/artifacts/neutral-cli
+      - name: Actual neutral MOD configuration and original tools raw BIG differential
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            python recovery/scripts/TestNeutralWorldbuilder.py --product-build "recovery/artifacts/neutral-product/$mode" --configuration $mode --output "recovery/artifacts/neutral-mod/$mode"
+            if($LASTEXITCODE -ne 0){throw "$mode neutral small MOD/original chain failed"}
+          }
+      - name: Package exact validated three-file Debug and Release products
+        shell: pwsh
+        run: |
+          python recovery/scripts/PackageNeutralCompiler.py --product-root recovery/artifacts/neutral-product --validation-root recovery/artifacts/neutral-mod --output recovery/artifacts/neutral-packages
+          if($LASTEXITCODE -ne 0){throw 'Validated package identity check failed'}
+      - name: Summarize CI evidence
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/neutral-app/*/contracts.log
+            recovery/artifacts/neutral-product/*/build.json
+            recovery/artifacts/neutral-product/*/link-inputs.json
+            recovery/artifacts/neutral-product/*/validation/build.json
+            recovery/artifacts/neutral-product/**/*.log
+            recovery/artifacts/neutral-core/**/*.json
+            recovery/artifacts/neutral-core/**/*.log
+            recovery/artifacts/neutral-core/**/*.md
+            recovery/artifacts/neutral-core/**/*.csv
+            recovery/artifacts/neutral-core/**/*.tsv
+            recovery/artifacts/neutral-cli/**/*.json
+            recovery/artifacts/neutral-cli/**/*.log
+            recovery/artifacts/neutral-cli/**/*.md
+            recovery/artifacts/neutral-cli/**/*.csv
+            recovery/artifacts/neutral-cli/**/*.tsv
+            recovery/artifacts/neutral-components/**/*.json
+            recovery/artifacts/neutral-components/**/*.log
+            recovery/artifacts/neutral-components/**/*.md
+            recovery/artifacts/neutral-components/**/*.csv
+            recovery/artifacts/neutral-components/**/*.tsv
+            recovery/artifacts/neutral-mod/**/*.json
+            recovery/artifacts/neutral-mod/**/*.log
+            recovery/artifacts/neutral-mod/**/*.md
+            recovery/artifacts/neutral-mod/**/*.csv
+            recovery/artifacts/neutral-mod/**/*.tsv
+            recovery/artifacts/neutral-packages/**/*.json
+            recovery/artifacts/neutral-packages/**/*.log
+            recovery/artifacts/neutral-packages/**/*.md
+            recovery/artifacts/neutral-packages/**/*.csv
+            recovery/artifacts/neutral-packages/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'neutral-worldbuilder-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/neutral-app/*/contracts.log
+            recovery/artifacts/neutral-product/*/build.json
+            recovery/artifacts/neutral-product/*/link-inputs.json
+            recovery/artifacts/neutral-product/*/validation/build.json
+            recovery/artifacts/neutral-product/**/*.log
+            recovery/artifacts/neutral-core/**/*.json
+            recovery/artifacts/neutral-core/**/*.log
+            recovery/artifacts/neutral-core/**/*.md
+            recovery/artifacts/neutral-core/**/*.csv
+            recovery/artifacts/neutral-core/**/*.tsv
+            recovery/artifacts/neutral-cli/**/*.json
+            recovery/artifacts/neutral-cli/**/*.log
+            recovery/artifacts/neutral-cli/**/*.md
+            recovery/artifacts/neutral-cli/**/*.csv
+            recovery/artifacts/neutral-cli/**/*.tsv
+            recovery/artifacts/neutral-components/**/*.json
+            recovery/artifacts/neutral-components/**/*.log
+            recovery/artifacts/neutral-components/**/*.md
+            recovery/artifacts/neutral-components/**/*.csv
+            recovery/artifacts/neutral-components/**/*.tsv
+            recovery/artifacts/neutral-mod/**/*.json
+            recovery/artifacts/neutral-mod/**/*.log
+            recovery/artifacts/neutral-mod/**/*.md
+            recovery/artifacts/neutral-mod/**/*.csv
+            recovery/artifacts/neutral-mod/**/*.tsv
+            recovery/artifacts/neutral-packages/**/*.json
+            recovery/artifacts/neutral-packages/**/*.log
+            recovery/artifacts/neutral-packages/**/*.md
+            recovery/artifacts/neutral-packages/**/*.csv
+            recovery/artifacts/neutral-packages/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

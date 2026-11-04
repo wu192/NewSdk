@@ -1,0 +1,5 @@
+System.Exception: indexed.bmp/A8R8G8B8 decoded max errors color=255, alpha=0
+   at TextureCommonFormats.Need(Boolean value, String message)
+   at TextureCommonFormats.Pixels(Byte[] expected, Byte[] actual, Int32 colorLimit, Int32 alphaLimit, String name)
+   at TextureCommonFormats.Check(String file, String format, String expectedPixels, Boolean mipmaps, Boolean demand, Int32 colorLimit, Int32 alphaLimit)
+   at TextureCommonFormats.Main(String[] args)

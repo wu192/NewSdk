@@ -78,7 +78,10 @@ foreach($kind in @('nativeSources','unmanagedSources','bridgeSources')) {
             $sourceRecords+=@{path=$relative;sha256=(Get-FileHash $source -Algorithm SHA256).Hash.ToLowerInvariant();generatedSha256=$generatedHash;object=$object;kind=$kind}
             continue
         }
-        $arguments=@('/nologo','/c','/MD','/std:c++17','/fp:precise',$optimization,('/Fo'+$object))
+        # PublicS3's endpoint search depends on the original x86 rounding and
+        # operation order. Keep its established strict floating point recipe.
+        $floatingPoint=if($relative -like 'recovery/src/Native/Texture/*'){@('/arch:SSE2','/fp:strict','/fp:except-')}else{@('/fp:precise')}
+        $arguments=@('/nologo','/c','/MD','/std:c++17')+$floatingPoint+@($optimization,('/Fo'+$object))
         if($kind -eq 'unmanagedSources'){$arguments+='/EHsc'}
         else{$arguments+=@('/clr','/EHa',('/AI'+[IO.Path]::GetDirectoryName($foundation)))}
         $arguments+=$compileSource
@@ -97,7 +100,7 @@ $bridgeUnity=Join-Path $generated 'CompilerBridges.cpp'
 $unityLines=@('// Explicit production Bridge unity translation unit.')
 foreach($path in $bridgeGenerated){$unityLines+=('#include "'+$path.Replace('\','/')+'"')}
 [IO.File]::WriteAllLines($bridgeUnity,[string[]]$unityLines,[Text.UTF8Encoding]::new($false))
-$unityArguments=@('/nologo','/c','/clr','/MD','/EHa','/std:c++17','/fp:precise',$optimization,('/AI'+[IO.Path]::GetDirectoryName($foundation)),('/Fo'+$bridgeUnityObject),$bridgeUnity)
+$unityArguments=@('/nologo','/c','/clr','/MD','/EHa','/std:c++17','/fp:precise','/DNEWSdk_MONOLITHIC',$optimization,('/AI'+[IO.Path]::GetDirectoryName($foundation)),('/Fo'+$bridgeUnityObject),$bridgeUnity)
 $unityLog=Join-Path $logs 'CompilerBridges.log'
 & cl.exe @unityArguments *> $unityLog
 if($LASTEXITCODE -ne 0){Get-Content $unityLog -Tail 100|ForEach-Object{Write-Host $_};throw 'Unified Bridge compilation failed'}

@@ -32,9 +32,31 @@ jobs:
             python recovery/preparation/assetmerge/TestCompilerAssetMerge.py --original SDK/tools/AssetMerge.exe --candidate "$out/AssetMergeControl.exe" --output "$out/evidence"
             if($LASTEXITCODE -ne 0){throw 'Original AssetMerge raw differential failed'}
           }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/assetmerge/**/*.json
+            recovery/artifacts/assetmerge/**/*.log
+            recovery/artifacts/assetmerge/**/*.md
+            recovery/artifacts/assetmerge/**/*.csv
+            recovery/artifacts/assetmerge/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: prepared-assetmerge-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/artifacts/assetmerge/**
-          if-no-files-found: error
+          name: 'prepared-assetmerge-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/assetmerge/**/*.json
+            recovery/artifacts/assetmerge/**/*.log
+            recovery/artifacts/assetmerge/**/*.md
+            recovery/artifacts/assetmerge/**/*.csv
+            recovery/artifacts/assetmerge/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

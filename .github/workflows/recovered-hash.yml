@@ -26,12 +26,34 @@ jobs:
       - name: Compare all FastHash overloads against original DLL
         shell: pwsh
         run: ./recovery/scripts/TestHash.ps1
-      - name: Upload validation evidence
+      - name: Summarize CI evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: hash-validation-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'hash-validation-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/hash/validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn
       - name: Save successful immutable validation
         shell: pwsh
         run: |

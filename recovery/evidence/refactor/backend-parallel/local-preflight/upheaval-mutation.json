@@ -1,0 +1,12 @@
+{
+  "succeeded": true,
+  "scope": "Static original SDK XSD validation of actual single-animation Upheaval mutation; not a compiler/runtime claim",
+  "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+  "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/EXJAPANARROWGEO.w3x",
+  "beforeSha256": "56bc903f58a43c8b6321c5a5ca1e67f1affe5580988004933c97ee6f36882936",
+  "afterSha256": "09b01939d1b0164896e48698aab2127dc851573ac5ac3dfb0d3194ef8052ead7",
+  "reachableDefinitions": 44,
+  "beforeFrameRate": "30",
+  "afterFrameRate": "31",
+  "originalFrameRateType": "xs:unsignedInt"
+}

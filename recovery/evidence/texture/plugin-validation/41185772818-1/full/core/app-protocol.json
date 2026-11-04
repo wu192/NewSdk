@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "1.0",
+  "status": "passed",
+  "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+  "sourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+  "artifactId": null,
+  "artifactArchiveSha256": null,
+  "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+  "packages": {
+    "jsonschema": "4.23.0",
+    "rfc3339-validator": "0.1.4",
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1"
+  },
+  "pythonVersion": "3.12.10",
+  "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+  "schemaInputs": [
+    {
+      "path": "build-event.schema.json",
+      "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+    },
+    {
+      "path": "build-report.schema.json",
+      "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+    }
+  ],
+  "matrix": [
+    {
+      "configuration": "Debug",
+      "reports": 15,
+      "eventFiles": 15,
+      "events": 489
+    },
+    {
+      "configuration": "Release",
+      "reports": 15,
+      "eventFiles": 15,
+      "events": 489
+    }
+  ],
+  "validatedFiles": [
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/artifact-sink-failure/build-report.json",
+      "sha256": "25f5ab7887055e8a6a0c6dcf69ba890e9ae0fb8264132f43646f04f78811d03a"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/artifact-sink-failure/build.events.jsonl",
+      "sha256": "3d96fc76e112ac9a99db56f3963496f70c69719c32d1d9122eb36371bad20b20"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/cancel-at-stream-boundary/build-report.json",
+      "sha256": "2c662fd046d36299ed8d64c3108de5d8c697ba9272dc8e24e4b13f503738743d"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/cancel-at-stream-boundary/build.events.jsonl",
+      "sha256": "d6fbea00428f9506e047b17a3e30c9746857220b7224e96884f303ec6f60d584"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/core-diagnostic-bridge-contract/build-report.json",
+      "sha256": "86d907196912c6417fdbfff053fc4faecc874b877167e3c0b9a23ad3938f672b"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/core-diagnostic-bridge-contract/build.events.jsonl",
+      "sha256": "85294dc772413cfbde16be24881a5327cdde3c0e42533d36bcfb96795f1c111c"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/core-trace-sink-failure/build-report.json",
+      "sha256": "89a9e679d22571cea73b592371581e9d158a1d656b3fee92d06b36f3d4603ba9"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/core-trace-sink-failure/build.events.jsonl",
+      "sha256": "ca3af82ece6afba971b4054e07473de490cc4601e58eab78f7ed253439b11fbc"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/empty-optional-groups/build-report.json",
+      "sha256": "7c268fc350e7fd7ff17bcff53d0995278c71b2043c9d8df8d08dd6f98488543e"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/empty-optional-groups/build.events.jsonl",
+      "sha256": "88d3ba01e3b38f2d65de3d8509bc79a7054bde893f0d9caed5294f69fc727936"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/retry-after-cancel/build-report.json",
+      "sha256": "61ba5d9d26187b81d548fcfe44bb0f8f6c7230de40aed6ed7b8ebe6d32744b27"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/retry-after-cancel/build.events.jsonl",
+      "sha256": "172b47a00db0f26060b09c24662602e88690d8cf04bd640f695f1befb47bf0d9"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/retry-after-core-trace-sink-failure/build-report.json",
+      "sha256": "e8e3747530dafdfb383041bdda7ab2d1450059ed5eac8aaed5f83161368fdea3"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/retry-after-core-trace-sink-failure/build.events.jsonl",
+      "sha256": "89260e674b393a4a94833affd124b476e47e9006d96c504bbe9555f8c55d8dae"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/retry-after-sink-failure/build-report.json",
+      "sha256": "55226759e2cee7d9f2b3eeaa5af79414f7ebca3daaeaeb1d71b803fe864ff951"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/retry-after-sink-failure/build.events.jsonl",
+      "sha256": "ba1ae137db3eb7ea609f2d16d562e62fb7f7159ac274804e390f4db9d5817554"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-1/build-report.json",
+      "sha256": "b659b18a2158430b0f280cf9d9c0b4f7b9516b4d032f2668b81d248ce8150190"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-1/build.events.jsonl",
+      "sha256": "a18b484b6edb7468d128c5219b0ab471525ff57a78a4205a28393515633eba9d"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-2/build-report.json",
+      "sha256": "b508a8ca90077737b5af42d6a558cb4cf8e04a872ec9db5cf1bfa8024b48345a"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-2/build.events.jsonl",
+      "sha256": "fdf3e28731476b4e63caab62140fad8dbe21ea60fac9cebd2d59915d966351a1"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-3/build-report.json",
+      "sha256": "c88457d96dbdca7200211ef8364c91bcdaa618072463233d508a3b22ae63d69f"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-3/build.events.jsonl",
+      "sha256": "d54018bba27d03fbbb9f3418ea90eb7a28788a45fd90ae96083fdc085d15a712"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-4/build-report.json",
+      "sha256": "ab8a57a2596f5c0b18ae9a7bc8bec3481abf9c64c99ee1d9d2e3476060fd33f5"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-4/build.events.jsonl",
+      "sha256": "a195972c98eb92a14102429bc7017e776fc57aa2966be786c85dabda93946619"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-5/build-report.json",
+      "sha256": "9147a8b2030b720ef4d3f4373ef6bcd889474c47ccd5b4ad6de92f1a5aac3d84"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-5/build.events.jsonl",
+      "sha256": "762f0685e4ac99397bcceb4c3769bba471a07e4c0902b6bf0adb86b937e37ed0"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-6/build-report.json",
+      "sha256": "93efd015e7f79d4cf63168458158452ab8b3ef9c6bb536379f9dc7231ae0f945"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-6/build.events.jsonl",
+      "sha256": "15c2c7b97761a70c6477fa5243b1c553b01645f0f6766cdd8360d7217c122d6f"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-7/build-report.json",
+      "sha256": "ab7513280fd047dd304040163aed5cdb887a807aaee88c8536925985842cf5cf"
+    },
+    {
+      "path": "Debug/CompilerApplicationBuild/protocol/selection-7/build.events.jsonl",
+      "sha256": "05b4eddec788aa69a0e4cce4f29f2b87bde3e36dc545b10fb5960386e882fb09"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/artifact-sink-failure/build-report.json",
+      "sha256": "4076a5e0c627c512cd3cab09da3306a0a12772a54460b74fb8bf4c4eeb32bd1b"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/artifact-sink-failure/build.events.jsonl",
+      "sha256": "e25afc7e236a9d38b442b64f350e2103ed1189450767b5ca028b9cc74a10a707"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/cancel-at-stream-boundary/build-report.json",
+      "sha256": "8ae53e0c64c07095ffbaeb1f98c065d6ac2d3384718bd430a2054fec95d71b16"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/cancel-at-stream-boundary/build.events.jsonl",
+      "sha256": "46346dd366a5853cd92388c30f5cc02f380378530440c02b955f98d65067a250"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/core-diagnostic-bridge-contract/build-report.json",
+      "sha256": "15e7993e3dea45e6140be34adf3d2473dcaf714fcbc80854c1ca56978d0a2781"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/core-diagnostic-bridge-contract/build.events.jsonl",
+      "sha256": "9837432b49e8f048ffeeff654dd7c6f7cfd514fb8e64b8c8a8b5e1dad2498bf5"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/core-trace-sink-failure/build-report.json",
+      "sha256": "9d208d455d7a60996ce80a7a8da8cd08cb8d44b86e098b27328029a5b4f0ec83"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/core-trace-sink-failure/build.events.jsonl",
+      "sha256": "fe367f689e764de22922b679d0228b9987b6cc731df1ed112ab69195fcd75998"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/empty-optional-groups/build-report.json",
+      "sha256": "3d4e311a6024f8795f8f86a7347b868d744c09dd84da1cea395706246586fce3"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/empty-optional-groups/build.events.jsonl",
+      "sha256": "ebd2117b2f525fc93bdff5ed0295a89bc902cafa2ce082f3d282450893edd219"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/retry-after-cancel/build-report.json",
+      "sha256": "759aa6f44df531357ccf030b9e0478a21285e7ba21b78d2174e67884c51b4e33"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/retry-after-cancel/build.events.jsonl",
+      "sha256": "c6ea2c4fbe8cdefa21457ce60220ed5b95d6e4a4011fa947fbd3373c8eeaac68"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/retry-after-core-trace-sink-failure/build-report.json",
+      "sha256": "296fe20906d8c09c1be1f8e7eb0a4149117b5471dc801276e6929249070a1284"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/retry-after-core-trace-sink-failure/build.events.jsonl",
+      "sha256": "684d6db3829e6ecb685345d5d54b1eb5f4ac57fb77e6f2154ba684d9dbde9a20"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/retry-after-sink-failure/build-report.json",
+      "sha256": "9e9a83299179567255f9bcbb88e742f659afa5dcda329374a08759ec79653e9a"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/retry-after-sink-failure/build.events.jsonl",
+      "sha256": "13c56b8d2169057a2c41368d3b40d9f76b5f9caa0ae17b20c20bea4658a5e15b"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-1/build-report.json",
+      "sha256": "7f231100928801493a0229a895ff9dab2fb9d7dec611d3a72d33cba4b808c670"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-1/build.events.jsonl",
+      "sha256": "b23f37e1c8e3f2f48a8f05c383571ee1c67a9c87bae16d571ebe63eec1728241"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-2/build-report.json",
+      "sha256": "e77269d288131fee3f50e91a91abc47f25a4408ebf2219e5a5a2718da1a0b363"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-2/build.events.jsonl",
+      "sha256": "4259f7e34cf3258ea9b24fb260dc8fc75811061283997c4182d2a210c9030880"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-3/build-report.json",
+      "sha256": "d53102a2131e6b16d7a069b15ce18cfb775f727e6dd976c530904d7f9f67f478"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-3/build.events.jsonl",
+      "sha256": "07db95e77c897ed36c9a7d29a55d2ed8b79f1808cef519d323a1acee77757d22"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-4/build-report.json",
+      "sha256": "00d55b244d45c401d0d721ed66ff59587d2126a2464b47a9c306c70a41111060"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-4/build.events.jsonl",
+      "sha256": "e004d5a2f7d7c8560c65617f9744cecd03d7782816d6bc31e3a7658404b26754"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-5/build-report.json",
+      "sha256": "ef0796dd66eca5136656c9211891cb88900c555e5d111f7a6cd0b5138094d837"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-5/build.events.jsonl",
+      "sha256": "5ef5ff0b92b8a5483eae6b311ea41d2d31fc8c29cbf75853b0364c86740c84d4"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-6/build-report.json",
+      "sha256": "c82f5696ea560f4edb1384de09799ea9fb42938a716159454bae8899f2702be0"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-6/build.events.jsonl",
+      "sha256": "de763d6aa8a964474c13859969f8b1d3587c68e0a48dfb03c210efcd6331d109"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-7/build-report.json",
+      "sha256": "df8ac4b2a4ca9f3d2055fe65f6167ab8fed2c27a1a1aa9bfb027d5b6de8bd34d"
+    },
+    {
+      "path": "Release/CompilerApplicationBuild/protocol/selection-7/build.events.jsonl",
+      "sha256": "8a71e4390892538ce5776db3c552630d2b2db61c9e7aa3a993db565483025b6c"
+    }
+  ],
+  "errorCount": 0,
+  "errors": [],
+  "notes": [
+    "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+    "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+  ]
+}

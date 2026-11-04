@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "20a367c0d7de051257f58ba4d0a62edbcddaf144",
+  "runId": 41178734603,
+  "runAttempt": 1,
+  "conclusion": "failure",
+  "url": "https://github.com/wu162/NewSdk/actions/runs/41178734603",
+  "artifact": {
+    "id": 13034611637,
+    "bytes": 125512088,
+    "sha256": "00185584830222ca000fb478c4b59ef16d186bddb292573ef882d1519b080f2a",
+    "downloadedAndVerified": true
+  },
+  "failures": [
+    {
+      "scope": "Core lifecycle controller",
+      "reason": "Removed external Texture DLL/patch variables were still read by the test runner. Fixed in 398cc94b0; product EXE/runtime invariance checks remain."
+    },
+    {
+      "scope": "Common formats RLE fixture",
+      "reason": "Generator emitted a 128-pixel raw RLE packet across a 16-pixel scanline, which original D3DX and restored TGA decoder reject. PNG/raw TGA passed before the RLE case. Fixed generator in 272515c3e without changing production decoder or relaxing assertions."
+    }
+  ],
+  "independentPassedScopes": [
+    "Debug/Release source build, three-file deployment and routes",
+    "Original Texture/OnDemand/TerrainAtlas raw buffers and CDATA/error differential",
+    "64 certified backend/cache/jobs cases",
+    "Production CLI and cancellation/protocol",
+    "Build/session cache, input roots and Audio/W3X CDATA",
+    "BIG/MakeBig differential"
+  ],
+  "notCompleted": [
+    "Common format matrix after RLE",
+    "Full mymod SDK and standalone release ZIP gates (skipped after failure)"
+  ]
+}

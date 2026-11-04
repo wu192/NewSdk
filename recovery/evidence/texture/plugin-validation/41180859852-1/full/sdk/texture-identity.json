@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "implementation": "original-codec-with-source-processing-identity",
+  "originalTextureSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "overrides": [
+    "GetVersionNumber",
+    "ExtendedTypeInformation.ProcessingHash"
+  ],
+  "unchanged": [
+    "ProcessInstance",
+    "GetAllTypesHash",
+    "TypeName",
+    "TypeId",
+    "TypeHash",
+    "HasCustomData",
+    "Tokenized",
+    "UseBuildCache",
+    "Initialize",
+    "ReInitialize",
+    "Dispose"
+  ],
+  "sources": [
+    {
+      "path": "recovery/tests/TextureOriginalIdentityPlugin.cs",
+      "sha256": "5d64be84513331734791ec7f9819905b79dde25ce39e456e48dbbaa2ee23d204"
+    },
+    {
+      "path": "recovery/src/Plugin/Texture/TextureCatalog.cs",
+      "sha256": "289edf9105eb5628e9cd774069f6f0d5ec829c6ec9956e51b089944545947851"
+    }
+  ],
+  "assemblySha256": "8940c1e9863cfa856c3b291ed6a3967c89f851406a718febd462416c38eea31c",
+  "originalCoreSha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+  "scope": "Test-only original BAB route; original codec and AssetBuffer bytes, source version/processing hashes for intentional cache invalidation; raw four-stream and CDATA comparisons remain strict"
+}

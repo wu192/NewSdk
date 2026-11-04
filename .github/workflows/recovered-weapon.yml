@@ -213,21 +213,31 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Evidence rebase failed; artifact remains available' }
           git push origin HEAD:recovery/compiler-source
           if ($LASTEXITCODE -ne 0) { throw 'Evidence push failed; artifact remains available' }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
-        with:
-          name: recovered-weapon-evidence
-          path: |
-            recovery/evidence/weapon
-            recovery/decompiled/BinaryAssetBuilder.Tokenizer/-Module-.cs
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/weapon/**/*.json
+            recovery/evidence/weapon/**/*.log
+            recovery/evidence/weapon/**/*.md
+            recovery/evidence/weapon/**/*.csv
+            recovery/evidence/weapon/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
       - uses: actions/upload-artifact@v4
-        if: success()
+        if: failure()
         with:
-          name: recovered-weapon-component-x86
+          name: 'recovered-weapon-evidence'
           path: |
-            ${{ runner.temp }}/ra3-recovered-weapon/Recovered.Weapon.dll
-            ${{ runner.temp }}/ra3-recovered-weapon/Recovered.WeaponPlugin.dll
-          if-no-files-found: error
-
-
-
+            recovery/evidence/weapon/**/*.json
+            recovery/evidence/weapon/**/*.log
+            recovery/evidence/weapon/**/*.md
+            recovery/evidence/weapon/**/*.csv
+            recovery/evidence/weapon/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

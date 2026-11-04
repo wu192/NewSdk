@@ -10,13 +10,8 @@
 namespace Recovered { namespace Native { namespace VisualSystemsDetail {
 using Relo::U32;using Node=XmlvisualsystemsNode;
 void Check(bool ok,const char* s){if(!ok)throw std::invalid_argument(s);}
-bool In(const std::string& n,const char* list){return(std::string("|")+list+"|").find("|"+n+"|")!=std::string::npos;}
-void Validate(const Node& n,const char* attrs,const char* children,bool root=false){
-    Check(n.value.find_first_not_of(" \t\r\n")==std::string::npos,"Unexpected visual systems text.");
-    for(const auto& a:n.attributes)Check(a.first=="TypeId"||(root&&(a.first=="id"||a.first=="inheritFrom"))||In(a.first,attrs),"Unknown visual systems attribute.");
-    for(const auto& c:n.children)Check(In(c.name,children),"Unknown visual systems child.");
-}
-const Node* Child(const Node& n,const char* name){const Node* result=nullptr;for(const auto& c:n.children)if(c.name==name){Check(!result,"Duplicate visual systems singleton.");result=&c;}return result;}
+
+const Node* Child(const Node& n,const char* name){const Node* result=nullptr;for(const auto& c:n.children)if(c.name==name){result=&c;}return result;}
 void Swap(void* p){U32 v;std::memcpy(&v,p,4);v=(v<<24)|((v<<8)&0xff0000u)|((v>>8)&0xff00u)|(v>>24);std::memcpy(p,&v,4);}
 enum Kind {Real,Time,Signed,Bool,Reference,String,Weak};
 struct Field {const char* name;unsigned offset;Kind kind;const char* fallback;};
@@ -36,10 +31,10 @@ struct Builder {
 unsigned int XmlvisualsystemsTypeId(const std::string& name){if(name=="BreezeInfo")return 1626415288u;if(name=="ModelSettings")return 1968811301u;if(name=="AutoParticleSystemSettings")return 3278684478u;return 0;}
 Relo::Chunk CompileXmlvisualsystems(const XmlvisualsystemsNode& n,bool bigEndian){using namespace VisualSystemsDetail;static_assert(sizeof(void*)==4,"Visual systems require x86.");
     unsigned id=XmlvisualsystemsTypeId(n.name);Check(id!=0,"Unsupported visual systems root.");Builder b;unsigned char* root=nullptr;b.tracker.Push(reinterpret_cast<void**>(&root),id==1626415288u?28:id==1968811301u?24:124,1);
-    if(id==1626415288u){Validate(n,"Direction|Intensity|Lean|Randomness|BreezePeriod|LoadAfter","",true);b.Fields(n,root,breeze,6);}
-    else if(id==1968811301u){Validate(n,"ForceModelsToFollowTimeOfDay|ForceModelsToFollowWeather|AnimationSharingCap|AnimationSharingFrameTolerance|AnimationSharingDrasticThreshold|LoadAfter","",true);b.Fields(n,root,model,6);}
-    else{Validate(n,"ParticleScale|MaxParticleCount","FireSmall|FireMedium|FireLarge|SmokeSmall|SmokeMedium|SmokeLarge|Aflame",true);b.Fields(n,root,particle,2);
-        const char* names[]={"FireSmall","FireMedium","FireLarge","SmokeSmall","SmokeMedium","SmokeLarge","Aflame"};for(unsigned i=0;i<7;++i)if(const Node* c=Child(n,names[i])){Validate(*c,"ParticlePrefix|ParticleSystemId|ParticleMax","");b.Fields(*c,root+12+16*i,settings,3);}
+    if(id==1626415288u){b.Fields(n,root,breeze,6);}
+    else if(id==1968811301u){b.Fields(n,root,model,6);}
+    else{b.Fields(n,root,particle,2);
+        const char* names[]={"FireSmall","FireMedium","FireLarge","SmokeSmall","SmokeMedium","SmokeLarge","Aflame"};for(unsigned i=0;i<7;++i)if(const Node* c=Child(n,names[i])){b.Fields(*c,root+12+16*i,settings,3);}
     }
     if(bigEndian)for(void* word:b.words)Swap(word);
     return b.tracker.MakeRelocatable(bigEndian,0);

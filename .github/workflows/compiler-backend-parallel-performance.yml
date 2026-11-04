@@ -1,0 +1,102 @@
+name: Accepted legacy backend parallel performance
+on:
+  push:
+    branches: [recovery/legacy-sdk-cache]
+    paths:
+      - '.github/workflows/compiler-backend-parallel-performance.yml'
+      - 'recovery/scripts/DownloadAcceptedParallelRuntime.py'
+      - 'recovery/scripts/MeasureCompilerParallel.py'
+  workflow_dispatch:
+    inputs:
+      validation_run_id:
+        description: 'Lifecycle run with every functional scope accepted; only its independent measurement step may fail'
+        required: true
+        default: '40915444929'
+        type: string
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: accepted-backend-parallel-performance-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  measure:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[parallel-performance]')
+    runs-on: windows-2022
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_RUN: ${{ inputs.validation_run_id || '40915444929' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Verify accepted functional scopes, unchanged inputs and archive bytes
+        shell: pwsh
+        run: |
+          python recovery/scripts/DownloadAcceptedParallelRuntime.py --repo . --run $env:SOURCE_RUN --output recovery/artifacts/accepted-parallel-runtime --archive "$env:RUNNER_TEMP/accepted-parallel-runtime.zip"
+          if($LASTEXITCODE -ne 0){throw 'Accepted production runtime reuse rejected'}
+      - name: Full same-VM Upheaval jobs 1 4 auto raw-byte and legacy-cache A/B
+        shell: pwsh
+        run: |
+          $receipt=Get-Content recovery/artifacts/accepted-parallel-runtime/reuse.json -Raw|ConvertFrom-Json
+          python recovery/scripts/MeasureCompilerParallel.py --repo . --exe recovery/artifacts/accepted-parallel-runtime/NewModCompiler.exe --work "$env:RUNNER_TEMP/upheaval-parallel" --output recovery/evidence/refactor/backend-parallel-performance --source-commit $env:GITHUB_SHA --binary-source-commit $receipt.binarySourceCommit --budget 1320
+          $result=$LASTEXITCODE
+          if(Test-Path recovery/evidence/refactor/backend-parallel-performance/measurement.md){Get-Content recovery/evidence/refactor/backend-parallel-performance/measurement.md|Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($result -ne 0){throw 'Full same-VM backend parallel A/B failed'}
+      - name: Summarize compiler-backend-parallel-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/backend-parallel-performance/**/*.json
+            recovery/evidence/refactor/backend-parallel-performance/**/*.md
+            recovery/evidence/refactor/backend-parallel-performance/**/*.csv
+            recovery/evidence/refactor/backend-parallel-performance/**/*.tsv
+            recovery/artifacts/accepted-parallel-runtime/**/*.json
+            recovery/artifacts/accepted-parallel-runtime/**/*.md
+            recovery/artifacts/accepted-parallel-runtime/**/*.csv
+            recovery/artifacts/accepted-parallel-runtime/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-backend-parallel-performance reports"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: accepted-backend-parallel-performance-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/backend-parallel-performance/**/*.json
+            recovery/evidence/refactor/backend-parallel-performance/**/*.md
+            recovery/evidence/refactor/backend-parallel-performance/**/*.csv
+            recovery/evidence/refactor/backend-parallel-performance/**/*.tsv
+            recovery/artifacts/accepted-parallel-runtime/**/*.json
+            recovery/artifacts/accepted-parallel-runtime/**/*.md
+            recovery/artifacts/accepted-parallel-runtime/**/*.csv
+            recovery/artifacts/accepted-parallel-runtime/**/*.tsv
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-backend-parallel-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/backend-parallel-performance/**/*.log
+            recovery/evidence/refactor/backend-parallel-performance/**/*.jsonl
+            recovery/artifacts/accepted-parallel-runtime/**/*.log
+            recovery/artifacts/accepted-parallel-runtime/**/*.jsonl
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-backend-parallel-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: accepted-backend-parallel-performance-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/backend-parallel-performance/**/*.log
+            recovery/evidence/refactor/backend-parallel-performance/**/*.jsonl
+            recovery/artifacts/accepted-parallel-runtime/**/*.log
+            recovery/artifacts/accepted-parallel-runtime/**/*.jsonl
+          retention-days: 1
+          if-no-files-found: warn

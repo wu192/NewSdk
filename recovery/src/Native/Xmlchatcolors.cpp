@@ -9,9 +9,8 @@
 namespace Recovered { namespace Native { namespace ChatColorsDetail {
 using Relo::U32;using Node=XmlchatcolorsNode;
 void Check(bool ok,const char* s){if(!ok)throw std::invalid_argument(s);}
-bool In(const std::string& n,const char* list){return(std::string("|")+list+"|").find("|"+n+"|")!=std::string::npos;}
-void Validate(const Node& n,const char* attrs,const char* children,bool root=false,bool text=false){Check(text||n.value.find_first_not_of(" \t\r\n")==std::string::npos,"Unexpected chat colors text.");for(const auto& a:n.attributes)Check(a.first=="TypeId"||(root&&(a.first=="id"||a.first=="inheritFrom"))||In(a.first,attrs),"Unknown chat colors attribute.");for(const auto& c:n.children)Check(In(c.name,children),"Unknown chat colors child.");}
-const Node* Child(const Node& n,const char* name){const Node* r=nullptr;for(const auto& c:n.children)if(c.name==name){Check(!r,"Duplicate chat colors singleton.");r=&c;}return r;}
+
+const Node* Child(const Node& n,const char* name){const Node* r=nullptr;for(const auto& c:n.children)if(c.name==name){r=&c;}return r;}
 std::string Value(const Node& n,const char* a,const char* d=""){auto i=n.attributes.find(a);return i==n.attributes.end()?d:i->second;}
 void Swap(void* p){U32 v;std::memcpy(&v,p,4);v=(v<<24)|((v<<8)&0xff0000u)|((v>>8)&0xff00u)|(v>>24);std::memcpy(p,&v,4);}
 struct Builder{
@@ -19,12 +18,12 @@ struct Builder{
  void Word(void* p,U32 v){std::memcpy(p,&v,4);words.push_back(p);}
  void Real(void* p,float v){std::memcpy(p,&v,4);words.push_back(p);}
  void Ref(const Node& n,const char* attr,unsigned char* p){auto a=n.attributes.find(attr);if(a!=n.attributes.end())MarshalReference(t,p,a->second);}
- void Packed(const Node* n,unsigned char* p){if(!n)return;Validate(*n,"R|G|B|A","");U32 r=ParseUnsigned(Value(*n,"R","0"))&255,g=ParseUnsigned(Value(*n,"G","0"))&255,b=ParseUnsigned(Value(*n,"B","0"))&255,a=ParseUnsigned(Value(*n,"A","255"))&255;Word(p,(a<<24)|(r<<16)|(g<<8)|b);}
+ void Packed(const Node* n,unsigned char* p){if(!n)return;U32 r=ParseUnsigned(Value(*n,"R","0"))&255,g=ParseUnsigned(Value(*n,"G","0"))&255,b=ParseUnsigned(Value(*n,"B","0"))&255,a=ParseUnsigned(Value(*n,"A","255"))&255;Word(p,(a<<24)|(r<<16)|(g<<8)|b);}
 };
 }
 unsigned int XmlchatcolorsTypeId(const std::string& name){return name=="OnlineChatColors"?1345252658u:0;}
 Relo::Chunk CompileXmlchatcolors(const XmlchatcolorsNode& input,bool bigEndian){
- using namespace ChatColorsDetail;static_assert(sizeof(void*)==4,"Chat colors requires x86.");Check(XmlchatcolorsTypeId(input.name)!=0,"Unsupported chat colors root.");Validate(input,"","Default|CurrentRoom|ChatRoom|Game|GameFull|GameCRCMismatch|PlayerNormal|PlayerBuddy|PlayerOwner|OfflinePlayerBuddy|PlayerSelf|PlayerIgnored|OfflinePlayerIgnored|ChatNormal|ChatEmote|ChatOwner|ChatOwnerEmote|ChatPrivate|ChatPrivateEmote|ChatPrivateOwner|ChatPrivateOwnerEmote|ChatBuddy|ChatSelf|AcceptTrue|AcceptFalse|MapSelected|MapUnselected|MessageOfTheDay|MessageOfTheDayHeading",true);Builder b;unsigned char* root=nullptr;b.t.Push(reinterpret_cast<void**>(&root),120,1);
+ using namespace ChatColorsDetail;static_assert(sizeof(void*)==4,"Chat colors requires x86.");Check(XmlchatcolorsTypeId(input.name)!=0,"Unsupported chat colors root.");Builder b;unsigned char* root=nullptr;b.t.Push(reinterpret_cast<void**>(&root),120,1);
  b.Packed(Child(input,"Default"),root+4);
  b.Packed(Child(input,"CurrentRoom"),root+8);
  b.Packed(Child(input,"ChatRoom"),root+12);

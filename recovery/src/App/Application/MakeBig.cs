@@ -65,12 +65,12 @@ namespace NewModCompiler.Packaging.MakeBigRecovery
             string directory=Path.GetDirectoryName(Filename);if(!Directory.Exists(directory))Directory.CreateDirectory(directory);
             var inputs=new List<MakeBigInput>();
             foreach(string file in files) inputs.Add(new MakeBigInput {SourcePath=file,Name=file.Substring(BaseDirectory.Length+1).ToLower().Replace('/','\\'),Length=new FileInfo(file).Length});
-            using(var output=new FileStream(Filename,FileMode.Create))WriteArchive(output,inputs,cancellation,null,Silent,Verbose,log);
+            using(var output=new FileStream(Filename,FileMode.Create))WriteArchive(output,inputs,cancellation,Silent,Verbose,log);
         }
         // Recovered Lumpy's bookmark/endian/UTF8 format is the production writer.
         // The integrated copy streams bounded chunks rather than allocating twice
         // the largest file. Entry order is supplied, never changed by this emitter.
-        internal static void WriteArchive(Stream output,IList<MakeBigInput> inputs,CancellationToken cancellation,Action<string> validateSource,bool silent=true,bool verbose=false,TextWriter log=null)
+        internal static void WriteArchive(Stream output,IList<MakeBigInput> inputs,CancellationToken cancellation,bool silent=true,bool verbose=false,TextWriter log=null)
         {
             var writer=new FixupBinaryWriter(output);writer.Write("BIG4".ToCharArray());writer.WriteBookmark("filelength",typeof(uint));writer.EndianFlip=true;writer.Write((uint)inputs.Count);writer.WriteBookmark("headerlength",typeof(uint));
             foreach(var input in inputs) {
@@ -80,7 +80,7 @@ namespace NewModCompiler.Packaging.MakeBigRecovery
             writer.Write("L219".ToCharArray());writer.Write(0u);writer.ResolveBookmark("headerlength",checked((uint)output.Position));
             var buffer=new byte[64*1024];int copied=0;
             foreach(var input in inputs) {
-                cancellation.ThrowIfCancellationRequested();if(validateSource!=null)validateSource(input.SourcePath);
+                cancellation.ThrowIfCancellationRequested();
                 writer.ResolveBookmark("offset."+(input.BookmarkKey??input.SourcePath),checked((uint)output.Position));
                 using(var source=new FileStream(input.SourcePath,FileMode.Open,FileAccess.Read,FileShare.Read)) {
                     if(source.Length!=input.Length)throw new IOException("A BIG input changed length before it was copied: "+input.Name);

@@ -180,6 +180,7 @@ def prepare(archive, candidate, output, repo):
             core_rows = core.get('modes', [])
             require(len(core_rows) == 2 and {r.get('configuration') for r in core_rows} == guard.MODES, 'Partial Core modes incomplete')
             core_modes = {r['configuration']:r for r in core_rows}
+            # Historical accepted archives included this fixture; current production no longer has the boundary.
             expected = guard.FIXTURES | {'CompilerCacheContent','CompilerCacheBoundary','CompilerInputRoots'}
             for section in ('build-cache','input-roots','cache-payloads','session-cache'):
                 require(receipts[section].get('succeeded') is True, 'Independent scope failed: ' + section)

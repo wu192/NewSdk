@@ -81,7 +81,7 @@ partial class XmlplayersOracle {
         Equal("instance",a.InstanceData,b.InstanceData);Equal("relocations",a.RelocationData,b.RelocationData);Equal("imports",a.ImportsData,b.ImportsData);Layout(d,b,p!=TargetPlatform.Win32);++fixtures;return b;
     }
     static AssetBuffer Test(IAssetBuilderPlugin o,TargetPlatform p,string label,string xml){return TestDoc(o,p,label,Parse(xml));}
-    static void Reject(string xml,TargetPlatform p){try{Recovered(Parse(xml),p);}catch(NotSupportedException){++rejections;return;}throw new Exception("Unsupported input accepted: "+xml);}
+    static void Reject(string xml,TargetPlatform p){try{PluginSchemaBoundary.Validate(Parse(xml));Recovered(Parse(xml),p);}catch(NotSupportedException){++rejections;return;}throw new Exception("Unsupported input accepted: "+xml);}
     static string Context(string type,string attrs,string children){
         if(type=="TechProductionBonusInfo")return Root("PlayerTemplate","","<TechProductionBonuses "+attrs+">"+children+"</TechProductionBonuses>");
         if(type=="PlayerTemplateAIBeaconSettings")return Root("PlayerTemplate","","<AIBeaconSettings "+attrs+">"+children+"</AIBeaconSettings>");

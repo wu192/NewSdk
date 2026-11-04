@@ -16,11 +16,34 @@ jobs:
       - name: Run the GUI's basic-data compiler command
         shell: pwsh
         run: ./recovery/scripts/Baseline.ps1
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/baseline/**/*.json
+            recovery/evidence/baseline/**/*.log
+            recovery/evidence/baseline/**/*.md
+            recovery/evidence/baseline/**/*.csv
+            recovery/evidence/baseline/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: original-basic-data-baseline
-          path: recovery/evidence/baseline
+          name: 'original-basic-data-baseline'
+          path: |
+            recovery/evidence/baseline/**/*.json
+            recovery/evidence/baseline/**/*.log
+            recovery/evidence/baseline/**/*.md
+            recovery/evidence/baseline/**/*.csv
+            recovery/evidence/baseline/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn
       - name: Commit baseline report
         if: success()
         shell: pwsh

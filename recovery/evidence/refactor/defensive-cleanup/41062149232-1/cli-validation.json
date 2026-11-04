@@ -1,0 +1,273 @@
+{
+  "sourceReceipt": "cli-validation.json",
+  "fullReceiptSha256": "0564f681f054f93588ac569fbb9e4e291311f1c07df71797da31df0d482eef92",
+  "archivePath": "direct-tests/cli/validation.json",
+  "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+  "runId": "41062149232",
+  "succeeded": true,
+  "scope": "Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/inline Texture DDS comparison; full SDK/cache acceptance remain separate; direct same-path output, selection isolation, unrelated-file preservation, failure/cancellation retry and held unselected-output acceptance passed; injected late-output persistence is checked by controlled App contracts",
+  "modes": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "cases": [
+        {
+          "name": "doctor",
+          "passed": true
+        },
+        {
+          "name": "plan-all",
+          "passed": true
+        },
+        {
+          "name": "combined",
+          "passed": true
+        },
+        {
+          "name": "ascii-companion",
+          "passed": true
+        },
+        {
+          "name": "base-only",
+          "passed": true
+        },
+        {
+          "name": "apt-only",
+          "passed": true
+        },
+        {
+          "name": "maps-only",
+          "passed": true
+        },
+        {
+          "name": "sdk-internal",
+          "passed": true
+        },
+        {
+          "name": "empty-optional",
+          "passed": true
+        },
+        {
+          "name": "compressed-session-cache",
+          "passed": true
+        },
+        {
+          "name": "bad-xml",
+          "passed": true
+        },
+        {
+          "name": "retry-after-bad",
+          "passed": true
+        },
+        {
+          "name": "log-directory-rejected",
+          "passed": true
+        },
+        {
+          "name": "required-events-fault",
+          "passed": true
+        },
+        {
+          "name": "optional-log-fault",
+          "passed": true
+        },
+        {
+          "name": "retry-after-log-fault",
+          "passed": true
+        },
+        {
+          "name": "ctrl-break",
+          "passed": true
+        },
+        {
+          "name": "retry-after-cancel",
+          "passed": true
+        },
+        {
+          "name": "direct-first",
+          "passed": true
+        },
+        {
+          "name": "direct-next-selection",
+          "passed": true
+        },
+        {
+          "name": "direct-cancel",
+          "passed": true
+        },
+        {
+          "name": "direct-compile-failure",
+          "passed": true
+        },
+        {
+          "name": "locked-unselected-output",
+          "passed": true
+        },
+        {
+          "name": "business-combined",
+          "passed": true
+        },
+        {
+          "name": "business-base-only",
+          "passed": true
+        },
+        {
+          "name": "business-apt-only",
+          "passed": true
+        },
+        {
+          "name": "business-maps-only",
+          "passed": true
+        },
+        {
+          "name": "real-ui-combined",
+          "passed": true
+        },
+        {
+          "name": "real-ui-cold-TacticalHUDBuildQueuePage",
+          "passed": true
+        },
+        {
+          "name": "real-ui-cold-TacticalHUDCommandListBox",
+          "passed": true
+        },
+        {
+          "name": "real-ui-cold-TacticalHUDMainCommandBar",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "cases": [
+        {
+          "name": "doctor",
+          "passed": true
+        },
+        {
+          "name": "plan-all",
+          "passed": true
+        },
+        {
+          "name": "combined",
+          "passed": true
+        },
+        {
+          "name": "ascii-companion",
+          "passed": true
+        },
+        {
+          "name": "base-only",
+          "passed": true
+        },
+        {
+          "name": "apt-only",
+          "passed": true
+        },
+        {
+          "name": "maps-only",
+          "passed": true
+        },
+        {
+          "name": "sdk-internal",
+          "passed": true
+        },
+        {
+          "name": "empty-optional",
+          "passed": true
+        },
+        {
+          "name": "compressed-session-cache",
+          "passed": true
+        },
+        {
+          "name": "bad-xml",
+          "passed": true
+        },
+        {
+          "name": "retry-after-bad",
+          "passed": true
+        },
+        {
+          "name": "log-directory-rejected",
+          "passed": true
+        },
+        {
+          "name": "required-events-fault",
+          "passed": true
+        },
+        {
+          "name": "optional-log-fault",
+          "passed": true
+        },
+        {
+          "name": "retry-after-log-fault",
+          "passed": true
+        },
+        {
+          "name": "ctrl-break",
+          "passed": true
+        },
+        {
+          "name": "retry-after-cancel",
+          "passed": true
+        },
+        {
+          "name": "direct-first",
+          "passed": true
+        },
+        {
+          "name": "direct-next-selection",
+          "passed": true
+        },
+        {
+          "name": "direct-cancel",
+          "passed": true
+        },
+        {
+          "name": "direct-compile-failure",
+          "passed": true
+        },
+        {
+          "name": "locked-unselected-output",
+          "passed": true
+        },
+        {
+          "name": "business-combined",
+          "passed": true
+        },
+        {
+          "name": "business-base-only",
+          "passed": true
+        },
+        {
+          "name": "business-apt-only",
+          "passed": true
+        },
+        {
+          "name": "business-maps-only",
+          "passed": true
+        },
+        {
+          "name": "real-ui-combined",
+          "passed": true
+        },
+        {
+          "name": "real-ui-cold-TacticalHUDBuildQueuePage",
+          "passed": true
+        },
+        {
+          "name": "real-ui-cold-TacticalHUDCommandListBox",
+          "passed": true
+        },
+        {
+          "name": "real-ui-cold-TacticalHUDMainCommandBar",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "originalBaselineSucceeded": null,
+  "note": "Review summary; complete raw receipt is in the downloaded, SHA256-verified workflow archive."
+}

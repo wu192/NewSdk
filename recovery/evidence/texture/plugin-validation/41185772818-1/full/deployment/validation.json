@@ -1,0 +1,62 @@
+{
+  "scope": "P4 clean unified production deployment and complete built-in route metadata; integrated backend environment rejection only; not component differential or successful MOD compilation",
+  "status": "passed",
+  "modes": [
+    {
+      "buildExit": 3,
+      "validationHostSha256": "1815886c1283212226705ca0f2e3264bbe5a549c17ae70d6e4a5f82bc083a6dc",
+      "typeInventoryVerified": true,
+      "planExit": 0,
+      "routeMetadataVerified": true,
+      "productContainsTests": false,
+      "componentExecution": "test-only host using identical production inputs",
+      "exeSha256": "221ba2554ad636006581470d5f51a42e312cecf4835b87892b2896b0aaff9ab8",
+      "runtimeFiles": [
+        "NewModCompiler.exe",
+        "NewModCompiler.exe.config",
+        "antlr.runtime.dll"
+      ],
+      "moduleInputsQuarantined": true,
+      "modCompilationValidated": false,
+      "doctorExit": 3,
+      "backendIntegrated": true,
+      "builtinRouteCount": 299,
+      "exactResourcesVerified": true,
+      "configuration": "Debug",
+      "componentDifferentialPassed": false,
+      "fakeSdkRejected": true,
+      "passed": true,
+      "builtinPluginCount": 7
+    },
+    {
+      "buildExit": 3,
+      "validationHostSha256": "f364f6055b6ba38b2661e8a99abe7fbdc5c8a73e7ec66e12e8292e9965899dd9",
+      "typeInventoryVerified": true,
+      "planExit": 0,
+      "routeMetadataVerified": true,
+      "productContainsTests": false,
+      "componentExecution": "test-only host using identical production inputs",
+      "exeSha256": "4749d8f5bff056011669ebd58827c16ebe83c04190e9f465f1b08c9dd4f107e7",
+      "runtimeFiles": [
+        "NewModCompiler.exe",
+        "NewModCompiler.exe.config",
+        "antlr.runtime.dll"
+      ],
+      "moduleInputsQuarantined": true,
+      "modCompilationValidated": false,
+      "doctorExit": 3,
+      "backendIntegrated": true,
+      "builtinRouteCount": 299,
+      "exactResourcesVerified": true,
+      "configuration": "Release",
+      "componentDifferentialPassed": false,
+      "fakeSdkRejected": true,
+      "passed": true,
+      "builtinPluginCount": 7
+    }
+  ],
+  "runId": "41185772818",
+  "runAttempt": "1",
+  "sourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+  "schemaVersion": 1
+}

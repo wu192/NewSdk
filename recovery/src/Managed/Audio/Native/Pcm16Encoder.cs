@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -64,8 +63,8 @@ namespace BinaryAssetBuilder.AudioCompiler
                 else if (tag == "smpl") throw new NotSupportedException("WAVE loop metadata is not supported by this entry point");
                 at = next + (size & 1);
             }
-            if (format != 1 || (bits != 8 && bits != 16) || (channels != 1 && channels != 2 && channels != 4 && channels != 6))
-                throw new NotSupportedException("Only 1/2/4/6-channel PCM8/16 WAVE is supported by this entry point");
+            if (format != 1 || (bits != 8 && bits != 16) || (channels != 1 && channels != 2 && channels != 4 && channels != 6 && channels != 8))
+                throw new NotSupportedException("Only 1/2/4/6/8-channel PCM8/16 WAVE is supported by this entry point");
             int bytesPerSample = bits / 8;
             if (rate <= 0 || rate > 0x3ffff || align != channels * bytesPerSample || dataOffset < 0 || dataLength % align != 0)
                 throw new InvalidDataException("Invalid PCM WAVE format");
@@ -95,6 +94,8 @@ namespace BinaryAssetBuilder.AudioCompiler
         // Original ProcessInstance oracle40249960201 confirms output->input
         // [0,1,3,2] and [0,2,1,4,5,3] for PCM8/16/24. SIMEX changes
         // destination track pointers before import; these are inverse maps.
+        // Original eight-channel oracle41258221174 confirms identity order.
+        // WAVE_EXTENSIBLE speaker masks do not request another remapping.
         internal static void RemapWaveChannels(float[] samples, int channels)
         {
             if (channels != 4 && channels != 6) return;
@@ -111,42 +112,49 @@ namespace BinaryAssetBuilder.AudioCompiler
         public static PcmEncodingResult EncodeSamples(float[] interleaved, int channels, int sampleRate, bool streamed)
         {
             if (interleaved == null) throw new ArgumentNullException("interleaved");
-            if ((channels != 1 && channels != 2 && channels != 4 && channels != 6) || interleaved.Length % channels != 0)
+            if ((channels != 1 && channels != 2 && channels != 4 && channels != 6 && channels != 8) || interleaved.Length % channels != 0)
                 throw new ArgumentOutOfRangeException("channels");
             if (sampleRate <= 0 || sampleRate > 0x3ffff) throw new ArgumentOutOfRangeException("sampleRate");
             int frames = interleaved.Length / channels;
             if (frames == 0 || frames > 0x1fffffff) throw new ArgumentOutOfRangeException("interleaved");
             byte[] header = CreateHeader(channels, sampleRate, frames, streamed);
-            List<byte> data = new List<byte>();
             int maxFrames = streamed ? NativeBlockFrames(sampleRate * channels * 2.0f, sampleRate) : frames;
+            byte[] custom = new byte[checked((streamed ? 0 : header.Length) + SegmentLength(frames, channels, maxFrames, streamed))];
+            if (!streamed) Buffer.BlockCopy(header, 0, custom, 0, header.Length);
+            EncodeSegment(interleaved, 0, frames, channels, maxFrames, streamed, custom, streamed ? 0 : header.Length);
+            return new PcmEncodingResult(streamed ? header : new byte[0], custom, sampleRate, channels, frames);
+        }
+
+        internal static int SegmentLength(int frames, int channels, int maximum, bool streamed)
+        {
+            int bytes = checked(frames * channels * 2 + ((frames - 1) / maximum + 1) * 8);
+            return streamed ? checked(bytes + 64 - bytes % 64) : bytes;
+        }
+
+        internal static void EncodeSegment(float[] interleaved, int sampleOffset, int frames,
+            int channels, int maxFrames, bool streamed, byte[] output, int outputOffset)
+        {
+            int destination = outputOffset;
             for (int frame = 0; frame < frames; )
             {
                 int count = Math.Min(maxFrames, frames - frame);
                 bool last = frame + count == frames;
                 int bytes = checked(8 + count * channels * 2);
-                int padding = streamed && last ? 64 - ((data.Count + bytes) % 64) : 0;
-                AddBE(data, (uint)(bytes + padding) | (last && streamed ? 0x80000000u : 0u));
-                AddBE(data, (uint)count);
-                for (int i = frame * channels; i < (frame + count) * channels; ++i)
+                int padding = streamed && last ? 64 - ((destination - outputOffset + bytes) % 64) : 0;
+                WriteBE(output, destination, (uint)(bytes + padding) | (last && streamed ? 0x80000000u : 0u));
+                WriteBE(output, destination + 4, (uint)count);
+                destination += 8;
+                for (int i = sampleOffset + frame * channels; i < sampleOffset + (frame + count) * channels; ++i)
                 {
                     float sample = interleaved[i];
                     if (Single.IsNaN(sample) || Single.IsInfinity(sample) || sample < -1.0f || sample > 1.0f)
                         throw new ArgumentOutOfRangeException("interleaved", "Normalized finite samples are required");
                     short encoded = unchecked((short)(int)(sample * 32767.0f));
-                    data.Add((byte)(encoded >> 8)); data.Add((byte)encoded);
+                    output[destination++] = (byte)(encoded >> 8); output[destination++] = (byte)encoded;
                 }
-                for (int i = 0; i < padding; ++i) data.Add(0);
+                destination += padding;
                 frame += count;
             }
-            byte[] custom;
-            if (streamed) custom = data.ToArray();
-            else
-            {
-                custom = new byte[header.Length + data.Count];
-                Buffer.BlockCopy(header, 0, custom, 0, header.Length);
-                data.CopyTo(custom, header.Length);
-            }
-            return new PcmEncodingResult(streamed ? header : new byte[0], custom, sampleRate, channels, frames);
         }
 
         // RVA 0x2cb50 uses the MSB-first writer at 0x2c6a0. The first
@@ -158,10 +166,10 @@ namespace BinaryAssetBuilder.AudioCompiler
         {
             if (channels < 1 || channels > 64 || rate < 0 || rate > 0x3ffff || frames < 0 || frames > 0x1fffffff)
                 throw new ArgumentOutOfRangeException();
-            List<byte> result = new List<byte>(8);
-            AddBE(result, ((uint)codec << 24) | ((uint)(channels - 1) << 18) | (uint)rate);
-            AddBE(result, (streamed ? 0x40000000u : 0u) | (uint)frames);
-            return result.ToArray();
+            byte[] result = new byte[8];
+            WriteBE(result, 0, ((uint)codec << 24) | ((uint)(channels - 1) << 18) | (uint)rate);
+            WriteBE(result, 4, (streamed ? 0x40000000u : 0u) | (uint)frames);
+            return result;
         }
 
         // RVA 0x2dad1 divides 2040 by the binary32 encoder bitrate, then
@@ -179,8 +187,11 @@ namespace BinaryAssetBuilder.AudioCompiler
             return (int)product;
         }
 
-        private static void AddBE(List<byte> output, uint value)
-        { output.Add((byte)(value >> 24)); output.Add((byte)(value >> 16)); output.Add((byte)(value >> 8)); output.Add((byte)value); }
+        internal static void WriteBE(byte[] output, int at, uint value)
+        {
+            output[at] = (byte)(value >> 24); output[at + 1] = (byte)(value >> 16);
+            output[at + 2] = (byte)(value >> 8); output[at + 3] = (byte)value;
+        }
         private static int U16(byte[] bytes, int at) { return bytes[at] | (bytes[at + 1] << 8); }
         private static uint U32(byte[] bytes, int at)
         { return (uint)(bytes[at] | (bytes[at + 1] << 8) | (bytes[at + 2] << 16) | (bytes[at + 3] << 24)); }

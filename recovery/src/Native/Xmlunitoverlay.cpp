@@ -10,12 +10,7 @@
 namespace Recovered { namespace Native { namespace UnitOverlayDetail {
 using Relo::U32;using Node=XmlunitoverlayNode;
 void Check(bool ok,const char* message){if(!ok)throw std::invalid_argument(message);}
-bool In(const std::string& name,const char* list){return(std::string("|")+list+"|").find("|"+name+"|")!=std::string::npos;}
-void Validate(const Node& n,const char* attrs,const char* children,bool root=false){
-    Check(n.value.find_first_not_of(" \t\r\n")==std::string::npos,"Unexpected overlay text.");
-    for(const auto& a:n.attributes)Check(a.first=="TypeId"||(root&&(a.first=="id"||a.first=="inheritFrom"))||In(a.first,attrs),"Unknown overlay attribute.");
-    for(const auto& c:n.children)Check(In(c.name,children),"Unknown overlay child.");
-}
+
 std::string Value(const Node& n,const char* name,const char* fallback=""){auto a=n.attributes.find(name);return a==n.attributes.end()?fallback:a->second;}
 void Swap(void* p){U32 v;std::memcpy(&v,p,4);v=(v<<24)|((v<<8)&0xff0000u)|((v>>8)&0xff00u)|(v>>24);std::memcpy(p,&v,4);}
 U32 Faction(const std::string& s){const char* names[]={"Allies","Japan","Neutral","RANDOM","Soviet"};const U32 values[]={0,2,3,0xffffffffu,1};for(unsigned i=0;i<5;++i)if(std::strcmp(s.c_str(),names[i])==0)return values[i];return 0;}
@@ -27,13 +22,13 @@ struct Builder {
     void Ranks(const Node& n,unsigned char* p){
         U32 count=static_cast<U32>(n.children.size());Word(p+4,count);if(!count)return;
         auto items=static_cast<unsigned char*>(tracker.Push(reinterpret_cast<void**>(p+8),8,count));
-        for(U32 i=0;i<count;++i){const auto& c=n.children[i];Validate(c,"Rank|Image","");auto a=c.attributes.find("Rank");if(a!=c.attributes.end())Word(items+8*i,ParseSigned(a->second));Ref(c,"Image",items+8*i+4);}
+        for(U32 i=0;i<count;++i){const auto& c=n.children[i];auto a=c.attributes.find("Rank");if(a!=c.attributes.end())Word(items+8*i,ParseSigned(a->second));Ref(c,"Image",items+8*i+4);}
         tracker.Pop();
     }
     void Factions(const Node& n,unsigned char* root){
         U32 count=static_cast<U32>(n.children.size());Word(root+96,count);if(!count)return;
         auto items=static_cast<unsigned char*>(tracker.Push(reinterpret_cast<void**>(root+100),12,count));
-        for(U32 i=0;i<count;++i){const auto& c=n.children[i];Validate(c,"Faction","RankIcon");auto a=c.attributes.find("Faction");if(a!=c.attributes.end())Word(items+12*i,Faction(a->second));Ranks(c,items+12*i);}
+        for(U32 i=0;i<count;++i){const auto& c=n.children[i];auto a=c.attributes.find("Faction");if(a!=c.attributes.end())Word(items+12*i,Faction(a->second));Ranks(c,items+12*i);}
         tracker.Pop();
     }
 };
@@ -42,7 +37,7 @@ unsigned int XmlunitoverlayTypeId(const std::string& name){return name=="UnitOve
 Relo::Chunk CompileXmlunitoverlay(const XmlunitoverlayNode& n,bool bigEndian){
     using namespace UnitOverlayDetail;static_assert(sizeof(void*)==4,"Overlay requires x86.");
     Check(XmlunitoverlayTypeId(n.name)!=0,"Unsupported overlay root.");
-    Validate(n,"AmmoPipImage|AmmoPipFrameImage|ContainPipImage|ContainPipFrameImage|GarrisonPipImage|UnitTypeIconBackgroundImage|TargetIndicatorImage|TargetIndicatorGlowImage|PowerIconImageSequence|RepairIconImageSequence|InfiltratedIconImageSequence|HealUnitIconImageSequence|RepairVehicleIconImageSequence|AmmoPipScale|ContainPipScale|GarrisonPipScale|UnitTypeIconScale|StatusIconScale|VeterancyIconScale|TargetIndicatorScale|HealingIconScale|AmmoPipRange|HealingIconDisplayTime","FactionVeterancy",true);
+
     Builder b;unsigned char* root=nullptr;b.tracker.Push(reinterpret_cast<void**>(&root),104,1);
     b.Ref(n,"AmmoPipImage",root+4);
     b.Ref(n,"AmmoPipFrameImage",root+8);

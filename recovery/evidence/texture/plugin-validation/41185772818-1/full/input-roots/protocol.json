@@ -1,0 +1,163 @@
+{
+  "schemaVersion": "1.0",
+  "status": "passed",
+  "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+  "sourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+  "artifactId": null,
+  "artifactArchiveSha256": null,
+  "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+  "packages": {
+    "jsonschema": "4.23.0",
+    "rfc3339-validator": "0.1.4",
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1"
+  },
+  "pythonVersion": "3.12.10",
+  "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+  "schemaInputs": [
+    {
+      "path": "build-event.schema.json",
+      "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+    },
+    {
+      "path": "build-report.schema.json",
+      "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+    }
+  ],
+  "matrix": [
+    {
+      "configuration": "Debug",
+      "reports": 7,
+      "eventFiles": 7,
+      "events": 192
+    },
+    {
+      "configuration": "Release",
+      "reports": 7,
+      "eventFiles": 7,
+      "events": 192
+    }
+  ],
+  "validatedFiles": [
+    {
+      "path": "Debug/cache-external-roots/build-report.json",
+      "sha256": "d46653dd21b910bb3feaff9599207e9f3e622dadb4ff6ca6ceee6841211b0ae8"
+    },
+    {
+      "path": "Debug/cache-external-roots/build.events.jsonl",
+      "sha256": "0eba2849ae7b53f7779cd62a0e784dd87283322363cbe753db0940080a8dd74b"
+    },
+    {
+      "path": "Debug/cache-external-roots-hot/build-report.json",
+      "sha256": "20be066edf0b35c74ec418c5fe263c789cc27047d1dfa5a51ce46f73bdb71139"
+    },
+    {
+      "path": "Debug/cache-external-roots-hot/build.events.jsonl",
+      "sha256": "d66644ba6c3c7ea3345647eae31561f124184249bd864c37596c2ae6a4501b95"
+    },
+    {
+      "path": "Debug/explicit-first-roots/build-report.json",
+      "sha256": "eb4d1b3af50daac1e84706ff5be242fbb6f2110523e7289a338e5ce2ab7243fa"
+    },
+    {
+      "path": "Debug/explicit-first-roots/build.events.jsonl",
+      "sha256": "98ebdd08b3a7266b04f56d95620c1a8196e27f99501aafd9cfef4f4c7178b460"
+    },
+    {
+      "path": "Debug/legacy-reversed-roots/build-report.json",
+      "sha256": "0986f23dec8ab0f141ca1d6402eddb7c2cab7564f669450d6602669b7e9e7938"
+    },
+    {
+      "path": "Debug/legacy-reversed-roots/build.events.jsonl",
+      "sha256": "a08d2c326decc3a1afbd0cec6854e10bc1c82ca2c5b759bcd42a73424d739516"
+    },
+    {
+      "path": "Debug/missing-external-input/build-report.json",
+      "sha256": "ffba3c5b96ac9bbe0ac40c0fa89f277e748e08029846eead85e53862ab86528a"
+    },
+    {
+      "path": "Debug/missing-external-input/build.events.jsonl",
+      "sha256": "162a91fccdeb8f3676cc3240ae88f3d0872d3d3353627d4d406277407c8da6df"
+    },
+    {
+      "path": "Debug/mod-prepend-config-fallback/build-report.json",
+      "sha256": "ebe078a0bc363b155dd0a421d0124cc86fc20f6ca3eff40307646931f8659eef"
+    },
+    {
+      "path": "Debug/mod-prepend-config-fallback/build.events.jsonl",
+      "sha256": "021d19ef25259ab13fc9216a7b6c04ef5573be1bd2cb3011e28e1ba89e4bf03c"
+    },
+    {
+      "path": "Debug/retry-external-input/build-report.json",
+      "sha256": "3e8a0ce380d1a5922ad91881e83258f7ea3ae1e3bbc74be9609dde8f20ec0303"
+    },
+    {
+      "path": "Debug/retry-external-input/build.events.jsonl",
+      "sha256": "c94f9e9373250d8be3b4b7312f9ee7b2f4ba2bd4651326ebb517b6fe1fd547f3"
+    },
+    {
+      "path": "Release/cache-external-roots/build-report.json",
+      "sha256": "90b79c3da206edb69758132f24acb18206474d4c5228d5d735ad4a8bd00250bc"
+    },
+    {
+      "path": "Release/cache-external-roots/build.events.jsonl",
+      "sha256": "b37324dd9f974e0de9ac0de17e2eff6f2df95bf67177407b6f6160bbb62472f1"
+    },
+    {
+      "path": "Release/cache-external-roots-hot/build-report.json",
+      "sha256": "1bb172da6b687e242b4174f04862a0eb7b6cb615cec73f0394d2903efeabe946"
+    },
+    {
+      "path": "Release/cache-external-roots-hot/build.events.jsonl",
+      "sha256": "386a32008e48bb43c630aad521a6516820b2e80b10eee5859992f6af37bdb1c5"
+    },
+    {
+      "path": "Release/explicit-first-roots/build-report.json",
+      "sha256": "e89a548de69bacbaf50a4c4a88d49262457cb8a09f007a9016c66b23c4d5a6f1"
+    },
+    {
+      "path": "Release/explicit-first-roots/build.events.jsonl",
+      "sha256": "808693839733d8cfdd7f44c17114c77f79154b5d7062a4afed52d08ac85e30d1"
+    },
+    {
+      "path": "Release/legacy-reversed-roots/build-report.json",
+      "sha256": "1af5c109ff5d4a34f130d7f8a2e8dc65b223b5fe2dbfec2ed9434b2d8db7a24f"
+    },
+    {
+      "path": "Release/legacy-reversed-roots/build.events.jsonl",
+      "sha256": "1ed8c132eb7340f5985d230c2a72a765f778dd51fa1f79089fa0f60f1bff16ed"
+    },
+    {
+      "path": "Release/missing-external-input/build-report.json",
+      "sha256": "ae11aab56ac3f5c1c5facbd1d6023f39441de4cf665ff9d6f5aaea6429e1b1db"
+    },
+    {
+      "path": "Release/missing-external-input/build.events.jsonl",
+      "sha256": "58a2eb49386f8057fa69d1d57e5b775f6976d4c46c15c4526409c0c45463c14f"
+    },
+    {
+      "path": "Release/mod-prepend-config-fallback/build-report.json",
+      "sha256": "9314c7b5c0741ff567e493bee0ba60a0dbc2ac98c52e18706d3514002221865f"
+    },
+    {
+      "path": "Release/mod-prepend-config-fallback/build.events.jsonl",
+      "sha256": "7ebd9e98e99472fd71b1f025ceedbe31d1c18ecf4e1e593e273be059ab92947b"
+    },
+    {
+      "path": "Release/retry-external-input/build-report.json",
+      "sha256": "a1472ab235f9a53780314bacb93c3fd479d6c3c10d11fa92177e0b0fde51dc69"
+    },
+    {
+      "path": "Release/retry-external-input/build.events.jsonl",
+      "sha256": "2b419cea5a8763d0837f408d0b49c6ec0f541128e3c66613f6ffa8d162f9de2b"
+    }
+  ],
+  "errorCount": 0,
+  "errors": [],
+  "notes": [
+    "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+    "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+  ]
+}

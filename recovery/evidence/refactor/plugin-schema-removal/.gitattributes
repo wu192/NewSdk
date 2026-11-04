@@ -1,0 +1,2 @@
+# Preserve the exact Windows receipt bytes hashed in summary.json.
+*.json -text whitespace=cr-at-eol

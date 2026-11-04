@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "preflight": true,
+  "runAttempt": "1",
+  "sourceCommit": "e83b06ca9fd464f1dae926a29603454b489ee273",
+  "scope": "Source-XSD business fixture and independent BIG parser preflight only",
+  "runId": "41137876257",
+  "modes": [],
+  "succeeded": true
+}

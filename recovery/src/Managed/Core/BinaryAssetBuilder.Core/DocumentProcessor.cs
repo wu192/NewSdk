@@ -107,9 +107,142 @@ public class DocumentProcessor
 	public int DocumentReuseCount { get; private set; }
 	public int XmlParseCount { get; private set; }
 	public int InstanceCompileCount { get; private set; }
+	// Integer deltas only: completed assets, parsed XML, reused documents.
+	// The host keeps this callback allocation-free and independent of rendering.
+	public Action<int, int, int> Progress { get; set; }
+	public IAssetExecution AssetExecution { get; set; }
+	// A version owns its stable declarations until every output subscription has
+	// returned. A replacement document receives a new version instead of reusing
+	// the DOM and declarations held by an earlier worker.
+	private sealed class ExecutionDocumentVersion
+	{
+		internal readonly Dictionary<OutputManager, AssetExecutionDocument> Outputs = new Dictionary<OutputManager, AssetExecutionDocument>();
+		internal readonly HashSet<AssetExecutionDocument> CompletedOutputs = new HashSet<AssetExecutionDocument>();
+		internal bool FrontendPrepared, CompletionRequested, Finalized, ResetRequested, Failed;
+		internal string Configuration;
+		internal TargetPlatform Platform;
+	}
+	private readonly Dictionary<AssetDeclarationDocument, ExecutionDocumentVersion> _ExecutionDocuments = new Dictionary<AssetDeclarationDocument, ExecutionDocumentVersion>();
+
+	private ExecutionDocumentVersion GetDocumentVersion(AssetDeclarationDocument document, string configuration = null)
+	{
+		if (!_ExecutionDocuments.TryGetValue(document, out var version))
+		{
+			version = new ExecutionDocumentVersion { Configuration = configuration, Platform = Settings.Current.TargetPlatform };
+			_ExecutionDocuments.Add(document, version);
+		}
+		return version;
+	}
+
+	internal AssetExecutionDocument GetExecutionDocument(AssetDeclarationDocument document, OutputManager outputManager)
+	{
+		if (AssetExecution == null) return null;
+		var version = GetDocumentVersion(document);
+		if (!version.Outputs.TryGetValue(outputManager, out var scope))
+		{
+			version.Finalized = false;
+			scope = AssetExecution.BeginDocument(document, outputManager);
+			version.Outputs.Add(outputManager, scope);
+		}
+		return scope;
+	}
+
+	private void CompleteExecutionDocument(AssetDeclarationDocument document, ExecutionDocumentVersion version, AssetExecutionDocument scope)
+	{
+		if (scope == null) return;
+		AssetExecution.CompleteDocument(scope, () => {
+			version.CompletedOutputs.Add(scope);
+			TryCompleteDocumentVersion(document, version);
+		});
+	}
+
+	private static void FailDocumentVersion(ExecutionDocumentVersion version)
+	{
+		version.Failed = true;
+		foreach (var scope in version.Outputs.Values)
+		{
+			if (!scope.IsCompleted) scope.IsFailed = true;
+			scope.Completions.Clear();
+		}
+	}
+
+	private void TryCompleteDocumentVersion(AssetDeclarationDocument document, ExecutionDocumentVersion version)
+	{
+		if (version.Failed || document.Processing || !version.CompletionRequested ||
+			version.CompletedOutputs.Count != version.Outputs.Count) return;
+		foreach (var scope in version.Outputs.Values) if (scope.IsFailed) return;
+		if (!version.Finalized)
+		{
+			document.MakeComplete();
+			document.MakeCacheable();
+			// A superseded version may finish after its replacement. It must
+			// never publish its old successful state over the current document.
+			Cache.TryGetDocument(document.SourcePath, version.Configuration, version.Platform, false, out var current);
+			if (Object.ReferenceEquals(current, document))
+				Cache.SaveDocumentToCache(document.SourcePath, version.Configuration, version.Platform, document);
+			version.Finalized = true;
+		}
+		if (version.ResetRequested) { document.Reset(); version.ResetRequested = false; }
+	}
+
+	private void ResetExecutionDocument(AssetDeclarationDocument document)
+	{
+		if (_ExecutionDocuments.TryGetValue(document, out var version))
+		{
+			version.ResetRequested = true;
+			TryCompleteDocumentVersion(document, version);
+		}
+		else document.Reset();
+	}
+
+	private void WaitForExecutionDocument(AssetDeclarationDocument document)
+	{
+		if (AssetExecution == null || document == null || !_ExecutionDocuments.TryGetValue(document, out var version)) return;
+		foreach (var scope in version.Outputs.Values) AssetExecution.WaitDocument(scope);
+		TryCompleteDocumentVersion(document, version);
+	}
+
+	private AssetDeclarationDocument ReplaceExecutionDocument(AssetDeclarationDocument document, string configuration)
+	{
+		Cache.TryGetFile(document.SourcePath, configuration, Settings.Current.TargetPlatform, out var hashItem);
+		var replacement = new AssetDeclarationDocument(this, hashItem, document.LogicalSourcePath, configuration);
+		if (!Cache.ReplaceDocumentForExecution(document.SourcePath, configuration, Settings.Current.TargetPlatform, document, replacement))
+			throw new InvalidOperationException("The active document version changed during owner processing.");
+		bool processing = document.Processing;
+		document.Processing = false;
+		if (_ExecutionDocuments.TryGetValue(document, out var previous)) TryCompleteDocumentVersion(document, previous);
+		replacement.Processing = processing;
+		return replacement;
+	}
+
+	private bool NeedsBackendXml(AssetDeclarationDocument document, OutputManager outputManager)
+	{
+		if (outputManager == null) return false;
+		foreach (var declaration in document.SelfInstances)
+		{
+			if (declaration.XmlNode != null) continue;
+			var asset = outputManager.GetBinaryAsset(declaration, false);
+			if (asset != null && asset.GetLocation(AssetLocation.All, AssetLocationOption.None) == AssetLocation.None) return true;
+		}
+		return false;
+	}
+
+	private bool NeedsInheritanceXml(AssetDeclarationDocument document)
+	{
+		if (document.IsLoaded && document.XmlDocument != null) return false;
+		foreach (var handle in _RequiredInheritFromSources)
+			if (document.SelfInstances.Contains(handle)) return true;
+		return false;
+	}
+	public void RecordExecutionCompile() { InstanceCompileCount++; }
+	internal void RecordExecutionCommit(AssetLocation source)
+	{
+		if (source == AssetLocation.Memory) _InstancesCompiledCount++;
+		else if (source == AssetLocation.Local || source == AssetLocation.Cache) _InstancesCopiedFromCacheCount++;
+	}
 	private readonly HashSet<uint> _ProcessedTypeIds = new HashSet<uint>();
 	public IEnumerable<uint> ProcessedTypeIds => _ProcessedTypeIds;
-	internal void RecordXmlParse() { XmlParseCount++; }
+	internal void RecordXmlParse() { XmlParseCount++; Progress?.Invoke(0, 1, 0); }
 	internal void RecordInstanceCompile() { InstanceCompileCount++; }
 
 	// Local/intermediate reuse is excluded from persistent asset-cache counters.
@@ -120,7 +253,7 @@ public class DocumentProcessor
 	internal void RecordBuildCacheUse(bool hit)
 	{
 		if (hit) BuildCacheHits++;
-		else BuildCacheMisses++;
+		else { BuildCacheMisses++; PerformanceScope.Count("cache.asset.keyMiss"); }
 	}
 
 	public ISessionCache Cache
@@ -154,6 +287,14 @@ public class DocumentProcessor
 	public PluginRegistry Plugins => _PluginRegistry;
 
 	public VerifierPluginRegistry VerifierPlugins => _VerifierPluginRegistry;
+
+	// Deferred owner callbacks retain the originating diagnostic context.
+	internal void InDocumentContext(string sourcePath, Action action)
+	{
+		_CurrentDocumentStack.Push(Path.GetFileName(sourcePath) + ":");
+		try { action(); }
+		finally { _CurrentDocumentStack.Pop(); }
+	}
 
 	public static string CurrentDocument => _CurrentDocumentStack.Peek();
 
@@ -447,6 +588,7 @@ public class DocumentProcessor
 
 	public AssetDeclarationDocument ProcessDocumentInternal(string logicalPath, string sourcePath, OutputManager outputManager, ProcessOptions op)
 	{
+		using var performance = PerformanceScope.Measure("core.document");
 		DateTime now = DateTime.Now;
 		AssetDeclarationDocument assetDeclarationDocument = OpenDocument(sourcePath, logicalPath, op.GenerateOutput, op.Configuration);
 		int documentDepth = _CurrentDocumentStack.Count;
@@ -478,6 +620,18 @@ public class DocumentProcessor
 			}
 			string fileName = Path.GetFileName(sourcePath);
 			_CurrentDocumentStack.Push($"{fileName}:");
+			if (_ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var existingVersion) && existingVersion.FrontendPrepared && !existingVersion.Failed)
+			{
+				bool newOutput = outputManager != null && !existingVersion.Outputs.ContainsKey(outputManager);
+				if (!existingVersion.Finalized && (NeedsInheritanceXml(assetDeclarationDocument) ||
+					(newOutput && NeedsBackendXml(assetDeclarationDocument, outputManager))))
+					assetDeclarationDocument = ReplaceExecutionDocument(assetDeclarationDocument, op.Configuration);
+				else if (!op.GenerateOutput && outputManager != null && existingVersion.Outputs.ContainsKey(outputManager))
+				{
+					assetDeclarationDocument.AddStreamsHints(_CurrentStreamStack.ToArray());
+					return assetDeclarationDocument;
+				}
+			}
 			if (assetDeclarationDocument.State == DocumentState.Complete && assetDeclarationDocument.IsLoaded && assetDeclarationDocument.XmlDocument == null)
 			{
 				foreach (InstanceDeclaration instance in assetDeclarationDocument.Instances)
@@ -491,61 +645,97 @@ public class DocumentProcessor
 					}
 				}
 			}
-			if (assetDeclarationDocument.State == DocumentState.Shallow)
+			bool frontendPublished = _ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var publishedVersion) &&
+				publishedVersion.FrontendPrepared && !publishedVersion.Finalized && !publishedVersion.Failed;
+			if (assetDeclarationDocument.State == DocumentState.Shallow && !frontendPublished)
 			{
+				_ExecutionDocuments.Remove(assetDeclarationDocument);
 				assetDeclarationDocument.Reinitialize(outputManager);
 			}
-			if (!assetDeclarationDocument.IsLoaded)
+			if (!assetDeclarationDocument.IsLoaded && NeedsInheritanceXml(assetDeclarationDocument))
 			{
+				if (_ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var priorVersion) && !priorVersion.Finalized)
+					assetDeclarationDocument = ReplaceExecutionDocument(assetDeclarationDocument, op.Configuration);
+				else _ExecutionDocuments.Remove(assetDeclarationDocument);
 				assetDeclarationDocument.ReloadIfRequired(_RequiredInheritFromSources);
 			}
 			_DocumentStack.Add(sourcePath);
 			assetDeclarationDocument.Processing = true;
 			_TotalPrepareSourceTime += DateTime.Now - now;
 			ProcessIncludedDocuments(assetDeclarationDocument, outputManager, op, op.UsePrecompiled);
-			if (assetDeclarationDocument.State != DocumentState.Complete)
+			bool newOutputSubscription = AssetExecution != null && outputManager != null &&
+				(!_ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var outputVersion) || !outputVersion.Outputs.ContainsKey(outputManager));
+			if (assetDeclarationDocument.State != DocumentState.Complete || newOutputSubscription)
 			{
-				ProcessDocumentContents(assetDeclarationDocument, outputManager, op, op.GenerateOutput);
+				ProcessDocumentContents(ref assetDeclarationDocument, outputManager, op, op.GenerateOutput);
 			}
 			_MaxTotalMemory = Math.Max(_MaxTotalMemory, GC.GetTotalMemory(forceFullCollection: false));
 			return assetDeclarationDocument;
 		}
+		catch
+		{
+			if (_ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var failedVersion)) FailDocumentVersion(failedVersion);
+			throw;
+		}
 		finally
 		{
 			assetDeclarationDocument.Processing = processing;
-			while (_DocumentStack.Count > inclusionDepth) _DocumentStack.RemoveAt(_DocumentStack.Count - 1);
-			while (_CurrentDocumentStack.Count > documentDepth) _CurrentDocumentStack.Pop();
-			while (_CurrentStreamStack.Count > streamDepth) _CurrentStreamStack.Pop();
+			try
+			{
+				if (_ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var version))
+				{
+					try { TryCompleteDocumentVersion(assetDeclarationDocument, version); }
+					catch { FailDocumentVersion(version); throw; }
+				}
+			}
+			finally
+			{
+				// Completion can fail while saving the session. Its exception
+				// must not retain this invocation's traversal/diagnostic frames.
+				while (_DocumentStack.Count > inclusionDepth) _DocumentStack.RemoveAt(_DocumentStack.Count - 1);
+				while (_CurrentDocumentStack.Count > documentDepth) _CurrentDocumentStack.Pop();
+				while (_CurrentStreamStack.Count > streamDepth) _CurrentStreamStack.Pop();
+			}
 		}
 	}
 
-	private void ProcessDocumentContents(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, bool generateOutput)
+	private void ProcessDocumentContents(ref AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, bool generateOutput)
 	{
 		string configuration = op.Configuration;
-		if (document.State != DocumentState.Loaded && !document.ValidateInheritFromSources())
+		var version = GetDocumentVersion(document, configuration);
+		if (!version.FrontendPrepared)
 		{
-			document.InplaceLoad("inheritFrom source changed");
-			ProcessIncludedDocuments(document, outputManager, op, usePrecompiled: false);
+			if (document.State != DocumentState.Loaded && !document.ValidateInheritFromSources())
+			{
+				document.InplaceLoad("inheritFrom source changed");
+				ProcessIncludedDocuments(document, outputManager, op, usePrecompiled: false);
+			}
+			if (document.State != DocumentState.Loaded && !document.ValidateCachedDefines())
+			{
+				document.InplaceLoad("used definitions changed");
+				ProcessIncludedDocuments(document, outputManager, op, usePrecompiled: false);
+			}
+			if (document.State == DocumentState.Loaded)
+			{
+				DateTime now = DateTime.Now;
+				_FilesParsedCount++;
+				document.ProcessExpressions();
+				document.ProcessOverrides();
+				document.Validate();
+				_TotalValidateTime += DateTime.Now - now;
+			}
+			version.FrontendPrepared = true;
 		}
-		if (document.State != DocumentState.Loaded && !document.ValidateCachedDefines())
+		if (document.State != DocumentState.Loaded)
 		{
-			document.InplaceLoad("used definitions changed");
-			ProcessIncludedDocuments(document, outputManager, op, usePrecompiled: false);
+			DocumentReuseCount++;
+			Progress?.Invoke(0, 0, 1);
 		}
-		if (document.State == DocumentState.Loaded)
-		{
-			DateTime now = DateTime.Now;
-			_FilesParsedCount++;
-			document.ProcessExpressions();
-			document.ProcessOverrides();
-			document.Validate();
-			_TotalValidateTime += DateTime.Now - now;
-		}
-		if (document.State != DocumentState.Loaded) DocumentReuseCount++;
 		foreach (InstanceDeclaration instance in document.SelfInstances) _ProcessedTypeIds.Add(instance.Handle.TypeId);
 		_InstancesProcessedCount += document.SelfInstances.Count;
 		document.RecordStringHashes();
 		document.MergeInstances();
+		AssetExecutionDocument executionDocument = outputManager == null ? null : GetExecutionDocument(document, outputManager);
 		if (outputManager != null)
 		{
 			DateTime now2 = DateTime.Now;
@@ -553,11 +743,13 @@ public class DocumentProcessor
 			_TotalProcInstancesTime += DateTime.Now - now2;
 		}
 		document.AddStreamsHints(_CurrentStreamStack.ToArray());
+		CompleteExecutionDocument(document, version, executionDocument);
 		if (generateOutput)
 		{
+			if (AssetExecution != null) AssetExecution.WaitOutput(outputManager);
 			DateTime now3 = DateTime.Now;
 			_Tracer.Message("Resolving references: {0}", document.SourcePathFromRoot);
-			document.PrepareOutputInstances(outputManager);
+			using (PerformanceScope.Measure("core.output.references")) document.PrepareOutputInstances(outputManager);
 			_Tracer.Message("Generating stream: {0}", document.SourcePathFromRoot);
 			outputManager.CommitManifest(document);
 			outputManager.CleanOutput();
@@ -574,13 +766,13 @@ public class DocumentProcessor
 			_Tracer.Message("{0} Stream complete", document.SourcePathFromRoot);
 			_TotalPrepareOutputTime += DateTime.Now - now3;
 		}
-		document.MakeComplete();
-		document.MakeCacheable();
-		Cache.SaveDocumentToCache(document.SourcePath, configuration, Settings.Current.TargetPlatform, document);
+		version.CompletionRequested = true;
+		TryCompleteDocumentVersion(document, version);
 	}
 
 	private AssetDeclarationDocument OpenDocument(string sourcePath, string logicalPath, bool generateOutput, string configuration)
 	{
+		using var performance = PerformanceScope.Measure("core.document.open");
 		if (!Path.IsPathRooted(sourcePath))
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Path for document {0} is not rooted.", sourcePath);
@@ -597,6 +789,17 @@ public class DocumentProcessor
 			stringBuilder.AppendFormat("\n   {0}", sourcePath);
 			throw new BinaryAssetBuilderException(ErrorCode.CircularDependency, stringBuilder.ToString());
 		}
+		if (_ExecutionDocuments.TryGetValue(document, out var version))
+		{
+			foreach (var scope in version.Outputs.Values)
+				if (scope.IsFailed) { FailDocumentVersion(version); break; }
+			if (version.FrontendPrepared && !version.Finalized && !version.Failed && document.State != DocumentState.None)
+				return document;
+		}
+		// Open replaces Current whenever the document is incomplete. A saved
+		// wrapper can also have been ResetState by cache initialization; neither
+		// current may reuse the preceding version's front-end completion receipt.
+		if (document.State != DocumentState.Complete) _ExecutionDocuments.Remove(document);
 		document.Open(this, hashItem, logicalPath, configuration);
 		if (document.State != DocumentState.Complete)
 		{
@@ -675,6 +878,7 @@ public class DocumentProcessor
 
 	private void ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, bool usePrecompiled)
 	{
+		using var performance = PerformanceScope.Measure("core.includes");
 		DateTime now = DateTime.Now;
 		string configuration = op.Configuration;
 		document.TentativeInstances.Clear();
@@ -694,6 +898,8 @@ public class DocumentProcessor
 		}
 		foreach (InclusionItem inclusionItem in document.InclusionItems)
 		{
+			PerformanceScope.Count("dependency.include.visits");
+			PerformanceScope.Count("dependency.include.maxDepth", _DocumentStack.Count, maximum: true);
 			StreamReference streamReference = null;
 			if (inclusionItem.Type == InclusionType.Reference && !Settings.Current.SingleFile && Settings.Current.DataRoot == null)
 			{
@@ -716,6 +922,7 @@ public class DocumentProcessor
 					}
 				}
 				flag = Cache.TryGetDocument(inclusionItem.PhysicalPath, text, Settings.Current.TargetPlatform, autoCreateDocument: false, out document2);
+				WaitForExecutionDocument(document2);
 				if (streamReference != null && document2 != null && document2.State == DocumentState.None)
 				{
 					bool flag2 = false;
@@ -790,6 +997,10 @@ public class DocumentProcessor
 				document2 = ProcessDocumentInternal(inclusionItem.LogicalPath, inclusionItem.PhysicalPath, flag3 ? null : outputManager, processOptions);
 				now = DateTime.Now;
 				inclusionItem.Document = document2;
+				if (document2.CacheInvalidated || document2.DependencyAffected) {
+					PerformanceScope.Count("dependency.include.affectedVisits");
+					document.RecordDependencyAffected();
+				}
 				document.AllDefines.AddDefinitions(document2.AllDefines);
 			}
 			switch (inclusionItem.Type)
@@ -808,7 +1019,7 @@ public class DocumentProcessor
 				document.TentativeInstances.Add(document2.TentativeInstances);
 				break;
 			}
-			document2.Reset();
+			ResetExecutionDocument(document2);
 			_TotalPostProcTime += DateTime.Now - now;
 		}
 		foreach (InstanceDeclaration referenceInstance in document.ReferenceInstances)
@@ -846,8 +1057,11 @@ public class DocumentProcessor
 		{
 			AssetLocationInfo assetLocationInfo = new AssetLocationInfo();
 			assetLocationInfo.AssetOutputDirectory = asset.AssetOutputDirectory;
-			assetLocationInfo.CustomDataOutputDirectory = asset.CustomDataOutputDirectory;
+			assetLocationInfo.CustomDataOutputDirectory = asset.Instance.HasCustomData ? Path.GetDirectoryName(asset.CustomDataPath) : asset.CustomDataOutputDirectory;
 			_LastWrittenAssets.Add(asset.FileBase, assetLocationInfo);
+			// RecordCommit reaches this only after publication succeeds. Reuse
+			// its existing identity table so repeated includes count just once.
+			Progress?.Invoke(1, 0, 0);
 		}
 	}
 

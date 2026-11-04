@@ -1,0 +1,10 @@
+{
+  "runId": "40826280008",
+  "conclusion": "success",
+  "sourceCommit": "f7d69ff6f2aeefae1a32642d9854de853a95b82f",
+  "binarySourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/40826280008/artifacts/12876971511",
+  "archiveSha256": "1593f9ddda28963db7a06c8cf0085e378805961d2369a536568ee6d5e707ea08",
+  "profileSha256": "c9534169ab9eebb5852e5c9945bfac9db648ba85acf0b87d9855cc96c5a8abaf",
+  "sourceEquivalentOnly": true
+}

@@ -46,7 +46,7 @@ try {
         & cl /nologo /clr /LD /MD /EHa /std:c++17 "/$mode" /fp:precise "/AI$modeOut" "/Fo$modeOut/" "/Fe$modeOut/Recovered.Xmlenvironment.dll" @sources *> $buildLog
         if ($LASTEXITCODE -ne 0) { Get-Content $buildLog; throw "$mode C++/CLI build failed" }
         $hostLog = Join-Path $evidence "$mode-host-build.txt"
-        & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$modeOut/Recovered.Xmlenvironment.dll" "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmlenvironmentOracle.exe" @oracleSources *> $hostLog
+        & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$modeOut/Recovered.Xmlenvironment.dll" "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmlenvironmentOracle.exe" @oracleSources *> $hostLog
         if ($LASTEXITCODE -ne 0) { Get-Content $hostLog; throw "$mode oracle host build failed" }
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$modeOut/XmlenvironmentOracle.exe.config"
         $oracleLog = Join-Path $evidence "$mode-oracle.txt"

@@ -1,0 +1,50 @@
+[
+  {
+    "tier": "small",
+    "name": "mymod",
+    "modRoot": "D:\\a\\_temp\\upheaval-parallel\\small-mymod",
+    "fullModInputCopy": true,
+    "scope": "Complete current mymod input; all auto-discovered content, BIG+SKUDEF and Additional.",
+    "dimensions": {
+      "files": 7,
+      "bytes": 982257,
+      "xmlAndW3xFiles": 5,
+      "declaredAssetsInInputFiles": 45
+    },
+    "inputFingerprint": "a84702fc9f178cf3aa9fb32ae96cecfd4dfdf6154ad2869284eac93c0651da72",
+    "sourceCommit": "02987cbc41e6d4ba62469c62aa22fc73830b5a28",
+    "sourceTree": null
+  },
+  {
+    "tier": "medium",
+    "name": "upheaval-textures-96",
+    "modRoot": "D:\\a\\_temp\\upheaval-parallel\\medium-upheaval-textures",
+    "fullModInputCopy": false,
+    "scope": "Generated include entry and unchanged Texture elements from historical Upheaval; 96 unique Texture identities and their local real ART files. Texture workload only, not an independent full medium MOD.",
+    "dimensions": {
+      "files": 114,
+      "bytes": 15011536,
+      "xmlAndW3xFiles": 18,
+      "declaredAssetsInInputFiles": 96
+    },
+    "inputFingerprint": "e5c46705e3aef2deb4f126de65137f983f746fbd1eb604ae1a4a8bf89d3d3124",
+    "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+    "sourceTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0"
+  },
+  {
+    "tier": "large",
+    "name": "upheaval-full",
+    "modRoot": "D:\\a\\_temp\\upheaval-parallel\\historical\\SDK\\Mods\\Upheaval",
+    "fullModInputCopy": true,
+    "scope": "Complete untouched historical Upheaval, all auto-discovered base/APT/maps, BIG+SKUDEF and Additional. Success is established only by this run, not older component/SDK evidence.",
+    "dimensions": {
+      "files": 2723,
+      "bytes": 300900885,
+      "xmlAndW3xFiles": 955,
+      "declaredAssetsInInputFiles": 3852
+    },
+    "inputFingerprint": "c41fdfd1d72f340351fba7b2828e92c33a0d63ff562ddc8b9962d2be002497f7",
+    "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+    "sourceTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0"
+  }
+]

@@ -6,6 +6,7 @@ param(
     [ValidateRange(15,600)][int]$TimeoutSeconds=180
 )
 $ErrorActionPreference='Stop'
+. "$PSScriptRoot/CompilerCacheLayout.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite input-root evidence: $OutputDirectory"}
@@ -35,7 +36,8 @@ function DifferentOutputs($Left,$Right){
 function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[int]$Expected=0,[bool]$Cancel=$false,[string]$HoldReadFile=$null,[string[]]$Extra=@()){
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     New-Item -ItemType Directory -Force -Path $Destination|Out-Null
-    $arguments=@('build','--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
+    $intermediate=Join-Path (Get-CompilerTestCacheRoot $script:sdk $Mod) ('intermediate/'+$Name)
+    $arguments=@('build','--sc=false','--iod',$intermediate,'--mod',$Mod,'--sdk-root',$script:sdk,'--out',$Destination,'--package-format','loose','--package-content','base',('--bc='+$Enabled.ToString().ToLowerInvariant()))+$Extra
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}
     if($HoldReadFile){$request.holdReadFile=$HoldReadFile}
@@ -48,6 +50,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
         Need ($audit.singleProcessJobEnforced -and $audit.singleProcessJobLimit -eq 1 -and @($audit.descendants).Count -eq 0) 'Asset cache introduced a product child process'
         if($Cancel){Need ($audit.signalSent -and $audit.freshEventsPathObserved -and $audit.streamStartedObserved -and $Expected -eq 6) 'Cache cancellation did not receive actual CtrlBreak'}
         $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
+        foreach($artifact in $body.artifacts){$artifact|Add-Member -NotePropertyName TestSha256 -NotePropertyValue (Hash $artifact.Path)}
         Need ($body.exitCode -eq $Expected) 'Cache process/report exit differs'
         $rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})
         Need ($rows[-1].eventType -ceq 'BuildFinished' -and @($rows|Where-Object{$_.eventType -ceq 'BuildStarted'}).Count -eq 1 -and @($rows|Where-Object{$_.eventType -ceq 'BuildFinished'}).Count -eq 1) 'Cache CLI terminal protocol differs'
@@ -59,7 +62,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[bool]$Enabled,[
             Need ($body.publicationStatus -ceq 'PublishedDirectory' -and @($body.artifacts).Count -eq 4) 'Cache fixture did not publish exactly one four-file stream'
             $published=Join-Path $Destination 'published'
             foreach($artifact in $body.artifacts){
-                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
+                Need ((Within $published $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.TestSha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'Cached artifact identity/containment differs'
                 $relative=[IO.Path]::GetRelativePath($published,$artifact.Path);$copy=Join-Path $archived $relative
                 New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($copy))|Out-Null
                 Copy-Item -LiteralPath $artifact.Path -Destination $copy;$files[$relative]=$copy
@@ -103,7 +106,9 @@ try{
         $script:runtime=(New-Item -ItemType Directory -Path (Join-Path $modeWork 'r')).FullName
         foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$file") -Destination $runtime}
         $script:exe=Join-Path $runtime 'NewModCompiler.exe'
-        & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log";Need ($LASTEXITCODE -eq 0) 'Input-root Texture deployment failed'
+        $build=Get-Content -LiteralPath (Join-Path $CompilerDirectory "$mode/build.json") -Raw|ConvertFrom-Json
+        Need ($build.exeSha256 -ceq (Hash $exe) -and $build.texturePlugin.implementation -ceq 'built-in-source' -and @($build.texturePlugin.externalRuntimeFiles).Count -eq 0) 'Cache/input-root acceptance requires the current source texture build'
+        Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 3) 'Unexpected source runtime deployment files'
         $script:modeState=@{configuration=$mode;passed=$false;exeSha256=(Hash $exe);cases=@()};$state.modes+=,$modeState
         $script:sdk=(New-Item -ItemType Directory -Path (Join-Path $modeWork 's')).FullName
         New-Item -ItemType Directory -Path "$sdk/tools","$sdk/Schemas"|Out-Null
@@ -154,9 +159,9 @@ try{
         Move-Item -LiteralPath "$external/ArtA/ca/cache.saved" -Destination "$external/ArtA/ca/cache.tga"
         $retry=RunCli 'retry-external-input' $mod $destination $false -Extra $missing
         SameOutputs $a $retry
-        $rejected=RunCli 'cache-external-roots-rejected' $mod $destination $true 2 -Extra $first
-        Need (@($rejected.report.diagnostics|Where-Object{$_.code -ceq 'CORE_CACHE_INPUT_ROOT_UNSUPPORTED'}).Count -eq 1) 'Root-external cache request was not explicitly refused'
-        $final=RunCli 'retry-after-cache-root-rejection' $mod $destination $false -Extra $first;SameOutputs $a $final
+        $cached=RunCli 'cache-external-roots' $mod $destination $true -Extra $first;SameOutputs $a $cached
+        $cachedHot=RunCli 'cache-external-roots-hot' $mod $destination $true -Extra $first;SameOutputs $a $cachedHot
+        Need ($cachedHot.report.cache.hits -gt 0 -and $cachedHot.report.cache.misses -eq 0) 'Original cache did not reuse root-external Texture and Audio dependencies'
         $modeState.passed=$true
     }
     $state.succeeded=$true;$global:LASTEXITCODE=0

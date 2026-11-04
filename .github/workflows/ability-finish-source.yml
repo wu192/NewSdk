@@ -25,9 +25,23 @@ jobs:
           p=pathlib.Path('recovery/evidence/gameobject-modules/attach-next-source')
           print('ATTACH_METHOD_ARCHIVE='+json.dumps({str(f):f.read_text() for f in sorted(p.iterdir())}))
           PYCODE
+      - name: Summarize CI evidence
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/gameobject-modules/ability-finish-source/manifest.json
+            recovery/evidence/gameobject-modules/ability-finish-source/*.txt
+            recovery/evidence/gameobject-modules/attach-next-source/manifest.json
+            recovery/evidence/gameobject-modules/attach-next-source/*.txt
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
       - uses: actions/upload-artifact@v4
+        if: success()
         with:
-          name: original-ability-finish-source
+          name: 'original-ability-finish-source'
           path: |
-            recovery/evidence/gameobject-modules/ability-finish-source
-            recovery/evidence/gameobject-modules/attach-next-source
+            recovery/evidence/gameobject-modules/ability-finish-source/manifest.json
+            recovery/evidence/gameobject-modules/ability-finish-source/*.txt
+            recovery/evidence/gameobject-modules/attach-next-source/manifest.json
+            recovery/evidence/gameobject-modules/attach-next-source/*.txt
+          retention-days: 1
+          if-no-files-found: warn

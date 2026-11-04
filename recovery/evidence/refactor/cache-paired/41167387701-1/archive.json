@@ -1,0 +1,70 @@
+{
+  "runId": 41167387701,
+  "artifactId": 13030105485,
+  "archiveSha256": "051df9fefd6de137b6125a94d59a085abd7f993cc2d56ccb20ec6600950d3ee2",
+  "archiveBytes": 2891426,
+  "downloadedAndRehashed": true,
+  "status": "passed",
+  "measurementSource": "d64f2dcccc4ce668f9f61b869166108f8877d2a2",
+  "baselineBinarySource": "1a3e4bc6d91a086404d51b6168c733366307e86e",
+  "candidateBinarySource": "4d732a1407a3547b5f47a3d7e0f37b76de747b56",
+  "candidateAcceptanceRun": "41165490728",
+  "armorPartitions": 0,
+  "sampleCount": 24,
+  "samplesByStatus": {
+    "passed": 24
+  },
+  "summary": [
+    {
+      "mode": "default",
+      "phase": "cold",
+      "baseline": {
+        "n": 3,
+        "medianMs": 35943.49599999987,
+        "minMs": 35672.36230000003,
+        "maxMs": 41772.13890000007
+      },
+      "candidate": {
+        "n": 3,
+        "medianMs": 34804.397800000064,
+        "minMs": 34561.437699999944,
+        "maxMs": 35013.612500000134
+      },
+      "reductionPercent": 3.1691358013694826
+    },
+    {
+      "mode": "default",
+      "phase": "hot",
+      "baseline": {
+        "n": 6,
+        "medianMs": 2216.581499999961,
+        "minMs": 2201.735299999882,
+        "maxMs": 2247.4216999999044
+      },
+      "candidate": {
+        "n": 6,
+        "medianMs": 1737.0690500000592,
+        "minMs": 1735.2487000000565,
+        "maxMs": 1772.7987000000667
+      },
+      "reductionPercent": 21.632971763046406
+    },
+    {
+      "mode": "none",
+      "phase": "cold",
+      "baseline": {
+        "n": 1,
+        "medianMs": 34236.464899999875,
+        "minMs": 34236.464899999875,
+        "maxMs": 34236.464899999875
+      },
+      "candidate": {
+        "n": 1,
+        "medianMs": 33392.78600000012,
+        "minMs": 33392.78600000012,
+        "maxMs": 33392.78600000012
+      },
+      "reductionPercent": 2.464269901883942
+    }
+  ]
+}

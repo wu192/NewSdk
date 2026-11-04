@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "runs": [
+    {
+      "runId": 41280805352,
+      "sourceCommit": "5f3fa73ea6a59ed2ac8247ceeec34ff28883205f",
+      "conclusion": "failure",
+      "reason": "Validation script snapshot incomplete; preflight rejected before compilation."
+    },
+    {
+      "runId": 41280877017,
+      "sourceCommit": "20853ac2a00360683c4caf9a77e6da6c6eacaf35",
+      "conclusion": "failure",
+      "reason": "Managed test rejected normal Windows CRLF; fixed the assertion without changing redirected rendering."
+    },
+    {
+      "runId": 41280994256,
+      "sourceCommit": "874702fe783287d25ac490d6e6fccd30bc31ae0c",
+      "conclusion": "failure",
+      "independentSuccesses": [
+        "App contracts 1871",
+        "Release production and identical-object validation host",
+        "Real console handles probe",
+        "Core lifecycle 597"
+      ],
+      "reason": "Pre-existing application fixture expected EVENT_WRITE_FAILED for a publication sink failure; baseline wraps it in PUBLICATION_FAILED. Updated test expectation and retained Output exit/event/retry checks.",
+      "artifactId": 13073103616,
+      "archiveSha256": "7021a06bbfd5d770a3458b98b231d32c9a30d18ebae133ef42ac76639f938fbb",
+      "productionExeSha256": "9a327135f473d4e45008d13252d20e29e546c97e438ec9ca7bf93213f8d683cd"
+    },
+    {
+      "runId": 41281414272,
+      "sourceCommit": "116c82b394586c136b100e6a86cea6caec1c44ea",
+      "conclusion": "failure",
+      "independentSuccesses": [
+        "App contracts 1871",
+        "Release product and identical-object host",
+        "Real console handles probe",
+        "Core lifecycle 597",
+        "Application pipeline 2480",
+        "All Upheaval samples raw output parity and warm 0 XML/0 compile",
+        "Actual CtrlBreak exit 6 and retry"
+      ],
+      "reason": "Test incorrectly expected Environment=3 for malformed XML; actual Compilation=4. Measured progress overhead also exceeds required 1% target.",
+      "measurement": {
+        "targetMaxPercent": 1,
+        "offMedianMs": 2835.2665,
+        "targetMet": false,
+        "overheadPercent": 25.804639528594574,
+        "onMedianMs": 3566.8968,
+        "pairs": 3
+      },
+      "performanceCause": "1859 immediate warnings each synchronously redrew/formatted the progress line. Replace per-warning redraw with existing one-second timer restoration.",
+      "artifactId": 13072989965,
+      "archiveSha256": "05b4d58e0743728ab72df0e36191d00ae99782e5d60ab19b76f1c776a8bea2c8"
+    }
+  ],
+  "acceptedRunId": 41281916951
+}

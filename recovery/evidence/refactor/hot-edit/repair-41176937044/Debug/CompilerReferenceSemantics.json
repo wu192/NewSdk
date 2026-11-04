@@ -1,0 +1,15 @@
+{
+  "succeeded": true,
+  "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "runId": "41176937044",
+  "checks": 109,
+  "tests": [
+    "validated-CLR-XPath-DOM-schema-info-value-rewrite-CDATA-comment-entity-default-attribute-TypeId-equivalence",
+    "production-reference-buffer-zero-writes-and-original-capacity-growth-boundaries",
+    "production-reference-xsi-type-untyped-metadata-attribute-original-rejection-preserved",
+    "production-reference-traversal-strong-derived-explicit-inferred-weak-default-attribute-ordered-hash-rejections-foreign-ancestor-and-isolated-validated-PSVI-cache-probe"
+  ],
+  "scope": "CLR PSVI and production Core reference semantics; complete SDK remains a separate gate",
+  "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "testSourceCommit": "fc44f6eaecbbb50849d7fe42fa1ad037754d6fdf"
+}

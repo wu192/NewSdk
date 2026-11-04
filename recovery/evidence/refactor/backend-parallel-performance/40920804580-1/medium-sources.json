@@ -1,0 +1,217 @@
+[
+  {
+    "sourcePath": "Data/Mod/Common/Texture.xml",
+    "sourceSha256": "568b6e363c6f86ae2ebd7d59b5ede27b7b7e493c43e86620bc3b68bf89286d96",
+    "generatedPath": "Data/textures-000.xml",
+    "assetIds": [
+      "PackedImages_003_EP1",
+      "PackedImages_004_EP1",
+      "PackedImages_005_EP1",
+      "PackedImages_011_EP1",
+      "PackedImages_012_EP1",
+      "PackedImages_014_EP1",
+      "PackedImages_015_EP1",
+      "PackedImages_027_EP1",
+      "PackedImages_030_EP1",
+      "PackedImages_035_EP1",
+      "PackedImages_066_EP1",
+      "PackedImages_067_EP1",
+      "PackedImages_069_EP1",
+      "PackedImages_082_EP1",
+      "PackedImages_083_EP1",
+      "PackedImages_084_EP1",
+      "PackedImages_086_EP1",
+      "PackedImages_088_EP1",
+      "PackedImages_089_EP1",
+      "PackedImages_090_EP1",
+      "PackedImages_094_EP1",
+      "PackedImages_097_EP1",
+      "PackedImagesPortraits_004_EP1",
+      "PackedImagesPortraits_006_EP1",
+      "PackedImagesPortraits_014_EP1",
+      "PackedImagesPortraits_016_EP1",
+      "PackedImagesPortraits_019_EP1",
+      "PackedImagesPortraits_032_EP1",
+      "PackedImagesPortraits_033_EP1",
+      "PackedImagesPortraits_034_EP1",
+      "PackedImagesPortraits_035_EP1"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Specific/Texture.xml",
+    "sourceSha256": "c75ff1ba98366dc2a3065b7f0d5fd3dd267e164c9decd8b494e1daa12ac50018",
+    "generatedPath": "Data/textures-001.xml",
+    "assetIds": [
+      "LURomania_vol"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Structures/Castle Gate/Texture.xml",
+    "sourceSha256": "047bfe9c7fdf2ef1a5f853f60a522c635054125b6cfbf81867ff905a3e5a2c7c",
+    "generatedPath": "Data/textures-002.xml",
+    "assetIds": [
+      "RM_Castle01",
+      "RM_Castle01_NRM",
+      "RM_Castle01_SPM"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Allied Engineer/Texture.xml",
+    "sourceSha256": "c3a10bc6d28b46554019dbdb27fbb80cde7426dc85f2f40f0db2639bf1c2a9dc",
+    "generatedPath": "Data/textures-003.xml",
+    "assetIds": [
+      "FXYurikoShieldFadeLUT",
+      "FXYurikoShieldFractal"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Archer Maiden/Texture.xml",
+    "sourceSha256": "e6660848e49de994924105971a99455295e3fd481b8b18d050f792c1078bfe3e",
+    "generatedPath": "Data/textures-004.xml",
+    "assetIds": [
+      "EXJapanArrow",
+      "EXJapanArrowVet",
+      "FXCloakField",
+      "FXJapanSentBlast",
+      "JUArcherInfantry",
+      "Target_Japan_ArcherBarrage"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Cryo Legionnaire/Texture.xml",
+    "sourceSha256": "1226410becd03af4fcd431da2300295f8082dbd7b378d8c06e12d686b9136ab3",
+    "generatedPath": "Data/textures-005.xml",
+    "assetIds": [
+      "AULegionnaireInfantry",
+      "AULegionnaireInfantry_NRM",
+      "AULegionnaireInfantry_SPM"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Desolator/Texture.xml",
+    "sourceSha256": "c7f86d64ddb44f9fe8941fd317b56e8b82057226c5b723a82a5595ce6cd4c891",
+    "generatedPath": "Data/textures-006.xml",
+    "assetIds": [
+      "FXCorrupterStream",
+      "SUDesolator",
+      "SUDesolator_NRM",
+      "SUDesolator_SPM"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Future Tank X-1/Texture.xml",
+    "sourceSha256": "222a50184c1e31c940c504e1bc1b53bf98440ad48dd224d1f2f6266124e2ac97",
+    "generatedPath": "Data/textures-007.xml",
+    "assetIds": [
+      "AUFutureTank",
+      "AUFutureTank_D",
+      "AUFutureTank_NRM",
+      "AUFutureTank_SPM",
+      "FXAlienLaser",
+      "FXAlienLaserHeroic",
+      "FXAlliedFutureElec",
+      "FXAlliedFutureLaser"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Giga-Fortress/Texture.xml",
+    "sourceSha256": "eba59e3db96c57021bdb94dda2597cc33d22469e0abce13675eab44e5064e785",
+    "generatedPath": "Data/textures-008.xml",
+    "assetIds": [
+      "FXJapanPearlLaser02",
+      "JUFortressShip",
+      "JUFortressShip_D",
+      "JUFortressShip_NRM",
+      "JUFortressShip_SPM"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Giga-Fortress Core/Texture.xml",
+    "sourceSha256": "98a46d2d9d5da675ba4bf11ac472d07506ea6cbf64247da7510c4df0d0463dad",
+    "generatedPath": "Data/textures-009.xml",
+    "assetIds": [
+      "EXJapanBarracks"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Grinder/Texture.xml",
+    "sourceSha256": "4c1937eb73601da042b5541ae271811d166f15f35b777e66b4e65736cc451972",
+    "generatedPath": "Data/textures-010.xml",
+    "assetIds": [
+      "SUGrinderVehicle",
+      "SUGrinderVehicle_D",
+      "SUGrinderVehicle_NRM",
+      "SUGrinderVehicle_SPM"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Harbinger Gunship/Texture.xml",
+    "sourceSha256": "08e6f2e12049ea6ad45336a34a845f06ec4aaa7ef90fdc23b837c02c9bfebe16",
+    "generatedPath": "Data/textures-011.xml",
+    "assetIds": [
+      "AUGunship",
+      "AUGunship_D",
+      "AUGunship_NRM",
+      "AUGunship_SPM",
+      "FXAlliedProtonColliderHitCoreDiffuseV",
+      "FXAlliedProtonColliderHitDiffuseV"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Mortar Cycle/Texture.xml",
+    "sourceSha256": "fb0f920aa332d105cf19d87698d3f4f133fb0be255c129cdacbc3b4e6c73ecdd",
+    "generatedPath": "Data/textures-012.xml",
+    "assetIds": [
+      "SUMortarCycle",
+      "SUMortarCycle_D",
+      "SUMortarCycle_NRM",
+      "SUMortarCycle_rider",
+      "SUMortarCycle_SPM"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Pacifier FAV/Texture.xml",
+    "sourceSha256": "509949ab62e8c5e451295274b9bd26201628a95401aada60fd8d2057accadc3f",
+    "generatedPath": "Data/textures-013.xml",
+    "assetIds": [
+      "AUArtilleryVehicle",
+      "AUArtilleryVehicle_D",
+      "AUArtilleryVehicle_NRM",
+      "AUArtilleryVehicle_SPM",
+      "FXAlienPortal",
+      "FXPacifier_Reticule"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Reaper/Texture.xml",
+    "sourceSha256": "0a3b00f5dcb07c497a6da8289b944043f9d942205ff693c252fbc53ac453b9ba",
+    "generatedPath": "Data/textures-014.xml",
+    "assetIds": [
+      "SovietHeavyTurretScorch",
+      "SUHeavyWalkerVehicle",
+      "SUHeavyWalkerVehicle_D",
+      "SUHeavyWalkerVehicle_NRM",
+      "SUHeavyWalkerVehicle_SPM"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Steel Ronin/Texture.xml",
+    "sourceSha256": "4ff146c9a6f566b4f2dbee2aa706484eeed497a4e420cf697baa47e6cbfc67f7",
+    "generatedPath": "Data/textures-015.xml",
+    "assetIds": [
+      "FXKanji",
+      "JUSentinelVehicle",
+      "JUSentinelVehicle_D",
+      "JUSentinelVehicle_NRM",
+      "JUSentinelVehicle_SPM"
+    ]
+  },
+  {
+    "sourcePath": "Data/Mod/Units/Terror Drone/Texture.xml",
+    "sourceSha256": "77beaefe148173639e769bb44aafe3d763b6358e06533ab08d329ebd1f5206b2",
+    "generatedPath": "Data/textures-016.xml",
+    "assetIds": [
+      "SUScoutVehicle_D"
+    ]
+  }
+]

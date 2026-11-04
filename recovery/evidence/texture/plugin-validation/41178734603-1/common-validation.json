@@ -1,0 +1,123 @@
+{
+  "fixtureInputs": [
+    {
+      "name": "alpha.png",
+      "bytes": 189,
+      "sha256": "3b7ef0c5b535a0de3667389fa9dddec4dcfc272acd3a9916cd8c1f190d89499c"
+    },
+    {
+      "name": "alpha.rgba",
+      "bytes": 1024,
+      "sha256": "016ff404e2b417d3bf33b61372d8afa6f707923fcdf62aebd99b92df1882dd9e"
+    },
+    {
+      "name": "binary-alpha.png",
+      "bytes": 113,
+      "sha256": "44a301e2ab5b843c7b6c503b482fb9dc3d717b5903aa174607c4a7881adf9f1b"
+    },
+    {
+      "name": "binary-alpha.rgba",
+      "bytes": 1024,
+      "sha256": "e0251fd050d1d39a259e2b175d1d1d45c577982351a4cd909a4e7f56e01eb475"
+    },
+    {
+      "name": "broken.png",
+      "bytes": 20,
+      "sha256": "4cc335839c7dcbb9d0b0d8856ce919a852dfa442e2fe3ddb17d638e1e733edde"
+    },
+    {
+      "name": "fixtures.json",
+      "bytes": 450,
+      "sha256": "261465d9d0217049aa07e0353136260795205524139916aab253f7200e346657"
+    },
+    {
+      "name": "indexed.bmp",
+      "bytes": 326,
+      "sha256": "a80460670368ea0286643488ea13d456bcd4d6496f38eb17124a61ab7aa9abc9"
+    },
+    {
+      "name": "indexed.dib",
+      "bytes": 312,
+      "sha256": "79033f4eb8ee68102d03c8526ba7266f99bbc7b9f4b464b87ec4a0caef0c840c"
+    },
+    {
+      "name": "indexed.png",
+      "bytes": 119,
+      "sha256": "928ff450279d05c60e908e518e0a6552a43241b926195c74164f79b2bb4d730e"
+    },
+    {
+      "name": "npot.png",
+      "bytes": 95,
+      "sha256": "a0407f2e18e205067f62ecb7673294abeb049fcdb98001c9fd260ebd19f9f8af"
+    },
+    {
+      "name": "opaque.bmp",
+      "bytes": 822,
+      "sha256": "f2950affe79b287c094b092d95cc1611f4958931e9846cb316cc1e1bb24ca51a"
+    },
+    {
+      "name": "opaque.dib",
+      "bytes": 808,
+      "sha256": "6fa30a7929954b27ccef9e4c666f75d7e4fbef910a6cf592cfc3a38201e1097e"
+    },
+    {
+      "name": "opaque.png",
+      "bytes": 104,
+      "sha256": "df14ce0968f1d0f91f0b0da77dc0f26c07d6f8c357b50d332c88404a5ac6571f"
+    },
+    {
+      "name": "opaque.rgba",
+      "bytes": 1024,
+      "sha256": "06574d8f79d9a246deb2eef55dbbdd2aca70cff986025e11db955e332c94e3d9"
+    },
+    {
+      "name": "opaque.tga",
+      "bytes": 1042,
+      "sha256": "f26c18dd0db71cbe0df81582afee54d688e9b1e6044a1540144821a714804e08"
+    },
+    {
+      "name": "preserve.dds",
+      "bytes": 1152,
+      "sha256": "ea7443bed051b12d75d7c567f2d0905cd4f53b8d216ec823143f140e07cb6b32"
+    },
+    {
+      "name": "rle.tga",
+      "bytes": 1044,
+      "sha256": "49d20a51edbcd3d8342b077d8f6079bdd707a7be0e9900bcd45a6304432aee4a"
+    },
+    {
+      "name": "solid.bmp",
+      "bytes": 822,
+      "sha256": "1fe07197c342d25d762c8ff0c10f787f4cdaba4c7d9821fb174d8b857e479c73"
+    },
+    {
+      "name": "solid.png",
+      "bytes": 82,
+      "sha256": "57b30c21fec6be6cb97ffda5991bcbd294b360c95758b4a238cdba14854daf8f"
+    },
+    {
+      "name": "solid.rgba",
+      "bytes": 1024,
+      "sha256": "d0922103d16565dada908b2221bdb4a18dc0b09e598cd0d387d5267fb2169dbd"
+    }
+  ],
+  "productionCli": [],
+  "runAttempt": "1",
+  "sourceCommit": "20a367c0d7de051257f58ba4d0a62edbcddaf144",
+  "runId": "41178734603",
+  "status": "failed",
+  "configurations": [],
+  "schemaVersion": 1,
+  "error": "System.Management.Automation.RuntimeException: Texture common-format tool failed: C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-4eae67df08cf4a47b2bb81587871aa40\\Debug\\clean\\NewModCompiler.exe (exit 1)",
+  "scope": "Common formats through production plugin objects and real MOD CLI; independent DDS/BC decode, Core schema/file preprocessing, cache invalidation, missing-input retry; no game runtime claim",
+  "testSources": [
+    {
+      "sha256": "bcff686cc7f9b45c8a51376ca9bcfc4eb41a7e4483159de9035e0ccbe69458e3",
+      "path": "recovery/tests/TextureCommonFormats.cs"
+    },
+    {
+      "sha256": "75ebe8709cbbce2ed775db75ba46913bdfadd30dbd03975ab111737c95cc1b94",
+      "path": "recovery/scripts/GenerateTextureFixtures.py"
+    }
+  ]
+}

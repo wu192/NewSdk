@@ -1,0 +1,47 @@
+Allocation metric: AppDomain.MonitoringTotalAllocatedMemorySize
+Runtime: 4.0.30319.42000; pointer bits: 32
+PASS before/after boundary comparisons: 3280
+case,revision,round,milliseconds,allocatedBytes,gen0,gen1,gen2
+stereo-30s-ram,before,0,1879.795,88110248,9,1,1
+stereo-30s-ram,after,0,695.845,1710184,0,0,0
+stereo-30s-ram,after,1,695.746,1710184,0,0,0
+stereo-30s-ram,before,1,1844.287,88102056,8,0,0
+stereo-30s-ram,before,2,1825.460,88110248,9,1,1
+stereo-30s-ram,after,2,695.203,1710184,0,0,0
+stereo-120s-ram,before,0,46550.799,352403000,33,3,1
+stereo-120s-ram,after,0,2788.596,6840184,0,0,0
+stereo-120s-ram,after,1,2782.983,6840184,0,0,0
+stereo-120s-ram,before,1,45759.851,352394808,32,2,0
+stereo-120s-ram,before,2,46243.162,352403000,33,3,1
+stereo-120s-ram,after,2,2787.689,6840184,0,0,0
+stereo-120s-streamed,before,0,2720.180,217058148,37,0,0
+stereo-120s-streamed,after,0,2784.604,6867024,0,0,0
+stereo-120s-streamed,after,1,2799.523,6867024,0,0,0
+stereo-120s-streamed,before,1,2741.368,217058148,37,0,0
+stereo-120s-streamed,before,2,2725.237,217058148,37,0,0
+stereo-120s-streamed,after,2,2781.737,6867024,0,0,0
+stereo-120s-loop-ram,before,0,46311.555,423307704,33,3,1
+stereo-120s-loop-ram,after,0,2782.223,6840344,0,0,0
+stereo-120s-loop-ram,after,1,2781.245,6840344,0,0,0
+stereo-120s-loop-ram,before,1,44352.919,423307704,33,2,1
+stereo-120s-loop-ram,before,2,44495.803,423307704,33,3,1
+stereo-120s-loop-ram,after,2,2782.861,6840344,0,0,0
+stereo-120s-loop-streamed,before,0,2864.132,286935564,37,0,0
+stereo-120s-loop-streamed,after,0,2787.486,6867280,0,0,0
+stereo-120s-loop-streamed,after,1,2779.067,6867280,0,0,0
+stereo-120s-loop-streamed,before,1,2867.702,286935564,37,0,0
+stereo-120s-loop-streamed,before,2,2863.066,286935564,37,0,0
+stereo-120s-loop-streamed,after,2,2785.317,6867280,0,0,0
+stereo-600s-streamed,before,0,13628.992,1133896032,184,2,0
+stereo-600s-streamed,after,0,13935.740,34334416,0,0,0
+stereo-600s-streamed,after,1,13925.153,34334416,0,0,0
+stereo-600s-streamed,before,1,13621.492,1133896032,184,2,0
+stereo-600s-streamed,before,2,13653.860,1133896032,184,2,0
+stereo-600s-streamed,after,2,13941.877,34334416,0,0,0
+six-channel-30s-streamed,before,0,2032.441,164470652,27,0,0
+six-channel-30s-streamed,after,0,2084.528,5150672,0,0,0
+six-channel-30s-streamed,after,1,2086.617,5150672,0,0,0
+six-channel-30s-streamed,before,1,2031.415,164470652,27,0,0
+six-channel-30s-streamed,before,2,2030.883,164470652,27,0,0
+six-channel-30s-streamed,after,2,2086.518,5150672,0,0,0
+PASS long audio byte comparisons: 21

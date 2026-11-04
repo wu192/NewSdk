@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Web.Script.Serialization;
 using System.Xml;
 using BinaryAssetBuilder;
@@ -64,14 +65,9 @@ public static class CompilerCacheContent
             item.Reset(); Require(!item.IsDirty && item.Hash == first, "Unmodified contents must remain clean after reset");
             string serialized = Serialize(item);
             var xml = new XmlDocument(); xml.LoadXml(serialized);
-            using (var sha = SHA256.Create())
-                Require(xml.DocumentElement.GetAttribute("sha256") == Convert.ToBase64String(sha.ComputeHash(data)), "Serialized fingerprint must describe actual bytes");
+            Require(!xml.DocumentElement.HasAttribute("sha256"), "BAB hash records must not persist a second content hash");
             var loaded = Deserialize(serialized);
-            Require(!loaded.IsDirty && loaded.Hash == first, "Persisted unchanged content identity must be reusable");
-            xml.DocumentElement.RemoveAttribute("sha256");
-            var old = Deserialize(xml.OuterXml);
-            Require(old.IsDirty, "Legacy timestamp-only entries must be conservatively invalidated");
-            Require(old.Hash == first && !old.IsDirty, "Legacy entry recomputation must preserve the game hash");
+            Require(!loaded.IsDirty && loaded.Hash == first, "Persisted unchanged FastHash must be reusable");
             if (length != 0)
             {
                 data[length - 1] ^= 91;
@@ -94,6 +90,44 @@ public static class CompilerCacheContent
         }
         tests.Add("real-FileHashItem-zero-small-and-multi-chunk-FastHash-equality-content-reset-XML-roundtrip-legacy-invalidation-delete-recreate");
     }
+    static object HostHashes(string output)
+    {
+        var type = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileHashCache", true);
+        object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { null }, null);
+        Settings.Current.FileIdentity = (Func<string, FileHashInfo>)Delegate.CreateDelegate(typeof(Func<string, FileHashInfo>), hashes, type.GetMethod("CoreIdentity", BindingFlags.NonPublic | BindingFlags.Instance));
+        Settings.Current.FileHashRead = (Action<long>)Delegate.CreateDelegate(typeof(Action<long>), hashes, type.GetMethod("RecordRead", BindingFlags.NonPublic | BindingFlags.Instance));
+        return hashes;
+    }
+    static void HostFileCases(string work)
+    {
+        Directory.CreateDirectory(work);
+        string path = Path.Combine(work, "input.bin"), output = Path.Combine(work, "receipts");
+        byte[] data = new byte[1048609]; data[data.Length - 1] = 17;
+        File.WriteAllBytes(path, data);
+        Settings.Current = new Settings();
+        object hashes = HostHashes(output);
+        var item = new FileHashItem(path, "", TargetPlatform.Win32);
+        using (var held = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            Require(item.Exists && item.IsDirty, "Known dirty input must use host metadata without reading content");
+        uint first = item.Hash;
+        Require(first == LegacyHash(data), "Host identity path changed multi-chunk FastHash");
+        item.Reset();
+        using (var held = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            Require(!item.IsDirty && item.Hash == first, "Hot FileHashItem must reuse identity and metadata without opening content");
+        string saved = Serialize(item);
+        hashes = HostHashes(output);
+        var loaded = Deserialize(saved);
+        using (var held = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            Require(!loaded.IsDirty && loaded.Hash == first, "Cold-process BAB metadata must reuse FileHashItem content identity");
+        Thread.Sleep(30); data[data.Length - 1] ^= 91; ReplacePreservingTime(path, data);
+        hashes.GetType().GetMethod("SchemaIdentities", BindingFlags.NonPublic | BindingFlags.Instance).Invoke(hashes, new object[] { new[] { path } });
+        loaded.Reset(); Require(loaded.IsDirty, "Host identity must invalidate a same-size restored-time edit");
+        Require(loaded.Hash == LegacyHash(data) && !loaded.IsDirty, "Changed file must calculate the original FastHash once when requested");
+        int reads = (int)hashes.GetType().GetProperty("Reads", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(hashes, null);
+        Require(reads == 1, "Changed input should record exactly one FastHash content read");
+        Settings.Current = null;
+        tests.Add("host-FileHashItem-directory-metadata-locked-hot-and-persisted-metadata-restored-time-invalidation-single-FastHash-read");
+    }
     const string Header = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema' xmlns:a='uri:ea.com:eala:asset' targetNamespace='uri:ea.com:eala:asset'>";
     static string Root(string kind)
     {
@@ -111,20 +145,44 @@ public static class CompilerCacheContent
         try { action(); } catch (BinaryAssetBuilderException e) { rejected = e.ErrorCode == ErrorCode.ReadingSchema; }
         Require(rejected, label + " must reject rather than reuse partial schema state");
     }
-    static void SchemaCases(string work)
+    static void SchemaCases(string work, bool identityProvider)
     {
+        Directory.CreateDirectory(work);
         string root = Path.Combine(work, "root.xsd"), helper = Path.Combine(work, "helpers.xsd");
         File.WriteAllText(root, Root("KindAlpha"), new UTF8Encoding(false));
         File.WriteAllText(helper, Helpers("ItemAlpha"), new UTF8Encoding(false));
         Settings.Current = new Settings { SchemaPath = root, StringHashBinDescriptors = new StringHashBinDescriptor[0] };
+        if (identityProvider)
+        {
+            var type = typeof(NewModCompiler.Application.CoreStreamCompiler).Assembly.GetType("NewModCompiler.Application.FileHashCache", true);
+            object hashes = Activator.CreateInstance(type, BindingFlags.NonPublic | BindingFlags.Instance, null, new object[] { null }, null);
+            Settings.Current.FileIdentity = (Func<string, FileHashInfo>)Delegate.CreateDelegate(typeof(Func<string, FileHashInfo>), hashes, type.GetMethod("CoreIdentity", BindingFlags.NonPublic | BindingFlags.Instance));
+            var stamp = type.GetMethod("SchemaIdentities", BindingFlags.NonPublic | BindingFlags.Instance);
+            Settings.Current.SchemaFileIdentities = (Func<IEnumerable<string>, IDictionary<string, string>>)Delegate.CreateDelegate(typeof(Func<IEnumerable<string>, IDictionary<string, string>>), hashes, stamp);
+        }
         var schemas = new SchemaSet(false);
         Require(schemas.GetXmlType("KindAlpha") != null && schemas.GetXmlType("ItemAlpha") != null, "Initial real schema closure must load");
         var original = schemas.Schemas; schemas.ReloadIfChanged(false);
         Require(Object.ReferenceEquals(original, schemas.Schemas), "Unmodified schema closure should be reused");
-        ReplacePreservingTime(root, Root("KindBravo")); schemas.ReloadIfChanged(false);
+        if (identityProvider)
+        {
+            File.SetLastWriteTimeUtc(root, File.GetLastWriteTimeUtc(root).AddSeconds(2));
+            schemas.ReloadIfChanged(false);
+            Require(Object.ReferenceEquals(original, schemas.Schemas), "Metadata-only schema change must retain the compiled closure");
+            using (var rootLock = new FileStream(root, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+            using (var includeLock = new FileStream(helper, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                schemas.ReloadIfChanged(false);
+            Require(Object.ReferenceEquals(original, schemas.Schemas), "Unchanged identity must not open schema bodies, including after a metadata-only refresh");
+        }
+        string rootIdentity = identityProvider ? Settings.Current.SchemaFileIdentities(new[] { root })[root] : null;
+        if (identityProvider) Thread.Sleep(30); // Match the existing FileIdentity fixture's filesystem clock boundary.
+        ReplacePreservingTime(root, Root("KindBravo"));
+        if (identityProvider) Require(Settings.Current.SchemaFileIdentities(new[] { root })[root] != rootIdentity, "Equal-time schema edit fixture did not change file identity");
+        schemas.ReloadIfChanged(false);
         Require(!Object.ReferenceEquals(original, schemas.Schemas) && schemas.GetXmlType("KindBravo") != null && schemas.GetXmlType("KindAlpha") == null,
             "Root schema changes with equal size and mtime must reload");
         original = schemas.Schemas;
+        if (identityProvider) Thread.Sleep(30);
         ReplacePreservingTime(helper, Helpers("ItemBravo")); schemas.ReloadIfChanged(false);
         Require(!Object.ReferenceEquals(original, schemas.Schemas) && schemas.GetXmlType("ItemBravo") != null && schemas.GetXmlType("ItemAlpha") == null,
             "Included schema changes with equal size and mtime must reload");
@@ -137,23 +195,26 @@ public static class CompilerCacheContent
         File.WriteAllText(helper, Helpers("ItemThird"), new UTF8Encoding(false)); schemas.ReloadIfChanged(false);
         Require(schemas.GetXmlType("ItemThird") != null && schemas.GetXmlType("KindOther") != null, "Failed include load must recover on the same SchemaSet");
         string valid = Root("KindFixed");
+        if (identityProvider) Thread.Sleep(30);
         File.WriteAllText(alternate, valid.Replace("<xs:include", "<xx:include"), new UTF8Encoding(false));
         RejectedSchema(delegate { schemas.ReloadIfChanged(false); }, "Malformed root");
         RejectedSchema(delegate { schemas.ReloadIfChanged(false); }, "Repeated malformed root");
+        if (identityProvider) Thread.Sleep(30);
         ReplacePreservingTime(alternate, valid); schemas.ReloadIfChanged(false);
         Require(schemas.GetXmlType("KindFixed") != null, "Same-size same-time repair must retry after failed load");
         original = schemas.Schemas; schemas.ReloadIfChanged(false);
         Require(Object.ReferenceEquals(original, schemas.Schemas), "Recovered unchanged closure must become reusable");
         schemas.ReloadIfChanged(true);
         Require(schemas.AssetDependencies != null, "Dependency-counting request must reload a closure loaded without dependency counts");
-        tests.Add("real-SchemaSet-root-and-include-equal-time-content-invalidation-root-switch-delete-malformed-repeat-repair-dependency-counting");
+        tests.Add("real-SchemaSet-" + (identityProvider ? "file-identity" : "standalone-content") + "-root-and-include-equal-time-invalidation-root-switch-delete-malformed-repeat-repair-dependency-counting");
     }
     public static int Main(string[] args)
     {
         Settings previous = Settings.Current;
         try
         {
-            Directory.CreateDirectory(args[0]); FileCases(args[0]); SchemaCases(args[0]);
+            Directory.CreateDirectory(args[0]); FileCases(args[0]); HostFileCases(Path.Combine(args[0], "host-files"));
+            SchemaCases(Path.Combine(args[0], "standalone"), false); SchemaCases(Path.Combine(args[0], "identity"), true);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests }));
             Console.WriteLine("PASS CacheContent: " + checks + " assertions"); return 0;
         }

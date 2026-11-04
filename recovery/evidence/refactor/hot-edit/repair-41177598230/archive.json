@@ -1,0 +1,42 @@
+{
+  "runId": 41177598230,
+  "sourceCommit": "c15f7b9c8e140bfbf479ea7170d01714da064ca5",
+  "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "status": "failed",
+  "artifactId": 13032754992,
+  "archiveSha256": "a67f0c60b004171f707b317fc8d9ebcd9463e3f015423012f365fb3722084f37",
+  "archiveBytes": 9053296,
+  "downloadedAndRehashed": true,
+  "runtimeSameAsFirst": true,
+  "fixtures": {
+    "Debug": {
+      "succeeded": false,
+      "checks": 94,
+      "error": "System.NullReferenceException: Object reference not set to an instance of an object.\r\n   at BinaryAssetBuilder.Core.SessionCache.checkFiles(List`1 knownChangedFiles)\r\n   at BinaryAssetBuilder.Core.SessionCache.InitializeCache(List`1 knownChangedFiles, String schemaIdentity)\r\n   at CompilerInstanceIncludeCache.Chain(BuiltinCompilers plugins) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInstanceIncludeCache.cs:line 180\r\n   at CompilerInstanceIncludeCache.Main(String[] args) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInstanceIncludeCache.cs:line 229"
+    },
+    "Release": {
+      "succeeded": false,
+      "checks": 94,
+      "error": "System.NullReferenceException: Object reference not set to an instance of an object.\r\n   at BinaryAssetBuilder.Core.SessionCache.checkFiles(List`1 knownChangedFiles)\r\n   at BinaryAssetBuilder.Core.SessionCache.InitializeCache(List`1 knownChangedFiles, String schemaIdentity)\r\n   at CompilerInstanceIncludeCache.Chain(BuiltinCompilers plugins)\r\n   at CompilerInstanceIncludeCache.Main(String[] args)"
+    }
+  },
+  "independentPassed": {
+    "performance": {
+      "path": "evidence/refactor/performance/41177598230-1/validation.json",
+      "sha256": "b6044068511abc3fbad4c228e17bb190ca2e962c979173253e80288c9e59f595"
+    },
+    "backend-Debug": {
+      "path": "evidence/refactor/core-backend-baseline/41177598230-1/Debug/validation.json",
+      "sha256": "bdb04a5a1ef827f3e0e226890d31b9d2f25b91f7acaad2a9f6dc0180509ce511"
+    },
+    "backend-Release": {
+      "path": "evidence/refactor/core-backend-baseline/41177598230-1/Release/validation.json",
+      "sha256": "f2e3f5730006ffcd5494afe5a046e5aaa44c70629d23b9a9447e9e94d7cf644f"
+    },
+    "protocol": {
+      "path": "evidence/refactor/hot-edit-repair/41177598230-1/original-core-protocol.json",
+      "sha256": "95415ce9e27fa99b56c58d5606f699f9f4f4a9c4e5ec0f2ff87710e1281b4bbd"
+    }
+  },
+  "receiptArchiveSha256": "52ae2c79786f375b18d91038f3e259ee2854c4f81dd394c5187cbe438c77c00d"
+}

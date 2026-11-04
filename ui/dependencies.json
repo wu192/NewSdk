@@ -1,0 +1,29 @@
+{
+  "nugetPackages": [
+    {
+      "id": "libtessdotnet",
+      "version": "1.1.15",
+      "sha256": "a0826f6585409ea1bcbad954bea1a0a3aaed4ffc7d1ea1f29bc2fb1e50aa7416"
+    },
+    {
+      "id": "stbimagesharp",
+      "version": "2.30.15",
+      "sha256": "5af73ab8028eb0ec770f6fcfdcf283b3629da2044d381cd7962fdfc0dbf5e44e"
+    },
+    {
+      "id": "system.drawing.common",
+      "version": "8.0.21",
+      "sha256": "e7cc37e46643f509ad72dd9cc9d359a2d47e628c3b5426eba7753db4896cb09b"
+    },
+    {
+      "id": "microsoft.netframework.referenceassemblies.net472",
+      "version": "1.0.3",
+      "sha256": "ffa0a5570a39f911399164d0581ffddef99b5e3dfbaa5f220e5ce22969bcf57c"
+    },
+    {
+      "id": "clipper2",
+      "version": "1.5.4",
+      "sha256": "f58657851828f3445419988af4f77196c744b5e53a8244d95c7adc4e8dfa30bb"
+    }
+  ]
+}

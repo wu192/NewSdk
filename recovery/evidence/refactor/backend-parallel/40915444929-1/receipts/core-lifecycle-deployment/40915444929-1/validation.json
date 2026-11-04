@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "runAttempt": "1",
+  "scope": "P4 clean unified production deployment and complete built-in route metadata; integrated backend environment rejection only; not component differential or successful MOD compilation",
+  "runId": "40915444929",
+  "sourceCommit": "6d39f833bfbad40e3576b5517e1da685a995a77a",
+  "modes": [
+    {
+      "doctorExit": 3,
+      "passed": true,
+      "fakeSdkRejected": true,
+      "builtinPluginCount": 6,
+      "validationHostSha256": "fda2d452b987e6ae22bb40172e863289c6625996009af52fad5dc86a13220d5f",
+      "exactResourcesVerified": true,
+      "runtimeFiles": [
+        "NewModCompiler.exe",
+        "NewModCompiler.exe.config",
+        "antlr.runtime.dll",
+        "BinaryAssetBuilder.TextureCompiler.dll",
+        "BinaryAssetBuilder.TextureCompiler.dll.patch.json"
+      ],
+      "buildExit": 3,
+      "configuration": "Debug",
+      "exeSha256": "9e4f9d1c68269860240cd5bb6d4e2a99d467e5e8eeec59a388dfc177a7db09ae",
+      "builtinRouteCount": 299,
+      "routeMetadataVerified": true,
+      "typeInventoryVerified": true,
+      "planExit": 0,
+      "componentDifferentialPassed": false,
+      "productContainsTests": false,
+      "componentExecution": "test-only host using identical production inputs",
+      "backendIntegrated": true,
+      "modCompilationValidated": false,
+      "moduleInputsQuarantined": true
+    },
+    {
+      "doctorExit": 3,
+      "passed": true,
+      "fakeSdkRejected": true,
+      "builtinPluginCount": 6,
+      "validationHostSha256": "89f8ba42886a3af9c4418dd642d290fa5cd2eee1ae5eba8798d55b4db50fb017",
+      "exactResourcesVerified": true,
+      "runtimeFiles": [
+        "NewModCompiler.exe",
+        "NewModCompiler.exe.config",
+        "antlr.runtime.dll",
+        "BinaryAssetBuilder.TextureCompiler.dll",
+        "BinaryAssetBuilder.TextureCompiler.dll.patch.json"
+      ],
+      "buildExit": 3,
+      "configuration": "Release",
+      "exeSha256": "15fc7ee3ed23cf083e8c63271b4c220983b063c2f186bad03c3d8df7a62fc1ce",
+      "builtinRouteCount": 299,
+      "routeMetadataVerified": true,
+      "typeInventoryVerified": true,
+      "planExit": 0,
+      "componentDifferentialPassed": false,
+      "productContainsTests": false,
+      "componentExecution": "test-only host using identical production inputs",
+      "backendIntegrated": true,
+      "modCompilationValidated": false,
+      "moduleInputsQuarantined": true
+    }
+  ]
+}

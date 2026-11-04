@@ -1,0 +1,73 @@
+{
+  "sourceBlob": "00bb9e5df72d07a21204f85f9a9a2f1d9557f00b",
+  "scope": "Joypad independent roots; runtime component and small MOD acceptance recorded separately",
+  "runtimeAcceptanceEvidence": "recovery/evidence/joypad",
+  "roots": [
+    {
+      "name": "UIJoypadCommandBarMixedGroup",
+      "typeId": 1276968974,
+      "typeHash": 3983232506,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIJoypadCommandBarHomogenousGroup",
+      "typeId": 1546953756,
+      "typeHash": 2225127171,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIJoypadCommandBarCoopCommunicator",
+      "typeId": 1654297531,
+      "typeHash": 2835608034,
+      "schemaGlobal": true
+    },
+    {
+      "name": "JoypadCommandBarButtonTemplate",
+      "typeId": 1804891371,
+      "typeHash": 689163324,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIJoypadCommandBarStances",
+      "typeId": 1887864852,
+      "typeHash": 1145979021,
+      "schemaGlobal": true
+    },
+    {
+      "name": "JoypadCommandBarTemplate",
+      "typeId": 1931769760,
+      "typeHash": 1959031257,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIJoypadCommandBarTopMenu",
+      "typeId": 2170044043,
+      "typeHash": 360514692,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIJoypadCommandBarPlayerPowers",
+      "typeId": 2742786440,
+      "typeHash": 1752851487,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIJoypadCommandBarButtonBuild",
+      "typeId": 3423839194,
+      "typeHash": 1141570868,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIJoypadCommandBarControlGroups",
+      "typeId": 3645205636,
+      "typeHash": 3852026165,
+      "schemaGlobal": true
+    },
+    {
+      "name": "UIJoypadCommandBarSingleUnit",
+      "typeId": 3901433122,
+      "typeHash": 1804668011,
+      "schemaGlobal": true
+    }
+  ]
+}

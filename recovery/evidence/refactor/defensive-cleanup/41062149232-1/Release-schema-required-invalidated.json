@@ -1,0 +1,247 @@
+{
+  "schemaVersion": "1.0",
+  "buildId": "ecd997a0f56a483b8941384d7ce83fe6",
+  "status": "failed",
+  "exitCode": 4,
+  "requestArguments": [
+    "build",
+    "--mod",
+    "D:\\a\\_temp\\ce33fe65d\\R\\m",
+    "--sdk-root",
+    "D:\\a\\_temp\\ce33fe65d\\R\\s",
+    "--out",
+    "D:\\a\\_temp\\ce33fe65d\\R\\cache",
+    "--package-format",
+    "loose",
+    "--package-content",
+    "base,apt",
+    "--csc=false",
+    "--psc=false",
+    "--sc=true",
+    "--bc=false"
+  ],
+  "effectiveOptions": {
+    "atc": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "bc": {
+      "Value": "false",
+      "Source": "commandLine"
+    },
+    "csc": {
+      "Value": "false",
+      "Source": "commandLine"
+    },
+    "events": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\R\\cache\\build.events.jsonl",
+      "Source": "default"
+    },
+    "fix-neutral-assets": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "fsc": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "game-version": {
+      "Value": "1.12",
+      "Source": "default"
+    },
+    "include-additional": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "jobs": {
+      "Value": "auto",
+      "Source": "default"
+    },
+    "log": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\R\\cache\\build.log",
+      "Source": "default"
+    },
+    "mod": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\R\\m",
+      "Source": "commandLine"
+    },
+    "mod-version": {
+      "Value": "1.0",
+      "Source": "default"
+    },
+    "out": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\R\\cache",
+      "Source": "commandLine"
+    },
+    "package-content": {
+      "Value": "base,apt",
+      "Source": "commandLine"
+    },
+    "package-format": {
+      "Value": "loose",
+      "Source": "commandLine"
+    },
+    "pc": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "performance": {
+      "Value": "off",
+      "Source": "default"
+    },
+    "profile": {
+      "Value": "standard",
+      "Source": "default"
+    },
+    "psc": {
+      "Value": "false",
+      "Source": "commandLine"
+    },
+    "report": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\R\\cache\\build-report.json",
+      "Source": "default"
+    },
+    "sc": {
+      "Value": "true",
+      "Source": "commandLine"
+    },
+    "sdk-root": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\R\\s",
+      "Source": "commandLine"
+    },
+    "slowclean": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "ss": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "tp": {
+      "Value": "Win32",
+      "Source": "default"
+    }
+  },
+  "selectedContent": [
+    "base",
+    "apt"
+  ],
+  "inputRoots": {
+    "dataRoot": "D:\\a\\_temp\\ce33fe65d\\R\\s",
+    "schemaPath": "D:\\a\\_temp\\ce33fe65d\\R\\s\\Schemas\\xsd\\CnC3Types.xsd",
+    "dataPaths": [
+      "D:\\a\\_temp\\ce33fe65d\\R\\m\\Data",
+      "D:\\a\\_temp\\ce33fe65d\\R\\s",
+      "D:\\a\\_temp\\ce33fe65d\\R\\s\\Mods",
+      "D:\\a\\_temp\\ce33fe65d\\R\\s\\SAGEXML"
+    ],
+    "artPaths": [
+      "D:\\a\\_temp\\ce33fe65d\\R\\m\\Art",
+      "D:\\a\\_temp\\ce33fe65d\\R\\s\\Art"
+    ],
+    "audioPaths": [
+      "D:\\a\\_temp\\ce33fe65d\\R\\m\\Audio",
+      "D:\\a\\_temp\\ce33fe65d\\R\\s\\Audio"
+    ],
+    "sources": {
+      "dataRoot": "sdk-root",
+      "dataPaths": "mod-prepend+sdk-config",
+      "artPaths": "mod-prepend+sdk-config",
+      "audioPaths": "mod-prepend+sdk-config"
+    }
+  },
+  "plan": {
+    "Tasks": [
+      {
+        "Id": "base/Mod",
+        "Content": "base",
+        "InputPath": "D:\\a\\_temp\\ce33fe65d\\R\\m\\Data\\Mod.xml",
+        "OutputName": "base/Mod",
+        "Reason": "ExplicitContentSelection",
+        "Dependencies": []
+      },
+      {
+        "Id": "apt/Payload",
+        "Content": "apt",
+        "InputPath": "D:\\a\\_temp\\ce33fe65d\\R\\m\\Data\\AptUI\\Payload.xml",
+        "OutputName": "apt/Payload",
+        "Reason": "ExplicitContentSelection",
+        "Dependencies": []
+      }
+    ],
+    "Skipped": [],
+    "PlanKind": "StreamDiscovery",
+    "DependencyPolicy": "Default is stream discovery only. Core owns include/reference closure. An explicit dependency planner may add stream dependencies, which are validated, deduplicated, and topologically ordered."
+  },
+  "stages": [
+    {
+      "id": "plan",
+      "status": "succeeded",
+      "elapsedMs": 8,
+      "artifactCount": 0
+    },
+    {
+      "id": "compile",
+      "status": "failed",
+      "elapsedMs": 404,
+      "artifactCount": 0
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "CORE_COMPILE_FAILED",
+      "message": "BinaryAssetBuilder.BinaryAssetBuilderException: XML validation error encountered in 'd:\\a\\_temp\\ce33fe65d\\r\\m\\data\\armor.xml' ---> System.Xml.Schema.XmlSchemaValidationException: The required attribute 'DamageScalar' is missing.\r\n   --- End of inner exception stack trace ---\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.HandleValidationEvents(Object sender, ValidationEventArgs e)\r\n   at System.Xml.DocumentSchemaValidator.InternalValidationCallBack(Object sender, ValidationEventArgs arg)\r\n   at System.Xml.Schema.XmlSchemaValidator.SendValidationEvent(XmlSchemaValidationException e, XmlSeverityType severity)\r\n   at System.Xml.Schema.XmlSchemaValidator.SendValidationEvent(String code, String arg)\r\n   at System.Xml.Schema.XmlSchemaValidator.CheckRequiredAttributes(SchemaElementDecl currentElementDecl)\r\n   at System.Xml.Schema.XmlSchemaValidator.ValidateEndOfAttributes(XmlSchemaInfo schemaInfo)\r\n   at System.Xml.DocumentSchemaValidator.ValidateElement()\r\n   at System.Xml.DocumentSchemaValidator.ValidateNode(XmlNode node)\r\n   at System.Xml.DocumentSchemaValidator.ValidateElement()\r\n   at System.Xml.DocumentSchemaValidator.ValidateNode(XmlNode node)\r\n   at System.Xml.DocumentSchemaValidator.ValidateNode(XmlNode node)\r\n   at System.Xml.DocumentSchemaValidator.Validate(XmlNode nodeToValidate)\r\n   at System.Xml.XmlDocument.Validate(ValidationEventHandler validationEventHandler, XmlNode nodeToValidate)\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.Validate()\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentContents(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean generateOutput)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocument(String fileName, Boolean generateOutput, Boolean __outputStringHashes, Boolean& success)\r\n   at NewModCompiler.Application.CoreStreamCompiler.Compile(StreamContext context, CancellationToken cancellation)",
+      "level": "error",
+      "streamId": "base/Mod",
+      "stageId": "compile"
+    },
+    {
+      "code": "CORE_ORIGINAL_EXCEPTION",
+      "message": "BinaryAssetBuilder.BinaryAssetBuilderException: XML validation error encountered in 'd:\\a\\_temp\\ce33fe65d\\r\\m\\data\\armor.xml' ---> System.Xml.Schema.XmlSchemaValidationException: The required attribute 'DamageScalar' is missing.\r\n   --- End of inner exception stack trace ---\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.HandleValidationEvents(Object sender, ValidationEventArgs e)\r\n   at System.Xml.DocumentSchemaValidator.InternalValidationCallBack(Object sender, ValidationEventArgs arg)\r\n   at System.Xml.Schema.XmlSchemaValidator.SendValidationEvent(XmlSchemaValidationException e, XmlSeverityType severity)\r\n   at System.Xml.Schema.XmlSchemaValidator.SendValidationEvent(String code, String arg)\r\n   at System.Xml.Schema.XmlSchemaValidator.CheckRequiredAttributes(SchemaElementDecl currentElementDecl)\r\n   at System.Xml.Schema.XmlSchemaValidator.ValidateEndOfAttributes(XmlSchemaInfo schemaInfo)\r\n   at System.Xml.DocumentSchemaValidator.ValidateElement()\r\n   at System.Xml.DocumentSchemaValidator.ValidateNode(XmlNode node)\r\n   at System.Xml.DocumentSchemaValidator.ValidateElement()\r\n   at System.Xml.DocumentSchemaValidator.ValidateNode(XmlNode node)\r\n   at System.Xml.DocumentSchemaValidator.ValidateNode(XmlNode node)\r\n   at System.Xml.DocumentSchemaValidator.Validate(XmlNode nodeToValidate)\r\n   at System.Xml.XmlDocument.Validate(ValidationEventHandler validationEventHandler, XmlNode nodeToValidate)\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.Validate()\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentContents(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean generateOutput)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocument(String fileName, Boolean generateOutput, Boolean __outputStringHashes, Boolean& success)\r\n   at NewModCompiler.Application.CoreStreamCompiler.Compile(StreamContext context, CancellationToken cancellation)",
+      "level": "info",
+      "streamId": "base/Mod",
+      "stageId": "compile"
+    }
+  ],
+  "diagnosticCounts": {
+    "error": 1,
+    "warning": 0
+  },
+  "loadedProviders": [
+    "NewModCompiler.Core.Win32.LegacySessionCache"
+  ],
+  "externalTools": [],
+  "cache": {
+    "status": "SessionCache",
+    "hits": 0,
+    "misses": 0,
+    "sessionCache": true,
+    "sessionPackageHits": 0,
+    "sessionPackageMisses": 1,
+    "documentReuse": 0,
+    "xmlParse": 2,
+    "instanceCompile": 0,
+    "linkedStreamsRestored": 0,
+    "fileHashReads": 2,
+    "fileHashReuses": 815,
+    "fileHashBytesRead": 1147,
+    "textureCache": true,
+    "compressedSessionCache": false,
+    "partialSessionCache": false,
+    "freezeSessionCache": false,
+    "alwaysTouchCache": false,
+    "partialSessionsSaved": 0,
+    "parallel": null,
+    "sessionCacheDirectory": "D:\\a\\_temp\\ce33fe65d\\R\\cache"
+  },
+  "elapsedMs": 441,
+  "artifacts": [],
+  "logPaths": {
+    "events": "D:\\a\\_temp\\ce33fe65d\\R\\cache\\build.events.jsonl",
+    "report": "D:\\a\\_temp\\ce33fe65d\\R\\cache\\build-report.json",
+    "text": "D:\\a\\_temp\\ce33fe65d\\R\\cache\\build.log"
+  },
+  "executionMode": "InProcess",
+  "publicationStatus": "NotPublished",
+  "publicationDirectory": "D:\\a\\_temp\\ce33fe65d\\R\\cache\\published"
+}

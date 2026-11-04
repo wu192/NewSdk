@@ -23,14 +23,20 @@ jobs:
       - name: Extract original mixed-mode assembly evidence
         shell: pwsh
         run: ./recovery/scripts/ExtractAudioCompiler.ps1
-      - name: Preserve source and recovery evidence
+      - name: Summarize CI evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/extraction.json
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: audio-${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'audio-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
-            recovery/evidence/audio/decompiled
-            recovery/evidence/audio
+            recovery/evidence/audio/extraction.json
+          retention-days: 1
+          if-no-files-found: warn
       - name: Commit original evidence
         shell: pwsh
         run: |

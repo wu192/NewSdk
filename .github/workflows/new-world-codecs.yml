@@ -1,0 +1,210 @@
+name: The New World texture and audio codec compatibility
+on:
+  push:
+    branches: [fix/new-world-texture-audio-codecs]
+    paths:
+      - '.github/workflows/new-world-codecs.yml'
+      - 'recovery/src/**'
+      - 'recovery/scripts/**'
+      - 'recovery/tests/**'
+      - 'recovery/fixtures/new-world-71/**'
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'Codec components and small CLI validation, or original discovery'
+        type: choice
+        options: [validate, original]
+        default: validate
+      source_url:
+        description: 'Fresh official source redirect; original archive SHA256 is verified'
+        type: string
+        required: false
+permissions:
+  contents: read
+concurrency:
+  group: new-world-codecs-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  original-eight-channel:
+    if: (github.event_name == 'workflow_dispatch' && inputs.stage == 'original') || contains(github.event.head_commit.message, '[new-world-codecs-oracle]')
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+            !/recovery/decompiled/
+      - name: Recover original WAVE eight-channel import ordering and PCM XAS bytes
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioMultichannelOriginal.ps1 -Channels @(8) -Frames @(127,128,129) -BitDepths @(8,16,24) -Repetitions 1
+      - name: Summarize results and selected upload size
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference.txt
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/Original-calls.tsv
+            !recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered-calls.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "New World original codec evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: new-world-codec-original-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 1
+          path: |
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference.txt
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/Original-calls.tsv
+            !recovery/evidence/audio/multichannel-original/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered-calls.tsv
+          if-no-files-found: warn
+  validate-codecs:
+    if: (github.event_name == 'workflow_dispatch' && inputs.stage == 'validate') || contains(github.event.head_commit.message, '[new-world-codecs]')
+    runs-on: windows-2022
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+            !/recovery/decompiled/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Preflight fixture generation and install existing production audit requirements
+        shell: pwsh
+        run: |
+          python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+          if($LASTEXITCODE -ne 0){throw 'Existing audit dependencies failed'}
+          python -m py_compile recovery/scripts/PrepareNewWorldTextureFixtures.py recovery/scripts/AudioEaLayer3Fixtures.py recovery/scripts/ValidateAudioEaLayer3.py
+          if($LASTEXITCODE -ne 0){throw 'Codec validation syntax failed'}
+          python recovery/scripts/GenerateTextureFixtures.py "$env:RUNNER_TEMP/texture-common-preflight"
+          if($LASTEXITCODE -ne 0){throw 'Existing common texture fixture preflight failed'}
+      - name: Download untouched 7.1 media under SDK Mods
+        shell: pwsh
+        env:
+          NEW_WORLD_SOURCE_URL: ${{ inputs.source_url }}
+        run: |
+          $out="recovery/evidence/codecs/new-world/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          $arguments=@('recovery/scripts/DownloadNewWorld71.py','--sdk-root','SDK','--archive',"$env:RUNNER_TEMP/The_New_World_7.1Source_Code.7z",'--output',"$out/source.json")
+          if($env:NEW_WORLD_SOURCE_URL){$arguments+=@('--source-url',$env:NEW_WORLD_SOURCE_URL)}
+          python @arguments
+          if($LASTEXITCODE -ne 0){throw 'Original source extraction failed'}
+          $source=Get-Content "$out/source.json" -Raw|ConvertFrom-Json
+          if($source.sha256 -cne '0c59ed425b1ab55d926bfec858c6f60a0186a5d46e4cb5b295e42891a5ecdb41'){throw 'Original source SHA256 differs'}
+      - name: Build new production Debug and Release with both codec fixes
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')){
+            ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/new-world-codecs-product/$mode"
+            ./recovery/scripts/BuildCompilerValidationHost.ps1 -ProductBuildDirectory "recovery/artifacts/new-world-codecs-product/$mode" -OutputDirectory "recovery/artifacts/new-world-codecs-product/$mode/validation"
+          }
+      - name: Compare original raw TGA inputs and retained boundaries in Debug and Release
+        id: raw_textures
+        continue-on-error: true
+        shell: pwsh
+        run: ./recovery/scripts/TestNewWorldTextureCodecs.ps1 -CompilerDirectory recovery/artifacts/new-world-codecs-product -ModDirectory 'SDK/Mods/The New World' -OutputDirectory "recovery/evidence/codecs/new-world/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/texture-inputs"
+      - name: Existing Texture three-route original-byte gates
+        id: texture_routes
+        continue-on-error: true
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerTexture.ps1 -CompilerDirectory recovery/artifacts/new-world-codecs-product -OutputDirectory "recovery/evidence/codecs/new-world/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/texture-routes"
+      - name: Existing common texture formats and production CLI gates
+        id: texture_common
+        continue-on-error: true
+        shell: pwsh
+        run: ./recovery/scripts/TestTextureCommonFormats.ps1 -CompilerDirectory recovery/artifacts/new-world-codecs-product -OutputDirectory "recovery/evidence/codecs/new-world/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/texture-common"
+      - name: Eight-channel PCM XAS original bytes and independent EALayer3 decoding
+        id: audio
+        continue-on-error: true
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioEightChannels.ps1 -NewWorldWave 'SDK/Mods/The New World/Data/NewUnit/kanade/sound/FX_kanade_spell.wav' -OutputDirectory "recovery/evidence/codecs/new-world/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/audio"
+      - name: Production audio CLI jobs cache invalidation and independent rebuild
+        id: audio_cli
+        continue-on-error: true
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestAudioEaLayer3Integration.py --repo . --exe recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe --work "$env:RUNNER_TEMP/new-world-eight-audio-cli" --output "recovery/evidence/codecs/new-world/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/audio-cli"
+          if($LASTEXITCODE -ne 0){throw 'Production audio CLI integration failed'}
+      - name: Require codec component and small CLI groups to pass
+        if: always()
+        shell: pwsh
+        env:
+          CODEC_GROUP_OUTCOMES: ${{ toJSON(steps) }}
+        run: |
+          $steps=$env:CODEC_GROUP_OUTCOMES|ConvertFrom-Json
+          foreach($name in @('raw_textures','texture_routes','texture_common','audio','audio_cli')){
+            if($steps.$name.outcome -ne 'success'){throw "Codec validation incomplete or failed: $name ($($steps.$name.outcome))"}
+          }
+      - name: Summarize results and selected upload size
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference.txt
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/Original-calls.tsv
+            !recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered-calls.tsv
+            recovery/artifacts/new-world-codecs-product/Release/build.json
+            recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe
+            recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe.config
+            recovery/artifacts/new-world-codecs-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
+            recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/audio-cli/validation.json
+        run: python recovery/scripts/WriteCiSummary.py --title "New World codec acceptance"
+      # Seven days for explicit cross-run MOD benchmarks; Release only plus a small evidence anchor preserves the recovery-root ZIP layout.
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: new-world-codecs-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 7
+          path: |
+            recovery/artifacts/new-world-codecs-product/Release/build.json
+            recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe
+            recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe.config
+            recovery/artifacts/new-world-codecs-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
+            recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/audio-cli/validation.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: new-world-codecs-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 1
+          path: |
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference.txt
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/Original-calls.tsv
+            !recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered-calls.tsv
+          if-no-files-found: warn

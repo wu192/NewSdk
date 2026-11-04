@@ -74,8 +74,8 @@ class XmlEvidenceTests(unittest.TestCase):
                            foundationSha256=inputs[0]['sha256'], applicationSha256=inputs[1]['sha256'],
                            nativeBuild=dict(objects=[inputs[3]['path']]),
                            resources=[dict(path=inputs[4]['path'], sha256=inputs[4]['sha256'])],
-                           runtimeFiles=['NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll',
-                                         'BinaryAssetBuilder.TextureCompiler.dll', 'BinaryAssetBuilder.TextureCompiler.dll.patch.json'])
+                           runtimeFiles=['NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll'],
+                           texturePlugin={'implementation': 'built-in-source', 'externalRuntimeFiles': []})
             write(folder / 'build.json', product)
             host = dict(schemaVersion=2, sourceCommit=cls.source, configuration=mode,
                         sameProductionObjects=True, productionExeUnchanged=True,
@@ -178,6 +178,15 @@ class XmlEvidenceTests(unittest.TestCase):
         result = self.check()
         self.assertEqual([r['groups'] for r in result['configurations']], [63, 63])
         self.assertIn('not independently rehashed', result['limitations'][0])
+
+    def test_historical_dll_runtime_receipts_remain_verifiable(self):
+        def historical(product):
+            product.pop('texturePlugin')
+            product['runtimeFiles'] += ['BinaryAssetBuilder.TextureCompiler.dll',
+                                       'BinaryAssetBuilder.TextureCompiler.dll.patch.json']
+        for mode in ('Debug', 'Release'):
+            self.mutate(self.root / f'artifacts/native-product/{mode}/build.json', historical)
+        self.assertEqual(len(self.check()['configurations']), 2)
 
     def test_missing_group_and_duplicate_group_rejected(self):
         for duplicate in (False, True):

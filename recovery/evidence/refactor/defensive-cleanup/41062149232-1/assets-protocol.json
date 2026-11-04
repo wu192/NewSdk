@@ -1,0 +1,547 @@
+{
+  "schemaVersion": "1.0",
+  "status": "passed",
+  "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+  "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+  "artifactId": null,
+  "artifactArchiveSha256": null,
+  "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+  "packages": {
+    "jsonschema": "4.23.0",
+    "rfc3339-validator": "0.1.4",
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1"
+  },
+  "pythonVersion": "3.12.10",
+  "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+  "schemaInputs": [
+    {
+      "path": "build-event.schema.json",
+      "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+    },
+    {
+      "path": "build-report.schema.json",
+      "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+    }
+  ],
+  "matrix": [
+    {
+      "configuration": "Debug",
+      "reports": 31,
+      "eventFiles": 31,
+      "events": 1518
+    },
+    {
+      "configuration": "Release",
+      "reports": 31,
+      "eventFiles": 31,
+      "events": 1521
+    }
+  ],
+  "validatedFiles": [
+    {
+      "path": "Debug/actual-cancel/build-report.json",
+      "sha256": "eb81c712ecf0944be66a54423f34a4b71937e82053c182ab8c6656e93cc7d525"
+    },
+    {
+      "path": "Debug/actual-cancel/build.events.jsonl",
+      "sha256": "939d9232c310af2487b3c342bab4d77b792d9c19dbfc4d6280ff2bac83b31bc7"
+    },
+    {
+      "path": "Debug/audio-header-content-hot/build-report.json",
+      "sha256": "248ceb480199bd0bc8613c1d94db434d141905afacf4f15dd2ec3c815061e628"
+    },
+    {
+      "path": "Debug/audio-header-content-hot/build.events.jsonl",
+      "sha256": "27d2b9ac27c065b7ebd6d3c1e95910e2ab1c16edfa4ebf7f5e84f6f2d25802f6"
+    },
+    {
+      "path": "Debug/audio-header-content-invalidated/build-report.json",
+      "sha256": "2224865c6331a46269d927096ef55380942e630ad822c2daed6b89fed9697998"
+    },
+    {
+      "path": "Debug/audio-header-content-invalidated/build.events.jsonl",
+      "sha256": "61193d959644f62ad77acd56d19e553121c594b68920b3cd77d317b3375ba684"
+    },
+    {
+      "path": "Debug/audio-header-content-no-cache/build-report.json",
+      "sha256": "ba2922626752ecf4ddc513c6cdc30dde498d4239b879e626d1a6104cec7c9ffe"
+    },
+    {
+      "path": "Debug/audio-header-content-no-cache/build.events.jsonl",
+      "sha256": "79dcd786ded033d5c9371d52714f2b24a98d20ba1a6a207d9ac7df22e8516b1e"
+    },
+    {
+      "path": "Debug/cold/build-report.json",
+      "sha256": "9852b853ffb14b12f247fb4474524e5d93b6080c7042937de9bfe96e484599d1"
+    },
+    {
+      "path": "Debug/cold/build.events.jsonl",
+      "sha256": "a23ee8e07ddf670b1dadb02f7759b76060c5b8323ecd62e1dbcb0e08cf4fdc80"
+    },
+    {
+      "path": "Debug/configuration-content-invalidated/build-report.json",
+      "sha256": "8d265f69714c0db4af516b79f8f14cf0ff6582086d18a635c4760346875246ab"
+    },
+    {
+      "path": "Debug/configuration-content-invalidated/build.events.jsonl",
+      "sha256": "4650acd3aaff2bccb76a97a1e727397c92ed702aa3263e32b102253b5798a0b8"
+    },
+    {
+      "path": "Debug/disabled/build-report.json",
+      "sha256": "eb820ec55fb0709f1f288eefcec9361cb9ec3a108281bd367c78d3c88d856b65"
+    },
+    {
+      "path": "Debug/disabled/build.events.jsonl",
+      "sha256": "4999e945896f5e63b09010925196af00965d7efb41d22736136a18a40dfcacc9"
+    },
+    {
+      "path": "Debug/first-mod-return/build-report.json",
+      "sha256": "56429370b8bcd0dccaeda48b43d663fca505fadd153d238b0f01deb8e5ade99c"
+    },
+    {
+      "path": "Debug/first-mod-return/build.events.jsonl",
+      "sha256": "ba6ba37b612dc699a6984e5ab53adcfe33140ceebb6810a24e49d5cf71ba8354"
+    },
+    {
+      "path": "Debug/hot/build-report.json",
+      "sha256": "45fc905a50446be68ff2d78d521950bcb4fef4694f2cdd453e4626565676ad75"
+    },
+    {
+      "path": "Debug/hot/build.events.jsonl",
+      "sha256": "dc79c9f5228f66e5fe5e11e973b6683b983447bf4ff675abfc6a0502ac8b0d72"
+    },
+    {
+      "path": "Debug/include-content-hot/build-report.json",
+      "sha256": "6d3387941ae2313173e1a6f0f858eb9fde86bbd80fc17257d8ead3d13c7dd529"
+    },
+    {
+      "path": "Debug/include-content-hot/build.events.jsonl",
+      "sha256": "0a077630328a9b843d1fabe038dd815667a89a31543b20696b9df3e95deb1d5f"
+    },
+    {
+      "path": "Debug/include-content-invalidated/build-report.json",
+      "sha256": "b07bd6df85f2634998026742728f38085a8c735f93c3067e318c9752227980bf"
+    },
+    {
+      "path": "Debug/include-content-invalidated/build.events.jsonl",
+      "sha256": "d21e5e6b35d581e977076cb1041b453ea88e9a9f899e8874e4695a358f080904"
+    },
+    {
+      "path": "Debug/include-content-no-cache/build-report.json",
+      "sha256": "8ebcad49d8c2bb3c0fe087e236162e4dc42c1d13c48a7d7cdd79f01ccb48593e"
+    },
+    {
+      "path": "Debug/include-content-no-cache/build.events.jsonl",
+      "sha256": "29da258307b3f798e5d839498d1058cae730c8be77094629933e02bccc2929ea"
+    },
+    {
+      "path": "Debug/invalid-include/build-report.json",
+      "sha256": "15650442629e79fd5a1b561a93120fa56dcef4e0183efa59b1599c8666968620"
+    },
+    {
+      "path": "Debug/invalid-include/build.events.jsonl",
+      "sha256": "fbdd7321c348c0611c34955e6b67f16d4809f01a8be0f33fe2de34cba7cf7c0f"
+    },
+    {
+      "path": "Debug/payload-content-hot/build-report.json",
+      "sha256": "4d1027e1296a655ce6eed6d091f94de9fa48c83bf8d694d4a9c30c8e19dcf538"
+    },
+    {
+      "path": "Debug/payload-content-hot/build.events.jsonl",
+      "sha256": "5582907d4c5a76e0b25d43f8b285642404e4a00cd3e1f4e557fc60979eac048a"
+    },
+    {
+      "path": "Debug/payload-content-invalidated/build-report.json",
+      "sha256": "36c30d514dad7563ad81bdd9d805a66715fc4fdba6d9e65a6d9d7b035cecf3a3"
+    },
+    {
+      "path": "Debug/payload-content-invalidated/build.events.jsonl",
+      "sha256": "140534610168ed90b8d15b1e5cb018d5d4f6d679fe1eff110a3a168ced43962c"
+    },
+    {
+      "path": "Debug/payload-content-no-cache/build-report.json",
+      "sha256": "65cf8b2fc844654e77aa75046eb79daa25c04ffc7f360f6294049ec5e15aa425"
+    },
+    {
+      "path": "Debug/payload-content-no-cache/build.events.jsonl",
+      "sha256": "44035e511970d597f463d4ead88017af538914f1e0859cd28f48be7f29238dd4"
+    },
+    {
+      "path": "Debug/repeat-with-unrelated-output/build-report.json",
+      "sha256": "3ad4970cd60dcc603bf13fc8366e131f605cea2c3651914b49da6188152d48d6"
+    },
+    {
+      "path": "Debug/repeat-with-unrelated-output/build.events.jsonl",
+      "sha256": "fe16b9bd7f39560e9cb321f8834640f1630736a9f4e8b22e25ed55fa639de0fd"
+    },
+    {
+      "path": "Debug/retry-after-actual-cancel/build-report.json",
+      "sha256": "27e25b019a8ea4682488e570fb3b1d8b0f4d4c1db1b36b16259bf746ca528768"
+    },
+    {
+      "path": "Debug/retry-after-actual-cancel/build.events.jsonl",
+      "sha256": "82de32e3922d5c377a3722b7fdb1b99be34efa8ad74b7ad5bce205d492d11341"
+    },
+    {
+      "path": "Debug/retry-after-invalid-include/build-report.json",
+      "sha256": "6c26795f0f760bb8d5c8148e061e709fdcff697e9623d89a9927f0b558af20b2"
+    },
+    {
+      "path": "Debug/retry-after-invalid-include/build.events.jsonl",
+      "sha256": "8d9302037cebc883dd60a6b5c3d5b50d1b685b7288e5702b49628230079dfa94"
+    },
+    {
+      "path": "Debug/runtime-content-hot/build-report.json",
+      "sha256": "e2fd20ecae8e63440ddf96b230458a006eafb8fc372713fcd49eae98f8f270f5"
+    },
+    {
+      "path": "Debug/runtime-content-hot/build.events.jsonl",
+      "sha256": "f9c5d56b8f3ae3ddf7b1ba6e4ed585871647197a3814789bf7973273abe7a71d"
+    },
+    {
+      "path": "Debug/runtime-content-invalidated/build-report.json",
+      "sha256": "81ed27dd06b763b4a4ddbf26e26d206d13af16b1fa6d4c9bfc62d9ad2bdc5342"
+    },
+    {
+      "path": "Debug/runtime-content-invalidated/build.events.jsonl",
+      "sha256": "25229cc15e214ec08f4a4d4609d6d8031436f0cbb3712f06c5549e31c16b48ae"
+    },
+    {
+      "path": "Debug/schema-content-invalidated/build-report.json",
+      "sha256": "b81514bdbea26f6afd268e59c4145206356bd25d7e94209d1d15f5b1d9ea0e3d"
+    },
+    {
+      "path": "Debug/schema-content-invalidated/build.events.jsonl",
+      "sha256": "b47f5366a98de8be122baf989b3a356e22e33e9555cff40bfabd6b6bd6ef10e9"
+    },
+    {
+      "path": "Debug/second-mod/build-report.json",
+      "sha256": "f0516bd217f59dcc3d4f4cbe59ecac1a800123ce129b6b31f78764b0d9d4efad"
+    },
+    {
+      "path": "Debug/second-mod/build.events.jsonl",
+      "sha256": "6dbe358532ff863d491cb0c458f77d0232899b710ef50eabfeed8feeee85169e"
+    },
+    {
+      "path": "Debug/second-mod-no-cache/build-report.json",
+      "sha256": "8ec2cd839a52269d1c9b8a428b707edcf363e7efb42c6869450c28f63ed21983"
+    },
+    {
+      "path": "Debug/second-mod-no-cache/build.events.jsonl",
+      "sha256": "871c060486252c61a61ad78ab7d149468ead25ced2687329f95591a4bead41a6"
+    },
+    {
+      "path": "Debug/texture-content-hot/build-report.json",
+      "sha256": "dd7df1665c7325f14b68c2ddf43d58405cd769bcda3f2a010e85ec81f7b9555a"
+    },
+    {
+      "path": "Debug/texture-content-hot/build.events.jsonl",
+      "sha256": "f40845cde56466b2cd9e89eaa16942a2f3993bb6f10f34b76329c2bdc6026763"
+    },
+    {
+      "path": "Debug/texture-content-invalidated/build-report.json",
+      "sha256": "c156bb139d7e5d6d4aadf11356fe257227c78b2cdbfd163a081924c8112d9db2"
+    },
+    {
+      "path": "Debug/texture-content-invalidated/build.events.jsonl",
+      "sha256": "9cf278269347c2f06946f706c37e9ac82505d6fa4ddd86292c1e406924ec64c4"
+    },
+    {
+      "path": "Debug/texture-content-no-cache/build-report.json",
+      "sha256": "132433c202d535e7bc2ff490f654d10f19a8957ac8e74e3e8bb72119b51bfba6"
+    },
+    {
+      "path": "Debug/texture-content-no-cache/build.events.jsonl",
+      "sha256": "9d8328682bc5af3f2c23148b21e12b1f201f4906d7975abb4bc8c72f130ac52e"
+    },
+    {
+      "path": "Debug/unchanged-locked-output/build-report.json",
+      "sha256": "5d8d4039bf92deda58dc67975269cedfd96d428b186f60f65a93f38d08c34ee7"
+    },
+    {
+      "path": "Debug/unchanged-locked-output/build.events.jsonl",
+      "sha256": "d0e1b1b8132cec021417ae8762cba8980dd26bb3c766719a40a1b7b8ae01ea74"
+    },
+    {
+      "path": "Debug/xinclude-content-hot/build-report.json",
+      "sha256": "33f1cafd2215a6f6147b45969ad1603a01850474501e92628dc32547a95cc06a"
+    },
+    {
+      "path": "Debug/xinclude-content-hot/build.events.jsonl",
+      "sha256": "c1d2a097bdc13a2fcc86bb4b3692f1bdf431128f7e95afa4b05109cb5d8391f4"
+    },
+    {
+      "path": "Debug/xinclude-content-invalidated/build-report.json",
+      "sha256": "f9cc3ec9bd0fef116375d108ce357c907691c7536ba9d730384e4a385b84c94c"
+    },
+    {
+      "path": "Debug/xinclude-content-invalidated/build.events.jsonl",
+      "sha256": "da269c507073e8bf753ff84e0382208452ea2a9156774ea96afff6f65fed097e"
+    },
+    {
+      "path": "Debug/xinclude-content-no-cache/build-report.json",
+      "sha256": "dd775fa073682d526d5495b81678694a7fcb236b1f1600f588fcb0f02c24ee83"
+    },
+    {
+      "path": "Debug/xinclude-content-no-cache/build.events.jsonl",
+      "sha256": "b07f48b753bed6da2ed4ad61bd46f70c7d10cb3337028ea3aa4f5c06603b49bb"
+    },
+    {
+      "path": "Release/actual-cancel/build-report.json",
+      "sha256": "73a34e32049e712738a93cae9c08e1c2364166d5a5977a9ff20fca36208cd41b"
+    },
+    {
+      "path": "Release/actual-cancel/build.events.jsonl",
+      "sha256": "93a7440df686a71608b8a95ee34c8bf44d50004616f5a853cb346e80f90cfebe"
+    },
+    {
+      "path": "Release/audio-header-content-hot/build-report.json",
+      "sha256": "69fe703a6105fc4dab892447cc0e44f97a3d3cf5dd50180862d87884579dfbd0"
+    },
+    {
+      "path": "Release/audio-header-content-hot/build.events.jsonl",
+      "sha256": "7983ba867ef793f9ba9be943aeaddeafd8fb186824863f7edd5b699eafe650d4"
+    },
+    {
+      "path": "Release/audio-header-content-invalidated/build-report.json",
+      "sha256": "21054ab9ae73afc06b460f5464f3c8b8adebe1f6f6b4bee0a0899d1985bbf171"
+    },
+    {
+      "path": "Release/audio-header-content-invalidated/build.events.jsonl",
+      "sha256": "2237b6e8a9471547c00732a4a060a4f39963419f5ba1365d66e45aed05f295ff"
+    },
+    {
+      "path": "Release/audio-header-content-no-cache/build-report.json",
+      "sha256": "1ab249251bba43ec2fbfc8f261f0909bb3f1d70f70204a6b15746397327dd369"
+    },
+    {
+      "path": "Release/audio-header-content-no-cache/build.events.jsonl",
+      "sha256": "eb9a95457f880c98118e2a64227318c79206e122e5f41d1f02bb89525e463171"
+    },
+    {
+      "path": "Release/cold/build-report.json",
+      "sha256": "5f9b0e3873644df671d3e81e495d74c41265dcb126e62768068de298444af47f"
+    },
+    {
+      "path": "Release/cold/build.events.jsonl",
+      "sha256": "24af096cfed63a2ef200a5ae4f1ad2051a48acf29837bab7c540064aa588d610"
+    },
+    {
+      "path": "Release/configuration-content-invalidated/build-report.json",
+      "sha256": "9594351e39693587a43780117a9f640539d75e1365a9e0b9f3272afaa9d16a61"
+    },
+    {
+      "path": "Release/configuration-content-invalidated/build.events.jsonl",
+      "sha256": "fbd69f6c761b8b0acc8f7409ad39f97440fa64a59e38df2bf358fed68fbebc60"
+    },
+    {
+      "path": "Release/disabled/build-report.json",
+      "sha256": "77697cf449ea3db43fc508811f14bed2c4c96b4924cb4dc1773bc7ac1487020c"
+    },
+    {
+      "path": "Release/disabled/build.events.jsonl",
+      "sha256": "90170470dd3d1db00cab21df6a4889f0f1331122962d27bd159036bf09c03f08"
+    },
+    {
+      "path": "Release/first-mod-return/build-report.json",
+      "sha256": "67e6478681e9530332e16945c046bdc3e8b7dd7599d88ea6e940dc4d2db05ec4"
+    },
+    {
+      "path": "Release/first-mod-return/build.events.jsonl",
+      "sha256": "73608040eeaec6ced9b2642bea9500aed2815df9c6efe14a01630e15c10f5059"
+    },
+    {
+      "path": "Release/hot/build-report.json",
+      "sha256": "b8497b9a38d1bd64d33b0df284a8a32dad032b2fd5a77f765699bcfe677b717e"
+    },
+    {
+      "path": "Release/hot/build.events.jsonl",
+      "sha256": "02ace3327ef9aced9599a929d865e69e0c4e0203e9fb187cc74497075aa71b38"
+    },
+    {
+      "path": "Release/include-content-hot/build-report.json",
+      "sha256": "59c5d14dd5084de6f10f32f5e6acba32f47885a30fe7f3b938c0bf214197f62e"
+    },
+    {
+      "path": "Release/include-content-hot/build.events.jsonl",
+      "sha256": "7e46a9ddf0d2ffabfe89bb2f41cf3578e837edfa90f3845ed77f9a35174a883b"
+    },
+    {
+      "path": "Release/include-content-invalidated/build-report.json",
+      "sha256": "72848c306f6e1b6c806b6e048318ca3b569255e2d5def24685503d797a43e022"
+    },
+    {
+      "path": "Release/include-content-invalidated/build.events.jsonl",
+      "sha256": "7f1e777f51262b8c0e9ab600eb91f241fc3eb5c70ab543b62305fed51cc6ebeb"
+    },
+    {
+      "path": "Release/include-content-no-cache/build-report.json",
+      "sha256": "6e18bc52ec7f30e1f7b26944107ba54a0a203e720e887ae07c9b058463b4c1e1"
+    },
+    {
+      "path": "Release/include-content-no-cache/build.events.jsonl",
+      "sha256": "37163acde01d758262e3f62639fda99c882a5c5083a5d0fa7acc9863c6332d8f"
+    },
+    {
+      "path": "Release/invalid-include/build-report.json",
+      "sha256": "cbf4d77d06c0f402f5371a4a249825671ee25b086ee829aa46e79d5c57843180"
+    },
+    {
+      "path": "Release/invalid-include/build.events.jsonl",
+      "sha256": "d592f212543a11ffb077e58615392ae2871bf6d8f59015d34d62f16ba2f4f53b"
+    },
+    {
+      "path": "Release/payload-content-hot/build-report.json",
+      "sha256": "5482af92c2fe161087eeba728b59cc471f66b117be233bbcd4f4d71d7bdeae3b"
+    },
+    {
+      "path": "Release/payload-content-hot/build.events.jsonl",
+      "sha256": "b8d3bb7494c23410fc8dbfbde545e38e2557e40c7f457abbdfd147f85351cab3"
+    },
+    {
+      "path": "Release/payload-content-invalidated/build-report.json",
+      "sha256": "2b010627bf8cbf73155d2297f90d72ef0bda5d440352f31f75d42c9a3d1383f0"
+    },
+    {
+      "path": "Release/payload-content-invalidated/build.events.jsonl",
+      "sha256": "92444b86cbe212ffb72ce6d51f93d706ba439eed775548090515f9a7fad0c6f7"
+    },
+    {
+      "path": "Release/payload-content-no-cache/build-report.json",
+      "sha256": "d402e9aae71a547efdcd6c16b53e82f627d7722810781e8474d145781a8be1ec"
+    },
+    {
+      "path": "Release/payload-content-no-cache/build.events.jsonl",
+      "sha256": "75224425e0824b7c90e162bfde5fd9056a09d5cddeb092e0b679595267e08a98"
+    },
+    {
+      "path": "Release/repeat-with-unrelated-output/build-report.json",
+      "sha256": "93ad56e67ae380ea68fb1a4cad9e6f14d7e2b7286e741a069c9604dcc9060ba1"
+    },
+    {
+      "path": "Release/repeat-with-unrelated-output/build.events.jsonl",
+      "sha256": "753d15ef810b7721fdc381509271f7208656ea6719ad76e7945bb7aca1888e1e"
+    },
+    {
+      "path": "Release/retry-after-actual-cancel/build-report.json",
+      "sha256": "b27707e62f769ce8876d4fa5515744d1a78f97ae7ae78c80c7696f2443ce5786"
+    },
+    {
+      "path": "Release/retry-after-actual-cancel/build.events.jsonl",
+      "sha256": "e1c9b6aee276f794d1c57406f7918650354ebacb7a5aa4f9337f63f756cecb7a"
+    },
+    {
+      "path": "Release/retry-after-invalid-include/build-report.json",
+      "sha256": "d5bf45df3a199cf0a20465686693eb09419810f789772d20aa761dd013de73e9"
+    },
+    {
+      "path": "Release/retry-after-invalid-include/build.events.jsonl",
+      "sha256": "76e1668dafa052a1ab6c28ed7bc586b0f16046102165f5bae9eea8402945dc51"
+    },
+    {
+      "path": "Release/runtime-content-hot/build-report.json",
+      "sha256": "7f1c4e854d7410dfabbebd684d9ee3624f64df152a5fca33ae98a8673ef4f948"
+    },
+    {
+      "path": "Release/runtime-content-hot/build.events.jsonl",
+      "sha256": "6701f24066e821984ef2db06d92db7cee3d1f4f5b20d5553f51616bca457a7a0"
+    },
+    {
+      "path": "Release/runtime-content-invalidated/build-report.json",
+      "sha256": "7c9c378f22302f776e088a53b328e9fa94b32c092c61415d5e5f371bc5aae702"
+    },
+    {
+      "path": "Release/runtime-content-invalidated/build.events.jsonl",
+      "sha256": "fbcc478cad7b0e2d7fb164edce805c330a3d2bc9e081d5fb70949e95f3cabbf4"
+    },
+    {
+      "path": "Release/schema-content-invalidated/build-report.json",
+      "sha256": "bd7511c0f638b47b335095131544a0ffad3d0434649e312703d4e6f65dd33356"
+    },
+    {
+      "path": "Release/schema-content-invalidated/build.events.jsonl",
+      "sha256": "90dd118b2dc3d346f727fd99920284f47b4594a2a129abf584d316bcdceedbe5"
+    },
+    {
+      "path": "Release/second-mod/build-report.json",
+      "sha256": "aa1105f4747b08cec828422002efaaaac5f23ad607036c720a8df1ddb1b78d78"
+    },
+    {
+      "path": "Release/second-mod/build.events.jsonl",
+      "sha256": "2808cf4241f61178c61a4986e38b33bec6533427d557b7542ecbe058711c84bb"
+    },
+    {
+      "path": "Release/second-mod-no-cache/build-report.json",
+      "sha256": "617b4b819c10c82fca88c194f1125bec5e775cce2db0a111c5d1a79c195dfd28"
+    },
+    {
+      "path": "Release/second-mod-no-cache/build.events.jsonl",
+      "sha256": "96e4766a0bf900839429cb2fdfb22b69ad50890f17a75fb64a8955aa352025c1"
+    },
+    {
+      "path": "Release/texture-content-hot/build-report.json",
+      "sha256": "f5bb89011571d46d9e44fc230b6d88ef632aa8d9c9d35a20f5a5144bdab68025"
+    },
+    {
+      "path": "Release/texture-content-hot/build.events.jsonl",
+      "sha256": "ed9cd4f32feffdafb6fc1edfb9632e3ce58de7987221d68dc48ba90b24517af4"
+    },
+    {
+      "path": "Release/texture-content-invalidated/build-report.json",
+      "sha256": "0e6afe7388abf8d8b852da0edb37c62c9e7d51e79b6e56e8109e7d0d888d9fce"
+    },
+    {
+      "path": "Release/texture-content-invalidated/build.events.jsonl",
+      "sha256": "2f14d2ccf2a313b6b3850f04abf01880117b0c901ba876cbadc551daacd8d2f9"
+    },
+    {
+      "path": "Release/texture-content-no-cache/build-report.json",
+      "sha256": "6bb8eafccdc6535c47dc566cb3da4d4e847a9eea5901d648293316dfd7ff4af1"
+    },
+    {
+      "path": "Release/texture-content-no-cache/build.events.jsonl",
+      "sha256": "111687b6178a4205a8ee02b488e2ed76e67ada4c683e551013a3ae6b953f0259"
+    },
+    {
+      "path": "Release/unchanged-locked-output/build-report.json",
+      "sha256": "892d0fc3dce89a49496b1390b5eecd144f75e697b7faac5733488ba65eb3520a"
+    },
+    {
+      "path": "Release/unchanged-locked-output/build.events.jsonl",
+      "sha256": "3655e478fda63957e639b02b949cdef0f5bfffe8979aa8bb5794fb78c0b3a1b0"
+    },
+    {
+      "path": "Release/xinclude-content-hot/build-report.json",
+      "sha256": "8857652a8cbb32461894a83dab5495fa1d5c881ee47e579faec1a2bc783b14ca"
+    },
+    {
+      "path": "Release/xinclude-content-hot/build.events.jsonl",
+      "sha256": "e33d1b128f4355929414a2e9c727d989e71ded7cb53228a0a6b746c14021c405"
+    },
+    {
+      "path": "Release/xinclude-content-invalidated/build-report.json",
+      "sha256": "dd2b89e3b947f828f497feb68def6f006d664e2d7c9f1ed0822c967915341792"
+    },
+    {
+      "path": "Release/xinclude-content-invalidated/build.events.jsonl",
+      "sha256": "6ad16575c05a35d6fb06a617e0f8a63633c126aa92242b1df6c4da131e4cb75b"
+    },
+    {
+      "path": "Release/xinclude-content-no-cache/build-report.json",
+      "sha256": "3a83714e3b7a9409e6762a66b95f6171d5cc8984e30757095f19f35ea863ea40"
+    },
+    {
+      "path": "Release/xinclude-content-no-cache/build.events.jsonl",
+      "sha256": "1cb5a75fbfea79308db357efcd1ac2a2bb7f8f62e750f79f20af3d4baf88a276"
+    }
+  ],
+  "errorCount": 0,
+  "errors": [],
+  "notes": [
+    "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+    "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+  ]
+}

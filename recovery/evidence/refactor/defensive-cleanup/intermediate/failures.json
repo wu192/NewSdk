@@ -1,0 +1,35 @@
+{
+  "runs": [
+    {
+      "runId": 41055297401,
+      "source": "273c48ce",
+      "failure": "Missing test read-counter callback; obsolete optional-log/removed-sidecar assertions; disabled SessionCache FastHash count; Procmon second-instance WaitForIdle timeout."
+    },
+    {
+      "runId": 41055900285,
+      "source": "65d60403",
+      "failure": "Obsolete log/sidecar/disabled-session assertions and Procmon WaitForIdle."
+    },
+    {
+      "runId": 41056481567,
+      "source": "ec00922e",
+      "failure": "Same obsolete assertions and trace startup; independent passed groups retained in run."
+    },
+    {
+      "runId": 41058433551,
+      "source": "a90c0f08",
+      "failure": "New XSD default-output-change assumption was not observable; corrected to a valid required-attribute rejection scenario. Some trace tails were incomplete, so these old trace counts are not final evidence.",
+      "artifactSha256": "9e57a49a2090ae78b6db90bd4fc9532f621dae065472820750f0c8601e99dd98",
+      "downloadedAndRehashed": true,
+      "additionalHotRegressionMs": [
+        626.5596,
+        648.5025
+      ]
+    },
+    {
+      "runId": 41061791808,
+      "source": "0d4e365f",
+      "failure": "Cheap App preflight: ordinary File.Delete(directory) rejects with UnauthorizedAccessException; test now accepts normal I/O/access rejection while preserving no-write/no-temp/no-input-change assertions."
+    }
+  ]
+}

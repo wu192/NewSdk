@@ -9,13 +9,9 @@
 namespace Recovered { namespace Native { namespace HotkeymapsDetail {
 using Relo::U32;
 const EnumNameValue Modifiers[]={{"ALT",1},{"CTRL",0},{"SHIFT",2}};
-bool Allowed(const std::string& name,const char* allowed){return (std::string("|")+allowed+"|").find("|"+name+"|")!=std::string::npos;}
+
 void Check(bool ok,const char* message){if(!ok)throw std::invalid_argument(message);}
-void Validate(const XmlhotkeymapsNode& node,const char* attributes,const char* children) {
-    Check(node.value.find_first_not_of(" \t\r\n")==std::string::npos,"Unexpected hotkey map text.");
-    for(const auto& a:node.attributes)Check(a.first=="TypeId"||Allowed(a.first,attributes),"Unknown hotkey map attribute.");
-    for(const auto& c:node.children)Check(Allowed(c.name,children),"Unknown hotkey map child.");
-}
+
 void Swap(void* p){U32 n;std::memcpy(&n,p,4);n=(n<<24)|((n<<8)&0xff0000u)|((n>>8)&0xff00u)|(n>>24);std::memcpy(p,&n,4);}
 void Reference(Relo::Tracker& tracker,unsigned char* p,const XmlhotkeymapsNode& n,const char* name){auto a=n.attributes.find(name);if(a!=n.attributes.end())MarshalReference(tracker,p,a->second);}
 }
@@ -32,23 +28,22 @@ Relo::Chunk CompileXmlhotkeymaps(const XmlhotkeymapsNode& input,bool bigEndian) 
     Check(XmlhotkeymapsTypeId(input.name)!=0,"Unsupported hotkey map root.");
     Relo::Tracker tracker;unsigned char* root=nullptr;tracker.Push(reinterpret_cast<void**>(&root),12,1);
     if(input.name=="GeneralHotKeySlots") {
-        Validate(input,"id|inheritFrom|TakeScreenShot|ReloadRapidIterationFeature","");
+
         Reference(tracker,root+4,input,"TakeScreenShot");Reference(tracker,root+8,input,"ReloadRapidIterationFeature");
     } else if(input.name=="MappableKey") {
-        Validate(input,"id|inheritFrom|KeyDef","");
+
         auto a=input.attributes.find("KeyDef");
         if(a!=input.attributes.end())MarshalString(tracker,root+4,a->second);
         if(bigEndian)Swap(root+4);
     } else {
-        Validate(input,"id|inheritFrom","Map");
-        Check(input.children.size()<=1,"Duplicate hotkey Map singleton.");
+
         if(!input.children.empty()) {
-            const auto& map=input.children[0];Validate(map,"","HotKey");
+            const auto& map=input.children[0];
             const U32 count=static_cast<U32>(map.children.size());std::memcpy(root+4,&count,4);
             if(count) {
                 auto list=static_cast<unsigned char*>(tracker.Push(reinterpret_cast<void**>(root+8),12,count));
                 for(U32 i=0;i<count;++i) {
-                    const auto& entry=map.children[i];Validate(entry,"Slot|Key|Modifiers","");
+                    const auto& entry=map.children[i];
                     unsigned char* item=list+12*i;
                     Reference(tracker,item,entry,"Slot");Reference(tracker,item+4,entry,"Key");
                     auto a=entry.attributes.find("Modifiers");

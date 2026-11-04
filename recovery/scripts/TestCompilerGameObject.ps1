@@ -1,5 +1,6 @@
 param([Parameter(Mandatory=$true)][string]$CompilerBuildDirectory,[Parameter(Mandatory=$true)][string]$OutputDirectory)
 $ErrorActionPreference='Stop'
+$env:NEWSdk_PLUGIN_TEST_SCHEMA=(Resolve-Path "$PSScriptRoot/../../SDK/Schemas/xsd/CnC3Types.xsd").Path
 . "$PSScriptRoot/CompilerValidation.Common.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerBuildDirectory=(Resolve-Path $CompilerBuildDirectory).Path
@@ -14,6 +15,7 @@ Push-Location $root
 try {
     $state.sourceCommit=(git rev-parse HEAD).Trim()
     $fixturePaths=@(
+        'recovery/tests/PluginSchemaBoundary.cs',
         'recovery/tests/GameObjectOracle.cs',
         'recovery/tests/GameObjectCases.cs',
         'recovery/tests/GameObjectKindOf.cs',
@@ -67,6 +69,7 @@ try {
     $sources=@($fixturePaths|ForEach-Object{(Resolve-Path $_).Path})
     $sources+=(Resolve-Path 'recovery/tests/GameObjectTranscript.cs').Path
     $state.fixtureInputs=@($sources|ForEach-Object{@{path=([IO.Path]::GetFullPath($_).Substring($root.Length+1).Replace('\','/'));sha256=(Get-FileHash $_ -Algorithm SHA256).Hash.ToLowerInvariant()}})
+    $state.pluginSchemaInputs=@(Get-ChildItem "$root/SDK/Schemas/xsd" -Recurse -Filter *.xsd -File|Sort-Object FullName|ForEach-Object{@{path=$_.FullName.Substring($root.Length+1).Replace('\','/');sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
     # PointerStringLists reads schema data. Keep this separate from both DLL
     # directories so fixture data cannot introduce a business assembly search path.
     $fixtureData=Join-Path $work 'fixture-data'

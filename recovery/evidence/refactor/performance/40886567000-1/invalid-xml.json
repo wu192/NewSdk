@@ -1,0 +1,457 @@
+{
+  "schemaVersion": "1.0",
+  "buildId": "77c430e71e96431bb0566a9e249ce57d",
+  "status": "failed",
+  "exitCode": 4,
+  "requestArguments": [
+    "build",
+    "--sdk-root",
+    "D:\\a\\NewSdk\\NewSdk\\SDK",
+    "--mod",
+    "D:\\a\\_temp\\performance-work\\TimingMod",
+    "--out",
+    "D:\\a\\_temp\\performance-work\\bad-detailed",
+    "--package-content",
+    "base",
+    "--package-format",
+    "loose",
+    "--include-additional=false",
+    "--performance",
+    "detailed"
+  ],
+  "effectiveOptions": {
+    "atc": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "bc": {
+      "Value": "true",
+      "Source": "sdkConfig"
+    },
+    "csc": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "events": {
+      "Value": "D:\\a\\_temp\\performance-work\\bad-detailed\\build.events.jsonl",
+      "Source": "default"
+    },
+    "fix-neutral-assets": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "fsc": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "game-version": {
+      "Value": "1.12",
+      "Source": "default"
+    },
+    "include-additional": {
+      "Value": "false",
+      "Source": "commandLine"
+    },
+    "log": {
+      "Value": "D:\\a\\_temp\\performance-work\\bad-detailed\\build.log",
+      "Source": "default"
+    },
+    "mod": {
+      "Value": "D:\\a\\_temp\\performance-work\\TimingMod",
+      "Source": "commandLine"
+    },
+    "mod-version": {
+      "Value": "1.0",
+      "Source": "default"
+    },
+    "out": {
+      "Value": "D:\\a\\_temp\\performance-work\\bad-detailed",
+      "Source": "commandLine"
+    },
+    "package-content": {
+      "Value": "base",
+      "Source": "commandLine"
+    },
+    "package-format": {
+      "Value": "loose",
+      "Source": "commandLine"
+    },
+    "pc": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "performance": {
+      "Value": "detailed",
+      "Source": "commandLine"
+    },
+    "profile": {
+      "Value": "standard",
+      "Source": "default"
+    },
+    "psc": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "report": {
+      "Value": "D:\\a\\_temp\\performance-work\\bad-detailed\\build-report.json",
+      "Source": "default"
+    },
+    "sc": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "sdk-root": {
+      "Value": "D:\\a\\NewSdk\\NewSdk\\SDK",
+      "Source": "commandLine"
+    },
+    "slowclean": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "ss": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "tp": {
+      "Value": "Win32",
+      "Source": "default"
+    }
+  },
+  "selectedContent": [
+    "base"
+  ],
+  "inputRoots": {
+    "dataRoot": "D:\\a\\NewSdk\\NewSdk\\SDK",
+    "schemaPath": "D:\\a\\NewSdk\\NewSdk\\SDK\\Schemas\\xsd\\CnC3Types.xsd",
+    "dataPaths": [
+      "D:\\a\\_temp\\performance-work\\TimingMod\\Data",
+      "D:\\a\\NewSdk\\NewSdk\\SDK",
+      "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods",
+      "D:\\a\\NewSdk\\NewSdk\\SDK\\SAGEXML"
+    ],
+    "artPaths": [
+      "D:\\a\\_temp\\performance-work\\TimingMod\\Art",
+      "D:\\a\\NewSdk\\NewSdk\\SDK\\Art"
+    ],
+    "audioPaths": [
+      "D:\\a\\_temp\\performance-work\\TimingMod\\Audio",
+      "D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+    ],
+    "sources": {
+      "dataRoot": "sdk-root",
+      "dataPaths": "mod-prepend+sdk-config",
+      "artPaths": "mod-prepend+sdk-config",
+      "audioPaths": "mod-prepend+sdk-config"
+    }
+  },
+  "plan": {
+    "Tasks": [
+      {
+        "Id": "base/Mod",
+        "Content": "base",
+        "InputPath": "D:\\a\\_temp\\performance-work\\TimingMod\\Data\\Mod.xml",
+        "OutputName": "base/Mod",
+        "Reason": "ExplicitContentSelection",
+        "Dependencies": []
+      }
+    ],
+    "Skipped": [],
+    "PlanKind": "StreamDiscovery",
+    "DependencyPolicy": "Default is stream discovery only. Core owns include/reference closure. An explicit dependency planner may add stream dependencies, which are validated, deduplicated, and topologically ordered."
+  },
+  "stages": [
+    {
+      "id": "plan",
+      "status": "succeeded",
+      "elapsedMs": 5,
+      "artifactCount": 0
+    },
+    {
+      "id": "compile",
+      "status": "failed",
+      "elapsedMs": 330,
+      "artifactCount": 0
+    }
+  ],
+  "diagnostics": [
+    {
+      "code": "CORE_COMPILE_FAILED",
+      "message": "BinaryAssetBuilder.BinaryAssetBuilderException: XmlFormattingError ---> System.Xml.XmlException: Unexpected end of file has occurred. The following elements are not closed: broken. Line 1, position 9.\r\n   at System.Xml.XmlTextReaderImpl.Throw(Exception e)\r\n   at System.Xml.XmlTextReaderImpl.Throw(String res, String arg)\r\n   at System.Xml.XmlTextReaderImpl.ThrowUnclosedElements()\r\n   at System.Xml.XmlTextReaderImpl.ParseElementContent()\r\n   at System.Xml.XmlTextReaderImpl.Read()\r\n   at Mvp.Xml.XInclude.XIncludingReader.Read()\r\n   at System.Xml.XmlLoader.LoadNode(Boolean skipOverWhitespace)\r\n   at System.Xml.XmlLoader.LoadDocSequence(XmlDocument parentDoc)\r\n   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)\r\n   at System.Xml.XmlDocument.Load(XmlReader reader)\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.LoadXml(Boolean updateDependentFiles)\r\n   --- End of inner exception stack trace ---\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.LoadXml(Boolean updateDependentFiles)\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.InternalLoad(String reason, LoadType type)\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.Open(DocumentProcessor documentProcessor, FileHashItem hashItem, String logicalPath, String configuration)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.OpenDocument(String sourcePath, String logicalPath, Boolean generateOutput, String configuration)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocument(String fileName, Boolean generateOutput, Boolean __outputStringHashes, Boolean& success)\r\n   at NewModCompiler.Application.CoreStreamCompiler.Compile(StreamContext context, CancellationToken cancellation)",
+      "level": "error",
+      "streamId": "base/Mod",
+      "stageId": "compile"
+    },
+    {
+      "code": "CORE_ORIGINAL_EXCEPTION",
+      "message": "BinaryAssetBuilder.BinaryAssetBuilderException: XmlFormattingError ---> System.Xml.XmlException: Unexpected end of file has occurred. The following elements are not closed: broken. Line 1, position 9.\r\n   at System.Xml.XmlTextReaderImpl.Throw(Exception e)\r\n   at System.Xml.XmlTextReaderImpl.Throw(String res, String arg)\r\n   at System.Xml.XmlTextReaderImpl.ThrowUnclosedElements()\r\n   at System.Xml.XmlTextReaderImpl.ParseElementContent()\r\n   at System.Xml.XmlTextReaderImpl.Read()\r\n   at Mvp.Xml.XInclude.XIncludingReader.Read()\r\n   at System.Xml.XmlLoader.LoadNode(Boolean skipOverWhitespace)\r\n   at System.Xml.XmlLoader.LoadDocSequence(XmlDocument parentDoc)\r\n   at System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)\r\n   at System.Xml.XmlDocument.Load(XmlReader reader)\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.LoadXml(Boolean updateDependentFiles)\r\n   --- End of inner exception stack trace ---\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.LoadXml(Boolean updateDependentFiles)\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.InternalLoad(String reason, LoadType type)\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.Open(DocumentProcessor documentProcessor, FileHashItem hashItem, String logicalPath, String configuration)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.OpenDocument(String sourcePath, String logicalPath, Boolean generateOutput, String configuration)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocument(String fileName, Boolean generateOutput, Boolean __outputStringHashes, Boolean& success)\r\n   at NewModCompiler.Application.CoreStreamCompiler.Compile(StreamContext context, CancellationToken cancellation)",
+      "level": "info",
+      "streamId": "base/Mod",
+      "stageId": "compile"
+    }
+  ],
+  "diagnosticCounts": {
+    "error": 1,
+    "warning": 0
+  },
+  "loadedProviders": [
+    "NewModCompiler.Core.Win32.LegacySessionCache"
+  ],
+  "externalTools": [],
+  "cache": {
+    "status": "SessionCache",
+    "hits": 0,
+    "misses": 0,
+    "sessionCache": true,
+    "sessionPackageHits": 0,
+    "sessionPackageMisses": 1,
+    "documentReuse": 0,
+    "xmlParse": 2,
+    "instanceCompile": 0,
+    "linkedStreamsRestored": 0,
+    "fileHashReads": 817,
+    "fileHashReuses": 0,
+    "fileHashBytesRead": 1516020,
+    "textureCache": true,
+    "compressedSessionCache": true,
+    "partialSessionCache": true,
+    "freezeSessionCache": false,
+    "alwaysTouchCache": false,
+    "partialSessionsSaved": 1,
+    "sessionCacheDirectory": null
+  },
+  "elapsedMs": 359,
+  "artifacts": [],
+  "logPaths": {
+    "events": "D:\\a\\_temp\\performance-work\\bad-detailed\\build.events.jsonl",
+    "report": "D:\\a\\_temp\\performance-work\\bad-detailed\\build-report.json",
+    "text": "D:\\a\\_temp\\performance-work\\bad-detailed\\build.log"
+  },
+  "executionMode": "InProcess",
+  "publicationStatus": "NotPublished",
+  "publicationDirectory": "D:\\a\\_temp\\performance-work\\bad-detailed\\published",
+  "publicationUnchanged": false,
+  "performance": {
+    "level": "detailed",
+    "clock": "Stopwatch",
+    "frequency": 10000000,
+    "boundary": "before-report-write",
+    "entries": [
+      {
+        "name": "backend.dispose",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.7554000000000001,
+        "selfMs": 0.7554000000000001,
+        "maxMs": 0.7554000000000001
+      },
+      {
+        "name": "backend.initialize",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 33.7068,
+        "selfMs": 33.7068,
+        "maxMs": 33.7068
+      },
+      {
+        "name": "identity.load",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.8474,
+        "selfMs": 0.8474,
+        "maxMs": 0.8474
+      },
+      {
+        "name": "stage.compile",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 330.0546,
+        "selfMs": 1.2635,
+        "maxMs": 330.0546
+      },
+      {
+        "name": "stage.plan",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 4.980300000000001,
+        "selfMs": 4.980300000000001,
+        "maxMs": 4.980300000000001
+      },
+      {
+        "name": "cache.load",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 3.7072000000000003,
+        "selfMs": 3.7072000000000003,
+        "maxMs": 3.7072000000000003
+      },
+      {
+        "name": "cache.prepare",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 4.6667000000000005,
+        "selfMs": 4.6667000000000005,
+        "maxMs": 4.6667000000000005
+      },
+      {
+        "name": "cache.save",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 5.3575,
+        "selfMs": 1.8337,
+        "maxMs": 5.3575
+      },
+      {
+        "name": "cache.serialize",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 2.5333,
+        "selfMs": 2.5333,
+        "maxMs": 2.5333
+      },
+      {
+        "name": "cache.stage",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 0.9905,
+        "selfMs": 0.9905,
+        "maxMs": 0.9905
+      },
+      {
+        "name": "core.cleanup",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 0.9696,
+        "selfMs": 0.9696,
+        "maxMs": 0.9696
+      },
+      {
+        "name": "core.document",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 19.8577,
+        "selfMs": 4.6828,
+        "maxMs": 19.049200000000003
+      },
+      {
+        "name": "core.document.open",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 13.9319,
+        "selfMs": 8.6,
+        "maxMs": 13.1258
+      },
+      {
+        "name": "core.filehash.read",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 1.8869,
+        "selfMs": 1.8869,
+        "maxMs": 1.6142
+      },
+      {
+        "name": "core.includes",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 1.1472,
+        "selfMs": 0.3387,
+        "maxMs": 1.1472
+      },
+      {
+        "name": "core.process",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 22.3051,
+        "selfMs": 3.2559,
+        "maxMs": 22.3051
+      },
+      {
+        "name": "core.providers",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 9.858,
+        "selfMs": 9.858,
+        "maxMs": 9.858
+      },
+      {
+        "name": "core.schema",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 198.9735,
+        "selfMs": 5.0633,
+        "maxMs": 198.9735
+      },
+      {
+        "name": "core.schema.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 20.7083,
+        "selfMs": 20.7083,
+        "maxMs": 20.7083
+      },
+      {
+        "name": "core.schema.metadata",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 25.617700000000003,
+        "selfMs": 25.617700000000003,
+        "maxMs": 25.617700000000003
+      },
+      {
+        "name": "core.schema.read",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 146.35850000000002,
+        "selfMs": 134.827,
+        "maxMs": 146.35850000000002
+      },
+      {
+        "name": "core.settings",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 7.0303,
+        "selfMs": 7.0303,
+        "maxMs": 7.0303
+      },
+      {
+        "name": "core.string-hashes",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 1.6963000000000001,
+        "selfMs": 1.6963000000000001,
+        "maxMs": 1.6963000000000001
+      },
+      {
+        "name": "core.xml.parse",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 3.3752,
+        "selfMs": 3.3752,
+        "maxMs": 3.0747
+      },
+      {
+        "name": "identity.directory",
+        "streamId": "base/Mod",
+        "count": 33,
+        "totalMs": 3.2225,
+        "selfMs": 3.2225,
+        "maxMs": 1.2257
+      },
+      {
+        "name": "identity.sha256",
+        "streamId": "base/Mod",
+        "count": 815,
+        "totalMs": 9.7003,
+        "selfMs": 9.7003,
+        "maxMs": 0.1419
+      },
+      {
+        "name": "stream.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 294.2369,
+        "selfMs": 39.6727,
+        "maxMs": 294.2369
+      }
+    ]
+  }
+}

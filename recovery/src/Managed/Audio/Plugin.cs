@@ -16,6 +16,9 @@ namespace BinaryAssetBuilder.AudioCompiler
     // AudioFile uses recovered PCM import/encoding; MPEG passthrough recovers
     // SIMEX identification and header-info behavior without decoding the payload.
     public class Plugin : IAssetBuilderPlugin, IDisposable
+#if NEWSdk_MONOLITHIC
+        , IInstanceProcessingHash
+#endif
     {
         private readonly Tracer m_Tracer = Tracer.GetTracer("AudioCompiler", "Provides Audio processing functionality");
         private uint m_HashCode;
@@ -23,6 +26,13 @@ namespace BinaryAssetBuilder.AudioCompiler
 
         public Plugin() : this(new PcmWaveAudioCompiler()) { }
         public Plugin(IAudioFileCompiler compiler) { audioCompiler = compiler; }
+
+        // The injected encoder may have shared state or external reads that are
+        // outside the recovered PCM backend's parallel execution contract.
+        public bool UsesRecoveredAudioFileCompiler
+        {
+            get { return audioCompiler != null && audioCompiler.GetType() == typeof(PcmWaveAudioCompiler); }
+        }
 
         public virtual void Initialize(object configSection, TargetPlatform platform)
         {
@@ -49,6 +59,29 @@ namespace BinaryAssetBuilder.AudioCompiler
         {
             return AudioCatalog.TypeInformation(typeId, TargetPlatform.Win32);
         }
+
+#if NEWSdk_MONOLITHIC
+        public uint GetProcessingHash(InstanceDeclaration declaration)
+        {
+            if (declaration.Handle.TypeId == AudioCatalog.AudioFileTypeId)
+            {
+                XmlAttribute compression = declaration.XmlNode.Attributes["PCCompression"];
+                if (compression != null && compression.Value == "EALAYER3")
+                    return AudioCatalog.EaLayer3ProcessingHash;
+            }
+            return GetExtendedTypeInformation(declaration.Handle.TypeId).ProcessingHash;
+        }
+
+        public bool IsProcessingHashCurrent(uint typeId, uint processingHash, bool compilerVersionChanged)
+        {
+            // Cached declarations no longer retain their XML. On migration,
+            // reload AudioFiles so NONE/XAS from the former type-wide hash and
+            // original SDK EALayer3/PCM cannot masquerade as current instances.
+            if (typeId == AudioCatalog.AudioFileTypeId && compilerVersionChanged) return false;
+            return processingHash == GetExtendedTypeInformation(typeId).ProcessingHash ||
+                (typeId == AudioCatalog.AudioFileTypeId && processingHash == AudioCatalog.EaLayer3ProcessingHash);
+        }
+#endif
 
         public virtual AssetBuffer ProcessInstance(InstanceDeclaration declaration)
         {
@@ -208,3 +241,4 @@ namespace BinaryAssetBuilder.AudioCompiler
         ~Plugin() { Dispose(false); }
     }
 }
+

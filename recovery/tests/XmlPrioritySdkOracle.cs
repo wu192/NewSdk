@@ -304,9 +304,20 @@ class XmlPrioritySdkOracle {
         {"GameScriptList",3737094024u},
         {"GameMap",3575309793u},
         {"UIConfigList",3072160547u},
+        {"UIJoypadCommandBarMixedGroup",1276968974u},
+        {"UIJoypadCommandBarHomogenousGroup",1546953756u},
+        {"UIJoypadCommandBarCoopCommunicator",1654297531u},
+        {"JoypadCommandBarButtonTemplate",1804891371u},
+        {"UIJoypadCommandBarStances",1887864852u},
+        {"JoypadCommandBarTemplate",1931769760u},
+        {"UIJoypadCommandBarTopMenu",2170044043u},
+        {"UIJoypadCommandBarPlayerPowers",2742786440u},
+        {"UIJoypadCommandBarButtonBuild",3423839194u},
+        {"UIJoypadCommandBarControlGroups",3645205636u},
+        {"UIJoypadCommandBarSingleUnit",3901433122u},
     };
     static readonly string[] NonGlobalRoots=new[]{"GameStatsModeData","MicrophoneSettings","BaseAudioEventInfo","BaseSingleSound","PathMusicEventRuntime","PathMusicMapRuntime","MusicScriptConditionNuggetBase","MusicScriptConditionExpensiveNuggetBase","BaseConditionData","ObjectConditionData","UpgradeConditionData","TargetingBaseCompare","ObjectVisionRangeItem","CommandSet","ShaderOverrideRule","ArchivableMovie","ArchiveMovieList","ConquerCardDefinitionBase","BaseRenderAssetType","AudioFileRuntime","TerrainTextureAtlasRuntime","W3DAnimationRuntime"};
-    static readonly uint[] ExcludedTypeIds=new uint[]{26632491u,1276968974u,1546953756u,1654297531u,1804891371u,1887864852u,1931769760u,2170044043u,2742786440u,3423839194u,3645205636u,3901433122u};
+    static readonly uint[] ExcludedTypeIds=new uint[]{26632491u};
     // END GENERATED SDK ROUTES
     static readonly Dictionary<string,string> Required=new Dictionary<string,string>(StringComparer.Ordinal);
     static readonly Dictionary<string,string> SupportAssets=new Dictionary<string,string>(StringComparer.Ordinal);

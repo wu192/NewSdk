@@ -5,7 +5,7 @@ namespace BinaryAssetBuilder.Core;
 
 public class VerifierPluginRegistry
 {
-	private class NullVerifierPlugin : IAssetBuilderVerifierPlugin, IAssetBuilderPluginBase
+	private class NullVerifierPlugin : IConcurrentAssetBuilderVerifierPlugin
 	{
 		public void Initialize(object configSection, TargetPlatform platform)
 		{

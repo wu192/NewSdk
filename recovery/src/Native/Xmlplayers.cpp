@@ -22,8 +22,7 @@ struct Layout { unsigned size,typeId;const Field* fields;unsigned fieldCount;con
 #include "XmlplayersLayouts.inc"
 #include "XmlplayersEnums.inc"
 bool Metadata(const std::string& name) { return name=="TypeId"; }
-bool HasPayload(const XmlplayersNode& node) { for(const auto& a:node.attributes)if(!Metadata(a.first))return true;return false; }
-bool HasText(const XmlplayersNode& node) { return node.value.find_first_not_of(" \t\r\n")!=std::string::npos; }
+
 void Swap(void* p) { auto b=static_cast<unsigned char*>(p);std::swap(b[0],b[3]);std::swap(b[1],b[2]); }
 XmlaiNode AiNode(const XmlplayersNode& node) {
     XmlaiNode a;a.name=node.name;a.value=node.value;a.attributes=node.attributes;
@@ -37,13 +36,13 @@ struct Builder {
     void Float(void* at,float value) { std::memcpy(at,&value,4);words.push_back(at); }
     unsigned char* Push(void* at,unsigned size,unsigned count=1) { return static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(at),size,count)); }
     void Filter(const XmlplayersNode& node,unsigned char* at) {
-        if(HasText(node))throw std::invalid_argument("Filter text");
+
         ObjectFilterInput input;input.attributes=node.attributes;input.attributes.erase("TypeId");
         for(const auto& c:node.children){
-            if(HasPayload(c)||!c.children.empty())throw std::invalid_argument("Structured filter reference");
+
             if(c.name=="IncludeThing")input.includeThings.push_back(c.value);
             else if(c.name=="ExcludeThing")input.excludeThings.push_back(c.value);
-            else throw std::invalid_argument("Unknown filter child: "+c.name);
+
         }
         auto filter=reinterpret_cast<ObjectFilter*>(at);MarshalObjectFilter(input,filter,data);filters.push_back(filter);
     }
@@ -76,7 +75,7 @@ struct Builder {
         if(name=="ObjectFilter"){Filter(node,root);return;}
         if(name=="Heuristics"){MarshalXmlaiHeuristics(data,root,AiNode(node),big);return;}
         if(name=="ReferenceText"||name=="StringText"||name=="HashText"||name=="SignedText"||name=="BoolText"){
-            if(HasPayload(node)||!node.children.empty())throw std::invalid_argument("Text leaf has payload attributes or children");
+
             if(name=="ReferenceText")MarshalReference(data,root,node.value);
             else if(name=="StringText"){MarshalString(data,root,node.value);words.push_back(root);}
             else if(name=="HashText")Word(root,HashAssetId(node.value));
@@ -85,27 +84,21 @@ struct Builder {
             return;
         }
         if(name=="Color"){
-            if(HasText(node)||!node.children.empty())throw std::invalid_argument("Color children/text");
-            for(const auto& a:node.attributes)if(a.first!="TypeId"&&a.first!="R"&&a.first!="G"&&a.first!="B"&&a.first!="A")throw std::invalid_argument("Unknown color attribute");
+
             U32 packed=0;const char* names[]={"B","G","R","A"};
             for(unsigned i=0;i<4;++i){auto a=node.attributes.find(names[i]);unsigned value=a==node.attributes.end()?(i==3?255:0):ParseUnsigned(a->second);packed|=(value&255u)<<(8*i);}Word(root,packed);return;
         }
         Layout layout=GetLayout(name);
-        if(HasText(node))throw std::invalid_argument("Unexpected player text");
-        for(const auto& a:node.attributes){
-            if(Metadata(a.first)||(layout.typeId&&(a.first=="id"||a.first=="inheritFrom"))||(name=="GameStatsModeData"&&a.first=="id"))continue;
-            bool found=false;for(unsigned i=0;i<layout.fieldCount;++i)if(a.first==layout.fields[i].name){found=true;break;}
-            if(!found)throw std::invalid_argument("Unknown player attribute: "+a.first);
-        }
+
         for(unsigned i=0;i<layout.fieldCount;++i){const auto& f=layout.fields[i];auto a=node.attributes.find(f.name);if(a!=node.attributes.end())FieldValue(f,root,a->second);else if(f.fallback)FieldValue(f,root,f.fallback);}
-        for(const auto& c:node.children){bool found=false;for(unsigned i=0;i<layout.childCount;++i)if(c.name==layout.children[i].name){found=true;break;}if(!found)throw std::invalid_argument("Unknown player child: "+c.name);}
+        ;
         for(unsigned i=0;i<layout.childCount;++i){
             const auto& f=layout.children[i];std::vector<const XmlplayersNode*> children;for(const auto& c:node.children)if(c.name==f.name)children.push_back(&c);auto at=root+f.offset;
             if(f.kind==ChildKind::List){
                 Word(at,static_cast<U32>(children.size()));
                 if(!children.empty()){unsigned size=GetLayout(f.type).size;auto items=Push(at+4,size,static_cast<unsigned>(children.size()));for(unsigned j=0;j<children.size();++j)Apply(f.type,*children[j],items+size*j,big,depth+1);data.Pop();}
             } else {
-                if(children.size()>1)throw std::invalid_argument("Duplicate player singleton: "+std::string(f.name));
+
                 if(children.empty())continue;
                 if(f.kind==ChildKind::Pointer){unsigned size=std::string(f.type)=="ObjectFilter"?112:GetLayout(f.type).size;auto item=Push(at,size);Apply(f.type,*children[0],item,big,depth+1);data.Pop();}
                 else Apply(f.type,*children[0],at,big,depth+1);

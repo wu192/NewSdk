@@ -1,0 +1,43 @@
+{
+  "succeeded": true,
+  "scope": "Complete unchanged repository SDK/Mods/mymod source, base/apt/maps discovery, one production build process per Debug/Release configuration, original BAB raw four-stream and exact CDATA output comparison. BIG/SKUDEF is additionally compared to original LoD and MakeBig using this unchanged MOD; empty optional groups remain empty and no synthetic APT/map coverage or complete game runtime acceptance is inferred.",
+  "sourceCommit": "e3272ffd087148d31e1363670848a5119f09e4fc",
+  "binarySourceCommit": "e3272ffd087148d31e1363670848a5119f09e4fc",
+  "testSourceCommit": "e3272ffd087148d31e1363670848a5119f09e4fc",
+  "runId": "41037021490",
+  "runAttempt": "1",
+  "modGitTree": "7d6f0192069e357c1b1508faf9fa9f0647468678",
+  "sdkGitTree": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+  "inputsUnchanged": true,
+  "originalBaselinePassed": true,
+  "originalBaselineSucceeded": true,
+  "originalReportPath": "evidence/refactor/sdk-mymod/41037021490-1/validation.json",
+  "originalReportSha256": "cbf56092e86bc712392e54dd6a7fef82c73eb37c180a3f1c1c295b98bb6a94b7",
+  "archiveArtifactId": 12970380524,
+  "archiveSha256": "d76873a2e64ac5e0f744d657d2da9ac2ea368d854a0c019bfdae84cd6c34cb8f",
+  "archiveSha256Recomputed": true,
+  "modes": [
+    {
+      "configuration": "Debug",
+      "succeeded": true,
+      "looseSucceeded": true
+    },
+    {
+      "configuration": "Release",
+      "succeeded": true,
+      "looseSucceeded": true
+    }
+  ],
+  "upheaval": {
+    "status": "passed",
+    "sourceCommit": "e3272ffd087148d31e1363670848a5119f09e4fc",
+    "binarySourceCommit": "e3272ffd087148d31e1363670848a5119f09e4fc",
+    "binarySha256": "c1d8250c65f7f02424d9f062ab0a09b376b5244becab801cda23e92f07abd579",
+    "runId": "41037021490",
+    "comparison": "Actual published bytes compared with filecmp(shallow=False); all report artifact hashes independently checked.",
+    "boundary": "Process wall; fixture setup, baseline copy and comparison excluded. All samples on one Windows VM, same executable. Off samples compared only with off; detailed samples used for attribution.",
+    "samples": 22,
+    "originalReportPath": "evidence/refactor/backend-parallel-performance/41037021490-1/measurement.json",
+    "originalReportSha256": "e15050881337176d4d93a2e4f122d50a31c2d0b89292238681e4637ff186b76e"
+  }
+}

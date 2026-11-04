@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net472;net8.0</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>UiCompiler.Tests</AssemblyName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <PlatformTarget Condition="'$(TargetFramework)' == 'net472'">x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../BinaryAssetBuilder.UiCompiler.csproj" /></ItemGroup>
+  <ItemGroup><Reference Include="BinaryAssetBuilder.Core"><HintPath>../../SDK/tools/BinaryAssetBuilder.Core.dll</HintPath></Reference></ItemGroup>
+  <ItemGroup><None Include="fixtures/**/*" CopyToOutputDirectory="PreserveNewest" /></ItemGroup>
+</Project>

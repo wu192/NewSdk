@@ -92,7 +92,8 @@ def repository_groups(repository, source):
     paths = git('ls-tree', '-r', '--name-only', source, '--', 'recovery/tests').decode().splitlines()
     oracles = sorted(p for p in paths if re.fullmatch(r'recovery/tests/Xml[^/]*Oracle\.cs', p)
                      and pathlib.PurePosixPath(p).name not in EXCLUDED)
-    require(len(oracles) == 63, 'Recorded revision must contain exactly 63 XML group oracles')
+    expected_count = 64 if 'recovery/tests/XmljoypadOracle.cs' in paths else 63
+    require(len(oracles) == expected_count, 'Recorded revision XML group inventory is incomplete')
     result = {}
     for oracle in oracles:
         name = pathlib.PurePosixPath(oracle).stem.removesuffix('Oracle')
@@ -169,7 +170,7 @@ def check(root, repository, expected_source=None):
     require(isinstance(source, str) and re.fullmatch('[0-9a-f]{40}', source), 'Invalid sourceCommit')
     require(expected_source is None or source == expected_source, 'Unexpected sourceCommit')
     require(matrix.get('schemaVersion') == 1 and matrix.get('succeeded') is True
-            and matrix.get('status') == MATRIX_STATUS and matrix.get('sdkValidated') is False, 'XML receipt is incomplete or claims unsupported acceptance')
+            and matrix.get('sdkValidated') is False, 'XML receipt is incomplete or claims unsupported acceptance')
     run_id, attempt = matrix.get('runId'), matrix.get('runAttempt')
     require(type(run_id) in (str, int) and str(run_id).strip()
             and type(attempt) in (str, int) and str(attempt).isdigit() and int(attempt) > 0, 'Missing or invalid run identity')
@@ -186,6 +187,8 @@ def check(root, repository, expected_source=None):
             checkout_forms.add(candidates[matrix[field]])
     require(matrix['originalDllSha256'] == ORIGINAL_XML_SHA, 'Original XML DLL differs from pinned oracle')
     expected = repository_groups(repository, source)
+    expected_status = MATRIX_STATUS.replace('63', str(len(expected)))
+    require(matrix.get('status') == expected_status, 'XML receipt status does not cover the recorded revision group inventory')
     inventory = indexed(matrix.get('groups'), 'group', expected, 'XML group inventory')
     for name, row in inventory.items():
         hashes(row.get('inputs'), name)
@@ -239,7 +242,13 @@ def check(root, repository, expected_source=None):
         runtime = host.get('runtimeFiles')
         require(isinstance(runtime, list) and [r.get('name') for r in runtime] == ['NewModCompiler.exe.config', 'antlr.runtime.dll']
                 and all(isinstance(r.get('sha256'), str) and SHA.fullmatch(r['sha256']) for r in runtime), mode + ': runtime identity inventory')
-        require(product.get('runtimeFiles') == ['NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll', 'BinaryAssetBuilder.TextureCompiler.dll', 'BinaryAssetBuilder.TextureCompiler.dll.patch.json'], mode + ': production runtime inventory differs')
+        runtime_names = ['NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll']
+        if 'texturePlugin' in product:
+            require(product['texturePlugin'] == {'implementation': 'built-in-source', 'externalRuntimeFiles': []}, mode + ': source texture implementation receipt differs')
+        else:
+            # Revalidation of historical accepted archives retains their DLL contract.
+            runtime_names += ['BinaryAssetBuilder.TextureCompiler.dll', 'BinaryAssetBuilder.TextureCompiler.dll.patch.json']
+        require(product.get('runtimeFiles') == runtime_names, mode + ': production runtime inventory differs')
         state = modes[mode]
         require(state.get('passed') is True and state.get('productExeSha256') == product['exeSha256']
                 and state.get('validationHostSha256') == host['exeSha256'], mode + ': matrix EXE identity drift')

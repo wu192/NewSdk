@@ -1,0 +1,331 @@
+{
+  "status": "passed",
+  "runId": "41206438783",
+  "runAttempt": 1,
+  "sourceCommit": "12c82011676d06047df4368b3c9058104eeffa34",
+  "candidateAcceptanceRunId": "41204304969",
+  "artifact": {
+    "id": 13044990255,
+    "name": "compiler-cache-paired-41206438783-1",
+    "bytes": 2894943,
+    "sha256": "cf56e1be8af3b9b19027f4684cc1c7db064ac70856853aab28d7cb9f35ea49b5",
+    "githubDigestMatched": true
+  },
+  "baseline": {
+    "head": "1810fff87727b70779f31328740bb0c2133157d2",
+    "binarySource": "b385337e463bddebdb267946d9edb1b3b6ee5f0a",
+    "acceptanceRunId": "41192817627"
+  },
+  "runtimeFiles": {
+    "baseline": {
+      "NewModCompiler.exe": "8cc060e45a962604f06ea6ef73fa53c518cb173bd3ab72f3b66f7196b3485157",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    "candidate": {
+      "NewModCompiler.exe": "fd55309f0438a99b06b397af009d86f36060c5dafe261e90ec04233278563bae",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    }
+  },
+  "workload": {
+    "fingerprint": "c41fdfd1d72f340351fba7b2828e92c33a0d63ff562ddc8b9962d2be002497f7",
+    "documents": 954,
+    "assets": 3852,
+    "inputBytes": 300900885,
+    "inputFiles": 2723
+  },
+  "machine": {
+    "system": "Windows-2022Server-10.0.20348-SP0",
+    "processor": "AMD64 Family 25 Model 17 Stepping 1, AuthenticAMD",
+    "runnerImage": "20261026.347.1"
+  },
+  "samples": 24,
+  "allArchivedPublishedIdentitiesMatched": true,
+  "allRawPublishedFilesComparedByWorkflow": true,
+  "publishedFileCount": 1313,
+  "publishedBytes": 156625850,
+  "formalOffSummary": [
+    {
+      "mode": "default",
+      "phase": "cold",
+      "baseline": {
+        "n": 3,
+        "medianMs": 26869.63480000003,
+        "minMs": 26163.13869999999,
+        "maxMs": 36356.14480000001,
+        "medianCpuMs": 46531.25,
+        "medianPeakWorkingSetBytes": 184582144
+      },
+      "candidate": {
+        "n": 3,
+        "medianMs": 23931.46859999996,
+        "minMs": 23716.67279999997,
+        "maxMs": 24593.31800000001,
+        "medianCpuMs": 48453.125,
+        "medianPeakWorkingSetBytes": 182202368
+      },
+      "reductionPercent": 10.934894433325404
+    },
+    {
+      "mode": "default",
+      "phase": "hot",
+      "baseline": {
+        "n": 6,
+        "medianMs": 1368.1789999999978,
+        "minMs": 1306.1658999999963,
+        "maxMs": 1392.7875999999628,
+        "medianCpuMs": 1296.875,
+        "medianPeakWorkingSetBytes": 72503296.0
+      },
+      "candidate": {
+        "n": 6,
+        "medianMs": 1380.743850000016,
+        "minMs": 1347.6069999999822,
+        "maxMs": 1411.6597999999954,
+        "medianCpuMs": 1554.6875,
+        "medianPeakWorkingSetBytes": 76500992.0
+      },
+      "reductionPercent": -0.9183630212141969
+    },
+    {
+      "mode": "none",
+      "phase": "cold",
+      "baseline": {
+        "n": 1,
+        "medianMs": 24764.816899999973,
+        "minMs": 24764.816899999973,
+        "maxMs": 24764.816899999973,
+        "medianCpuMs": 44906.25,
+        "medianPeakWorkingSetBytes": 165740544
+      },
+      "candidate": {
+        "n": 1,
+        "medianMs": 22850.94449999997,
+        "minMs": 22850.94449999997,
+        "maxMs": 22850.94449999997,
+        "medianCpuMs": 45828.125,
+        "medianPeakWorkingSetBytes": 185106432
+      },
+      "reductionPercent": 7.728191198538625
+    }
+  ],
+  "detailedAttribution": [
+    {
+      "implementation": "baseline",
+      "phase": "cold",
+      "n": 1,
+      "wallMs": 26409.21350000002,
+      "cpuMs": 46890.625,
+      "peakWorkingSetBytes": 186310656,
+      "parallel": {
+        "protocol": "NewModCompiler.ParallelBackend.v1",
+        "requestedJobs": "4",
+        "effectiveJobs": 4,
+        "minimumEffectiveJobs": 4,
+        "backendCalls": 3354,
+        "maxBackendConcurrency": 4,
+        "prepareMs": 1537.3662000000002,
+        "workerWaitMs": 5388.8334,
+        "workerComputeMs": 28839.4687,
+        "ownerCommitMs": 2348.9607,
+        "fallbackByReason": {
+          "preparation-budget-exceeded": 10
+        },
+        "sampledPeakPrivateBytes": 164556800,
+        "resourceQuerySucceeded": true,
+        "intervalSampleLimit": 512,
+        "clockFrequency": 10000000
+      },
+      "stages": {
+        "core.xml.validate": 9177.882300000001,
+        "core.xml.instance.prepare": null,
+        "core.xml.instance.references": 4165.1687,
+        "core.xml.instance.hash": 650.7502999999999,
+        "core.asset.verify": 15.8978,
+        "core.asset.compile": 28840.9529,
+        "core.asset.io": null,
+        "core.asset.commit": 2064.9443,
+        "core.output.references": 222.74740000000003,
+        "core.output.manifest": 10.3118,
+        "core.output.link": 116.0173,
+        "stage.package": 169.7545,
+        "package.big": 120.1152,
+        "package.skudef": 0.8184
+      }
+    },
+    {
+      "implementation": "baseline",
+      "phase": "hot",
+      "n": 1,
+      "wallMs": 1401.1994999999615,
+      "cpuMs": 1390.625,
+      "peakWorkingSetBytes": 72110080,
+      "parallel": {
+        "protocol": "NewModCompiler.ParallelBackend.v1",
+        "requestedJobs": "4",
+        "effectiveJobs": 4,
+        "minimumEffectiveJobs": 4,
+        "backendCalls": 0,
+        "maxBackendConcurrency": 0,
+        "prepareMs": 0,
+        "workerWaitMs": 0,
+        "workerComputeMs": 0,
+        "ownerCommitMs": 0,
+        "fallbackByReason": {},
+        "sampledPeakPrivateBytes": 0,
+        "resourceQuerySucceeded": true,
+        "intervalSampleLimit": 512,
+        "clockFrequency": 10000000
+      },
+      "stages": {
+        "core.xml.validate": null,
+        "core.xml.instance.prepare": null,
+        "core.xml.instance.references": null,
+        "core.xml.instance.hash": null,
+        "core.asset.verify": 0.1339,
+        "core.asset.compile": null,
+        "core.asset.io": null,
+        "core.asset.commit": 2.2104,
+        "core.output.references": 218.87130000000002,
+        "core.output.manifest": 1.1705,
+        "core.output.link": 0.3645,
+        "stage.package": 162.5094,
+        "package.big": 109.1806,
+        "package.skudef": 1.1293
+      }
+    },
+    {
+      "implementation": "candidate",
+      "phase": "cold",
+      "n": 1,
+      "wallMs": 23861.69319999999,
+      "cpuMs": 48562.5,
+      "peakWorkingSetBytes": 189063168,
+      "parallel": {
+        "protocol": "NewModCompiler.ParallelBackend.v1",
+        "requestedJobs": "4",
+        "effectiveJobs": 4,
+        "minimumEffectiveJobs": 4,
+        "backendCalls": 3354,
+        "maxBackendConcurrency": 4,
+        "prepareMs": 1654.1711,
+        "xmlFrontendMs": 1528.1881,
+        "frontendComputeMs": 750.3148,
+        "cpuResourceWaitMs": 3963.5196,
+        "memoryResourceWaitMs": 0,
+        "ioQueueWaitMs": 1276.1307000000002,
+        "workerVerificationMs": 20.1123,
+        "workerWaitMs": 4786.5478,
+        "workerComputeMs": 30245.587300000003,
+        "assetIoMs": 4707.122,
+        "ownerCommitMs": 87.2187,
+        "fallbackByReason": {
+          "preparation-budget-exceeded": 10
+        },
+        "peakCpuTasks": 4,
+        "peakIoTasks": 4,
+        "peakAwaitingOwner": 8,
+        "peakRetainedResultBytes": 410060440,
+        "ioCapacity": 4,
+        "sampledPeakPrivateBytes": 167972864,
+        "resourceQuerySucceeded": true,
+        "intervalSampleLimit": 512,
+        "clockFrequency": 10000000
+      },
+      "stages": {
+        "core.xml.validate": 10412.9315,
+        "core.xml.instance.prepare": 1040.6989,
+        "core.xml.instance.references": 3194.9978,
+        "core.xml.instance.hash": 1457.5788,
+        "core.asset.verify": 20.1123,
+        "core.asset.compile": 30247.909200000002,
+        "core.asset.io": 4707.121999999999,
+        "core.asset.commit": 4.4827,
+        "core.output.references": 211.9969,
+        "core.output.manifest": 8.9328,
+        "core.output.link": 106.4762,
+        "stage.package": 177.0612,
+        "package.big": 125.25120000000001,
+        "package.skudef": 0.7769
+      }
+    },
+    {
+      "implementation": "candidate",
+      "phase": "hot",
+      "n": 1,
+      "wallMs": 1444.9268999999276,
+      "cpuMs": 1546.875,
+      "peakWorkingSetBytes": 76824576,
+      "parallel": {
+        "protocol": "NewModCompiler.ParallelBackend.v1",
+        "requestedJobs": "4",
+        "effectiveJobs": 4,
+        "minimumEffectiveJobs": 4,
+        "backendCalls": 0,
+        "maxBackendConcurrency": 0,
+        "prepareMs": 0,
+        "xmlFrontendMs": 0,
+        "frontendComputeMs": 0,
+        "cpuResourceWaitMs": 0,
+        "memoryResourceWaitMs": 0,
+        "ioQueueWaitMs": 56.7248,
+        "workerVerificationMs": 0.19460000000000002,
+        "workerWaitMs": 0.0287,
+        "workerComputeMs": 0,
+        "assetIoMs": 3.9257,
+        "ownerCommitMs": 39.3626,
+        "fallbackByReason": {},
+        "peakCpuTasks": 0,
+        "peakIoTasks": 4,
+        "peakAwaitingOwner": 4,
+        "peakRetainedResultBytes": 0,
+        "ioCapacity": 4,
+        "sampledPeakPrivateBytes": 57597952,
+        "resourceQuerySucceeded": true,
+        "intervalSampleLimit": 512,
+        "clockFrequency": 10000000
+      },
+      "stages": {
+        "core.xml.validate": null,
+        "core.xml.instance.prepare": null,
+        "core.xml.instance.references": null,
+        "core.xml.instance.hash": null,
+        "core.asset.verify": 0.1946,
+        "core.asset.compile": null,
+        "core.asset.io": 3.9257,
+        "core.asset.commit": 1.7772000000000001,
+        "core.output.references": 223.80880000000002,
+        "core.output.manifest": 1.3416,
+        "core.output.link": 0.3872,
+        "stage.package": 164.58270000000002,
+        "package.big": 110.6269,
+        "package.skudef": 1.0456
+      }
+    }
+  ],
+  "limitations": [
+    "Same Windows VM; OS page cache uncontrolled. Cold means empty compiler cache/output namespace, not cold filesystem cache.",
+    "Cold n=3 and hot n=6 are descriptive; two hot samples share each cold namespace.",
+    "Detailed samples are n=1 per implementation/phase and excluded from formal off medians.",
+    "Worker CPU/verification/encoding/IO times overlap and must not be summed into process wall time.",
+    "Old synchronous core.asset.commit includes IO; new core.asset.commit describes Owner publication, so those phase values are not directly comparable.",
+    "Paired archive contains runtime identity receipts, not runtime binaries; accepted candidate archive verification is recorded separately."
+  ],
+  "verification": {
+    "sampleGroupCountsMatched": true,
+    "eachArchivedSampleReportMatchedMeasurement": true,
+    "eachArchivedPublishedIdentityInventoryMatched": true,
+    "coldNamespacesInitiallyAbsent": true,
+    "defaultHotXmlParseAndCompileZero": true,
+    "originalAndMeasuredUpheavalFingerprintsMatched": true,
+    "baselineAndCandidateBuildSourceAndExeReceiptsMatched": true,
+    "candidateRuntimeFilesMatchedSeparatelyVerifiedAcceptanceArchive": true
+  },
+  "candidateAcceptanceArchive": {
+    "runId": "41204304969",
+    "artifactId": 13044558309,
+    "archiveSha256": "a7772baa773a037a85935044f2c0479d2164658f16c892f29e1219a298987f5b",
+    "releaseRuntimeExactIdentityMatched": true
+  }
+}

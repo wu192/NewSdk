@@ -14,9 +14,8 @@
 namespace Recovered { namespace Native { namespace UIConfigDetail {
 using Relo::U32;using Node=XmluiconfigNode;
 void Check(bool ok,const char* s){if(!ok)throw std::invalid_argument(s);}
-bool In(const std::string& n,const char* list){return(std::string("|")+list+"|").find("|"+n+"|")!=std::string::npos;}
-void Validate(const Node& n,const char* attrs,const char* children,bool root=false,bool text=false){Check(text||n.value.find_first_not_of(" \t\r\n")==std::string::npos,"Unexpected UI configuration text.");for(const auto& a:n.attributes)Check(a.first=="TypeId"||(root&&(a.first=="id"||a.first=="inheritFrom"))||In(a.first,attrs),"Unknown UI configuration attribute.");for(const auto& c:n.children)Check(In(c.name,children),"Unknown UI configuration child.");}
-const Node* Child(const Node& n,const char* name){const Node* r=nullptr;for(const auto& c:n.children)if(c.name==name){Check(!r,"Duplicate UI configuration singleton.");r=&c;}return r;}
+
+const Node* Child(const Node& n,const char* name){const Node* r=nullptr;for(const auto& c:n.children)if(c.name==name){r=&c;}return r;}
 std::string Value(const Node& n,const char* a,const char* d=""){auto i=n.attributes.find(a);return i==n.attributes.end()?d:i->second;}
 std::vector<const Node*> Children(const Node& n,const char* name){std::vector<const Node*> out;for(const auto& c:n.children)if(c.name==name)out.push_back(&c);return out;}
 bool Space(unsigned char c){return c==' '||(c>=9&&c<=13);}
@@ -46,10 +45,10 @@ struct Builder {
  template<class F> void List(const Node& n,const char* name,unsigned char* p,unsigned size,F f){auto rows=Children(n,name);Word(p,static_cast<U32>(rows.size()));if(!rows.empty()){auto list=static_cast<unsigned char*>(t.Push(reinterpret_cast<void**>(p+4),size,static_cast<U32>(rows.size())));for(unsigned i=0;i<rows.size();++i)f(*rows[i],list+size*i);t.Pop();}}
 #include "XmluiconfigNested.inc"
 #include "XmluiconfigComponents.inc"
- void Dynamic(const Node& n,unsigned char* p){Validate(n,"Name|Type","ComponentList");auto name=n.attributes.find("Name");if(name!=n.attributes.end())Word(p,RawHash(name->second));auto type=n.attributes.find("Type");if(type!=n.attributes.end()){std::string s(type->second.c_str());Word(p+4,s=="INGAME"?0:s=="SHELL"?1:s=="LOADSCREEN"?3:2);}
-  auto components=Child(n,"ComponentList");if(components){Check(components->value.find_first_not_of(" \t\r\n")==std::string::npos,"Unexpected component list text.");for(const auto& a:components->attributes)Check(a.first=="TypeId","Unknown component list attribute.");Word(p+8,static_cast<U32>(components->children.size()));if(!components->children.empty()){auto list=static_cast<unsigned char*>(t.Push(reinterpret_cast<void**>(p+12),4,static_cast<U32>(components->children.size())));for(unsigned i=0;i<components->children.size();++i){const Node& c=components->children[i];U32 id=ParseUnsigned(Value(c,"TypeId"));auto target=static_cast<unsigned char*>(t.Push(reinterpret_cast<void**>(list+4*i),ComponentSize(id),1));Dispatch(id,c,target);t.Pop();}t.Pop();}}
+ void Dynamic(const Node& n,unsigned char* p){auto name=n.attributes.find("Name");if(name!=n.attributes.end())Word(p,RawHash(name->second));auto type=n.attributes.find("Type");if(type!=n.attributes.end()){std::string s(type->second.c_str());Word(p+4,s=="INGAME"?0:s=="SHELL"?1:s=="LOADSCREEN"?3:2);}
+  auto components=Child(n,"ComponentList");if(components){Word(p+8,static_cast<U32>(components->children.size()));if(!components->children.empty()){auto list=static_cast<unsigned char*>(t.Push(reinterpret_cast<void**>(p+12),4,static_cast<U32>(components->children.size())));for(unsigned i=0;i<components->children.size();++i){const Node& c=components->children[i];U32 id=ParseUnsigned(Value(c,"TypeId"));auto target=static_cast<unsigned char*>(t.Push(reinterpret_cast<void**>(list+4*i),ComponentSize(id),1));Dispatch(id,c,target);t.Pop();}t.Pop();}}
  }
- void Root(const Node& n,unsigned char* p){Validate(n,"","UIDynamicConfig",true);List(n,"UIDynamicConfig",p+4,16,[&](const Node& a,unsigned char* b){Dynamic(a,b);});}
+ void Root(const Node& n,unsigned char* p){List(n,"UIDynamicConfig",p+4,16,[&](const Node& a,unsigned char* b){Dynamic(a,b);});}
 };}
 unsigned int XmluiconfigTypeId(const std::string& name){return name=="UIConfigList"?3072160547u:0;}
 Relo::Chunk CompileXmluiconfig(const XmluiconfigNode& input,bool bigEndian){using namespace UIConfigDetail;static_assert(sizeof(void*)==4,"UI config requires x86.");Check(XmluiconfigTypeId(input.name)!=0,"Unsupported UI configuration root.");Builder b;unsigned char* root=nullptr;b.t.Push(reinterpret_cast<void**>(&root),12,1);b.Root(input,root);if(bigEndian)for(auto p:b.words)Swap(p);return b.t.MakeRelocatable(bigEndian,0);}

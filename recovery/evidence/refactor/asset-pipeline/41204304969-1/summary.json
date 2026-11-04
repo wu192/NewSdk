@@ -1,0 +1,378 @@
+{
+  "sourceCommit": "12c82011676d06047df4368b3c9058104eeffa34",
+  "runId": "41204304969",
+  "runAttempt": 1,
+  "status": "passed",
+  "artifactId": 13044558309,
+  "archiveSha256": "a7772baa773a037a85935044f2c0479d2164658f16c892f29e1219a298987f5b",
+  "githubArtifactDigestMatched": true,
+  "runtime": {
+    "Debug": {
+      "sourceCommit": "12c82011676d06047df4368b3c9058104eeffa34",
+      "files": {
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+        "NewModCompiler.exe": "16ace03ca5c45812ee58d9d770382618b21bcc555458c75df5bb122d6f820084",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+      },
+      "buildReceiptMatched": true,
+      "foundationAndApplicationLinkRecipeIdentityMatched": true,
+      "linkInputCount": 128,
+      "zip": {
+        "name": "NewModCompiler-Win32-Debug.zip",
+        "bytes": 2169977,
+        "sha256": "f99c990aefbb0da18f1e6fad53e2d78e5634952cad37bc68b4712049543ce32e",
+        "exactRuntimeBytesMatched": true,
+        "doctorRawOutputsAndBigDeploymentPassed": true
+      }
+    },
+    "Release": {
+      "sourceCommit": "12c82011676d06047df4368b3c9058104eeffa34",
+      "files": {
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+        "NewModCompiler.exe": "fd55309f0438a99b06b397af009d86f36060c5dafe261e90ec04233278563bae",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+      },
+      "buildReceiptMatched": true,
+      "foundationAndApplicationLinkRecipeIdentityMatched": true,
+      "linkInputCount": 128,
+      "zip": {
+        "name": "NewModCompiler-Win32-Release.zip",
+        "bytes": 1637702,
+        "sha256": "32b9545141243d999497e902fc9860838e14c6e7edfc20b70fc66ea1509162f5",
+        "exactRuntimeBytesMatched": true,
+        "doctorRawOutputsAndBigDeploymentPassed": true
+      }
+    }
+  },
+  "fixtureResults": {
+    "Debug": {
+      "CompilerApplicationBuild": true,
+      "CompilerBackendLifecycle": true,
+      "CompilerCacheContent": true,
+      "CompilerCoreLifecycle": true,
+      "CompilerCorePaths": true,
+      "CompilerInputRoots": true,
+      "CompilerPreparedBackend": true,
+      "CompilerResourceLifecycle": true,
+      "CompilerStableSort": true,
+      "CompilerStateLifecycle": true,
+      "CompilerUnicodeSettings": true,
+      "CompilerXmlBackendBatch": true
+    },
+    "Release": {
+      "CompilerApplicationBuild": true,
+      "CompilerBackendLifecycle": true,
+      "CompilerCacheContent": true,
+      "CompilerCoreLifecycle": true,
+      "CompilerCorePaths": true,
+      "CompilerInputRoots": true,
+      "CompilerPreparedBackend": true,
+      "CompilerResourceLifecycle": true,
+      "CompilerStableSort": true,
+      "CompilerStateLifecycle": true,
+      "CompilerUnicodeSettings": true,
+      "CompilerXmlBackendBatch": true
+    }
+  },
+  "sessionPartialRetry": {
+    "Debug": {
+      "xmlParse": 2,
+      "instanceCompile": 0,
+      "documentReuse": 1
+    },
+    "Release": {
+      "xmlParse": 2,
+      "instanceCompile": 0,
+      "documentReuse": 1
+    }
+  },
+  "passedGroups": [
+    "core-lifecycle",
+    "performance",
+    "hot-cache",
+    "backend-parallel",
+    "core-cli",
+    "build-cache",
+    "input-roots",
+    "cache-payloads",
+    "core-lifecycle-texture",
+    "session-cache",
+    "big",
+    "sdk-mymod",
+    "final-three-file-packages",
+    "full-Upheaval-22"
+  ],
+  "notRebuiltUnchangedComponentScope": [
+    "XML native component matrices",
+    "GameObject native component matrices",
+    "Weapon native component matrices"
+  ],
+  "limitations": [
+    "Raw link object files are not included in the archive; their frozen recipe identities are compared with build receipts.",
+    "Upheaval process timing uses uncontrolled OS page cache."
+  ],
+  "sessionCases": {
+    "Debug": 108,
+    "Release": 108
+  },
+  "fullUpheaval": {
+    "samples": 22,
+    "allRawOutputsIdentical": true,
+    "scope": "Process wall; fixture setup, baseline copy and comparison excluded. All samples on one Windows VM, same executable. Off samples compared only with off; detailed samples used for attribution.",
+    "cases": [
+      {
+        "label": "nocache-cold-1",
+        "wallMs": 50443.965100000016,
+        "instanceCompile": 3354,
+        "parallel": null
+      },
+      {
+        "label": "nocache-cold-4",
+        "wallMs": 28951.049199999943,
+        "instanceCompile": 3354,
+        "parallel": null
+      },
+      {
+        "label": "nocache-cold-auto",
+        "wallMs": 28898.732999999993,
+        "instanceCompile": 3354,
+        "parallel": null
+      },
+      {
+        "label": "defaults-cold-4",
+        "wallMs": 30123.669300000074,
+        "instanceCompile": 3354,
+        "parallel": null
+      },
+      {
+        "label": "defaults-hot-4",
+        "wallMs": 1785.0628999999572,
+        "instanceCompile": 0,
+        "parallel": null
+      },
+      {
+        "label": "defaults-hot-repeat-4",
+        "wallMs": 1760.7656000000134,
+        "instanceCompile": 0,
+        "parallel": null
+      },
+      {
+        "label": "defaults-hot-diagnostic-4",
+        "wallMs": 1790.295199999946,
+        "instanceCompile": 0,
+        "parallel": {
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "xmlFrontendMs": 0,
+          "frontendComputeMs": 0,
+          "workerVerificationMs": 0.24810000000000001,
+          "workerComputeMs": 0,
+          "assetIoMs": 4.9321,
+          "ownerCommitMs": 50.1606,
+          "cpuResourceWaitMs": 0,
+          "memoryResourceWaitMs": 0,
+          "ioQueueWaitMs": 75.97710000000001,
+          "peakCpuTasks": 0,
+          "peakIoTasks": 4,
+          "peakRetainedResultBytes": 0,
+          "peakAwaitingOwner": 4
+        }
+      },
+      {
+        "label": "defaults-cold-1",
+        "wallMs": 52321.3887999998,
+        "instanceCompile": 3354,
+        "parallel": null
+      },
+      {
+        "label": "defaults-hot-1",
+        "wallMs": 1729.0691000000606,
+        "instanceCompile": 0,
+        "parallel": null
+      },
+      {
+        "label": "defaults-hot-repeat-1",
+        "wallMs": 1715.7744000001003,
+        "instanceCompile": 0,
+        "parallel": null
+      },
+      {
+        "label": "defaults-hot-diagnostic-1",
+        "wallMs": 1805.0726999999824,
+        "instanceCompile": 0,
+        "parallel": {
+          "effectiveJobs": 1,
+          "minimumEffectiveJobs": 1,
+          "backendCalls": 0,
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "xmlFrontendMs": 0,
+          "frontendComputeMs": 0,
+          "workerVerificationMs": 0.23420000000000002,
+          "workerComputeMs": 0,
+          "assetIoMs": 2.1127000000000002,
+          "ownerCommitMs": 75.8538,
+          "cpuResourceWaitMs": 0,
+          "memoryResourceWaitMs": 0,
+          "ioQueueWaitMs": 5103.7985,
+          "peakCpuTasks": 0,
+          "peakIoTasks": 1,
+          "peakRetainedResultBytes": 0,
+          "peakAwaitingOwner": 1
+        }
+      },
+      {
+        "label": "defaults-cold-auto",
+        "wallMs": 30076.29799999995,
+        "instanceCompile": 3354,
+        "parallel": null
+      },
+      {
+        "label": "defaults-hot-auto",
+        "wallMs": 1798.7048999998478,
+        "instanceCompile": 0,
+        "parallel": null
+      },
+      {
+        "label": "defaults-hot-repeat-auto",
+        "wallMs": 1782.5911999998425,
+        "instanceCompile": 0,
+        "parallel": null
+      },
+      {
+        "label": "defaults-hot-diagnostic-auto",
+        "wallMs": 1820.3283999998803,
+        "instanceCompile": 0,
+        "parallel": {
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "xmlFrontendMs": 0,
+          "frontendComputeMs": 0,
+          "workerVerificationMs": 0.2472,
+          "workerComputeMs": 0,
+          "assetIoMs": 7.836600000000001,
+          "ownerCommitMs": 53.633700000000005,
+          "cpuResourceWaitMs": 0,
+          "memoryResourceWaitMs": 0,
+          "ioQueueWaitMs": 68.9295,
+          "peakCpuTasks": 0,
+          "peakIoTasks": 4,
+          "peakRetainedResultBytes": 0,
+          "peakAwaitingOwner": 2
+        }
+      },
+      {
+        "label": "diagnostic-cold-1",
+        "wallMs": 50685.02939999985,
+        "instanceCompile": 3354,
+        "parallel": {
+          "effectiveJobs": 1,
+          "minimumEffectiveJobs": 1,
+          "backendCalls": 3354,
+          "maxBackendConcurrency": 1,
+          "prepareMs": 0,
+          "xmlFrontendMs": 983.0626000000001,
+          "frontendComputeMs": 838.3935,
+          "workerVerificationMs": 22.724500000000003,
+          "workerComputeMs": 29638.200500000003,
+          "assetIoMs": 1363.0831,
+          "ownerCommitMs": 79.6623,
+          "cpuResourceWaitMs": 0.0748,
+          "memoryResourceWaitMs": 0,
+          "ioQueueWaitMs": 106779.1072,
+          "peakCpuTasks": 1,
+          "peakIoTasks": 1,
+          "peakRetainedResultBytes": 353839480,
+          "peakAwaitingOwner": 2
+        }
+      },
+      {
+        "label": "diagnostic-cold-4",
+        "wallMs": 28987.022799999977,
+        "instanceCompile": 3354,
+        "parallel": {
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 3354,
+          "maxBackendConcurrency": 4,
+          "prepareMs": 2112.4274,
+          "xmlFrontendMs": 1892.5026,
+          "frontendComputeMs": 1016.0329,
+          "workerVerificationMs": 29.729100000000003,
+          "workerComputeMs": 35530.7586,
+          "assetIoMs": 3673.1889,
+          "ownerCommitMs": 104.4152,
+          "cpuResourceWaitMs": 4245.7324,
+          "memoryResourceWaitMs": 0,
+          "ioQueueWaitMs": 1335.1246,
+          "peakCpuTasks": 4,
+          "peakIoTasks": 4,
+          "peakRetainedResultBytes": 395207816,
+          "peakAwaitingOwner": 8
+        }
+      },
+      {
+        "label": "diagnostic-cold-auto",
+        "wallMs": 29059.30280000007,
+        "instanceCompile": 3354,
+        "parallel": {
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 3354,
+          "maxBackendConcurrency": 4,
+          "prepareMs": 2114.8361,
+          "xmlFrontendMs": 1868.3931,
+          "frontendComputeMs": 1036.5206,
+          "workerVerificationMs": 44.2248,
+          "workerComputeMs": 35204.258200000004,
+          "assetIoMs": 3391.5877,
+          "ownerCommitMs": 88.0188,
+          "cpuResourceWaitMs": 4260.0119,
+          "memoryResourceWaitMs": 0,
+          "ioQueueWaitMs": 2202.8049,
+          "peakCpuTasks": 4,
+          "peakIoTasks": 4,
+          "peakRetainedResultBytes": 410060440,
+          "peakAwaitingOwner": 8
+        }
+      },
+      {
+        "label": "modified-independent-control",
+        "wallMs": 20122.244799999862,
+        "instanceCompile": 1,
+        "parallel": null
+      },
+      {
+        "label": "defaults-modified-1",
+        "wallMs": 2068.169399999988,
+        "instanceCompile": 1,
+        "parallel": null
+      },
+      {
+        "label": "defaults-modified-4",
+        "wallMs": 2044.2630000000008,
+        "instanceCompile": 1,
+        "parallel": null
+      },
+      {
+        "label": "defaults-modified-auto",
+        "wallMs": 2076.2382000000343,
+        "instanceCompile": 1,
+        "parallel": null
+      }
+    ],
+    "timingCaution": "Per-stage worker CPU/IO and queue durations aggregate over assets and overlap; do not add them or compare detailed timings with profiling-off samples."
+  },
+  "pairedOldNewThroughput": {
+    "runId": "41206438783",
+    "sourceCommit": "12c82011676d06047df4368b3c9058104eeffa34",
+    "status": "passed",
+    "summary": "../paired-41206438783-1/summary.json"
+  }
+}

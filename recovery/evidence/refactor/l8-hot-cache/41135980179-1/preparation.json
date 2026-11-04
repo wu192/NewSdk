@@ -1,0 +1,35 @@
+{
+  "binarySourceCommit": "cc10391be67dda57c7efa7fc06256b99e9372d9a",
+  "sourceRunId": "41068958541",
+  "benchmarkSourceCommit": "873271d3a25d1c839c55af46417ff1a826ed6a41",
+  "archiveSha256": "13464d2e0bb1207538dd883fb86e3774f1ddcb0671901245a27970d9edf87adb",
+  "runtimeFiles": [
+    {
+      "sha256": "882fec0b34565230c38347f3cc0c0646a5e36cd4ffb31ac5056a01d2752e9ac0",
+      "name": "NewModCompiler.exe",
+      "bytes": 3887104
+    },
+    {
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "name": "NewModCompiler.exe.config",
+      "bytes": 201
+    },
+    {
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "name": "antlr.runtime.dll",
+      "bytes": 99328
+    },
+    {
+      "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "name": "BinaryAssetBuilder.TextureCompiler.dll",
+      "bytes": 917504
+    },
+    {
+      "sha256": "6fb1529654f1b9463dadbf8c0aaed3a5a771a81a76457b68776e71b98d1aae2e",
+      "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+      "bytes": 14326
+    }
+  ],
+  "runtimeDirectory": "D:\\a\\_temp\\l8-runtime\\runtime",
+  "productionInputsUnchanged": true
+}

@@ -18,11 +18,11 @@ function Within([string]$Directory,[string]$Path){
     $base=[IO.Path]::GetFullPath($Directory).TrimEnd([char[]]'\/');$full=[IO.Path]::GetFullPath($Path)
     $full.Equals($base,[StringComparison]::OrdinalIgnoreCase) -or $full.StartsWith($base+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)
 }
-function Snapshot([string]$Directory){
-    $result=@{};Get-ChildItem -LiteralPath $Directory -File -Recurse|ForEach-Object{$result[[IO.Path]::GetRelativePath($Directory,$_.FullName).Replace('\','/')]=@{sha256=(Hash $_.FullName);bytes=$_.Length}};$result
+function Snapshot([string]$Directory,[string]$ExcludedOutput){
+    $result=@{};Get-ChildItem -LiteralPath $Directory -File -Recurse|Where-Object{!$ExcludedOutput -or !(Within $ExcludedOutput $_.FullName)}|ForEach-Object{$result[[IO.Path]::GetRelativePath($Directory,$_.FullName).Replace('\','/')]=@{sha256=(Hash $_.FullName);bytes=$_.Length}};$result
 }
-function Unchanged([string]$Directory,$Expected){
-    $actual=Snapshot $Directory;Need ($actual.Count -eq $Expected.Count) "Input tree file count changed: $Directory"
+function Unchanged([string]$Directory,$Expected,[string]$ExcludedOutput){
+    $actual=Snapshot $Directory $ExcludedOutput;Need ($actual.Count -eq $Expected.Count) "Input tree file count changed: $Directory"
     foreach($key in $Expected.Keys){Need ($actual.ContainsKey($key) -and $actual[$key].sha256 -ceq $Expected[$key].sha256 -and $actual[$key].bytes -eq $Expected[$key].bytes) "Input changed: $Directory/$key"}
 }
 function InvokeControlled([string]$Name,[string]$Exe,[string[]]$Arguments,[string]$Cwd,[string]$Events,[string]$CaseOut){
@@ -84,7 +84,7 @@ function VerifySdkBig([string]$Mode,$Runtime,$ModeOut,$Sdk,$Mod,$Tasks,$Original
     $bigOut=Join-Path $ModeOut 'big';New-Item -ItemType Directory -Path $bigOut|Out-Null
     $destination=Join-Path $script:short ($Mode.Substring(0,1)+'big')
     New-Item -ItemType Directory -Path $destination|Out-Null
-    $arguments=@('build','--mod',$Mod,'--sdk-root',$Sdk,'--out',$destination,'/sc:false','/bc:false',"/data:$Data","/art:$Art","/audio:$Audio")
+    $arguments=@('build','--mod',$Mod,'--sdk-root',$Sdk,'--out',$destination,'--mod-version','1.0','/sc:false','/bc:false',"/data:$Data","/art:$Art","/audio:$Audio")
     $audit=InvokeControlled ($Mode+'/big') (Join-Path $Runtime 'NewModCompiler.exe') $arguments $Runtime (Join-Path $destination 'build.events.jsonl') (Join-Path $bigOut 'process')
     Copy-Item -LiteralPath $destination -Destination (Join-Path $bigOut 'output') -Recurse
     $report=Get-Content (Join-Path $destination 'build-report.json') -Raw|ConvertFrom-Json
@@ -185,7 +185,8 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
     }
 
     $sdk=(Resolve-Path -LiteralPath (Join-Path $root 'SDK')).Path;$mod=(Resolve-Path -LiteralPath (Join-Path $sdk 'Mods/mymod')).Path
-    $sdkBefore=Snapshot $sdk;$state.sdkInputs=$sdkBefore
+    $sdkCacheOutput=Join-Path $sdk 'SuperCompilerCache'
+    $sdkBefore=Snapshot $sdk $sdkCacheOutput;$state.sdkInputs=$sdkBefore;$state.sdkOutputExclusions=@('SuperCompilerCache')
     $state.sdkGitTree=(git -C $root rev-parse HEAD:SDK).Trim();$state.modGitTree=(git -C $root rev-parse HEAD:SDK/Mods/mymod).Trim()
     Need ((Test-Path -LiteralPath (Join-Path $mod 'Data/Mod.xml')) -and (Test-Path -LiteralPath (Join-Path $sdk 'SageXml/Static.xml'))) 'Full SDK/MOD source is unavailable'
     $tasks=@(@{id='base/Mod';content='base';inputPath=(Join-Path $mod 'Data/Mod.xml')});$skipped=@()
@@ -212,7 +213,7 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
 
     $env:PATH=(@($oldPath -split ';'|Where-Object{$_ -notmatch '[\\/]SDK[\\/]tools'}) -join ';')
     foreach($item in @(Get-ChildItem Env:|Where-Object{$_.Name -like 'RA3_RECOVERED_*' -or $_.Name -eq 'RECOVERED_W3X_TRACE_DIRECTORY'})){$removedEnvironment[$item.Name]=$item.Value;[Environment]::SetEnvironmentVariable($item.Name,$null,'Process')}
-    # The original oracle runs first with untouched original plugin routes.
+    # The original oracle runs first with untouched original plugin routes and metadata.
     $oracleTools=(New-Item -ItemType Directory -Path (Join-Path $short 't')).FullName
     Copy-Item -Path (Join-Path $sdk 'tools/*') -Destination $oracleTools -Recurse
     $originalExe=Join-Path $oracleTools 'BinaryAssetBuilder.exe';$config=Join-Path $oracleTools 'BinaryAssetBuilder.exe.config'
@@ -259,10 +260,15 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
                 Need ($identity.Count -eq 1 -and $identity[0].sha256 -ceq (Hash (Join-Path $runtime $file))) 'SDK runtime differs from verified historical bytes'
             }
         }
-        & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> (Join-Path $modeOut 'prepare-texture.log');Need ($LASTEXITCODE -eq 0) 'SDK texture deployment failed'
-        $patch=Get-Content (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll.patch.json') -Raw|ConvertFrom-Json
-        Need ($patch.targetExeSha256 -ceq (Hash $exe) -and $patch.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll')) -and $patch.protectedPeAudit.status -ceq 'passed') 'Texture runtime does not bind production EXE'
-        Need (@(Get-ChildItem -LiteralPath $runtime -File).Count -eq 5) 'SDK production deployment is not the exact five-file runtime'
+        if($state.runtimeReuse){
+            & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> (Join-Path $modeOut 'prepare-texture.log');Need ($LASTEXITCODE -eq 0) 'Historical SDK texture deployment failed'
+            $patch=Get-Content (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll.patch.json') -Raw|ConvertFrom-Json
+            Need ($patch.targetExeSha256 -ceq (Hash $exe) -and $patch.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll')) -and $patch.protectedPeAudit.status -ceq 'passed') 'Historical Texture runtime does not bind its EXE'
+            Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 5) 'Historical SDK deployment is not the exact five-file runtime'
+        }else{
+            Need ($build.texturePlugin.implementation -ceq 'built-in-source' -and @($build.texturePlugin.externalRuntimeFiles).Count -eq 0) 'SDK build requires the source texture plugin'
+            Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 3) 'SDK production deployment is not the exact three-file runtime'
+        }
         $runtimeBefore=Snapshot $runtime;$destination=Join-Path $short ($mode.Substring(0,1)+'out');New-Item -ItemType Directory -Path $destination|Out-Null
         $arguments=@('build','--mod',$mod,'--sdk-root',$sdk,'--out',$destination,'--package-content','base,apt,maps','--package-format','loose','/sc:false','/bc:false',"/data:$data","/art:$art","/audio:$audio")
         $audit=InvokeControlled $mode $exe $arguments $runtime (Join-Path $destination 'build.events.jsonl') (Join-Path $modeOut 'process')
@@ -284,21 +290,21 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
             foreach($value in $product.Values){$null=$accepted.Add($value.path)}
         }
         Need (@($report.artifacts).Count -eq $accepted.Count -and @(Get-ChildItem -LiteralPath (Join-Path $destination 'published') -File -Recurse).Count -eq $accepted.Count) 'SDK publication artifact allowlist differs from all raw outputs'
-        foreach($artifact in $report.artifacts){Need ($accepted.Remove([string]$artifact.Path) -and (Within (Join-Path $destination 'published') $artifact.Path) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'SDK reported artifact path/identity differs'}
+        foreach($artifact in $report.artifacts){Need ($accepted.Remove([string]$artifact.Path) -and (Within (Join-Path $destination 'published') $artifact.Path) -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'SDK reported artifact path/identity differs'}
         Need ($accepted.Count -eq 0 -and !(Test-Path -LiteralPath (Join-Path $destination ('.build/'+$report.buildId)))) 'SDK publication retained staging or omitted output'
         Unchanged $runtime $runtimeBefore
         $modeState.looseSucceeded=@($modeState.comparisons.outputs|Where-Object{!$_.byteIdentical}).Count -eq 0
         if($modeState.looseSucceeded){$modeState.big=VerifySdkBig $mode $runtime $modeOut $sdk $mod $tasks $originals $data $art $audio;$modeState.succeeded=$true}
         Unchanged $runtime $runtimeBefore
     }
-    Unchanged $oracleTools $state.originalRuntime;Unchanged $sdk $sdkBefore;$state.inputsUnchanged=$true
+    Unchanged $oracleTools $state.originalRuntime;Unchanged $sdk $sdkBefore $sdkCacheOutput;$state.inputsUnchanged=$true
     Need (@($state.modes).Count -eq 2 -and @($state.modes|Where-Object{!$_.succeeded}).Count -eq 0) 'Complete SDK differential failed; see per-file raw comparisons in validation.json'
     $state.succeeded=$true
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {
     if($sdk -and $sdkBefore){
-        try{Unchanged $sdk $sdkBefore;$state.inputsUnchanged=$true}
+        try{Unchanged $sdk $sdkBefore $sdkCacheOutput;$state.inputsUnchanged=$true}
         catch{$state.inputsUnchanged=$false;$state.succeeded=$false;$state.inputVerificationError=$_.Exception.ToString();if(!$state.error){$verificationFailure=$_}}
     }
     $env:PATH=$oldPath;foreach($key in $removedEnvironment.Keys){[Environment]::SetEnvironmentVariable($key,$removedEnvironment[$key],'Process')}

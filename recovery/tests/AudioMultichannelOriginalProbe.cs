@@ -57,7 +57,7 @@ internal static class AudioMultichannelOriginalProbe
         if (args.Length != 9 || IntPtr.Size != 4) return 2;
         string assembly = Path.GetFullPath(args[0]), directory = Path.GetFullPath(args[1]), output = Path.GetFullPath(args[2]);
         int channels = Int32.Parse(args[3]), frames = Int32.Parse(args[4]), bits = Int32.Parse(args[7]); string codec = args[5], signal = args[8]; bool streamed = Boolean.Parse(args[6]);
-        if ((channels != 1 && channels != 2 && channels != 4 && channels != 6) || frames < 2 || frames > 4096 || (bits != 8 && bits != 16 && bits != 24) || (signal != "constant" && signal != "impulse") || (codec != "NONE" && codec != "XAS")) return 2;
+        if ((channels != 1 && channels != 2 && channels != 4 && channels != 6 && channels != 8) || frames < 2 || frames > 4096 || (bits != 8 && bits != 16 && bits != 24) || (signal != "constant" && signal != "impulse") || (codec != "NONE" && codec != "XAS")) return 2;
         Directory.CreateDirectory(directory); Environment.CurrentDirectory = directory;
         string wave = Path.Combine(directory, "input.wav"), custom = Path.Combine(directory, "output.cdata");
         Wave(wave, channels, frames, bits, signal); if (File.Exists(custom)) File.Delete(custom);

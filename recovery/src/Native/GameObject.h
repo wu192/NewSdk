@@ -1,4 +1,5 @@
 #pragma once
+#include "AttributeMap.h"
 #include "Relocation.h"
 #include <map>
 #include <string>
@@ -12,26 +13,17 @@ enum class GameObjectValue { Float, Signed, Unsigned, Short, Byte, Boolean, Time
 struct GameObjectField { const char* name; unsigned offset; GameObjectValue kind; const char* fallback; int defaultValue; };
 const GameObjectField* GameObjectFields();
 unsigned GameObjectFieldCount();
-bool GameObjectLeafAttributeSupported(const std::string& name, const std::string& attribute);
-bool GameObjectAIAttributeSupported(const std::string& name, const std::string& attribute);
 unsigned GameObjectSoundSelectorKind(const std::string& typeId);
-bool GameObjectModuleAttributeSupported(const std::string& typeId, const std::string& attribute);
-bool GameObjectModuleNestedAttributeSupported(const std::string& typeId, const std::string& name, const std::string& attribute);
 bool GameObjectModuleNestedSupported(const std::string& typeId, const std::string& name);
-bool GameObjectModuleChildSupported(const std::string& parent, const std::string& child);
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId);
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path);
-bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const std::string& attribute);
-bool GameObjectMotionMoveAttribute(const std::string& typeId,const std::string& attribute);
 bool GameObjectMotionMovePaths(const std::string& typeId);
 struct GameObjectChild {
     std::string name, text;
-    std::map<std::string,std::string> attributes;
+    AttributeMap attributes;
     std::vector<GameObjectChild> children;
 };
 // Restricted component; unsupported attributes and child blocks are rejected.
-Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes, const std::vector<GameObjectChild>& children, bool bigEndian);
+Relo::Chunk CompileGameObject(const AttributeMap& attributes, const std::vector<GameObjectChild>& children, bool bigEndian);
 }}
-
-
 

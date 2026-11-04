@@ -1,0 +1,12 @@
+{
+  "runId": 41148441137,
+  "sourceCommit": "324db4c87cedc79e061870688e15fa5647bf27e8",
+  "baselineBinarySource": "7cfdd4314d8cafa2f2c7313e64f5ffbacf94eaf9",
+  "optimizedBinarySource": "d60904bcb4fcdc6b02ff78db6b66410568543f57",
+  "archiveBytes": 814673,
+  "archiveSha256": "0a50abc8cbd384c2354ff44867bfcd75fc82c7830cdd8bd03a5e18fcac3cc010",
+  "downloadedAndRehashed": true,
+  "all6ReportsZeroErrors1859Warnings": true,
+  "finalAcceptedReleaseIdentityMatched": true,
+  "percentMedianReduction": 0.30884322647765083
+}

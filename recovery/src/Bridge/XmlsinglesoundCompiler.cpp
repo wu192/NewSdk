@@ -9,11 +9,11 @@ namespace Recovered {
 ref class XmlsinglesoundBridge abstract sealed {
  static Native::XmlsinglesoundNode Read(XmlNode^ node) {
   Native::XmlsinglesoundNode input;
-  if(node->NamespaceURI!="uri:ea.com:eala:asset")throw gcnew NotSupportedException("Foreign Xmlsinglesound namespace.");
+
   input.name=marshal_as<std::string>(node->LocalName);
   if(node->Attributes!=nullptr)for each(XmlAttribute^ a in node->Attributes){
    if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/")continue;
-   if(a->NamespaceURI->Length!=0)throw gcnew NotSupportedException("Qualified Xmlsinglesound attribute.");
+
    input.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
   }
   for each(XmlNode^ child in node->ChildNodes){

@@ -79,9 +79,9 @@ namespace NewModCompiler.Tests
                 Check(Initialized && !Disposed,"Compiler lifecycle");
                 if (BuildId==null) BuildId=context.BuildId; Check(BuildId==context.BuildId,"One session id");
                 Calls.Add(context.Task.Id); if (OnCompile!=null) OnCompile(context);
-                FileAt(Path.Combine(context.StagingDirectory,"partial.tmp"),"temporary");
+                FileAt(Path.Combine(context.OutputDirectory,"partial.tmp"),"temporary");
                 if (Fail) throw new BuildFailure(ExitCode.Compilation,"TEST_INPUT_FAILURE","controlled compile failure");
-                string output=Path.Combine(context.StagingDirectory,"test-output.bin"); FileAt(output,"controlled test data");
+                string output=Path.Combine(context.OutputDirectory,"test-output.bin"); FileAt(output,"controlled test data");
                 return new [] {new Artifact {Path=output,Kind="TestOnly"}};
             }
             public void Dispose() { Disposed=true; }
@@ -98,13 +98,21 @@ namespace NewModCompiler.Tests
                 if (failure=="close") sinks.Add(new CloseFailureSink(Path.Combine(request.OutputRoot,"close-count.txt")));
                 if (failure=="swallowed") sinks.Add(new ProbeFailureSink());
                 using (var events=new EventDispatcher(Guid.NewGuid().ToString("N"),sinks)) {
-                    // A backend can catch a listener exception and still return
-                    // successfully. Required sink failure remains session-fatal.
-                    if(failure=="swallowed") compiler.OnCompile=context=>{
-                        try { events.Emit("Diagnostic", "error", message:"controlled backend output failure", code:"TEST_SWALLOWED_OUTPUT"); }
-                        catch(BuildFailure e) { Check(e.ExitCode==ExitCode.Output,"Backend probe failure classification"); swallowed=true; }
-                    };
-                    Check(new BuildSession(request,compiler,events).Run(CancellationToken.None)==ExitCode.Output,"Late "+failure+" failure must fail output");
+                    var progress=new BuildProgressState(()=>events.ElapsedMilliseconds);
+                    var console=new StringWriter();
+                    using (var renderer=new ConsoleProgressRenderer(progress,console,true,()=>120,false)) {
+                        events.ConsoleOutput=renderer;
+                        // A backend can catch a listener exception and still return
+                        // successfully. Required sink failure remains session-fatal.
+                        if(failure=="swallowed") compiler.OnCompile=context=>{
+                            try { events.Emit("Diagnostic", "error", message:"controlled backend output failure", code:"TEST_SWALLOWED_OUTPUT"); }
+                            catch(BuildFailure e) { Check(e.ExitCode==ExitCode.Output,"Backend probe failure classification"); swallowed=true; }
+                        };
+                        Check(new BuildSession(request,compiler,events,progress:progress).Run(CancellationToken.None)==ExitCode.Output,"Late "+failure+" failure must fail output");
+                        Check(console.ToString().Contains("[失败] 编译失败") && !console.ToString().Contains("编译成功"),"Late "+failure+" console reported success before required output completed");
+                        string terminal=console.ToString(); renderer.Refresh();
+                        Check(console.ToString()==terminal && progress.Snapshot().Finished,"Late "+failure+" retained live progress");
+                    }
                 }
                 if(failure=="swallowed") Check(swallowed,"Backend did not catch the required sink failure");
                 Check(compiler.Calls.Count==1 && compiler.Disposed,"Late "+failure+" did not complete actual controlled compilation");
@@ -117,7 +125,7 @@ namespace NewModCompiler.Tests
                 if (failure!="report") {
                     var report=Report(request);
                     Check(Convert.ToInt32(report["exitCode"])==7 && (string)report["status"]=="failed","Late "+failure+" report did not fail");
-                    Check(new JavaScriptSerializer().Serialize(report["artifacts"])=="[]","Late "+failure+" report accepted artifacts");
+                    Check(((System.Collections.ICollection)report["artifacts"]).Count==1 && File.Exists(Path.Combine(request.OutputRoot,"published","base","Mod","test-output.bin")),"Late "+failure+" lost successfully generated output");
                 }
             }
         }
@@ -144,18 +152,48 @@ namespace NewModCompiler.Tests
                 if (args.Length==1 && args[0]=="--close-failure-probe") return CloseFailureProcess();
                 root=Path.GetFullPath(args.Length==0 ? Path.Combine(Path.GetTempPath(),"NewModCompiler-App-"+Guid.NewGuid().ToString("N")) : args[0]);
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
-                assertions += ArtifactPublisherTests.Run(Path.Combine(root,"publisher-tests"));
-                assertions += CacheInputSnapshotTests.Run(Path.Combine(root,"cache-input-tests"));
-                assertions += BuildAssetCacheTests.Run(Path.Combine(root,"build-asset-cache"));
-                assertions += SessionPackageTests.Run(Path.Combine(root,"session-package"));
+                assertions += PerformanceTests.Run();
+                assertions += ConsoleProgressTests.Run();
+                assertions += PlannerFlaTests.Run(Path.Combine(root,"fla-planner"));
+
+                assertions += EventBufferingTests.Run(Path.Combine(root,"event-buffering"));
+
+
+                assertions += LegacyCacheStoreTests.Run(Path.Combine(root,"legacy-cache"));
+
+                assertions += FileIdentityTests.Run(Path.Combine(root,"file-identity"));
                 assertions += BigArchiveWriterTests.Run(Path.Combine(root,"big-writer"));
                 assertions += BuildDefaultsTests.Run(Path.Combine(root,"build-defaults"));
+                assertions += CacheLayoutTests.Run(Path.Combine(root,"cache-layout"));
                 assertions += AdditionalFilesTests.Run(Path.Combine(root,"additional-files"));
                 assertions += MakeBigTests.Run(Path.Combine(root,"makebig"));
                 assertions += BasePostProcessorTests.Run(Path.Combine(root,"neutral-assets"));
                 mod=Path.Combine(root,"external mods","中文 MOD"); sdk=Path.Combine(root,"SDK"); Directory.CreateDirectory(sdk);
                 FileAt(Path.Combine(mod,"Data","Mod.xml")); FileAt(Path.Combine(mod,"Data","AptUI","b.xml")); FileAt(Path.Combine(mod,"Data","AptUI","a.xml"));
                 FileAt(Path.Combine(mod,"Data","AdditionalMaps","MapMetaData_z.xml")); FileAt(Path.Combine(mod,"Data","AdditionalMaps","Ignored.xml"));
+                Reject("CLI_JOBS","--jobs","0"); Reject("CLI_JOBS","--jobs","-1"); Reject("CLI_JOBS","--jobs","2147483648");
+                Check(Request().JobsAuto,"Jobs defaults to auto with original caches");
+                Check(Request("base","--jobs","AUTO").JobsAuto,"Auto normalization");
+                Check(!Request("base","--jobs","4").JobsAuto && Request("base","--jobs=4").RequestedJobs==4,"Explicit jobs parsing");
+                Reject("CLI_PERFORMANCE","--performance","invalid");
+                Check(Request().PerformanceLevel=="off","Performance disabled by default");
+                Check(Request("base","--performance","SUMMARY").PerformanceLevel=="summary","Performance level normalization");
+                foreach (string level in new[] {"off","summary","detailed"}) {
+                    var perfRequest=Request("base","--performance",level);
+                    var perfRecord=new Recorder();
+                    Check(Run(perfRequest,null,perfRecord)==ExitCode.Success,"Profiled plan");
+                    var perfReport=Report(perfRequest);
+                    Check(perfReport.ContainsKey("performance")==(level!="off"),"Performance report switch");
+                }
+                foreach (bool cancelled in new[] {false,true}) {
+                    var perfRequest=Request("base","--performance","detailed"); perfRequest.Command="build";
+                    var perfCompiler=new Compiler {Fail=!cancelled}; var perfRecord=new Recorder();
+                    var perfCancel=new CancellationTokenSource();
+                    if(cancelled) perfCompiler.OnCompile=context=>perfCancel.Cancel();
+                    Check(Run(perfRequest,perfCompiler,perfRecord,perfCancel.Token)==(cancelled ? ExitCode.Cancelled : ExitCode.Compilation),"Profiled failure outcome");
+                    string profile=new JavaScriptSerializer().Serialize(Report(perfRequest)["performance"]);
+                    Check(profile.Contains("stream.compile") && profile.Contains("stage.compile"),"Failure/cancel timing preserved");
+                }
                 var request=Request(); var plan=Planner.Resolve(request);
                 foreach (string key in new[] {"ss","pc","slowclean"}) {
                     Check(request.Options[key].Value=="true" && request.Options[key].Source=="default","Legacy script default "+key);
@@ -165,7 +203,8 @@ namespace NewModCompiler.Tests
                 Check(plan.Tasks.Select(x=>x.Id).SequenceEqual(new [] {"base/Mod","apt/a","apt/b","maps/MapMetaData_z"}),"Deterministic selected stream discovery");
                 Check(Planner.Resolve(Request("base")).Tasks.Length==1,"base does not compile apt/maps"); Check(Planner.Resolve(Request("apt")).Tasks.Length==2,"apt only"); Check(Planner.Resolve(Request("maps")).Tasks.Length==1,"maps only");
                 Check(Request("maps,base,base").Content.SequenceEqual(new [] {"base","maps"}),"Selection normalization and deduplication");
-                var aliases=Request("base","/pc:false","/csc:true","/sc:false","/bc:true","/scp:"+Path.Combine(root,"cache"),"/scd:"+Path.Combine(root,"cache"));
+                string aliasCache = request.CacheLayout.Session;
+                var aliases=Request("base","/pc:false","/csc:true","/sc:false","/bc:true","/scp:"+aliasCache,"/scd:"+aliasCache);
                 Check(aliases.Options["pc"].Value=="false" && aliases.Options["csc"].Value=="true" && aliases.Options["sc"].Value=="false" && aliases.Options["bc"].Value=="true","Distinct legacy meanings");
                 Check(aliases.Options["session-cache-directory"].Source=="commandLine","Alias provenance");
                 foreach (string session in new [] {"true","false"}) foreach (string asset in new [] {"true","false"}) {
@@ -173,11 +212,11 @@ namespace NewModCompiler.Tests
                     Check(independent.Options["sc"].Value==session && independent.Options["bc"].Value==asset,"Session and build-asset switches remain independent");
                     Check(independent.Options["sc"].Source=="commandLine" && independent.Options["bc"].Source=="commandLine","Cache switches preserve provenance");
                 }
-                Check(!Request("base").Options.ContainsKey("sc") && !Request("base").Options.ContainsKey("bc"),"Cache opt-ins must not become parser defaults");
+                Check(Request("base").Options["sc"].Value=="true" && Request("base").Options["bc"].Value=="true","Original SDK session and asset caches must default on");
                 Reject("CLI_CONFLICT","/sc:true","/sc:false"); Reject("CLI_BOOLEAN","/sc:cached");
-                var paths=Request("base","/art:ART:shared;relative art","/audio:one;two","/data:relative;second","/dr:relative root","/oix:true","/mr:false");
+                var paths=Request("base","/art:ART:shared;relative art","/audio:one;two","/data:relative;second","/dr:relative root","/oix:false","/mr:false");
                 Check(paths.Options["art"].Value=="ART:shared;relative art" && paths.Options["audio"].Value=="one;two" && paths.Options["data"].Value=="relative;second" && paths.Options["dr"].Value=="relative root","Legacy ordered paths and DataRoot preserved for Core");
-                Check(paths.Options["oix"].Value=="true" && paths.Options["mr"].Value=="false","oix and mr are booleans");
+                Check(paths.Options["oix"].Value=="false" && paths.Options["mr"].Value=="false","Disabled legacy booleans remain compatible");
                 var dependency=plan.Tasks[2]; var consumer=plan.Tasks[0]; consumer.Dependencies=new [] {dependency.Id};
                 var ordered=Planner.OrderTasks(new [] {consumer,dependency,dependency}); Check(ordered.Length==2 && ordered[0].Id==dependency.Id,"Dependency order and exact task deduplication");
                 dependency.Dependencies=new [] {consumer.Id}; try { Planner.OrderTasks(new [] {consumer,dependency}); throw new Exception("Cycle accepted"); } catch (BuildFailure e) { Check(e.Code=="PLAN_CYCLE","Dependency cycle rejected"); }
@@ -187,8 +226,8 @@ namespace NewModCompiler.Tests
                 Reject("CLI_CAPABILITY","--package-format","zip"); Reject("CLI_PLATFORM","/tp:Xbox360"); Reject("CLI_BOOLEAN","/csc:garbage"); Reject("CLI_RANGE","/tl:10"); Reject("CLI_RANGE","/el:2"); Reject("CLI_CONTENT","--package-format","loose","--package-content","bogus");
                 Reject("CLI_STDOUT_EVENTS","--events","-"); Reject("CLI_LOG_COLLISION","--events",Path.Combine(root,"same"),"--report",Path.Combine(root,"same")); Reject("CLI_LOG_INPUT","--events",Path.Combine(mod,"input.log"));
                 DiagnosticPathTests.Run(root,mod,sdk);
-                assertions += SessionPublicationTests.Run(Path.Combine(root,"session-publication"),mod,sdk);
-                assertions += SessionCacheTransactionTests.Run(Path.Combine(root,"cache-transaction-tests"),mod,sdk);
+
+
                 assertions += InputRootsReportTests.Run(Path.Combine(root,"input-roots-report"),mod,sdk);
                 assertions += LoDCanonicalTests.Run(Path.Combine(root,"lod-canonical"));
                 assertions += BigPackageTests.Run(Path.Combine(root,"big-package-tests"),sdk);

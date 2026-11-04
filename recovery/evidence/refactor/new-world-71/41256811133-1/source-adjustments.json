@@ -1,0 +1,2517 @@
+{
+  "schemaVersion": 1,
+  "modRoot": "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\The New World",
+  "scope": "User-authorized base unsupported declarations removed. All base/APT/global entries remain selected. Unused TGA color-map specification bytes normalized for both engines; pixel/encoded payload bytes unchanged.",
+  "excludedTypes": [
+    "JoypadCommandBarButtonTemplate",
+    "JoypadCommandBarTemplate",
+    "TestGameObject",
+    "UIJoypadCommandBarButtonBuild",
+    "UIJoypadCommandBarControlGroups",
+    "UIJoypadCommandBarCoopCommunicator",
+    "UIJoypadCommandBarHomogenousGroup",
+    "UIJoypadCommandBarMixedGroup",
+    "UIJoypadCommandBarPlayerPowers",
+    "UIJoypadCommandBarSingleUnit",
+    "UIJoypadCommandBarStances",
+    "UIJoypadCommandBarTopMenu"
+  ],
+  "removedAssets": [
+    {
+      "path": "Data/NewUnit/HeavyTank/LogicCommand.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonChronoRay",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/NewUnit/kanade/sound/AudioEvent.xml",
+      "type": "AudioEvent",
+      "id": "FX_kanade_spell",
+      "reason": "Unused event depends exclusively on the removed 8-channel AudioFile."
+    },
+    {
+      "path": "Data/NewUnit/kanade/sound/AudioFile.xml",
+      "type": "AudioFile",
+      "id": "FX_kanade_spell",
+      "reason": "Source WAVE extensible input has 8 channels; the accepted reader supports 1/2/4/6."
+    },
+    {
+      "path": "Data/TextureList.xml",
+      "type": "Texture",
+      "id": "Button_VIPEMP",
+      "reason": "TGA metadata must end in a recognized extension/footer chain."
+    },
+    {
+      "path": "Data/TextureList.xml",
+      "type": "Texture",
+      "id": "GameSetup_flag_Allied",
+      "reason": "Unused color-map metadata is outside the accepted subset"
+    },
+    {
+      "path": "Data/TextureList.xml",
+      "type": "Texture",
+      "id": "GameSetup_flag_Soviet",
+      "reason": "Unused color-map metadata is outside the accepted subset"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerGTWaveEffect",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerSovietPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerSpaceStron",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerSuppression",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerDeathSpawn",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerNanoFly",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerEVAAttack",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerTheWorld",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerOutPutSP",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonCampaignPlayerPoweParadrop",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerCrushPuppies",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerTerrorDroneEggs",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerSovietMassProduction",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerAirPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerHighTechnology",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerLaserUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerAntiPlus",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerAlliedFreeTrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerJapanNavalPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerJapanAdvancedMissilePacks",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerJapanRoboticAssembly",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerJapanEnhancedKamikaze",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeWarFactoryWaterTech2",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeJapanBarracksWaterTech2",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeJapanBarracksWaterTech3",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeArmorUP",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeSpeedUP",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeAttackUP",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonVIPEMP",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSmallTelekineticProjectorDevice",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSmallBombMissile",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSmallParticleCannon",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUnmiliWeapon",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeAINoSuperWeapon",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade1",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade2",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade3",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade4",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade5",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade6",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade7",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade8",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade9",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgradeUprising",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonAlliedUnitUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSovietUnitUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonJapanUnitUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonJapanEngineerSprintUpgade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonAlliedSpellBookUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSovietSpellBookUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonJapanPlayerSpellUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonHealthWakeSpecialPowery",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonOilDerrickExplosion",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonObservation",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonAlliedSuperStructureSpecialPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonSovietSuperStructureSpecialPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonJapanSuperStructureSpecialPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerRepireDoneFile",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonNeutralEvacuate",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonCampaignPlayerPoweParadrop_Rank1",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonCampaignPlayerPoweParadrop_Rank2",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonCampaignPlayerPoweParadrop_Rank3",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectAlliedAirPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectAlliedHighTechnology",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectJapanAdvancedMissilePacks",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectJapanEnhancedKamikaze",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectJapanNavalPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectSovietTerrorDroneEggs",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectSovietCrushPuppiesPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectAlliedLaserUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectSovietAntiPlusUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerDetectedAircraft",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerSmokePrecisionStrike",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerJapanInfantrySuppression",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonAlliedBaseDefenseToggleBinaryWeapon",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonJapanFighterAircraftReturnToAirfield",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonGunshipAircraftStrato",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSovietAntiNavyShipFlash",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectAlliedBaseUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectSovietBaseUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectJapanBaseUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonStateScientistLeapSpecialPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonToggleAbilityJapanAdvanceLeechBeam",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonStrategicArmyEvacuate",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonEUGDIKodiakStrato",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonTankLongRocket",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSteamFastBeam",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonHealthWakeShipSpecialPowery",
+      "reason": "Excluded built-in XML compiler type"
+    }
+  ],
+  "xmlChanges": [
+    {
+      "path": "Data/NewUnit/HeavyTank/LogicCommand.xml",
+      "originalSha256": "56706798b9ca9fea0684a8a6d4278c5e60cef74951380795126701f47128d0ee",
+      "modifiedSha256": "7ab1f86c1295066ddfb8abd4bc8952c3237df41f5c172a79c562386232361547",
+      "backup": "D:\\a\\_temp\\new-world-original-source\\Data\\NewUnit\\HeavyTank\\LogicCommand.xml"
+    },
+    {
+      "path": "Data/NewUnit/kanade/sound/AudioEvent.xml",
+      "originalSha256": "0b76a5a5a5080e25dcba75f366e9cb6a1afc331df64e4826b39ad2825ddb6d2f",
+      "modifiedSha256": "916c01ca41aa937f5dc508c0d2474a08ab2dfa4d4d4ae004360778341aee79b4",
+      "backup": "D:\\a\\_temp\\new-world-original-source\\Data\\NewUnit\\kanade\\sound\\AudioEvent.xml"
+    },
+    {
+      "path": "Data/NewUnit/kanade/sound/AudioFile.xml",
+      "originalSha256": "fd2375bc462c39cd20a58fc830f6410457c7d2a4e281f38f7b151d20dc12eab8",
+      "modifiedSha256": "633f0cd020e6955fb6585482087db4f63d9ef9e14a1d0341c931eb0b785f4468",
+      "backup": "D:\\a\\_temp\\new-world-original-source\\Data\\NewUnit\\kanade\\sound\\AudioFile.xml"
+    },
+    {
+      "path": "Data/TextureList.xml",
+      "originalSha256": "2e8bdb6a1bb3febdcbb7fecfaab6fb9846a84801afc9329312af2184746a1e86",
+      "modifiedSha256": "852b2e02e20c7d4d5d4917895931af0a58a79b651ee1e2ca6c7ad7663f4b4d0e",
+      "backup": "D:\\a\\_temp\\new-world-original-source\\Data\\TextureList.xml"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "originalSha256": "461daef6d2628e8072ded85271c4c4d90b7df3aa61cb8a437595cca00b21cf5a",
+      "modifiedSha256": "297810382c37a3716ec1b76d9002e5d2908b9f337b797b53b4ad7c2820ac3759",
+      "backup": "D:\\a\\_temp\\new-world-original-source\\Data\\UnitAbilityJoypadButtonSingleState.xml"
+    }
+  ],
+  "tgaHeaderNormalizations": [
+    {
+      "path": "Data/AptUI/chapterSelectComponent/chapterSelectComponent_textures/1.tga",
+      "originalHeader": "00000200000000200000000051002f002008",
+      "modifiedHeader": "00000200000000000000000051002f002008",
+      "originalSha256": "7a14d57f9f00df40d716b5ab73052f6e904e8aae3ca26eb17b54af2c9ee86bdb",
+      "modifiedSha256": "d9bb41c8c9776c01d2fe66d66a7f2c8c3c441892729786f26ff0d1cfc5e5344a",
+      "unchangedPixelPayloadSha256": "0f703d748be082425c36266f9bd51e1e8b11387ce94bca2ea441163863c9c34b"
+    },
+    {
+      "path": "Data/AptUI/chapterSelectComponent/chapterSelectComponent_textures/2.tga",
+      "originalHeader": "00000200000000200000000051002f002008",
+      "modifiedHeader": "00000200000000000000000051002f002008",
+      "originalSha256": "f9514e9b223cf91f954fb1ba0217451be1fdd0acc2e4875a08398ba2be0866f5",
+      "modifiedSha256": "dc49a0dfadb826ecbafc70040e594f1715f7bca04e28a60fa5a167c1c555ce9f",
+      "unchangedPixelPayloadSha256": "0a2ee9f8b084265efd6da49b0bbcc77053f4e4d1293d71c17f96a6f244ba0288"
+    },
+    {
+      "path": "Data/AptUI/chapterSelectComponent/chapterSelectComponent_textures/3.tga",
+      "originalHeader": "00000200000000200000000051002f002008",
+      "modifiedHeader": "00000200000000000000000051002f002008",
+      "originalSha256": "35d1a4d4b53230d869f9f0047cfe53cdd6ba2deab8480d5fd45a1364365b5475",
+      "modifiedSha256": "ca8298320a938a4a70c3486db20fbb93e1498ed1d2632306eb6ca746926734db",
+      "unchangedPixelPayloadSha256": "ff061e0bb790cd5a15988e1baacfa7f0887232996ddf1d2603e5988fd79bf3ad"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/art/Textures/apt_fe_shared_mainMenuLib_106.tga",
+      "originalHeader": "000002000000002000000000000104002008",
+      "modifiedHeader": "000002000000000000000000000104002008",
+      "originalSha256": "0b7d0a72331042d7d07cf0da1c311b9086a445399ec1dbf9a386a807f0873411",
+      "modifiedSha256": "27ae67c53fdd32c172364d743bdf7ae4a989d6f2fe411973f8e7a379ec19a570",
+      "unchangedPixelPayloadSha256": "dafe082c41d423464d247bbb275f64886a005b28f9d5f1351413d505fee6f1fb"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/art/Textures/apt_fe_shared_mainMenuLib_107.tga",
+      "originalHeader": "000002000000002000000000000104002008",
+      "modifiedHeader": "000002000000000000000000000104002008",
+      "originalSha256": "b9013e406340378d42fd5acdc324301c05acd479fcc4baa254383257abe6008a",
+      "modifiedSha256": "bef6cd94baa8eeb35582d86479bcb9cb3e23263ca7bc1ea6d49cf88b851128f7",
+      "unchangedPixelPayloadSha256": "312e20de5f65e0fdd3201532a6455fc0031d4cf7e7717847373a7d2b3a5e9ffb"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/art/Textures/apt_fe_shared_mainMenuLib_108.tga",
+      "originalHeader": "000002000000002000000000000104002008",
+      "modifiedHeader": "000002000000000000000000000104002008",
+      "originalSha256": "e329e76184c13021ed564fd46ecd6725ea4c6b39158ff602ee33d5699f5a313f",
+      "modifiedSha256": "ca78ca906eed1deba3497efbb0c68a150cfe393c935e01bfc95034d9af1e749d",
+      "unchangedPixelPayloadSha256": "d913a98287adccf06b350630d5520867c5a4114eddef9ef91654d5a8b14ab1db"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/art/Textures/apt_fe_shared_mainMenuLib_109.tga",
+      "originalHeader": "000002000000002000000000000104002008",
+      "modifiedHeader": "000002000000000000000000000104002008",
+      "originalSha256": "61d9304126b382bb06952daa4764c80588e71d1b7aa6880a1bebabd83db744ec",
+      "modifiedSha256": "5b1c03b6f1d4c33fdf26b7a703ced32fd0ca4331b5def83bd72467e394db0ffc",
+      "unchangedPixelPayloadSha256": "1d92fa8de92e6275c8cce3a08a093a250d92ead628b52ada5ad1308d02708cfc"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/art/Textures/apt_fe_shared_mainMenuLib_110.tga",
+      "originalHeader": "000002000000002000000000000104002008",
+      "modifiedHeader": "000002000000000000000000000104002008",
+      "originalSha256": "d295d159776419e111d4461864de0896d40a0c9ae2dc9f245625dbd4ce926cfb",
+      "modifiedSha256": "ff0efd1359b57a0ad712fd69bb569073c64b8de219579ac5cf375f49d8be4c67",
+      "unchangedPixelPayloadSha256": "fa5612a13f79705c9db007370492ddac97baa2d915e4b4c0823e04a2b1a793ae"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/art/Textures/apt_fe_shared_mainMenuLib_112.tga",
+      "originalHeader": "000002000000002000000000000104002008",
+      "modifiedHeader": "000002000000000000000000000104002008",
+      "originalSha256": "41084a4e8752c01a400410cd84f1ab771fc18acb40531f12ffaf6a22007628a9",
+      "modifiedSha256": "d856564578f2aa073bc2061c3b5762345ce549dbfabb317f9390c43af764fd8a",
+      "unchangedPixelPayloadSha256": "60ca08591ab10ab7d012e36db2dbd3e489cdb4730710e25ffbeed5dc43745485"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/1.tga",
+      "originalHeader": "00000a000000002000000000e901e9012008",
+      "modifiedHeader": "00000a000000000000000000e901e9012008",
+      "originalSha256": "05f9c350f6209d6130858841858a72d70554ac10e6c4fc37f702dbbea600c2b5",
+      "modifiedSha256": "cdaeeb4e7696dbc42089c7b22a68bdc85d364b44cbc035fa1fc33a125af1eff4",
+      "unchangedPixelPayloadSha256": "182464cea0dc7cc0cb6d3086b69204078a7f819be9d263e88ffb07f00b3d071f"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/10.tga",
+      "originalHeader": "000002000000002000000000000200022008",
+      "modifiedHeader": "000002000000000000000000000200022008",
+      "originalSha256": "3eb4fe2ac997ebd74a8878f885eded5311d2d63e7bf7692b5d42b980750fb1df",
+      "modifiedSha256": "d7ed2c7569bb99fdbd0695f44a93baee9565b466218d28aefc1ffad6df01fd10",
+      "unchangedPixelPayloadSha256": "476afef8c08110b921a4d40c7ffb4eb32da4845b8f072f4f3a8f07ae30f262d1"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/11.tga",
+      "originalHeader": "000002000000002000000000420242022008",
+      "modifiedHeader": "000002000000000000000000420242022008",
+      "originalSha256": "3025354177f66bd73c9bb1d4b1614c0959eac9e172576860de3e7d013624cc10",
+      "modifiedSha256": "8223d8ffcf0e3a88b40ddcb517ac8489e7df00e187cf1042f01a599625d34522",
+      "unchangedPixelPayloadSha256": "f693d57251aa35231f19213a80efbf7340faa7651b031d4e7d830e54479a5547"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/111.tga",
+      "originalHeader": "000002000000002000000000200020002020",
+      "modifiedHeader": "000002000000000000000000200020002020",
+      "originalSha256": "4390d7b65b508bc54128e6f00414ddbccab0ae33c67abc07922a1ae938dc6e3c",
+      "modifiedSha256": "c835fbddc59f8e1c820ef9463440fb70dc4b9cec9f3a688f862ac540669debcf",
+      "unchangedPixelPayloadSha256": "98bba6ee444b6a22efb41999c79d3eedd599e58cb17c76eb4a878fd3c1f9d955"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/12.tga",
+      "originalHeader": "000002000000002000000000420242022008",
+      "modifiedHeader": "000002000000000000000000420242022008",
+      "originalSha256": "ff5be10e7e003ced435a5a6d137bc7e566e90f9bb8bb3d4feea5168ade8f9154",
+      "modifiedSha256": "3ed8380800caaf2492ed28992b00921e1ea0f920f897a51fa1d0710279222251",
+      "unchangedPixelPayloadSha256": "974b3b9e5f4c8da251916a5211c348a58f7030eafd83bd7183fb4d222455f23e"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/13.tga",
+      "originalHeader": "000002000000002000000000bb01b8012008",
+      "modifiedHeader": "000002000000000000000000bb01b8012008",
+      "originalSha256": "b6123398ea6429082ea973ec832bda322b5e849354eac3ddc75d83d3b4f5010e",
+      "modifiedSha256": "f5ced8e553957dce5ab06479b292d8dae9db7ff0dc8ae1f0412f4da96d19c253",
+      "unchangedPixelPayloadSha256": "0f70abdd90d623600aaa669257fdff261d929a3fcb6a594637e01135144da35f"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/14.tga",
+      "originalHeader": "0000020000000020000000008b0170012008",
+      "modifiedHeader": "0000020000000000000000008b0170012008",
+      "originalSha256": "a836eaeb641bcd0be9d81a37fb5f828210735be07853fbd8a1eb901ffbb1778b",
+      "modifiedSha256": "b024e901c078e824a5943f18d53bca40af4923fb9666c2c4ce580980169d2927",
+      "unchangedPixelPayloadSha256": "8bb4bfbfeca76fd6fb01d97b4e904cd3ed7f18cf34bd2383e88ab930da861e4a"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/15.tga",
+      "originalHeader": "000002000000002000000000ae0114012008",
+      "modifiedHeader": "000002000000000000000000ae0114012008",
+      "originalSha256": "a8307858d8678444e02f2ba2e00b2b7845d1378ac07f428679cb2d653aca722e",
+      "modifiedSha256": "bc75c2969888ff345a5c5b88a2fd6d444b086c3b049193c278e4ce5014ad2984",
+      "unchangedPixelPayloadSha256": "0fda425556f2724608478228770c745d9ea999c369092d362252b5163c1d214f"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/16.tga",
+      "originalHeader": "000002000000002000000000ad01ad012008",
+      "modifiedHeader": "000002000000000000000000ad01ad012008",
+      "originalSha256": "4b29e6d39dec50aafbb33d1bbbd406ba83efeabe6de3ddd06a5001732ed69efa",
+      "modifiedSha256": "34baa8fab75a195b01df8a8a12ce165d1759ed864a5865037f4701e2475a5934",
+      "unchangedPixelPayloadSha256": "c7ebc413b9092ad1f0dfa1d146acc699a954d4e37bbf431f0f1422da37773998"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/17.tga",
+      "originalHeader": "000002000000002000000000ad01ad012008",
+      "modifiedHeader": "000002000000000000000000ad01ad012008",
+      "originalSha256": "a3ac33202cf719138c25f2dcb9501df5f01182ba300b5eb02d2534d543f003c0",
+      "modifiedSha256": "df20c0eedf50662cbc31e41220f936d3bee122543c970107cb11ab902fdf3d5e",
+      "unchangedPixelPayloadSha256": "79a5c9d60b1c7df3962e4ce25025c48c3cfd8ed0fbf4af11f87f2c2785b57cd1"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/18.tga",
+      "originalHeader": "000002000000002000000000c00112012008",
+      "modifiedHeader": "000002000000000000000000c00112012008",
+      "originalSha256": "bbfb4c3e77cddc9da7ba754a61f5da89e5953d2d8bad813f728c216b32406631",
+      "modifiedSha256": "d3a7b1636160e71fed730e260450d0b6fbbae8e54feaf2b49fdbe6ee2060b006",
+      "unchangedPixelPayloadSha256": "67fc6e8e1b4a014ea54278db04c57f7676d43228e0e6ae079305a269fa508f51"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/19.tga",
+      "originalHeader": "000002000000002000000000000424012008",
+      "modifiedHeader": "000002000000000000000000000424012008",
+      "originalSha256": "b964fb52bea86f09578226869b086609e38bcf6c67c232d5be7eb2914c22d7be",
+      "modifiedSha256": "be9d73dd0563dbdf551f85bed0934c3920b1eb8e4265e42bd4521ed80991bb32",
+      "unchangedPixelPayloadSha256": "6b1919f0b83280fa5d30990c7cc61b7ed341e0a20b74e196b16671125b7fb804"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/2.tga",
+      "originalHeader": "000002000000002000000000e901e9012008",
+      "modifiedHeader": "000002000000000000000000e901e9012008",
+      "originalSha256": "3a1bf42ceac891f7e31a698caca42fa261d5bc77cefbfb59327762f390055005",
+      "modifiedSha256": "f49418ee12c8cec1c9380dfaa44c2ba5375c16800607e3091b29df6e761ca9ec",
+      "unchangedPixelPayloadSha256": "0fe86f72dc0a6eb00ad636ea2644d703775d0cc643cfe2b01dd44d4cb8bdb01a"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/20.tga",
+      "originalHeader": "000002000000002000000000ff0335012008",
+      "modifiedHeader": "000002000000000000000000ff0335012008",
+      "originalSha256": "6d641b5eb44a765b97a94c6f6c90ce7cec1f7cc6685fe581f538eaea08c95402",
+      "modifiedSha256": "75c65f6046d153f2dab3b21d4ada22c5116473638aa966c251199e4d8423873f",
+      "unchangedPixelPayloadSha256": "6c48f22e599c31448ddf873567da3abfaaad2bea1065bf85ae9e421814b0da0f"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/21.tga",
+      "originalHeader": "00000200000000200000000081002a002008",
+      "modifiedHeader": "00000200000000000000000081002a002008",
+      "originalSha256": "658e91a7f586746f850cb271c4283636b5cb1f53dcccafb72ad957b435624397",
+      "modifiedSha256": "c842c888e9f5ba4c0c308ca38fbf974dfb72a3381d82da72079de3ff9c95fb42",
+      "unchangedPixelPayloadSha256": "1e2c4c503fa68605f1d1cd411dc414c6634c3010011b4edd1901c4c304565e4a"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/22.tga",
+      "originalHeader": "00000200000000200000000081002a002008",
+      "modifiedHeader": "00000200000000000000000081002a002008",
+      "originalSha256": "d8f47697e8ea66c70c27d3a12b94b26f6f91e8714e67511b03617534052e6d26",
+      "modifiedSha256": "3f9af39bf95fdbdc3a6f59dca4c450be52bafc77c34513fac42cf38a655c0e5c",
+      "unchangedPixelPayloadSha256": "10d523be3ef977c5ea72095cd72b5618c2db792d02b3af1d488891734a076449"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/23.tga",
+      "originalHeader": "00000200000000200000000081002a002008",
+      "modifiedHeader": "00000200000000000000000081002a002008",
+      "originalSha256": "34cce1b326fd6b082281d694a0091b15077bc82b3f6336bdf097d366cbd4f90a",
+      "modifiedSha256": "c99b278e2b9ba0781af8b19b5121259b127e06bbf3bac53292dad2f98e4c4fc0",
+      "unchangedPixelPayloadSha256": "9af83b7cb6edfffea3342c5a7a93a13e8027a2aa653b247a57c109771c35259c"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/26.tga",
+      "originalHeader": "0000020000000020000000007f0226012008",
+      "modifiedHeader": "0000020000000000000000007f0226012008",
+      "originalSha256": "5e6e137cf027f7da9afdcffe4589d26a3ce849aa062f1faa3aa544a1c90c2146",
+      "modifiedSha256": "3d669e667ba4284722c3ab3a0e884701610268d2401eac862b96a3e8c6b2dccb",
+      "unchangedPixelPayloadSha256": "5f22d13cb547e0e22824529e6a0698711077978bfa62c06e27d0d0c555b084a4"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/3.tga",
+      "originalHeader": "000002000000002000000000000200022008",
+      "modifiedHeader": "000002000000000000000000000200022008",
+      "originalSha256": "8ae8f0569bb20d4bb42121542c372ebb71aa4d0d3bd94761d567920f6b073bd9",
+      "modifiedSha256": "bb02619ae5394e3d12adaa4453926ac8bec9b0e18aec6e69ded6e0e6a13266fb",
+      "unchangedPixelPayloadSha256": "6370e259b195f7557be6de441ba9bb2a8cd890a1e103bdd91cb090b163920af7"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/4.tga",
+      "originalHeader": "000002000000002000000000000200022008",
+      "modifiedHeader": "000002000000000000000000000200022008",
+      "originalSha256": "d5d0eabe8c941505aa1568313ea304bfd191b997dcc18207d37c68c0b1abb8f9",
+      "modifiedSha256": "cb2b57449cd4174554eb005922ce4e6efebed42d859beb16cbb934444565ab25",
+      "unchangedPixelPayloadSha256": "7b039489c0d13d457478021e1ddbe106640fb08b5614399ba3811bffc6578257"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/5.tga",
+      "originalHeader": "00000200000000200000000000020e002008",
+      "modifiedHeader": "00000200000000000000000000020e002008",
+      "originalSha256": "09ae4aafd17987b319c40fe6cf65d4497548fb7de8a192b6a084fa73629850d7",
+      "modifiedSha256": "e06d30404bdba5bc4b010380bb5f203213485c7ff2df72bfc7e6e3238d56f4a3",
+      "unchangedPixelPayloadSha256": "25282821b7a9107bfed6a92a421737620331b1830134ed3cd5287922e35de18d"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/58.tga",
+      "originalHeader": "0000020000000020000000003301ab012008",
+      "modifiedHeader": "0000020000000000000000003301ab012008",
+      "originalSha256": "70836e0daa3cbd7087750ec95a6b72bb76c8994915d1af70c9ff4d110e60f1bc",
+      "modifiedSha256": "0365d560a7f493469408ebdc415619e4aaca62f60e1004c0f4f8a110b3dd1186",
+      "unchangedPixelPayloadSha256": "e4ecbfbb66445ef0d1c21806f4d92c3e262234e9927914084d648102a374f48f"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/6.tga",
+      "originalHeader": "0000020000000020000000005e008f052008",
+      "modifiedHeader": "0000020000000000000000005e008f052008",
+      "originalSha256": "c5d14053200fc9a797e9d23ee156c627947ccf35ba489a6fa8fb43ba7e2e1853",
+      "modifiedSha256": "2daef9ad0de7dbe09e035d8dfcecc3cc5f56fafd92b96ee79cd3becd2cbcf329",
+      "unchangedPixelPayloadSha256": "e91d09db2cc1f3f6d312f9bed75a76284838e4ce009980a6bd445cd930a8574f"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/7.tga",
+      "originalHeader": "0000020000000020000000006a00fd032008",
+      "modifiedHeader": "0000020000000000000000006a00fd032008",
+      "originalSha256": "f42fcaa1431370fca1a04ec138834ce5fa962680532dfa2c88f7d346d68dc6e1",
+      "modifiedSha256": "eb78f75646d3ff429e0d1acc81f3ca704ac601f40a84493160befbb323b5d4d3",
+      "unchangedPixelPayloadSha256": "279e1b36d6a868033fc502e580cc7c164f7ab43ee403d671ca696c1a2ab73dc7"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/8.tga",
+      "originalHeader": "0000020000000020000000006d0045042008",
+      "modifiedHeader": "0000020000000000000000006d0045042008",
+      "originalSha256": "34ee6d641ddd600bddcc36af012e3030f6d54de4c67d776c5e71aea57a2ec0f4",
+      "modifiedSha256": "f871e113e8bdf0fb1743d6cbb740bfaae428fc34b46fcccbff1b24931dfc3290",
+      "unchangedPixelPayloadSha256": "ca8f958307265d5c0eadbe54e7bcbd7590f56a05c7f8cbe7725c1bad466e3a73"
+    },
+    {
+      "path": "Data/AptUI/fe_shared_mainMenuLib/fe_shared_mainMenuLib_textures/9.tga",
+      "originalHeader": "0000020000000020000000008100ba032008",
+      "modifiedHeader": "0000020000000000000000008100ba032008",
+      "originalSha256": "c201c12327ebc2bbccbca2c96c8e4e3f84ef6d20c6b41dcf3ca60c7fcfc449dc",
+      "modifiedSha256": "f55eb117964a9f35a0e1b93aca1e72c6cd352b70155bd38449c398d590e969a2",
+      "unchangedPixelPayloadSha256": "bea4fa1016cfe8ffb0dc886d281573825896ae5eeeefaebd04f6eafeaab614dd"
+    },
+    {
+      "path": "Data/AptUI/feg_m_mainMenu3D/feg_m_mainMenu3D_textures/21.tga",
+      "originalHeader": "000002000000002000000000d1010f002008",
+      "modifiedHeader": "000002000000000000000000d1010f002008",
+      "originalSha256": "de1c0a98ad5ff1e4d0fc4320799347566fc7c2e19c2d582ab48bc6c21dfefa02",
+      "modifiedSha256": "bb39cfb52b8a65e9fd0d0f4936e614aa09e351eab228a5915a0f9bdbf3944064",
+      "unchangedPixelPayloadSha256": "ec6c888e34d626d38d64dcac51e73acf86a1995164a9364b8ae0a822f56c45c4"
+    },
+    {
+      "path": "Data/AptUI/feg_m_mainMenu3D/feg_m_mainMenu3D_textures/23.tga",
+      "originalHeader": "000002000000002000000000180017002008",
+      "modifiedHeader": "000002000000000000000000180017002008",
+      "originalSha256": "25982ba528d2467fceb098888271ba914ad0a0cd08ecfe66230b6f50938c743a",
+      "modifiedSha256": "65fe1a40abae1002df34ed0cd4091edc9b002ce1fa631788838591b13e4d3844",
+      "unchangedPixelPayloadSha256": "75dc58ed3072b26cd44e60904c76845db46be56d188be212c8c9c72711648c8e"
+    },
+    {
+      "path": "Data/AptUI/feg_m_mainMenu3D/feg_m_mainMenu3D_textures/25.tga",
+      "originalHeader": "00000a0000000020000000002a0029002008",
+      "modifiedHeader": "00000a0000000000000000002a0029002008",
+      "originalSha256": "63739d514f48b4b4a8fadf916e16bbac5b76c77280a7c70070cfa992bf51809e",
+      "modifiedSha256": "373328c5da92ba31e108d29c9fcf3b70c62bb4333eafa2e29a8d86614dea4329",
+      "unchangedPixelPayloadSha256": "28c3696e0cd52c523d45c8affdbfbdebfbc3185a524b0282dd9a51132032a2a0"
+    },
+    {
+      "path": "Data/AptUI/feg_m_mainMenu3D/feg_m_mainMenu3D_textures/28.tga",
+      "originalHeader": "000002000000002000000000510144002008",
+      "modifiedHeader": "000002000000000000000000510144002008",
+      "originalSha256": "c48da8b4db08f7a20bef3df7264b7d0b31933412b7c405fe0b1a8166c56dd0c1",
+      "modifiedSha256": "76bfc5e9c4982d9babdf1b2561bb09fcceecc8c7f168c3534d92910ee140e635",
+      "unchangedPixelPayloadSha256": "93e2afa0b06854ee8347f2c0216b3b6068e7a67cde8de64e05013889eb650d5c"
+    },
+    {
+      "path": "Data/AptUI/feg_m_mainMenu3D/feg_m_mainMenu3D_textures/33.tga",
+      "originalHeader": "000002000000002000000000450042002008",
+      "modifiedHeader": "000002000000000000000000450042002008",
+      "originalSha256": "67e5fd6710d00bc42aaae95b5ab5a0ae50f868a4a818d84be5d8c74899548619",
+      "modifiedSha256": "994715bff8ad3fbaf2089fc280032bc9cf433fb4878d59cdfaabc6b0368b9caf",
+      "unchangedPixelPayloadSha256": "62c42c7c85c3c1fca8d603dd59a0792698c0131c5c3b0d5c3be591754c446bb2"
+    },
+    {
+      "path": "Data/AptUI/feg_m_mainMenu3D/feg_m_mainMenu3D_textures/7.tga",
+      "originalHeader": "0000020000000020000000005a02eb012008",
+      "modifiedHeader": "0000020000000000000000005a02eb012008",
+      "originalSha256": "6f41aa17f45769e087fd344e50d5686a691047e1af3a96263f987cce915f56e3",
+      "modifiedSha256": "d917126c1a609887d0702cd9a8ed3ecb2be4ae31079e5d3dd2fe3540628499ea",
+      "unchangedPixelPayloadSha256": "982ee23597b95c16bcbbbac3bc775f37ba8a2aef8ac04e5b3c55c2461247b519"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/1.tga",
+      "originalHeader": "000002000000002000000000920092002008",
+      "modifiedHeader": "000002000000000000000000920092002008",
+      "originalSha256": "a05cbb7549d2cb266422d3ce05054f47e3dbc4fef15911731dd3b67a4e29c272",
+      "modifiedSha256": "24102cc870f8ca0896524f234be2752f0dba72673aae070f0b6f010cbe91c041",
+      "unchangedPixelPayloadSha256": "5ed8922e3e091362682021388def402bbcabe59a8e6b91f017f0028921a6ec19"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/101.tga",
+      "originalHeader": "0000020000000020000000002b0029002008",
+      "modifiedHeader": "0000020000000000000000002b0029002008",
+      "originalSha256": "76ea89709642f574c53374c5a1e8677ffd9d56e36106a9abaeb2aa5487a92a84",
+      "modifiedSha256": "59566f00ed4f0da5818a301a03c681514d0f2ffc750b971eb0681ed270c0f15d",
+      "unchangedPixelPayloadSha256": "f4b04088a8089a311061c401708c8acf6f54eedcafc1bf1eea14a9382a9997c5"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/103.tga",
+      "originalHeader": "000002000000002000000000490048002008",
+      "modifiedHeader": "000002000000000000000000490048002008",
+      "originalSha256": "91ab454639ee9fbb213dff23807c813a4a00af858efee39ee9b2a0e962be00f9",
+      "modifiedSha256": "8cf9b695f6a569f736cbbcd85a1565d191db5ff3b893c4de72123d005a138b16",
+      "unchangedPixelPayloadSha256": "7e05f2e2e96d70484682c9490440b920e26180e5d0ef688fa14f861bf796c22a"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/106.tga",
+      "originalHeader": "000002000000002000000000e80101022008",
+      "modifiedHeader": "000002000000000000000000e80101022008",
+      "originalSha256": "1af316085daa3461512461a38c4defa279e1365c19cab3f5e337d9ce441aeb81",
+      "modifiedSha256": "d32ef667519b3052447dc5ad3c8f8534bd781a8471fa72706126fcd683252f93",
+      "unchangedPixelPayloadSha256": "abfe1d6a03adb804cc474e6f1f871b1b48a2303069875a274ac3090b137fcffb"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/110.tga",
+      "originalHeader": "000002000000002000000000e801df002008",
+      "modifiedHeader": "000002000000000000000000e801df002008",
+      "originalSha256": "f33bcd4283f778fa57c11e16989b1dc1da8c1ee90a5b5bc67e624ae2761223b6",
+      "modifiedSha256": "b69f0b09d198c53728f1b6354fec75e7d2a81bdd22acd22d4a0a24c9a2ad5df7",
+      "unchangedPixelPayloadSha256": "864813ac065377ec66f9c568033d746c5f4b3f3efe3818cff2bece097bd567d9"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/114.tga",
+      "originalHeader": "000002000000002000000000e8011b012008",
+      "modifiedHeader": "000002000000000000000000e8011b012008",
+      "originalSha256": "54150781191f440186ec79f393d32259dde71f8fa96226a35f85a75227ac6671",
+      "modifiedSha256": "8eff8fb6c4725a8073ae0c4d11e36af4496d816a9496e83c513f0ca80abf8e86",
+      "unchangedPixelPayloadSha256": "fe16dd563ea35570d463c1aadd52bf60950c79d5b1047b8368998e68fce69701"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/120.tga",
+      "originalHeader": "000002000000002000000000130012002008",
+      "modifiedHeader": "000002000000000000000000130012002008",
+      "originalSha256": "ae1fa642b166b928c3838c9fd44b0e4cb9ff6ef8dd9a509672ab1513779c1051",
+      "modifiedSha256": "87835dcd2c149dc4604c6432eb9a10d12396c3e6f067c22f91015e1ecfa60fe2",
+      "unchangedPixelPayloadSha256": "3678741e7a3c8b3cc9e774a4f09884ad60237adc3f825b3c49e2947e73f7cfb4"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/125.tga",
+      "originalHeader": "000002000000002000000000550500032008",
+      "modifiedHeader": "000002000000000000000000550500032008",
+      "originalSha256": "f080f0662b58fcb9b8228ba5359edb71eadb29840faddcc1e4fc1e746aa82ca5",
+      "modifiedSha256": "bfbdecec74cf7dab4f2e1256bff9bed7589365cff65678be594a6dbc5c153558",
+      "unchangedPixelPayloadSha256": "2fcf22473b150c6904e97edf826cc1cd033ab729e71f75ea9ce570a3f3d6c037"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/129.tga",
+      "originalHeader": "000002000000002000000000fc034f022008",
+      "modifiedHeader": "000002000000000000000000fc034f022008",
+      "originalSha256": "28b7f908c22c431ad5f601d6bf2ce21074289e3d8f104e8916aab80f92eded80",
+      "modifiedSha256": "244173b64c65fbeb38ed7d5a9b21509ee0afc3d7af55991112db812b082bcfcd",
+      "unchangedPixelPayloadSha256": "8577f3191538a3ca618003a81b2f48e2974b3d1f136ca5f4ebf32a414b0c750d"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/131.tga",
+      "originalHeader": "000002000000002000000000e80122002008",
+      "modifiedHeader": "000002000000000000000000e80122002008",
+      "originalSha256": "232e2b5c2235258dfcc450d85b54bdd18cbb1257c5743592ca864471d47a5fe7",
+      "modifiedSha256": "54d3c9c265c995a8145269c683afdbc50c2bc3cf80c19e24aea6925317912232",
+      "unchangedPixelPayloadSha256": "37d506f6831c6ee72141d1e9d77d6ba6bf1463e95a52e9ddac5414b97e508522"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/14.tga",
+      "originalHeader": "0000020000000020000000005c0124002008",
+      "modifiedHeader": "0000020000000000000000005c0124002008",
+      "originalSha256": "7e14bff131f078ac86ea559cf6f8dd211d5605c95835e65d0392fd3530224623",
+      "modifiedSha256": "5354ea7dfc8ccdca7a19f0cb11a68a387f75c5ccfddacb58041dec3e8da7904a",
+      "unchangedPixelPayloadSha256": "5a860984f7ef29efabe6de06fe881e5237e6bc85aa4208dd38c46e503b59f240"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/143.tga",
+      "originalHeader": "0000020000000020000000004a0149012008",
+      "modifiedHeader": "0000020000000000000000004a0149012008",
+      "originalSha256": "19815f54dd5e8c27be8a03e441b768deafe8ca3d669e8862ad5c5f01f314a9ef",
+      "modifiedSha256": "89af786ff8a57bccca1d3920dc119c748b6b9e03349493582bf411bffecc1137",
+      "unchangedPixelPayloadSha256": "63faa8104274396a0c3a6e3ac70289bf2f9435237cbb55374631b741903d472e"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/145.tga",
+      "originalHeader": "000002000000002000000000180017002008",
+      "modifiedHeader": "000002000000000000000000180017002008",
+      "originalSha256": "25982ba528d2467fceb098888271ba914ad0a0cd08ecfe66230b6f50938c743a",
+      "modifiedSha256": "65fe1a40abae1002df34ed0cd4091edc9b002ce1fa631788838591b13e4d3844",
+      "unchangedPixelPayloadSha256": "75dc58ed3072b26cd44e60904c76845db46be56d188be212c8c9c72711648c8e"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/147.tga",
+      "originalHeader": "0000020000000020000000002a0029002008",
+      "modifiedHeader": "0000020000000000000000002a0029002008",
+      "originalSha256": "8e804f0a7d35aa928597870c5ce3662a665b094bfae834eb0075485f1fb276a4",
+      "modifiedSha256": "0148314a45cbe5b295b47c966e7ed79188efb81edda346492162cdda69d3e41d",
+      "unchangedPixelPayloadSha256": "671c2d6765655af963f0fa8053ef523182e6e22377c368397ef8b8a0439cfc01"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/151.tga",
+      "originalHeader": "0000020000000020000000006002a2012008",
+      "modifiedHeader": "0000020000000000000000006002a2012008",
+      "originalSha256": "87af480eb5648869b11f5d129a789dfd9b4858ba5a00ee64aab15250ff481ff6",
+      "modifiedSha256": "f232ba609a5c2ebb541feb003f08e51b64a4d2130d6cacd932d2ec4b413e8485",
+      "unchangedPixelPayloadSha256": "cb71882d8ffa97f00786fe6d73d2672c9111240b9e5327d72cafcce2776ee07b"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/16.tga",
+      "originalHeader": "0000020000000020000000005c011f002008",
+      "modifiedHeader": "0000020000000000000000005c011f002008",
+      "originalSha256": "2d68372c34369c25acd46d949560aa41b09f05b0fcba83db70d7041745f6bcb0",
+      "modifiedSha256": "1de843f419c8793aaa78ada2ab5f3a73b7ea53e26ceb147b2e4dafecb03b1c93",
+      "unchangedPixelPayloadSha256": "9830f81e7c179a921d5e44631691369f65d684268a2baca093f1ac74de7cfbc8"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/164.tga",
+      "originalHeader": "000002000000002000000000d00322002008",
+      "modifiedHeader": "000002000000000000000000d00322002008",
+      "originalSha256": "1a3f6663c2475920a44dfd7eb7aafc2ae3fe499c542e5fb76b14d7b445a95c96",
+      "modifiedSha256": "5737eed4046670e150ad1704e4ad453e47986d547c87b223f7190e2a19e2d417",
+      "unchangedPixelPayloadSha256": "d9e0d5c6face9dcf9969e8649f055b59f3bccf6090866bef7330374e4085e3d5"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/168.tga",
+      "originalHeader": "000002000000002000000000ac01a2012008",
+      "modifiedHeader": "000002000000000000000000ac01a2012008",
+      "originalSha256": "736abea50932c0bb5e0ec2477f81ba04f8486b544bed1cd83674be54b79cbd85",
+      "modifiedSha256": "6b963e83d58820884d83aeda0185a3422241abd4068a318f32cba89ff7538d3d",
+      "unchangedPixelPayloadSha256": "0b5e403079cf2403d5bf51ff2a72ce6947c7369db896f02362f25055517d401b"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/19.tga",
+      "originalHeader": "00000200000000200000000047011f002008",
+      "modifiedHeader": "00000200000000000000000047011f002008",
+      "originalSha256": "4391824ba92be27b9e3bc5e60971135955585a608cf318a1158e7b9f45d1d614",
+      "modifiedSha256": "eedbab49f228e6d7f9961640c0754649f831cfcebd6f34000b1842cca1eb8192",
+      "unchangedPixelPayloadSha256": "4882736222fcc06493c343b092887a0f166e9ec17779c32d7d9d8a67fcf534c9"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/2.tga",
+      "originalHeader": "000002000000002000000000920092002008",
+      "modifiedHeader": "000002000000000000000000920092002008",
+      "originalSha256": "72682038e3023ee237640823bac23f0da25c85005fb170bf5c5f9cc85189917f",
+      "modifiedSha256": "c6e17e666dbcc3464cec94a9d3a8bd01f751652e9a70708bf6c896d249f3e9c8",
+      "unchangedPixelPayloadSha256": "1486366ee214d15127069802db93249ef0f7d9b28956477c7cebaba35d51444b"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/21.tga",
+      "originalHeader": "000002000000002000000000470124002008",
+      "modifiedHeader": "000002000000000000000000470124002008",
+      "originalSha256": "d2a93ea1c6bf1e869ee65516e0994b2b3687efb3b20a79cc5a94f7d5fcb91bbd",
+      "modifiedSha256": "0166db1803ab80e2f468c7567fc3dbc3ae216a96abef823f2d72869b59bcd347",
+      "unchangedPixelPayloadSha256": "1c7b0fe8a5e2f90877bd691a6ec7d94bac818d110d02c9d1efd6ac06ddae4aeb"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/23.tga",
+      "originalHeader": "00000200000000200000000047011f002008",
+      "modifiedHeader": "00000200000000000000000047011f002008",
+      "originalSha256": "d52fa126755214db204a32266e1608e7eadd48233a2926b4d0e4906d87f06d94",
+      "modifiedSha256": "e99b245aeb5c4753213049c8b01ab5b2618f9fbad9b14b93d90cce35aff9210c",
+      "unchangedPixelPayloadSha256": "3718a0b6e08abf139ebcfa02536feb7895826a67eed367e5103ac088130ae3e4"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/26.tga",
+      "originalHeader": "000002000000002000000000f50024002008",
+      "modifiedHeader": "000002000000000000000000f50024002008",
+      "originalSha256": "b3439500de138cf153ec3cb4429b82fcc2ef361a97759c2e622f634447c17ae8",
+      "modifiedSha256": "f5a5503996f8020488bae1109b2ed7c6ad85000873b156ba7c546a6ca8c5733d",
+      "unchangedPixelPayloadSha256": "6f304d837e4340b7fac27751a8716821f52f12c1a103f70f0e7ff45db7e90737"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/29.tga",
+      "originalHeader": "000002000000002000000000100024002008",
+      "modifiedHeader": "000002000000000000000000100024002008",
+      "originalSha256": "0d09dd183d33e38bf1b01d6103c1405f7eda7c9e087bdee6884113f561a269f0",
+      "modifiedSha256": "9b24771a14619d63e6ccab1290292e2ceb061cb688f27b48ccf46484ae2425b7",
+      "unchangedPixelPayloadSha256": "c706be043b3d0340f7242c237c0ce1578d29cf7c3e807faa43b9caf4c3123b24"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/3.tga",
+      "originalHeader": "000002000000002000000000920092002008",
+      "modifiedHeader": "000002000000000000000000920092002008",
+      "originalSha256": "505707cf293a29cce84d943edaf3c50e23e9fb0a991c0703fb41b2efca9a0947",
+      "modifiedSha256": "07887f023bec6c8dd3f6a844aae46b1fc108136be294a2a3d046e9fbe6489f34",
+      "unchangedPixelPayloadSha256": "4fc018016a35dc007f4b66865e0067f14970f6dae53e9ba93568c4463071454a"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/32.tga",
+      "originalHeader": "0000020000000020000000001d0024002008",
+      "modifiedHeader": "0000020000000000000000001d0024002008",
+      "originalSha256": "3a5c1934e54e810294c8f21c8b4c5de7c879fbddfdaecc555e80d6ed559ae06d",
+      "modifiedSha256": "f5e197570196bbd0213d633682b1af75190ac20145f2fa05ee7b65b556a32ac3",
+      "unchangedPixelPayloadSha256": "e576b19f2b6c720503ee9bd94caf138408ea8a0b0372c5acd4e7f243e6234096"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/35.tga",
+      "originalHeader": "000002000000002000000000f50024002008",
+      "modifiedHeader": "000002000000000000000000f50024002008",
+      "originalSha256": "a064bc06ab62c457d85c471d3a8c6166ed3e49ca6ca0c4431d7b3023afb882b9",
+      "modifiedSha256": "7fe49e648008ea773a5142d66c9c993e80bcc5f000a6609f60342dd1976aff26",
+      "unchangedPixelPayloadSha256": "e3bc81eebdd917d898799f5fedf8eb79cfb3b42493bdfed9d82cde2ee63e09a4"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/38.tga",
+      "originalHeader": "000002000000002000000000100024002008",
+      "modifiedHeader": "000002000000000000000000100024002008",
+      "originalSha256": "785ff3fd3e68afc0df25ec9f39d3d15d4eb0366e78cd0d90ba25026635969a9c",
+      "modifiedSha256": "7df4215e65f21ad7f5f4dc4107b1b2a7331066c7c8f5bfcd509a468b7ed9ee98",
+      "unchangedPixelPayloadSha256": "f9b737beb385ccc829fff7e86fd5bd092668f9e6d23526199e02ac3f25cf96ed"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/4.tga",
+      "originalHeader": "000002000000002000000000920092002008",
+      "modifiedHeader": "000002000000000000000000920092002008",
+      "originalSha256": "20fbbdfb2a3746301c560cf8b84cbbbddc6f4a255d7945b31c088c2866a1c513",
+      "modifiedSha256": "c0349b216ac6c73cc9e4cbbe2ceb6a26c489c76fa4d3cc03d62be961b4d03020",
+      "unchangedPixelPayloadSha256": "8db78b156f53e492a92e2f9b97d3ce0b7ae573cb94882f242e5d9cfc4fa24441"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/41.tga",
+      "originalHeader": "0000020000000020000000001d0024002008",
+      "modifiedHeader": "0000020000000000000000001d0024002008",
+      "originalSha256": "020ec23e087e076cdfdad01279168a421ec033caf12c317ea0bb5062ad0d7036",
+      "modifiedSha256": "b358fdef814ac88c7b5020da2156d6198102520662d4a77620d9e5d246259dea",
+      "unchangedPixelPayloadSha256": "5ac71800f41e8a0954fae8eb83288907501b802d8b50e414da6b962173ff0d84"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/44.tga",
+      "originalHeader": "000002000000002000000000f50024002008",
+      "modifiedHeader": "000002000000000000000000f50024002008",
+      "originalSha256": "b807316d19df2dd3508b61c7f28ee70d117b0c1d695276205f6e2f638a269e4f",
+      "modifiedSha256": "171d5349ae5699982f1f421e1192a2828a2275b80fd718e0dcdd4f2b10aae1f2",
+      "unchangedPixelPayloadSha256": "785a5e4b4efa87a71b15b58270545ed3ff43828598353f4ca56253c4eeaf60e2"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/47.tga",
+      "originalHeader": "000002000000002000000000100024002008",
+      "modifiedHeader": "000002000000000000000000100024002008",
+      "originalSha256": "9772949d597bd90e63f6e9911008bcab31218bb0622f2ec0b5f6a77f3db2c3a7",
+      "modifiedSha256": "c81b402c93c2d0bfe42a04a15dd3d7f086c2974fe4c945f1118bd73d36c4fc17",
+      "unchangedPixelPayloadSha256": "beece3488d738bf9a8af8574b3c04bb3e547d80f5d042dcd99c1813458448a16"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/50.tga",
+      "originalHeader": "0000020000000020000000001d0024002008",
+      "modifiedHeader": "0000020000000000000000001d0024002008",
+      "originalSha256": "3c8670bbfdb406ddaae5a612cd2e5683f2d6b3ef8f186ebf4c1f7e03deb213e8",
+      "modifiedSha256": "412a4d0d05a09868e3cfdae19931402bf0045320035109eda68314775a52b479",
+      "unchangedPixelPayloadSha256": "9579dee0dde02dc35a039993de5490a3e887cfb895b9e9f6cb099fa6c8a8af38"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/54.tga",
+      "originalHeader": "00000200000000200000000090001f002008",
+      "modifiedHeader": "00000200000000000000000090001f002008",
+      "originalSha256": "8677b3174c1a154a0c7c9c49efb1b1acc0ee41d32b2d8a681fbe110875593684",
+      "modifiedSha256": "d8125c7d3b55b94816d0549471d29c52a17f522f90127a735a8d8b876d6f230f",
+      "unchangedPixelPayloadSha256": "d8d1cf85a55bd5e7e725d162e8606fe0462b73c1a191153c10f7d90c07b32627"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/56.tga",
+      "originalHeader": "000002000000002000000000900024002008",
+      "modifiedHeader": "000002000000000000000000900024002008",
+      "originalSha256": "d291755d86fb76d50daee199fb703a9cfbc959541695a18de45159a4c1b0bc95",
+      "modifiedSha256": "c56f59ba07e7bdee972cc07814ad9842ccdf113245616ed415e1ba190869fccb",
+      "unchangedPixelPayloadSha256": "408db302f0f626960414176795a2aa0d5edd88ed9cfc23d369793400dbac6de5"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/58.tga",
+      "originalHeader": "00000200000000200000000090001f002008",
+      "modifiedHeader": "00000200000000000000000090001f002008",
+      "originalSha256": "08b77715b005bed9ac8e3e0ffdfaffbde81e73055d372fb7b86e02cb61d68d9e",
+      "modifiedSha256": "597071a328b63949a9781090b7d6b09c712d868804f3e401b6a1107cb93dd367",
+      "unchangedPixelPayloadSha256": "bab22b162d3f9811eb2934475313326020bf36ceaec499502bb1f43d62370a65"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/61.tga",
+      "originalHeader": "00000200000000200000000080001f002008",
+      "modifiedHeader": "00000200000000000000000080001f002008",
+      "originalSha256": "f6b7abb4fc5b995f5d18ca05534dca7a7cd9e40c4d3c01b0eb73092336abb4a1",
+      "modifiedSha256": "3ebec96e660df19f9767d7967194996eb4506d84b7c735772c2c4f9285f9baab",
+      "unchangedPixelPayloadSha256": "deb3d68f8414e427647aa036a0b6dc86b105425e1b039695f409b6f4d362e6e5"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/63.tga",
+      "originalHeader": "000002000000002000000000800024002008",
+      "modifiedHeader": "000002000000000000000000800024002008",
+      "originalSha256": "e7b18924f9db7dec3a56cf3a771c5af36080b94401c1f9d266996c24bdc3f708",
+      "modifiedSha256": "35dc62e64c52238ab6e1e51e14df70ca2037edbe154fe6b89cb5263734b8da4d",
+      "unchangedPixelPayloadSha256": "15be5a741f4c10a5566f4f475cf7819c8dcd100998d57192dccf06e6c7f9fdd6"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/65.tga",
+      "originalHeader": "00000200000000200000000080001f002008",
+      "modifiedHeader": "00000200000000000000000080001f002008",
+      "originalSha256": "90d08c1c9264ac97a222eb6c1dacef9a3ef9e46902eb78cf724eeb73b0ed71ba",
+      "modifiedSha256": "f2182a8415f88926e1c6901757d2e45a282ab94cc7a2f1b7c01de320a1a61514",
+      "unchangedPixelPayloadSha256": "fc236cb5a004ebe2ada0d39d008697e85902da8531f35e387b9bcfd3c88d52a4"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/68.tga",
+      "originalHeader": "000002000000002000000000bc001f002008",
+      "modifiedHeader": "000002000000000000000000bc001f002008",
+      "originalSha256": "c2b9175c059fb19c94b809fc5c7efdc10595e1de36b91aa1b5622925cf6bd465",
+      "modifiedSha256": "4dcc56d3edb048e94b2f6f7c24c85a506d180caa50d83bac96f5b5e71a0162f6",
+      "unchangedPixelPayloadSha256": "93f8863d6429a942bac8285031aec6d67929461a9bc64dae1447daaeed60b8dd"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/7.tga",
+      "originalHeader": "0000020000000020000000005c011f002008",
+      "modifiedHeader": "0000020000000000000000005c011f002008",
+      "originalSha256": "0ebc629c7cf415d2a0b3d8f8bb11524f1d32ced06251dc443718f359c0de5b81",
+      "modifiedSha256": "dc8900b166fd57fa28c088ab26702ee99a1d0d4b928aca85393fbfdb36f3e8ad",
+      "unchangedPixelPayloadSha256": "e1d8a48cd7fdfeadd26b4f8b7a9a398493f80654267b9fbfa711f5d93ffee91c"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/71.tga",
+      "originalHeader": "000002000000002000000000bc0024002008",
+      "modifiedHeader": "000002000000000000000000bc0024002008",
+      "originalSha256": "3b349e96c505e05bbb1735d56df1f96509d39c14ecc2c3680e45f6b2c45483b4",
+      "modifiedSha256": "accb89342d6c0f0b036e52831395f660f7ffe9e85d687216ba3fafda9551fbc3",
+      "unchangedPixelPayloadSha256": "c4e4d43b0ef401750e07e6ffabbe1a5f9ad8c70051560a0a55ecf20f66d6281d"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/74.tga",
+      "originalHeader": "000002000000002000000000bc001f002008",
+      "modifiedHeader": "000002000000000000000000bc001f002008",
+      "originalSha256": "8fd7125bf106bb567bca085572b1719125ca2295a6515b8c7ba7bf72770ff710",
+      "modifiedSha256": "1fe10f8c5e50d0869607b843809f51507979339eaf87e250c3d71a88493d957b",
+      "unchangedPixelPayloadSha256": "80c07d12746b5b5fbdae5d9fa6abc86a42514478af4bb1527780c9eab8747431"
+    },
+    {
+      "path": "Data/AptUI/fem_m_onlineMultiplayer/fem_m_onlineMultiplayer_textures/89.tga",
+      "originalHeader": "000002000000002000000000920092002008",
+      "modifiedHeader": "000002000000000000000000920092002008",
+      "originalSha256": "ec4d478ad5eb0b328ee474ce278d90debd19169483d9d45ac1978cbb92c2c90f",
+      "modifiedSha256": "810d398776e0d4fc624a6df611a84ecf7c3a7bb97b29415a010662782c261a80",
+      "unchangedPixelPayloadSha256": "19c6d22a8baedc80ad0b3eab75e4f359028124c3535ff86661627d49bf978652"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/1.tga",
+      "originalHeader": "000002000000002000000000ed001f002008",
+      "modifiedHeader": "000002000000000000000000ed001f002008",
+      "originalSha256": "6b1f99039958cec3a3f74936d66ef6507d5e899e8a610f26929ad93a3dd841a6",
+      "modifiedSha256": "f5843c9f428420bc9ec0958b131a3bb48edc40146614781624791376c3a280e7",
+      "unchangedPixelPayloadSha256": "730e4079dae064a8995f4ef29319dad6d37715e050085d4c315c293b9d95c77d"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/13.tga",
+      "originalHeader": "0000020000000020000000006c014e002008",
+      "modifiedHeader": "0000020000000000000000006c014e002008",
+      "originalSha256": "c2ff10bf11bdf51ae5d947a3c9a817c6e1a8b40b29f69455e2e26d11543ba84f",
+      "modifiedSha256": "ecf42d6672cfea20eb93479d1c7e5c52f1f0ff47a955f3f271bae2f43618b99b",
+      "unchangedPixelPayloadSha256": "53b36ae501e135e8b34d14fbc78677314f6ee9b3d13bac7fe2dc5903ce6c4ddf"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/27.tga",
+      "originalHeader": "000002000000002000000000d602e6002008",
+      "modifiedHeader": "000002000000000000000000d602e6002008",
+      "originalSha256": "b800611e1cdb1aba2eadab8c4d601871b46467cbb9842ccc720b47503efca177",
+      "modifiedSha256": "7505b7903f8d68f44056c21057966623bed32bc5cd56d85ec19fb29cb034534d",
+      "unchangedPixelPayloadSha256": "f032a0448d981f3944c21e6415c6e76a2a480c2d1a84705ebb1101ae2a19f149"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/31.tga",
+      "originalHeader": "000002000000002000000000510138002008",
+      "modifiedHeader": "000002000000000000000000510138002008",
+      "originalSha256": "62d0593ac234bb8172eb0c9ddb30ea5c34e51da97fe6492c4cf84b38ca80a616",
+      "modifiedSha256": "76abb3f0eccb87e261620695c6370dc3a615313734411d729afa6c696a93e332",
+      "unchangedPixelPayloadSha256": "58cc394299df4059a1bf73af8c033336dd5cb1ecbbff018250f3380cb9961416"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/43.tga",
+      "originalHeader": "0000020000000020000000008c031f002008",
+      "modifiedHeader": "0000020000000000000000008c031f002008",
+      "originalSha256": "63cc123b2d56400b40c1fde398560f2c58b7b1426dcace4855ece72c09aee442",
+      "modifiedSha256": "6dd8753e71eb612c991306b9adacfeb2ab0edb9a302c88964cedf62b4ac6c2b2",
+      "unchangedPixelPayloadSha256": "c61df6b481bf59bd2b809e4a0131d10405d7223a1558f1bd8e9b12fd93c3bee5"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/46.tga",
+      "originalHeader": "0000020000000020000000000b0038002008",
+      "modifiedHeader": "0000020000000000000000000b0038002008",
+      "originalSha256": "4202a446423c063b321f0b16d2fb459b2ac8342afd3b363ec34c285d47aaeef7",
+      "modifiedSha256": "c7fbedd6a29a6f8b5871f1f82e4ed51b559cbf401c6d82188cc5d11c150183de",
+      "unchangedPixelPayloadSha256": "54621abfbb0e6938e42c207b8a9db00b01f4de0e5f2ba4f59444a0c44682d37f"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/5.tga",
+      "originalHeader": "000002000000002000000000ed0022002008",
+      "modifiedHeader": "000002000000000000000000ed0022002008",
+      "originalSha256": "eed33b6d57886dcb95ba5ef9405ee755b50b372fec7c27018b9cb8a4747aad0f",
+      "modifiedSha256": "13f9e448c43272aabcab3a9b49ae42956b2db937a077ee67a0b94234bfd96585",
+      "unchangedPixelPayloadSha256": "d2e43f10d411b424c6c0c0fa709342d7584a8470126a08ca3700ad135419652e"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/72.tga",
+      "originalHeader": "000002000000002000000000e70363022008",
+      "modifiedHeader": "000002000000000000000000e70363022008",
+      "originalSha256": "8aec0dc8d2e26523a45260db4abf3ec2d8c5472dc1daa55c199636ffa1e49f1c",
+      "modifiedSha256": "d4c2af4482fe861a4718dd76c81fef694639ec6587f2823f1094c2011f74bafc",
+      "unchangedPixelPayloadSha256": "cf94f9f62b558ffad1f588f1f797eff450cb3a15cc038ae4f02cbaea2133a45d"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/73.tga",
+      "originalHeader": "000002000000002000000000550500032008",
+      "modifiedHeader": "000002000000000000000000550500032008",
+      "originalSha256": "f080f0662b58fcb9b8228ba5359edb71eadb29840faddcc1e4fc1e746aa82ca5",
+      "modifiedSha256": "bfbdecec74cf7dab4f2e1256bff9bed7589365cff65678be594a6dbc5c153558",
+      "unchangedPixelPayloadSha256": "2fcf22473b150c6904e97edf826cc1cd033ab729e71f75ea9ce570a3f3d6c037"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/74.tga",
+      "originalHeader": "000002000000002000000000550544002008",
+      "modifiedHeader": "000002000000000000000000550544002008",
+      "originalSha256": "070fa33167f95671c30492e95ae53b7498022b7f55451ee0c29617ce2e40d4b6",
+      "modifiedSha256": "8794697a2a767d8c77e696734f7489ea1a5312c81f1fde1810182e8e36f8ac23",
+      "unchangedPixelPayloadSha256": "0b912c7582d42344d0e69c92a68507e708109315a2082af84f7a724324eadeb9"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/75.tga",
+      "originalHeader": "000002000000002000000000550547002008",
+      "modifiedHeader": "000002000000000000000000550547002008",
+      "originalSha256": "fb115d1a970c2c82338277e649d7a619e58bb6a8b053dd835c72ed25d63e9a14",
+      "modifiedSha256": "296d922167b55fb3681da8dcb854270175ca11ce6b27984c71dd305212916579",
+      "unchangedPixelPayloadSha256": "f2b36c5a4e1cde54a4b645c600005b7261153c3fd95209f1663eb7a0516df45a"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/79.tga",
+      "originalHeader": "000002000000002000000000220022002008",
+      "modifiedHeader": "000002000000000000000000220022002008",
+      "originalSha256": "c8e9b39960f74a6841a0affa434d638466f32841aad96c691795c467df1976d2",
+      "modifiedSha256": "bce67869071acadd945b39c33299d481bccbe125362b4a8bee260ba5edfc64af",
+      "unchangedPixelPayloadSha256": "ce767ed464f3c473692c627225d9a6c2c4c3aecf04d4c834817bbf1afecc0d24"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/80.tga",
+      "originalHeader": "000002000000002000000000220022002008",
+      "modifiedHeader": "000002000000000000000000220022002008",
+      "originalSha256": "5997196a3bcff2ba7c9a548f8956b903c7c5da7690062c6b4de50e8ac50b8536",
+      "modifiedSha256": "c6dd2cf891095c25d07adfb735ed85f3484ddea8fe177c565e8c87ce1c1eb054",
+      "unchangedPixelPayloadSha256": "e014738aba0e8307129209e3e9ab9e2e74e54604a48e9a8ea366463dab071b1e"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/81.tga",
+      "originalHeader": "000002000000002000000000220022002008",
+      "modifiedHeader": "000002000000000000000000220022002008",
+      "originalSha256": "ee8fe681215eb40afff23799e6a2143fb07000bfc65d26d39ec0789c4b16e64f",
+      "modifiedSha256": "4fd8eb4b9863aaece7602e3d993e21b57c69bd1776b0b1e1b342aff400cabacf",
+      "unchangedPixelPayloadSha256": "a57c0c685fd0e42f6876c0d55d7cf133cf0cc901ab2b8691d0d3e784fb584932"
+    },
+    {
+      "path": "Data/AptUI/fem_m_postgameRoundup/fem_m_postgameRoundup_textures/86.tga",
+      "originalHeader": "00000200000000200000000019001a002008",
+      "modifiedHeader": "00000200000000000000000019001a002008",
+      "originalSha256": "401e43630aaa4f376a0e3aa8480502e906ebc485fed3655bb73843a35076f82a",
+      "modifiedSha256": "96124000a6344442e9b2bd60017ad6aa177b834d074d11e33559091e2e4b7fb4",
+      "unchangedPixelPayloadSha256": "431cbf008178a035f953ede8f0605a18666e0a50a95906d3b0a35d02c1d073fa"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/11.tga",
+      "originalHeader": "0000020000000020000000002c0042002008",
+      "modifiedHeader": "0000020000000000000000002c0042002008",
+      "originalSha256": "dfbba9ba5d88093c0fb0bed4bd4f1bd63883ae3c677dce58680b7d589f3e7d63",
+      "modifiedSha256": "b810b55b59cc4a4bf57ff1ecb22018b5686843a8097786460307e31b248eff00",
+      "unchangedPixelPayloadSha256": "9d26c15fb3d1fb2b23b5273a7d89de3ed2797cf4ee96a81296ed6aabb0b78843"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/14.tga",
+      "originalHeader": "0000020000000020000000002c0042002008",
+      "modifiedHeader": "0000020000000000000000002c0042002008",
+      "originalSha256": "47860cefc0d40bd999c9f25b350f219dc9676391683fd427341465c3d4668574",
+      "modifiedSha256": "a7a48849c527f520537f30b21858ea6307e1569538644f8f01028b3c3b0f9c29",
+      "unchangedPixelPayloadSha256": "c68075f83f7899f15316037d179ec8ac85013b049f30833579f617e3be9c29bf"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/16.tga",
+      "originalHeader": "0000020000000020000000002c0042002008",
+      "modifiedHeader": "0000020000000000000000002c0042002008",
+      "originalSha256": "3fff8ba959ed13f28ba3f2d7c2df86b3069d1996fa8726f1bf1f51a70def1a83",
+      "modifiedSha256": "6a31389b8eed94fe8b97ae077d8c7c09dc39c3d2659103b4bb1ea7be01d662b0",
+      "unchangedPixelPayloadSha256": "5d2bfbce8b82aa7813f23b2e8f40b17de788fcdfe01498bf494b50f3c8af2511"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/18.tga",
+      "originalHeader": "0000020000000020000000002c0042002008",
+      "modifiedHeader": "0000020000000000000000002c0042002008",
+      "originalSha256": "add21e9e12e31206496f9852b90c8ada3c8bc2006b20732f133d48881c8f0e4f",
+      "modifiedSha256": "ff0c701cf4a04541be198d537beb625ed4122571bbb4a5c7a0ec4b9e036663e8",
+      "unchangedPixelPayloadSha256": "a6a1b53aa602087802060569b5d4cd34e9d3a5705022f24d81cbd1da8bb26df7"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/20.tga",
+      "originalHeader": "0000020000000020000000002c0042002008",
+      "modifiedHeader": "0000020000000000000000002c0042002008",
+      "originalSha256": "41a243380f152e8a258da9f9365451465488390d2b19fbab44378b722b2f3611",
+      "modifiedSha256": "0fc1d42865989f69239c7cce197af94eab5055ceb680ad8af4d64a1e9f58b7e1",
+      "unchangedPixelPayloadSha256": "dda58d9376e4b89228c66164578aeb51c3147c146203a9185e2b6653dfee10ae"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/22.tga",
+      "originalHeader": "0000020000000020000000002c0042002008",
+      "modifiedHeader": "0000020000000000000000002c0042002008",
+      "originalSha256": "05258eaf630f767f67d8dade43b0cb9d3277b775c23b27bcef22f650bf3ac71d",
+      "modifiedSha256": "68f8d9fc41c0f722223338f341a2c0d36b960af1b993f20e10102f940356766f",
+      "unchangedPixelPayloadSha256": "cc0574068bca0fd674aebdad9d3fc9415ea423afb1665481bf36e08fe74e97b0"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/3.tga",
+      "originalHeader": "0000020000000020000000002c0042002008",
+      "modifiedHeader": "0000020000000000000000002c0042002008",
+      "originalSha256": "66d35d94b13049126fd40e2a44755532e8b0d0e176fbb9d9b80bcf977ccc79f4",
+      "modifiedSha256": "c1837b380722b60abb19a7bb065e70939f688772386b57337be8b9f97b4bfba0",
+      "unchangedPixelPayloadSha256": "084bd8109d8dd0b64be69a67b9260587dbac5a95a90ff480b1e9d380e5707a67"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/32.tga",
+      "originalHeader": "0000020000000020000000000d000d002008",
+      "modifiedHeader": "0000020000000000000000000d000d002008",
+      "originalSha256": "d1e549c243715130c7d51a8e823c65cd89c488aad30bf143f1a20928f317bb11",
+      "modifiedSha256": "95f12dfb2e12248aa92142179ac234e47b083f9feaca3e0273ba9b03d84f2f04",
+      "unchangedPixelPayloadSha256": "edc498e00ff333b9d1ff54de88f83f3c1fae704d04155d9710a7c8dfd552ac98"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/37.tga",
+      "originalHeader": "000002000000002000000000240024002008",
+      "modifiedHeader": "000002000000000000000000240024002008",
+      "originalSha256": "a530fa2b4879bac0db476ead547d018399ff542ede172b2f5b55494c262bdf01",
+      "modifiedSha256": "7b54f7e449974110c4e82b31b2a3bc66d08d63045e08b60c4f3de2a896f03709",
+      "unchangedPixelPayloadSha256": "e1230b2930fea144f72c5fd7360637c271d7f9bb6aeeac6ad583f3075474f66c"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/5.tga",
+      "originalHeader": "0000020000000020000000002c0042002008",
+      "modifiedHeader": "0000020000000000000000002c0042002008",
+      "originalSha256": "81c5427f453ee5aeb12ebf87965769357b521189ef33c2fd21e23d62bf2f9e45",
+      "modifiedSha256": "2e216a81b3fb88327e7c1ad925765ec6c1498cca590a7cbb47643b79388d3706",
+      "unchangedPixelPayloadSha256": "61fa014cf9241e13a8bd27e400ae684ed2dd89d73f407948a50eb447ac344a86"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/7.tga",
+      "originalHeader": "0000020000000020000000002c0042002008",
+      "modifiedHeader": "0000020000000000000000002c0042002008",
+      "originalSha256": "b1bf865635e5065083e47bdbafa03d3d41479a4f1bdf7c962fc0c72f42dc0458",
+      "modifiedSha256": "d01f6429944c07272cedb37f02b1ccd225aa2365f1c0b7316a5ce5f66b6b3131",
+      "unchangedPixelPayloadSha256": "3bcfbbf78fdfad157eac07bdccdc92d2919bf7368d7ee1598542026b2128a190"
+    },
+    {
+      "path": "Data/AptUI/ig_missionMap/ig_missionMap_textures/9.tga",
+      "originalHeader": "0000020000000020000000002c0042002008",
+      "modifiedHeader": "0000020000000000000000002c0042002008",
+      "originalSha256": "532875642e5ea6964cd10a334cb8af79f663df1eeaa82bd00140e2fdb17276bd",
+      "modifiedSha256": "adc4587a20c0723001eb8b0bcd73728b34077ae112536c2e598a1191b5a5c08d",
+      "unchangedPixelPayloadSha256": "0c09a516e63f81deb04588877b2c637feada375974f3a05b916bd8b554e3b62c"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/art/Textures/apt_TacticalHUDRadar_10.tga",
+      "originalHeader": "000002000000002000000000400040002008",
+      "modifiedHeader": "000002000000000000000000400040002008",
+      "originalSha256": "b9a12b76695fac8173336ff999cf83362290f9751c0f4398402b30e0f668e5ea",
+      "modifiedSha256": "8c2931f3a511b4a52775778f0c679a89dbd48ff64f0d59c337ed61d3cf1f0573",
+      "unchangedPixelPayloadSha256": "ae01cd2fe28032871b5ce59d81a18c422615128790d02b1afb3361dfcd9c572a"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/art/Textures/apt_TacticalHUDRadar_13.tga",
+      "originalHeader": "000002000000002000000000800020002008",
+      "modifiedHeader": "000002000000000000000000800020002008",
+      "originalSha256": "9e92075b334709b1576ede21769340ee9be876e408b005a4fe48ca67b5440ac1",
+      "modifiedSha256": "06cc61bbf305c159625f8ec46c3f75af4571c8c5b217fc785bda36d6b81ec0df",
+      "unchangedPixelPayloadSha256": "82f0d020ec084b63679faf6934817ff68cd855b8fc92642cae7f3035457c64c8"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/art/Textures/apt_TacticalHUDRadar_9.tga",
+      "originalHeader": "000002000000002000000000100020002008",
+      "modifiedHeader": "000002000000000000000000100020002008",
+      "originalSha256": "86f9a0857a854174a740cfb5d2b281d302cbdd463724fd9cf61f9efc70feee94",
+      "modifiedSha256": "e85e5c977986cd56e63bff6ae442d6c42121755cf83884fc45d96d1111307237",
+      "unchangedPixelPayloadSha256": "41f695552790b2946bd3576c07583d93060e902ba43db8a128e70bfc4494758f"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/101.tga",
+      "originalHeader": "000002000000002000000000b6000f002008",
+      "modifiedHeader": "000002000000000000000000b6000f002008",
+      "originalSha256": "f03b80348858689f8c4f926eb3d934684982572476816c8120d90ec935cf8874",
+      "modifiedSha256": "83c1115f088464086718ca02900c94b6d0c70200432f1b7dbc477561ef5a24db",
+      "unchangedPixelPayloadSha256": "fb9f982a1a3f239ca5140fca205ae4262ebb8a7eb58ed8ec403764a1ccb0df08"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/110.tga",
+      "originalHeader": "000002000000002000000000200020002020",
+      "modifiedHeader": "000002000000000000000000200020002020",
+      "originalSha256": "b1624e74ec495b325cc4414582ee5db2a174e3df5901c79a628f21924ffb0df1",
+      "modifiedSha256": "0725411e08999c5626a9fab2b8eb4fb12176e3d998b5c154c23f59f55acc7b47",
+      "unchangedPixelPayloadSha256": "98b23b75edacdf0589fab9d01b3d46efe2a0250de1c965b488e14650b5e08cfb"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/111.tga",
+      "originalHeader": "000002000000002000000000200020002020",
+      "modifiedHeader": "000002000000000000000000200020002020",
+      "originalSha256": "ede81b0ca0a28feb73a538cd755fb97b1ec7b4d87ad17972beb27ff44fe8ab53",
+      "modifiedSha256": "74b7802be9bc7af8e63308353be67305ec01072752d82e7f7ed2b334939183d4",
+      "unchangedPixelPayloadSha256": "cea61ce878e322b37861c46e3eb907495bc4fbf93c13edc0559b0dbf803ce718"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/112.tga",
+      "originalHeader": "000002000000002000000000200020002020",
+      "modifiedHeader": "000002000000000000000000200020002020",
+      "originalSha256": "5aa84201fea7275cda5f55313b105f87986ad25d018679b97d64bfa99f746405",
+      "modifiedSha256": "ea239a0422264f89b0ed605b866f34e78ddfaec7b5911a2993fc7b3fc2be0722",
+      "unchangedPixelPayloadSha256": "b0e2c559f0b700fa1af631e1e7fbffe29ef9ebae55ac728e02384380e21acc19"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/113.tga",
+      "originalHeader": "000002000000002000000000200020002020",
+      "modifiedHeader": "000002000000000000000000200020002020",
+      "originalSha256": "3dad5fe019d62ffd45381d986cf2df29af14a3e69cd769b9f92cb5b96d606be1",
+      "modifiedSha256": "49708a6b38a4b0d2ce5b2be5877eb192e7d85d761fd0c440fc85f1c1f951d972",
+      "unchangedPixelPayloadSha256": "c5145ac0a1699eb0ca4c3ea4d15dc0cf7fdea58c1019c81d56b56ae7e51a76fa"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/17.tga",
+      "originalHeader": "00000200000000200000000030002f002008",
+      "modifiedHeader": "00000200000000000000000030002f002008",
+      "originalSha256": "c75aad1183924ebf2121c22d86aae681b5ec0526e69ae56651fd0c237509a9ad",
+      "modifiedSha256": "152a90e9b649bc6a244251d0efe9ae0aac99f10e4960b135f701874f9e5ebc52",
+      "unchangedPixelPayloadSha256": "cdb231977bec47e6b95cd12057a0755652c45f835cb1fff3fc3a56ceb5416330"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/22.tga",
+      "originalHeader": "0000020000000020000000004c004c002008",
+      "modifiedHeader": "0000020000000000000000004c004c002008",
+      "originalSha256": "5e35b82795a27b3ce7dfec22e4dbcee64fbbbba342d8a92f4a53f61293cf6be4",
+      "modifiedSha256": "034c156176c264f741761bd2f1dcbca16102d943c5b8f81b7e34835b3521da45",
+      "unchangedPixelPayloadSha256": "9cb80d703cddc08cf43b177857eeb7a506d26d8a74b0bdb644f54f2c05203e10"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/3.tga",
+      "originalHeader": "0000020000000020000000000c000c002008",
+      "modifiedHeader": "0000020000000000000000000c000c002008",
+      "originalSha256": "45d318f439c53804a96f8c39451f502c8e805cd2004f5175bccbc18a4fe98306",
+      "modifiedSha256": "aff6ba2f24cb8b62a8aac2680e7a981076ff77eb93929d3c4204defa86c9506d",
+      "unchangedPixelPayloadSha256": "c304269378e6f4afefb009b99b7c36847fb5bb7c8600b58998814b0238bc027e"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/41.tga",
+      "originalHeader": "0000020000000020000000003d003d002008",
+      "modifiedHeader": "0000020000000000000000003d003d002008",
+      "originalSha256": "e999e3f422fad67c11fcf6d82f63b9e21f68d8c0a653454a404884e20d04290a",
+      "modifiedSha256": "15d7f8cf7020cf137b9c4367d6e38bc368cff05112ea7e1f0dd5b8a34ed5e767",
+      "unchangedPixelPayloadSha256": "ab48d6d84cafadfed2fa1b8b61ca075d23a3e068ddd0d4b547ae826c771408f3"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/44.tga",
+      "originalHeader": "0000020000000020000000000a000a002008",
+      "modifiedHeader": "0000020000000000000000000a000a002008",
+      "originalSha256": "455c0e045027b863e9ad5564c9b0c107e29f2eb678ce09f92104c2d04147b73c",
+      "modifiedSha256": "c9f1a7d0be8834b75a95ccad32a3eefa88a80fba3c92731c4bd8c3c5579f0c1e",
+      "unchangedPixelPayloadSha256": "c3a54b36021d897f0d0cba97209e2bafa515e6178d57122c4d56b8f077e1a02d"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/47.tga",
+      "originalHeader": "000002000000002000000000100010002008",
+      "modifiedHeader": "000002000000000000000000100010002008",
+      "originalSha256": "b6a1aa73f6d3a8f72d6351af6bf9bfbf621731575eec9ab57600f272b038f9ac",
+      "modifiedSha256": "50aacfce0927fa9f2d8781c7fbd57301e56fc32a495b106bdf53e15c857eba4b",
+      "unchangedPixelPayloadSha256": "0d0a294b94dc3b9735afd7993f61ef2f141ead6d0a88792556f5c0c1015d1f59"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/49.tga",
+      "originalHeader": "0000020000000020000000000c000c002008",
+      "modifiedHeader": "0000020000000000000000000c000c002008",
+      "originalSha256": "88fc94c98f9d8046d12518852ef47979c842a5149d0ced8826ce40e8e8748b33",
+      "modifiedSha256": "8e13189e6527c9ca59145fcae2777897de4c4a0c68b26887ed3d311001487f22",
+      "unchangedPixelPayloadSha256": "ff6e832945fc3a852b93719d0737838992fcf7f0d2490306fd9e4a80b0fd1e0a"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/6.tga",
+      "originalHeader": "0000020000000020000000005b005c002008",
+      "modifiedHeader": "0000020000000000000000005b005c002008",
+      "originalSha256": "703faddd2b7ba7b8b9959f2930146120bbb572b3bcdfa15b07d8bcf763cb8b9f",
+      "modifiedSha256": "5c8c1d0a68914ed6b5cf9eaff1cb340abb283de51444fed4848f24a3257f3865",
+      "unchangedPixelPayloadSha256": "f64b17ec08ca6259c2df86139fd0ba676127337c4e5fc47119964246dd548b20"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/94.tga",
+      "originalHeader": "000002000000002000000000b400b4002008",
+      "modifiedHeader": "000002000000000000000000b400b4002008",
+      "originalSha256": "3a861580d022d64b20af544eafd2d4ea4145f835dfffa59eb6629ddafe9db043",
+      "modifiedSha256": "40f6870fc4c13b1dd407bf466c1e5441d9a69633b643a00385cddf294893cc8b",
+      "unchangedPixelPayloadSha256": "cf761e938fc8d608c719d4f270907105190031cdd8e5c71ce58d43755365a2b7"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDRadar/TacticalHUDRadar_textures/98.tga",
+      "originalHeader": "000002000000002000000000c800d0002008",
+      "modifiedHeader": "000002000000000000000000c800d0002008",
+      "originalSha256": "51f8a224e64f4b6ec47b3c6a83833bd043096ecc64bf33ef6e11366bfc21d7f0",
+      "modifiedSha256": "a3728b29e69e5f8212d975ee4f07bd6d3272678294087c25377527fcb89d5320",
+      "unchangedPixelPayloadSha256": "ce7c5832a208d88512b587cc5c19cc4f7399f00428b3fe35951fb055dd970f5f"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/1.tga",
+      "originalHeader": "000002000000002000000000060007002008",
+      "modifiedHeader": "000002000000000000000000060007002008",
+      "originalSha256": "416a0c7d93829e3bce57d6e90e7fb40d36e5fe8fc782c82c10f1ff6823ae9b6f",
+      "modifiedSha256": "912834c0e80e8564a60e5721f139a7c70d10697e252d1b614d25e274ed4288c2",
+      "unchangedPixelPayloadSha256": "762634ce48124baad0d756edcb1f8a5852ec236084d958c9370f12422831bfd2"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/10.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "9f8d81fe9df7fce827d72bdd63935eacedcb060fdecea69ee3d5953c75ee16a2",
+      "modifiedSha256": "85e3d165be260fa6991f0561eb81ea239e24961096787b06c3210ac82025f46d",
+      "unchangedPixelPayloadSha256": "c42c651b2cc4c1eb340b0a74297d867cd6dd4375c6d2a3d3b81894ebbe6ea597"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/100.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "246c3fcb70feebd6956dc6e4dbbd53f75035f18ea5a25829e79d979c8882613a",
+      "modifiedSha256": "15745461fce40621128b460847393a6c7e094dcc4587bfdef23f34649a3551d0",
+      "unchangedPixelPayloadSha256": "4c61fd3ae34e06975bf3eb603ba905ed95006b40f77b3bab2973f84ab0ad3828"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/102.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "432b3ca7384080f72eb98eb71466c9ed5a5c3682d82205c209ca13ad0640b521",
+      "modifiedSha256": "3b5a6349c0e94326ce747483f6ed05083218dc0a27534ea81deda92904a63ec5",
+      "unchangedPixelPayloadSha256": "a6b0a4dc63f8a83ff9a52db48d5be34e2facd5ad37a9751447ba0ff5d8835d28"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/106.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "cf69a027630df25e7049791161e8f70c5598f04f9683d9ecaf28b7ab527c5652",
+      "modifiedSha256": "94ffc280f8fa99d3c4d400fe36e4420ef92c2df1acb3f54f164e763f34c2d9f5",
+      "unchangedPixelPayloadSha256": "8ba0aa2abe2a832bf28dfec3c036c61b1949735ad58ee84577de92daea7bc39b"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/108.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "20ff8fb34004f688e8a57bff96408885347e186775e7f9ca7367ea07fb0e0fd8",
+      "modifiedSha256": "37103a8f59433aa8f22ed08d721d2d3211187b2bd4fe52e6f5784833e3f95fc3",
+      "unchangedPixelPayloadSha256": "e92c955009ed836214654e610ef4b597afd2abb83e293019fbdc8e91867d2f80"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/110.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "dce455e42208e619c45327d5d5ae2cf6079692cb7f8fd4444a46f41682a295e6",
+      "modifiedSha256": "76bd352fc68badb257a63589f39678edb931dcf7e42752303a0b47d310be125b",
+      "unchangedPixelPayloadSha256": "702c968664b557106af258d500a9560898d0e1e6a9e17ad7ef5fce89eb1ab5c2"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/114.tga",
+      "originalHeader": "000002000000002000000000210018002008",
+      "modifiedHeader": "000002000000000000000000210018002008",
+      "originalSha256": "4121d5b569af681a0ede5e24fa7e79bea65c17a2a4c6b1ea292922334a5e1836",
+      "modifiedSha256": "87f5a7b60337efd84a3f057d202e540be157ff23e118327397fdf50adb74c27a",
+      "unchangedPixelPayloadSha256": "ecf173e8701dd630987993539c419f1adabbed5aaa11c8f429c2a44c99ba46b2"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/116.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "966242d9ff86eac2cdef22feb7f2bfa05115bad423bbb4055f4d15869ccdf67b",
+      "modifiedSha256": "01e35eae5dad21944a789c60befe4458405826164daec843c91d4a3f6d42d008",
+      "unchangedPixelPayloadSha256": "e94a0d1cb7c31bd81c732d44ff03015e9e2cc5f2da819861da54c5ab8147f327"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/118.tga",
+      "originalHeader": "000002000000002000000000220018002008",
+      "modifiedHeader": "000002000000000000000000220018002008",
+      "originalSha256": "1533170a55ed9b0b0e9306b26cfd7b41a7360f262d6c809e3861fcbc3cc99b7b",
+      "modifiedSha256": "847fa5934a8f9f6a5659b32e6e6cb87ea8c178cdd9e153bc51c5704c01c7a45d",
+      "unchangedPixelPayloadSha256": "dc2e0dbff8ff8386e6c4907527fa67a686fc0ba1fafde896e75c094a9d25efb3"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/121.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "76b15825bd2e91d94d91185496e542236735d53ce133920698f7fc8c6e87c014",
+      "modifiedSha256": "80fafe80e250825a7fd4c61de8dc852f3fb064ab6a49e87e60b16230d6a9db3b",
+      "unchangedPixelPayloadSha256": "cd8478f0f8f4d1e8e54b3af70ee30b684c63feafbe1c4d0a0cffbde62e534013"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/124.tga",
+      "originalHeader": "000002000000002000000000210018002008",
+      "modifiedHeader": "000002000000000000000000210018002008",
+      "originalSha256": "769ae87cd5b1a17f4f0202c9c6afa6fa450196fae2ce00091aad8fc435fe842a",
+      "modifiedSha256": "71e97568b6052f8200a082d85094a5c0a21217d3ce09e89033b3f9b87f9eb538",
+      "unchangedPixelPayloadSha256": "9b1e71d89e084cd3a2de72d2afd59554932bfc5f730ab7954e909c385cb05ef2"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/126.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "1eb013086bfb4e8509c4200e80c2b5376e704e9598a66233eee7848a12b926cc",
+      "modifiedSha256": "c9fbe9470dca59d80d6e2be48a936656bf44f5aa011a02796df9076065ab29c8",
+      "unchangedPixelPayloadSha256": "ae6d7ac190a59589c471b15e0d848dc22f2e177f2668ca82bc2ef69f330636a0"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/128.tga",
+      "originalHeader": "000002000000002000000000220018002008",
+      "modifiedHeader": "000002000000000000000000220018002008",
+      "originalSha256": "f6c7f05e5e6725a740a05e6f111dc7b0ae0d462e8129a81c8702f7f150ba594e",
+      "modifiedSha256": "b6ff0b20eb5a108722881af95e1911ccf83308b32192f957212a2069f7936d4c",
+      "unchangedPixelPayloadSha256": "14127ee0c712414e93fdd90d8685ac1fc2246b8585258ae3512e3606ccaf5a17"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/13.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "5b5b6f94250ef5b93e1ecdf510b7d61f6c88e208c111384cab5c9f7479aa911d",
+      "modifiedSha256": "517da5cea401991e807d5381ed00b00338bce3712cc86b9073c413016124231d",
+      "unchangedPixelPayloadSha256": "a83d0161e1804c8525d381b125c72fd06344213608fced52e494dfefd86a89e8"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/132.tga",
+      "originalHeader": "000002000000002000000000210018002008",
+      "modifiedHeader": "000002000000000000000000210018002008",
+      "originalSha256": "be02190c84d6618d5aea3c4acf7799bd2c24285e4c46b3812b6daa6456efae6c",
+      "modifiedSha256": "2c8092252ad321069bccdec5f202efbdb361f4c60be9b17ff439a84825462194",
+      "unchangedPixelPayloadSha256": "44054b602c3f588cc2ff3584b1b716826e57afe74ea687e9c970ae850087fde4"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/134.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "fc40537f6ccd0abb7663bee77c2d25fabb0a554ebae3fd1545f153ed084a0edf",
+      "modifiedSha256": "1900068ed8f13bf33eb689a0b19499afe8d8902d407d2c4b590c409b7e41206d",
+      "unchangedPixelPayloadSha256": "c34a2705eb9576f99600f01c4a12906d917526a5b9a232b34b623ac926390a42"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/136.tga",
+      "originalHeader": "000002000000002000000000220018002008",
+      "modifiedHeader": "000002000000000000000000220018002008",
+      "originalSha256": "c76923480ab35fe93897ba871d445ac1ae7e7d0ee0b233c697592dca26c7645d",
+      "modifiedSha256": "7ef13d5d4653058329598cb70594168c7336132d10cf96d1a7dfc74335b3ca2c",
+      "unchangedPixelPayloadSha256": "a741da4a53d6b18c9f1db91364d4e7fce920553f2868ff47ba8cd7ba4e0e7200"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/140.tga",
+      "originalHeader": "0000020000000020000000001b0017002008",
+      "modifiedHeader": "0000020000000000000000001b0017002008",
+      "originalSha256": "8633ab76d0044a257ae01ffee72e10fd2d5519783539879535e46a0102714682",
+      "modifiedSha256": "c66da017bec1f7d1710aa18315f9b21337149bc3740adb4372f411a1f3328f8c",
+      "unchangedPixelPayloadSha256": "59c0810b2e8bb8b62006940bb092e23a962999bd4f7088e8e9de5b8b416fb0b1"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/142.tga",
+      "originalHeader": "0000020000000020000000001b0017002008",
+      "modifiedHeader": "0000020000000000000000001b0017002008",
+      "originalSha256": "4a9bff590c5f0cf99c1f81f0957f515ff6cc694c9ecb4756778e65a68941200a",
+      "modifiedSha256": "2e56e9f19f92533ad736d39b7a4ac96af62a96c35fc1fafab347b1db1119ce42",
+      "unchangedPixelPayloadSha256": "cb11278d1833ffb6c515dc9c273647ab808bea68523860be88d7c896e8645d7a"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/144.tga",
+      "originalHeader": "0000020000000020000000001b0017002008",
+      "modifiedHeader": "0000020000000000000000001b0017002008",
+      "originalSha256": "e379762903f3f0fe0b7fec8a4129be61eaa7e7f0d30dbe2edee7be2ebb78409a",
+      "modifiedSha256": "5fc84fdbf4d32978f9dc97090a05e6a24c108ba58f8c3c430945417307662bcb",
+      "unchangedPixelPayloadSha256": "d80fff992dd543ce8fb32c3a6aba4790a2f69cd0af84275c6979b83b9c6a67a5"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/148.tga",
+      "originalHeader": "000002000000002000000000210018002008",
+      "modifiedHeader": "000002000000000000000000210018002008",
+      "originalSha256": "7e47132b6e164e7c9d7fddb73f7beb010a33b9d08fa9d69c3071f13059588934",
+      "modifiedSha256": "e8e8a32b0729f322656cbfa5ba963b99fc02775e5514ee6273e35d2cfe812aa1",
+      "unchangedPixelPayloadSha256": "aad1d7a5dec14bae7bff42c607635e1fb7c45d02df8131c1a7aa60a8f1c1ffdc"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/150.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "cdc89e0622b8cab26a03ccbdd7d0973921d5dc9ae7a41071c7fca1298e2f74a7",
+      "modifiedSha256": "705a357028b321308e48d9608c55162b274ec45f0f984e28f29360257533e185",
+      "unchangedPixelPayloadSha256": "95543ba8e0f9751a2648cec96dfb77dc4f71f391e992d22979a691d5a5f6f070"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/152.tga",
+      "originalHeader": "000002000000002000000000220018002008",
+      "modifiedHeader": "000002000000000000000000220018002008",
+      "originalSha256": "c2df014b96e9c3af3cc64c1d7f5e995ae10ebbaa780766f7465af41e3d1b655e",
+      "modifiedSha256": "3a922ad21d184dbe381702709605e84bc7232f813c842cb8fa8aef7a6f84e13b",
+      "unchangedPixelPayloadSha256": "eadf6ee7732320f7a3f32f8283704cec33b044dec904bf20fffb248857280535"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/156.tga",
+      "originalHeader": "000002000000002000000000290020002008",
+      "modifiedHeader": "000002000000000000000000290020002008",
+      "originalSha256": "5282439d5b3a5b858c071a578ad50207ca70ab718506a775d91140c73e1ff444",
+      "modifiedSha256": "9cc8b674f85ff8afb702b3d7636660fe1331c3f17a9edef9625772c648cdbf31",
+      "unchangedPixelPayloadSha256": "fae161132fe3aaf2387097e116d3163f4b4fb50b9b39e91e7656c5d6776f9b72"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/158.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "7f7b44354e5c45ae45cbb505ddc093fa8d4fe1e824f1371d90cf1dfa7de9bac9",
+      "modifiedSha256": "c3f72203f781e986129ba6ed56fe645ca41f496a30b6cac8f470fed578496802",
+      "unchangedPixelPayloadSha256": "833d18b9b57dbb399c9eb7442d5f71b338aee9b0987cc62de8e418946399f0d6"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/16.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "3c1e1874c67eb8bf4217bb23b4e3a430e548b26d3d22c1b3539fca226d3d95fd",
+      "modifiedSha256": "ce0c00d3406a7ae9f0f2d1137d8f04fca77b5af42a846167e184deb4af369b9b",
+      "unchangedPixelPayloadSha256": "ca6215ce05321609e30ef1d989bf74b62a99f1e047cbfc6cb8916fac51006697"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/160.tga",
+      "originalHeader": "0000020000000020000000002a0020002008",
+      "modifiedHeader": "0000020000000000000000002a0020002008",
+      "originalSha256": "4147701571e9f3c0671ad4c6ae90826939661fbbb1d593e9ad56448d358cbab3",
+      "modifiedSha256": "d16cd9f37e5e7757af22b6179e1b05f154be33efef3f8a8100eeb087a87b34e3",
+      "unchangedPixelPayloadSha256": "5c9534e744b4bf82e1bfcf7c4d7aca8ac4feb360e81fbb1834b99b78541ea0af"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/164.tga",
+      "originalHeader": "000002000000002000000000290020002008",
+      "modifiedHeader": "000002000000000000000000290020002008",
+      "originalSha256": "2dea2df1ade9ad4bf1ddbc4a421662cdc33085ae12de35c1ab0d0c10d5bcf552",
+      "modifiedSha256": "ff8f65089704aada03e264a70f6100ce49b673013aaf3f93c1fafccc1eaf5300",
+      "unchangedPixelPayloadSha256": "4ef5f878ecac1505297f07d83c09674244054cb9477ef019cdb1bec1700e7c85"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/166.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "c748e0dfaeedf3cdfe1fac79e2b99c468bbe37e4f9db7c98545c2d19fe883727",
+      "modifiedSha256": "4c2bd05c5e5707e20cc28d6dbc612b24d9700eb9b580be2a512cdf07ed3ea262",
+      "unchangedPixelPayloadSha256": "06f52c0b9d3e77087318bf377c11628bfe9121e9b9676a4814ee6564b04e9e6b"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/168.tga",
+      "originalHeader": "0000020000000020000000002a0020002008",
+      "modifiedHeader": "0000020000000000000000002a0020002008",
+      "originalSha256": "6dd8ef4200cb5dc283443709d322952b04f92262b968070df4b2a959716a0fd2",
+      "modifiedSha256": "9c03c3871bdce8e5c049f49c37337f3b63ce1135833973727052d81903dbcca1",
+      "unchangedPixelPayloadSha256": "adc07b1dd9cc0f4433a2b22ce0acb22971d702c29f9d5ce2fa06eeab083ea362"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/172.tga",
+      "originalHeader": "000002000000002000000000290020002008",
+      "modifiedHeader": "000002000000000000000000290020002008",
+      "originalSha256": "1d78baccf8b70c44ab0e9fed5a72a9bf66e11f5562ff2022f84bad623a524f7b",
+      "modifiedSha256": "3992477f647acc3f14fe478471ae4b289bd7d807134d8939456a1cf1fe1073ce",
+      "unchangedPixelPayloadSha256": "b469e4a32ca3b989db04ff5695a217f8f4b3790915eb9dd16cfb586d7a7ba2e9"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/174.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "00829ba3b80bf0744b4465447054ef7b41e03fec638d8f5d376525d52372d483",
+      "modifiedSha256": "13a72e9bda970abf91d916426351784401f636b2ee1be39f4beba1dede4d25a9",
+      "unchangedPixelPayloadSha256": "78adbe6b8613f2608bd2b7c9006485e51e5dccb6a8d6037d40c73df7be16028b"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/176.tga",
+      "originalHeader": "0000020000000020000000002a0020002008",
+      "modifiedHeader": "0000020000000000000000002a0020002008",
+      "originalSha256": "71bb9b07342714ec5ed346a0babf9d1795be974d94a8c4bc77ea70ade6645aaa",
+      "modifiedSha256": "1d0bfd4ea3962b5a2192a673275df50a56faa436976653abd4360d8932f757b1",
+      "unchangedPixelPayloadSha256": "471840c536a0b11ada71b0b9989fbffb97efcdf591e2057f268864ddead702df"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/18.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "9681963dc0170928b5dcf99c4b9cebfb21528d27eeb57f185b738d8fb60796c7",
+      "modifiedSha256": "fa68cb46fc29db6a33e49981d1ba41d09848f8cbb355c990db3a5d62e5971784",
+      "unchangedPixelPayloadSha256": "4ec148d871fb63f9905a15009f21eb08be3d970b6f4a375b31231a206ab50cbb"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/180.tga",
+      "originalHeader": "00000200000000200000000022001e002008",
+      "modifiedHeader": "00000200000000000000000022001e002008",
+      "originalSha256": "fc60869d12cf6a660194984d5a5265a7b2be50ccc24334ddf3bcf0653f58e939",
+      "modifiedSha256": "febf7a111207dad0bc930ffedb3a38de4e14a19e5ba0ed6951b04fa112bebd7c",
+      "unchangedPixelPayloadSha256": "fa5b7f1845c984d06fcc20c4a56536c7acbfa9c587546d761956bf0acf4281c5"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/182.tga",
+      "originalHeader": "00000200000000200000000022001e002008",
+      "modifiedHeader": "00000200000000000000000022001e002008",
+      "originalSha256": "15000b379e9f51c4ce5f77fbcf7c71b191176a8b55a157be56f92c9d084fa1f2",
+      "modifiedSha256": "33ec86df66f9c4a4bd4515eda41f02055dfe65ec78bd7aba5f1bd704e71710b4",
+      "unchangedPixelPayloadSha256": "74fdfddb747d6bf3ada39419f7c9ff9703551ae9b4128e040f494223a888065b"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/184.tga",
+      "originalHeader": "00000200000000200000000022001e002008",
+      "modifiedHeader": "00000200000000000000000022001e002008",
+      "originalSha256": "57fb608485fad5ec5a79c7941001f69c0ac1b70615664995e8a879526cee9449",
+      "modifiedSha256": "d18e71dbba0b96c6fcdc070a6b55aad2d66b9de024d9fbc1ae4b54a41c9b9b59",
+      "unchangedPixelPayloadSha256": "1efb485a2f19da3ddfece639a22efb9d6091e4dfce5289f940065c2cfb792024"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/188.tga",
+      "originalHeader": "000002000000002000000000290020002008",
+      "modifiedHeader": "000002000000000000000000290020002008",
+      "originalSha256": "739bdca0d2b34aeaa71d78f20951181b1c83b576ef59435a9313fe86689e4295",
+      "modifiedSha256": "ed4e887c6735f803f87a8fa12f8d62ec9a0e2ffa3f25e3d2c999a7e7841d4f19",
+      "unchangedPixelPayloadSha256": "9415d11eb64f5d225916b4195b410b9e8eac73cc990a01ad6fe9f9c6adbcfa3d"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/190.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "a7157e2b3ca802c0d7a4b99d7d3956bd4b4245d6e0dd5bf2d5de628a88af2abb",
+      "modifiedSha256": "63dbff4ec758ad13b67567da1feb093fc2ab2176a5fbff46074108cb1731a836",
+      "unchangedPixelPayloadSha256": "a4587e7fb88b668a86fe7120f43312d825fce5fd120d3093a0b32f6a65f899de"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/192.tga",
+      "originalHeader": "0000020000000020000000002a0020002008",
+      "modifiedHeader": "0000020000000000000000002a0020002008",
+      "originalSha256": "3c032874a5c0e3107ae25d218a7e2989ef8f9c9678787ca8e6973596276e7083",
+      "modifiedSha256": "083c11bc5ba3a4b3b155b96a0955df7997021f28ec262510b5a904a327d1bdf9",
+      "unchangedPixelPayloadSha256": "896ced48242e0a9b3f262eccbd422a9ef02deb3d6de122268699c867172549e9"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/196.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "32baf9ac838dd164c33d9f6426e3603dfa8ae21410268fd7ce742271c4cd5706",
+      "modifiedSha256": "a708cb3c969ec5a7613fa42748e3eb503b4808475f6f0ffa4c9c8374bca6eeaa",
+      "unchangedPixelPayloadSha256": "c8327da80a08ecb0b62e0b6ad2165fe05579780bd2998f1410118f017947bd0b"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/198.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "c943f7e2bf5477a477f9ecf2d6e0c33c3403f32aae596e2dd66a7e8f5ba34229",
+      "modifiedSha256": "4ac023b41745832c882bfef158563911f189c03aee18a007177ca7d0d9ff461a",
+      "unchangedPixelPayloadSha256": "9d71fc80d02eebdbbb8b3247bb16a15f8ee280baa1087363092777caf2feb713"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/20.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "db1f9d1d840eb73de64e7266821a9ebe134fcf589331379f44482f9b7ca87984",
+      "modifiedSha256": "5a125e37bd6422099f21c224c6415f6d0c236354608f2d1e00fc2eb153b65f07",
+      "unchangedPixelPayloadSha256": "b5c7871abf876504a91f02defc936c3c86cd1e7bd5028a77bf07bb097b16261c"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/200.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "50fddbe9cf07728bdf25f46df888c0d9586b5f0e0e2f2dc24a57842a26245037",
+      "modifiedSha256": "907de67b434b01f0de65f9f55538a2690e24d3d126136855cd99e2f5b5e7606f",
+      "unchangedPixelPayloadSha256": "64fa321283ae4ed690dfcac8ba52855e87856db14dcaeb1df0f2c3932efef0db"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/204.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "5b526869e974f240cbd868fb30ccb0afe2d7102ea779d31ccfdea863fcaf8590",
+      "modifiedSha256": "8fcb9c38d239ee60f8f96d664ca8b23a7f933ba9a13478565ea450684ba859a4",
+      "unchangedPixelPayloadSha256": "d31f6f926db1f36df4d7dfd940bb46504315adc131239fc32160878995d876fd"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/206.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "e1611132bc92df5ed61ceb8932ae96f685ede7523e2f4aeedbe414c024682a69",
+      "modifiedSha256": "6623c19dacbd8da87787b42b65407cbc4e919e19ea40d8050b25d9a0ef4e5143",
+      "unchangedPixelPayloadSha256": "fe322cf2637fe14ae0f3e112995d7ae7fd7800effc689ad34382585fb771f899"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/208.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "e5e1d68bb05b6df3a74fca7191b15c2d70476ceb24c86e0620d74305fb2ac53c",
+      "modifiedSha256": "98ddd3288bd23bac8ddeb74dbfd2e4d5c33c58144690cf08a69c2436fc3b9230",
+      "unchangedPixelPayloadSha256": "c2299dd8524c71313f8ded9a9fa6da5332d604a34c31ed24a41361584f376f81"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/212.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "ea1917287014ec154360b20a5d7c6a65fd1f3ac9bff25342734c06743d007170",
+      "modifiedSha256": "d465a6cdb83431e0d2e30cdd2844b06c0b2924bdab03e83936c46897a604b841",
+      "unchangedPixelPayloadSha256": "3a08ed61982daf480508b15b1b2b3974f043b14e68709845c73b3af297d620aa"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/214.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "8f2b53e952af585eb7ba558d1ce290b2df3f42c2367da6ecf217e684b97952a0",
+      "modifiedSha256": "c4a6d2268be160d103860cc6e28d59747ccfadd3b2720fc0504db642bf87f71e",
+      "unchangedPixelPayloadSha256": "de6bedc3cb7e2fd84c97fa9926ddd3f153d19a47b1ebb28c64373a8682f628c9"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/216.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "eec5778102fae8dd4731b4bb3d0ff8bd841d0799910ae7309318a004f9a651be",
+      "modifiedSha256": "8dad2e96d691068bcba2ca782423deb32474f8526e46e5b01d054f6a7fa70b33",
+      "unchangedPixelPayloadSha256": "adbc430c771e4e14ee7a9d8505be80c899b241e9343fac3a156775420d9d7ff1"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/223.tga",
+      "originalHeader": "000002000000002000000000f70045002008",
+      "modifiedHeader": "000002000000000000000000f70045002008",
+      "originalSha256": "711fcd88da1e9e8509efddfdf7c8c59c5aa3b4253132a1b0f2a81588316971dc",
+      "modifiedSha256": "628277d2a69deb713a9a1123f6cf3ddc9dab80bf6efbdf7cfb4070a5ba7afd0b",
+      "unchangedPixelPayloadSha256": "16c0dc80d68cb6843bdca7bc87db2fd8570f067a90bb91dcd40cca991ff23ea1"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/225.tga",
+      "originalHeader": "000002000000002000000000f90041002008",
+      "modifiedHeader": "000002000000000000000000f90041002008",
+      "originalSha256": "5f178c0eb7ae621a8c61760aa31d19a81a378fa3e1c10362af3f62d14b67e649",
+      "modifiedSha256": "a9ecb36b183758aa30d60277992a71dd9f12313c8746cdf1b372d12cdc965aa0",
+      "unchangedPixelPayloadSha256": "5d822ea1d71ed8f91b798c307bf4ed39af11f8821e0507bf38cfaa6cd1efb444"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/227.tga",
+      "originalHeader": "000002000000002000000000fa0047002008",
+      "modifiedHeader": "000002000000000000000000fa0047002008",
+      "originalSha256": "934d80ba2cdd476f81aa029a57e084b00235bb80955d07c9992dda63b3e78a9b",
+      "modifiedSha256": "6f035caf22c7cdcef90ad4f1169f4c15cc2c6858b21c08d11f0f2dd77a07fa88",
+      "unchangedPixelPayloadSha256": "cfb9658c36de797f114c95ede7bf584fc736d9f840bdc03e54c126f40504edb3"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/238.tga",
+      "originalHeader": "000002000000002000000000170033002008",
+      "modifiedHeader": "000002000000000000000000170033002008",
+      "originalSha256": "3c6babc5b8d134fb6d2f790dd91e25df677781c2ff65e14e33d3efdded0bf191",
+      "modifiedSha256": "70151078610404a7d3924dcac81eef4184a59c57304fef7ddf5c0f7c1533b855",
+      "unchangedPixelPayloadSha256": "6ff08ab317dc7652fe6ff62c0216806be6561682d688afce14f043107c7bdaae"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/24.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "63fa9db8802846fa2005d6b0a082cb2f9c105bd3f8f943bf5f76e9f16b751104",
+      "modifiedSha256": "5ff686141ebc3d42aa7d742843598cbee952d69ae18d6abbe1c77001faa0a4c6",
+      "unchangedPixelPayloadSha256": "414ea1e3d1cfcf07ba41a13feec6a15e441065870a3d1051f2dc33f62cb09f87"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/240.tga",
+      "originalHeader": "000002000000002000000000170033002008",
+      "modifiedHeader": "000002000000000000000000170033002008",
+      "originalSha256": "53713f67e5935b4abd9df31b4dade209950187786ec125cd2c3d2c0375613e2f",
+      "modifiedSha256": "b64ec565a870b3d6e302677952e66c469cea3420d96536ec6f6ae2481c9e3a57",
+      "unchangedPixelPayloadSha256": "bc5f5876713957d5849d3971da3be1b2f7670cabb4338abbe93cea53ce8a0fd2"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/242.tga",
+      "originalHeader": "000002000000002000000000170033002008",
+      "modifiedHeader": "000002000000000000000000170033002008",
+      "originalSha256": "06580b0e99884294aec66aaf4dae058c3268edd5fc65f32d2b4accea041709ba",
+      "modifiedSha256": "0484bc523c26aa1c93e61a9aa52a58a7d0ec8a25b362e55967211ecffe33b375",
+      "unchangedPixelPayloadSha256": "e671974cea1e74384d26770749eded8ed954150b15a80bdc1ad13a1829278de0"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/245.tga",
+      "originalHeader": "0000020000000020000000001f003b002008",
+      "modifiedHeader": "0000020000000000000000001f003b002008",
+      "originalSha256": "f8a76ceb19513f3d6656709d06ef47fb4595f06c6316a34a7db93ed897be46d2",
+      "modifiedSha256": "5c9eb76924c4a288542670cc4480709d1bb23c4dd3765e46983be206e2725ecf",
+      "unchangedPixelPayloadSha256": "3056fabc7f077c0b4fb291cd7a00c362f0d7a764e4f3874d0fda2f4b90d77ef4"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/249.tga",
+      "originalHeader": "000002000000002000000000170033002008",
+      "modifiedHeader": "000002000000000000000000170033002008",
+      "originalSha256": "d5568438702e07533a1ead7fa63c210d87aa7ca38032bbee365122f58451c78e",
+      "modifiedSha256": "00dca929b3ec00258a34675f6124518b26dea875c7fedf01fe29ecf92b3415b8",
+      "unchangedPixelPayloadSha256": "45981b85a3c043166c7feb56f1ca997d9c6ed7ab0140b709f5f33482d7756a5c"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/251.tga",
+      "originalHeader": "000002000000002000000000170033002008",
+      "modifiedHeader": "000002000000000000000000170033002008",
+      "originalSha256": "47158bcd08a727bc8d4acf6b4a09cba5daee72757cd99259636864f857cd2913",
+      "modifiedSha256": "0fc38e0c7b3b351b6604bf6c2de18eca2d6034d013f315695ef7edc69dec2488",
+      "unchangedPixelPayloadSha256": "360c4438c996c6392849877c1e33d46f2a02e1a6b717a058b78c67191fd77ef3"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/253.tga",
+      "originalHeader": "000002000000002000000000170033002008",
+      "modifiedHeader": "000002000000000000000000170033002008",
+      "originalSha256": "63c53fc8a51e55d7ddd93930ba98a45b1999a682f5fec7c0f6c53718617be3fb",
+      "modifiedSha256": "3bc2093b412ee82d2970986f5f1eaf6f4a1ecbe9e3b7b8a0d424546783a931fc",
+      "unchangedPixelPayloadSha256": "ff9b0125627b4fbec968429620b578781ccacf5a7589128f7655d24d29041c9c"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/26.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "dcfe53646c9065e02fc812c38431c9aaf2b4028078080ce9bb6e87ba55e983bb",
+      "modifiedSha256": "9dd759a063239141e17e7f1cf93a4d89dc65371c64a7a31b271e3e3cfc17d873",
+      "unchangedPixelPayloadSha256": "0c3c493c75560fa2d25a1fc05250af9eb3c73bdb293abb941d05eeb1a9a6166c"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/265.tga",
+      "originalHeader": "000002000000002000000000c4009c002008",
+      "modifiedHeader": "000002000000000000000000c4009c002008",
+      "originalSha256": "b2df0b13e48ed09820d3341e8b2a6cbe0fe0e9bdb0de561d25358dc9cfee501a",
+      "modifiedSha256": "7a436c99b8bc5120c5822fe242e960295f8ba88c958246ded87ed6232c2de626",
+      "unchangedPixelPayloadSha256": "0b148de95e3f4be437f186f0136a89e516777b8ad2d65d390614c0b3533e65a8"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/267.tga",
+      "originalHeader": "000002000000002000000000cc00a8002008",
+      "modifiedHeader": "000002000000000000000000cc00a8002008",
+      "originalSha256": "f8a8192341505736aa15b90400d07a819f41d5b485cfe0be355937205c5094b3",
+      "modifiedSha256": "4ac14186a6f93487786be82aafa534795af26a8a6d722895d6875c2203c0873b",
+      "unchangedPixelPayloadSha256": "f5629dca6f904dc3b2ce247a90e2f176b9bc16a6315e55f7ea5ee735e47bfb24"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/269.tga",
+      "originalHeader": "000002000000002000000000c500a0002008",
+      "modifiedHeader": "000002000000000000000000c500a0002008",
+      "originalSha256": "15215f2ad5694b4e3105ec969b8bb055de37935799e3bd0f3f1ce61769e33942",
+      "modifiedSha256": "57a537620f27369cefec6bef0c281b2839d7b1a77651cd90fc7c1382689e4309",
+      "unchangedPixelPayloadSha256": "72f6431ccc281f8c5f714f0c331eddc2ecabd1ef112655a12191a89169f49a6e"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/28.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "3802f355a850e418502c3d94cce832a68e4797f9021f15a7601770e67b7a87ec",
+      "modifiedSha256": "95f145c6de084154f2191575450035cc85fd14e6f6ba8102debd059a0a8ac1fb",
+      "unchangedPixelPayloadSha256": "a7dcf051ed2d5c4d12f911d1570f016b8cd4e9569cfce14d78ab7d6ab767498d"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/288.tga",
+      "originalHeader": "0000020000000020000000005f000a002008",
+      "modifiedHeader": "0000020000000000000000005f000a002008",
+      "originalSha256": "45a5d670f702e05099c642e443d05e4fdbca53d1e4a3ddae7a3e6ba5cfd719d2",
+      "modifiedSha256": "1a02364d801ca4fee843d186091d31d437d65c806ba68b4ba2eb9e3816082ec7",
+      "unchangedPixelPayloadSha256": "f959b6ae9d673c2a77b90d5a823037f20335479b477da542e7b5101d3c5b5b79"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/290.tga",
+      "originalHeader": "000002000000002000000000b80008002008",
+      "modifiedHeader": "000002000000000000000000b80008002008",
+      "originalSha256": "604533bc2d3b58057675c1b796e75130fc331a5a6263f0be6fd36c74130fcba6",
+      "modifiedSha256": "73461958586ca97fcd0a1d1c5785a305f4fd90c1d71764d0d9f002bb23fa519f",
+      "unchangedPixelPayloadSha256": "e627a91d2f8987e4562cd24168a707badb5b95d3a41c78085df0b1635f950c2b"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/293.tga",
+      "originalHeader": "00000200000000200000000013000d002008",
+      "modifiedHeader": "00000200000000000000000013000d002008",
+      "originalSha256": "84318fe16a63c5fe7056b35f77b0778a50c9e13bd865f305b5727fb0525d5ed2",
+      "modifiedSha256": "ccbb4e3b09073f5bb4f93091e40330dab1fc78455821a52915768aa6ea139ba5",
+      "unchangedPixelPayloadSha256": "38843ddfbc6917c8fc4c8a7af620f0ed98610b897b9aaf8428ce72363566890b"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/298.tga",
+      "originalHeader": "000002000000002000000000110010002008",
+      "modifiedHeader": "000002000000000000000000110010002008",
+      "originalSha256": "606ec759a4c056bea4ec396fa9640c5ea8ab39f827cbd72eab9f8e7077a7d273",
+      "modifiedSha256": "99b64f959425db7c4ea971555ecfb4d27f7492ec11caab3a7a54aa3aff0027a0",
+      "unchangedPixelPayloadSha256": "efd1290bc58c4d0250fa995054fd3de1c86a6e3915a46313bb8c2f069fa00c73"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/3.tga",
+      "originalHeader": "000002000000002000000000060007002008",
+      "modifiedHeader": "000002000000000000000000060007002008",
+      "originalSha256": "a653e98600d7e65b11c168baf7ea3764b57d2510bd4f2b67736f7b34886e4d80",
+      "modifiedSha256": "0d40907625cef0c0e02501b27fb3a4796633bfd7a3bd88898f8e083e44331f79",
+      "unchangedPixelPayloadSha256": "5932d0a31bb8b4547f30a4ec8f686d2e9e1a989182212ea49842b85eeb0dfa6c"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/301.tga",
+      "originalHeader": "0000020000000020000000000d0009002008",
+      "modifiedHeader": "0000020000000000000000000d0009002008",
+      "originalSha256": "05d5a905d893d80e5f465ffdf907cf628d607fddbc6ac6881faf58f3aec7ceae",
+      "modifiedSha256": "2b5e34dbea2610a717f0bad6fa7c4787d499db63128a038d96fe62d0752af29c",
+      "unchangedPixelPayloadSha256": "64bffdbc656efc3e9be3dac991f8dee30bf05a67a080d96249d9c8fd73fd34c9"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/308.tga",
+      "originalHeader": "00000200000000200000000065004c002008",
+      "modifiedHeader": "00000200000000000000000065004c002008",
+      "originalSha256": "e020a473dbc16091525ab37f2cf55e98e752c09f6ba66a253d9c0db1f976ef7a",
+      "modifiedSha256": "ae3298cae0f2f92881ebe6410eb5c41d126f7d76885b07a6787f21ca5a283c96",
+      "unchangedPixelPayloadSha256": "df3c9e4f7175b34ba12a311a2b00300707812f68d9d10e7ba60054301dde59ca"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/310.tga",
+      "originalHeader": "00000200000000200000000065004c002008",
+      "modifiedHeader": "00000200000000000000000065004c002008",
+      "originalSha256": "e3ac165ad6a3fc46f1da128a1828796b6cea9d96e74e148abc113998baf9022e",
+      "modifiedSha256": "5f452580b70349f9ffb61c8a3876e3292766b667fd8c5e3d6eefa7ec923e2e82",
+      "unchangedPixelPayloadSha256": "b435f7f0123b8bb9cfdd0ee6b50ec1a453c963df5a105b77fca214a481a0b71a"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/312.tga",
+      "originalHeader": "00000200000000200000000065004c002008",
+      "modifiedHeader": "00000200000000000000000065004c002008",
+      "originalSha256": "2b09f567175158bfbb8b64ac1611f45b17339ed0dd22d9907f6ae6096fcdd113",
+      "modifiedSha256": "03e831d2486ea92e09eac0f80868906367de585ef0dd205fa9f0e2d333695c01",
+      "unchangedPixelPayloadSha256": "1370ca56e4183566baddf9a8a5f4fe24a901fdafac79aa00f2e72ff4e965c59d"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/32.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "63aea0d4fb0bc4ba6bcc17d72a89ff9cb3bc0f135f3b01fc31c70155c856fb74",
+      "modifiedSha256": "b51c698f542e8d8c63c23db5446951320ec2950b5386b5951d8cb17e23b7ee4f",
+      "unchangedPixelPayloadSha256": "ba1b2990fe78e72fd60eb11d4c2e263336efd125a82b2eec721a5b16349272b7"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/34.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "eca6232efcfdf289fdc126b0677dc46e3ba6e4d7c8ec963339256d85460c47dc",
+      "modifiedSha256": "cb46cf14362a9f9672fad83799a7e982820a76894a8b2ef6ef6fcf77366d7627",
+      "unchangedPixelPayloadSha256": "eeeb4719518767bbd4ee91d4f9aee16a9a1ce79bb2b34ab5c579cf175e06b78f"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/36.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "133cffaaea1b39239d0e95a663cc51418bb993eee8e521150ec44a2bb48a477b",
+      "modifiedSha256": "3fff3a13bdb05e5f8ac3a802b6bbafe8c973b6cb2ddc6c8c7b7b9e68f26cd9db",
+      "unchangedPixelPayloadSha256": "dd09cc0f6af27c5656ace2ac1f97cdda0db094d9dacc5743fc47d05ba938c70c"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/40.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "fa56aff1e15172064a33e4b6c2582087bdf415612ac12855d3eb2b0c82d8667c",
+      "modifiedSha256": "f20f67014b1179e75c2aebee4646ea34a4130d77257da6c28434841d767d2ca8",
+      "unchangedPixelPayloadSha256": "608259f667378809414ae06419f23eb00e20da3bac571d9cb52f0daa6cb6e541"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/42.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "01fa8516c8b6f679b4976c419d947bba10e95d659dee2614d8d264edcc8ff96e",
+      "modifiedSha256": "486cbe54fc724aa7e7c683dc92c89932e91b9bb1a1b0167fd266dfc48e268f33",
+      "unchangedPixelPayloadSha256": "c8ea6bdda9d96d1e8b1e9fe18afaa8500fe6ba38aae680b3091e906edbd51d34"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/44.tga",
+      "originalHeader": "0000020000000020000000001c001c002008",
+      "modifiedHeader": "0000020000000000000000001c001c002008",
+      "originalSha256": "88e9e1f6536fda8037f71d3241f8f9633c59e854d9888099e548fb9b6b5492d6",
+      "modifiedSha256": "0da527a636556412219051a34d168dd7b15c8d93c7264275005fca11d3e0f0e4",
+      "unchangedPixelPayloadSha256": "3f3e49efbf872dffef99c40c61d87b9b0c71f3c39e42c627a2ba03668b3d456f"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/48.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "97918a3df96f8a0246537b974bcb75698faab7b934af7299a643836ac4597bfd",
+      "modifiedSha256": "60235f91262ec65cb9011b14a3df883837e8d017a510f51bb74f62456aa820d6",
+      "unchangedPixelPayloadSha256": "673bd1bbf52220000942c59fb925bafa14a7c58cab085462c58b164c977a4341"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/50.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "bac01e1d81ff78514713c729962beafdc420ea33ecc41c4ba4d0dc96a6a0c615",
+      "modifiedSha256": "9ff185e3fbedf8bb2aab1d32a326b63e419ab19399417a36bf3b8afc902eebc7",
+      "unchangedPixelPayloadSha256": "29205e46414350ca08eb804f0a45c92bd778e06e8f93477c122314383ea977ba"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/52.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "f3c9856c491a402904edc7b06e44b19d7a6071f442f9123fb471593dd3850bb0",
+      "modifiedSha256": "e54464cf1756d778d7b4953072d369ff0a2ec94b36258209b23b03ae4ed9170b",
+      "unchangedPixelPayloadSha256": "dd6cdd1e390ee14e98efec0ef0661c97d263439ff888d487e776d0999aa2744d"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/55.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "76b15825bd2e91d94d91185496e542236735d53ce133920698f7fc8c6e87c014",
+      "modifiedSha256": "80fafe80e250825a7fd4c61de8dc852f3fb064ab6a49e87e60b16230d6a9db3b",
+      "unchangedPixelPayloadSha256": "cd8478f0f8f4d1e8e54b3af70ee30b684c63feafbe1c4d0a0cffbde62e534013"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/58.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "c8a22ebdc023b28449c9ee084312fa33e2933164c48ffa8e01db7bc1bc906484",
+      "modifiedSha256": "6ae514fca00b9aee7cd47aebb2ad0d6f87186bb793a3d98cce0dcfdb069bda91",
+      "unchangedPixelPayloadSha256": "c1b585a5d2ed39091a9546b4d11636c8853e7f813436ec5bad94b700da12b951"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/6.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "b4759e78f82511a61d771e49569929e1dbc5062ecc7d33aec5cd0fb4f3cb5939",
+      "modifiedSha256": "26e170623f055a9c51d9dc0f67f43ef3b933c860d31f677baa4873e8765320a2",
+      "unchangedPixelPayloadSha256": "d3bddb3cf993ade3ded91fb2042533597d4e60323b7ba258604d2b8e2635953b"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/60.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "10329cb2f365a918a5b07ba587456b669fe4d77cb379947649bd8fb98a10545d",
+      "modifiedSha256": "c3a020fb9a659eeb6275c051563f868785dcea591ee1120260299f31917ae180",
+      "unchangedPixelPayloadSha256": "1240b454cbd57075fce5f100d2538a06c52e084dfa5ecc11afb61b9929ad7166"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/62.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "ef64c23623c9fe616c07dea231546cff88363708e0fce447ae0c75b7788c2919",
+      "modifiedSha256": "9d0d6e9a5ceb5cb68c2ca1a05d61d032acf66142e4b1d0b8bdc31359e5f0b60b",
+      "unchangedPixelPayloadSha256": "baba99e374d70bc35691bd1139e4faab856e195dd7138e561eaf29e8cfbfcb63"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/66.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "be823b22ca758413873c2a04ee3997beb0748b737c38271fb55ac4828532399f",
+      "modifiedSha256": "96c8fd76a60279c6ab2bc87bbcd50f63f6be3458fa4e19cf27e1ba76f6e29b84",
+      "unchangedPixelPayloadSha256": "d2bf0f5a00d973d3e7a52cbec708f54cd4cedeee5b37f624a03fe9e5e1863a96"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/68.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "5475997b0546049b91f18e7605cd036dc448810d795deb5ae02df2e9903afe37",
+      "modifiedSha256": "607a2b31e98424be1ae8260b8beb29c661d446e5e0ccc8c6f0e0261201661d4d",
+      "unchangedPixelPayloadSha256": "8d11ac19378d6fa9bb68795c1793b2c7d33a791970329cab9cd82344451c7ece"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/70.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "f181bb972a281e279bac749b0dbec1335e428ec6682dd4850eaae126d0ab9693",
+      "modifiedSha256": "e7130df7c6c050bdbc93212e7ccd05f6b557bb9c0bfa88cb2150dde2cbc601d1",
+      "unchangedPixelPayloadSha256": "22e3e0796aa3a6932f5a9a6af83d5a77ac5e07cf1b4306c31d55057cd5090ee5"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/74.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "17f3bf240769562d7c02b9e8fd361ccf21eda76a3604b8ad4e88216f27cb626a",
+      "modifiedSha256": "398cbc9b98aa4382372ee70e94f8b3f0abde118269399cb680352e1a9d18ec95",
+      "unchangedPixelPayloadSha256": "ffa42cd5679403555e2d3fd474fed14a324167d66fa34698b17d33ba75bb8a9e"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/76.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "ef4c4128c9b0d7b7d0486f9a394b42efdf614d344d218397e46c2147a615fae8",
+      "modifiedSha256": "f48a4c6aaee74108bbdd1dcbb2926a3932ad897b988b17db4c45074f3ce9db24",
+      "unchangedPixelPayloadSha256": "cda3b1725802225ef1ef48324ba3e91aec2407674825290ca509398161395b66"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/78.tga",
+      "originalHeader": "00000200000000200000000029001f002008",
+      "modifiedHeader": "00000200000000000000000029001f002008",
+      "originalSha256": "919bee1164e6f234ec105ecd498a4ffe71a3ef374085790d313d14b364a8ef34",
+      "modifiedSha256": "b4230aa963a060d50d71b2e2ce69cf3dee8ed20912b57ae758bd12bd86f283cb",
+      "unchangedPixelPayloadSha256": "3a1fa2e517f72555cbb5dc76fd36b5dfc2180cd1791dda1d36e4cf004f58ea2d"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/8.tga",
+      "originalHeader": "000002000000002000000000230024002008",
+      "modifiedHeader": "000002000000000000000000230024002008",
+      "originalSha256": "f64414584d98d229a51669a3e7710498933ae4d83e2e40b932c3beba00eff503",
+      "modifiedSha256": "c2db7b39fe84d6f02e76b893462e719c046fd8e2c062bfc7c0bb61e75290cd3a",
+      "unchangedPixelPayloadSha256": "1db245c809aa384c0787d9a713152bae00ddab060da82775c0a174072c78e82b"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/82.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "415adee15cbdcdea7a4787167adc6ccb221f1bbd1f91ea3d04381d2913023774",
+      "modifiedSha256": "6654d67ba6ce0bae7c3019f9f144ad3176f3098f8e3c8672e062b034dc818bc5",
+      "unchangedPixelPayloadSha256": "6324add3613053acf667fb19e61eb79f0202d89b8f7a79ce0ca1b3ec616f0c52"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/84.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "85413cb7b18eec0400ceafc7b4dc514a1c990b82efdb282344c39bbd12d5d849",
+      "modifiedSha256": "37aa8a440bad5e6cf3c49cce8caeeb82d0f04341a79d0e61d510f09b0a51fdf1",
+      "unchangedPixelPayloadSha256": "b26970d6d296c3dd021ac34308f6985ebfcca213f59d021607aa3f1641698a53"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/86.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "97d855978fa00cd04ed298bd7832199d51c0c4f5ab8cf5bf4ce827b6a96edda7",
+      "modifiedSha256": "533ac8814a0d10f3513eadea5839711acb0fd54bf0c5be775674af5aa02dc608",
+      "unchangedPixelPayloadSha256": "a9e2ebe464deee6ef6ca1948b73e4236ab266445229ae1d20d8f88565a0e2255"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/90.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "67d0b21c3ef8391f4ada48455ef2a9d4e9d49d38aa039732df239820cb816ea5",
+      "modifiedSha256": "e1e3af971bc352ccf3ccfedc2c57346e3f81fe01783734a124558b2b526ff186",
+      "unchangedPixelPayloadSha256": "ca623335279ca5b8a4d86ea46694405224805b8ea46b460047b8294a08c3f87b"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/92.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "a6dfa4759cd0f12439943593ddf8b358146fce3bfb377fe045ea35324ed26a26",
+      "modifiedSha256": "857f9bb6a7061d60cdc46eed076e1556f38782fa76a26c26780457c711b79ec4",
+      "unchangedPixelPayloadSha256": "44980e6eb85510fac10b0b330c17aab56f4aa0cecf88e9ffc819349209ee2f1a"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/94.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "776f4193690f79cc05af04c972206ccf2b903c49e747126c81ca04aa8f9eff05",
+      "modifiedSha256": "3cdf219e634f70850f8f35c3c19e795ea3f0bed0de577974cf254022b418482e",
+      "unchangedPixelPayloadSha256": "f132bf9402045237e5dec1980395892b8dcb6754a57ef77be487a0f747df383d"
+    },
+    {
+      "path": "Data/AptUI/TacticalHUDSelectionDetails/TacticalHUDSelectionDetails_textures/98.tga",
+      "originalHeader": "000002000000002000000000210017002008",
+      "modifiedHeader": "000002000000000000000000210017002008",
+      "originalSha256": "be328a1b564a6a29ffd2c682055ff7a3384b19cef1fddb9ecdcb9c4aba1f03ec",
+      "modifiedSha256": "a9a6b996903a0124493fa87ea4eb9c31bd3b1ec0aa139ca21ded3cd88c9c9535",
+      "unchangedPixelPayloadSha256": "462105540fb57a59bae651871dbf20db322d70dc418598a70bf42b47f82b9c67"
+    }
+  ],
+  "removedAssetCount": 94,
+  "normalizedTgaCount": 234,
+  "originalArchivePreserved": true,
+  "baseTextureInputProbe": {
+    "compilerSha256": "2e04db720b2860bf337a66557572eb7ad2bc667b950e5a2ec69d81181c222b43",
+    "scanned": 630,
+    "unsupported": [
+      {
+        "path": "Art/Structures/VIPBunkerAll/VIPEMP.tga",
+        "reason": "TGA metadata must end in a recognized extension/footer chain.",
+        "bytes": 27436
+      },
+      {
+        "path": "Art/UI/GameSetup_flag_Allied.tga",
+        "reason": "Unused color-map metadata is outside the accepted subset",
+        "bytes": 15246
+      },
+      {
+        "path": "Art/UI/GameSetup_flag_Soviet.tga",
+        "reason": "Unused color-map metadata is outside the accepted subset",
+        "bytes": 15246
+      }
+    ],
+    "decoderSourceCommit": "8050f22de81539c65aeca3903e9b48f53a572068",
+    "basis": "Unchanged accepted production decoder source compiled separately (the mixed EXE cannot be loaded as a DLL), plus header/RLE byte bounds. Full pixel processing is checked by the subsequent actual CLI preflight."
+  }
+}

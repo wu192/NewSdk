@@ -1,0 +1,31 @@
+{
+  "runId": 40996371215,
+  "runAttempt": 1,
+  "sourceCommit": "b8e37a2e957f7a2465ad303110b92eec3269df4d",
+  "testSourceCommit": "b8e37a2e957f7a2465ad303110b92eec3269df4d",
+  "baselineCommit": "45d485d829170dc4fda3b3ce63b6af2759fc7ba0",
+  "status": "passed",
+  "sdkValidated": false,
+  "artifactId": 12952796827,
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/40996371215/artifacts/12952796827",
+  "artifactBytes": 91271003,
+  "artifactSha256": "e18a364095577101156e8ba80198696d18a8944751d055f3b6f6f414419b9d74",
+  "artifactDownloadedAndHashVerified": true,
+  "expiresAt": "2027-01-28T03:15:40Z",
+  "scope": "Seven original plugin groups, Debug/Release x86, existing PCM/XAS block and binary32 precision oracles; 3280 baseline/candidate boundaries; 21 long-audio full-byte comparisons; seven workloads x three rounds",
+  "preservedOriginalTranscripts": {
+    "path": "original-transcripts.tar.gz",
+    "bytes": 28853627,
+    "sha256": "d62c34e7e67261110b95ae00938aaecd1c8fc942bf38ffabcdffd6796a42001e",
+    "fileSha256": {
+      "pcm-original.txt": "b4796e12818135a543efaa9ac7f1002dd109c57d7399eb660db6798becbfaee6",
+      "xas-original.txt": "7680798b21f6c1225cdb783c6328c36a5c63b167e4e0780d640395f109df6845",
+      "loops-original.txt": "ab2e2ac08a2f3ee92c33e7406e44059fb2cf2eed2eec9ad04ad26bf9278e13dc",
+      "aiffloops-original.txt": "9f4dedc8997d8c8d366454ae538f12f8c3337476f49522be737f49a50164f92e",
+      "multichannel-original.txt": "d984ede43e31ec97254cc155583b16806612483ed5effcd226f858026dae0abc",
+      "multichannel-aiff-original.txt": "4a6d4f0ca4397795636bda7c03bb0424295445ba74c0a536d6b14ecda46a5959",
+      "resample-full-original.txt": "57ffbc774a9868799112001f839843f6d1ff46f02432a69829a7c8902a907549"
+    }
+  },
+  "trackedTextNormalization": "UTF-8 LF with trailing whitespace removed; complete raw ZIP and original transcript archive retain original bytes"
+}

@@ -62,7 +62,7 @@ class XmlattributesOracle
     static void Reject(string text, TargetPlatform p) {
         var xml = new XmlDocument(); xml.LoadXml(text);
         var ns = new XmlNamespaceManager(xml.NameTable); ns.AddNamespace("ea",Ns);
-        try { LogicCommandSetCompiler.CompileXml(xml.DocumentElement,ns,p!=TargetPlatform.Win32); }
+        try { PluginSchemaBoundary.Validate(xml);  LogicCommandSetCompiler.CompileXml(xml.DocumentElement,ns,p!=TargetPlatform.Win32); }
         catch(NotSupportedException) { rejections++; return; }
         throw new Exception("Accepted unsupported input: "+text);
     }
@@ -91,7 +91,7 @@ class XmlattributesOracle
     static void RejectGeneric(string type,string attrs,string children,TargetPlatform p) {
         var doc=new XmlDocument();doc.LoadXml("<"+type+" xmlns='"+Ns+"' id='Oracle' "+attrs+">"+children+"</"+type+">");
         var ns=new XmlNamespaceManager(doc.NameTable);ns.AddNamespace("ea",Ns);
-        try { Compile(Declaration(doc,ns),p,type); }
+        try { PluginSchemaBoundary.Validate(doc);  Compile(Declaration(doc,ns),p,type); }
         catch(NotSupportedException) { rejections++;return; }
         throw new Exception(type+" accepted unsupported "+attrs+children);
     }

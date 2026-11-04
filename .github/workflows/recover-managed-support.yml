@@ -23,15 +23,24 @@ jobs:
       - name: Recover complete C# projects using pinned ILSpy
         shell: pwsh
         run: ./recovery/scripts/RecoverManagedSupport.ps1
-      - name: Preserve source and recovery evidence
+      - name: Summarize CI evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/managed-support/${{ github.run_id }}-${{ github.run_attempt }}/*.json
+            recovery/evidence/managed-support/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/managed-support/${{ github.run_id }}-${{ github.run_attempt }}/*difference*.txt
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: managed-support-${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'managed-support-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
-            recovery/src/Managed/ExpressionEval
-            recovery/src/Managed/GameDataVerifier
-            recovery/evidence/managed-support
+            recovery/evidence/managed-support/${{ github.run_id }}-${{ github.run_attempt }}/*.json
+            recovery/evidence/managed-support/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/managed-support/${{ github.run_id }}-${{ github.run_attempt }}/*difference*.txt
+          retention-days: 1
+          if-no-files-found: warn
       - name: Commit complete recovered source
         shell: pwsh
         run: |

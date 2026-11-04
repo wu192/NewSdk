@@ -111,7 +111,7 @@ class XmleffectsOracle {
     }
     static void Reject(string text, bool particle) {
         XmlDocument d = Xml(text);
-        try {
+        try { PluginSchemaBoundary.Validate(d);
             FXListCompiler.CompileXml(d.DocumentElement, Namespaces(d), false);
         } catch (NotSupportedException) { ++rejections; return; }
         throw new Exception("Expected explicit refusal: " + text);
@@ -333,4 +333,3 @@ class XmleffectsOracle {
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }
 }
-

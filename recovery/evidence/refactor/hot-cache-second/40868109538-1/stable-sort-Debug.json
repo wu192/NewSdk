@@ -1,0 +1,19 @@
+{
+  "succeeded": true,
+  "sourceCommit": "ae4654a892446724bf870348e56f2e8072fafa58",
+  "runId": "40868109538",
+  "checks": 72,
+  "tests": [
+    "frozen-legacy-order-DAGs-base-prefixes-null-empty-transitive-dependencies-culture-equal-names",
+    "append-workload-linear-comparisons"
+  ],
+  "cases": 66,
+  "work": {
+    "assets": 1024,
+    "referenceComparisons": 523776,
+    "optimizedComparisons": 1023,
+    "referenceMs": 69.25110000000001,
+    "optimizedMs": 0.2361,
+    "scope": "Single direct production sorting-helper sample, excluding initial schema sort, serialization, native compilation and publication; not an end-to-end SDK speedup"
+  }
+}

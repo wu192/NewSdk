@@ -1,0 +1,80 @@
+name: GameObject and Weapon plugin performance
+on:
+  push:
+    branches: [perf/gameobject-weapon-plugins]
+    paths:
+      - '.github/workflows/tokenizer-plugin-performance.yml'
+      - 'recovery/src/Bridge/GameObjectCompiler.cpp'
+      - 'recovery/src/Bridge/WeaponCompiler.cpp'
+      - 'recovery/src/Native/GameObject.cpp'
+      - 'recovery/src/Native/GameObjectModuleFieldsRuntime.h'
+      - 'recovery/src/Native/WeaponTemplate.cpp'
+      - 'recovery/src/Native/WeaponNugget.cpp'
+      - 'recovery/src/Native/Relocation*'
+      - 'recovery/src/Native/EnumBitset*'
+      - 'recovery/src/Native/AttributeMap.h'
+      - 'recovery/src/Native/GameObject*Runtime.h'
+      - 'recovery/src/Native/GameObjectChildGroups.h'
+      - 'recovery/tests/TokenizerPluginPerformance.cs'
+      - 'recovery/scripts/TestTokenizerPluginPerformance.ps1'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tokenizer-plugin-performance-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  measure:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Original byte equivalence and same-VM paired plugin measurements
+        shell: pwsh
+        run: ./recovery/scripts/TestTokenizerPluginPerformance.ps1
+      - name: Summarize tokenizer-plugin-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "tokenizer-plugin-performance reports"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tokenizer-plugin-performance-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize tokenizer-plugin-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+        run: python recovery/scripts/WriteCiSummary.py --title "tokenizer-plugin-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: tokenizer-plugin-performance-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+          retention-days: 1
+          if-no-files-found: warn

@@ -1,0 +1,40 @@
+{
+  "componentValidation": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\native-runs\\41003189856-1\\validation.json",
+  "withoutOriginalReplay": true,
+  "pluginType": "Recovered.Compiler.W3x.NativePlugin, Recovered.W3x.Plugin",
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "processInstanceOriginalDifferential": true,
+  "failures": [],
+  "scope": "loadable recovered plugin configuration identity/default constructor, both ProcessInstance backends and public handles, original three-buffer differential, standalone captured fixture replay without original W3X compiler; SDK not run",
+  "succeeded": true,
+  "runId": "41003189856",
+  "sdkValidated": false,
+  "sourceCommit": "894ef186afaa8a2d5dbf377cdfbeeddb9928aa31",
+  "modes": [
+    {
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+      "meshFixtures": 666,
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c",
+      "pluginDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\plugin-runs\\41003189856-1\\Od",
+      "withoutOriginalReplay": true,
+      "pluginSha256": "b45de4f51b5d6d9d1bc7ab2c3b29eb1a0f6b7d8af92131f0d49b194839cc4c8b",
+      "succeeded": true,
+      "mode": "Od",
+      "processInstanceOriginalDifferential": true,
+      "animationFixtures": 675
+    },
+    {
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+      "meshFixtures": 666,
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c",
+      "pluginDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\plugin-runs\\41003189856-1\\O2",
+      "withoutOriginalReplay": true,
+      "pluginSha256": "090e8bf0f7fd99b62f8e5076c68e49048b21ccae0cfc6107506e1a7ec3375a68",
+      "succeeded": true,
+      "mode": "O2",
+      "processInstanceOriginalDifferential": true,
+      "animationFixtures": 675
+    }
+  ],
+  "runAttempt": "1"
+}

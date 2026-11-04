@@ -21,12 +21,44 @@ jobs:
       - name: Isolated original Win32 AIFF/AIFC multichannel discovery
         shell: pwsh
         run: ./recovery/scripts/TestAudioMultichannelAiffOriginal.ps1
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+            !**/Original-calls.tsv
+            !**/Recovered-calls.tsv
+            !**/original-calls.tsv
+            !**/recovered-calls.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: audio-multichannel-aiff-original-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          name: 'audio-multichannel-aiff-original-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/audio/multichannel-aiff-original/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference*.txt
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+            !**/Original-calls.tsv
+            !**/Recovered-calls.tsv
+            !**/original-calls.tsv
+            !**/recovered-calls.tsv
+          retention-days: 1
+          if-no-files-found: warn
       - name: Preserve exact original multichannel evidence
         if: always()
         shell: pwsh

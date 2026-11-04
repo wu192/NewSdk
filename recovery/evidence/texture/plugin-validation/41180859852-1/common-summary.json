@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "status": "passed-common-formats-and-texture-cli",
+  "sourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "binarySourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "runId": "41180859852",
+  "runAttempt": "1",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41180859852",
+  "artifact": {
+    "id": 13035505544,
+    "url": "https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035505544",
+    "bytes": 108681,
+    "sha256": "bfa6bd5f6b04e7b5450b3eac7d8b4470b3a23365cc9838f19f50182fb7423267"
+  },
+  "validationSha256": "72d42e3f1bace2fee473a115f61941c05a9a34818fcb05b32d6d0fe26c48c3b6",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "cases": 31,
+      "assertions": 532,
+      "resultSha256": "662d5480f062c68172aecd78c52b643340a98770cd9baf5e977e55a82dbc42a6",
+      "productionExeSha256": "f5963684c81c3168975c608bd0194cd5ef0f2379b48e6e70453b69e9836dff01",
+      "validationHostSha256": "8a21104e0a98ed0176b24fdb68e3cb9e62581bd652243777f083d26ff484eaf6",
+      "sameProductionObjects": true,
+      "legacyTextureDllPresent": false,
+      "productionCliPassed": true,
+      "productionCliCases": 6
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "cases": 31,
+      "assertions": 532,
+      "resultSha256": "662d5480f062c68172aecd78c52b643340a98770cd9baf5e977e55a82dbc42a6",
+      "productionExeSha256": "801d5732fbff8ffd3bf5110db5208a971619b891775a11845819c79e987c6873",
+      "validationHostSha256": "3373a6c8a1e55971f270f0b34ee4b6380cf4ed42cf1229930623878525e6bd97",
+      "sameProductionObjects": true,
+      "legacyTextureDllPresent": false,
+      "productionCliPassed": true,
+      "productionCliCases": 6
+    }
+  ],
+  "verification": {
+    "archiveIdentityVerified": true,
+    "resultFilesByteIdenticalAcrossDebugRelease": true,
+    "productionCliOutputHashesEqualAcrossDebugRelease": true,
+    "coldWarmOutputHashesEqual": true,
+    "mutatedFreshRetryOutputHashesEqual": true,
+    "mutationChangedOutputHashes": true,
+    "allCacheCountsCheckedAgainstRawReports": true
+  },
+  "scope": "Common formats through exact production plugin objects plus 12 actual texture MOD CLI cases; independent DDS/BC pixel decoding, schema/defaults, non-ASCII MOD path, cache cold/hot/single-image invalidation and missing-input retry. This receipt does not establish full SDK/MOD, ZIP deployment or game runtime acceptance.",
+  "archivedTextFiles": 95,
+  "excludedCompiledFiles": [
+    {
+      "path": "controller/ctrl.exe",
+      "bytes": 19968,
+      "sha256": "40e0576d80027263a085995ecb6d86e761745ce005dddc9252b74a75e8a70db5"
+    }
+  ],
+  "textInventory": {
+    "path": "common-text-inventory.json",
+    "sha256": "fc91d32ba3c33136eb220a66547ace48e0119d9e04d20a7d2b35b445b32d9a8f"
+  },
+  "productionCliMatrixBothConfigurations": [
+    {
+      "name": "cold",
+      "exitCode": 0,
+      "instanceCompile": 7,
+      "xmlParse": 1,
+      "artifacts": 5
+    },
+    {
+      "name": "warm",
+      "exitCode": 0,
+      "instanceCompile": 0,
+      "xmlParse": 0,
+      "artifacts": 5
+    },
+    {
+      "name": "one-image-mutated",
+      "exitCode": 0,
+      "instanceCompile": 1,
+      "xmlParse": 1,
+      "artifacts": 5
+    },
+    {
+      "name": "fresh-no-cache",
+      "exitCode": 0,
+      "instanceCompile": 7,
+      "xmlParse": 1,
+      "artifacts": 5
+    },
+    {
+      "name": "missing-image",
+      "exitCode": 4,
+      "instanceCompile": 1,
+      "xmlParse": 1,
+      "artifacts": 0
+    },
+    {
+      "name": "restored-retry",
+      "exitCode": 0,
+      "instanceCompile": 0,
+      "xmlParse": 0,
+      "artifacts": 5
+    }
+  ]
+}

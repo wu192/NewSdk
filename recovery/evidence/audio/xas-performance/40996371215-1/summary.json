@@ -1,0 +1,198 @@
+[
+  {
+    "case": "stereo-30s-ram",
+    "before": {
+      "milliseconds": 1844.287,
+      "minMilliseconds": 1825.46,
+      "maxMilliseconds": 1879.795,
+      "allocatedBytes": 88110248,
+      "gc": [
+        9,
+        1,
+        1
+      ]
+    },
+    "after": {
+      "milliseconds": 695.746,
+      "minMilliseconds": 695.203,
+      "maxMilliseconds": 695.845,
+      "allocatedBytes": 1710184,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    "speedup": 2.6508050351708814,
+    "timeReductionPercent": 62.27561111692486,
+    "allocationReductionPercent": 98.05904075993521
+  },
+  {
+    "case": "stereo-120s-ram",
+    "before": {
+      "milliseconds": 46243.162,
+      "minMilliseconds": 45759.851,
+      "maxMilliseconds": 46550.799,
+      "allocatedBytes": 352403000,
+      "gc": [
+        33,
+        3,
+        1
+      ]
+    },
+    "after": {
+      "milliseconds": 2787.689,
+      "minMilliseconds": 2782.983,
+      "maxMilliseconds": 2788.596,
+      "allocatedBytes": 6840184,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    "speedup": 16.588350422159717,
+    "timeReductionPercent": 93.97167304433032,
+    "allocationReductionPercent": 98.05898814709296
+  },
+  {
+    "case": "stereo-120s-streamed",
+    "before": {
+      "milliseconds": 2725.237,
+      "minMilliseconds": 2720.18,
+      "maxMilliseconds": 2741.368,
+      "allocatedBytes": 217058148,
+      "gc": [
+        37,
+        0,
+        0
+      ]
+    },
+    "after": {
+      "milliseconds": 2784.604,
+      "minMilliseconds": 2781.737,
+      "maxMilliseconds": 2799.523,
+      "allocatedBytes": 6867024,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    "speedup": 0.9786802719524932,
+    "timeReductionPercent": -2.178416042347875,
+    "allocationReductionPercent": 96.83632056051634
+  },
+  {
+    "case": "stereo-120s-loop-ram",
+    "before": {
+      "milliseconds": 44495.803,
+      "minMilliseconds": 44352.919,
+      "maxMilliseconds": 46311.555,
+      "allocatedBytes": 423307704,
+      "gc": [
+        33,
+        3,
+        1
+      ]
+    },
+    "after": {
+      "milliseconds": 2782.223,
+      "minMilliseconds": 2781.245,
+      "maxMilliseconds": 2782.861,
+      "allocatedBytes": 6840344,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    "speedup": 15.992895968439626,
+    "timeReductionPercent": 93.74722375501348,
+    "allocationReductionPercent": 98.38407287763418
+  },
+  {
+    "case": "stereo-120s-loop-streamed",
+    "before": {
+      "milliseconds": 2864.132,
+      "minMilliseconds": 2863.066,
+      "maxMilliseconds": 2867.702,
+      "allocatedBytes": 286935564,
+      "gc": [
+        37,
+        0,
+        0
+      ]
+    },
+    "after": {
+      "milliseconds": 2785.317,
+      "minMilliseconds": 2779.067,
+      "maxMilliseconds": 2787.486,
+      "allocatedBytes": 6867280,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    "speedup": 1.028296599633004,
+    "timeReductionPercent": 2.7517935625872014,
+    "allocationReductionPercent": 97.60668217481748
+  },
+  {
+    "case": "stereo-600s-streamed",
+    "before": {
+      "milliseconds": 13628.992,
+      "minMilliseconds": 13621.492,
+      "maxMilliseconds": 13653.86,
+      "allocatedBytes": 1133896032,
+      "gc": [
+        184,
+        2,
+        0
+      ]
+    },
+    "after": {
+      "milliseconds": 13935.74,
+      "minMilliseconds": 13925.153,
+      "maxMilliseconds": 13941.877,
+      "allocatedBytes": 34334416,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    "speedup": 0.9779883953058826,
+    "timeReductionPercent": -2.2507020328429217,
+    "allocationReductionPercent": 96.97199610625324
+  },
+  {
+    "case": "six-channel-30s-streamed",
+    "before": {
+      "milliseconds": 2031.415,
+      "minMilliseconds": 2030.883,
+      "maxMilliseconds": 2032.441,
+      "allocatedBytes": 164470652,
+      "gc": [
+        27,
+        0,
+        0
+      ]
+    },
+    "after": {
+      "milliseconds": 2086.518,
+      "minMilliseconds": 2084.528,
+      "maxMilliseconds": 2086.617,
+      "allocatedBytes": 5150672,
+      "gc": [
+        0,
+        0,
+        0
+      ]
+    },
+    "speedup": 0.9735909299608246,
+    "timeReductionPercent": -2.712542734990153,
+    "allocationReductionPercent": 96.86833368910096
+  }
+]

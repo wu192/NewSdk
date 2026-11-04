@@ -1,0 +1,15 @@
+{
+  "succeeded": true,
+  "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "runId": "41178094135",
+  "checks": 140,
+  "tests": [
+    "parent-sibling-1-parse-effective-3-parses-self-self-external-ancestor-chain-Define-XInclude-invalid-parent-repair-legacy-metadata-upgrade-cold-bytes-hot-zero",
+    "dual-xinclude-same-physical-instance-and-real-file-dependency-retained-cold-bytes-hot-zero",
+    "dual-file-same-physical-instance-and-real-file-dependency-retained-cold-bytes-hot-zero",
+    "search-root-physical-parent-switch-identical-input-reloads-binding-cold-bytes-hot-zero"
+  ],
+  "scope": "Real Core instance Include invalidation and persisted session boundaries; complete SDK remains separate",
+  "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "testSourceCommit": "2b4e97f9edd2759334d5a5bb54f2abedf83fac49"
+}

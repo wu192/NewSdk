@@ -24,7 +24,7 @@ namespace NewModCompiler.Tests
             public IList<Artifact> Compile(StreamContext context,CancellationToken cancellation)
             {
                 if (FailCompile) throw new BuildFailure(ExitCode.Compilation,"TEST_ROOT_COMPILE","injected input failure");
-                string file=Path.Combine(context.StagingDirectory,"input-root.bin"); File.WriteAllText(file,"input-root-report fixture");
+                string file=Path.Combine(context.OutputDirectory,"input-root.bin"); File.WriteAllText(file,"input-root-report fixture");
                 return new [] {new Artifact {Path=file,Kind="TestOnly"}};
             }
             public void Dispose() { }

@@ -1,0 +1,82 @@
+{
+  "binarySourceCommit": "f6c3c009ac67775b273ec0f1ac45c68fd613da7c",
+  "originalTestSourceCommit": "f6c3c009ac67775b273ec0f1ac45c68fd613da7c",
+  "baselineCommit": "5c1843aea5f9b0cdcbe04325b251a8a944ed0fae",
+  "runId": "41046820725",
+  "runAttempt": "1",
+  "overallStatus": "failed",
+  "artifactId": "12973433324",
+  "artifactSha256": "eb05601adfa445a66b8316a3730b68e6211fc748bb557d4dfa41b9098428dd80",
+  "artifactDownloadedAndVerified": true,
+  "independentPassed": [
+    "Debug/Release App",
+    "Debug/Release production and validation hosts",
+    "Core lifecycle",
+    "Legacy session cache",
+    "Native build asset cache",
+    "Audio/W3X payload cache",
+    "Full unchanged mymod original SDK bytes",
+    "36 paired same-VM BIG/SKUDEF bytes and logical I/O"
+  ],
+  "failures": {
+    "cli": "Main checkout was shallow; fixed ancestor UI export could not satisfy merge-base. Current workflow fetches full history.",
+    "big": "Obsolete assertion required package event paths below .build, despite final path generation. Corrected to published.",
+    "hot": "27-medium-asset-hot2 correctly restored CDATA from /bc with fresh intermediate and /sc:false. Full bytes already matched; an obsolete whole-publication mtime assertion rejected native CDATA writes. Current check requires four-file mtime reuse and preserves strict session-hot checks.",
+    "protocol": "CLI Release records absent due earlier fixture setup failure. Lifecycle records passed both configurations."
+  },
+  "pairedCachePreconditionsRevalidated": true,
+  "pairedPreconditionScriptSha256": "c91837989718884ab68a07685a597c16f692c53867cb40954f93c25dc6ed9334",
+  "rawRecordsSha256": {
+    "lifecycle.validation.json": "a66bb014cb7f2ae5afaeb43014810027a136fc971710a8a62a0a884aaaa4d663",
+    "session.validation.json": "6164154a2fe191a03884620e0c8ed2fbd10728f257fc5263fa26744f842596a4",
+    "assets.validation.json": "43ac21f491a957005c0c5a6e7cb8e405194a9c0a311612c2e7a570215e999fd4",
+    "payloads.validation.json": "77904e9a39ffe6ef19b17a8096d33c9a86b5fe5d7faf6d72171dab36766c059d",
+    "sdk.validation.json": "9160f7a8b4c16866c686d45dae36db2cfdaa11d56c7c5f10000f6783ea74068f",
+    "measurement.json": "ad6da2aec869fc65f5398c69cad7f7e634e3f7f36ace9946b3c66a1e780c3556",
+    "measurement.md": "4a9bc222e69b504506d5adcf255b7c23002ff202e687b6009f306acd7e9d4058",
+    "baseline-build.json": "51032fed5594d46ec4cd5cda881fc4ba50225f3a299619088643fc20dd15fac9"
+  },
+  "note": "Subsequent final source removes dead publication metadata helpers; this receipt is not claimed as that final binary acceptance.",
+  "rawRecordArchives": {
+    "baseline-build.json": {
+      "archive": "baseline-build.json.gz",
+      "rawSha256": "51032fed5594d46ec4cd5cda881fc4ba50225f3a299619088643fc20dd15fac9",
+      "archiveSha256": "102f6334093900dcf3beadcbde53acf8ff6c889aae3b236dc3b806c489b6673c"
+    },
+    "assets.validation.json": {
+      "archive": "assets.validation.json.gz",
+      "rawSha256": "43ac21f491a957005c0c5a6e7cb8e405194a9c0a311612c2e7a570215e999fd4",
+      "archiveSha256": "e8edd4641307978e7438e7459128de9bc32382d8e8578eee5d9a95d420163f8a"
+    },
+    "release-build.json": {
+      "archive": "release-build.json.gz",
+      "rawSha256": "3875a59ef94acb375f849e7ca730945ef1a6fa00e60c4c054962f9c1bdfeae9e",
+      "archiveSha256": "be5b37e7b2b31e472abb1ea3915c6754a93bcd5c58971fce3c67d27aa6209213"
+    },
+    "sdk.validation.json": {
+      "archive": "sdk.validation.json.gz",
+      "rawSha256": "9160f7a8b4c16866c686d45dae36db2cfdaa11d56c7c5f10000f6783ea74068f",
+      "archiveSha256": "323e9c79c48a332c361ff28f1d98bda039f7b50500ba516cbc3a43cc7821792d"
+    },
+    "debug-build.json": {
+      "archive": "debug-build.json.gz",
+      "rawSha256": "c34f0c00ad7b26484b40db121031b47d1aa0f7c0792b43fd49e56766bdceadab",
+      "archiveSha256": "84502bc7cbbeede272e9e3c914b7b93da3fd6096f9bd9777915edfda9d2a7a08"
+    },
+    "payloads.validation.json": {
+      "archive": "payloads.validation.json.gz",
+      "rawSha256": "77904e9a39ffe6ef19b17a8096d33c9a86b5fe5d7faf6d72171dab36766c059d",
+      "archiveSha256": "0765edaba8a065e14ad39b18ef553a7a6b63e50b89c6079a67fffcf119f8c9ed"
+    },
+    "session.validation.json": {
+      "archive": "session.validation.json.gz",
+      "rawSha256": "6164154a2fe191a03884620e0c8ed2fbd10728f257fc5263fa26744f842596a4",
+      "archiveSha256": "7804ba9fdd743c259610235c78f2b8a3a5597ccb0245e3b1d726299649e6ac0a"
+    },
+    "lifecycle.validation.json": {
+      "archive": "lifecycle.validation.json.gz",
+      "rawSha256": "a66bb014cb7f2ae5afaeb43014810027a136fc971710a8a62a0a884aaaa4d663",
+      "archiveSha256": "d0a68b15c3c74131897ae315406b8dc991fd397938db988511a0d4e5bf92aac8"
+    }
+  }
+}

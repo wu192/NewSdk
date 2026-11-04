@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+  "binarySourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+  "testSourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+  "runId": 40878062262,
+  "runAttempt": 1,
+  "status": "success",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/40878062262",
+  "artifact": {
+    "id": 12898969917,
+    "sizeInBytes": 144100047,
+    "sha256": "657503be5d55a82b4ceb6ce9a20f7c051d45e653328b84f14842aee6450b2e14",
+    "downloadedAndDigestVerified": true
+  },
+  "receipts": [
+    {
+      "archivePath": "artifacts/final-release/40878062262-1/release.json",
+      "sha256": "1452868f6aac399b73dd3d8b53e8a83d014736d704435f2f3e8bfd488f2e4f55",
+      "status": "verified-small-mod-deployment",
+      "succeeded": true,
+      "facts": {
+        "status": "verified-small-mod-deployment",
+        "succeeded": true,
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "binarySourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": [
+          {
+            "configuration": "Debug",
+            "succeeded": true,
+            "rawOutputEquality": true,
+            "zipSha256": "3fa3cd87eb90a529bdeb50c4340e242041a2c1f2e2663df45fc234b7e7a1cd76"
+          },
+          {
+            "configuration": "Release",
+            "succeeded": true,
+            "rawOutputEquality": true,
+            "zipSha256": "6af4be648729a1a0ab2d006372ffc5bc1b65b23745c40255abcc15d74b5c50dc"
+          }
+        ]
+      },
+      "rawReceiptRetainedInArtifact": true
+    },
+    {
+      "archivePath": "evidence/refactor/big/40878062262-1/validation.json",
+      "sha256": "c31532ec2486db6a38b888e5c4d9957dafcef05b9a85ddc52655ee817649d748",
+      "status": null,
+      "succeeded": true,
+      "facts": {
+        "succeeded": true,
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": [
+          {
+            "configuration": "Debug",
+            "passed": true
+          },
+          {
+            "configuration": "Release",
+            "passed": true
+          }
+        ]
+      },
+      "rawReceiptRetainedInArtifact": true
+    },
+    {
+      "archivePath": "evidence/refactor/sdk-mymod/40878062262-1/validation.json",
+      "sha256": "c4209be2f91275809b508ba8e641324e16153ea98d420c447fe89d9cb4c6204d",
+      "status": null,
+      "succeeded": true,
+      "facts": {
+        "succeeded": true,
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "binarySourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "testSourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": [
+          {
+            "configuration": "Debug",
+            "succeeded": true
+          },
+          {
+            "configuration": "Release",
+            "succeeded": true
+          }
+        ]
+      },
+      "rawReceiptRetainedInArtifact": true
+    },
+    {
+      "archivePath": "evidence/refactor/session-cache/40878062262-1/validation.json",
+      "sha256": "b640089382eab775d13746b4ea00b1c7694e7895e31c06e376356d873e0445fb",
+      "status": null,
+      "succeeded": true,
+      "facts": {
+        "succeeded": true,
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "binarySourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "testSourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": [
+          {
+            "configuration": "Debug",
+            "passed": true
+          },
+          {
+            "configuration": "Release",
+            "passed": true
+          }
+        ]
+      },
+      "rawReceiptRetainedInArtifact": true
+    },
+    {
+      "archivePath": "evidence/refactor/cache-payloads/40878062262-1/validation.json",
+      "sha256": "d4e7116d62f7145398058eb5859ab1ccb9b5e7c9791ae40fbcef4302c943b758",
+      "status": null,
+      "succeeded": true,
+      "facts": {
+        "succeeded": true,
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "binarySourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "testSourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": [
+          {
+            "configuration": "Debug",
+            "passed": true
+          },
+          {
+            "configuration": "Release",
+            "passed": true
+          }
+        ]
+      },
+      "rawReceiptRetainedInArtifact": true
+    },
+    {
+      "archivePath": "evidence/refactor/input-roots/40878062262-1/validation.json",
+      "sha256": "27539d89b527d265d5ccac022b0ff69d6b28d69813d9864e9ec00ef25617d35b",
+      "status": null,
+      "succeeded": true,
+      "facts": {
+        "succeeded": true,
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": [
+          {
+            "configuration": "Debug",
+            "passed": true
+          },
+          {
+            "configuration": "Release",
+            "passed": true
+          }
+        ]
+      },
+      "rawReceiptRetainedInArtifact": true
+    },
+    {
+      "archivePath": "evidence/refactor/build-cache/40878062262-1/validation.json",
+      "sha256": "0c63af49550efe087caa78c67c44a6e49466eaa0e04df2f56fdbc7f27dd8b1f9",
+      "status": null,
+      "succeeded": true,
+      "facts": {
+        "succeeded": true,
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "binarySourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "testSourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": [
+          {
+            "configuration": "Debug",
+            "passed": true
+          },
+          {
+            "configuration": "Release",
+            "passed": true
+          }
+        ]
+      },
+      "rawReceiptRetainedInArtifact": true
+    },
+    {
+      "archivePath": "evidence/refactor/core-lifecycle-deployment/40878062262-1/validation.json",
+      "sha256": "ac96b90be7bb1ec460f898366c830a3afddf5dfa9b3dae8ce30468f70a071c3e",
+      "status": "passed",
+      "succeeded": null,
+      "facts": {
+        "status": "passed",
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": [
+          {
+            "configuration": "Debug",
+            "passed": true,
+            "backendIntegrated": true
+          },
+          {
+            "configuration": "Release",
+            "passed": true,
+            "backendIntegrated": true
+          }
+        ]
+      },
+      "rawReceiptRetainedInArtifact": true
+    },
+    {
+      "archivePath": "evidence/refactor/core-lifecycle/40878062262-1/Debug/CompilerCacheContent/result.json",
+      "sha256": "50cb8fd39938d48a245499f5399fe0e60c0379239b3dc9bd0d486c55da982d3e",
+      "status": null,
+      "succeeded": true,
+      "receipt": "receipts/evidence/refactor/core-lifecycle/40878062262-1/Debug/CompilerCacheContent/result.json",
+      "facts": {
+        "succeeded": true,
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": []
+      }
+    },
+    {
+      "archivePath": "evidence/refactor/core-lifecycle/40878062262-1/Release/CompilerCacheContent/result.json",
+      "sha256": "50cb8fd39938d48a245499f5399fe0e60c0379239b3dc9bd0d486c55da982d3e",
+      "status": null,
+      "succeeded": true,
+      "receipt": "receipts/evidence/refactor/core-lifecycle/40878062262-1/Release/CompilerCacheContent/result.json",
+      "facts": {
+        "succeeded": true,
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": []
+      }
+    },
+    {
+      "archivePath": "evidence/refactor/core-lifecycle/40878062262-1/validation.json",
+      "sha256": "ce08f6e1507a6bbc5b1eb60b86e8a75ba9b3f19eb949c127736f323d408e0700",
+      "status": "passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate",
+      "succeeded": true,
+      "facts": {
+        "status": "passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate",
+        "succeeded": true,
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": [
+          {
+            "configuration": "Debug",
+            "passed": true
+          },
+          {
+            "configuration": "Release",
+            "passed": true
+          }
+        ]
+      },
+      "rawReceiptRetainedInArtifact": true
+    },
+    {
+      "archivePath": "evidence/refactor/core-lifecycle-texture/40878062262-1/validation.json",
+      "sha256": "24738701b6e87d176222a01499576d17248f1c144e41260d7c30bf1074d75c85",
+      "status": "passed",
+      "succeeded": null,
+      "receipt": "receipts/evidence/refactor/core-lifecycle-texture/40878062262-1/validation.json",
+      "facts": {
+        "status": "passed",
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": [
+          {
+            "configuration": "Debug",
+            "passed": true,
+            "worksWithoutManifest": true,
+            "runtimeDeploymentAuditRemoved": true
+          },
+          {
+            "configuration": "Release",
+            "passed": true,
+            "worksWithoutManifest": true,
+            "runtimeDeploymentAuditRemoved": true
+          }
+        ]
+      }
+    },
+    {
+      "archivePath": "evidence/refactor/core-cli/40878062262-1/validation.json",
+      "sha256": "04f2272cec89eac3101ac94fbb8dac01f5432c1c63f425e6ed56eed4ef3d149d",
+      "status": null,
+      "succeeded": true,
+      "facts": {
+        "succeeded": true,
+        "sourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "binarySourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "testSourceCommit": "639a5ff73e1df8a12ec0fa77e5b4324186bae8fb",
+        "configurations": [
+          {
+            "configuration": "Debug",
+            "passed": true
+          },
+          {
+            "configuration": "Release",
+            "passed": true
+          }
+        ]
+      },
+      "rawReceiptRetainedInArtifact": true
+    }
+  ],
+  "preservedFailure": {
+    "sourceCommit": "de95cc2045ae27406b166eddc55c343f8cc3de30",
+    "runId": 40876849281,
+    "conclusion": "failure",
+    "cause": "Test-only validation entry redundantly read the missing Texture deployment manifest after successful payload processing; removed its deployment audit, preserving type/module ownership. Production Core/backend/application, CLI, asset/session cache, input-root and BIG groups in that run succeeded. Full acceptance repeated after repair."
+  },
+  "scopeNotes": [
+    "Only task-specific FileHashItem/Schema and Texture raw receipts are copied here; the other complete raw receipts remain in the digest-verified GitHub artifact. Their original archive paths, SHA256 and acceptance facts are indexed above."
+  ]
+}

@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <vector>
 #include "../Relocation.h"
+#include "Timecoded.h"
 
 namespace Recovered { namespace W3x {
 // Typed input after XML marshaling; this is not the native VC8 structure ABI.
@@ -33,11 +34,7 @@ struct AnimationInput {
     AnimationCompressionSettings settings;
     std::vector<AnimationInputChannel> channels;
 };
-struct AnimationExpandedFrame {
-    std::uint32_t index = 0;
-    std::vector<float> values;
-    bool binaryMove = false;
-};
+using AnimationExpandedFrame = TimecodedFrame;
 struct AnimationPreparedChannel {
     std::uint32_t type = 0;
     std::uint16_t pivot = 0;

@@ -1,0 +1,3197 @@
+{
+  "label": "diagnostic-cold-4",
+  "jobs": "4",
+  "legacyCaches": false,
+  "phase": "diagnostic",
+  "performanceLevel": "detailed",
+  "command": [
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\bin\\NewModCompiler.exe",
+    "build",
+    "--sdk-root",
+    "D:\\a\\NewSdk\\NewSdk\\SDK",
+    "--mod",
+    "D:\\a\\_temp\\upheaval-parallel\\historical\\SDK\\Mods\\Upheaval",
+    "--out",
+    "D:\\a\\_temp\\upheaval-parallel\\outputs\\diagnostic-4",
+    "--jobs",
+    "4",
+    "--performance",
+    "detailed",
+    "--sc=false",
+    "--bc=false"
+  ],
+  "status": "passed",
+  "wallMs": 27263.966999999866,
+  "exitCode": 0,
+  "cpuMs": 44171.875,
+  "peakWorkingSetBytes": 230277120,
+  "rawOutputIdentical": true,
+  "cache": {
+    "status": "Disabled",
+    "hits": 0,
+    "misses": 0,
+    "sessionCache": false,
+    "sessionPackageHits": 0,
+    "sessionPackageMisses": 0,
+    "documentReuse": 0,
+    "xmlParse": 925,
+    "instanceCompile": 3354,
+    "linkedStreamsRestored": 0,
+    "fileHashReads": 2450,
+    "fileHashReuses": 815,
+    "fileHashBytesRead": 177234444,
+    "textureCache": false,
+    "compressedSessionCache": true,
+    "partialSessionCache": true,
+    "freezeSessionCache": false,
+    "alwaysTouchCache": false,
+    "partialSessionsSaved": 0,
+    "parallel": {
+      "protocol": "NewModCompiler.ParallelBackend.v1",
+      "requestedJobs": "4",
+      "effectiveJobs": 4,
+      "minimumEffectiveJobs": 4,
+      "backendCalls": 3354,
+      "backendCallsByType": {
+        "AmbientStream": 6,
+        "AudioEvent": 304,
+        "AudioFile": 1289,
+        "GameObject": 121,
+        "MapMetaData": 1,
+        "OnDemandTexture": 2,
+        "OnDemandTextureImage": 7,
+        "Texture": 115,
+        "AIBuildStateDefinition": 18,
+        "AIPersonalityDefinition": 26,
+        "DamageFX": 7,
+        "LogicCommandSet": 26,
+        "ObjectFilterAsset": 7,
+        "PlayerTech": 45,
+        "PlayerTechStoreTemplate": 3,
+        "SpecialPowerTemplate": 27,
+        "WeaponTemplate": 108,
+        "UpgradeTemplate": 12,
+        "W3DMesh": 134,
+        "W3DContainer": 73,
+        "W3DHierarchy": 70,
+        "AttributeModifier": 16,
+        "ObjectCreationList": 29,
+        "FXList": 84,
+        "Multisound": 50,
+        "FXParticleSystemTemplate": 214,
+        "Video": 12,
+        "VideoEventList": 12,
+        "ArmorTemplate": 12,
+        "ButtonSingleStateData": 17,
+        "ExperienceLevelTemplate": 65,
+        "LogicCommand": 23,
+        "PackedTextureImage": 46,
+        "RadiusCursor": 1,
+        "UnitAbilityButtonTemplate": 12,
+        "UnitIntro": 11,
+        "UnitTypeIcon": 3,
+        "W3DAnimation": 194,
+        "W3DCollisionBox": 34,
+        "LocomotorTemplate": 12,
+        "AptAptData": 3,
+        "AptConstData": 3,
+        "AptDatData": 3,
+        "AptGeometryData": 89,
+        "Credits": 1,
+        "HealthBarSettings": 1,
+        "HealthBarTemplate": 6
+      },
+      "maxBackendConcurrency": 4,
+      "prepareMs": 1795.7448000000002,
+      "workerWaitMs": 3861.3697,
+      "workerComputeMs": 23747.3233,
+      "ownerCommitMs": 1183.5162,
+      "fallbackByReason": {
+        "preparation-budget-exceeded": 10
+      },
+      "sampledPeakPrivateBytes": 213643264,
+      "resourceQuerySucceeded": true,
+      "backendIntervals": [
+        {
+          "typeName": "AmbientStream",
+          "startTicks": 15091158095,
+          "endTicks": 15091337356,
+          "threadId": 10
+        },
+        {
+          "typeName": "AmbientStream",
+          "startTicks": 15091065573,
+          "endTicks": 15091337380,
+          "threadId": 8
+        },
+        {
+          "typeName": "AmbientStream",
+          "startTicks": 15091150833,
+          "endTicks": 15091338111,
+          "threadId": 11
+        },
+        {
+          "typeName": "AmbientStream",
+          "startTicks": 15091147926,
+          "endTicks": 15091339030,
+          "threadId": 9
+        },
+        {
+          "typeName": "AmbientStream",
+          "startTicks": 15091413396,
+          "endTicks": 15091414196,
+          "threadId": 10
+        },
+        {
+          "typeName": "AmbientStream",
+          "startTicks": 15091417076,
+          "endTicks": 15091417685,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15091460834,
+          "endTicks": 15091463616,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15091463769,
+          "endTicks": 15091464315,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15091470153,
+          "endTicks": 15091470857,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15091473387,
+          "endTicks": 15091474224,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15091492946,
+          "endTicks": 15091510357,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15091495712,
+          "endTicks": 15091510670,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15091684510,
+          "endTicks": 15092010098,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15091688323,
+          "endTicks": 15092010434,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15091676106,
+          "endTicks": 15092025323,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15091680709,
+          "endTicks": 15092071148,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15092034761,
+          "endTicks": 15092267158,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15092093068,
+          "endTicks": 15092277093,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15092086100,
+          "endTicks": 15092292130,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15092078991,
+          "endTicks": 15092328103,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15092335406,
+          "endTicks": 15095075682,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15092277821,
+          "endTicks": 15095600960,
+          "threadId": 8
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15095940614,
+          "endTicks": 15096175569,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15092360604,
+          "endTicks": 15096411936,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15092342730,
+          "endTicks": 15096536340,
+          "threadId": 9
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15096543113,
+          "endTicks": 15096546548,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15096552271,
+          "endTicks": 15096555428,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15095620748,
+          "endTicks": 15099103380,
+          "threadId": 11
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15099118870,
+          "endTicks": 15099121787,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15099165000,
+          "endTicks": 15099167107,
+          "threadId": 9
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15099174032,
+          "endTicks": 15099175662,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15099177269,
+          "endTicks": 15099179154,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15099179618,
+          "endTicks": 15099291690,
+          "threadId": 10
+        },
+        {
+          "typeName": "MapMetaData",
+          "startTicks": 15099225895,
+          "endTicks": 15099309044,
+          "threadId": 8
+        },
+        {
+          "typeName": "OnDemandTexture",
+          "startTicks": 15099319557,
+          "endTicks": 15099361987,
+          "threadId": 9
+        },
+        {
+          "typeName": "OnDemandTexture",
+          "startTicks": 15099324415,
+          "endTicks": 15099366704,
+          "threadId": 10
+        },
+        {
+          "typeName": "OnDemandTextureImage",
+          "startTicks": 15099385932,
+          "endTicks": 15099414058,
+          "threadId": 12
+        },
+        {
+          "typeName": "OnDemandTextureImage",
+          "startTicks": 15099376786,
+          "endTicks": 15099414083,
+          "threadId": 11
+        },
+        {
+          "typeName": "OnDemandTextureImage",
+          "startTicks": 15099381716,
+          "endTicks": 15099415497,
+          "threadId": 10
+        },
+        {
+          "typeName": "OnDemandTextureImage",
+          "startTicks": 15099374974,
+          "endTicks": 15099415507,
+          "threadId": 8
+        },
+        {
+          "typeName": "OnDemandTextureImage",
+          "startTicks": 15099419138,
+          "endTicks": 15099419432,
+          "threadId": 9
+        },
+        {
+          "typeName": "OnDemandTextureImage",
+          "startTicks": 15099421501,
+          "endTicks": 15099421789,
+          "threadId": 12
+        },
+        {
+          "typeName": "OnDemandTextureImage",
+          "startTicks": 15099427112,
+          "endTicks": 15099427507,
+          "threadId": 8
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15099445864,
+          "endTicks": 15099446637,
+          "threadId": 11
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099529324,
+          "endTicks": 15099668260,
+          "threadId": 11
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099524429,
+          "endTicks": 15099670157,
+          "threadId": 12
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099531812,
+          "endTicks": 15099670394,
+          "threadId": 9
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099674404,
+          "endTicks": 15099676542,
+          "threadId": 10
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099526882,
+          "endTicks": 15099683898,
+          "threadId": 8
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099687981,
+          "endTicks": 15099689772,
+          "threadId": 12
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099693642,
+          "endTicks": 15099698864,
+          "threadId": 8
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099691488,
+          "endTicks": 15099700275,
+          "threadId": 11
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099696186,
+          "endTicks": 15099701383,
+          "threadId": 12
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099698906,
+          "endTicks": 15099701625,
+          "threadId": 10
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099704903,
+          "endTicks": 15099706245,
+          "threadId": 8
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099707978,
+          "endTicks": 15099710105,
+          "threadId": 11
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099716134,
+          "endTicks": 15099718783,
+          "threadId": 8
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099713586,
+          "endTicks": 15099721232,
+          "threadId": 10
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099721455,
+          "endTicks": 15099723043,
+          "threadId": 10
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099718716,
+          "endTicks": 15099725259,
+          "threadId": 11
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099724702,
+          "endTicks": 15099727021,
+          "threadId": 8
+        },
+        {
+          "typeName": "AIBuildStateDefinition",
+          "startTicks": 15099728107,
+          "endTicks": 15099732182,
+          "threadId": 12
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15100214845,
+          "endTicks": 15100242063,
+          "threadId": 9
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15100217870,
+          "endTicks": 15100245949,
+          "threadId": 8
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15100220923,
+          "endTicks": 15100248508,
+          "threadId": 12
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15100224857,
+          "endTicks": 15100259277,
+          "threadId": 11
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15100247779,
+          "endTicks": 15100259648,
+          "threadId": 10
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15100256339,
+          "endTicks": 15100269194,
+          "threadId": 8
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15100252247,
+          "endTicks": 15100271043,
+          "threadId": 9
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15100264774,
+          "endTicks": 15100287063,
+          "threadId": 12
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15101657491,
+          "endTicks": 15101682453,
+          "threadId": 10
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15101661850,
+          "endTicks": 15101689947,
+          "threadId": 11
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15101667287,
+          "endTicks": 15101695501,
+          "threadId": 12
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15101678445,
+          "endTicks": 15101704857,
+          "threadId": 9
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15101690318,
+          "endTicks": 15101717638,
+          "threadId": 10
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15101695891,
+          "endTicks": 15101721161,
+          "threadId": 8
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15101702091,
+          "endTicks": 15101730673,
+          "threadId": 11
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15101713139,
+          "endTicks": 15101744029,
+          "threadId": 9
+        },
+        {
+          "typeName": "AIPersonalityDefinition",
+          "startTicks": 15101725179,
+          "endTicks": 15101750492,
+          "threadId": 12
+        },
+        {
+          "typeName": "DamageFX",
+          "startTicks": 15101850637,
+          "endTicks": 15101892891,
+          "threadId": 10
+        },
+        {
+          "typeName": "DamageFX",
+          "startTicks": 15101843166,
+          "endTicks": 15101892904,
+          "threadId": 11
+        },
+        {
+          "typeName": "DamageFX",
+          "startTicks": 15101839398,
+          "endTicks": 15101892914,
+          "threadId": 8
+        },
+        {
+          "typeName": "DamageFX",
+          "startTicks": 15101846809,
+          "endTicks": 15101894633,
+          "threadId": 12
+        },
+        {
+          "typeName": "DamageFX",
+          "startTicks": 15101898465,
+          "endTicks": 15101904962,
+          "threadId": 9
+        },
+        {
+          "typeName": "DamageFX",
+          "startTicks": 15101901964,
+          "endTicks": 15101912686,
+          "threadId": 11
+        },
+        {
+          "typeName": "DamageFX",
+          "startTicks": 15101909600,
+          "endTicks": 15101917264,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15101938988,
+          "endTicks": 15101941245,
+          "threadId": 8
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15101955412,
+          "endTicks": 15101957348,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15102219832,
+          "endTicks": 15102298184,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15102401554,
+          "endTicks": 15102405872,
+          "threadId": 8
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15102423046,
+          "endTicks": 15102441892,
+          "threadId": 9
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15102405979,
+          "endTicks": 15102445202,
+          "threadId": 8
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15102392894,
+          "endTicks": 15102459189,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15102468520,
+          "endTicks": 15102481036,
+          "threadId": 11
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15102472400,
+          "endTicks": 15102488742,
+          "threadId": 8
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15102484274,
+          "endTicks": 15102493261,
+          "threadId": 11
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15102478832,
+          "endTicks": 15102493591,
+          "threadId": 9
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15102490109,
+          "endTicks": 15102579220,
+          "threadId": 10
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102595064,
+          "endTicks": 15102609578,
+          "threadId": 8
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102601348,
+          "endTicks": 15102609595,
+          "threadId": 11
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102604621,
+          "endTicks": 15102609881,
+          "threadId": 10
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102598403,
+          "endTicks": 15102610278,
+          "threadId": 9
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102612807,
+          "endTicks": 15102613075,
+          "threadId": 11
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102614608,
+          "endTicks": 15102614811,
+          "threadId": 10
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102616766,
+          "endTicks": 15102616971,
+          "threadId": 8
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102618391,
+          "endTicks": 15102618589,
+          "threadId": 10
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102620504,
+          "endTicks": 15102620738,
+          "threadId": 11
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102622215,
+          "endTicks": 15102622388,
+          "threadId": 10
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102624235,
+          "endTicks": 15102624448,
+          "threadId": 8
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102625870,
+          "endTicks": 15102626045,
+          "threadId": 10
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102627815,
+          "endTicks": 15102628017,
+          "threadId": 11
+        },
+        {
+          "typeName": "LogicCommandSet",
+          "startTicks": 15102629505,
+          "endTicks": 15102629694,
+          "threadId": 10
+        },
+        {
+          "typeName": "ObjectFilterAsset",
+          "startTicks": 15102662530,
+          "endTicks": 15102698591,
+          "threadId": 11
+        },
+        {
+          "typeName": "ObjectFilterAsset",
+          "startTicks": 15102655277,
+          "endTicks": 15102698752,
+          "threadId": 8
+        },
+        {
+          "typeName": "ObjectFilterAsset",
+          "startTicks": 15102664950,
+          "endTicks": 15102699162,
+          "threadId": 9
+        },
+        {
+          "typeName": "ObjectFilterAsset",
+          "startTicks": 15102657667,
+          "endTicks": 15102699260,
+          "threadId": 10
+        },
+        {
+          "typeName": "ObjectFilterAsset",
+          "startTicks": 15102702350,
+          "endTicks": 15102703350,
+          "threadId": 11
+        },
+        {
+          "typeName": "ObjectFilterAsset",
+          "startTicks": 15102704061,
+          "endTicks": 15102704596,
+          "threadId": 11
+        },
+        {
+          "typeName": "ObjectFilterAsset",
+          "startTicks": 15102708742,
+          "endTicks": 15102709250,
+          "threadId": 10
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102740403,
+          "endTicks": 15102781776,
+          "threadId": 10
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102737713,
+          "endTicks": 15102781784,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102735782,
+          "endTicks": 15102782660,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102733313,
+          "endTicks": 15102783470,
+          "threadId": 9
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102787058,
+          "endTicks": 15102787384,
+          "threadId": 10
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102789040,
+          "endTicks": 15102789229,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102791367,
+          "endTicks": 15102791576,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102793681,
+          "endTicks": 15102793853,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102795765,
+          "endTicks": 15102795948,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102797897,
+          "endTicks": 15102798053,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102800084,
+          "endTicks": 15102800258,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102802273,
+          "endTicks": 15102802478,
+          "threadId": 9
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102803805,
+          "endTicks": 15102803975,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102805811,
+          "endTicks": 15102805970,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102807771,
+          "endTicks": 15102807935,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102809790,
+          "endTicks": 15102809946,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102812225,
+          "endTicks": 15102812375,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102814449,
+          "endTicks": 15102814606,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102816466,
+          "endTicks": 15102816619,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102818466,
+          "endTicks": 15102818619,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102820412,
+          "endTicks": 15102820601,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102822563,
+          "endTicks": 15102822730,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102824610,
+          "endTicks": 15102824818,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102826285,
+          "endTicks": 15102826463,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102827809,
+          "endTicks": 15102828017,
+          "threadId": 10
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102829361,
+          "endTicks": 15102829570,
+          "threadId": 9
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102830929,
+          "endTicks": 15102831135,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102832803,
+          "endTicks": 15102832998,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102836960,
+          "endTicks": 15102837165,
+          "threadId": 10
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102839189,
+          "endTicks": 15102839406,
+          "threadId": 9
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102840805,
+          "endTicks": 15102840992,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102842466,
+          "endTicks": 15102842652,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102844022,
+          "endTicks": 15102844206,
+          "threadId": 10
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102845604,
+          "endTicks": 15102845804,
+          "threadId": 9
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102847170,
+          "endTicks": 15102847367,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102848793,
+          "endTicks": 15102848980,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102850337,
+          "endTicks": 15102850524,
+          "threadId": 10
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102851881,
+          "endTicks": 15102852080,
+          "threadId": 9
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102853427,
+          "endTicks": 15102853621,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102854984,
+          "endTicks": 15102855170,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102856527,
+          "endTicks": 15102856706,
+          "threadId": 10
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102858041,
+          "endTicks": 15102858237,
+          "threadId": 9
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102859558,
+          "endTicks": 15102859752,
+          "threadId": 11
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102861153,
+          "endTicks": 15102861338,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTech",
+          "startTicks": 15102862749,
+          "endTicks": 15102862939,
+          "threadId": 10
+        },
+        {
+          "typeName": "PlayerTechStoreTemplate",
+          "startTicks": 15102880598,
+          "endTicks": 15102886643,
+          "threadId": 9
+        },
+        {
+          "typeName": "PlayerTechStoreTemplate",
+          "startTicks": 15102885343,
+          "endTicks": 15102886806,
+          "threadId": 8
+        },
+        {
+          "typeName": "PlayerTechStoreTemplate",
+          "startTicks": 15102883116,
+          "endTicks": 15102886869,
+          "threadId": 11
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102910766,
+          "endTicks": 15102953099,
+          "threadId": 11
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102918060,
+          "endTicks": 15102953315,
+          "threadId": 9
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102958255,
+          "endTicks": 15102959518,
+          "threadId": 9
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102913734,
+          "endTicks": 15102960169,
+          "threadId": 8
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102916005,
+          "endTicks": 15102960598,
+          "threadId": 10
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102963424,
+          "endTicks": 15102964766,
+          "threadId": 11
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102965996,
+          "endTicks": 15102966590,
+          "threadId": 8
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102968732,
+          "endTicks": 15102969617,
+          "threadId": 9
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102970257,
+          "endTicks": 15102970800,
+          "threadId": 9
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102972763,
+          "endTicks": 15102973411,
+          "threadId": 8
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102974929,
+          "endTicks": 15102975502,
+          "threadId": 10
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102976971,
+          "endTicks": 15102977720,
+          "threadId": 11
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102978441,
+          "endTicks": 15102979085,
+          "threadId": 11
+        },
+        {
+          "typeName": "SpecialPowerTemplate",
+          "startTicks": 15102980645,
+          "endTicks": 15102981648,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103176848,
+          "endTicks": 15103179666,
+          "threadId": 9
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103180239,
+          "endTicks": 15103182927,
+          "threadId": 9
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103183411,
+          "endTicks": 15103186201,
+          "threadId": 9
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103186326,
+          "endTicks": 15103189110,
+          "threadId": 9
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103190838,
+          "endTicks": 15103193674,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103195115,
+          "endTicks": 15103197909,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103199009,
+          "endTicks": 15103201619,
+          "threadId": 8
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103203255,
+          "endTicks": 15103206065,
+          "threadId": 9
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103209319,
+          "endTicks": 15103211923,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103213918,
+          "endTicks": 15103216761,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103217472,
+          "endTicks": 15103220221,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103220969,
+          "endTicks": 15103224402,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103224531,
+          "endTicks": 15103227538,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103229029,
+          "endTicks": 15103233152,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103233727,
+          "endTicks": 15103238390,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103238235,
+          "endTicks": 15103242298,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103243920,
+          "endTicks": 15103246721,
+          "threadId": 9
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103248799,
+          "endTicks": 15103251525,
+          "threadId": 8
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103253589,
+          "endTicks": 15103256446,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103258054,
+          "endTicks": 15103260723,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103262317,
+          "endTicks": 15103264921,
+          "threadId": 9
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103266666,
+          "endTicks": 15103268723,
+          "threadId": 8
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103271279,
+          "endTicks": 15103274023,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103275310,
+          "endTicks": 15103278062,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103278764,
+          "endTicks": 15103281494,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103281822,
+          "endTicks": 15103284497,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103285232,
+          "endTicks": 15103288088,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103289346,
+          "endTicks": 15103291990,
+          "threadId": 9
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103293864,
+          "endTicks": 15103296669,
+          "threadId": 8
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103297686,
+          "endTicks": 15103300509,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15103301530,
+          "endTicks": 15103304316,
+          "threadId": 10
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15103347420,
+          "endTicks": 15103492674,
+          "threadId": 8
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15103351717,
+          "endTicks": 15103492935,
+          "threadId": 11
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15103355737,
+          "endTicks": 15103492981,
+          "threadId": 10
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15103342769,
+          "endTicks": 15103495543,
+          "threadId": 9
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15103503182,
+          "endTicks": 15103506540,
+          "threadId": 10
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15103507880,
+          "endTicks": 15103510642,
+          "threadId": 8
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15103505432,
+          "endTicks": 15103526238,
+          "threadId": 9
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15103500097,
+          "endTicks": 15103530485,
+          "threadId": 12
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15103537439,
+          "endTicks": 15103540682,
+          "threadId": 8
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15103540608,
+          "endTicks": 15103543617,
+          "threadId": 12
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15103534859,
+          "endTicks": 15103544646,
+          "threadId": 11
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15103660041,
+          "endTicks": 15103686028,
+          "threadId": 9
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "startTicks": 15103818189,
+          "endTicks": 15103863849,
+          "threadId": 11
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "startTicks": 15103821334,
+          "endTicks": 15103864453,
+          "threadId": 9
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "startTicks": 15103825804,
+          "endTicks": 15103865274,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15103801302,
+          "endTicks": 15103908800,
+          "threadId": 10
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15104092551,
+          "endTicks": 15104258252,
+          "threadId": 9
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15104069021,
+          "endTicks": 15104260399,
+          "threadId": 8
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15104574394,
+          "endTicks": 15104744085,
+          "threadId": 10
+        },
+        {
+          "typeName": "W3DContainer",
+          "startTicks": 15105380477,
+          "endTicks": 15105435572,
+          "threadId": 8
+        },
+        {
+          "typeName": "W3DHierarchy",
+          "startTicks": 15105403486,
+          "endTicks": 15105440382,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15105457116,
+          "endTicks": 15105460033,
+          "threadId": 11
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15105360343,
+          "endTicks": 15105517654,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15105524115,
+          "endTicks": 15105529064,
+          "threadId": 8
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15105551202,
+          "endTicks": 15105553802,
+          "threadId": 9
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15105554144,
+          "endTicks": 15105556255,
+          "threadId": 9
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15105557533,
+          "endTicks": 15105559679,
+          "threadId": 10
+        },
+        {
+          "typeName": "W3DContainer",
+          "startTicks": 15105812376,
+          "endTicks": 15105813001,
+          "threadId": 9
+        },
+        {
+          "typeName": "W3DHierarchy",
+          "startTicks": 15105829682,
+          "endTicks": 15105831299,
+          "threadId": 10
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15105796063,
+          "endTicks": 15105838848,
+          "threadId": 11
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15105940453,
+          "endTicks": 15105946389,
+          "threadId": 8
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15105963660,
+          "endTicks": 15105970350,
+          "threadId": 12
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15105994498,
+          "endTicks": 15105996924,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15105998141,
+          "endTicks": 15106000261,
+          "threadId": 8
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15106002324,
+          "endTicks": 15106004258,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15107873888,
+          "endTicks": 15107885436,
+          "threadId": 8
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15107905256,
+          "endTicks": 15107907957,
+          "threadId": 12
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15107911095,
+          "endTicks": 15107913144,
+          "threadId": 9
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15107812282,
+          "endTicks": 15108190733,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15108198645,
+          "endTicks": 15108201588,
+          "threadId": 12
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15108919204,
+          "endTicks": 15109122925,
+          "threadId": 9
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15109225864,
+          "endTicks": 15109234656,
+          "threadId": 10
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15109258506,
+          "endTicks": 15109261153,
+          "threadId": 12
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15109262972,
+          "endTicks": 15109265174,
+          "threadId": 9
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15109266739,
+          "endTicks": 15109268767,
+          "threadId": 10
+        },
+        {
+          "typeName": "W3DContainer",
+          "startTicks": 15109859808,
+          "endTicks": 15109860426,
+          "threadId": 9
+        },
+        {
+          "typeName": "W3DHierarchy",
+          "startTicks": 15109877569,
+          "endTicks": 15109879958,
+          "threadId": 10
+        },
+        {
+          "typeName": "AttributeModifier",
+          "startTicks": 15109921433,
+          "endTicks": 15109933773,
+          "threadId": 11
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15109784751,
+          "endTicks": 15109944764,
+          "threadId": 12
+        },
+        {
+          "typeName": "AttributeModifier",
+          "startTicks": 15109950874,
+          "endTicks": 15109961347,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110160199,
+          "endTicks": 15110174926,
+          "threadId": 11
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110359613,
+          "endTicks": 15110363762,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110362623,
+          "endTicks": 15110367818,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110367713,
+          "endTicks": 15110371783,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110356206,
+          "endTicks": 15110438624,
+          "threadId": 8
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110445785,
+          "endTicks": 15110449059,
+          "threadId": 11
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110449204,
+          "endTicks": 15110451906,
+          "threadId": 11
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110452224,
+          "endTicks": 15110456092,
+          "threadId": 11
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110454966,
+          "endTicks": 15110458773,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110458241,
+          "endTicks": 15110463144,
+          "threadId": 10
+        },
+        {
+          "typeName": "ObjectCreationList",
+          "startTicks": 15110481046,
+          "endTicks": 15110484393,
+          "threadId": 11
+        },
+        {
+          "typeName": "ObjectCreationList",
+          "startTicks": 15110484563,
+          "endTicks": 15110485649,
+          "threadId": 11
+        },
+        {
+          "typeName": "ObjectCreationList",
+          "startTicks": 15110487711,
+          "endTicks": 15110488487,
+          "threadId": 8
+        },
+        {
+          "typeName": "ObjectCreationList",
+          "startTicks": 15110491198,
+          "endTicks": 15110491854,
+          "threadId": 10
+        },
+        {
+          "typeName": "ObjectCreationList",
+          "startTicks": 15110493124,
+          "endTicks": 15110493576,
+          "threadId": 12
+        },
+        {
+          "typeName": "ObjectCreationList",
+          "startTicks": 15110495368,
+          "endTicks": 15110495941,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15110517586,
+          "endTicks": 15110518407,
+          "threadId": 8
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15110521113,
+          "endTicks": 15110523252,
+          "threadId": 10
+        },
+        {
+          "typeName": "W3DContainer",
+          "startTicks": 15110686239,
+          "endTicks": 15110686739,
+          "threadId": 11
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15110672222,
+          "endTicks": 15110693071,
+          "threadId": 12
+        },
+        {
+          "typeName": "W3DHierarchy",
+          "startTicks": 15110699789,
+          "endTicks": 15110700312,
+          "threadId": 8
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15110858959,
+          "endTicks": 15110862648,
+          "threadId": 12
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15110846938,
+          "endTicks": 15110865675,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110817134,
+          "endTicks": 15110875430,
+          "threadId": 11
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15111019575,
+          "endTicks": 15111022505,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15110989043,
+          "endTicks": 15111035376,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15111250229,
+          "endTicks": 15111263391,
+          "threadId": 8
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "startTicks": 15111380299,
+          "endTicks": 15111380855,
+          "threadId": 10
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "startTicks": 15111383361,
+          "endTicks": 15111383745,
+          "threadId": 12
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "startTicks": 15111387216,
+          "endTicks": 15111387603,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15111363526,
+          "endTicks": 15111426914,
+          "threadId": 11
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "startTicks": 15111433159,
+          "endTicks": 15111433664,
+          "threadId": 12
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15111918955,
+          "endTicks": 15112075713,
+          "threadId": 10
+        },
+        {
+          "typeName": "W3DContainer",
+          "startTicks": 15112084864,
+          "endTicks": 15112085534,
+          "threadId": 11
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15112065190,
+          "endTicks": 15112095121,
+          "threadId": 8
+        },
+        {
+          "typeName": "W3DHierarchy",
+          "startTicks": 15112101027,
+          "endTicks": 15112102335,
+          "threadId": 10
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "startTicks": 15112289911,
+          "endTicks": 15112290496,
+          "threadId": 12
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "startTicks": 15112292700,
+          "endTicks": 15112293144,
+          "threadId": 8
+        },
+        {
+          "typeName": "UpgradeTemplate",
+          "startTicks": 15112295383,
+          "endTicks": 15112295770,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15112269631,
+          "endTicks": 15112324194,
+          "threadId": 11
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15112677644,
+          "endTicks": 15112723920,
+          "threadId": 8
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15112701037,
+          "endTicks": 15112730195,
+          "threadId": 12
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15113217599,
+          "endTicks": 15113398260,
+          "threadId": 10
+        },
+        {
+          "typeName": "W3DContainer",
+          "startTicks": 15113883601,
+          "endTicks": 15113884752,
+          "threadId": 10
+        },
+        {
+          "typeName": "W3DHierarchy",
+          "startTicks": 15113904055,
+          "endTicks": 15113905921,
+          "threadId": 11
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15113959980,
+          "endTicks": 15113964321,
+          "threadId": 10
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15113863100,
+          "endTicks": 15114073761,
+          "threadId": 12
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15114084653,
+          "endTicks": 15114088345,
+          "threadId": 10
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15114089351,
+          "endTicks": 15114092543,
+          "threadId": 10
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15114079579,
+          "endTicks": 15114115798,
+          "threadId": 8
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15114081464,
+          "endTicks": 15114115915,
+          "threadId": 12
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15114120662,
+          "endTicks": 15114123114,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15114246987,
+          "endTicks": 15114306099,
+          "threadId": 11
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15114686974,
+          "endTicks": 15114705393,
+          "threadId": 8
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15114722769,
+          "endTicks": 15114725653,
+          "threadId": 9
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15114725831,
+          "endTicks": 15114728120,
+          "threadId": 9
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15114733183,
+          "endTicks": 15114736148,
+          "threadId": 12
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15114962188,
+          "endTicks": 15115046461,
+          "threadId": 8
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15115076729,
+          "endTicks": 15115132358,
+          "threadId": 13
+        },
+        {
+          "typeName": "FXList",
+          "startTicks": 15114759567,
+          "endTicks": 15115158666,
+          "threadId": 10
+        },
+        {
+          "typeName": "FXList",
+          "startTicks": 15114762796,
+          "endTicks": 15115159385,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15115163959,
+          "endTicks": 15115164949,
+          "threadId": 8
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15115186501,
+          "endTicks": 15115188675,
+          "threadId": 13
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15115192986,
+          "endTicks": 15115195815,
+          "threadId": 11
+        },
+        {
+          "typeName": "WeaponTemplate",
+          "startTicks": 15115399641,
+          "endTicks": 15115403203,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15115380518,
+          "endTicks": 15115431174,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15115434993,
+          "endTicks": 15115436145,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15115437500,
+          "endTicks": 15115438341,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15115443226,
+          "endTicks": 15115444070,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15115446060,
+          "endTicks": 15115446963,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15115447976,
+          "endTicks": 15115448609,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115514449,
+          "endTicks": 15115554805,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115504702,
+          "endTicks": 15115685626,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115509259,
+          "endTicks": 15115687854,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115500696,
+          "endTicks": 15115696914,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115703698,
+          "endTicks": 15115738404,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115709091,
+          "endTicks": 15115751989,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115715723,
+          "endTicks": 15115754316,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115722677,
+          "endTicks": 15115764965,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115746174,
+          "endTicks": 15115799443,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115759684,
+          "endTicks": 15115802242,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115766415,
+          "endTicks": 15115937542,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115773665,
+          "endTicks": 15115947060,
+          "threadId": 11
+        },
+        {
+          "typeName": "Multisound",
+          "startTicks": 15115966511,
+          "endTicks": 15115972678,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115810964,
+          "endTicks": 15115973400,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115818973,
+          "endTicks": 15115981658,
+          "threadId": 8
+        },
+        {
+          "typeName": "FXList",
+          "startTicks": 15116052151,
+          "endTicks": 15116053555,
+          "threadId": 11
+        },
+        {
+          "typeName": "FXList",
+          "startTicks": 15116057136,
+          "endTicks": 15116058482,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15115946741,
+          "endTicks": 15116077994,
+          "threadId": 13
+        },
+        {
+          "typeName": "FXList",
+          "startTicks": 15116083625,
+          "endTicks": 15116085255,
+          "threadId": 8
+        },
+        {
+          "typeName": "FXList",
+          "startTicks": 15116085657,
+          "endTicks": 15116086698,
+          "threadId": 8
+        },
+        {
+          "typeName": "FXList",
+          "startTicks": 15116088372,
+          "endTicks": 15116090037,
+          "threadId": 9
+        },
+        {
+          "typeName": "FXList",
+          "startTicks": 15116093066,
+          "endTicks": 15116093872,
+          "threadId": 13
+        },
+        {
+          "typeName": "FXList",
+          "startTicks": 15116095813,
+          "endTicks": 15116096601,
+          "threadId": 11
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116146440,
+          "endTicks": 15116314209,
+          "threadId": 12
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116154512,
+          "endTicks": 15116314414,
+          "threadId": 11
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116151845,
+          "endTicks": 15116314423,
+          "threadId": 8
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116149376,
+          "endTicks": 15116314434,
+          "threadId": 10
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116318872,
+          "endTicks": 15116320123,
+          "threadId": 13
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116321672,
+          "endTicks": 15116322436,
+          "threadId": 11
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116324291,
+          "endTicks": 15116325392,
+          "threadId": 8
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116326398,
+          "endTicks": 15116328033,
+          "threadId": 9
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116330414,
+          "endTicks": 15116332176,
+          "threadId": 11
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116332923,
+          "endTicks": 15116334059,
+          "threadId": 11
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116336375,
+          "endTicks": 15116337611,
+          "threadId": 13
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116328288,
+          "endTicks": 15116342964,
+          "threadId": 9
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116346167,
+          "endTicks": 15116347423,
+          "threadId": 12
+        },
+        {
+          "typeName": "FXParticleSystemTemplate",
+          "startTicks": 15116348666,
+          "endTicks": 15116349610,
+          "threadId": 11
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15116473897,
+          "endTicks": 15116474639,
+          "threadId": 8
+        },
+        {
+          "typeName": "Texture",
+          "startTicks": 15116480409,
+          "endTicks": 15116482841,
+          "threadId": 10
+        },
+        {
+          "typeName": "GameObject",
+          "startTicks": 15116451286,
+          "endTicks": 15116507586,
+          "threadId": 13
+        },
+        {
+          "typeName": "W3DContainer",
+          "startTicks": 15118539171,
+          "endTicks": 15118539911,
+          "threadId": 8
+        },
+        {
+          "typeName": "W3DHierarchy",
+          "startTicks": 15118558197,
+          "endTicks": 15118559995,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118603805,
+          "endTicks": 15118605216,
+          "threadId": 12
+        },
+        {
+          "typeName": "W3DMesh",
+          "startTicks": 15118513493,
+          "endTicks": 15118897848,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118905574,
+          "endTicks": 15118907058,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118906509,
+          "endTicks": 15118909185,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118909759,
+          "endTicks": 15118910941,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118913046,
+          "endTicks": 15118914203,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118914998,
+          "endTicks": 15118916107,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118916797,
+          "endTicks": 15118917788,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118918520,
+          "endTicks": 15118919462,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118920230,
+          "endTicks": 15118920797,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118922591,
+          "endTicks": 15118923563,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118924256,
+          "endTicks": 15118925024,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118926140,
+          "endTicks": 15118926566,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118928439,
+          "endTicks": 15118929578,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118930097,
+          "endTicks": 15118930899,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118931988,
+          "endTicks": 15118932490,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118934168,
+          "endTicks": 15118934878,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118936183,
+          "endTicks": 15118937081,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118938655,
+          "endTicks": 15118939760,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118940184,
+          "endTicks": 15118940896,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118942038,
+          "endTicks": 15118942751,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118944219,
+          "endTicks": 15118945264,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118945828,
+          "endTicks": 15118946817,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118947527,
+          "endTicks": 15118948481,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioEvent",
+          "startTicks": 15118949176,
+          "endTicks": 15118949924,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119344895,
+          "endTicks": 15119365427,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119340003,
+          "endTicks": 15119368625,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119349428,
+          "endTicks": 15119374015,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119354613,
+          "endTicks": 15119378859,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119379388,
+          "endTicks": 15119403040,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119386741,
+          "endTicks": 15119415062,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119393254,
+          "endTicks": 15119420479,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119400122,
+          "endTicks": 15119442636,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119410001,
+          "endTicks": 15119452058,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119422568,
+          "endTicks": 15119464975,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119430089,
+          "endTicks": 15119471835,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119458887,
+          "endTicks": 15119491108,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119450662,
+          "endTicks": 15119495557,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119471878,
+          "endTicks": 15119499945,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119480114,
+          "endTicks": 15119516993,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119509804,
+          "endTicks": 15119532345,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119502796,
+          "endTicks": 15119535245,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119519448,
+          "endTicks": 15119547676,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119526315,
+          "endTicks": 15119553153,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119541938,
+          "endTicks": 15119575176,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119548624,
+          "endTicks": 15119576165,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119555772,
+          "endTicks": 15119581220,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119562421,
+          "endTicks": 15119584365,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119583280,
+          "endTicks": 15119606171,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119589169,
+          "endTicks": 15119614095,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119594587,
+          "endTicks": 15119626468,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119621463,
+          "endTicks": 15119648586,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119601713,
+          "endTicks": 15119649793,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119633633,
+          "endTicks": 15119659552,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119657597,
+          "endTicks": 15119678002,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119613729,
+          "endTicks": 15119680925,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119689996,
+          "endTicks": 15119731648,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119695360,
+          "endTicks": 15119740242,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119702302,
+          "endTicks": 15119750126,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119735599,
+          "endTicks": 15119759870,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119742544,
+          "endTicks": 15119766563,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119757783,
+          "endTicks": 15119778587,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119767488,
+          "endTicks": 15119791386,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119749474,
+          "endTicks": 15119793862,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119775063,
+          "endTicks": 15119807131,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119801658,
+          "endTicks": 15119830154,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119815098,
+          "endTicks": 15119837795,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119809347,
+          "endTicks": 15119840019,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119822163,
+          "endTicks": 15119861895,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119846484,
+          "endTicks": 15119872279,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119837842,
+          "endTicks": 15119873979,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119853653,
+          "endTicks": 15119875370,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119869489,
+          "endTicks": 15119892356,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119880652,
+          "endTicks": 15119904636,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119893782,
+          "endTicks": 15119914465,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119886088,
+          "endTicks": 15119916248,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119900310,
+          "endTicks": 15119930259,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119912221,
+          "endTicks": 15119938696,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119922785,
+          "endTicks": 15119958317,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119934603,
+          "endTicks": 15119963092,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119942564,
+          "endTicks": 15119972012,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119949435,
+          "endTicks": 15119979596,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119964810,
+          "endTicks": 15119992126,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119978866,
+          "endTicks": 15120007234,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119972045,
+          "endTicks": 15120011906,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15119988788,
+          "endTicks": 15120014756,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120000138,
+          "endTicks": 15120026205,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120019598,
+          "endTicks": 15120045734,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120025394,
+          "endTicks": 15120049464,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120032384,
+          "endTicks": 15120061530,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120039619,
+          "endTicks": 15120078529,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120053110,
+          "endTicks": 15120087827,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120060290,
+          "endTicks": 15120090234,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120068318,
+          "endTicks": 15120093923,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120085880,
+          "endTicks": 15120103620,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120101508,
+          "endTicks": 15120120560,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120094778,
+          "endTicks": 15120126350,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120110040,
+          "endTicks": 15120146929,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120117622,
+          "endTicks": 15120151736,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120140296,
+          "endTicks": 15120170581,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120133026,
+          "endTicks": 15120171928,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120154667,
+          "endTicks": 15120186426,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120161903,
+          "endTicks": 15120211722,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120179117,
+          "endTicks": 15120225979,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120186159,
+          "endTicks": 15120251149,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120208587,
+          "endTicks": 15120253738,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120219523,
+          "endTicks": 15120265701,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120233055,
+          "endTicks": 15120285713,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120260148,
+          "endTicks": 15120313817,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120274123,
+          "endTicks": 15120319897,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120267304,
+          "endTicks": 15120323832,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120292289,
+          "endTicks": 15120337085,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120321490,
+          "endTicks": 15120343483,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120331478,
+          "endTicks": 15120351058,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120347260,
+          "endTicks": 15120369393,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120354453,
+          "endTicks": 15120374284,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120360832,
+          "endTicks": 15120381014,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120367670,
+          "endTicks": 15120382460,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120376156,
+          "endTicks": 15120426112,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120382901,
+          "endTicks": 15120427743,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120388481,
+          "endTicks": 15120434923,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120395825,
+          "endTicks": 15120449350,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120433271,
+          "endTicks": 15120476627,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120447807,
+          "endTicks": 15120483714,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120440952,
+          "endTicks": 15120486172,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120456870,
+          "endTicks": 15120494513,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120483875,
+          "endTicks": 15120518029,
+          "threadId": 9
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120493898,
+          "endTicks": 15120523164,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120500131,
+          "endTicks": 15120536804,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120507337,
+          "endTicks": 15120546416,
+          "threadId": 12
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120525923,
+          "endTicks": 15120552885,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120536419,
+          "endTicks": 15120561096,
+          "threadId": 14
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120552922,
+          "endTicks": 15120573993,
+          "threadId": 8
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120545007,
+          "endTicks": 15120577905,
+          "threadId": 11
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120560119,
+          "endTicks": 15120587473,
+          "threadId": 13
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120584146,
+          "endTicks": 15120615638,
+          "threadId": 10
+        },
+        {
+          "typeName": "AudioFile",
+          "startTicks": 15120591666,
+          "endTicks": 15120618868,
+          "threadId": 9
+        }
+      ],
+      "intervalSampleLimit": 512,
+      "clockFrequency": 10000000
+    },
+    "sessionCacheDirectory": null
+  },
+  "reportElapsedMs": 27115,
+  "publishedBytes": 78752249,
+  "errors": 0,
+  "warnings": 1859
+}

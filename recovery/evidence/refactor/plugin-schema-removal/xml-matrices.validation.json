@@ -1,0 +1,5595 @@
+{
+  "schemaVersion": 1,
+  "succeeded": true,
+  "sourceCommit": "b687824c839c2c85f1dd29ed178c4856c266a379",
+  "runId": "41037565236",
+  "runAttempt": "1",
+  "status": "passed all 63 complete group matrices in Debug and Release; SDK and G3 acceptance remain separate",
+  "sdkValidated": false,
+  "scope": "All 63 existing complete XML group matrices against EXE-owned recovered types, independent original oracle process; not production G3 single-process or SDK acceptance",
+  "groups": [
+    {
+      "group": "Xmlabilitybuttons",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlabilitybuttonsOracle.cs",
+          "sha256": "78827182a7c9fd5cc05875b4afad2408cdf4097664567ca5d4ff77e1b5cc8b48"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlai",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlaiOracle.cs",
+          "sha256": "ecc29dbbaeeb39f579c9455f45bcf129150757140fb9ffba20b303a8c7556658"
+        },
+        {
+          "path": "recovery/tests/XmlaiPersonalityCases.cs",
+          "sha256": "d80bbe3995f133c710fa521188b73965936c83cc418464ddb0f7f5609c234f69"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlaptdata",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlaptdataOracle.cs",
+          "sha256": "0b159e8f6346d201010f1f8ddd4480d75f69840ca2065f29597624293d957c80"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlarmyopening",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlarmyopeningOracle.cs",
+          "sha256": "79d6250b89dd3e4591a25f3453c11e56dc392e2b6d8eb43d3a19337e7269eb4b"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlassetindexes",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlassetindexesOracle.cs",
+          "sha256": "4e8257be8bf2190c7e4f7c813e95cc90b96d39988ac1afba1abfa98140cfa974"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlattributes",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlattributesOracle.cs",
+          "sha256": "d9f06ea7eb31e5e73d5c98e9787b76b77c4e873be0a3780923b21e84c6ea5084"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlaudio",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlaudioOracle.cs",
+          "sha256": "063285c71099e17542cf8ba83627411766effbaa782cf3be7e16f09800766250"
+        },
+        {
+          "path": "recovery/tests/XmlaudioBootupCases.cs",
+          "sha256": "a1c6b8037ca10cf0abd7195a937bdc1d85768eb5dc8658028a8076b3de5c19f5"
+        },
+        {
+          "path": "recovery/tests/XmlaudioCases.cs",
+          "sha256": "d9bdbe5042abe69f2a227da27307b6ad821d7c17b9d2b1e47738d4c79b90b607"
+        },
+        {
+          "path": "recovery/tests/XmlaudioNullCases.cs",
+          "sha256": "18ed41f926b0e158e2d6d4dc9ec27349eea1ad3ae638b7bb99b60a7437782902"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlbuildeconomy",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlbuildeconomyOracle.cs",
+          "sha256": "1d8b94c741afb93e64710f7defc221f154603aed4046a247c0e39a0b0941323e"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlcampaign",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlcampaignOracle.cs",
+          "sha256": "e722dfece318d992bb8de6cb1a1890b8002fde92f7097ddbdb6a9df09bb02aeb"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlchatcolors",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlchatcolorsOracle.cs",
+          "sha256": "e7cb92ac9e20af0b84ad509417244eb030d209e7bdf4b7ae20df54020930c587"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlcommandset",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlcommandsetOracle.cs",
+          "sha256": "cb344fa59a4c3ecc3d0f5ccf6c8a2de66a402471c19b24c4af7f81feeda55a23"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlconditions",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlconditionsOracle.cs",
+          "sha256": "66a386c1483a6273dfef5e226265624fdc8830329584bf2cab1b4888bb1c7607"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlconnections",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlconnectionsOracle.cs",
+          "sha256": "dac8d6fd30d87f4d6efd1e72d8dae3057e97e26831931e83b1af598ec9e5b93e"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlconquercards",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlconquercardsOracle.cs",
+          "sha256": "6cc3a19c8a306c71878801639965224e38179ea4f10e196f37413e31c05755db"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlcontent",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlcontentOracle.cs",
+          "sha256": "09933dd376f1d094b7b905db9502973b4ef3da1d759ddf519b18478acd352c7f"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlcrowd",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlcrowdOracle.cs",
+          "sha256": "8f343726810573a658056d62aeb76d4e7ec5b73632f83381d647290205575674"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmldamagefx",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmldamagefxOracle.cs",
+          "sha256": "72aa25e978e55080748a01f8109171408ba3a9ba0c0119cb003424255e1cf0ed"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmldynamics",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmldynamicsOracle.cs",
+          "sha256": "6967a4cc3a32d99c6d74d47d0848644fd7c54123ef5a3527abf2e2721dc58bdb"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmleffects",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmleffectsOracle.cs",
+          "sha256": "a2fa500ee2fc04ca89e40be3164b2dd4fa975f8ac8d494d29c378726ae896fe2"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlemotions",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlemotionsOracle.cs",
+          "sha256": "4fa22a160abe01e6c33c9f84a91619d7fdc12118ff563c30b1229e4a326864f1"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlenvironment",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlenvironmentOracle.cs",
+          "sha256": "1d45cd4a673681e6ba3b7b517ef58a19a9a9b5655f65f71fbc9cfd9e379c5528"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlevaachievement",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlevaachievementOracle.cs",
+          "sha256": "a8bef2d68c8aebe17f472d0a83e7d84daf6c237e5cf33c100c66170d55dc363f"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlforcefeedback",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlforcefeedbackOracle.cs",
+          "sha256": "3a7c134288291964c28f96f8a38f96457e2d7d8c73d50ab2c7f089c9b86d2e20"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlfxparticle",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlfxparticleOracle.cs",
+          "sha256": "f088d0df3605020f70ff531fb1dea09425b4c76846ef2acc188223eeb3963a31"
+        },
+        {
+          "path": "recovery/tests/XmlfxparticleEventCases.cs",
+          "sha256": "4892de03e53e2dcf0dab9be5f668aea04f4803014d66d29da38baad93d47b0c7"
+        },
+        {
+          "path": "recovery/tests/XmlfxparticleModuleCases.cs",
+          "sha256": "7c7540c5e7f9e18b496f6647425dfda28c3cd57fe0715ee122fd7acd3f111cd3"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlgamemap",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlgamemapOracle.cs",
+          "sha256": "4dd4c2545ab3e210fa7feee82256942a5610ca722fd53c9962be4fbfbc03486b"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlgamescripts",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlgamescriptsOracle.cs",
+          "sha256": "15e69e5b62ad8eb07d5cc2c66b045a9a81833c4507d6c51ba847d8013563e05c"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlhealthbars",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlhealthbarsOracle.cs",
+          "sha256": "e0fc4e2fb83340a370425d86b664f1c8321b458137937d89beac5a7ff52155f1"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlhotkeymaps",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlhotkeymapsOracle.cs",
+          "sha256": "edc31e0dc45cab98cff912060e9a618b209a297de6a4f7f2b4e3f8b81efa6311"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmllocalization",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmllocalizationOracle.cs",
+          "sha256": "4e20018f3dff89bfedc8d259b9f779c9e233d12bd1c4bae1fc506daf5720b6df"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmllocomotor",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmllocomotorOracle.cs",
+          "sha256": "a689eb5ebae4a23f5f18a27407c6899288a354b64b56bba909f11be55a4ad98c"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlmapmetadata",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlmapmetadataOracle.cs",
+          "sha256": "c964bd0f465522b3d28a373fcf99daa190a0e0e2bd40657aefa8bdab3583243c"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlmaterialrules",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlmaterialrulesOracle.cs",
+          "sha256": "b53ba8bb6dd091e5f8076cdfeae6b59b5cf9451de1dd357dc5e1f7a024182054"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlmouse",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlmouseOracle.cs",
+          "sha256": "acf65b158f12100b790b2a6b3d867a645dc136c4b3b5cbed6f7d6b3a5f6b446b"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlmoviearchive",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlmoviearchiveOracle.cs",
+          "sha256": "13249e8226d2b4e306ff6d57f5080140c19b8aa5b6134b2cb5d82f7449de63d5"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlmusicscript",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlmusicscriptOracle.cs",
+          "sha256": "e7ad5fb48c80423394e5e12627432f0f1f550f5bc975326d133cfcbb9cf03bc1"
+        },
+        {
+          "path": "recovery/tests/XmlmusicscriptCases.cs",
+          "sha256": "8b7a706b31d03e572a4ca75d716e1d015aa4fa30a97f14f981b2ae81ee391ad7"
+        },
+        {
+          "path": "recovery/tests/XmlmusicscriptFilterCases.cs",
+          "sha256": "37bc8d1b8911365c70cdca0cd65310a20a51789d0a8915c5ef186d63d04c6ad9"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlobjectsets",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlobjectsetsOracle.cs",
+          "sha256": "bccab23287d97a65083d7d99376f94236373fd5ce2a2ae70584abc186e1aebb7"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlpathmusic",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlpathmusicOracle.cs",
+          "sha256": "a7d4c145f453cc7b20343b254267ded045f194645be5895c7333013943d08011"
+        },
+        {
+          "path": "recovery/tests/XmlpathmusicCases.cs",
+          "sha256": "2c0d6d5d183b4f7cb1647a99aa4452076f0a5e9e4c07d4f758c2a8210b4f4834"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlplayers",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlplayersOracle.cs",
+          "sha256": "ae777921520e01cd06eb16de87cdbe3895ebbe2502786c0f35a8ade2233b9ec4"
+        },
+        {
+          "path": "recovery/tests/XmlplayersAdditionalCases.cs",
+          "sha256": "3dd6f24c65134f5b3bd0fe34ac32618a628698eb62e4b451586d0ee5dc942632"
+        },
+        {
+          "path": "recovery/tests/XmlplayersAiBuildCases.cs",
+          "sha256": "8a8069056de82ec53fe0996cbafec32322e16870867797c18d3211dbcf9cc81d"
+        },
+        {
+          "path": "recovery/tests/XmlplayersChildCases.cs",
+          "sha256": "f80e0b6ec8df29d4ea40b56d3b6af08c2a86b3691fcd5d2adf3290dac3eafe92"
+        },
+        {
+          "path": "recovery/tests/XmlplayersFormationCases.cs",
+          "sha256": "48ec328131064c517c37c3a183aa93ccfb4fae84b902c585d354ca816dd0a2b7"
+        },
+        {
+          "path": "recovery/tests/XmlplayersSkirmishCases.cs",
+          "sha256": "f201392a00264a2d4d69016aedd568a5c581a38285df3b50d95b8b04d53344f6"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlpowers",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlpowersOracle.cs",
+          "sha256": "e2b3f1eb599ba1e4e64c877e32f6dc8eae0cb9472da99fbbd9925b0b7fd1cf0c"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlprogression",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlprogressionOracle.cs",
+          "sha256": "cd54d7fbb1724dec1ace1dc32a112568c4788c7feaf3397122e7cf27a7dcc98f"
+        },
+        {
+          "path": "recovery/tests/XmlprogressionCases.cs",
+          "sha256": "ebd308c76c2f615344faa924b50253736ceffa22ca91a8706f452495e0957a9f"
+        },
+        {
+          "path": "recovery/tests/XmlprogressionFontCases.cs",
+          "sha256": "4e8c158573b99e91049d88f4620091005d426876dc2c1036292460a80d320417"
+        },
+        {
+          "path": "recovery/tests/XmlprogressionUiCases.cs",
+          "sha256": "08410556b412d91f9df87013ef46baae367224d1fe2a45c5959912b1fdcc6a4c"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlprojectilepath",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlprojectilepathOracle.cs",
+          "sha256": "e91fd54d0b73bed3ecdcad7d0e50d106b07372925500e7d951e70728d08d3a4c"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlradar",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlradarOracle.cs",
+          "sha256": "47af0eeb794eee847b1bad542ad14d4b8201b2225c707f72dee29c5289be8143"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlredalert",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlredalertOracle.cs",
+          "sha256": "0b0167315b446dc3cdecb1c09327367dfb3aedfa4100acdb8d75cc78041328a4"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlrenderassets",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlrenderassetsOracle.cs",
+          "sha256": "b17a03200603ee288c292cbf8e2afd37f54180368586d93aed2af6eee494fae4"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlrenderdevice",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlrenderdeviceOracle.cs",
+          "sha256": "7d3a637ce54874e337102140c21f05a3f671be6442dbbfd1c530320a536fad1c"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlruntimeopaque",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlruntimeopaqueOracle.cs",
+          "sha256": "c26dd1e5abca5697c34f90b91664bdc46516005f1771c24aab163ff7cb532d85"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlsinglesound",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlsinglesoundOracle.cs",
+          "sha256": "386a28b790b3bea9214b3084b76ef69e51eaec0aa67b629d90efe2aac7d00533"
+        },
+        {
+          "path": "recovery/tests/XmlsinglesoundBoundaryCases.cs",
+          "sha256": "bab778afc3ebf57bfad7120d5f79d3ec5b7bdaf6e6a4d4ec1ba7d3f774e261da"
+        },
+        {
+          "path": "recovery/tests/XmlsinglesoundCases.cs",
+          "sha256": "c180b5de9602f64b5ade8336f9f829a136bfaeab49078664b41236ec23705510"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlsoundmaps",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlsoundmapsOracle.cs",
+          "sha256": "c7b965f725a0ce584ab1dd9ccd6d57d594749c614c86a7b7e6344c3b28e7af37"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlsystemsettings",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlsystemsettingsOracle.cs",
+          "sha256": "8c1931c24c5effd9da4476fe49603f69c321dc593d95504c77b86eff0353dd81"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmltacticalhotkeys",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmltacticalhotkeysOracle.cs",
+          "sha256": "99d8a8c3b5ed57c7191ee598304d3a42226c74957593885f776674ad6c284bf9"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmltargeting",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmltargetingOracle.cs",
+          "sha256": "dd20b740a0db567c8893ff6bb396550db2aca7b6840b8d931dceebd9bf80320b"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlterrain",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlterrainOracle.cs",
+          "sha256": "1bd45b0d578755e35434b1fd062052726476aed18f416d8fba5238610225551d"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmltesttextures",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmltesttexturesOracle.cs",
+          "sha256": "f6fa958b7f35ee086ab2c1ac1198c603f4efa9ea749abb01efd290063dbd8361"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmluichat",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmluichatOracle.cs",
+          "sha256": "33cbc474fe49368e3a4a26f7c0483db09026c7ad166fcb90bc48c7baa60140c7"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmluiconfig",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmluiconfigOracle.cs",
+          "sha256": "9453ac7c683f2ed9b5304fed4f115c144d9e498e486dd99cdb23410834bd508a"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmluidecals",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmluidecalsOracle.cs",
+          "sha256": "90dee9b5bd2622403f917fa1a28687e73d188d2fa6f475e9f4693684de98f8be"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmluiimages",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmluiimagesOracle.cs",
+          "sha256": "2c8fab9a620bf2cdc66ecfff8085b4837c376005e77525620ff4481b5eb69259"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmluisettings",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmluisettingsOracle.cs",
+          "sha256": "5580a7dd1ddfd29611cb27062bd73a662286086e45f0c5c6eec2aea246bf7980"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmluitactical",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmluitacticalOracle.cs",
+          "sha256": "3d7f818c1dde39075c4af66acda9fc4966da29e47c87f49934c7c02dd7967dd6"
+        },
+        {
+          "path": "recovery/tests/XmluitacticalCases.cs",
+          "sha256": "1313d8157a03b9086e7d989f9dd88644f3634cf0fc1994bf0495daca7aa1a246"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlunitoverlay",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlunitoverlayOracle.cs",
+          "sha256": "2bd9c8f271544ed704f989101a505aa6b79f4381ec75505a5d4709bbfea5a79a"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlvisibility",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlvisibilityOracle.cs",
+          "sha256": "a103821b8e16c6879e946aa2b32dde9ee26f430b0a7d45a905c5460feee22383"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlvisualsystems",
+      "inputs": [
+        {
+          "path": "recovery/tests/XmlvisualsystemsOracle.cs",
+          "sha256": "03e49e361d9d9372ad1c5d870cbdde67b8da49398e6b94cf6f8a7e95f4a502ba"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    },
+    {
+      "group": "Xmlw3d",
+      "inputs": [
+        {
+          "path": "recovery/tests/Xmlw3dOracle.cs",
+          "sha256": "c86daf44577390a0ebc826aaa98429beaf74e16a7ced02c6b6d8867324f83730"
+        },
+        {
+          "path": "recovery/tests/PluginSchemaBoundary.cs",
+          "sha256": "91411acd0306b87437c3873fa6240b5fcf4741609f9fcff7050ce93394e5c9e4"
+        }
+      ]
+    }
+  ],
+  "modes": [
+    {
+      "productExeSha256": "50357ec826549f0a593d9fd5301e9c07525b3d47404a94d33417f55ce6436650",
+      "validationHostSha256": "b962d84404e2dd8ac30b4b2ded76420389507ea3a1014af759d1e2bbc9cf2ff7",
+      "groups": [
+        {
+          "passed": true,
+          "transcriptSha256": "c5aa0d196e0525f4c5fcf1ce7ef389a3c0bc992ec7c2bec211061a5c16f9fb7d",
+          "originalCalls": 6036,
+          "platforms": [
+            {
+              "layouts": 49853,
+              "platform": 0,
+              "fixtures": 1509,
+              "rejections": 103,
+              "comparisons": 9054
+            },
+            {
+              "layouts": 49853,
+              "platform": 1,
+              "fixtures": 1509,
+              "rejections": 103,
+              "comparisons": 9054
+            },
+            {
+              "layouts": 49853,
+              "platform": 2,
+              "fixtures": 1509,
+              "rejections": 103,
+              "comparisons": 9054
+            },
+            {
+              "layouts": 49853,
+              "platform": 99,
+              "fixtures": 1509,
+              "rejections": 103,
+              "comparisons": 9054
+            }
+          ],
+          "generatedHostSha256": "442f7b87e53ab7bcd8c2d3b20aea4860c5f880db40f88c9fbd29fc27147bc589",
+          "group": "Xmlabilitybuttons"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "a0c58030b49d174c0431c80aac4a0f6e098df1d54b3e7bc1b284b7cf35bea617",
+          "originalCalls": 7940,
+          "platforms": [
+            {
+              "layouts": 321,
+              "platform": 0,
+              "fixtures": 1985,
+              "rejections": 52,
+              "comparisons": 11907
+            },
+            {
+              "layouts": 321,
+              "platform": 1,
+              "fixtures": 1985,
+              "rejections": 52,
+              "comparisons": 11907
+            },
+            {
+              "layouts": 321,
+              "platform": 2,
+              "fixtures": 1985,
+              "rejections": 52,
+              "comparisons": 11907
+            },
+            {
+              "layouts": 321,
+              "platform": 99,
+              "fixtures": 1985,
+              "rejections": 52,
+              "comparisons": 11907
+            }
+          ],
+          "generatedHostSha256": "df82f9319d1f365ea13f978dd08b76e660a9ddcf4b8ad4cf09dc2e3eeab177e6",
+          "group": "Xmlai"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "bd4680ab1c6f971e11d543108f01c35e48d16d9cfcd1b19fe4c4f490ad33f423",
+          "originalCalls": 876,
+          "platforms": [
+            {
+              "layouts": 855066,
+              "platform": 0,
+              "fixtures": 219,
+              "rejections": 26,
+              "comparisons": 1314
+            },
+            {
+              "layouts": 855066,
+              "platform": 1,
+              "fixtures": 219,
+              "rejections": 26,
+              "comparisons": 1314
+            },
+            {
+              "layouts": 855066,
+              "platform": 2,
+              "fixtures": 219,
+              "rejections": 26,
+              "comparisons": 1314
+            },
+            {
+              "layouts": 855066,
+              "platform": 99,
+              "fixtures": 219,
+              "rejections": 26,
+              "comparisons": 1314
+            }
+          ],
+          "generatedHostSha256": "f4f07fdda29616472f2c05774bafc031c5ef1c57f39b5dc6b5271851603a6434",
+          "group": "Xmlaptdata"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "177242f8e8d4cffafe7ad47856cbd7a062dc6b9f0e637a4929fa1c7e3ff8ca05",
+          "originalCalls": 2352,
+          "platforms": [
+            {
+              "layouts": 9914,
+              "platform": 0,
+              "fixtures": 588,
+              "rejections": 18,
+              "comparisons": 3528
+            },
+            {
+              "layouts": 9914,
+              "platform": 1,
+              "fixtures": 588,
+              "rejections": 18,
+              "comparisons": 3528
+            },
+            {
+              "layouts": 9914,
+              "platform": 2,
+              "fixtures": 588,
+              "rejections": 18,
+              "comparisons": 3528
+            },
+            {
+              "layouts": 9914,
+              "platform": 99,
+              "fixtures": 588,
+              "rejections": 18,
+              "comparisons": 3528
+            }
+          ],
+          "generatedHostSha256": "76f0769d97b07ba9b2ca3596f54d759ce2426780b1639bc0cdeebe1e46a5261c",
+          "group": "Xmlarmyopening"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "7670fb753c21c027111016aa3fc59f42477791251c69be86ae07854c1fcb59ae",
+          "originalCalls": 2380,
+          "platforms": [
+            {
+              "layouts": 22942,
+              "platform": 0,
+              "fixtures": 595,
+              "rejections": 30,
+              "comparisons": 3570
+            },
+            {
+              "layouts": 22942,
+              "platform": 1,
+              "fixtures": 595,
+              "rejections": 30,
+              "comparisons": 3570
+            },
+            {
+              "layouts": 22942,
+              "platform": 2,
+              "fixtures": 595,
+              "rejections": 30,
+              "comparisons": 3570
+            },
+            {
+              "layouts": 22942,
+              "platform": 99,
+              "fixtures": 595,
+              "rejections": 30,
+              "comparisons": 3570
+            }
+          ],
+          "generatedHostSha256": "ac805c710ae1b2ff200c20eb585247d43305bf9d80ed3c8299fd83fc5ec1f069",
+          "group": "Xmlassetindexes"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "d7067088361e69fe0dac945a25dee153497e10ac7272fe371f60f5f52258b10e",
+          "originalCalls": 4812,
+          "platforms": [
+            {
+              "layouts": 1140,
+              "platform": 0,
+              "fixtures": 1191,
+              "rejections": 36,
+              "comparisons": 3609
+            },
+            {
+              "layouts": 1140,
+              "platform": 1,
+              "fixtures": 1191,
+              "rejections": 36,
+              "comparisons": 3609
+            },
+            {
+              "layouts": 1140,
+              "platform": 2,
+              "fixtures": 1191,
+              "rejections": 36,
+              "comparisons": 3609
+            },
+            {
+              "layouts": 1140,
+              "platform": 99,
+              "fixtures": 1191,
+              "rejections": 36,
+              "comparisons": 3609
+            }
+          ],
+          "generatedHostSha256": "d3f597e8395ecb3f61d5e26c4a5994c02b8fe263599f31b160cf6eb226898026",
+          "group": "Xmlattributes"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "efa8dc3545695e80bdb1130561518b70c288531c67fe58b4f3f2ac0b2667e37e",
+          "originalCalls": 16928,
+          "platforms": [
+            {
+              "layouts": 4283,
+              "platform": 0,
+              "fixtures": 4232,
+              "rejections": 72,
+              "comparisons": 25392
+            },
+            {
+              "layouts": 4283,
+              "platform": 1,
+              "fixtures": 4232,
+              "rejections": 72,
+              "comparisons": 25392
+            },
+            {
+              "layouts": 4283,
+              "platform": 2,
+              "fixtures": 4232,
+              "rejections": 72,
+              "comparisons": 25392
+            },
+            {
+              "layouts": 4283,
+              "platform": 99,
+              "fixtures": 4232,
+              "rejections": 72,
+              "comparisons": 25392
+            }
+          ],
+          "generatedHostSha256": "9b935e63b555fa02532d02bf3ec7cd0c7f6f02b6d4ffad5a1bfc157e6647341e",
+          "group": "Xmlaudio"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "c1789309489274ee57ff8d8fca7d516d390e4efa2aba0557555593ab51ed1882",
+          "originalCalls": 27664,
+          "platforms": [
+            {
+              "layouts": 34498,
+              "platform": 0,
+              "fixtures": 6916,
+              "rejections": 42,
+              "comparisons": 41496
+            },
+            {
+              "layouts": 34498,
+              "platform": 1,
+              "fixtures": 6916,
+              "rejections": 42,
+              "comparisons": 41496
+            },
+            {
+              "layouts": 34498,
+              "platform": 2,
+              "fixtures": 6916,
+              "rejections": 42,
+              "comparisons": 41496
+            },
+            {
+              "layouts": 34498,
+              "platform": 99,
+              "fixtures": 6916,
+              "rejections": 42,
+              "comparisons": 41496
+            }
+          ],
+          "generatedHostSha256": "fb0e6a0de920e3b17223bf3342e3dec98b79ad99a2d807b6e0fb638ea53e1a08",
+          "group": "Xmlbuildeconomy"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "e648144dc35b132c3f290c3964297a681a645a283eef59b83edf2200ab4a4816",
+          "originalCalls": 6292,
+          "platforms": [
+            {
+              "layouts": 56342,
+              "platform": 0,
+              "fixtures": 1573,
+              "rejections": 49,
+              "comparisons": 9438
+            },
+            {
+              "layouts": 56342,
+              "platform": 1,
+              "fixtures": 1573,
+              "rejections": 49,
+              "comparisons": 9438
+            },
+            {
+              "layouts": 56342,
+              "platform": 2,
+              "fixtures": 1573,
+              "rejections": 49,
+              "comparisons": 9438
+            },
+            {
+              "layouts": 56342,
+              "platform": 99,
+              "fixtures": 1573,
+              "rejections": 49,
+              "comparisons": 9438
+            }
+          ],
+          "generatedHostSha256": "fced8e03889d3f31dba4ee117559289ea805bf6e2df006d8c834abca5e06de35",
+          "group": "Xmlcampaign"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "5e94e8c1d00426637732876a847a4e6905729b78281909cb90bf45db56ab8b5a",
+          "originalCalls": 18808,
+          "platforms": [
+            {
+              "layouts": 5609,
+              "platform": 0,
+              "fixtures": 4702,
+              "rejections": 211,
+              "comparisons": 28212
+            },
+            {
+              "layouts": 5609,
+              "platform": 1,
+              "fixtures": 4702,
+              "rejections": 211,
+              "comparisons": 28212
+            },
+            {
+              "layouts": 5609,
+              "platform": 2,
+              "fixtures": 4702,
+              "rejections": 211,
+              "comparisons": 28212
+            },
+            {
+              "layouts": 5609,
+              "platform": 99,
+              "fixtures": 4702,
+              "rejections": 211,
+              "comparisons": 28212
+            }
+          ],
+          "generatedHostSha256": "98795050e35b3d9668a0c7ddfcc008ca258e517d84eabd131717f3f4059ccc76",
+          "group": "Xmlchatcolors"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "814ffdf122b9bb3e110c8b9cfcc85f0c16de012817ff49a944b5dd629f18e135",
+          "originalCalls": 1020,
+          "platforms": [
+            {
+              "layouts": 11465,
+              "platform": 0,
+              "fixtures": 255,
+              "rejections": 18,
+              "comparisons": 1530
+            },
+            {
+              "layouts": 11465,
+              "platform": 1,
+              "fixtures": 255,
+              "rejections": 18,
+              "comparisons": 1530
+            },
+            {
+              "layouts": 11465,
+              "platform": 2,
+              "fixtures": 255,
+              "rejections": 18,
+              "comparisons": 1530
+            },
+            {
+              "layouts": 11465,
+              "platform": 99,
+              "fixtures": 255,
+              "rejections": 18,
+              "comparisons": 1530
+            }
+          ],
+          "generatedHostSha256": "2341484ba5bc81d2c212d3d6d57b25e9b70db44eeffb4fb68172106e9e227524",
+          "group": "Xmlcommandset"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "568262c483d5de996acea29e6a8a55ff38f03c46e19586cc797fb30366def4b0",
+          "originalCalls": 221968,
+          "platforms": [
+            {
+              "layouts": 473909,
+              "platform": 0,
+              "fixtures": 55492,
+              "rejections": 63,
+              "comparisons": 332952
+            },
+            {
+              "layouts": 473909,
+              "platform": 1,
+              "fixtures": 55492,
+              "rejections": 63,
+              "comparisons": 332952
+            },
+            {
+              "layouts": 473909,
+              "platform": 2,
+              "fixtures": 55492,
+              "rejections": 63,
+              "comparisons": 332952
+            },
+            {
+              "layouts": 473909,
+              "platform": 99,
+              "fixtures": 55492,
+              "rejections": 63,
+              "comparisons": 332952
+            }
+          ],
+          "generatedHostSha256": "34f11b2a428bbcc3e229246b4c2b3fac2ef94f28c30d55338f577dd244461a7e",
+          "group": "Xmlconditions"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "68e3e1ba78ffdbe8be825be5e2de993c4f6940fc6bb6428576034b44f546ca5f",
+          "originalCalls": 996,
+          "platforms": [
+            {
+              "layouts": 7664,
+              "platform": 0,
+              "fixtures": 249,
+              "rejections": 39,
+              "comparisons": 1494
+            },
+            {
+              "layouts": 7664,
+              "platform": 1,
+              "fixtures": 249,
+              "rejections": 39,
+              "comparisons": 1494
+            },
+            {
+              "layouts": 7664,
+              "platform": 2,
+              "fixtures": 249,
+              "rejections": 39,
+              "comparisons": 1494
+            },
+            {
+              "layouts": 7664,
+              "platform": 99,
+              "fixtures": 249,
+              "rejections": 39,
+              "comparisons": 1494
+            }
+          ],
+          "generatedHostSha256": "ce4d51037ac569d6fe4c79aa99c949570fa51dca7146db0c6f40b842f47f0948",
+          "group": "Xmlconnections"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "5d021fd896f842a072d8d8d8c2095a6e9bc8bae399c156a96fff5f6b05c1d497",
+          "originalCalls": 2876,
+          "platforms": [
+            {
+              "layouts": 31182,
+              "platform": 0,
+              "fixtures": 719,
+              "rejections": 41,
+              "comparisons": 4314
+            },
+            {
+              "layouts": 31182,
+              "platform": 1,
+              "fixtures": 719,
+              "rejections": 41,
+              "comparisons": 4314
+            },
+            {
+              "layouts": 31182,
+              "platform": 2,
+              "fixtures": 719,
+              "rejections": 41,
+              "comparisons": 4314
+            },
+            {
+              "layouts": 31182,
+              "platform": 99,
+              "fixtures": 719,
+              "rejections": 41,
+              "comparisons": 4314
+            }
+          ],
+          "generatedHostSha256": "8d10cbb1668aad85252d406b7ce4f175684d7edb8d8c64aa073272ddb3c7fc91",
+          "group": "Xmlconquercards"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "f2d74feb9e1aacdf090590104da96b4ba3da1a43a2393f11e3e7175f591ac466",
+          "originalCalls": 2104,
+          "platforms": [
+            {
+              "layouts": 23072,
+              "platform": 0,
+              "fixtures": 526,
+              "rejections": 35,
+              "comparisons": 3156
+            },
+            {
+              "layouts": 23072,
+              "platform": 1,
+              "fixtures": 526,
+              "rejections": 35,
+              "comparisons": 3156
+            },
+            {
+              "layouts": 23072,
+              "platform": 2,
+              "fixtures": 526,
+              "rejections": 35,
+              "comparisons": 3156
+            },
+            {
+              "layouts": 23072,
+              "platform": 99,
+              "fixtures": 526,
+              "rejections": 35,
+              "comparisons": 3156
+            }
+          ],
+          "generatedHostSha256": "94870755f419cfad7a06fd41e47706fbcca34c2f5ea3fff8af76b4b47dc69eba",
+          "group": "Xmlcontent"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "34647f26a539be8460532c6f72999cf029c3ee158427abe790eb4dfef2ffa7c8",
+          "originalCalls": 2788,
+          "platforms": [
+            {
+              "layouts": 38462,
+              "platform": 0,
+              "fixtures": 697,
+              "rejections": 24,
+              "comparisons": 4182
+            },
+            {
+              "layouts": 38462,
+              "platform": 1,
+              "fixtures": 697,
+              "rejections": 24,
+              "comparisons": 4182
+            },
+            {
+              "layouts": 38462,
+              "platform": 2,
+              "fixtures": 697,
+              "rejections": 24,
+              "comparisons": 4182
+            },
+            {
+              "layouts": 38462,
+              "platform": 99,
+              "fixtures": 697,
+              "rejections": 24,
+              "comparisons": 4182
+            }
+          ],
+          "generatedHostSha256": "2decec2677918390c071eed3a2d48e65563d43befc36fa07a6b3cf3a7f07f67d",
+          "group": "Xmlcrowd"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "7fcb4b24037a73c1576d525a767d59f2d6253a76161051314f346f99061bd403",
+          "originalCalls": 1184,
+          "platforms": [
+            {
+              "layouts": 10486,
+              "platform": 0,
+              "fixtures": 296,
+              "rejections": 19,
+              "comparisons": 1776
+            },
+            {
+              "layouts": 10486,
+              "platform": 1,
+              "fixtures": 296,
+              "rejections": 19,
+              "comparisons": 1776
+            },
+            {
+              "layouts": 10486,
+              "platform": 2,
+              "fixtures": 296,
+              "rejections": 19,
+              "comparisons": 1776
+            },
+            {
+              "layouts": 10486,
+              "platform": 99,
+              "fixtures": 296,
+              "rejections": 19,
+              "comparisons": 1776
+            }
+          ],
+          "generatedHostSha256": "aeb37c43e4d2ab0aa652ec74a12da40009b2c9c216defdb45335585c6038952c",
+          "group": "Xmldamagefx"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "9e2ec941b33eab8d7253cf2cb8c058ea9ab57031367e85c620e07cde3e09a12e",
+          "originalCalls": 664,
+          "platforms": [
+            {
+              "layouts": 5671,
+              "platform": 0,
+              "fixtures": 166,
+              "rejections": 13,
+              "comparisons": 996
+            },
+            {
+              "layouts": 5671,
+              "platform": 1,
+              "fixtures": 166,
+              "rejections": 13,
+              "comparisons": 996
+            },
+            {
+              "layouts": 5671,
+              "platform": 2,
+              "fixtures": 166,
+              "rejections": 13,
+              "comparisons": 996
+            },
+            {
+              "layouts": 5671,
+              "platform": 99,
+              "fixtures": 166,
+              "rejections": 13,
+              "comparisons": 996
+            }
+          ],
+          "generatedHostSha256": "61c0cab40f9621f29557a6d99c9d6de6f375496cb71f492adbc237769b852123",
+          "group": "Xmldynamics"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "f809d0573add057aa5dd095a7a37d3b9b4a61d351fc3798aa4d404cb3bb48506",
+          "originalCalls": 6520,
+          "platforms": [
+            {
+              "layouts": 1651,
+              "platform": 0,
+              "fixtures": 1630,
+              "rejections": 40,
+              "comparisons": 9780
+            },
+            {
+              "layouts": 1651,
+              "platform": 1,
+              "fixtures": 1630,
+              "rejections": 40,
+              "comparisons": 9780
+            },
+            {
+              "layouts": 1651,
+              "platform": 2,
+              "fixtures": 1630,
+              "rejections": 40,
+              "comparisons": 9780
+            },
+            {
+              "layouts": 1651,
+              "platform": 99,
+              "fixtures": 1630,
+              "rejections": 40,
+              "comparisons": 9780
+            }
+          ],
+          "generatedHostSha256": "bb26c3b1a8a598b395db537f626101a82655e7e5d5952b244752b7ef84d9f0a4",
+          "group": "Xmleffects"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "611e7e8c53011763db9cf6a4ea5940f5cf8ef049bdcdf83fbccb1b41671c4883",
+          "originalCalls": 24428,
+          "platforms": [
+            {
+              "layouts": 42257,
+              "platform": 0,
+              "fixtures": 6107,
+              "rejections": 18,
+              "comparisons": 36642
+            },
+            {
+              "layouts": 42257,
+              "platform": 1,
+              "fixtures": 6107,
+              "rejections": 18,
+              "comparisons": 36642
+            },
+            {
+              "layouts": 42257,
+              "platform": 2,
+              "fixtures": 6107,
+              "rejections": 18,
+              "comparisons": 36642
+            },
+            {
+              "layouts": 42257,
+              "platform": 99,
+              "fixtures": 6107,
+              "rejections": 18,
+              "comparisons": 36642
+            }
+          ],
+          "generatedHostSha256": "0abc07e54c950981fa2d60ac53358aae2b01746e32b7880fbb21d911fb26100f",
+          "group": "Xmlemotions"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "9affef42345d40781b752952368b41651e6003343bfe712650cda0f1976a865b",
+          "originalCalls": 24528,
+          "platforms": [
+            {
+              "layouts": 30220,
+              "platform": 0,
+              "fixtures": 6132,
+              "rejections": 306,
+              "comparisons": 36792
+            },
+            {
+              "layouts": 30220,
+              "platform": 1,
+              "fixtures": 6132,
+              "rejections": 306,
+              "comparisons": 36792
+            },
+            {
+              "layouts": 30220,
+              "platform": 2,
+              "fixtures": 6132,
+              "rejections": 306,
+              "comparisons": 36792
+            },
+            {
+              "layouts": 30220,
+              "platform": 99,
+              "fixtures": 6132,
+              "rejections": 306,
+              "comparisons": 36792
+            }
+          ],
+          "generatedHostSha256": "9173f5764eeb7e225274d02818c79a3bb2282be005b7694697a83579aaf94368",
+          "group": "Xmlenvironment"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "a42d01e0d3a5b7416cfd64e17045edee8d42e443e2cf8454f733b0b2185346ba",
+          "originalCalls": 6988,
+          "platforms": [
+            {
+              "layouts": 12341,
+              "platform": 0,
+              "fixtures": 1747,
+              "rejections": 53,
+              "comparisons": 10482
+            },
+            {
+              "layouts": 12341,
+              "platform": 1,
+              "fixtures": 1747,
+              "rejections": 53,
+              "comparisons": 10482
+            },
+            {
+              "layouts": 12341,
+              "platform": 2,
+              "fixtures": 1747,
+              "rejections": 53,
+              "comparisons": 10482
+            },
+            {
+              "layouts": 12341,
+              "platform": 99,
+              "fixtures": 1747,
+              "rejections": 53,
+              "comparisons": 10482
+            }
+          ],
+          "generatedHostSha256": "c51db220b383e952a6d06fe09c5d18a1cf7f4f5d476ff76faee02d1e5b115260",
+          "group": "Xmlevaachievement"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "bce0ef3af9d10f65151dcee7258a0d213eef5ffe3275ca3ff5c73c7d862150ee",
+          "originalCalls": 3268,
+          "platforms": [
+            {
+              "layouts": 839,
+              "platform": 0,
+              "fixtures": 817,
+              "rejections": 8,
+              "comparisons": 4902
+            },
+            {
+              "layouts": 839,
+              "platform": 1,
+              "fixtures": 817,
+              "rejections": 8,
+              "comparisons": 4902
+            },
+            {
+              "layouts": 839,
+              "platform": 2,
+              "fixtures": 817,
+              "rejections": 8,
+              "comparisons": 4902
+            },
+            {
+              "layouts": 839,
+              "platform": 99,
+              "fixtures": 817,
+              "rejections": 8,
+              "comparisons": 4902
+            }
+          ],
+          "generatedHostSha256": "4554c34b77a0f45b3d488098aecbc27a68c5ae9937a276977bae7dae57c47b14",
+          "group": "Xmlforcefeedback"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "bba104f3b3b4ad6cb373408516683a53f75048318531835cf616e28f7c112d0c",
+          "originalCalls": 13876,
+          "platforms": [
+            {
+              "layouts": 3469,
+              "platform": 0,
+              "fixtures": 3469,
+              "rejections": 98,
+              "comparisons": 10407
+            },
+            {
+              "layouts": 3469,
+              "platform": 1,
+              "fixtures": 3469,
+              "rejections": 98,
+              "comparisons": 10407
+            },
+            {
+              "layouts": 3469,
+              "platform": 2,
+              "fixtures": 3469,
+              "rejections": 98,
+              "comparisons": 10407
+            },
+            {
+              "layouts": 3469,
+              "platform": 99,
+              "fixtures": 3469,
+              "rejections": 98,
+              "comparisons": 10407
+            }
+          ],
+          "generatedHostSha256": "67253ac07d6b5cfcb0621758dd45ea52c18c6134202d2ba9ce0573799205172f",
+          "group": "Xmlfxparticle"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "c1d7bff6a77ad8d9dee56c44e4627d8525a5d94ba88770a7deeb82cd14f8fc35",
+          "originalCalls": 15368,
+          "platforms": [
+            {
+              "layouts": 33613,
+              "platform": 0,
+              "fixtures": 3842,
+              "rejections": 73,
+              "comparisons": 23052
+            },
+            {
+              "layouts": 33613,
+              "platform": 1,
+              "fixtures": 3842,
+              "rejections": 73,
+              "comparisons": 23052
+            },
+            {
+              "layouts": 33613,
+              "platform": 2,
+              "fixtures": 3842,
+              "rejections": 73,
+              "comparisons": 23052
+            },
+            {
+              "layouts": 33613,
+              "platform": 99,
+              "fixtures": 3842,
+              "rejections": 73,
+              "comparisons": 23052
+            }
+          ],
+          "generatedHostSha256": "5f587c0df6517b3aadc0aec50b7078ee42bc90d1743557f664d0188ce4c3d623",
+          "group": "Xmlgamemap"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "a09e9a59bc7ae0eef44de287de2a515224ed16d4d818bc48b7febcf9758d95bd",
+          "originalCalls": 1000,
+          "platforms": [
+            {
+              "layouts": 10874,
+              "platform": 0,
+              "fixtures": 250,
+              "rejections": 26,
+              "comparisons": 1500
+            },
+            {
+              "layouts": 10874,
+              "platform": 1,
+              "fixtures": 250,
+              "rejections": 26,
+              "comparisons": 1500
+            },
+            {
+              "layouts": 10874,
+              "platform": 2,
+              "fixtures": 250,
+              "rejections": 26,
+              "comparisons": 1500
+            },
+            {
+              "layouts": 10874,
+              "platform": 99,
+              "fixtures": 250,
+              "rejections": 26,
+              "comparisons": 1500
+            }
+          ],
+          "generatedHostSha256": "e6dfbd5248ba29b6a38a625b19b0142de4ea06f8893eea46d2be8d0556be7b91",
+          "group": "Xmlgamescripts"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "0f54e46357a6d757b3ade199a680e295ef4932b05db20e7955b3ac6ef23dd5b3",
+          "originalCalls": 13232,
+          "platforms": [
+            {
+              "layouts": 28525,
+              "platform": 0,
+              "fixtures": 3308,
+              "rejections": 23,
+              "comparisons": 19848
+            },
+            {
+              "layouts": 28525,
+              "platform": 1,
+              "fixtures": 3308,
+              "rejections": 23,
+              "comparisons": 19848
+            },
+            {
+              "layouts": 28525,
+              "platform": 2,
+              "fixtures": 3308,
+              "rejections": 23,
+              "comparisons": 19848
+            },
+            {
+              "layouts": 28525,
+              "platform": 99,
+              "fixtures": 3308,
+              "rejections": 23,
+              "comparisons": 19848
+            }
+          ],
+          "generatedHostSha256": "f162bde78c3a6f0a99186acc0959d424840a6312ce59d6302b73946b5b0b2051",
+          "group": "Xmlhealthbars"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "490be57dbddae5bc6d1b58f16462c4f3a3092c665200ff52666962a83ae6a962",
+          "originalCalls": 6572,
+          "platforms": [
+            {
+              "layouts": 13304,
+              "platform": 0,
+              "fixtures": 1643,
+              "rejections": 37,
+              "comparisons": 9858
+            },
+            {
+              "layouts": 13304,
+              "platform": 1,
+              "fixtures": 1643,
+              "rejections": 37,
+              "comparisons": 9858
+            },
+            {
+              "layouts": 13304,
+              "platform": 2,
+              "fixtures": 1643,
+              "rejections": 37,
+              "comparisons": 9858
+            },
+            {
+              "layouts": 13304,
+              "platform": 99,
+              "fixtures": 1643,
+              "rejections": 37,
+              "comparisons": 9858
+            }
+          ],
+          "generatedHostSha256": "83064a7893e1fb0a4d74290ab37025cef0c48a98a6450ff00466e909e1d27c40",
+          "group": "Xmlhotkeymaps"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "6f4b60fdd92900871448a64e2811d99d4b264d164d3ffc29be6ac467f91c864b",
+          "originalCalls": 3220,
+          "platforms": [
+            {
+              "layouts": 33319,
+              "platform": 0,
+              "fixtures": 805,
+              "rejections": 52,
+              "comparisons": 4830
+            },
+            {
+              "layouts": 33319,
+              "platform": 1,
+              "fixtures": 805,
+              "rejections": 52,
+              "comparisons": 4830
+            },
+            {
+              "layouts": 33319,
+              "platform": 2,
+              "fixtures": 805,
+              "rejections": 52,
+              "comparisons": 4830
+            },
+            {
+              "layouts": 33319,
+              "platform": 99,
+              "fixtures": 805,
+              "rejections": 52,
+              "comparisons": 4830
+            }
+          ],
+          "generatedHostSha256": "78d5d781b45e9c5f803d20a726c136743e3efc1793d6ad2ad248e62e8389522e",
+          "group": "Xmllocalization"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "c4b69a1069ef8da12ae9e5e77c6fca3520bb98890a94c8dd5687ac78fd4494af",
+          "originalCalls": 16528,
+          "platforms": [
+            {
+              "layouts": 4132,
+              "platform": 0,
+              "fixtures": 4131,
+              "rejections": 253,
+              "comparisons": 12393
+            },
+            {
+              "layouts": 4132,
+              "platform": 1,
+              "fixtures": 4131,
+              "rejections": 253,
+              "comparisons": 12393
+            },
+            {
+              "layouts": 4132,
+              "platform": 2,
+              "fixtures": 4131,
+              "rejections": 253,
+              "comparisons": 12393
+            },
+            {
+              "layouts": 4132,
+              "platform": 99,
+              "fixtures": 4131,
+              "rejections": 253,
+              "comparisons": 12393
+            }
+          ],
+          "generatedHostSha256": "fe0b98dcc6b20d5bdbf641a0f9c91bf87f67dba80eada693a359eb6b37bf563b",
+          "group": "Xmllocomotor"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "997f540464937abd92226056dbaf71ff76ca53116b0734d9753af5750697ed56",
+          "originalCalls": 1668,
+          "platforms": [
+            {
+              "layouts": 3327,
+              "platform": 0,
+              "fixtures": 417,
+              "rejections": 19,
+              "comparisons": 2502
+            },
+            {
+              "layouts": 3327,
+              "platform": 1,
+              "fixtures": 417,
+              "rejections": 19,
+              "comparisons": 2502
+            },
+            {
+              "layouts": 3327,
+              "platform": 2,
+              "fixtures": 417,
+              "rejections": 19,
+              "comparisons": 2502
+            },
+            {
+              "layouts": 3327,
+              "platform": 99,
+              "fixtures": 417,
+              "rejections": 19,
+              "comparisons": 2502
+            }
+          ],
+          "generatedHostSha256": "a903c80ef3df4381f39af6287da66397085d0934dd231f11b0aed9e3cd8327d3",
+          "group": "Xmlmapmetadata"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "328ad237446af6db69b2839b028073cde1c13007161c9608c13ea70b3064edd6",
+          "originalCalls": 1500,
+          "platforms": [
+            {
+              "layouts": 14992,
+              "platform": 0,
+              "fixtures": 375,
+              "rejections": 21,
+              "comparisons": 2250
+            },
+            {
+              "layouts": 14992,
+              "platform": 1,
+              "fixtures": 375,
+              "rejections": 21,
+              "comparisons": 2250
+            },
+            {
+              "layouts": 14992,
+              "platform": 2,
+              "fixtures": 375,
+              "rejections": 21,
+              "comparisons": 2250
+            },
+            {
+              "layouts": 14992,
+              "platform": 99,
+              "fixtures": 375,
+              "rejections": 21,
+              "comparisons": 2250
+            }
+          ],
+          "generatedHostSha256": "98dc97b327c5c27001a3c541fae2132071104c7ea3461aca84071fbfb8115b44",
+          "group": "Xmlmaterialrules"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "ae864c306fcd6794a252359d16501474c25316c8925005079c67675fd4bec04c",
+          "originalCalls": 688,
+          "platforms": [
+            {
+              "layouts": 182,
+              "platform": 0,
+              "fixtures": 172,
+              "rejections": 8,
+              "comparisons": 1032
+            },
+            {
+              "layouts": 182,
+              "platform": 1,
+              "fixtures": 172,
+              "rejections": 8,
+              "comparisons": 1032
+            },
+            {
+              "layouts": 182,
+              "platform": 2,
+              "fixtures": 172,
+              "rejections": 8,
+              "comparisons": 1032
+            },
+            {
+              "layouts": 182,
+              "platform": 99,
+              "fixtures": 172,
+              "rejections": 8,
+              "comparisons": 1032
+            }
+          ],
+          "generatedHostSha256": "718b806f032f4eb710c91e260179cbfdf4737db2aaf82fd00c48f23296e8e690",
+          "group": "Xmlmouse"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "e5bfb59dc5b89a94043d11ef7304162a64c1871bfae92e2bc26d5bacbe66f5f2",
+          "originalCalls": 1592,
+          "platforms": [
+            {
+              "layouts": 21642,
+              "platform": 0,
+              "fixtures": 398,
+              "rejections": 17,
+              "comparisons": 2388
+            },
+            {
+              "layouts": 21642,
+              "platform": 1,
+              "fixtures": 398,
+              "rejections": 17,
+              "comparisons": 2388
+            },
+            {
+              "layouts": 21642,
+              "platform": 2,
+              "fixtures": 398,
+              "rejections": 17,
+              "comparisons": 2388
+            },
+            {
+              "layouts": 21642,
+              "platform": 99,
+              "fixtures": 398,
+              "rejections": 17,
+              "comparisons": 2388
+            }
+          ],
+          "generatedHostSha256": "99298cdd6da37bc2926b83882032ddd14640e5c78bf6e5b794253925c8915087",
+          "group": "Xmlmoviearchive"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "e2351a37a114f9f83eeee3731ce866bf45694143904ecb80c75051c6e8139cdf",
+          "originalCalls": 46372,
+          "platforms": [
+            {
+              "layouts": 11683,
+              "platform": 0,
+              "fixtures": 11593,
+              "rejections": 127,
+              "comparisons": 69558
+            },
+            {
+              "layouts": 11683,
+              "platform": 1,
+              "fixtures": 11593,
+              "rejections": 127,
+              "comparisons": 69558
+            },
+            {
+              "layouts": 11683,
+              "platform": 2,
+              "fixtures": 11593,
+              "rejections": 127,
+              "comparisons": 69558
+            },
+            {
+              "layouts": 11683,
+              "platform": 99,
+              "fixtures": 11593,
+              "rejections": 127,
+              "comparisons": 69558
+            }
+          ],
+          "generatedHostSha256": "17b8bbd6a9ddef47a82d1e8115e448914d2446ccd7ef59e4c53afb1d1ace89ff",
+          "group": "Xmlmusicscript"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "7e492507944361183277a293fcfc88007608d8100a68bc2b7bb7b194120a0665",
+          "originalCalls": 89112,
+          "platforms": [
+            {
+              "layouts": 71116,
+              "platform": 0,
+              "fixtures": 22278,
+              "rejections": 36,
+              "comparisons": 133668
+            },
+            {
+              "layouts": 71116,
+              "platform": 1,
+              "fixtures": 22278,
+              "rejections": 36,
+              "comparisons": 133668
+            },
+            {
+              "layouts": 71116,
+              "platform": 2,
+              "fixtures": 22278,
+              "rejections": 36,
+              "comparisons": 133668
+            },
+            {
+              "layouts": 71116,
+              "platform": 99,
+              "fixtures": 22278,
+              "rejections": 36,
+              "comparisons": 133668
+            }
+          ],
+          "generatedHostSha256": "0c17f628ce983ab9562bf933e8a10bee97fdcb50c50f58c3136f58d0d3880cc9",
+          "group": "Xmlobjectsets"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "9f6a696b9540b3b80a7c76ad6f32f3846d4199a33aed73356eee519a9e9ab794",
+          "originalCalls": 7984,
+          "platforms": [
+            {
+              "layouts": 2099,
+              "platform": 0,
+              "fixtures": 1996,
+              "rejections": 48,
+              "comparisons": 11976
+            },
+            {
+              "layouts": 2099,
+              "platform": 1,
+              "fixtures": 1996,
+              "rejections": 48,
+              "comparisons": 11976
+            },
+            {
+              "layouts": 2099,
+              "platform": 2,
+              "fixtures": 1996,
+              "rejections": 48,
+              "comparisons": 11976
+            },
+            {
+              "layouts": 2099,
+              "platform": 99,
+              "fixtures": 1996,
+              "rejections": 48,
+              "comparisons": 11976
+            }
+          ],
+          "generatedHostSha256": "7d66f4db2c66aa6b3b0418ed690a29ce99015a6a4ccd1f1973fc683731f67dd9",
+          "group": "Xmlpathmusic"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "144655a4a3f545daa318430f34164c62895e388a64c5c0534049441ad83654e7",
+          "originalCalls": 22380,
+          "platforms": [
+            {
+              "layouts": 79423,
+              "platform": 0,
+              "fixtures": 5595,
+              "rejections": 123,
+              "comparisons": 16785
+            },
+            {
+              "layouts": 79423,
+              "platform": 1,
+              "fixtures": 5595,
+              "rejections": 123,
+              "comparisons": 16785
+            },
+            {
+              "layouts": 79423,
+              "platform": 2,
+              "fixtures": 5595,
+              "rejections": 123,
+              "comparisons": 16785
+            },
+            {
+              "layouts": 79423,
+              "platform": 99,
+              "fixtures": 5595,
+              "rejections": 123,
+              "comparisons": 16785
+            }
+          ],
+          "generatedHostSha256": "08f44c8ee16a16ab78cc40f4b8fb3d87df4b6a86f83ba462a636fefe168d1176",
+          "group": "Xmlplayers"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "12ff5ccefa2e3af043dc43ef9efa9abc09eb0016525a3820cfd7d6af523a1338",
+          "originalCalls": 17340,
+          "platforms": [
+            {
+              "layouts": 20793,
+              "platform": 0,
+              "fixtures": 4335,
+              "rejections": 134,
+              "comparisons": 13005
+            },
+            {
+              "layouts": 20793,
+              "platform": 1,
+              "fixtures": 4335,
+              "rejections": 134,
+              "comparisons": 13005
+            },
+            {
+              "layouts": 20793,
+              "platform": 2,
+              "fixtures": 4335,
+              "rejections": 134,
+              "comparisons": 13005
+            },
+            {
+              "layouts": 20793,
+              "platform": 99,
+              "fixtures": 4335,
+              "rejections": 134,
+              "comparisons": 13005
+            }
+          ],
+          "generatedHostSha256": "3cbd79f06e053b171f3a8a8aabe3f82b9dd8163c9cd20f946d21562394ffdb30",
+          "group": "Xmlpowers"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "605905b69c769f514b37ed6c2c11d0cfe36a8a4bbb6747525f5ce6fbb842158a",
+          "originalCalls": 16660,
+          "platforms": [
+            {
+              "layouts": 4189,
+              "platform": 0,
+              "fixtures": 4165,
+              "rejections": 123,
+              "comparisons": 24990
+            },
+            {
+              "layouts": 4189,
+              "platform": 1,
+              "fixtures": 4165,
+              "rejections": 123,
+              "comparisons": 24990
+            },
+            {
+              "layouts": 4189,
+              "platform": 2,
+              "fixtures": 4165,
+              "rejections": 123,
+              "comparisons": 24990
+            },
+            {
+              "layouts": 4189,
+              "platform": 99,
+              "fixtures": 4165,
+              "rejections": 123,
+              "comparisons": 24990
+            }
+          ],
+          "generatedHostSha256": "723b8469f98922a7f6ce3e922980cabc5c2ebad9d2711c06378ab698f9f35c5a",
+          "group": "Xmlprogression"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "e5cc6e12c73a436a8776501f4b5be42133e5968fb679775e8146e2d27dd81baf",
+          "originalCalls": 1356,
+          "platforms": [
+            {
+              "layouts": 2158,
+              "platform": 0,
+              "fixtures": 339,
+              "rejections": 21,
+              "comparisons": 2034
+            },
+            {
+              "layouts": 2158,
+              "platform": 1,
+              "fixtures": 339,
+              "rejections": 21,
+              "comparisons": 2034
+            },
+            {
+              "layouts": 2158,
+              "platform": 2,
+              "fixtures": 339,
+              "rejections": 21,
+              "comparisons": 2034
+            },
+            {
+              "layouts": 2158,
+              "platform": 99,
+              "fixtures": 339,
+              "rejections": 21,
+              "comparisons": 2034
+            }
+          ],
+          "generatedHostSha256": "71c2d90e5d1c33db365c998864a11bb2269662d3b8088275053afd8314aa0220",
+          "group": "Xmlprojectilepath"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "3033ce4c97adbf9e5d4c52ee6dff2eb334f5bbc4bf382308bdc29bf4dc9ad7d5",
+          "originalCalls": 14844,
+          "platforms": [
+            {
+              "layouts": 27875,
+              "platform": 0,
+              "fixtures": 3711,
+              "rejections": 44,
+              "comparisons": 22266
+            },
+            {
+              "layouts": 27875,
+              "platform": 1,
+              "fixtures": 3711,
+              "rejections": 44,
+              "comparisons": 22266
+            },
+            {
+              "layouts": 27875,
+              "platform": 2,
+              "fixtures": 3711,
+              "rejections": 44,
+              "comparisons": 22266
+            },
+            {
+              "layouts": 27875,
+              "platform": 99,
+              "fixtures": 3711,
+              "rejections": 44,
+              "comparisons": 22266
+            }
+          ],
+          "generatedHostSha256": "97df4f18cb8daed6f9397675c191e90fefb24b142af0ae997dee1203d42a6697",
+          "group": "Xmlradar"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "d6cf94d08e097562b421401b0d3f731401df83b462a00cc47428e5cf9b9be260",
+          "originalCalls": 2308,
+          "platforms": [
+            {
+              "layouts": 1824,
+              "platform": 0,
+              "fixtures": 577,
+              "rejections": 28,
+              "comparisons": 3462
+            },
+            {
+              "layouts": 1824,
+              "platform": 1,
+              "fixtures": 577,
+              "rejections": 28,
+              "comparisons": 3462
+            },
+            {
+              "layouts": 1824,
+              "platform": 2,
+              "fixtures": 577,
+              "rejections": 28,
+              "comparisons": 3462
+            },
+            {
+              "layouts": 1824,
+              "platform": 99,
+              "fixtures": 577,
+              "rejections": 28,
+              "comparisons": 3462
+            }
+          ],
+          "generatedHostSha256": "6475538030bbba54897ab44c8f58dd5d82bb89ba0d4a045404908db55a7cf022",
+          "group": "Xmlredalert"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "9823b32dc5c179f8981d257e023676bfcea1c9b83041f5b625f6cea55154fcda",
+          "originalCalls": 3272,
+          "platforms": [
+            {
+              "layouts": 8118,
+              "platform": 0,
+              "fixtures": 818,
+              "rejections": 52,
+              "comparisons": 4908
+            },
+            {
+              "layouts": 8118,
+              "platform": 1,
+              "fixtures": 818,
+              "rejections": 52,
+              "comparisons": 4908
+            },
+            {
+              "layouts": 8118,
+              "platform": 2,
+              "fixtures": 818,
+              "rejections": 52,
+              "comparisons": 4908
+            },
+            {
+              "layouts": 8118,
+              "platform": 99,
+              "fixtures": 818,
+              "rejections": 52,
+              "comparisons": 4908
+            }
+          ],
+          "generatedHostSha256": "ee286a7cc505b186c40d1bc50b536608bb0e7c04aa0ae467d2d3369db94f9952",
+          "group": "Xmlrenderassets"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "b57f6905aa89820755695ff8f3cfa49f92a7b40a7a154679fd7ad5d2e2c21d03",
+          "originalCalls": 14796,
+          "platforms": [
+            {
+              "layouts": 20607,
+              "platform": 0,
+              "fixtures": 3699,
+              "rejections": 26,
+              "comparisons": 22194
+            },
+            {
+              "layouts": 20607,
+              "platform": 1,
+              "fixtures": 3699,
+              "rejections": 26,
+              "comparisons": 22194
+            },
+            {
+              "layouts": 20607,
+              "platform": 2,
+              "fixtures": 3699,
+              "rejections": 26,
+              "comparisons": 22194
+            },
+            {
+              "layouts": 20607,
+              "platform": 99,
+              "fixtures": 3699,
+              "rejections": 26,
+              "comparisons": 22194
+            }
+          ],
+          "generatedHostSha256": "059df300fb4ce7416f23d4f8053bb701ca22f7316b0ffd220cdd66455bc7635f",
+          "group": "Xmlrenderdevice"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "5bbc1fae0bb18bd0f742b8b0ce7908e7fdbf0da6b5daf51ccf94f4ddd432269b",
+          "originalCalls": 1640,
+          "platforms": [
+            {
+              "layouts": 14044,
+              "platform": 0,
+              "fixtures": 410,
+              "rejections": 17,
+              "comparisons": 2460
+            },
+            {
+              "layouts": 14044,
+              "platform": 1,
+              "fixtures": 410,
+              "rejections": 17,
+              "comparisons": 2460
+            },
+            {
+              "layouts": 14044,
+              "platform": 2,
+              "fixtures": 410,
+              "rejections": 17,
+              "comparisons": 2460
+            },
+            {
+              "layouts": 14044,
+              "platform": 99,
+              "fixtures": 410,
+              "rejections": 17,
+              "comparisons": 2460
+            }
+          ],
+          "generatedHostSha256": "e268c654a31c3d92301868d9963907091b2706d1b25cfe7f223b9ac9c430a487",
+          "group": "Xmlruntimeopaque"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "4dbf4120c87de8f1aa9fb482908ee8eb3362c8edb149b9d4b9e0671919702e93",
+          "originalCalls": 41372,
+          "platforms": [
+            {
+              "layouts": 10521,
+              "platform": 0,
+              "fixtures": 10343,
+              "rejections": 334,
+              "comparisons": 62058
+            },
+            {
+              "layouts": 10521,
+              "platform": 1,
+              "fixtures": 10343,
+              "rejections": 334,
+              "comparisons": 62058
+            },
+            {
+              "layouts": 10521,
+              "platform": 2,
+              "fixtures": 10343,
+              "rejections": 334,
+              "comparisons": 62058
+            },
+            {
+              "layouts": 10521,
+              "platform": 99,
+              "fixtures": 10343,
+              "rejections": 334,
+              "comparisons": 62058
+            }
+          ],
+          "generatedHostSha256": "c2ead15793569aa0b498492b251ec8538e2a73dc3e066f80ac2449f34f083912",
+          "group": "Xmlsinglesound"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "39bb5d49d39047ab01dfe8817c4ee917171b29fa5d4979664afeb7a44b4e467f",
+          "originalCalls": 12224,
+          "platforms": [
+            {
+              "layouts": 20389,
+              "platform": 0,
+              "fixtures": 3056,
+              "rejections": 29,
+              "comparisons": 18336
+            },
+            {
+              "layouts": 20389,
+              "platform": 1,
+              "fixtures": 3056,
+              "rejections": 29,
+              "comparisons": 18336
+            },
+            {
+              "layouts": 20389,
+              "platform": 2,
+              "fixtures": 3056,
+              "rejections": 29,
+              "comparisons": 18336
+            },
+            {
+              "layouts": 20389,
+              "platform": 99,
+              "fixtures": 3056,
+              "rejections": 29,
+              "comparisons": 18336
+            }
+          ],
+          "generatedHostSha256": "3b775924f7fa832281952189fc3f3fdd50548954e30b8f6d7985d12e6673bbba",
+          "group": "Xmlsoundmaps"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "ed348f0977826229dbfda17590b53c0689e878d21c6458a78e18c9863b97b186",
+          "originalCalls": 3388,
+          "platforms": [
+            {
+              "layouts": 10715,
+              "platform": 0,
+              "fixtures": 847,
+              "rejections": 27,
+              "comparisons": 5082
+            },
+            {
+              "layouts": 10715,
+              "platform": 1,
+              "fixtures": 847,
+              "rejections": 27,
+              "comparisons": 5082
+            },
+            {
+              "layouts": 10715,
+              "platform": 2,
+              "fixtures": 847,
+              "rejections": 27,
+              "comparisons": 5082
+            },
+            {
+              "layouts": 10715,
+              "platform": 99,
+              "fixtures": 847,
+              "rejections": 27,
+              "comparisons": 5082
+            }
+          ],
+          "generatedHostSha256": "c5c605940f9c2a884b776ef1436f9095cad458d94177aac7d9401ef0cc83e1e5",
+          "group": "Xmlsystemsettings"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "4a8767a0fab125f6b235c017516b8028da785d99ff5c756a4cff5647bb9389f9",
+          "originalCalls": 5232,
+          "platforms": [
+            {
+              "layouts": 24754,
+              "platform": 0,
+              "fixtures": 1308,
+              "rejections": 49,
+              "comparisons": 7848
+            },
+            {
+              "layouts": 24754,
+              "platform": 1,
+              "fixtures": 1308,
+              "rejections": 49,
+              "comparisons": 7848
+            },
+            {
+              "layouts": 24754,
+              "platform": 2,
+              "fixtures": 1308,
+              "rejections": 49,
+              "comparisons": 7848
+            },
+            {
+              "layouts": 24754,
+              "platform": 99,
+              "fixtures": 1308,
+              "rejections": 49,
+              "comparisons": 7848
+            }
+          ],
+          "generatedHostSha256": "29d9a9a4c515b2898c86a387b819c6e481134a09a220c843e43e218ea5c488da",
+          "group": "Xmltacticalhotkeys"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "449deec883dccd29b557e203486e4e0731d0cf9f2bbd4bab2797f14976d436ac",
+          "originalCalls": 328,
+          "platforms": [
+            {
+              "layouts": 4933,
+              "platform": 0,
+              "fixtures": 82,
+              "rejections": 35,
+              "comparisons": 492
+            },
+            {
+              "layouts": 4933,
+              "platform": 1,
+              "fixtures": 82,
+              "rejections": 35,
+              "comparisons": 492
+            },
+            {
+              "layouts": 4933,
+              "platform": 2,
+              "fixtures": 82,
+              "rejections": 35,
+              "comparisons": 492
+            },
+            {
+              "layouts": 4933,
+              "platform": 99,
+              "fixtures": 82,
+              "rejections": 35,
+              "comparisons": 492
+            }
+          ],
+          "generatedHostSha256": "fd8d4b33da5cf1a52aa28fdb51e4d5a1cd70a94f19d7f2ab11c30c18e44eb1a8",
+          "group": "Xmltargeting"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "6370ecb87ed06c97a51f67fd159f4701b3e153296b16ac707e7ce97003bf8a0c",
+          "originalCalls": 1800,
+          "platforms": [
+            {
+              "layouts": 6185,
+              "platform": 0,
+              "fixtures": 450,
+              "rejections": 21,
+              "comparisons": 2700
+            },
+            {
+              "layouts": 6185,
+              "platform": 1,
+              "fixtures": 450,
+              "rejections": 21,
+              "comparisons": 2700
+            },
+            {
+              "layouts": 6185,
+              "platform": 2,
+              "fixtures": 450,
+              "rejections": 21,
+              "comparisons": 2700
+            },
+            {
+              "layouts": 6185,
+              "platform": 99,
+              "fixtures": 450,
+              "rejections": 21,
+              "comparisons": 2700
+            }
+          ],
+          "generatedHostSha256": "a644dddaf54b37684e54acae09efa96a56c405a12dcb624b19f8e9fb317d00cc",
+          "group": "Xmlterrain"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "7dbdd330eabd79af0f1a72fd273764abf98318ffae10d07efb4572b3557550e9",
+          "originalCalls": 480,
+          "platforms": [
+            {
+              "layouts": 226261,
+              "platform": 0,
+              "fixtures": 120,
+              "rejections": 17,
+              "comparisons": 720
+            },
+            {
+              "layouts": 226261,
+              "platform": 1,
+              "fixtures": 120,
+              "rejections": 17,
+              "comparisons": 720
+            },
+            {
+              "layouts": 226261,
+              "platform": 2,
+              "fixtures": 120,
+              "rejections": 17,
+              "comparisons": 720
+            },
+            {
+              "layouts": 226261,
+              "platform": 99,
+              "fixtures": 120,
+              "rejections": 17,
+              "comparisons": 720
+            }
+          ],
+          "generatedHostSha256": "b8670f4a6e6bc486c68fcb19c24fe08d84b25b6e726e0cb6eb481419e60e0b20",
+          "group": "Xmltesttextures"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "d91161d1e4ccbcbbc9ea83193348b7fff7622da9cdd2098cee996074a5d11019",
+          "originalCalls": 2036,
+          "platforms": [
+            {
+              "layouts": 11959,
+              "platform": 0,
+              "fixtures": 509,
+              "rejections": 42,
+              "comparisons": 3054
+            },
+            {
+              "layouts": 11959,
+              "platform": 1,
+              "fixtures": 509,
+              "rejections": 42,
+              "comparisons": 3054
+            },
+            {
+              "layouts": 11959,
+              "platform": 2,
+              "fixtures": 509,
+              "rejections": 42,
+              "comparisons": 3054
+            },
+            {
+              "layouts": 11959,
+              "platform": 99,
+              "fixtures": 509,
+              "rejections": 42,
+              "comparisons": 3054
+            }
+          ],
+          "generatedHostSha256": "987ed09dd8650fa8429df9fae9ef1c9222626f70891c0d9fb33183045db3b315",
+          "group": "Xmluichat"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "fd8036edafb4356e2d32748f129d0732f3ff29c099b645f191de57cee4567b00",
+          "originalCalls": 85592,
+          "platforms": [
+            {
+              "layouts": 493697,
+              "platform": 0,
+              "fixtures": 21398,
+              "rejections": 270,
+              "comparisons": 128388
+            },
+            {
+              "layouts": 493697,
+              "platform": 1,
+              "fixtures": 21398,
+              "rejections": 270,
+              "comparisons": 128388
+            },
+            {
+              "layouts": 493697,
+              "platform": 2,
+              "fixtures": 21398,
+              "rejections": 270,
+              "comparisons": 128388
+            },
+            {
+              "layouts": 493697,
+              "platform": 99,
+              "fixtures": 21398,
+              "rejections": 270,
+              "comparisons": 128388
+            }
+          ],
+          "generatedHostSha256": "4b427ac59a723cb9360d8e06ac88e5f467d1ab47effecd72879aa4c618ac737f",
+          "group": "Xmluiconfig"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "e0f07247b5ab8b8b415cd285e5c910fef88ee515850a3729535707bd561d3d28",
+          "originalCalls": 5704,
+          "platforms": [
+            {
+              "layouts": 7527,
+              "platform": 0,
+              "fixtures": 1426,
+              "rejections": 62,
+              "comparisons": 8556
+            },
+            {
+              "layouts": 7527,
+              "platform": 1,
+              "fixtures": 1426,
+              "rejections": 62,
+              "comparisons": 8556
+            },
+            {
+              "layouts": 7527,
+              "platform": 2,
+              "fixtures": 1426,
+              "rejections": 62,
+              "comparisons": 8556
+            },
+            {
+              "layouts": 7527,
+              "platform": 99,
+              "fixtures": 1426,
+              "rejections": 62,
+              "comparisons": 8556
+            }
+          ],
+          "generatedHostSha256": "04db86da988ced2e27cd88aaeca5068bee1cf0e495a8c09f6f034c59305940fe",
+          "group": "Xmluidecals"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "a637166e7adfab7a2ec8eab84720b3af0464758d1a2f72865ae80cf54b313161",
+          "originalCalls": 2360,
+          "platforms": [
+            {
+              "layouts": 14229,
+              "platform": 0,
+              "fixtures": 590,
+              "rejections": 38,
+              "comparisons": 3540
+            },
+            {
+              "layouts": 14229,
+              "platform": 1,
+              "fixtures": 590,
+              "rejections": 38,
+              "comparisons": 3540
+            },
+            {
+              "layouts": 14229,
+              "platform": 2,
+              "fixtures": 590,
+              "rejections": 38,
+              "comparisons": 3540
+            },
+            {
+              "layouts": 14229,
+              "platform": 99,
+              "fixtures": 590,
+              "rejections": 38,
+              "comparisons": 3540
+            }
+          ],
+          "generatedHostSha256": "cbc358bd2be1784026a0f2d6d0a84d1372571b5ac2f72352e3e2f7087c66e4fa",
+          "group": "Xmluiimages"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "057de70bdbcef97ba5a52b0e04f08539499f4f34d458522f912b54ce28b9fc14",
+          "originalCalls": 14116,
+          "platforms": [
+            {
+              "layouts": 19614,
+              "platform": 0,
+              "fixtures": 3529,
+              "rejections": 301,
+              "comparisons": 21174
+            },
+            {
+              "layouts": 19614,
+              "platform": 1,
+              "fixtures": 3529,
+              "rejections": 301,
+              "comparisons": 21174
+            },
+            {
+              "layouts": 19614,
+              "platform": 2,
+              "fixtures": 3529,
+              "rejections": 301,
+              "comparisons": 21174
+            },
+            {
+              "layouts": 19614,
+              "platform": 99,
+              "fixtures": 3529,
+              "rejections": 301,
+              "comparisons": 21174
+            }
+          ],
+          "generatedHostSha256": "9558f7b30a967a8d238fc7654e088197980cd863b10e973395c2b5592ea039e2",
+          "group": "Xmluisettings"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "ccaa72ecd4effcadd33b273da3a583a04509343f4430e4e09bd77c969ba3876b",
+          "originalCalls": 32476,
+          "platforms": [
+            {
+              "layouts": 92249,
+              "platform": 0,
+              "fixtures": 8119,
+              "rejections": 552,
+              "comparisons": 48714
+            },
+            {
+              "layouts": 92249,
+              "platform": 1,
+              "fixtures": 8119,
+              "rejections": 552,
+              "comparisons": 48714
+            },
+            {
+              "layouts": 92249,
+              "platform": 2,
+              "fixtures": 8119,
+              "rejections": 552,
+              "comparisons": 48714
+            },
+            {
+              "layouts": 92249,
+              "platform": 99,
+              "fixtures": 8119,
+              "rejections": 552,
+              "comparisons": 48714
+            }
+          ],
+          "generatedHostSha256": "784a99607902afcc6738682db28453866870400f44405136b5815c5ffa8b91dd",
+          "group": "Xmluitactical"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "2c2005f44cd0f55df6c8b906bd2b8ba8956fd31f840f07d501b3876eaad28fb9",
+          "originalCalls": 2584,
+          "platforms": [
+            {
+              "layouts": 6859,
+              "platform": 0,
+              "fixtures": 646,
+              "rejections": 16,
+              "comparisons": 3876
+            },
+            {
+              "layouts": 6859,
+              "platform": 1,
+              "fixtures": 646,
+              "rejections": 16,
+              "comparisons": 3876
+            },
+            {
+              "layouts": 6859,
+              "platform": 2,
+              "fixtures": 646,
+              "rejections": 16,
+              "comparisons": 3876
+            },
+            {
+              "layouts": 6859,
+              "platform": 99,
+              "fixtures": 646,
+              "rejections": 16,
+              "comparisons": 3876
+            }
+          ],
+          "generatedHostSha256": "a7b5230d360c430747a296298fa2f4c43defafc8bec6ac937f6df689a69886ec",
+          "group": "Xmlunitoverlay"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "377fad73f3b06adda876c7fb1e365048ea15428ddc99e64f971b59cf1ff0f167",
+          "originalCalls": 32956,
+          "platforms": [
+            {
+              "layouts": 34136,
+              "platform": 0,
+              "fixtures": 8239,
+              "rejections": 24,
+              "comparisons": 49434
+            },
+            {
+              "layouts": 34136,
+              "platform": 1,
+              "fixtures": 8239,
+              "rejections": 24,
+              "comparisons": 49434
+            },
+            {
+              "layouts": 34136,
+              "platform": 2,
+              "fixtures": 8239,
+              "rejections": 24,
+              "comparisons": 49434
+            },
+            {
+              "layouts": 34136,
+              "platform": 99,
+              "fixtures": 8239,
+              "rejections": 24,
+              "comparisons": 49434
+            }
+          ],
+          "generatedHostSha256": "b2e90902e8ea8681a7a99a2fa6e89ffa4a5510c652cf0632c0df5f498ced9665",
+          "group": "Xmlvisibility"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "9a033ee9cf642373d985d25f83d6554259805a5db76cc6dc2b99d7f97c02e198",
+          "originalCalls": 3200,
+          "platforms": [
+            {
+              "layouts": 2072,
+              "platform": 0,
+              "fixtures": 800,
+              "rejections": 45,
+              "comparisons": 4800
+            },
+            {
+              "layouts": 2072,
+              "platform": 1,
+              "fixtures": 800,
+              "rejections": 45,
+              "comparisons": 4800
+            },
+            {
+              "layouts": 2072,
+              "platform": 2,
+              "fixtures": 800,
+              "rejections": 45,
+              "comparisons": 4800
+            },
+            {
+              "layouts": 2072,
+              "platform": 99,
+              "fixtures": 800,
+              "rejections": 45,
+              "comparisons": 4800
+            }
+          ],
+          "generatedHostSha256": "dfca5789912c06bed0c16f6d51bf92fa6032f9b71111e0149682d77d9eb4f8fb",
+          "group": "Xmlvisualsystems"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "d585550dfe0bde38bad620fe5c597f5f81ef35674c119d4f85144439a05a1ca9",
+          "originalCalls": 6928,
+          "platforms": [
+            {
+              "layouts": 50243,
+              "platform": 0,
+              "fixtures": 1732,
+              "rejections": 41,
+              "comparisons": 10392
+            },
+            {
+              "layouts": 50243,
+              "platform": 1,
+              "fixtures": 1732,
+              "rejections": 41,
+              "comparisons": 10392
+            },
+            {
+              "layouts": 50243,
+              "platform": 2,
+              "fixtures": 1732,
+              "rejections": 41,
+              "comparisons": 10392
+            },
+            {
+              "layouts": 50243,
+              "platform": 99,
+              "fixtures": 1732,
+              "rejections": 41,
+              "comparisons": 10392
+            }
+          ],
+          "generatedHostSha256": "1c77f07ffeb5f972f571ca2c76ca9cc4f1773d1fbefab5c7b2ca63ae1cbe7c9b",
+          "group": "Xmlw3d"
+        }
+      ],
+      "configuration": "Debug",
+      "passed": true
+    },
+    {
+      "productExeSha256": "666794c653c01da0eca533f2117e097167c34582ebf83afd4ff9ad9f780f28ee",
+      "validationHostSha256": "44d366dcbf0688a2b88e6385cdb9b671ae730f70367385840212cbb8195f8969",
+      "groups": [
+        {
+          "passed": true,
+          "transcriptSha256": "c5aa0d196e0525f4c5fcf1ce7ef389a3c0bc992ec7c2bec211061a5c16f9fb7d",
+          "originalCalls": 6036,
+          "platforms": [
+            {
+              "layouts": 49853,
+              "platform": 0,
+              "fixtures": 1509,
+              "rejections": 103,
+              "comparisons": 9054
+            },
+            {
+              "layouts": 49853,
+              "platform": 1,
+              "fixtures": 1509,
+              "rejections": 103,
+              "comparisons": 9054
+            },
+            {
+              "layouts": 49853,
+              "platform": 2,
+              "fixtures": 1509,
+              "rejections": 103,
+              "comparisons": 9054
+            },
+            {
+              "layouts": 49853,
+              "platform": 99,
+              "fixtures": 1509,
+              "rejections": 103,
+              "comparisons": 9054
+            }
+          ],
+          "generatedHostSha256": "78d251f0c6d2a95610c9c6b2f5d85a32aed02b3f731058148e854f00650bc529",
+          "group": "Xmlabilitybuttons"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "a0c58030b49d174c0431c80aac4a0f6e098df1d54b3e7bc1b284b7cf35bea617",
+          "originalCalls": 7940,
+          "platforms": [
+            {
+              "layouts": 321,
+              "platform": 0,
+              "fixtures": 1985,
+              "rejections": 52,
+              "comparisons": 11907
+            },
+            {
+              "layouts": 321,
+              "platform": 1,
+              "fixtures": 1985,
+              "rejections": 52,
+              "comparisons": 11907
+            },
+            {
+              "layouts": 321,
+              "platform": 2,
+              "fixtures": 1985,
+              "rejections": 52,
+              "comparisons": 11907
+            },
+            {
+              "layouts": 321,
+              "platform": 99,
+              "fixtures": 1985,
+              "rejections": 52,
+              "comparisons": 11907
+            }
+          ],
+          "generatedHostSha256": "42357c8831f374ef9316463e41f29dc928abb2ac596c4d591f2ae368cb088463",
+          "group": "Xmlai"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "d0bc1f429f70cd28d3a229042f53e1d2371966e346cba04e9cf02c812757b622",
+          "originalCalls": 876,
+          "platforms": [
+            {
+              "layouts": 855066,
+              "platform": 0,
+              "fixtures": 219,
+              "rejections": 26,
+              "comparisons": 1314
+            },
+            {
+              "layouts": 855066,
+              "platform": 1,
+              "fixtures": 219,
+              "rejections": 26,
+              "comparisons": 1314
+            },
+            {
+              "layouts": 855066,
+              "platform": 2,
+              "fixtures": 219,
+              "rejections": 26,
+              "comparisons": 1314
+            },
+            {
+              "layouts": 855066,
+              "platform": 99,
+              "fixtures": 219,
+              "rejections": 26,
+              "comparisons": 1314
+            }
+          ],
+          "generatedHostSha256": "64bd2575626bdab506f7b673524a8c1320e3dac3b0f235eb1bd901a9dfedeceb",
+          "group": "Xmlaptdata"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "177242f8e8d4cffafe7ad47856cbd7a062dc6b9f0e637a4929fa1c7e3ff8ca05",
+          "originalCalls": 2352,
+          "platforms": [
+            {
+              "layouts": 9914,
+              "platform": 0,
+              "fixtures": 588,
+              "rejections": 18,
+              "comparisons": 3528
+            },
+            {
+              "layouts": 9914,
+              "platform": 1,
+              "fixtures": 588,
+              "rejections": 18,
+              "comparisons": 3528
+            },
+            {
+              "layouts": 9914,
+              "platform": 2,
+              "fixtures": 588,
+              "rejections": 18,
+              "comparisons": 3528
+            },
+            {
+              "layouts": 9914,
+              "platform": 99,
+              "fixtures": 588,
+              "rejections": 18,
+              "comparisons": 3528
+            }
+          ],
+          "generatedHostSha256": "68fafff0fcb51ca77115f0b0576328006ca17f791eac539bf9433340daedfb98",
+          "group": "Xmlarmyopening"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "7670fb753c21c027111016aa3fc59f42477791251c69be86ae07854c1fcb59ae",
+          "originalCalls": 2380,
+          "platforms": [
+            {
+              "layouts": 22942,
+              "platform": 0,
+              "fixtures": 595,
+              "rejections": 30,
+              "comparisons": 3570
+            },
+            {
+              "layouts": 22942,
+              "platform": 1,
+              "fixtures": 595,
+              "rejections": 30,
+              "comparisons": 3570
+            },
+            {
+              "layouts": 22942,
+              "platform": 2,
+              "fixtures": 595,
+              "rejections": 30,
+              "comparisons": 3570
+            },
+            {
+              "layouts": 22942,
+              "platform": 99,
+              "fixtures": 595,
+              "rejections": 30,
+              "comparisons": 3570
+            }
+          ],
+          "generatedHostSha256": "30c316500c4f6a847b37863d3cd509d993f103f24875abd05922dbf65fff3285",
+          "group": "Xmlassetindexes"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "d7067088361e69fe0dac945a25dee153497e10ac7272fe371f60f5f52258b10e",
+          "originalCalls": 4812,
+          "platforms": [
+            {
+              "layouts": 1140,
+              "platform": 0,
+              "fixtures": 1191,
+              "rejections": 36,
+              "comparisons": 3609
+            },
+            {
+              "layouts": 1140,
+              "platform": 1,
+              "fixtures": 1191,
+              "rejections": 36,
+              "comparisons": 3609
+            },
+            {
+              "layouts": 1140,
+              "platform": 2,
+              "fixtures": 1191,
+              "rejections": 36,
+              "comparisons": 3609
+            },
+            {
+              "layouts": 1140,
+              "platform": 99,
+              "fixtures": 1191,
+              "rejections": 36,
+              "comparisons": 3609
+            }
+          ],
+          "generatedHostSha256": "433d4fd6c7c6cb136162bff009e37a2810e50fdd7a98667f9415855bdf1163eb",
+          "group": "Xmlattributes"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "efa8dc3545695e80bdb1130561518b70c288531c67fe58b4f3f2ac0b2667e37e",
+          "originalCalls": 16928,
+          "platforms": [
+            {
+              "layouts": 4283,
+              "platform": 0,
+              "fixtures": 4232,
+              "rejections": 72,
+              "comparisons": 25392
+            },
+            {
+              "layouts": 4283,
+              "platform": 1,
+              "fixtures": 4232,
+              "rejections": 72,
+              "comparisons": 25392
+            },
+            {
+              "layouts": 4283,
+              "platform": 2,
+              "fixtures": 4232,
+              "rejections": 72,
+              "comparisons": 25392
+            },
+            {
+              "layouts": 4283,
+              "platform": 99,
+              "fixtures": 4232,
+              "rejections": 72,
+              "comparisons": 25392
+            }
+          ],
+          "generatedHostSha256": "083757bfd6b6cd72991087eff35e1493bb62f1099670ea024c077f682d849c33",
+          "group": "Xmlaudio"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "c1789309489274ee57ff8d8fca7d516d390e4efa2aba0557555593ab51ed1882",
+          "originalCalls": 27664,
+          "platforms": [
+            {
+              "layouts": 34498,
+              "platform": 0,
+              "fixtures": 6916,
+              "rejections": 42,
+              "comparisons": 41496
+            },
+            {
+              "layouts": 34498,
+              "platform": 1,
+              "fixtures": 6916,
+              "rejections": 42,
+              "comparisons": 41496
+            },
+            {
+              "layouts": 34498,
+              "platform": 2,
+              "fixtures": 6916,
+              "rejections": 42,
+              "comparisons": 41496
+            },
+            {
+              "layouts": 34498,
+              "platform": 99,
+              "fixtures": 6916,
+              "rejections": 42,
+              "comparisons": 41496
+            }
+          ],
+          "generatedHostSha256": "6242393d6b38c6045f83b982aefdf7fb508fd1eb7ca340211e790ada5f48ea84",
+          "group": "Xmlbuildeconomy"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "e648144dc35b132c3f290c3964297a681a645a283eef59b83edf2200ab4a4816",
+          "originalCalls": 6292,
+          "platforms": [
+            {
+              "layouts": 56342,
+              "platform": 0,
+              "fixtures": 1573,
+              "rejections": 49,
+              "comparisons": 9438
+            },
+            {
+              "layouts": 56342,
+              "platform": 1,
+              "fixtures": 1573,
+              "rejections": 49,
+              "comparisons": 9438
+            },
+            {
+              "layouts": 56342,
+              "platform": 2,
+              "fixtures": 1573,
+              "rejections": 49,
+              "comparisons": 9438
+            },
+            {
+              "layouts": 56342,
+              "platform": 99,
+              "fixtures": 1573,
+              "rejections": 49,
+              "comparisons": 9438
+            }
+          ],
+          "generatedHostSha256": "4fcca07bf38af154801ad8675c3656614991c8a6ecd37786a40694464265ab71",
+          "group": "Xmlcampaign"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "5e94e8c1d00426637732876a847a4e6905729b78281909cb90bf45db56ab8b5a",
+          "originalCalls": 18808,
+          "platforms": [
+            {
+              "layouts": 5609,
+              "platform": 0,
+              "fixtures": 4702,
+              "rejections": 211,
+              "comparisons": 28212
+            },
+            {
+              "layouts": 5609,
+              "platform": 1,
+              "fixtures": 4702,
+              "rejections": 211,
+              "comparisons": 28212
+            },
+            {
+              "layouts": 5609,
+              "platform": 2,
+              "fixtures": 4702,
+              "rejections": 211,
+              "comparisons": 28212
+            },
+            {
+              "layouts": 5609,
+              "platform": 99,
+              "fixtures": 4702,
+              "rejections": 211,
+              "comparisons": 28212
+            }
+          ],
+          "generatedHostSha256": "e8e1de5a79b3fa99ccda767f06b8c34469fdc0adf70c698a1dada5456aadc139",
+          "group": "Xmlchatcolors"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "814ffdf122b9bb3e110c8b9cfcc85f0c16de012817ff49a944b5dd629f18e135",
+          "originalCalls": 1020,
+          "platforms": [
+            {
+              "layouts": 11465,
+              "platform": 0,
+              "fixtures": 255,
+              "rejections": 18,
+              "comparisons": 1530
+            },
+            {
+              "layouts": 11465,
+              "platform": 1,
+              "fixtures": 255,
+              "rejections": 18,
+              "comparisons": 1530
+            },
+            {
+              "layouts": 11465,
+              "platform": 2,
+              "fixtures": 255,
+              "rejections": 18,
+              "comparisons": 1530
+            },
+            {
+              "layouts": 11465,
+              "platform": 99,
+              "fixtures": 255,
+              "rejections": 18,
+              "comparisons": 1530
+            }
+          ],
+          "generatedHostSha256": "922240e692e795e6a94bfe508409445f904af7517fc8353e9a8d5cec7730a62b",
+          "group": "Xmlcommandset"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "568262c483d5de996acea29e6a8a55ff38f03c46e19586cc797fb30366def4b0",
+          "originalCalls": 221968,
+          "platforms": [
+            {
+              "layouts": 473909,
+              "platform": 0,
+              "fixtures": 55492,
+              "rejections": 63,
+              "comparisons": 332952
+            },
+            {
+              "layouts": 473909,
+              "platform": 1,
+              "fixtures": 55492,
+              "rejections": 63,
+              "comparisons": 332952
+            },
+            {
+              "layouts": 473909,
+              "platform": 2,
+              "fixtures": 55492,
+              "rejections": 63,
+              "comparisons": 332952
+            },
+            {
+              "layouts": 473909,
+              "platform": 99,
+              "fixtures": 55492,
+              "rejections": 63,
+              "comparisons": 332952
+            }
+          ],
+          "generatedHostSha256": "4dcdc25f95273345e1195743a0543980d7fa64fa131d1959453985f0a4ef3923",
+          "group": "Xmlconditions"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "68e3e1ba78ffdbe8be825be5e2de993c4f6940fc6bb6428576034b44f546ca5f",
+          "originalCalls": 996,
+          "platforms": [
+            {
+              "layouts": 7664,
+              "platform": 0,
+              "fixtures": 249,
+              "rejections": 39,
+              "comparisons": 1494
+            },
+            {
+              "layouts": 7664,
+              "platform": 1,
+              "fixtures": 249,
+              "rejections": 39,
+              "comparisons": 1494
+            },
+            {
+              "layouts": 7664,
+              "platform": 2,
+              "fixtures": 249,
+              "rejections": 39,
+              "comparisons": 1494
+            },
+            {
+              "layouts": 7664,
+              "platform": 99,
+              "fixtures": 249,
+              "rejections": 39,
+              "comparisons": 1494
+            }
+          ],
+          "generatedHostSha256": "fdb3ac7b7681442f1efb53812fcc69ac6b9e09508b2644e96ac3430e982d7163",
+          "group": "Xmlconnections"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "5d021fd896f842a072d8d8d8c2095a6e9bc8bae399c156a96fff5f6b05c1d497",
+          "originalCalls": 2876,
+          "platforms": [
+            {
+              "layouts": 31182,
+              "platform": 0,
+              "fixtures": 719,
+              "rejections": 41,
+              "comparisons": 4314
+            },
+            {
+              "layouts": 31182,
+              "platform": 1,
+              "fixtures": 719,
+              "rejections": 41,
+              "comparisons": 4314
+            },
+            {
+              "layouts": 31182,
+              "platform": 2,
+              "fixtures": 719,
+              "rejections": 41,
+              "comparisons": 4314
+            },
+            {
+              "layouts": 31182,
+              "platform": 99,
+              "fixtures": 719,
+              "rejections": 41,
+              "comparisons": 4314
+            }
+          ],
+          "generatedHostSha256": "aca514cef42ca9a19beefcddbd0fb36e730ae6f85c41508483b4a7c000528995",
+          "group": "Xmlconquercards"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "f2d74feb9e1aacdf090590104da96b4ba3da1a43a2393f11e3e7175f591ac466",
+          "originalCalls": 2104,
+          "platforms": [
+            {
+              "layouts": 23072,
+              "platform": 0,
+              "fixtures": 526,
+              "rejections": 35,
+              "comparisons": 3156
+            },
+            {
+              "layouts": 23072,
+              "platform": 1,
+              "fixtures": 526,
+              "rejections": 35,
+              "comparisons": 3156
+            },
+            {
+              "layouts": 23072,
+              "platform": 2,
+              "fixtures": 526,
+              "rejections": 35,
+              "comparisons": 3156
+            },
+            {
+              "layouts": 23072,
+              "platform": 99,
+              "fixtures": 526,
+              "rejections": 35,
+              "comparisons": 3156
+            }
+          ],
+          "generatedHostSha256": "eff3cdd1224488db19db31c5fe8fbc738184b1a8235acb2ee2ddbfd721afe78b",
+          "group": "Xmlcontent"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "34647f26a539be8460532c6f72999cf029c3ee158427abe790eb4dfef2ffa7c8",
+          "originalCalls": 2788,
+          "platforms": [
+            {
+              "layouts": 38462,
+              "platform": 0,
+              "fixtures": 697,
+              "rejections": 24,
+              "comparisons": 4182
+            },
+            {
+              "layouts": 38462,
+              "platform": 1,
+              "fixtures": 697,
+              "rejections": 24,
+              "comparisons": 4182
+            },
+            {
+              "layouts": 38462,
+              "platform": 2,
+              "fixtures": 697,
+              "rejections": 24,
+              "comparisons": 4182
+            },
+            {
+              "layouts": 38462,
+              "platform": 99,
+              "fixtures": 697,
+              "rejections": 24,
+              "comparisons": 4182
+            }
+          ],
+          "generatedHostSha256": "8be22e812b5ebde65c854a5096035831230ed0f988087902aa04a1478391858e",
+          "group": "Xmlcrowd"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "7fcb4b24037a73c1576d525a767d59f2d6253a76161051314f346f99061bd403",
+          "originalCalls": 1184,
+          "platforms": [
+            {
+              "layouts": 10486,
+              "platform": 0,
+              "fixtures": 296,
+              "rejections": 19,
+              "comparisons": 1776
+            },
+            {
+              "layouts": 10486,
+              "platform": 1,
+              "fixtures": 296,
+              "rejections": 19,
+              "comparisons": 1776
+            },
+            {
+              "layouts": 10486,
+              "platform": 2,
+              "fixtures": 296,
+              "rejections": 19,
+              "comparisons": 1776
+            },
+            {
+              "layouts": 10486,
+              "platform": 99,
+              "fixtures": 296,
+              "rejections": 19,
+              "comparisons": 1776
+            }
+          ],
+          "generatedHostSha256": "a774360d35038d961da989a4c87500ac2c8b631347684e6f1c07294b42435a87",
+          "group": "Xmldamagefx"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "9e2ec941b33eab8d7253cf2cb8c058ea9ab57031367e85c620e07cde3e09a12e",
+          "originalCalls": 664,
+          "platforms": [
+            {
+              "layouts": 5671,
+              "platform": 0,
+              "fixtures": 166,
+              "rejections": 13,
+              "comparisons": 996
+            },
+            {
+              "layouts": 5671,
+              "platform": 1,
+              "fixtures": 166,
+              "rejections": 13,
+              "comparisons": 996
+            },
+            {
+              "layouts": 5671,
+              "platform": 2,
+              "fixtures": 166,
+              "rejections": 13,
+              "comparisons": 996
+            },
+            {
+              "layouts": 5671,
+              "platform": 99,
+              "fixtures": 166,
+              "rejections": 13,
+              "comparisons": 996
+            }
+          ],
+          "generatedHostSha256": "ad55fd347d36624b4d0fee4b2e38ab955126728e8bed883053e0ae33142dddf6",
+          "group": "Xmldynamics"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "f809d0573add057aa5dd095a7a37d3b9b4a61d351fc3798aa4d404cb3bb48506",
+          "originalCalls": 6520,
+          "platforms": [
+            {
+              "layouts": 1651,
+              "platform": 0,
+              "fixtures": 1630,
+              "rejections": 40,
+              "comparisons": 9780
+            },
+            {
+              "layouts": 1651,
+              "platform": 1,
+              "fixtures": 1630,
+              "rejections": 40,
+              "comparisons": 9780
+            },
+            {
+              "layouts": 1651,
+              "platform": 2,
+              "fixtures": 1630,
+              "rejections": 40,
+              "comparisons": 9780
+            },
+            {
+              "layouts": 1651,
+              "platform": 99,
+              "fixtures": 1630,
+              "rejections": 40,
+              "comparisons": 9780
+            }
+          ],
+          "generatedHostSha256": "f7bd2f01b27b2c54176740822f6f302a9a908d2ca79ab314418e16b1444301b5",
+          "group": "Xmleffects"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "611e7e8c53011763db9cf6a4ea5940f5cf8ef049bdcdf83fbccb1b41671c4883",
+          "originalCalls": 24428,
+          "platforms": [
+            {
+              "layouts": 42257,
+              "platform": 0,
+              "fixtures": 6107,
+              "rejections": 18,
+              "comparisons": 36642
+            },
+            {
+              "layouts": 42257,
+              "platform": 1,
+              "fixtures": 6107,
+              "rejections": 18,
+              "comparisons": 36642
+            },
+            {
+              "layouts": 42257,
+              "platform": 2,
+              "fixtures": 6107,
+              "rejections": 18,
+              "comparisons": 36642
+            },
+            {
+              "layouts": 42257,
+              "platform": 99,
+              "fixtures": 6107,
+              "rejections": 18,
+              "comparisons": 36642
+            }
+          ],
+          "generatedHostSha256": "9fa36f1a9e5933011a882c9c6dc17283cec8e245ff448bb726ddf6bc532fb99b",
+          "group": "Xmlemotions"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "9affef42345d40781b752952368b41651e6003343bfe712650cda0f1976a865b",
+          "originalCalls": 24528,
+          "platforms": [
+            {
+              "layouts": 30220,
+              "platform": 0,
+              "fixtures": 6132,
+              "rejections": 306,
+              "comparisons": 36792
+            },
+            {
+              "layouts": 30220,
+              "platform": 1,
+              "fixtures": 6132,
+              "rejections": 306,
+              "comparisons": 36792
+            },
+            {
+              "layouts": 30220,
+              "platform": 2,
+              "fixtures": 6132,
+              "rejections": 306,
+              "comparisons": 36792
+            },
+            {
+              "layouts": 30220,
+              "platform": 99,
+              "fixtures": 6132,
+              "rejections": 306,
+              "comparisons": 36792
+            }
+          ],
+          "generatedHostSha256": "78d6a59f61aca4975a57f843baac0932dcc9a7256bf3e5fd7455c445b960abf8",
+          "group": "Xmlenvironment"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "a42d01e0d3a5b7416cfd64e17045edee8d42e443e2cf8454f733b0b2185346ba",
+          "originalCalls": 6988,
+          "platforms": [
+            {
+              "layouts": 12341,
+              "platform": 0,
+              "fixtures": 1747,
+              "rejections": 53,
+              "comparisons": 10482
+            },
+            {
+              "layouts": 12341,
+              "platform": 1,
+              "fixtures": 1747,
+              "rejections": 53,
+              "comparisons": 10482
+            },
+            {
+              "layouts": 12341,
+              "platform": 2,
+              "fixtures": 1747,
+              "rejections": 53,
+              "comparisons": 10482
+            },
+            {
+              "layouts": 12341,
+              "platform": 99,
+              "fixtures": 1747,
+              "rejections": 53,
+              "comparisons": 10482
+            }
+          ],
+          "generatedHostSha256": "6160291ae53eb810c6d891fac6564b1b3c8470eeef59af77012d22f3f16504dd",
+          "group": "Xmlevaachievement"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "bce0ef3af9d10f65151dcee7258a0d213eef5ffe3275ca3ff5c73c7d862150ee",
+          "originalCalls": 3268,
+          "platforms": [
+            {
+              "layouts": 839,
+              "platform": 0,
+              "fixtures": 817,
+              "rejections": 8,
+              "comparisons": 4902
+            },
+            {
+              "layouts": 839,
+              "platform": 1,
+              "fixtures": 817,
+              "rejections": 8,
+              "comparisons": 4902
+            },
+            {
+              "layouts": 839,
+              "platform": 2,
+              "fixtures": 817,
+              "rejections": 8,
+              "comparisons": 4902
+            },
+            {
+              "layouts": 839,
+              "platform": 99,
+              "fixtures": 817,
+              "rejections": 8,
+              "comparisons": 4902
+            }
+          ],
+          "generatedHostSha256": "66c30dd6f202c1c10faf5eb36475e6a1eca38558da9a9b58f8be69a657bc5d48",
+          "group": "Xmlforcefeedback"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "bba104f3b3b4ad6cb373408516683a53f75048318531835cf616e28f7c112d0c",
+          "originalCalls": 13876,
+          "platforms": [
+            {
+              "layouts": 3469,
+              "platform": 0,
+              "fixtures": 3469,
+              "rejections": 98,
+              "comparisons": 10407
+            },
+            {
+              "layouts": 3469,
+              "platform": 1,
+              "fixtures": 3469,
+              "rejections": 98,
+              "comparisons": 10407
+            },
+            {
+              "layouts": 3469,
+              "platform": 2,
+              "fixtures": 3469,
+              "rejections": 98,
+              "comparisons": 10407
+            },
+            {
+              "layouts": 3469,
+              "platform": 99,
+              "fixtures": 3469,
+              "rejections": 98,
+              "comparisons": 10407
+            }
+          ],
+          "generatedHostSha256": "1c196c3dbcd15340877bed473a7ab6f8bec4df433bdcce846e822366e48e45f8",
+          "group": "Xmlfxparticle"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "c1d7bff6a77ad8d9dee56c44e4627d8525a5d94ba88770a7deeb82cd14f8fc35",
+          "originalCalls": 15368,
+          "platforms": [
+            {
+              "layouts": 33613,
+              "platform": 0,
+              "fixtures": 3842,
+              "rejections": 73,
+              "comparisons": 23052
+            },
+            {
+              "layouts": 33613,
+              "platform": 1,
+              "fixtures": 3842,
+              "rejections": 73,
+              "comparisons": 23052
+            },
+            {
+              "layouts": 33613,
+              "platform": 2,
+              "fixtures": 3842,
+              "rejections": 73,
+              "comparisons": 23052
+            },
+            {
+              "layouts": 33613,
+              "platform": 99,
+              "fixtures": 3842,
+              "rejections": 73,
+              "comparisons": 23052
+            }
+          ],
+          "generatedHostSha256": "ba106b1c9b7afb6971c79131be221b78088f556bf119b9a70401f54f2d3f5fa8",
+          "group": "Xmlgamemap"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "a09e9a59bc7ae0eef44de287de2a515224ed16d4d818bc48b7febcf9758d95bd",
+          "originalCalls": 1000,
+          "platforms": [
+            {
+              "layouts": 10874,
+              "platform": 0,
+              "fixtures": 250,
+              "rejections": 26,
+              "comparisons": 1500
+            },
+            {
+              "layouts": 10874,
+              "platform": 1,
+              "fixtures": 250,
+              "rejections": 26,
+              "comparisons": 1500
+            },
+            {
+              "layouts": 10874,
+              "platform": 2,
+              "fixtures": 250,
+              "rejections": 26,
+              "comparisons": 1500
+            },
+            {
+              "layouts": 10874,
+              "platform": 99,
+              "fixtures": 250,
+              "rejections": 26,
+              "comparisons": 1500
+            }
+          ],
+          "generatedHostSha256": "f5733dfb265f7addf9cfd7ea7489f0c65c9db57a650ee77f5aff032b98187d7a",
+          "group": "Xmlgamescripts"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "0f54e46357a6d757b3ade199a680e295ef4932b05db20e7955b3ac6ef23dd5b3",
+          "originalCalls": 13232,
+          "platforms": [
+            {
+              "layouts": 28525,
+              "platform": 0,
+              "fixtures": 3308,
+              "rejections": 23,
+              "comparisons": 19848
+            },
+            {
+              "layouts": 28525,
+              "platform": 1,
+              "fixtures": 3308,
+              "rejections": 23,
+              "comparisons": 19848
+            },
+            {
+              "layouts": 28525,
+              "platform": 2,
+              "fixtures": 3308,
+              "rejections": 23,
+              "comparisons": 19848
+            },
+            {
+              "layouts": 28525,
+              "platform": 99,
+              "fixtures": 3308,
+              "rejections": 23,
+              "comparisons": 19848
+            }
+          ],
+          "generatedHostSha256": "fe448094543563f209d04a3c1e854c4654875024e252fcede40e4436fb4860a3",
+          "group": "Xmlhealthbars"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "490be57dbddae5bc6d1b58f16462c4f3a3092c665200ff52666962a83ae6a962",
+          "originalCalls": 6572,
+          "platforms": [
+            {
+              "layouts": 13304,
+              "platform": 0,
+              "fixtures": 1643,
+              "rejections": 37,
+              "comparisons": 9858
+            },
+            {
+              "layouts": 13304,
+              "platform": 1,
+              "fixtures": 1643,
+              "rejections": 37,
+              "comparisons": 9858
+            },
+            {
+              "layouts": 13304,
+              "platform": 2,
+              "fixtures": 1643,
+              "rejections": 37,
+              "comparisons": 9858
+            },
+            {
+              "layouts": 13304,
+              "platform": 99,
+              "fixtures": 1643,
+              "rejections": 37,
+              "comparisons": 9858
+            }
+          ],
+          "generatedHostSha256": "021fd5f8da5ec71b10ad880df9061aa2597acadabaa538543abcdaafa61f6013",
+          "group": "Xmlhotkeymaps"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "6f4b60fdd92900871448a64e2811d99d4b264d164d3ffc29be6ac467f91c864b",
+          "originalCalls": 3220,
+          "platforms": [
+            {
+              "layouts": 33319,
+              "platform": 0,
+              "fixtures": 805,
+              "rejections": 52,
+              "comparisons": 4830
+            },
+            {
+              "layouts": 33319,
+              "platform": 1,
+              "fixtures": 805,
+              "rejections": 52,
+              "comparisons": 4830
+            },
+            {
+              "layouts": 33319,
+              "platform": 2,
+              "fixtures": 805,
+              "rejections": 52,
+              "comparisons": 4830
+            },
+            {
+              "layouts": 33319,
+              "platform": 99,
+              "fixtures": 805,
+              "rejections": 52,
+              "comparisons": 4830
+            }
+          ],
+          "generatedHostSha256": "504d59401614b65b5f880fec14358ad74582233c2dba23dc3cf63ed548c56d1b",
+          "group": "Xmllocalization"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "c4b69a1069ef8da12ae9e5e77c6fca3520bb98890a94c8dd5687ac78fd4494af",
+          "originalCalls": 16528,
+          "platforms": [
+            {
+              "layouts": 4132,
+              "platform": 0,
+              "fixtures": 4131,
+              "rejections": 253,
+              "comparisons": 12393
+            },
+            {
+              "layouts": 4132,
+              "platform": 1,
+              "fixtures": 4131,
+              "rejections": 253,
+              "comparisons": 12393
+            },
+            {
+              "layouts": 4132,
+              "platform": 2,
+              "fixtures": 4131,
+              "rejections": 253,
+              "comparisons": 12393
+            },
+            {
+              "layouts": 4132,
+              "platform": 99,
+              "fixtures": 4131,
+              "rejections": 253,
+              "comparisons": 12393
+            }
+          ],
+          "generatedHostSha256": "7a57fa2d6e28f1d77ca2b6b35e138863e48fd362f8fd80d9416c7b54492871eb",
+          "group": "Xmllocomotor"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "997f540464937abd92226056dbaf71ff76ca53116b0734d9753af5750697ed56",
+          "originalCalls": 1668,
+          "platforms": [
+            {
+              "layouts": 3327,
+              "platform": 0,
+              "fixtures": 417,
+              "rejections": 19,
+              "comparisons": 2502
+            },
+            {
+              "layouts": 3327,
+              "platform": 1,
+              "fixtures": 417,
+              "rejections": 19,
+              "comparisons": 2502
+            },
+            {
+              "layouts": 3327,
+              "platform": 2,
+              "fixtures": 417,
+              "rejections": 19,
+              "comparisons": 2502
+            },
+            {
+              "layouts": 3327,
+              "platform": 99,
+              "fixtures": 417,
+              "rejections": 19,
+              "comparisons": 2502
+            }
+          ],
+          "generatedHostSha256": "81f2e943eb9a23be46cf0bfa0035cfb7ea147419affb97277c83473743d8143f",
+          "group": "Xmlmapmetadata"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "328ad237446af6db69b2839b028073cde1c13007161c9608c13ea70b3064edd6",
+          "originalCalls": 1500,
+          "platforms": [
+            {
+              "layouts": 14992,
+              "platform": 0,
+              "fixtures": 375,
+              "rejections": 21,
+              "comparisons": 2250
+            },
+            {
+              "layouts": 14992,
+              "platform": 1,
+              "fixtures": 375,
+              "rejections": 21,
+              "comparisons": 2250
+            },
+            {
+              "layouts": 14992,
+              "platform": 2,
+              "fixtures": 375,
+              "rejections": 21,
+              "comparisons": 2250
+            },
+            {
+              "layouts": 14992,
+              "platform": 99,
+              "fixtures": 375,
+              "rejections": 21,
+              "comparisons": 2250
+            }
+          ],
+          "generatedHostSha256": "57e67f93e5ac90052adce0f2c033ae5a95c0f4c2f1db216bbc22c01ad9e0e77d",
+          "group": "Xmlmaterialrules"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "ae864c306fcd6794a252359d16501474c25316c8925005079c67675fd4bec04c",
+          "originalCalls": 688,
+          "platforms": [
+            {
+              "layouts": 182,
+              "platform": 0,
+              "fixtures": 172,
+              "rejections": 8,
+              "comparisons": 1032
+            },
+            {
+              "layouts": 182,
+              "platform": 1,
+              "fixtures": 172,
+              "rejections": 8,
+              "comparisons": 1032
+            },
+            {
+              "layouts": 182,
+              "platform": 2,
+              "fixtures": 172,
+              "rejections": 8,
+              "comparisons": 1032
+            },
+            {
+              "layouts": 182,
+              "platform": 99,
+              "fixtures": 172,
+              "rejections": 8,
+              "comparisons": 1032
+            }
+          ],
+          "generatedHostSha256": "d4fc82f019c76d54faed52975bd9cd3a4951c854e0d2a34d3d5865e84760e100",
+          "group": "Xmlmouse"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "e5bfb59dc5b89a94043d11ef7304162a64c1871bfae92e2bc26d5bacbe66f5f2",
+          "originalCalls": 1592,
+          "platforms": [
+            {
+              "layouts": 21642,
+              "platform": 0,
+              "fixtures": 398,
+              "rejections": 17,
+              "comparisons": 2388
+            },
+            {
+              "layouts": 21642,
+              "platform": 1,
+              "fixtures": 398,
+              "rejections": 17,
+              "comparisons": 2388
+            },
+            {
+              "layouts": 21642,
+              "platform": 2,
+              "fixtures": 398,
+              "rejections": 17,
+              "comparisons": 2388
+            },
+            {
+              "layouts": 21642,
+              "platform": 99,
+              "fixtures": 398,
+              "rejections": 17,
+              "comparisons": 2388
+            }
+          ],
+          "generatedHostSha256": "2c954c8984df27b87071fb2904c55f5b20f3b146f9715aef7d61b3f4d7c76d61",
+          "group": "Xmlmoviearchive"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "e2351a37a114f9f83eeee3731ce866bf45694143904ecb80c75051c6e8139cdf",
+          "originalCalls": 46372,
+          "platforms": [
+            {
+              "layouts": 11683,
+              "platform": 0,
+              "fixtures": 11593,
+              "rejections": 127,
+              "comparisons": 69558
+            },
+            {
+              "layouts": 11683,
+              "platform": 1,
+              "fixtures": 11593,
+              "rejections": 127,
+              "comparisons": 69558
+            },
+            {
+              "layouts": 11683,
+              "platform": 2,
+              "fixtures": 11593,
+              "rejections": 127,
+              "comparisons": 69558
+            },
+            {
+              "layouts": 11683,
+              "platform": 99,
+              "fixtures": 11593,
+              "rejections": 127,
+              "comparisons": 69558
+            }
+          ],
+          "generatedHostSha256": "18a3ddc7ae6776a1e9dff7f5f81a3b765acd1390664ee85f589b07651f5ec4a9",
+          "group": "Xmlmusicscript"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "7e492507944361183277a293fcfc88007608d8100a68bc2b7bb7b194120a0665",
+          "originalCalls": 89112,
+          "platforms": [
+            {
+              "layouts": 71116,
+              "platform": 0,
+              "fixtures": 22278,
+              "rejections": 36,
+              "comparisons": 133668
+            },
+            {
+              "layouts": 71116,
+              "platform": 1,
+              "fixtures": 22278,
+              "rejections": 36,
+              "comparisons": 133668
+            },
+            {
+              "layouts": 71116,
+              "platform": 2,
+              "fixtures": 22278,
+              "rejections": 36,
+              "comparisons": 133668
+            },
+            {
+              "layouts": 71116,
+              "platform": 99,
+              "fixtures": 22278,
+              "rejections": 36,
+              "comparisons": 133668
+            }
+          ],
+          "generatedHostSha256": "dfb8cade740159b563ee0f44ae533db332e5320426c1190135dfa773d5fd4c9d",
+          "group": "Xmlobjectsets"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "9f6a696b9540b3b80a7c76ad6f32f3846d4199a33aed73356eee519a9e9ab794",
+          "originalCalls": 7984,
+          "platforms": [
+            {
+              "layouts": 2099,
+              "platform": 0,
+              "fixtures": 1996,
+              "rejections": 48,
+              "comparisons": 11976
+            },
+            {
+              "layouts": 2099,
+              "platform": 1,
+              "fixtures": 1996,
+              "rejections": 48,
+              "comparisons": 11976
+            },
+            {
+              "layouts": 2099,
+              "platform": 2,
+              "fixtures": 1996,
+              "rejections": 48,
+              "comparisons": 11976
+            },
+            {
+              "layouts": 2099,
+              "platform": 99,
+              "fixtures": 1996,
+              "rejections": 48,
+              "comparisons": 11976
+            }
+          ],
+          "generatedHostSha256": "48049214d0ad1ba172c45322ee7eda394fbcf43233769de8547452e068c1e79f",
+          "group": "Xmlpathmusic"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "144655a4a3f545daa318430f34164c62895e388a64c5c0534049441ad83654e7",
+          "originalCalls": 22380,
+          "platforms": [
+            {
+              "layouts": 79423,
+              "platform": 0,
+              "fixtures": 5595,
+              "rejections": 123,
+              "comparisons": 16785
+            },
+            {
+              "layouts": 79423,
+              "platform": 1,
+              "fixtures": 5595,
+              "rejections": 123,
+              "comparisons": 16785
+            },
+            {
+              "layouts": 79423,
+              "platform": 2,
+              "fixtures": 5595,
+              "rejections": 123,
+              "comparisons": 16785
+            },
+            {
+              "layouts": 79423,
+              "platform": 99,
+              "fixtures": 5595,
+              "rejections": 123,
+              "comparisons": 16785
+            }
+          ],
+          "generatedHostSha256": "814d7338c74de3956812b4f8b7f950e329865c596208f7aa8459188e241b7e84",
+          "group": "Xmlplayers"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "12ff5ccefa2e3af043dc43ef9efa9abc09eb0016525a3820cfd7d6af523a1338",
+          "originalCalls": 17340,
+          "platforms": [
+            {
+              "layouts": 20793,
+              "platform": 0,
+              "fixtures": 4335,
+              "rejections": 134,
+              "comparisons": 13005
+            },
+            {
+              "layouts": 20793,
+              "platform": 1,
+              "fixtures": 4335,
+              "rejections": 134,
+              "comparisons": 13005
+            },
+            {
+              "layouts": 20793,
+              "platform": 2,
+              "fixtures": 4335,
+              "rejections": 134,
+              "comparisons": 13005
+            },
+            {
+              "layouts": 20793,
+              "platform": 99,
+              "fixtures": 4335,
+              "rejections": 134,
+              "comparisons": 13005
+            }
+          ],
+          "generatedHostSha256": "a47c4e77a0d8853bd2e7fff8202d58c50515c9f88140e62470f55c5546fa461d",
+          "group": "Xmlpowers"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "605905b69c769f514b37ed6c2c11d0cfe36a8a4bbb6747525f5ce6fbb842158a",
+          "originalCalls": 16660,
+          "platforms": [
+            {
+              "layouts": 4189,
+              "platform": 0,
+              "fixtures": 4165,
+              "rejections": 123,
+              "comparisons": 24990
+            },
+            {
+              "layouts": 4189,
+              "platform": 1,
+              "fixtures": 4165,
+              "rejections": 123,
+              "comparisons": 24990
+            },
+            {
+              "layouts": 4189,
+              "platform": 2,
+              "fixtures": 4165,
+              "rejections": 123,
+              "comparisons": 24990
+            },
+            {
+              "layouts": 4189,
+              "platform": 99,
+              "fixtures": 4165,
+              "rejections": 123,
+              "comparisons": 24990
+            }
+          ],
+          "generatedHostSha256": "66f5a35a052e9d3259262aa0b41691127dda7d2e2f2291a3fe7386fb9a8ecc71",
+          "group": "Xmlprogression"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "e5cc6e12c73a436a8776501f4b5be42133e5968fb679775e8146e2d27dd81baf",
+          "originalCalls": 1356,
+          "platforms": [
+            {
+              "layouts": 2158,
+              "platform": 0,
+              "fixtures": 339,
+              "rejections": 21,
+              "comparisons": 2034
+            },
+            {
+              "layouts": 2158,
+              "platform": 1,
+              "fixtures": 339,
+              "rejections": 21,
+              "comparisons": 2034
+            },
+            {
+              "layouts": 2158,
+              "platform": 2,
+              "fixtures": 339,
+              "rejections": 21,
+              "comparisons": 2034
+            },
+            {
+              "layouts": 2158,
+              "platform": 99,
+              "fixtures": 339,
+              "rejections": 21,
+              "comparisons": 2034
+            }
+          ],
+          "generatedHostSha256": "47dbf41036048a4dce895690781e2e2ce7e84a12efe1742ca37ad928f1219e79",
+          "group": "Xmlprojectilepath"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "3033ce4c97adbf9e5d4c52ee6dff2eb334f5bbc4bf382308bdc29bf4dc9ad7d5",
+          "originalCalls": 14844,
+          "platforms": [
+            {
+              "layouts": 27875,
+              "platform": 0,
+              "fixtures": 3711,
+              "rejections": 44,
+              "comparisons": 22266
+            },
+            {
+              "layouts": 27875,
+              "platform": 1,
+              "fixtures": 3711,
+              "rejections": 44,
+              "comparisons": 22266
+            },
+            {
+              "layouts": 27875,
+              "platform": 2,
+              "fixtures": 3711,
+              "rejections": 44,
+              "comparisons": 22266
+            },
+            {
+              "layouts": 27875,
+              "platform": 99,
+              "fixtures": 3711,
+              "rejections": 44,
+              "comparisons": 22266
+            }
+          ],
+          "generatedHostSha256": "7d31af26c00511804a3da27034bcc0db5b65b842498d4a282ad07e3341a3e30a",
+          "group": "Xmlradar"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "d6cf94d08e097562b421401b0d3f731401df83b462a00cc47428e5cf9b9be260",
+          "originalCalls": 2308,
+          "platforms": [
+            {
+              "layouts": 1824,
+              "platform": 0,
+              "fixtures": 577,
+              "rejections": 28,
+              "comparisons": 3462
+            },
+            {
+              "layouts": 1824,
+              "platform": 1,
+              "fixtures": 577,
+              "rejections": 28,
+              "comparisons": 3462
+            },
+            {
+              "layouts": 1824,
+              "platform": 2,
+              "fixtures": 577,
+              "rejections": 28,
+              "comparisons": 3462
+            },
+            {
+              "layouts": 1824,
+              "platform": 99,
+              "fixtures": 577,
+              "rejections": 28,
+              "comparisons": 3462
+            }
+          ],
+          "generatedHostSha256": "b01e09f7024a89dcd7816d5914f491ce3e7d2ea3da68b8bf512064089e05d054",
+          "group": "Xmlredalert"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "9823b32dc5c179f8981d257e023676bfcea1c9b83041f5b625f6cea55154fcda",
+          "originalCalls": 3272,
+          "platforms": [
+            {
+              "layouts": 8118,
+              "platform": 0,
+              "fixtures": 818,
+              "rejections": 52,
+              "comparisons": 4908
+            },
+            {
+              "layouts": 8118,
+              "platform": 1,
+              "fixtures": 818,
+              "rejections": 52,
+              "comparisons": 4908
+            },
+            {
+              "layouts": 8118,
+              "platform": 2,
+              "fixtures": 818,
+              "rejections": 52,
+              "comparisons": 4908
+            },
+            {
+              "layouts": 8118,
+              "platform": 99,
+              "fixtures": 818,
+              "rejections": 52,
+              "comparisons": 4908
+            }
+          ],
+          "generatedHostSha256": "8f5e63735e02129c5c2cc0c90e5c7159eaca820114d45e9e0ca427a41d5d8994",
+          "group": "Xmlrenderassets"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "b57f6905aa89820755695ff8f3cfa49f92a7b40a7a154679fd7ad5d2e2c21d03",
+          "originalCalls": 14796,
+          "platforms": [
+            {
+              "layouts": 20607,
+              "platform": 0,
+              "fixtures": 3699,
+              "rejections": 26,
+              "comparisons": 22194
+            },
+            {
+              "layouts": 20607,
+              "platform": 1,
+              "fixtures": 3699,
+              "rejections": 26,
+              "comparisons": 22194
+            },
+            {
+              "layouts": 20607,
+              "platform": 2,
+              "fixtures": 3699,
+              "rejections": 26,
+              "comparisons": 22194
+            },
+            {
+              "layouts": 20607,
+              "platform": 99,
+              "fixtures": 3699,
+              "rejections": 26,
+              "comparisons": 22194
+            }
+          ],
+          "generatedHostSha256": "3f68edfab0c1e4ea5bab07d299bc277bc54e08ccaaa3336992b38e7ce0a5c761",
+          "group": "Xmlrenderdevice"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "5bbc1fae0bb18bd0f742b8b0ce7908e7fdbf0da6b5daf51ccf94f4ddd432269b",
+          "originalCalls": 1640,
+          "platforms": [
+            {
+              "layouts": 14044,
+              "platform": 0,
+              "fixtures": 410,
+              "rejections": 17,
+              "comparisons": 2460
+            },
+            {
+              "layouts": 14044,
+              "platform": 1,
+              "fixtures": 410,
+              "rejections": 17,
+              "comparisons": 2460
+            },
+            {
+              "layouts": 14044,
+              "platform": 2,
+              "fixtures": 410,
+              "rejections": 17,
+              "comparisons": 2460
+            },
+            {
+              "layouts": 14044,
+              "platform": 99,
+              "fixtures": 410,
+              "rejections": 17,
+              "comparisons": 2460
+            }
+          ],
+          "generatedHostSha256": "546aba3e4a3eaa3fc31555113afeff47dc21b9490bee1417d80cd698340515e4",
+          "group": "Xmlruntimeopaque"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "4dbf4120c87de8f1aa9fb482908ee8eb3362c8edb149b9d4b9e0671919702e93",
+          "originalCalls": 41372,
+          "platforms": [
+            {
+              "layouts": 10521,
+              "platform": 0,
+              "fixtures": 10343,
+              "rejections": 334,
+              "comparisons": 62058
+            },
+            {
+              "layouts": 10521,
+              "platform": 1,
+              "fixtures": 10343,
+              "rejections": 334,
+              "comparisons": 62058
+            },
+            {
+              "layouts": 10521,
+              "platform": 2,
+              "fixtures": 10343,
+              "rejections": 334,
+              "comparisons": 62058
+            },
+            {
+              "layouts": 10521,
+              "platform": 99,
+              "fixtures": 10343,
+              "rejections": 334,
+              "comparisons": 62058
+            }
+          ],
+          "generatedHostSha256": "daad13c7a254a6ab6871735241067ccf6ac53892348957e8c163709d4091de3e",
+          "group": "Xmlsinglesound"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "39bb5d49d39047ab01dfe8817c4ee917171b29fa5d4979664afeb7a44b4e467f",
+          "originalCalls": 12224,
+          "platforms": [
+            {
+              "layouts": 20389,
+              "platform": 0,
+              "fixtures": 3056,
+              "rejections": 29,
+              "comparisons": 18336
+            },
+            {
+              "layouts": 20389,
+              "platform": 1,
+              "fixtures": 3056,
+              "rejections": 29,
+              "comparisons": 18336
+            },
+            {
+              "layouts": 20389,
+              "platform": 2,
+              "fixtures": 3056,
+              "rejections": 29,
+              "comparisons": 18336
+            },
+            {
+              "layouts": 20389,
+              "platform": 99,
+              "fixtures": 3056,
+              "rejections": 29,
+              "comparisons": 18336
+            }
+          ],
+          "generatedHostSha256": "5770ba67d64a8e366f3338bfbd39437e841b2f341e195bea5ab990509ebc17ad",
+          "group": "Xmlsoundmaps"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "ed348f0977826229dbfda17590b53c0689e878d21c6458a78e18c9863b97b186",
+          "originalCalls": 3388,
+          "platforms": [
+            {
+              "layouts": 10715,
+              "platform": 0,
+              "fixtures": 847,
+              "rejections": 27,
+              "comparisons": 5082
+            },
+            {
+              "layouts": 10715,
+              "platform": 1,
+              "fixtures": 847,
+              "rejections": 27,
+              "comparisons": 5082
+            },
+            {
+              "layouts": 10715,
+              "platform": 2,
+              "fixtures": 847,
+              "rejections": 27,
+              "comparisons": 5082
+            },
+            {
+              "layouts": 10715,
+              "platform": 99,
+              "fixtures": 847,
+              "rejections": 27,
+              "comparisons": 5082
+            }
+          ],
+          "generatedHostSha256": "5859dfd5abe6ceca7778c864509bec76d83d5af9cc4e97d76387b09c6754d92d",
+          "group": "Xmlsystemsettings"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "4a8767a0fab125f6b235c017516b8028da785d99ff5c756a4cff5647bb9389f9",
+          "originalCalls": 5232,
+          "platforms": [
+            {
+              "layouts": 24754,
+              "platform": 0,
+              "fixtures": 1308,
+              "rejections": 49,
+              "comparisons": 7848
+            },
+            {
+              "layouts": 24754,
+              "platform": 1,
+              "fixtures": 1308,
+              "rejections": 49,
+              "comparisons": 7848
+            },
+            {
+              "layouts": 24754,
+              "platform": 2,
+              "fixtures": 1308,
+              "rejections": 49,
+              "comparisons": 7848
+            },
+            {
+              "layouts": 24754,
+              "platform": 99,
+              "fixtures": 1308,
+              "rejections": 49,
+              "comparisons": 7848
+            }
+          ],
+          "generatedHostSha256": "24df1b1edbf9c00ce87ca4626f66f7af1109ab8e488beafe2b9bca888e5fa984",
+          "group": "Xmltacticalhotkeys"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "449deec883dccd29b557e203486e4e0731d0cf9f2bbd4bab2797f14976d436ac",
+          "originalCalls": 328,
+          "platforms": [
+            {
+              "layouts": 4933,
+              "platform": 0,
+              "fixtures": 82,
+              "rejections": 35,
+              "comparisons": 492
+            },
+            {
+              "layouts": 4933,
+              "platform": 1,
+              "fixtures": 82,
+              "rejections": 35,
+              "comparisons": 492
+            },
+            {
+              "layouts": 4933,
+              "platform": 2,
+              "fixtures": 82,
+              "rejections": 35,
+              "comparisons": 492
+            },
+            {
+              "layouts": 4933,
+              "platform": 99,
+              "fixtures": 82,
+              "rejections": 35,
+              "comparisons": 492
+            }
+          ],
+          "generatedHostSha256": "981f421cb160fac535d87cbbd2ebe7bf8980c559ec2d9e990059220fc2cd19f2",
+          "group": "Xmltargeting"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "6370ecb87ed06c97a51f67fd159f4701b3e153296b16ac707e7ce97003bf8a0c",
+          "originalCalls": 1800,
+          "platforms": [
+            {
+              "layouts": 6185,
+              "platform": 0,
+              "fixtures": 450,
+              "rejections": 21,
+              "comparisons": 2700
+            },
+            {
+              "layouts": 6185,
+              "platform": 1,
+              "fixtures": 450,
+              "rejections": 21,
+              "comparisons": 2700
+            },
+            {
+              "layouts": 6185,
+              "platform": 2,
+              "fixtures": 450,
+              "rejections": 21,
+              "comparisons": 2700
+            },
+            {
+              "layouts": 6185,
+              "platform": 99,
+              "fixtures": 450,
+              "rejections": 21,
+              "comparisons": 2700
+            }
+          ],
+          "generatedHostSha256": "a554658e60d95050538ad7b3b214eed26b7ba8b941bc6310770b878e486f8d96",
+          "group": "Xmlterrain"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "f94b9c7e9646d6eb461ed17b80fbce4d7de41da4aa9d3e08eb2973e85c4dd0c3",
+          "originalCalls": 480,
+          "platforms": [
+            {
+              "layouts": 226261,
+              "platform": 0,
+              "fixtures": 120,
+              "rejections": 17,
+              "comparisons": 720
+            },
+            {
+              "layouts": 226261,
+              "platform": 1,
+              "fixtures": 120,
+              "rejections": 17,
+              "comparisons": 720
+            },
+            {
+              "layouts": 226261,
+              "platform": 2,
+              "fixtures": 120,
+              "rejections": 17,
+              "comparisons": 720
+            },
+            {
+              "layouts": 226261,
+              "platform": 99,
+              "fixtures": 120,
+              "rejections": 17,
+              "comparisons": 720
+            }
+          ],
+          "generatedHostSha256": "26cdc2912fc6434e03d1c7034f0465a228ada669f4651c344fd06ebb97b095f4",
+          "group": "Xmltesttextures"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "d91161d1e4ccbcbbc9ea83193348b7fff7622da9cdd2098cee996074a5d11019",
+          "originalCalls": 2036,
+          "platforms": [
+            {
+              "layouts": 11959,
+              "platform": 0,
+              "fixtures": 509,
+              "rejections": 42,
+              "comparisons": 3054
+            },
+            {
+              "layouts": 11959,
+              "platform": 1,
+              "fixtures": 509,
+              "rejections": 42,
+              "comparisons": 3054
+            },
+            {
+              "layouts": 11959,
+              "platform": 2,
+              "fixtures": 509,
+              "rejections": 42,
+              "comparisons": 3054
+            },
+            {
+              "layouts": 11959,
+              "platform": 99,
+              "fixtures": 509,
+              "rejections": 42,
+              "comparisons": 3054
+            }
+          ],
+          "generatedHostSha256": "0bd953cf7d47839f5b7bf312a1635a644a10ee109a01f0de6730abc353c2454b",
+          "group": "Xmluichat"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "fd8036edafb4356e2d32748f129d0732f3ff29c099b645f191de57cee4567b00",
+          "originalCalls": 85592,
+          "platforms": [
+            {
+              "layouts": 493697,
+              "platform": 0,
+              "fixtures": 21398,
+              "rejections": 270,
+              "comparisons": 128388
+            },
+            {
+              "layouts": 493697,
+              "platform": 1,
+              "fixtures": 21398,
+              "rejections": 270,
+              "comparisons": 128388
+            },
+            {
+              "layouts": 493697,
+              "platform": 2,
+              "fixtures": 21398,
+              "rejections": 270,
+              "comparisons": 128388
+            },
+            {
+              "layouts": 493697,
+              "platform": 99,
+              "fixtures": 21398,
+              "rejections": 270,
+              "comparisons": 128388
+            }
+          ],
+          "generatedHostSha256": "1f20eeed9e6ee1cc45d39770fb4fd7933224c967335a531763b5b979e7549122",
+          "group": "Xmluiconfig"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "e0f07247b5ab8b8b415cd285e5c910fef88ee515850a3729535707bd561d3d28",
+          "originalCalls": 5704,
+          "platforms": [
+            {
+              "layouts": 7527,
+              "platform": 0,
+              "fixtures": 1426,
+              "rejections": 62,
+              "comparisons": 8556
+            },
+            {
+              "layouts": 7527,
+              "platform": 1,
+              "fixtures": 1426,
+              "rejections": 62,
+              "comparisons": 8556
+            },
+            {
+              "layouts": 7527,
+              "platform": 2,
+              "fixtures": 1426,
+              "rejections": 62,
+              "comparisons": 8556
+            },
+            {
+              "layouts": 7527,
+              "platform": 99,
+              "fixtures": 1426,
+              "rejections": 62,
+              "comparisons": 8556
+            }
+          ],
+          "generatedHostSha256": "838858846c3cb93a61a06317ed40c524e8bf78389340a430b2976cac698bfbf4",
+          "group": "Xmluidecals"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "a637166e7adfab7a2ec8eab84720b3af0464758d1a2f72865ae80cf54b313161",
+          "originalCalls": 2360,
+          "platforms": [
+            {
+              "layouts": 14229,
+              "platform": 0,
+              "fixtures": 590,
+              "rejections": 38,
+              "comparisons": 3540
+            },
+            {
+              "layouts": 14229,
+              "platform": 1,
+              "fixtures": 590,
+              "rejections": 38,
+              "comparisons": 3540
+            },
+            {
+              "layouts": 14229,
+              "platform": 2,
+              "fixtures": 590,
+              "rejections": 38,
+              "comparisons": 3540
+            },
+            {
+              "layouts": 14229,
+              "platform": 99,
+              "fixtures": 590,
+              "rejections": 38,
+              "comparisons": 3540
+            }
+          ],
+          "generatedHostSha256": "62b24678b0dcf2eb6412f96d70f02abfec94a341bc263dd9367ae775ccf2f05b",
+          "group": "Xmluiimages"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "057de70bdbcef97ba5a52b0e04f08539499f4f34d458522f912b54ce28b9fc14",
+          "originalCalls": 14116,
+          "platforms": [
+            {
+              "layouts": 19614,
+              "platform": 0,
+              "fixtures": 3529,
+              "rejections": 301,
+              "comparisons": 21174
+            },
+            {
+              "layouts": 19614,
+              "platform": 1,
+              "fixtures": 3529,
+              "rejections": 301,
+              "comparisons": 21174
+            },
+            {
+              "layouts": 19614,
+              "platform": 2,
+              "fixtures": 3529,
+              "rejections": 301,
+              "comparisons": 21174
+            },
+            {
+              "layouts": 19614,
+              "platform": 99,
+              "fixtures": 3529,
+              "rejections": 301,
+              "comparisons": 21174
+            }
+          ],
+          "generatedHostSha256": "985b8cd7abdafb7b0d86ce14d14542b45789d78b87bc089e75ca3e1b827f4679",
+          "group": "Xmluisettings"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "ccaa72ecd4effcadd33b273da3a583a04509343f4430e4e09bd77c969ba3876b",
+          "originalCalls": 32476,
+          "platforms": [
+            {
+              "layouts": 92249,
+              "platform": 0,
+              "fixtures": 8119,
+              "rejections": 552,
+              "comparisons": 48714
+            },
+            {
+              "layouts": 92249,
+              "platform": 1,
+              "fixtures": 8119,
+              "rejections": 552,
+              "comparisons": 48714
+            },
+            {
+              "layouts": 92249,
+              "platform": 2,
+              "fixtures": 8119,
+              "rejections": 552,
+              "comparisons": 48714
+            },
+            {
+              "layouts": 92249,
+              "platform": 99,
+              "fixtures": 8119,
+              "rejections": 552,
+              "comparisons": 48714
+            }
+          ],
+          "generatedHostSha256": "8495a22909c215734e335eface3802ea2219a933c56648534da0c926e33add86",
+          "group": "Xmluitactical"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "2c2005f44cd0f55df6c8b906bd2b8ba8956fd31f840f07d501b3876eaad28fb9",
+          "originalCalls": 2584,
+          "platforms": [
+            {
+              "layouts": 6859,
+              "platform": 0,
+              "fixtures": 646,
+              "rejections": 16,
+              "comparisons": 3876
+            },
+            {
+              "layouts": 6859,
+              "platform": 1,
+              "fixtures": 646,
+              "rejections": 16,
+              "comparisons": 3876
+            },
+            {
+              "layouts": 6859,
+              "platform": 2,
+              "fixtures": 646,
+              "rejections": 16,
+              "comparisons": 3876
+            },
+            {
+              "layouts": 6859,
+              "platform": 99,
+              "fixtures": 646,
+              "rejections": 16,
+              "comparisons": 3876
+            }
+          ],
+          "generatedHostSha256": "ab9e696f5cef06b0aca9de762c92301779c739f5512796b55df0d0c7d496dde4",
+          "group": "Xmlunitoverlay"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "377fad73f3b06adda876c7fb1e365048ea15428ddc99e64f971b59cf1ff0f167",
+          "originalCalls": 32956,
+          "platforms": [
+            {
+              "layouts": 34136,
+              "platform": 0,
+              "fixtures": 8239,
+              "rejections": 24,
+              "comparisons": 49434
+            },
+            {
+              "layouts": 34136,
+              "platform": 1,
+              "fixtures": 8239,
+              "rejections": 24,
+              "comparisons": 49434
+            },
+            {
+              "layouts": 34136,
+              "platform": 2,
+              "fixtures": 8239,
+              "rejections": 24,
+              "comparisons": 49434
+            },
+            {
+              "layouts": 34136,
+              "platform": 99,
+              "fixtures": 8239,
+              "rejections": 24,
+              "comparisons": 49434
+            }
+          ],
+          "generatedHostSha256": "2fa6d5c726d8b30aa69a155c235f10e2c03d98643e8abdf376f1fd8af431fdc1",
+          "group": "Xmlvisibility"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "9a033ee9cf642373d985d25f83d6554259805a5db76cc6dc2b99d7f97c02e198",
+          "originalCalls": 3200,
+          "platforms": [
+            {
+              "layouts": 2072,
+              "platform": 0,
+              "fixtures": 800,
+              "rejections": 45,
+              "comparisons": 4800
+            },
+            {
+              "layouts": 2072,
+              "platform": 1,
+              "fixtures": 800,
+              "rejections": 45,
+              "comparisons": 4800
+            },
+            {
+              "layouts": 2072,
+              "platform": 2,
+              "fixtures": 800,
+              "rejections": 45,
+              "comparisons": 4800
+            },
+            {
+              "layouts": 2072,
+              "platform": 99,
+              "fixtures": 800,
+              "rejections": 45,
+              "comparisons": 4800
+            }
+          ],
+          "generatedHostSha256": "19038bfe2d0dc731a4c3d0da71a93e4a37a15371b5d0a38f3e61d642ddc03d34",
+          "group": "Xmlvisualsystems"
+        },
+        {
+          "passed": true,
+          "transcriptSha256": "d585550dfe0bde38bad620fe5c597f5f81ef35674c119d4f85144439a05a1ca9",
+          "originalCalls": 6928,
+          "platforms": [
+            {
+              "layouts": 50243,
+              "platform": 0,
+              "fixtures": 1732,
+              "rejections": 41,
+              "comparisons": 10392
+            },
+            {
+              "layouts": 50243,
+              "platform": 1,
+              "fixtures": 1732,
+              "rejections": 41,
+              "comparisons": 10392
+            },
+            {
+              "layouts": 50243,
+              "platform": 2,
+              "fixtures": 1732,
+              "rejections": 41,
+              "comparisons": 10392
+            },
+            {
+              "layouts": 50243,
+              "platform": 99,
+              "fixtures": 1732,
+              "rejections": 41,
+              "comparisons": 10392
+            }
+          ],
+          "generatedHostSha256": "5f749ae4a3c2a5d2ea15c4e45960843495925b2b922bc72e27b7a8b115b897ef",
+          "group": "Xmlw3d"
+        }
+      ],
+      "configuration": "Release",
+      "passed": true
+    }
+  ],
+  "adapterSha256": "7ab04b1029653522bdfba235ac1b2f4984e395a84c23d9583988e72a714f2b11",
+  "runnerSha256": "2b6bcc8f82334882eb69935a680441726fa403f41253f347f8b52e6cb1441e9a",
+  "transportSha256": "0c352e8b2b6369ba2dfbb44aec14ed6e81e7a56c6624457624ff172ebd8e74dc",
+  "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
+}

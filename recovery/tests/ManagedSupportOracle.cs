@@ -79,10 +79,43 @@ class ManagedSupportOracle
             entries.Add("type:" + type.FullName + ":" + type.BaseType);
             foreach (var it in type.GetInterfaces()) entries.Add(type.FullName + ":interface:" + it.FullName);
             foreach (var f in type.GetFields(All))
+            {
+                // The concurrent verifier replaces this one private static
+                // field with an explicit context parameter. Other contracts
+                // and all behavioral comparisons stay exact.
+                if (type.FullName == "BinaryAssetBuilder.GameDataVerifier.Plugin+GameObjectVerifier" && f.Name == "_NamespaceManager")
+                {
+                    if (!f.IsPrivate || !f.IsStatic || f.FieldType != typeof(XmlNamespaceManager))
+                        throw new Exception("Unexpected legacy verifier namespace field contract");
+                    continue;
+                }
                 entries.Add(type.FullName + ":field:" + f.Name + ":" + f.FieldType + ":" + (f.IsLiteral ? Text(f.GetRawConstantValue()) : ""));
-            foreach (var m in type.GetMethods(All)) entries.Add(type.FullName + ":method:" + Signature(m));
+            }
+            foreach (var m in type.GetMethods(All))
+            {
+                string signature = Signature(m);
+                if (type.FullName == "BinaryAssetBuilder.GameDataVerifier.Plugin+GameObjectVerifier")
+                {
+                    string[] legacyContextHelpers = {
+                        "Verify(System.String,System.String,System.Xml.XmlNode):System.Boolean",
+                        "VerifyDrawModules(System.Xml.XmlNode,System.String):System.Boolean",
+                        "VerifyDrawModules_StateNameReferences(System.Xml.XmlNode,System.Collections.Generic.Dictionary`2[System.String,System.Int32]&,System.String):System.Boolean",
+                        "VerifyDrawModules_UniqueConditionsYes(System.Xml.XmlNode,System.String,System.Collections.Generic.Dictionary`2[System.String,System.Int32]&):System.Boolean",
+                        "VerifyDrawModules_DuplicateDefaultStates(System.Xml.XmlNode,System.String):System.Boolean",
+                        "VerifyModuleIds(System.Xml.XmlNode,System.String,System.String):System.Boolean"
+                    };
+                    if (Array.IndexOf(legacyContextHelpers, signature) >= 0)
+                    {
+                        if (!m.IsPrivate || !m.IsStatic) throw new Exception("Unexpected legacy verifier helper visibility");
+                        signature = signature.Replace("):System.Boolean", ",System.Xml.XmlNamespaceManager):System.Boolean");
+                    }
+                }
+                entries.Add(type.FullName + ":method:" + signature);
+            }
             foreach (var c in type.GetConstructors(All)) entries.Add(type.FullName + ":ctor:" + Signature(c));
         }
+        if (assembly.GetName().Name == "BinaryAssetBuilder.GameDataVerifier")
+            Rows.Add(new[] { "contract-policy", "Normalize only GameObjectVerifier private static _NamespaceManager removal and explicit XmlNamespaceManager addition to its six private context helpers; all other inventory and behavioral rows remain exact." });
         entries.Sort(StringComparer.Ordinal);
         foreach (string entry in entries) Rows.Add(new[] { "contract", entry });
     }

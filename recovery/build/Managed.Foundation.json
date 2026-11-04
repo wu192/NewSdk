@@ -9,7 +9,8 @@
     "recovery/src/Managed/MvpXml",
     "recovery/src/Managed/ExpressionEval",
     "recovery/src/Managed/GameDataVerifier",
-    "recovery/src/Managed/Audio"
+    "recovery/src/Managed/Audio",
+    "ui/src"
   ],
   "excludedFileNames": [
     "AssemblyInfo.cs",
@@ -25,10 +26,14 @@
     "System.Configuration",
     "System.Data",
     "System.Web",
-    "System.Configuration.Install"
+    "System.Configuration.Install",
+    "System.Drawing"
   ],
   "allowedBusinessReferences": [
-    "antlr.runtime"
+    "antlr.runtime",
+    "LibTessDotNet",
+    "Clipper2Lib",
+    "StbImageSharp"
   ],
   "define": "NEWSdk_MONOLITHIC",
   "resources": [

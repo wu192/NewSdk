@@ -1,0 +1,50 @@
+{
+  "gameobject-default": {
+    "before": {
+      "milliseconds": 125.117,
+      "managedAllocatedBytes": 9528516.0
+    },
+    "after": {
+      "milliseconds": 132.729,
+      "managedAllocatedBytes": 9528516.0
+    },
+    "elapsedReductionPercent": -6.083905464485251,
+    "managedAllocationReductionPercent": 0.0
+  },
+  "gameobject-nested-draws": {
+    "before": {
+      "milliseconds": 228.556,
+      "managedAllocatedBytes": 16051140.0
+    },
+    "after": {
+      "milliseconds": 210.146,
+      "managedAllocatedBytes": 13962756.0
+    },
+    "elapsedReductionPercent": 8.054918707012737,
+    "managedAllocationReductionPercent": 13.01081418516068
+  },
+  "weapon-default": {
+    "before": {
+      "milliseconds": 177.48,
+      "managedAllocatedBytes": 10822912.0
+    },
+    "after": {
+      "milliseconds": 117.597,
+      "managedAllocatedBytes": 7185936.0
+    },
+    "elapsedReductionPercent": 33.74070317782285,
+    "managedAllocationReductionPercent": 33.60441256475152
+  },
+  "weapon-nuggets": {
+    "before": {
+      "milliseconds": 331.376,
+      "managedAllocatedBytes": 14240756.0
+    },
+    "after": {
+      "milliseconds": 317.512,
+      "managedAllocatedBytes": 13702272.0
+    },
+    "elapsedReductionPercent": 4.183767080295486,
+    "managedAllocationReductionPercent": 3.7812880158890394
+  }
+}

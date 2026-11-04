@@ -1,0 +1,140 @@
+{
+  "sourceCommit": "4e9c9a279bef892439822310976e87081ca0ce72",
+  "baselineCommit": "436115db594c405c1650d27754594454eed54bdc",
+  "workingTreeDirty": false,
+  "runId": "41003661518",
+  "runAttempt": "1",
+  "succeeded": true,
+  "compiler": "cl",
+  "scope": "native compression; synthetic complete output comparison, not SDK acceptance",
+  "warmups": 1,
+  "measuredPairs": 3,
+  "scenarios": {
+    "timecoded-scalar-threshold-16384": {
+      "baselineMs": 489.442,
+      "optimizedMs": 0.3362,
+      "speedup": 1455.8060678167758,
+      "samplesMs": {
+        "baseline": [
+          489.721,
+          489.442,
+          489.314
+        ],
+        "optimized": [
+          0.3362,
+          0.3356,
+          0.3377
+        ]
+      }
+    },
+    "timecoded-scalar-forced-8192": {
+      "baselineMs": 318.997,
+      "optimizedMs": 1.6115,
+      "speedup": 197.9503568104251,
+      "samplesMs": {
+        "baseline": [
+          318.997,
+          320.048,
+          318.576
+        ],
+        "optimized": [
+          1.601,
+          1.6906,
+          1.6115
+        ]
+      }
+    },
+    "timecoded-quaternion-threshold-8192": {
+      "baselineMs": 122.558,
+      "optimizedMs": 0.275,
+      "speedup": 445.6654545454545,
+      "samplesMs": {
+        "baseline": [
+          122.683,
+          122.558,
+          122.385
+        ],
+        "optimized": [
+          0.275,
+          0.277,
+          0.2723
+        ]
+      }
+    },
+    "timecoded-quaternion-forced-2048": {
+      "baselineMs": 10.536,
+      "optimizedMs": 0.8767,
+      "speedup": 12.017794000228127,
+      "samplesMs": {
+        "baseline": [
+          10.5378,
+          10.428,
+          10.536
+        ],
+        "optimized": [
+          0.8767,
+          0.8762,
+          0.9408
+        ]
+      }
+    },
+    "delta-constant-16384x4": {
+      "baselineMs": 710.646,
+      "optimizedMs": 0.7849,
+      "speedup": 905.3968658427824,
+      "samplesMs": {
+        "baseline": [
+          666.662,
+          710.646,
+          717.062
+        ],
+        "optimized": [
+          0.7809,
+          0.7849,
+          0.7889
+        ]
+      }
+    },
+    "delta-smooth-8192x4": {
+      "baselineMs": 369.832,
+      "optimizedMs": 157.625,
+      "speedup": 2.3462775574940524,
+      "samplesMs": {
+        "baseline": [
+          366.646,
+          372.007,
+          369.832
+        ],
+        "optimized": [
+          157.16,
+          157.625,
+          160.29
+        ]
+      }
+    },
+    "delta-random-4096x4": {
+      "baselineMs": 411.567,
+      "optimizedMs": 191.882,
+      "speedup": 2.144896342543855,
+      "samplesMs": {
+        "baseline": [
+          412.21,
+          411.07,
+          411.567
+        ],
+        "optimized": [
+          191.278,
+          191.882,
+          195.009
+        ]
+      }
+    }
+  },
+  "matrixSha256": "5eca5f4355ec0f07eb8ad51fb13e7b0aa57b75be87584c00dc4ad769c5dd933c",
+  "longOutputSha256": {
+    "-1": "c534f81461b896305cf87b95882bf09d232505eb640edbf06d3ebfe6fccbcbfe",
+    "0": "c534f81461b896305cf87b95882bf09d232505eb640edbf06d3ebfe6fccbcbfe",
+    "1": "c534f81461b896305cf87b95882bf09d232505eb640edbf06d3ebfe6fccbcbfe",
+    "2": "c534f81461b896305cf87b95882bf09d232505eb640edbf06d3ebfe6fccbcbfe"
+  }
+}

@@ -1,0 +1,240 @@
+{
+  "schemaVersion": 1,
+  "status": "passed-common-formats-and-texture-cli",
+  "sourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+  "binarySourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+  "runId": "41185772818",
+  "runAttempt": "1",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41185772818",
+  "artifact": {
+    "id": 13036998244,
+    "url": "https://github.com/wu162/NewSdk/actions/runs/41185772818/artifacts/13036998244",
+    "bytes": 140976,
+    "sha256": "7f5f711b82e68b273c6ace2eadeb2250389e0984c66ca74462082677a963e9bd"
+  },
+  "validationSha256": "5694af3bd9891783c6f2c5e86512f76a9955d41dc99e0a6a1853ad26a3e8226d",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "cases": 31,
+      "assertions": 532,
+      "resultSha256": "662d5480f062c68172aecd78c52b643340a98770cd9baf5e977e55a82dbc42a6",
+      "productionExeSha256": "221ba2554ad636006581470d5f51a42e312cecf4835b87892b2896b0aaff9ab8",
+      "validationHostSha256": "1815886c1283212226705ca0f2e3264bbe5a549c17ae70d6e4a5f82bc083a6dc",
+      "sameProductionObjects": true,
+      "legacyTextureDllPresent": false,
+      "productionCli": [
+        {
+          "name": "cold",
+          "exitCode": 0,
+          "instanceCompile": 7,
+          "xmlParse": 1,
+          "artifacts": 5,
+          "requestedJobs": "1",
+          "minimumEffectiveJobs": 1,
+          "workerCallsObserved": 0
+        },
+        {
+          "name": "cold-jobs4",
+          "exitCode": 0,
+          "instanceCompile": 7,
+          "xmlParse": 1,
+          "artifacts": 5,
+          "requestedJobs": "4",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 7
+        },
+        {
+          "name": "cold-jobsauto",
+          "exitCode": 0,
+          "instanceCompile": 7,
+          "xmlParse": 1,
+          "artifacts": 5,
+          "requestedJobs": "auto",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 7
+        },
+        {
+          "name": "warm-jobs-switch",
+          "exitCode": 0,
+          "instanceCompile": 0,
+          "xmlParse": 0,
+          "artifacts": 5,
+          "requestedJobs": "4",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 0
+        },
+        {
+          "name": "one-image-mutated",
+          "exitCode": 0,
+          "instanceCompile": 1,
+          "xmlParse": 1,
+          "artifacts": 5,
+          "requestedJobs": "4",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 1
+        },
+        {
+          "name": "fresh-no-cache",
+          "exitCode": 0,
+          "instanceCompile": 7,
+          "xmlParse": 1,
+          "artifacts": 5,
+          "requestedJobs": "1",
+          "minimumEffectiveJobs": 1,
+          "workerCallsObserved": 0
+        },
+        {
+          "name": "missing-image",
+          "exitCode": 4,
+          "instanceCompile": 1,
+          "xmlParse": 1,
+          "artifacts": 0,
+          "requestedJobs": "4",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 0
+        },
+        {
+          "name": "restored-retry",
+          "exitCode": 0,
+          "instanceCompile": 0,
+          "xmlParse": 0,
+          "artifacts": 5,
+          "requestedJobs": "auto",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 0
+        }
+      ]
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "cases": 31,
+      "assertions": 532,
+      "resultSha256": "662d5480f062c68172aecd78c52b643340a98770cd9baf5e977e55a82dbc42a6",
+      "productionExeSha256": "4749d8f5bff056011669ebd58827c16ebe83c04190e9f465f1b08c9dd4f107e7",
+      "validationHostSha256": "f364f6055b6ba38b2661e8a99abe7fbdc5c8a73e7ec66e12e8292e9965899dd9",
+      "sameProductionObjects": true,
+      "legacyTextureDllPresent": false,
+      "productionCli": [
+        {
+          "name": "cold",
+          "exitCode": 0,
+          "instanceCompile": 7,
+          "xmlParse": 1,
+          "artifacts": 5,
+          "requestedJobs": "1",
+          "minimumEffectiveJobs": 1,
+          "workerCallsObserved": 0
+        },
+        {
+          "name": "cold-jobs4",
+          "exitCode": 0,
+          "instanceCompile": 7,
+          "xmlParse": 1,
+          "artifacts": 5,
+          "requestedJobs": "4",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 7
+        },
+        {
+          "name": "cold-jobsauto",
+          "exitCode": 0,
+          "instanceCompile": 7,
+          "xmlParse": 1,
+          "artifacts": 5,
+          "requestedJobs": "auto",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 7
+        },
+        {
+          "name": "warm-jobs-switch",
+          "exitCode": 0,
+          "instanceCompile": 0,
+          "xmlParse": 0,
+          "artifacts": 5,
+          "requestedJobs": "4",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 0
+        },
+        {
+          "name": "one-image-mutated",
+          "exitCode": 0,
+          "instanceCompile": 1,
+          "xmlParse": 1,
+          "artifacts": 5,
+          "requestedJobs": "4",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 1
+        },
+        {
+          "name": "fresh-no-cache",
+          "exitCode": 0,
+          "instanceCompile": 7,
+          "xmlParse": 1,
+          "artifacts": 5,
+          "requestedJobs": "1",
+          "minimumEffectiveJobs": 1,
+          "workerCallsObserved": 0
+        },
+        {
+          "name": "missing-image",
+          "exitCode": 4,
+          "instanceCompile": 1,
+          "xmlParse": 1,
+          "artifacts": 0,
+          "requestedJobs": "4",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 0
+        },
+        {
+          "name": "restored-retry",
+          "exitCode": 0,
+          "instanceCompile": 0,
+          "xmlParse": 0,
+          "artifacts": 5,
+          "requestedJobs": "auto",
+          "minimumEffectiveJobs": 4,
+          "workerCallsObserved": 0
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "archiveIdentityVerified": true,
+    "resultFilesByteIdenticalAcrossDebugRelease": true,
+    "productionCliOutputHashesEqualAcrossDebugRelease": true,
+    "coldWarmOutputHashesEqual": true,
+    "mutatedFreshRetryOutputHashesEqual": true,
+    "mutationChangedOutputHashes": true,
+    "allCacheCountsCheckedAgainstRawReports": true,
+    "parallelWorkersObserved": true,
+    "hotJobsSwitchReusesWithoutCompile": true
+  },
+  "scope": "Common formats through exact production plugin objects plus 16 actual texture MOD CLI cases including jobs1/4/auto worker execution and hot cache reuse across jobs switches; independent DDS/BC pixel decoding, schema/defaults, non-ASCII MOD path, cache cold/hot/single-image invalidation and missing-input retry. This receipt does not establish full SDK/MOD, ZIP deployment or game runtime acceptance.",
+  "archivedTextFiles": 123,
+  "excludedCompiledFiles": [
+    {
+      "path": "controller/ctrl.exe",
+      "bytes": 19968,
+      "sha256": "8feac6fe53f12a53f95970ee14a28f3e313fa7d48e10f37ab6e34a125a9f191f"
+    }
+  ],
+  "previousSourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "previousRunId": "41180859852",
+  "commonCaseResultsUnchanged": 31,
+  "previousResultsByteIdentical": true,
+  "previousResultsSha256": "662d5480f062c68172aecd78c52b643340a98770cd9baf5e977e55a82dbc42a6",
+  "observedRunStatus": {
+    "status": "in_progress",
+    "conclusion": "",
+    "headSha": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+    "databaseId": 41185772818,
+    "metadataSha256": "12ae1a4c3bd9f1ce0d2ec4c3cf8397cadf36a78b33578e36e08b7defb8b2414d"
+  },
+  "textInventory": {
+    "path": "common-text-inventory.json",
+    "sha256": "e16117824d5a00010b598ac7f05701a2941f57647d90729ca0b4331a77e2fa2d"
+  }
+}

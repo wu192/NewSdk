@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='utf-8'?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <ButtonSingleStateData id="JState">
+    <State Title="NAME:Joypad" Description="DESC:Joypad" />
+  </ButtonSingleStateData>
+  <LogicCommand id="JCommand" />
+  <SpecialPowerTemplate id="JPower" TargetType="NONE" />
+  <RadiusCursor id="JRadius">
+    <DecalTemplate />
+  </RadiusCursor>
+  <JoypadCommandBarButtonTemplate id="JButtonActivateHotSpot">
+    <Data>
+      <ActivateHotSpot StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonAIStrategicDirective">
+    <Data>
+      <AIStrategicDirective StateData="JState" Directive="Invalid" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonAssembleStructure">
+    <Data>
+      <AssembleStructure LogicCommand="JCommand" StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonAutoControlGroup">
+    <Data>
+      <AutoControlGroup StateData="JState">
+        <ObjectFilter id="Test" Rule="UNPARSED" Relationship="ALLIES" Alignment="NONE" Include="OBSTACLE" Exclude="OBSTACLE" StatusBitFlags="DESTROYED" StatusBitFlagsExclude="DESTROYED">
+          <IncludeThing>IgnoredWeakName</IncludeThing>
+          <ExcludeThing>IgnoredWeakName</ExcludeThing>
+        </ObjectFilter>
+      </AutoControlGroup>
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonEnterCommandMode">
+    <Data>
+      <EnterCommandMode StateData="JState" CommandMode="Sell" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonEvacuate">
+    <Data>
+      <Evacuate LogicCommand="JCommand" StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonMultiplePowersTargetedSpecialPower">
+    <Data>
+      <MultiplePowersTargetedSpecialPower LogicCommand="JCommand" StateData="JState" RadiusCursor="JRadius" ValidTargetOutline="UNKNOWN">
+        <ValidTargetTintColor R="2.5" G="2.5" B="2.5" />
+        <AdditionalSpecialPowerTemplate>JPower</AdditionalSpecialPowerTemplate>
+        <AdditionalRadiusCursor>JRadius</AdditionalRadiusCursor>
+      </MultiplePowersTargetedSpecialPower>
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonObjectUpgrade">
+    <Data>
+      <ObjectUpgrade LogicCommand="JCommand" StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonOpenCoopCommunicator">
+    <Data>
+      <OpenCoopCommunicator StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonOpenControlGroups">
+    <Data>
+      <OpenControlGroups StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonOpenPlayerPowers">
+    <Data>
+      <OpenPlayerPowers StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonOpenPlayerTechStore">
+    <Data>
+      <OpenPlayerTechStore StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonOpenStances">
+    <Data>
+      <OpenStances MixedStanceStateData="JState">
+        <StanceSettings Stance="GUARD" StateData="JState" />
+      </OpenStances>
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonOpenUnitAbilities">
+    <Data>
+      <OpenUnitAbilities StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonOpenUnitsMenu">
+    <Data>
+      <OpenUnitsMenu StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonPlaceReadyStructure">
+    <Data>
+      <PlaceReadyStructure />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonPlayerControlGroup">
+    <Data>
+      <PlayerControlGroup StateData="JState" GroupShortcut="3" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonPlayerPower">
+    <Data>
+      <PlayerPower SpecialPower="JPower" StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonPlayerMultiplePowersTargetedPower">
+    <Data>
+      <PlayerMultiplePowersTargetedPower SpecialPower="JPower" StateData="JState" RadiusCursor="JRadius" ValidTargetOutline="UNKNOWN">
+        <ValidTargetTintColor R="2.5" G="2.5" B="2.5" />
+        <AdditionalSpecialPowerTemplate>JPower</AdditionalSpecialPowerTemplate>
+        <AdditionalRadiusCursor>JRadius</AdditionalRadiusCursor>
+      </PlayerMultiplePowersTargetedPower>
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonPlayerMultipleTargetsTargetedPower">
+    <Data>
+      <PlayerMultipleTargetsTargetedPower SpecialPower="JPower" StateData="JState" RadiusCursor="JRadius" ValidTargetOutline="UNKNOWN" TargetMarkerTemplate="IgnoredWeakName" TargetMarkerFXList="IgnoredWeakName" TargetCount="3" MinTargetDistance="2.5">
+        <ValidTargetTintColor R="2.5" G="2.5" B="2.5" />
+        <AdditionalRadiusCursor>JRadius</AdditionalRadiusCursor>
+      </PlayerMultipleTargetsTargetedPower>
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonPlayerTargetedPower">
+    <Data>
+      <PlayerTargetedPower SpecialPower="JPower" StateData="JState" RadiusCursor="JRadius" ValidTargetOutline="UNKNOWN">
+        <ValidTargetTintColor R="2.5" G="2.5" B="2.5" />
+      </PlayerTargetedPower>
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonPlayerUpgrade">
+    <Data>
+      <PlayerUpgrade LogicCommand="JCommand" StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonProductionQueueType">
+    <Data>
+      <ProductionQueueType StateData="JState" QueueType="INVALID" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonRedAlert">
+    <Data>
+      <RedAlert StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonSetStance">
+    <Data>
+      <SetStance StateData="JState" Stance="GUARD" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonSpecialPower">
+    <Data>
+      <SpecialPower LogicCommand="JCommand" StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonTargetedSpecialPower">
+    <Data>
+      <TargetedSpecialPower LogicCommand="JCommand" StateData="JState" RadiusCursor="JRadius" ValidTargetOutline="UNKNOWN">
+        <ValidTargetTintColor R="2.5" G="2.5" B="2.5" />
+      </TargetedSpecialPower>
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonToggleSpecialPower">
+    <Data>
+      <ToggleSpecialPower LogicCommand="JCommand">
+        <StateData>JState</StateData>
+      </ToggleSpecialPower>
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarButtonTemplate id="JButtonUnpack">
+    <Data>
+      <Unpack LogicCommand="JCommand" StateData="JState" />
+    </Data>
+  </JoypadCommandBarButtonTemplate>
+  <JoypadCommandBarTemplate id="JBar" HomeButton="JButtonPlaceReadyStructure">
+    <Slot Ordinal="3" Button="JButtonPlaceReadyStructure" />
+    <GeneralButton>JButtonPlaceReadyStructure</GeneralButton>
+  </JoypadCommandBarTemplate>
+  <UIJoypadCommandBarButtonBuild id="JUIJoypadCommandBarButtonBuild">
+    <FactionSettings Faction="RANDOM" LockedButtonStateData="JState" />
+  </UIJoypadCommandBarButtonBuild>
+  <UIJoypadCommandBarSingleUnit id="JUIJoypadCommandBarSingleUnit" UnitTemplate="JBar" ProductionStructureTemplate="JBar" NonProductionStructureTemplate="JBar" HotSpotTemplate="JBar" />
+  <UIJoypadCommandBarControlGroups id="JUIJoypadCommandBarControlGroups" Template="JBar" />
+  <UIJoypadCommandBarCoopCommunicator id="JUIJoypadCommandBarCoopCommunicator" AICoopTemplate="JBar" />
+  <UIJoypadCommandBarHomogenousGroup id="JUIJoypadCommandBarHomogenousGroup" Template="JBar" />
+  <UIJoypadCommandBarMixedGroup id="JUIJoypadCommandBarMixedGroup" Template="JBar" />
+  <UIJoypadCommandBarPlayerPowers id="JUIJoypadCommandBarPlayerPowers" Template="JBar" />
+  <UIJoypadCommandBarStances id="JUIJoypadCommandBarStances" Template="JBar" />
+  <UIJoypadCommandBarTopMenu id="JUIJoypadCommandBarTopMenu" Template="JBar" />
+</AssetDeclaration>

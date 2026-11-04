@@ -1,0 +1,22 @@
+{
+  "sourceCommit": "a1f5a059050426c4a42bb8fdcd8d38181bca2213",
+  "runId": "41045720372",
+  "runAttempt": "1",
+  "status": "failed",
+  "artifactId": "12972402659",
+  "artifactSha256": "fa4a798770aa66b714ce58772e9820783f629c535c4dca1b7634b7b2599e7a36",
+  "artifactDownloadedAndVerified": true,
+  "builds": {
+    "Debug": {
+      "exeSha256": "3b6bb5795297d078f67aed9649aaaedde47bd45482ccc87006583a14bdd5398f",
+      "built": true,
+      "appContractsPassed": true
+    },
+    "Release": {
+      "exeSha256": "aa398e9c3bb38ea42c0d5cabf194ca5e6c38d5bc57c4d68d5cf2153cca4d6c0f",
+      "built": true,
+      "appContractsPassed": true
+    }
+  },
+  "failure": "Cold OutputManager invalidation deleted a missing file before its parent existed. All production entry paths failed from this common cause; fixed in f6c3c009. No production acceptance claimed for this run."
+}

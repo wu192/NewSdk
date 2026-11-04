@@ -1,0 +1,83 @@
+{
+  "schemaVersion": "1.0",
+  "status": "passed",
+  "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+  "sourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "artifactId": null,
+  "artifactArchiveSha256": null,
+  "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+  "packages": {
+    "jsonschema": "4.23.0",
+    "rfc3339-validator": "0.1.4",
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1"
+  },
+  "pythonVersion": "3.12.10",
+  "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+  "schemaInputs": [
+    {
+      "path": "build-event.schema.json",
+      "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+    },
+    {
+      "path": "build-report.schema.json",
+      "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+    }
+  ],
+  "matrix": [
+    {
+      "configuration": "Debug",
+      "reports": 2,
+      "eventFiles": 2,
+      "events": 52
+    },
+    {
+      "configuration": "Release",
+      "reports": 2,
+      "eventFiles": 2,
+      "events": 52
+    }
+  ],
+  "validatedFiles": [
+    {
+      "path": "Debug/baseline/output/build-report.json",
+      "sha256": "6a44444d4eca6155c584465c7655456c29c78d66367e761c093448842fc02e57"
+    },
+    {
+      "path": "Debug/baseline/output/build.events.jsonl",
+      "sha256": "1aff72615cfcf40448a2ce2ac9335b490eaf6bdfb9a4be97d378ced69e704aa9"
+    },
+    {
+      "path": "Debug/deployed/output/build-report.json",
+      "sha256": "188d9cf4695416cb46be3a21878dd53e33176a88562a3024fc41f6f2cb40c198"
+    },
+    {
+      "path": "Debug/deployed/output/build.events.jsonl",
+      "sha256": "c02e1a4bf43cf2ea99b7ae6cd52510d5c1fa493e1f086afcea0d7d9f91e7bce5"
+    },
+    {
+      "path": "Release/baseline/output/build-report.json",
+      "sha256": "8c5cfb3d90e0675dc2283f4aaf649dc990f766e373e22782920ece3a4bc51b05"
+    },
+    {
+      "path": "Release/baseline/output/build.events.jsonl",
+      "sha256": "035e65085973ad2385b28487c8bafd936e29d37ae969550f8e03e72c20fda8b0"
+    },
+    {
+      "path": "Release/deployed/output/build-report.json",
+      "sha256": "2c5121153410278296933583df5611afea502e38037454ba220c10b266270119"
+    },
+    {
+      "path": "Release/deployed/output/build.events.jsonl",
+      "sha256": "2221d7c251e477bb8b0a9cfc6dbd7bd2e26cd78f112554182b114714c8051101"
+    }
+  ],
+  "errorCount": 0,
+  "errors": [],
+  "notes": [
+    "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+    "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+  ]
+}

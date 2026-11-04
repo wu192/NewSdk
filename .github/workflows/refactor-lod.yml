@@ -40,9 +40,31 @@ jobs:
             python recovery/preparation/lod/TestCompilerLoD.py --original SDK/tools/LoDStreamBuilder.exe --candidate "$out/LoDControl.exe" --output "$out/evidence" --real-manifest SDK/builtmods/Static.manifest --real-manifest SDK/builtmods/sagexml/Worldbuilder.manifest
             if($LASTEXITCODE -ne 0){throw 'Original LoD component differential failed'}
           }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/lod/**/*.json
+            recovery/artifacts/lod/**/*.log
+            recovery/artifacts/lod/**/*.md
+            recovery/artifacts/lod/**/*.csv
+            recovery/artifacts/lod/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: prepared-lod-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/artifacts/lod/**
-          if-no-files-found: error
+          name: 'prepared-lod-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/lod/**/*.json
+            recovery/artifacts/lod/**/*.log
+            recovery/artifacts/lod/**/*.md
+            recovery/artifacts/lod/**/*.csv
+            recovery/artifacts/lod/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

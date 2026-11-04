@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using BinaryAssetBuilder.Utility;
@@ -19,6 +20,7 @@ public class BinaryAsset
 	private InstanceDeclaration _Instance;
 
 	private string _CacheDirectory;
+	private bool _CacheDirectoryInitialized;
 
 	private string _AssetOutputDirectory;
 
@@ -48,7 +50,6 @@ public class BinaryAsset
 
 	private OutputManager _Parent;
 
-	private static byte[] _CopyBuffer = new byte[1048576];
 
 	public AssetBuffer Buffer
 	{
@@ -131,6 +132,15 @@ public class BinaryAsset
 
 	public string CustomDataOutputDirectory => _CustomDataOutputDirectory;
 
+	public string CustomDataPath
+	{
+		get
+		{
+			string path = Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName);
+			return File.Exists(path) ? path : Settings.Current.FindCustomData?.Invoke(path) ?? path;
+		}
+	}
+
 	private void UpdateMemoryAvailability(bool forceUpdate)
 	{
 		if (_MemoryAvailability == Availability.Invalid || forceUpdate)
@@ -152,6 +162,7 @@ public class BinaryAsset
 		{
 			return;
 		}
+		EnsureCacheDirectory();
 		if (string.IsNullOrEmpty(_CacheDirectory))
 		{
 			_CacheAvailability = Availability.Missing;
@@ -174,7 +185,7 @@ public class BinaryAsset
 		if (_OutputAvailability == Availability.Invalid || forceUpdate)
 		{
 			string path = Path.Combine(_AssetOutputDirectory, _AssetFileName);
-			string path2 = Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName);
+			string path2 = _Instance.HasCustomData ? CustomDataPath : null;
 			if (File.Exists(path) && (File.Exists(path2) || !_Instance.HasCustomData))
 			{
 				_OutputAvailability = Availability.Present;
@@ -340,7 +351,11 @@ public class BinaryAsset
 					File.Delete(text2);
 					throw new BinaryAssetBuilderException(ErrorCode.UnexpectedSize, "Can't recover from last error. Please restart to rebuild asset.");
 				}
-				CommitFromCache();
+                BinaryAssetCommitWork recovery = PrepareCommit(AssetLocation.Cache);
+                try { recovery.ExecuteRecoveryIO(); }
+                finally { recovery.FlushDiagnostics(); }
+                _AssetHeader = recovery.Header;
+                _OutputAvailability = recovery.OutputPresent ? Availability.Present : Availability.Missing;
 			}
 		}
 		else
@@ -351,7 +366,7 @@ public class BinaryAsset
 
 	private void UpdateAssetHeaderFromOldInstance(OutputAsset oldInstance)
 	{
-		if (_AssetHeader == null && GetLocation(AssetLocation.All, AssetLocationOption.None) != AssetLocation.None)
+		if (_AssetHeader == null)
 		{
 			if (oldInstance.InstanceFileSize == 0 && oldInstance.RelocationFileSize == 0 && oldInstance.ImportsFileSize == 0)
 			{
@@ -382,319 +397,379 @@ public class BinaryAsset
 		_AssetOutputDirectory = Path.Combine(_Parent.IntermediateOutputDirectory, "assets");
 		_CustomDataFileName = FileBase + ".cdata";
 		_AssetFileName = FileBase + ".asset";
+		if (oldInstance != null && GetLocation(AssetLocation.All, AssetLocationOption.None) != AssetLocation.None)
+			UpdateAssetHeaderFromOldInstance(oldInstance);
+	}
+
+	private void EnsureCacheDirectory()
+	{
+		if (_CacheDirectoryInitialized) return;
+		_CacheDirectoryInitialized = true;
 		if (!string.IsNullOrEmpty(_Parent.TargetPlatformCacheRoot))
 		{
-			ExtendedTypeInformation extendedTypeInformation = _Parent.DocumentProcessor.Plugins.GetExtendedTypeInformation(instance.Handle.TypeId);
+			ExtendedTypeInformation extendedTypeInformation = _Parent.DocumentProcessor.Plugins.GetExtendedTypeInformation(_Instance.Handle.TypeId);
 			if (extendedTypeInformation.UseBuildCache)
 			{
-				_CacheDirectory = Path.Combine(_Parent.TargetPlatformCacheRoot, $"{instance.Handle.TypeName}\\{instance.Handle.TypeHash:x8}\\{(byte)(instance.Handle.InstanceHash >> 24):x2}");
+				_CacheDirectory = Path.Combine(_Parent.TargetPlatformCacheRoot, $"{_Instance.Handle.TypeName}\\{_Instance.Handle.TypeHash:x8}\\{(byte)(_Instance.Handle.InstanceHash >> 24):x2}");
 			}
-		}
-		AssetLocation location = GetLocation(AssetLocation.All, AssetLocationOption.None);
-		if (oldInstance != null && location != AssetLocation.None)
-		{
-			UpdateAssetHeaderFromOldInstance(oldInstance);
 		}
 	}
 
-	public AssetLocation Commit()
-	{
-		AssetLocation location = GetLocation(AssetLocation.All, AssetLocationOption.None);
-		switch (location)
-		{
-		case AssetLocation.Output:
-			UpdateAssetHeader(forceUpdate: false);
-			break;
-		case AssetLocation.Memory:
-			CommitFromMemory();
-			break;
-		case AssetLocation.Local:
-			CommitFromLocal();
-			break;
-		case AssetLocation.Cache:
-			CommitFromCache();
-			break;
-		default:
-			throw new BinaryAssetBuilderException(ErrorCode.DependencyCacheFailure, "Attempted to commit non-existing asset {0}", _Instance);
-		case AssetLocation.BasePatchStream:
-			break;
-		}
-		if (location != AssetLocation.BasePatchStream)
-		{
-			UpdateOutputAvailability(forceUpdate: true);
-		}
-		if (_OutputAvailability == Availability.Missing)
-		{
-			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to commit asset {0}", _Instance);
-		}
-		if (location == AssetLocation.Memory)
-		{
-			CopyToCache();
-		}
-		else if (location == AssetLocation.Cache || Settings.Current.AlwaysTouchCache)
-		{
-			TouchCache();
-		}
-		return location;
-	}
+    public AssetLocation Commit()
+    {
+        return Commit(GetLocation(AssetLocation.All, AssetLocationOption.None));
+    }
 
-	private bool CopyAsset(string sourceAssetPath, string sourceCustomDataPath)
-	{
-		string text = Path.Combine(_AssetOutputDirectory, _AssetFileName);
-		string text2 = text + ".tmp";
-		string text3 = Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName);
-		_AssetHeader = null;
-		try
-		{
-			if (!Directory.Exists(_AssetOutputDirectory))
-			{
-				Directory.CreateDirectory(_AssetOutputDirectory);
-			}
-			lock (_CopyBuffer)
-			{
-				using FileStream fileStream = File.OpenRead(sourceAssetPath);
-				using (FileStream fileStream2 = File.Open(text2, FileMode.Create, FileAccess.Write))
-				{
-					long num = fileStream.Length;
-					while (num > 0)
-					{
-						int num2 = fileStream.Read(_CopyBuffer, 0, _CopyBuffer.Length);
-						if (num2 < 16)
-						{
-							throw new Exception();
-						}
-						if (_AssetHeader == null)
-						{
-							_AssetHeader = new AssetHeader();
-							_AssetHeader.LoadFromBuffer(_CopyBuffer, Settings.Current.BigEndian);
-							if (_AssetHeader.InstanceId != Instance.Handle.InstanceId || _AssetHeader.TypeId != Instance.Handle.TypeId || _AssetHeader.InstanceHash != Instance.Handle.InstanceHash || _AssetHeader.TypeHash != Instance.Handle.TypeHash)
-							{
-								throw new Exception();
-							}
-						}
-						fileStream2.Write(_CopyBuffer, 0, num2);
-						num -= num2;
-					}
-					fileStream2.Flush();
-				}
-				if (File.Exists(text))
-				{
-					File.Delete(text);
-				}
-				File.Move(text2, text);
-			}
-			if (Instance.HasCustomData)
-			{
-				if (!Directory.Exists(_CustomDataOutputDirectory))
-				{
-					Directory.CreateDirectory(_CustomDataOutputDirectory);
-				}
-				File.Copy(sourceCustomDataPath, text3, overwrite: true);
-			}
-		}
-		catch (Exception)
-		{
-			if (File.Exists(text))
-			{
-				File.Delete(text);
-			}
-			if (File.Exists(text3))
-			{
-				File.Delete(text3);
-			}
-			return false;
-		}
-		return true;
-	}
+    internal AssetLocation Commit(AssetLocation location)
+    {
+        BinaryAssetCommitWork work = PrepareCommit(location);
+        try { work.ExecuteIO(); }
+        finally { work.FlushDiagnostics(); }
+        return PublishCommit(work);
+    }
 
-	private void CommitFromLocal()
-	{
-		UpdateLocalAvailability(forceUpdate: false);
-		if (_LocalAvailability == Availability.Missing)
-		{
-			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to commit asset {0} from last output", _Instance);
-		}
-		string sourceAssetPath = Path.Combine(_LastLocationInfo.AssetOutputDirectory, _AssetFileName);
-		string sourceCustomDataPath = Path.Combine(_LastLocationInfo.CustomDataOutputDirectory, _CustomDataFileName);
-		if (CopyAsset(sourceAssetPath, sourceCustomDataPath))
-		{
-			_Tracer.Message("{0} copied from previous output: {1}", DocumentProcessor.CurrentDocument, Instance);
-			return;
-		}
-		throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to commit asset {0} from previous output", _Instance);
-	}
+    // Captures the owner-only dictionaries, paths and identity before any IO
+    // starts. Workers only mutate the returned private result envelope.
+    public BinaryAssetCommitWork PrepareCommit(AssetLocation location, AssetBuffer buffer = null, string customDataPath = null)
+    {
+        if (location == AssetLocation.Memory)
+        {
+            buffer = buffer ?? _Buffer;
+            if (buffer == null || buffer.InstanceData == null || buffer.RelocationData == null || buffer.ImportsData == null)
+                throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to commit asset {0} from memory", _Instance);
+        }
+        string sourceAssetPath = null, sourceCustomDataPath = null;
+        if (location == AssetLocation.Local)
+        {
+            UpdateLocalAvailability(forceUpdate: false);
+            if (_LocalAvailability == Availability.Missing)
+                throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to commit asset {0} from last output", _Instance);
+            sourceAssetPath = Path.Combine(_LastLocationInfo.AssetOutputDirectory, _AssetFileName);
+            sourceCustomDataPath = Path.Combine(_LastLocationInfo.CustomDataOutputDirectory, _CustomDataFileName);
+        }
+        else if (location == AssetLocation.Cache)
+        {
+            UpdateCacheAvailability(forceUpdate: false);
+            if (_CacheAvailability == Availability.Missing)
+                throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Asset not available. Failure to commit asset {0} from network", _Instance);
+            sourceAssetPath = Path.Combine(_CacheDirectory, _AssetFileName);
+            sourceCustomDataPath = Path.Combine(_CacheDirectory, _CustomDataFileName);
+        }
+        else if (location != AssetLocation.Output && location != AssetLocation.Memory && location != AssetLocation.BasePatchStream)
+            throw new BinaryAssetBuilderException(ErrorCode.DependencyCacheFailure, "Attempted to commit non-existing asset {0}", _Instance);
 
-	private void CommitFromCache()
-	{
-		UpdateCacheAvailability(forceUpdate: false);
-		if (_CacheAvailability == Availability.Missing)
-		{
-			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Asset not available. Failure to commit asset {0} from network", _Instance);
-		}
-		string text = Path.Combine(_CacheDirectory, _AssetFileName);
-		string text2 = Path.Combine(_CacheDirectory, _CustomDataFileName);
-		bool flag = false;
-		int num = 0;
-		do
-		{
-			try
-			{
-				if (CopyAsset(text, text2))
-				{
-					_Tracer.Message("{0} copied from cache: {1}", DocumentProcessor.CurrentDocument, Instance);
-					flag = true;
-					break;
-				}
-			}
-			catch (Exception ex)
-			{
-				_Tracer.Message("{0} in use ({1}), re-attempting grab: {2}", DocumentProcessor.CurrentDocument, ex.Message, Instance);
-				flag = false;
-			}
-			Thread.Sleep(500);
-			num++;
-		}
-		while (num < 20);
-		if (!flag)
-		{
-			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Asset copy failed. Failure to commit asset {0} from network ({1}, {2})", _Instance, text, text2);
-		}
-	}
+        if (location == AssetLocation.Memory || location == AssetLocation.Cache ||
+            (location == AssetLocation.Output && _AssetHeader == null) || Settings.Current.AlwaysTouchCache)
+            EnsureCacheDirectory();
+        // GetLocation has already resolved host-provided custom data on the
+        // owner. IO uses only the captured destination, without re-probing it.
+        string outputCustomDataPath = Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName);
+        return new BinaryAssetCommitWork(location, buffer, customDataPath ?? _Instance.CustomDataPath,
+            _Instance.Handle, _Instance.ToString(), _Instance.HasCustomData, _AssetOutputDirectory,
+            _CustomDataOutputDirectory, _AssetFileName, _CustomDataFileName, outputCustomDataPath,
+            sourceAssetPath, sourceCustomDataPath, _CacheDirectory, _AssetHeader,
+            Settings.Current.BigEndian, Settings.Current.AlwaysTouchCache);
+    }
 
-	private void CommitFromMemory()
-	{
-		UpdateMemoryAvailability(forceUpdate: false);
-		if (_MemoryAvailability == Availability.Missing)
-		{
-			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to commit asset {0} from memory", _Instance);
-		}
-		if (!Directory.Exists(_AssetOutputDirectory))
-		{
-			Directory.CreateDirectory(_AssetOutputDirectory);
-		}
-		try
-		{
-			string text = Path.Combine(_AssetOutputDirectory, _AssetFileName);
-			string text2 = text + ".tmp";
-			using (FileStream fileStream = File.Open(text2, FileMode.Create, FileAccess.Write))
-			{
-				_AssetHeader = new AssetHeader();
-				_AssetHeader.ImportsDataSize = _Buffer.ImportsData.Length;
-				_AssetHeader.InstanceDataSize = _Buffer.InstanceData.Length;
-				_AssetHeader.RelocationDataSize = _Buffer.RelocationData.Length;
-				_AssetHeader.TypeId = Instance.Handle.TypeId;
-				_AssetHeader.TypeHash = Instance.Handle.TypeHash;
-				_AssetHeader.InstanceHash = Instance.Handle.InstanceHash;
-				_AssetHeader.InstanceId = Instance.Handle.InstanceId;
-				_AssetHeader.SaveToStream(fileStream, Settings.Current.BigEndian);
-				fileStream.Write(_Buffer.InstanceData, 0, _Buffer.InstanceData.Length);
-				fileStream.Write(_Buffer.RelocationData, 0, _Buffer.RelocationData.Length);
-				fileStream.Write(_Buffer.ImportsData, 0, _Buffer.ImportsData.Length);
-				fileStream.Flush();
-			}
-			if (File.Exists(text))
-			{
-				File.Delete(text);
-			}
-			File.Move(text2, text);
-			_Buffer = null;
-			_MemoryAvailability = Availability.Missing;
-		}
-		catch (Exception innerException)
-		{
-			throw new BinaryAssetBuilderException(innerException, ErrorCode.InternalError, "Failure to commit asset {0} from memory", _Instance);
-		}
-	}
+    // This is the only publication point. No Worker writes BinaryAsset state,
+    // calls host callbacks or updates the processor's statistics.
+    public AssetLocation PublishCommit(BinaryAssetCommitWork work)
+    {
+        using var performance = PerformanceScope.Measure("core.asset.commit");
+        work.FlushDiagnostics();
+        if (work.Header != null) _AssetHeader = work.Header;
+        if (work.Location != AssetLocation.BasePatchStream)
+            _OutputAvailability = work.OutputPresent ? Availability.Present : Availability.Missing;
+        if (work.Location == AssetLocation.Memory)
+        {
+            _Buffer = null;
+            _MemoryAvailability = Availability.Missing;
+        }
+        if (_Instance.HasCustomData && work.Location != AssetLocation.BasePatchStream)
+        {
+            _Instance.CustomDataPath = Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName);
+            Settings.Current.CustomDataOutput?.Invoke(_Instance.CustomDataPath);
+        }
+        return work.Location;
+    }
 
-	private void ValidateAssetCopies()
-	{
-	}
+    internal static void PublishCommitDiagnostic(int kind, string message)
+    {
+        if (kind == 2) _Tracer.TraceError("{0}", message);
+        else if (kind == 1) _Tracer.TraceInfo("{0}", message);
+        else _Tracer.Message("{0}", message);
+    }
+}
 
-	private void TouchCache()
-	{
-		if (string.IsNullOrEmpty(_CacheDirectory) && !Directory.Exists(_CacheDirectory))
-		{
-			return;
-		}
-		try
-		{
-			FileInfo fileInfo = new FileInfo(Path.Combine(_CacheDirectory, _AssetFileName));
-			if (fileInfo.Exists)
-			{
-				FileInfo fileInfo2 = fileInfo;
-				FileInfo fileInfo3 = fileInfo;
-				DateTime dateTime = (fileInfo.LastAccessTime = DateTime.Now);
-				DateTime creationTime = (fileInfo3.LastWriteTime = dateTime);
-				fileInfo2.CreationTime = creationTime;
-			}
-			if (Instance.HasCustomData)
-			{
-				fileInfo = new FileInfo(Path.Combine(_CacheDirectory, _CustomDataFileName));
-				if (fileInfo.Exists)
-				{
-					FileInfo fileInfo4 = fileInfo;
-					FileInfo fileInfo5 = fileInfo;
-					DateTime dateTime3 = (fileInfo.LastAccessTime = DateTime.Now);
-					DateTime creationTime2 = (fileInfo5.LastWriteTime = dateTime3);
-					fileInfo4.CreationTime = creationTime2;
-				}
-			}
-		}
-		catch (Exception)
-		{
-		}
-	}
+// An asset owns one physical writer. Its input and result remain private until
+// the scheduler joins the IO task and publishes it on the semantic owner.
+public sealed class BinaryAssetCommitWork
+{
+    AssetBuffer buffer;
+    byte[] copyBuffer;
+    readonly string privateCustomDataPath, instanceText;
+    readonly string assetDirectory, customDataDirectory, assetName, customDataName;
+    readonly string outputCustomDataPath, sourceAssetPath, sourceCustomDataPath, cacheDirectory;
+    readonly uint typeId, typeHash, instanceId, instanceHash;
+    readonly bool hasCustomData, bigEndian, alwaysTouchCache;
+    readonly List<KeyValuePair<int, string>> diagnostics = new List<KeyValuePair<int, string>>();
+    internal AssetHeader Header;
+    internal bool OutputPresent;
+    public AssetLocation Location { get; private set; }
+    public long RetainedBytes { get; private set; }
 
-	private void CopyToCache()
-	{
-		if (string.IsNullOrEmpty(_CacheDirectory))
-		{
-			return;
-		}
-		if (GetLocation(AssetLocation.Output, AssetLocationOption.None) == AssetLocation.None)
-		{
-			throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to copy asset {0} to network", _Instance);
-		}
-		_Tracer.Message("{0} Submitting to cache {1}", DocumentProcessor.CurrentDocument, Instance);
-		try
-		{
-			if (!Directory.Exists(_CacheDirectory))
-			{
-				Directory.CreateDirectory(_CacheDirectory);
-			}
-			string text = Path.Combine(_CacheDirectory, _AssetFileName);
-			FileInfo fileInfo = new FileInfo(text);
-			if (!fileInfo.Exists)
-			{
-				File.Copy(Path.Combine(_AssetOutputDirectory, _AssetFileName), text);
-			}
-			else
-			{
-				FileInfo fileInfo2 = fileInfo;
-				FileInfo fileInfo3 = fileInfo;
-				DateTime dateTime = (fileInfo.LastAccessTime = DateTime.Now);
-				DateTime creationTime = (fileInfo3.LastWriteTime = dateTime);
-				fileInfo2.CreationTime = creationTime;
-			}
-			if (Instance.HasCustomData)
-			{
-				text = Path.Combine(_CacheDirectory, _CustomDataFileName);
-				fileInfo = new FileInfo(text);
-				if (!fileInfo.Exists)
-				{
-					File.Copy(Path.Combine(_CustomDataOutputDirectory, _CustomDataFileName), text);
-					return;
-				}
-				FileInfo fileInfo4 = fileInfo;
-				FileInfo fileInfo5 = fileInfo;
-				DateTime dateTime3 = (fileInfo.LastAccessTime = DateTime.Now);
-				DateTime creationTime2 = (fileInfo5.LastWriteTime = dateTime3);
-				fileInfo4.CreationTime = creationTime2;
-			}
-		}
-		catch (Exception)
-		{
-			_Tracer.Message("Failed to copy asset {0} to network", _Instance);
-		}
-	}
+    internal BinaryAssetCommitWork(AssetLocation location, AssetBuffer buffer, string privateCustomDataPath,
+        InstanceHandle handle, string instanceText, bool hasCustomData, string assetDirectory,
+        string customDataDirectory, string assetName, string customDataName, string outputCustomDataPath,
+        string sourceAssetPath, string sourceCustomDataPath, string cacheDirectory, AssetHeader header,
+        bool bigEndian, bool alwaysTouchCache)
+    {
+        Location = location; this.buffer = buffer; this.privateCustomDataPath = privateCustomDataPath;
+        typeId = handle.TypeId; typeHash = handle.TypeHash; instanceId = handle.InstanceId; instanceHash = handle.InstanceHash;
+        this.instanceText = instanceText; this.hasCustomData = hasCustomData;
+        this.assetDirectory = assetDirectory; this.customDataDirectory = customDataDirectory;
+        this.assetName = assetName; this.customDataName = customDataName; this.outputCustomDataPath = outputCustomDataPath;
+        this.sourceAssetPath = sourceAssetPath; this.sourceCustomDataPath = sourceCustomDataPath;
+        this.cacheDirectory = cacheDirectory; Header = header; this.bigEndian = bigEndian; this.alwaysTouchCache = alwaysTouchCache;
+        if (buffer != null)
+            RetainedBytes = (long)buffer.InstanceData.Length + buffer.RelocationData.Length + buffer.ImportsData.Length;
+    }
+
+    void Message(int kind, string format, params object[] values)
+    {
+        diagnostics.Add(new KeyValuePair<int, string>(kind, string.Format(format, values)));
+    }
+
+    // Also safe to call after a failed IO task, once that task has joined.
+    public void FlushDiagnostics()
+    {
+        foreach (var message in diagnostics) BinaryAsset.PublishCommitDiagnostic(message.Key, message.Value);
+        diagnostics.Clear();
+    }
+
+    public void ExecuteIO() { ExecuteIO(updateCache: true); }
+
+    internal void ExecuteRecoveryIO() { ExecuteIO(updateCache: false); }
+
+    void ExecuteIO(bool updateCache)
+    {
+        try
+        {
+            switch (Location)
+            {
+                case AssetLocation.BasePatchStream:
+                    if (updateCache && alwaysTouchCache) TouchCache();
+                    return;
+                case AssetLocation.Memory: CommitMemory(); break;
+                case AssetLocation.Local:
+                    if (!CopyAsset(sourceAssetPath, sourceCustomDataPath))
+                        throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to commit asset {0} from previous output", instanceText);
+                    Message(0, "{0} copied from previous output", instanceText);
+                    break;
+                case AssetLocation.Cache: CommitCache(); break;
+                case AssetLocation.Output: ReadOutputHeader(); break;
+            }
+            // Output was already selected from owner-captured availability.
+            // Reusing its cached header must not re-probe every hot asset.
+            OutputPresent = Location == AssetLocation.Output ||
+                (File.Exists(Path.Combine(assetDirectory, assetName)) && (!hasCustomData || File.Exists(outputCustomDataPath)));
+            if (!OutputPresent)
+                throw new BinaryAssetBuilderException(ErrorCode.InternalError, "Failure to commit asset {0}", instanceText);
+            if (updateCache)
+            {
+                if (Location == AssetLocation.Memory) CopyToCache();
+                else if (Location == AssetLocation.Cache || alwaysTouchCache) TouchCache();
+            }
+        }
+        finally { buffer = null; copyBuffer = null; }
+    }
+
+    void CommitMemory()
+    {
+        Directory.CreateDirectory(assetDirectory);
+        string target = Path.Combine(assetDirectory, assetName), temporary = target + ".tmp";
+        try
+        {
+            Header = new AssetHeader
+            {
+                ImportsDataSize = buffer.ImportsData.Length, InstanceDataSize = buffer.InstanceData.Length,
+                RelocationDataSize = buffer.RelocationData.Length, TypeId = typeId, TypeHash = typeHash,
+                InstanceHash = instanceHash, InstanceId = instanceId
+            };
+            using (FileStream output = File.Open(temporary, FileMode.Create, FileAccess.Write))
+            {
+                Header.SaveToStream(output, bigEndian);
+                output.Write(buffer.InstanceData, 0, buffer.InstanceData.Length);
+                output.Write(buffer.RelocationData, 0, buffer.RelocationData.Length);
+                output.Write(buffer.ImportsData, 0, buffer.ImportsData.Length);
+            }
+            Replace(temporary, target);
+            if (hasCustomData && !string.IsNullOrEmpty(privateCustomDataPath) &&
+                !string.Equals(privateCustomDataPath, outputCustomDataPath, StringComparison.OrdinalIgnoreCase) && File.Exists(privateCustomDataPath))
+            {
+                Directory.CreateDirectory(customDataDirectory);
+                Replace(privateCustomDataPath, outputCustomDataPath);
+            }
+        }
+        catch (Exception error)
+        {
+            throw new BinaryAssetBuilderException(error, ErrorCode.InternalError, "Failure to commit asset {0} from memory", instanceText);
+        }
+    }
+
+    static void Replace(string temporary, string target)
+    {
+        if (File.Exists(target)) File.Delete(target);
+        File.Move(temporary, target);
+    }
+
+    bool CopyAsset(string sourceAsset, string sourceCustomData)
+    {
+        string target = Path.Combine(assetDirectory, assetName), temporary = target + ".tmp";
+        string customTarget = Path.Combine(customDataDirectory, customDataName);
+        try
+        {
+            Directory.CreateDirectory(assetDirectory);
+            // IO admission limits the number of these private buffers. No
+            // process-wide copy lock serializes unrelated physical assets.
+            if (copyBuffer == null) copyBuffer = new byte[1048576];
+            AssetHeader header = null;
+            using (FileStream input = File.OpenRead(sourceAsset))
+            using (FileStream output = File.Open(temporary, FileMode.Create, FileAccess.Write))
+            {
+                long remaining = input.Length;
+                while (remaining > 0)
+                {
+                    int read = input.Read(copyBuffer, 0, copyBuffer.Length);
+                    if (read < 16) throw new IOException("Invalid asset copy length.");
+                    if (header == null)
+                    {
+                        header = new AssetHeader();
+                        header.LoadFromBuffer(copyBuffer, bigEndian);
+                        if (header.InstanceId != instanceId || header.TypeId != typeId || header.InstanceHash != instanceHash || header.TypeHash != typeHash)
+                            throw new IOException("Asset identity does not match its filename.");
+                    }
+                    output.Write(copyBuffer, 0, read);
+                    remaining -= read;
+                }
+            }
+            Replace(temporary, target);
+            if (hasCustomData)
+            {
+                Directory.CreateDirectory(customDataDirectory);
+                File.Copy(sourceCustomData, customTarget, overwrite: true);
+            }
+            Header = header;
+            return true;
+        }
+        catch (Exception)
+        {
+            if (File.Exists(target)) File.Delete(target);
+            if (File.Exists(customTarget)) File.Delete(customTarget);
+            return false;
+        }
+        finally
+        {
+            if (File.Exists(temporary)) File.Delete(temporary);
+        }
+    }
+
+    void CommitCache()
+    {
+        CopyCache(sourceAssetPath, sourceCustomDataPath);
+        Message(0, "{0} copied from cache", instanceText);
+    }
+
+    void CopyCache(string cachedAsset, string cachedCustomData)
+    {
+        for (int attempt = 0; attempt < 20; attempt++)
+        {
+            try { if (CopyAsset(cachedAsset, cachedCustomData)) return; }
+            catch (Exception error) { Message(0, "{0} in use ({1}), re-attempting grab", instanceText, error.Message); }
+            Thread.Sleep(500);
+        }
+        throw new BinaryAssetBuilderException(ErrorCode.InternalError,
+            "Asset copy failed. Failure to commit asset {0} from network ({1}, {2})", instanceText, cachedAsset, cachedCustomData);
+    }
+
+    void ReadOutputHeader()
+    {
+        if (Header != null) return;
+        string path = Path.Combine(assetDirectory, assetName);
+        long length;
+        using (FileStream input = File.OpenRead(path))
+        {
+            Header = new AssetHeader(); Header.LoadFromStream(input, bigEndian); length = input.Length;
+        }
+        if (Header.IsValidFileLength(length)) return;
+        Message(2, "Invalid asset file detected. Deleting {0}.", path);
+        File.Delete(path);
+        string cachedAsset = string.IsNullOrEmpty(cacheDirectory) ? null : Path.Combine(cacheDirectory, assetName);
+        if (cachedAsset == null || !File.Exists(cachedAsset) || (hasCustomData && !File.Exists(Path.Combine(cacheDirectory, customDataName))))
+            throw new BinaryAssetBuilderException(ErrorCode.UnexpectedSize, "Can't recover from last error. Please restart to rebuild asset.");
+        Message(1, "Checking build cache copy of asset.");
+        using (FileStream input = File.OpenRead(cachedAsset))
+        {
+            Header = new AssetHeader(); Header.LoadFromStream(input, bigEndian); length = input.Length;
+        }
+        if (!Header.IsValidFileLength(length))
+        {
+            Message(2, "Invalid cached asset file detected. Deleting {0}.", cachedAsset);
+            File.Delete(cachedAsset);
+            throw new BinaryAssetBuilderException(ErrorCode.UnexpectedSize, "Can't recover from last error. Please restart to rebuild asset.");
+        }
+        CopyCache(cachedAsset, Path.Combine(cacheDirectory, customDataName));
+        Message(0, "{0} copied from cache", instanceText);
+    }
+
+    static void TouchFile(string path)
+    {
+        FileInfo info = new FileInfo(path);
+        if (!info.Exists) return;
+        DateTime now = DateTime.Now;
+        info.LastAccessTime = now; info.LastWriteTime = now; info.CreationTime = now;
+    }
+
+    void TouchCache()
+    {
+        if (string.IsNullOrEmpty(cacheDirectory)) return;
+        try
+        {
+            TouchFile(Path.Combine(cacheDirectory, assetName));
+            if (hasCustomData) TouchFile(Path.Combine(cacheDirectory, customDataName));
+        }
+        catch (Exception) { }
+    }
+
+    // Different streams can populate the same build-cache identity. Publish a
+    // complete file so another stream never opens a partially copied payload.
+    static void PublishCacheFile(string source, string target)
+    {
+        if (File.Exists(target)) { TouchFile(target); return; }
+        string temporary = target + ".tmp." + Guid.NewGuid().ToString("N");
+        try
+        {
+            File.Copy(source, temporary);
+            try { File.Move(temporary, target); }
+            catch (IOException)
+            {
+                if (!File.Exists(target)) throw;
+                TouchFile(target);
+            }
+        }
+        finally { if (File.Exists(temporary)) File.Delete(temporary); }
+    }
+
+    void CopyToCache()
+    {
+        if (string.IsNullOrEmpty(cacheDirectory)) return;
+        Message(0, "Submitting to cache {0}", instanceText);
+        try
+        {
+            Directory.CreateDirectory(cacheDirectory);
+            PublishCacheFile(Path.Combine(assetDirectory, assetName), Path.Combine(cacheDirectory, assetName));
+            if (hasCustomData) PublishCacheFile(outputCustomDataPath, Path.Combine(cacheDirectory, customDataName));
+        }
+        catch (Exception) { Message(0, "Failed to copy asset {0} to network", instanceText); }
+    }
 }

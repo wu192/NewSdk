@@ -55,13 +55,30 @@ jobs:
               if ($LASTEXITCODE -ne 0) { Get-Content "$out/$config-build.log"; throw 'Build failed' }
             }
           }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/metrics/${{ github.run_id }}-${{ github.run_attempt }}/*.json
+            recovery/evidence/metrics/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/metrics/${{ github.run_id }}-${{ github.run_attempt }}/*difference*.txt
+            recovery/evidence/metrics/validation/${{ github.run_id }}-${{ github.run_attempt }}/*.json
+            recovery/evidence/metrics/validation/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/metrics/validation/${{ github.run_id }}-${{ github.run_attempt }}/*difference*.txt
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: metrics-${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'metrics-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
-            recovery/src/Managed/Metrics
-            recovery/evidence/metrics
+            recovery/evidence/metrics/${{ github.run_id }}-${{ github.run_attempt }}/*.json
+            recovery/evidence/metrics/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/metrics/${{ github.run_id }}-${{ github.run_attempt }}/*difference*.txt
+            recovery/evidence/metrics/validation/${{ github.run_id }}-${{ github.run_attempt }}/*.json
+            recovery/evidence/metrics/validation/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/metrics/validation/${{ github.run_id }}-${{ github.run_attempt }}/*difference*.txt
+          retention-days: 1
+          if-no-files-found: warn
       - name: Preserve source and evidence
         if: always()
         shell: pwsh

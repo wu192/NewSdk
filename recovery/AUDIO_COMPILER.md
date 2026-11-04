@@ -1,3 +1,6 @@
+2026-10-31 新增真实 EALayer3 V1b 编码及 Windows/BAB/生产 CLI 验收，见
+[EALayer3 当前能力及证据](audio/EaLayer3.md)。下面的固定历史验收记录保留原来源。
+
 # AudioCompiler 当前状态
 
 音频工作流使用 `contents: read`，保留全部构建、差分、真实 SDK 断言与产物上传。

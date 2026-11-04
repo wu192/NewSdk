@@ -1,0 +1,122 @@
+{
+  "succeeded": true,
+  "scope": "New Joypad component and production-route/small-MOD acceptance only",
+  "sourceCommit": "1f0cea03083f2219e43fa35f3dd44df73158310e",
+  "runId": "41270490335",
+  "runAttempt": 1,
+  "workflowConclusion": "success",
+  "workflowUrl": "https://github.com/wu162/NewSdk/actions/runs/41270490335",
+  "artifactId": 13069292067,
+  "artifactBytes": 4496900,
+  "artifactSha256": "8eaa2b2b713ce8939623a84020e4112dad4a8873e85351d1ede879f65a70a696",
+  "archiveDownloadedOnce": true,
+  "archiveDigestVerified": true,
+  "componentRoots": 11,
+  "runtimeDataBranches": 34,
+  "componentInputs": 1480,
+  "componentFixturesPerMode": 6000,
+  "componentBufferComparisonsPerMode": 36000,
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "optimizationModes": [
+    "/Od",
+    "/O2"
+  ],
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "runtimeFiles": {
+        "NewModCompiler.exe": "cf421d7371d247dace654d5c449ecaf613b18601d9ed4985b53ffad499730d1b",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+      },
+      "validationHostSha256": "6ae71505f77062c27a40829b24b5d6f3c6dd9f27a7ee4a1f510dcc8a83ac4da9",
+      "sameProductionLinkInputsVerified": true,
+      "productionRoutes": 310,
+      "xmlRoutes": 300,
+      "schemaGlobalXmlRoutes": 278,
+      "assets": 43,
+      "schemaDataChoices": 29,
+      "originalFourStreamBytesRechecked": true,
+      "outputs": [
+        {
+          "extension": "manifest",
+          "bytes": 4966,
+          "sha256": "5e637c523a74b3eaddacb744e4b8d3bdd1fb818f06ff01537b7fc83030225bf2"
+        },
+        {
+          "extension": "bin",
+          "bytes": 1712,
+          "sha256": "8840dae17401dfa54127578fe1633b3c56c984b4c6414fa27ec30105b2c94ac8"
+        },
+        {
+          "extension": "imp",
+          "bytes": 424,
+          "sha256": "b44176938e207896d8f292a4a88b8cea4406fa62ae469efcd8e6a40582e8c081"
+        },
+        {
+          "extension": "relo",
+          "bytes": 332,
+          "sha256": "0879296dbea6ea0c86200dd9bf77deef9d1adf5528b1e64a49adc938d4eed62a"
+        }
+      ]
+    },
+    {
+      "configuration": "Release",
+      "runtimeFiles": {
+        "NewModCompiler.exe": "69d829e7a00a7125f54dca94917c663ae4dd007fb9d0218f585a4977b23feb81",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+      },
+      "validationHostSha256": "cc10c41d0eeebbf8afea773bdcbed1a4b9d3800c46ef08265f3dfdfb8518026e",
+      "sameProductionLinkInputsVerified": true,
+      "productionRoutes": 310,
+      "xmlRoutes": 300,
+      "schemaGlobalXmlRoutes": 278,
+      "assets": 43,
+      "schemaDataChoices": 29,
+      "originalFourStreamBytesRechecked": true,
+      "outputs": [
+        {
+          "extension": "manifest",
+          "bytes": 4966,
+          "sha256": "5e637c523a74b3eaddacb744e4b8d3bdd1fb818f06ff01537b7fc83030225bf2"
+        },
+        {
+          "extension": "bin",
+          "bytes": 1712,
+          "sha256": "8840dae17401dfa54127578fe1633b3c56c984b4c6414fa27ec30105b2c94ac8"
+        },
+        {
+          "extension": "imp",
+          "bytes": 424,
+          "sha256": "b44176938e207896d8f292a4a88b8cea4406fa62ae469efcd8e6a40582e8c081"
+        },
+        {
+          "extension": "relo",
+          "bytes": 332,
+          "sha256": "0879296dbea6ea0c86200dd9bf77deef9d1adf5528b1e64a49adc938d4eed62a"
+        }
+      ]
+    }
+  ],
+  "priorFailures": [
+    {
+      "runId": "41270332500",
+      "reason": "PowerShell null schema namespace converted to empty string; fixed explicit namespace"
+    },
+    {
+      "runId": "41270410307",
+      "reason": "Legacy C# compiler relative input paths; fixed absolute source paths"
+    }
+  ],
+  "performanceTestsRun": false,
+  "fullExternalModsCompiled": false,
+  "gameplayValidation": false,
+  "unchangedBroaderComponents": "Not rerun; this run validates Joypad and the complete production route metadata only",
+  "objectsArchived": false
+}

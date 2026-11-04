@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "status": "failed",
+  "error": "System.IO.FileLoadException: Could not load file or assembly 'NewModCompiler, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' or one of its dependencies. Attempt to load an unverifiable executable with fixups (IAT with more than 2 sections or a TLS section.) (Exception from HRESULT: 0x80131019)\r\nFile name: 'NewModCompiler, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' ---> System.IO.FileLoadException: Attempt to load an unverifiable executable with fixups (IAT with more than 2 sections or a TLS section.) (Exception from HRESULT: 0x80131019)\r\n   at System.Reflection.RuntimeAssembly._nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)\r\n   at System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, Evidence assemblySecurity, RuntimeAssembly locationHint, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)\r\n   at System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, Evidence assemblySecurity, RuntimeAssembly reqAssembly, StackCrawlMark& stackMark, IntPtr pPrivHostBinder, Boolean throwOnFileNotFound, Boolean forIntrospection, Boolean suppressSecurityChecks)\r\n   at System.Reflection.RuntimeAssembly.InternalLoadFrom(String assemblyFile, Evidence securityEvidence, Byte[] hashValue, AssemblyHashAlgorithm hashAlgorithm, Boolean forIntrospection, Boolean suppressSecurityChecks, StackCrawlMark& stackMark)\r\n   at System.Reflection.Assembly.LoadFrom(String assemblyFile)\r\n   at CompilerCacheIdentityProfile.<>c__DisplayClassd.<Main>b__2()\r\n   at CompilerCacheIdentityProfile.Time(Action action)\r\n   at CompilerCacheIdentityProfile.Main(String[] args)\r\n\r\n",
+  "binarySourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "sourceRunId": "40814401237",
+  "diagnosticRunId": "40825481917",
+  "diagnosticRunAttempt": "1",
+  "diagnosticSourceCommit": "f617216cf559e9f9815412295a3ca581b3a0caec",
+  "helperSourceSha256": "68a5f91ae310b2dcd1f72419a12a48914829a5c4a53f477b9ff3209bf5e586f2",
+  "helperExeSha256": "2e2a2a99de07995adc6d1f2c345171761b44e34cfa70f1033d36d2fa1887099e",
+  "helperExitCode": 1,
+  "timedOut": false,
+  "runtimeDirectory": "D:\\a\\_temp\\cb\\runtime",
+  "sdkRoot": "D:\\a\\NewSdk\\NewSdk\\SDK",
+  "modRoot": "D:\\a\\_temp\\cb\\workloads\\mymod"
+}

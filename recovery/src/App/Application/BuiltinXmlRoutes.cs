@@ -295,6 +295,17 @@ namespace NewModCompiler.Application
             new BuiltinCompilerRoute(3737094024u, "GameScriptList", 2724763994u, "xml", true),
             new BuiltinCompilerRoute(3575309793u, "GameMap", 4100291602u, "xml", true),
             new BuiltinCompilerRoute(3072160547u, "UIConfigList", 3852040349u, "xml", true),
+            new BuiltinCompilerRoute(1276968974u, "UIJoypadCommandBarMixedGroup", 3983232506u, "xml", true),
+            new BuiltinCompilerRoute(1546953756u, "UIJoypadCommandBarHomogenousGroup", 2225127171u, "xml", true),
+            new BuiltinCompilerRoute(1654297531u, "UIJoypadCommandBarCoopCommunicator", 2835608034u, "xml", true),
+            new BuiltinCompilerRoute(1804891371u, "JoypadCommandBarButtonTemplate", 689163324u, "xml", true),
+            new BuiltinCompilerRoute(1887864852u, "UIJoypadCommandBarStances", 1145979021u, "xml", true),
+            new BuiltinCompilerRoute(1931769760u, "JoypadCommandBarTemplate", 1959031257u, "xml", true),
+            new BuiltinCompilerRoute(2170044043u, "UIJoypadCommandBarTopMenu", 360514692u, "xml", true),
+            new BuiltinCompilerRoute(2742786440u, "UIJoypadCommandBarPlayerPowers", 1752851487u, "xml", true),
+            new BuiltinCompilerRoute(3423839194u, "UIJoypadCommandBarButtonBuild", 1141570868u, "xml", true),
+            new BuiltinCompilerRoute(3645205636u, "UIJoypadCommandBarControlGroups", 3852026165u, "xml", true),
+            new BuiltinCompilerRoute(3901433122u, "UIJoypadCommandBarSingleUnit", 1804668011u, "xml", true),
         };
     }
 }

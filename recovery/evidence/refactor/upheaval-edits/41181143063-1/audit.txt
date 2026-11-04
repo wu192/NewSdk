@@ -1,0 +1,15 @@
+Independent read-only audit — run 41181143063, groups A/B
+
+Result: no inconsistencies found in the inspected evidence. No download, archive rehash, compiler build, production edit, or repeated acceptance run was performed.
+
+Checked measurement.json against every one of the 272 original build-report.json files: 16 warmups, 64 restore checks, 64 hot-before, 64 modified, 64 hot-after. Status/exit/error counts, request arguments, cache counters, elapsed time, and diagnostic counts agree. All 192 restore/hot samples have XML parse=0 and instance compile=0. All 272 reports succeeded with diagnostic error=0.
+
+Each of the eight scenarios has three off edit pairs and one separate detailed pair. The four mutation generations have identical paths and before/after hashes; recorded edit/file/asset totals reconcile. Metadata matches the standalone inputs files and pins historical source bacfc69fc3e71c8116d1f22b933b8b6173170ecf / tree 5551fc26a6f96b62613443e0d0fa2958c14cbce0. Real SDK-parent relocation and supplementary lifecycle assets are explicitly recorded. Original full MOD inventory is 2,723 files / 300,900,885 bytes; setup additions are separately reflected.
+
+All 272 rawPublishedIdentical flags are true. Publication manifest file counts and byte totals agree with each sample; modified publication changes in seven scenarios and stays unchanged for parent-unrelated. Reviewed the controller's actual comparison: identical file sets, filecmp.clear_cache(), and filecmp.cmp(..., shallow=False). Published binary bodies were not re-extracted or re-compared locally; this audit checks the successful run's recorded byte comparisons and manifests.
+
+Artifact IDs/names/size/digests/sourceCommit/runId match archive-receipt.json and artifacts.json. Both measurements identify workflow source a468271447e65804f476f95186a64006b5e3c7b7, baseline e2dba3c321504752438b4e940d651bbfcdb58fff / run 41169755141, candidate 8e8cf766df1016c6095158b62ea18f48a5c37cfe / run 41178094135. Build manifest sourceCommit, EXE SHA256, and runtime file names reconcile with measurement runtimeFiles. A/B runtime identities and productionTrees agree; all four production trees also match Git objects at workflow source, including candidate recovery/src identity.
+
+Independently recalculated off modified wall medians (baseline -> candidate ms; reduction): gameobject 2512.333 -> 2507.480 (+0.19%); weapon 2047.802 -> 2063.040 (-0.74%); inherited parent 2282.276 -> 2184.384 (+4.29%); unrelated sibling 1887.288 -> 1840.589 (+2.47%); Defines 1793.449 -> 1832.010 (-2.15%); lifecycle 1936.611 -> 1929.743 (+0.35%); media 2893.223 -> 2953.482 (-2.08%); W3X 2174.938 -> 2216.949 (-1.93%). Groups use separate runners; compare each scenario's paired implementations, not absolute A/B times. These results do not establish a general large-edit speedup.
+
+Scope limit: all new cases are legal inputs; error=0 does not constitute new illegal-input rejection, failure, or cancellation acceptance. Those gates remain prior accepted binary evidence. No further testing was requested after this audit.

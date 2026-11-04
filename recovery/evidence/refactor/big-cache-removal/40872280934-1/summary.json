@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "7fca1e4f38c304bfc107e5301b1b72b70cbfacea",
+  "binarySourceCommit": "7fca1e4f38c304bfc107e5301b1b72b70cbfacea",
+  "testSourceCommit": "7fca1e4f38c304bfc107e5301b1b72b70cbfacea",
+  "runId": 40872280934,
+  "runAttempt": 1,
+  "status": "success",
+  "branch": "recovery/legacy-sdk-cache",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/40872280934",
+  "artifact": {
+    "id": 12897831463,
+    "sizeInBytes": 144299492,
+    "sha256": "76a499f11d8ec5ed13ffb1fe5839baf7c8bcf33647bb519e1d02efa3b16f1bcb",
+    "downloadedAndDigestVerified": true
+  },
+  "change": "Remove all BIG/SKUDEF package fingerprint, receipt read/write and published-package reuse. Repackage current streams every build; preserve generic unchanged publication and rollback.",
+  "big": {
+    "rawReceiptArchivePath": "evidence/refactor/big/40872280934-1/validation.json",
+    "modes": [
+      {
+        "configuration": "Debug",
+        "passed": true,
+        "caseCount": 23,
+        "originalComparisonCount": 13,
+        "successfulBigCases": [
+          {
+            "name": "apt-big",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "maps-big",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "apt-maps-big",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "base-big",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "base-apt-maps-big",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "custom-package-identity",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "replace-stale-generation",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "unchanged-locked-output",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": true
+          },
+          {
+            "name": "retry-after-publication-fault",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "retry-after-cancel",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": true
+          },
+          {
+            "name": "all-with-additional",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "standard-defaults",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "base-with-neutral-repair",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "neutral-retry-after-reference-restored",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": true
+          }
+        ]
+      },
+      {
+        "configuration": "Release",
+        "passed": true,
+        "caseCount": 23,
+        "originalComparisonCount": 13,
+        "successfulBigCases": [
+          {
+            "name": "apt-big",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "maps-big",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "apt-maps-big",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "base-big",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "base-apt-maps-big",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "custom-package-identity",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "replace-stale-generation",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "unchanged-locked-output",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": true
+          },
+          {
+            "name": "retry-after-publication-fault",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "retry-after-cancel",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": true
+          },
+          {
+            "name": "all-with-additional",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "standard-defaults",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "base-with-neutral-repair",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": false
+          },
+          {
+            "name": "neutral-retry-after-reference-restored",
+            "currentBuildStagingPackageCount": 2,
+            "publicationUnchanged": true
+          }
+        ]
+      }
+    ],
+    "removedReceiptChecks": "App tests reject new package|v1 writes, inject malformed obsolete receipt, require successful repack, normal receipt pruning and unchanged publication. Production BIG test requires two current-build staging package paths and no package|v1 receipt on every successful BIG case."
+  },
+  "sdk": {
+    "succeeded": true,
+    "receipt": "sdk-validation-summary.json"
+  },
+  "release": {
+    "succeeded": true,
+    "receipt": "release-summary.json"
+  },
+  "coverage": "Debug/Release App and Core; real CLI/cold/CtrlBreak; asset/session caches; input roots; Texture/Audio/W3X; original MakeBig/LoD, Additional and neutral scopes, publication fault/cancel/retry; complete unchanged mymod original raw differential; exact five-file release deployment. No new complete game or Unicode Texture acceptance claim."
+}

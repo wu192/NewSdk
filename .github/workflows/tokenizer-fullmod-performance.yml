@@ -1,0 +1,131 @@
+name: Full Upheaval tokenizer plugin paired builds
+on:
+  push:
+    branches: [perf/gameobject-weapon-plugins]
+    paths:
+      - '.github/workflows/tokenizer-fullmod-performance.yml'
+      - 'recovery/scripts/MeasureW3xFullMod.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: tokenizer-fullmod-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  measure:
+    runs-on: windows-2022
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/checkout@v4
+        with:
+          ref: 7cfdd4314d8cafa2f2c7313e64f5ffbacf94eaf9
+          path: work/baseline
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Install existing build dependencies
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
+      - name: Rebuild exact baseline Release
+        shell: pwsh
+        run: ./work/baseline/recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory recovery/artifacts/tokenizer-before
+      - name: Wait for final production acceptance before reusing its Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run watch 41146357892 --repo wu162/NewSdk --interval 20 --exit-status
+          if ($LASTEXITCODE -ne 0) { throw 'Final production acceptance did not succeed' }
+      - uses: actions/download-artifact@v4
+        with:
+          name: refactor-core-lifecycle-41146357892-1
+          run-id: 41146357892
+          github-token: ${{ github.token }}
+          path: recovery/artifacts/tokenizer-accepted
+      - name: Three paired full MOD builds and raw published byte comparisons
+        shell: pwsh
+        run: >-
+          python recovery/scripts/MeasureW3xFullMod.py
+          --pairs 3
+          --baseline-build recovery/artifacts/tokenizer-before
+          --optimized-build recovery/artifacts/tokenizer-accepted/artifacts/core-lifecycle-product/Release
+          --baseline-source 7cfdd4314d8cafa2f2c7313e64f5ffbacf94eaf9
+          --optimized-source d60904bcb4fcdc6b02ff78db6b66410568543f57
+          --production-file recovery/src/Bridge/GameObjectCompiler.cpp
+          --production-file recovery/src/Bridge/WeaponCompiler.cpp
+          --production-file recovery/src/Native/AttributeMap.h
+          --production-file recovery/src/Native/EnumBitset.cpp
+          --production-file recovery/src/Native/EnumBitset.h
+          --production-file recovery/src/Native/GameObject.cpp
+          --production-file recovery/src/Native/GameObject.h
+          --production-file recovery/src/Native/GameObjectChildGroups.h
+          --production-file recovery/src/Native/GameObjectDrawAnimationRuntime.h
+          --production-file recovery/src/Native/GameObjectDrawModelConditionsRuntime.h
+          --production-file recovery/src/Native/GameObjectModuleDispatchRuntime.h
+          --production-file recovery/src/Native/GameObjectModuleFieldsRuntime.h
+          --production-file recovery/src/Native/GameObjectScalarDefaultsRuntime.h
+          --production-file recovery/src/Native/ObjectFilter.h
+          --production-file recovery/src/Native/Relocation.cpp
+          --production-file recovery/src/Native/Relocation.h
+          --production-file recovery/src/Native/WeaponNugget.cpp
+          --production-file recovery/src/Native/WeaponNugget.h
+          --production-file recovery/src/Native/WeaponTemplate.cpp
+          --production-file recovery/src/Native/WeaponTemplate.h
+          --work "$env:RUNNER_TEMP/tokenizer-fullmod"
+          --output "recovery/evidence/refactor/tokenizer-fullmod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Summarize tokenizer-fullmod-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/tokenizer-before/build.json
+        run: python recovery/scripts/WriteCiSummary.py --title "tokenizer-fullmod-performance reports"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tokenizer-fullmod-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/tokenizer-before/build.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize tokenizer-fullmod-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/tokenizer-before/**/*.log
+        run: python recovery/scripts/WriteCiSummary.py --title "tokenizer-fullmod-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: tokenizer-fullmod-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/tokenizer-fullmod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/tokenizer-before/**/*.log
+          retention-days: 1
+          if-no-files-found: warn

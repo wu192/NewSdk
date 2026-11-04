@@ -1,0 +1,499 @@
+{
+  "schemaVersion": "1.0",
+  "status": "passed",
+  "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+  "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+  "artifactId": null,
+  "artifactArchiveSha256": null,
+  "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+  "packages": {
+    "jsonschema": "4.23.0",
+    "rfc3339-validator": "0.1.4",
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1"
+  },
+  "pythonVersion": "3.12.10",
+  "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+  "schemaInputs": [
+    {
+      "path": "build-event.schema.json",
+      "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+    },
+    {
+      "path": "build-report.schema.json",
+      "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+    }
+  ],
+  "matrix": [
+    {
+      "configuration": "Debug",
+      "reports": 28,
+      "eventFiles": 28,
+      "events": 957
+    },
+    {
+      "configuration": "Release",
+      "reports": 28,
+      "eventFiles": 28,
+      "events": 958
+    }
+  ],
+  "validatedFiles": [
+    {
+      "path": "Debug/apt-only/output/build-report.json",
+      "sha256": "e68368ce68565777c040c998512bd895cc23980212b50f566985268b0137dcf4"
+    },
+    {
+      "path": "Debug/apt-only/output/build.events.jsonl",
+      "sha256": "92a8e11760ba93159b361c8a2569d2ce805eda48a12b8f06e55c4a3499b22bfe"
+    },
+    {
+      "path": "Debug/ascii-companion/output/build-report.json",
+      "sha256": "5ac852738ea3aa736b2bf4f6b8f7d794497871d92fe903f5ed78f389610879ed"
+    },
+    {
+      "path": "Debug/ascii-companion/output/build.events.jsonl",
+      "sha256": "3a1fee5c51c2d08e6c0cea7bb718180b26e0b90c3fbabb4b2f3c541b6a0037f0"
+    },
+    {
+      "path": "Debug/bad-xml/output/build-report.json",
+      "sha256": "ae074c7c33db7d870ac6bdb21bf60c372e1a012536e8acc0bcd671b5b64d5ec3"
+    },
+    {
+      "path": "Debug/bad-xml/output/build.events.jsonl",
+      "sha256": "0b334f647f418b3306cf656d6ef6c90d650b993538506ef7239db96086182881"
+    },
+    {
+      "path": "Debug/base-only/output/build-report.json",
+      "sha256": "c419413055e393af927832b9711708617d6d8168fa50abaf32e728df4b4a5ed8"
+    },
+    {
+      "path": "Debug/base-only/output/build.events.jsonl",
+      "sha256": "11770eb5291d8acba43ce68dd7f60f2ca858edb624ed0e391dc9cd8ec2062925"
+    },
+    {
+      "path": "Debug/business-apt-only/output/build-report.json",
+      "sha256": "c2da39077b603ce4dc4261de4176c6f95ded323ebf38942a70bb04c4eb92972a"
+    },
+    {
+      "path": "Debug/business-apt-only/output/build.events.jsonl",
+      "sha256": "689dc089610e5a5760b90f945d805a6124eb0f89b8376eaa906baa4f52a758dd"
+    },
+    {
+      "path": "Debug/business-base-only/output/build-report.json",
+      "sha256": "2388a74f3c313da48512b257d30d609149a84de0219a70929482c3cf66abf130"
+    },
+    {
+      "path": "Debug/business-base-only/output/build.events.jsonl",
+      "sha256": "a62087c9464894d06c2393630d1b1251d537d2041ad4a303f1de5ddcab30047c"
+    },
+    {
+      "path": "Debug/business-combined/output/build-report.json",
+      "sha256": "d26d283f789b7a374204fa36ac35cdc466ad828ab611e1bab0337b91bb0fbdd9"
+    },
+    {
+      "path": "Debug/business-combined/output/build.events.jsonl",
+      "sha256": "99311b0fb47af7e3651b0fc66793b3c23a4ff44c83fb08f5f92383e4757e2e26"
+    },
+    {
+      "path": "Debug/business-maps-only/output/build-report.json",
+      "sha256": "db0d26997ada49eb85b73fbea96e19a66a77ad2ac12a3e02267884783590668a"
+    },
+    {
+      "path": "Debug/business-maps-only/output/build.events.jsonl",
+      "sha256": "08a1b79251d60694e3035765d708096e5cbf1f84fd331c00dc1f6d97417f2ffb"
+    },
+    {
+      "path": "Debug/combined/output/build-report.json",
+      "sha256": "7c6d5bda64b8aaff98fdf0eafc3694f7c3cdab916fb4e67af1866862e3bb733b"
+    },
+    {
+      "path": "Debug/combined/output/build.events.jsonl",
+      "sha256": "23cfe4026bf8d9dc13baaa691a4b0cb7e96a19d47c4b6135fb5d1aba4390e8da"
+    },
+    {
+      "path": "Debug/compressed-session-cache/output/build-report.json",
+      "sha256": "77ae3c246e0218c61bd3e57c5ea83445a0e9fcf7f90d7f1109747db175510bad"
+    },
+    {
+      "path": "Debug/compressed-session-cache/output/build.events.jsonl",
+      "sha256": "2b3ba677892f76fadb2518251109b3fcc4d0c3942ee47dc3ef8dda58e57237de"
+    },
+    {
+      "path": "Debug/ctrl-break/output/build-report.json",
+      "sha256": "c952d4c13bf6f7aa6ebab0bd38ae83df752c818a3d5348188b792538032cc8e7"
+    },
+    {
+      "path": "Debug/ctrl-break/output/build.events.jsonl",
+      "sha256": "1aee8e4e5a5fb66ab2286a41eca717b769c31a3ab56956f498f390157de5103e"
+    },
+    {
+      "path": "Debug/direct-cancel/output/build-report.json",
+      "sha256": "7cf1fbad82a3b47f19419e187c06b36eaff45765f881ad19fa5006dbf441bec9"
+    },
+    {
+      "path": "Debug/direct-cancel/output/build.events.jsonl",
+      "sha256": "f04c5c039d882e039d3170beb908f324138b7db61ad66581f01bc23327aded6a"
+    },
+    {
+      "path": "Debug/direct-compile-failure/output/build-report.json",
+      "sha256": "6e604786518d4160449236300aee7ca61657534bf6a9f5862bac261db136064e"
+    },
+    {
+      "path": "Debug/direct-compile-failure/output/build.events.jsonl",
+      "sha256": "2e37e9dd3d788a0cb420eabdcba54afade91760fa5a57c23dccef8dafcbfff5f"
+    },
+    {
+      "path": "Debug/direct-first/output/build-report.json",
+      "sha256": "9ed1f5ac40b06c0617d11651214c80d9808fe08e1737bab37d882bad99bb2d07"
+    },
+    {
+      "path": "Debug/direct-first/output/build.events.jsonl",
+      "sha256": "8a934eaad524fa916da99eb13a1abe35df11211ede328dcedf7513f242a59f01"
+    },
+    {
+      "path": "Debug/direct-next-selection/output/build-report.json",
+      "sha256": "364071a2ed23e8235338fd870a9d3b111ad56516b2b5881949923cb1b5527023"
+    },
+    {
+      "path": "Debug/direct-next-selection/output/build.events.jsonl",
+      "sha256": "af905c3706bd08b89fb68006aac7ca89551d1fe0910b59b9847c26448f72f012"
+    },
+    {
+      "path": "Debug/empty-optional/output/build-report.json",
+      "sha256": "596218ba67e124faf6e281f64e116477320b8f1e5fd8c57a57e3ef1d18d8254e"
+    },
+    {
+      "path": "Debug/empty-optional/output/build.events.jsonl",
+      "sha256": "b1dec969c4e28d1beb9ff5fe9c88d8738e339872c76f6b1a3c1eff96b936d56f"
+    },
+    {
+      "path": "Debug/locked-unselected-output/output/build-report.json",
+      "sha256": "c01a0cd1dafb3229c53fd3ab343117731b6d9b5177cc3008f86a2e5df4f65980"
+    },
+    {
+      "path": "Debug/locked-unselected-output/output/build.events.jsonl",
+      "sha256": "2696b8d93749bc593692740edfb5795f66d219ca8b6d957bf65858201397f67b"
+    },
+    {
+      "path": "Debug/maps-only/output/build-report.json",
+      "sha256": "c0b94b79ebbf2f9847776daee1ebbb892a0694ec6a1761e9bb3dd6bfb4af1a5c"
+    },
+    {
+      "path": "Debug/maps-only/output/build.events.jsonl",
+      "sha256": "2c6fdca4212f006bef81877a8efd74edcbbea75a6745f0e67d8a051955f452d9"
+    },
+    {
+      "path": "Debug/optional-log-fault/output/build-report.json",
+      "sha256": "85c4ba03c574556a98e40525b52c9802af7c59195c0b5e36cd4333a7734abaf9"
+    },
+    {
+      "path": "Debug/optional-log-fault/output/build.events.jsonl",
+      "sha256": "22768e6084adc81a1161f82cb4c23cf03d8dcca1e93d3b6a5bd9d374b0d93648"
+    },
+    {
+      "path": "Debug/plan-all/output/build-report.json",
+      "sha256": "636b151284f374f543c9a1d4ed23aabe03d33dd99b09987499328c5360590fb6"
+    },
+    {
+      "path": "Debug/plan-all/output/build.events.jsonl",
+      "sha256": "9fa7832a9c0e3de2172046cbfb213899657191c43c24b768e22c94f103dc638c"
+    },
+    {
+      "path": "Debug/real-ui-cold-TacticalHUDBuildQueuePage/output/build-report.json",
+      "sha256": "bbeade0b4521173dca570bca4848589c75738b7554c2ef4cd80872f8c79d1177"
+    },
+    {
+      "path": "Debug/real-ui-cold-TacticalHUDBuildQueuePage/output/build.events.jsonl",
+      "sha256": "e307484036e0c44ef4831625abd16b424fbe26843cbf6b6a1b45a5a2dbc88fff"
+    },
+    {
+      "path": "Debug/real-ui-cold-TacticalHUDCommandListBox/output/build-report.json",
+      "sha256": "d477bd7e25b6c50af084c1c56ffa5d1a18a5f7501d7149a0a97c180d17ec6bda"
+    },
+    {
+      "path": "Debug/real-ui-cold-TacticalHUDCommandListBox/output/build.events.jsonl",
+      "sha256": "8520504a19b404c267a1891a89bb7bc5e9048f50010e55d7067d830df7c0e2d4"
+    },
+    {
+      "path": "Debug/real-ui-cold-TacticalHUDMainCommandBar/output/build-report.json",
+      "sha256": "73a89a8a6d2b4a16f95cd42efeeecc995700723993ac62bbb5140b9350f3bbd4"
+    },
+    {
+      "path": "Debug/real-ui-cold-TacticalHUDMainCommandBar/output/build.events.jsonl",
+      "sha256": "3dd1796f90d864880ad69d449d7718848b1ce250bebe864ad8ebee75af4cc75b"
+    },
+    {
+      "path": "Debug/real-ui-combined/output/build-report.json",
+      "sha256": "6c58d0e8d6d980981cbee3b88e88b888390ae169fe0211cc1865febb880e3a4b"
+    },
+    {
+      "path": "Debug/real-ui-combined/output/build.events.jsonl",
+      "sha256": "9a6537f33a38a7aa7bd544aaac669c86bc7544360e342dcd9959559456e48c1b"
+    },
+    {
+      "path": "Debug/retry-after-bad/output/build-report.json",
+      "sha256": "9934a9c564b3b66b8fd830f209930ce12eb118977147c4953d1252e3b069377e"
+    },
+    {
+      "path": "Debug/retry-after-bad/output/build.events.jsonl",
+      "sha256": "f8d283f98b9c6e101953bf82306ff0c8f36d1dd6b8c8f863ebe7d4a802b8c0ac"
+    },
+    {
+      "path": "Debug/retry-after-cancel/output/build-report.json",
+      "sha256": "bd5f2d32787e767e1956f60999e71f3e9ac1a55420b29a2a215b8fc4a532c2e3"
+    },
+    {
+      "path": "Debug/retry-after-cancel/output/build.events.jsonl",
+      "sha256": "e282f8f3a76f90df6fa3945d57f853d99ed018fae025322618b6353e31654cc2"
+    },
+    {
+      "path": "Debug/retry-after-log-fault/output/build-report.json",
+      "sha256": "e9d23d158f1222b7ef73288298ca5c194455d3bbbff147dfeb2078941f09fbb0"
+    },
+    {
+      "path": "Debug/retry-after-log-fault/output/build.events.jsonl",
+      "sha256": "5435efe9ede9dccb88e792c36dad1b091f682ad61b018f3f4cd47c4eea35fcfb"
+    },
+    {
+      "path": "Debug/sdk-internal/output/build-report.json",
+      "sha256": "ec60a873a0e7090c50e22663eaaf9bc249a35946087babf65e1e1c88b2335385"
+    },
+    {
+      "path": "Debug/sdk-internal/output/build.events.jsonl",
+      "sha256": "16b3c5806f94c2c15ba7cc37679d53516321a9cffb47103a8adfb38fdb8545fa"
+    },
+    {
+      "path": "Release/apt-only/output/build-report.json",
+      "sha256": "6ffde276a0e47c78e4150b108622ab6db37a6831efb11d1d36af9741e3c4304d"
+    },
+    {
+      "path": "Release/apt-only/output/build.events.jsonl",
+      "sha256": "f021b94fa019c1dcf3fe1e113792749a3d6a974a915f7d0ad0a7c3f1b952be4e"
+    },
+    {
+      "path": "Release/ascii-companion/output/build-report.json",
+      "sha256": "5dd9edd4ec9ef909cc2f9a2d7d7b53fc15244c78df71c9190deba6a52cb118da"
+    },
+    {
+      "path": "Release/ascii-companion/output/build.events.jsonl",
+      "sha256": "5950ddd20c9d917273614e737f42c7f43f337a44f7bc26b8e56daa3cf08816e5"
+    },
+    {
+      "path": "Release/bad-xml/output/build-report.json",
+      "sha256": "7a6b39db651baebf5a3620adec4d792be6c11e1acd71a07e3017ad29b0da1e2d"
+    },
+    {
+      "path": "Release/bad-xml/output/build.events.jsonl",
+      "sha256": "507fd4c37df7d827ed50cc6cf0e2846d4177d4ae3a47c93a166ca9fee2dafeb4"
+    },
+    {
+      "path": "Release/base-only/output/build-report.json",
+      "sha256": "9b0f006208e5d8d080a9e0bfc7a50fafbf23bb4db5cf347f38a18333893044dc"
+    },
+    {
+      "path": "Release/base-only/output/build.events.jsonl",
+      "sha256": "297857ecd4095ada10a66c9a381419a55d48005684260171122ad3ab17907ff9"
+    },
+    {
+      "path": "Release/business-apt-only/output/build-report.json",
+      "sha256": "51b63662b2b42eba02aa19a090733dc4a9a632e081903f399eafeb91c9ee8859"
+    },
+    {
+      "path": "Release/business-apt-only/output/build.events.jsonl",
+      "sha256": "eba296c572af54867606f783b8e217890f69b3e57d45cf0f41a4ca60b2042596"
+    },
+    {
+      "path": "Release/business-base-only/output/build-report.json",
+      "sha256": "0c880bb82d1dca719f30543a6fbd4b90f62d13d6d13db621f3c6f04e84825783"
+    },
+    {
+      "path": "Release/business-base-only/output/build.events.jsonl",
+      "sha256": "a40b80bfa6475311c933eef188dff53f28fa086c39be080eb42df7c884ccfb51"
+    },
+    {
+      "path": "Release/business-combined/output/build-report.json",
+      "sha256": "6d35c9cf87558a48cd0e4902c4ec14174a6ac9a39447df62347a9276f1476103"
+    },
+    {
+      "path": "Release/business-combined/output/build.events.jsonl",
+      "sha256": "baeb028fb29b26b8c779c8f7389f2a6afc01faef5a93c83414cdb965122631a1"
+    },
+    {
+      "path": "Release/business-maps-only/output/build-report.json",
+      "sha256": "441d83eba47946d7f738e20ff9f55b45ac0e348eadd40a2cd8f29e98e47df61b"
+    },
+    {
+      "path": "Release/business-maps-only/output/build.events.jsonl",
+      "sha256": "28a1b367a5935a481b7ffe451b163e66a0fa01e83a0832d52545ba9737dbf067"
+    },
+    {
+      "path": "Release/combined/output/build-report.json",
+      "sha256": "014e582e34d6f977c27eecf69fbe273abaa1245364fc19d96727691efeff7c44"
+    },
+    {
+      "path": "Release/combined/output/build.events.jsonl",
+      "sha256": "dca940751a3ae9eb19de779d38a801b79e45d328c64a3e7054ed80bf3b77edec"
+    },
+    {
+      "path": "Release/compressed-session-cache/output/build-report.json",
+      "sha256": "bcaf0200a20ab5b73fe5dc3a67b9703ea8f69a2c3bb1e650e6ee0bbab3188886"
+    },
+    {
+      "path": "Release/compressed-session-cache/output/build.events.jsonl",
+      "sha256": "9e6ea6c8223f7c43aad015eb6a799c7305339a055ba3c6ca0a128f87f049a17d"
+    },
+    {
+      "path": "Release/ctrl-break/output/build-report.json",
+      "sha256": "d5d3a430034f84446c3c56dece2a877283623f76c316d590d5d96449eb12a511"
+    },
+    {
+      "path": "Release/ctrl-break/output/build.events.jsonl",
+      "sha256": "e2b6c1eceabd5e63827ab74572d1538eb0da36d7c63eb38322e51a0c99be8b04"
+    },
+    {
+      "path": "Release/direct-cancel/output/build-report.json",
+      "sha256": "8f27d8fa6cce12c38fa91b4edbbdb4ce686a71f0c9faa4432b5c6b42e1b339a6"
+    },
+    {
+      "path": "Release/direct-cancel/output/build.events.jsonl",
+      "sha256": "2bee84a8f6e2878105b448c2f8deaf59a3fadac1e5ac3e305401e1c9048c4819"
+    },
+    {
+      "path": "Release/direct-compile-failure/output/build-report.json",
+      "sha256": "d178bf77eb2f89a2c7449b2d1a64a7da6dedc4cc0e56b5e74b9d00de1808e865"
+    },
+    {
+      "path": "Release/direct-compile-failure/output/build.events.jsonl",
+      "sha256": "b573002e0807e48bda21dfcb5237327c5528a7bfca48c6f1131867fb888df8f3"
+    },
+    {
+      "path": "Release/direct-first/output/build-report.json",
+      "sha256": "3c49061b2a373f6019e9d814844e9229e9852dba3586cd1b585527692a23647c"
+    },
+    {
+      "path": "Release/direct-first/output/build.events.jsonl",
+      "sha256": "f616e98b1c197f36e10eb3bae13958457c7bce9b2861d6514a83b2652b64e4b5"
+    },
+    {
+      "path": "Release/direct-next-selection/output/build-report.json",
+      "sha256": "20fe978710c6f082971df6ba4aa361bc99f048959c8b1b814201f7a3aa4d2d1c"
+    },
+    {
+      "path": "Release/direct-next-selection/output/build.events.jsonl",
+      "sha256": "820cc400106f670e4edbd078c53e776831fd8308b7aec099fb783d27c844c5be"
+    },
+    {
+      "path": "Release/empty-optional/output/build-report.json",
+      "sha256": "8a0af31a61dee693feddc60c9a18aff6342e9be5fb3ad6cf6a46b86a4e888a8f"
+    },
+    {
+      "path": "Release/empty-optional/output/build.events.jsonl",
+      "sha256": "e514a09da18a2dd4194fdd08280a24498bee941e49d7da9fa32f5dfbf560a3c1"
+    },
+    {
+      "path": "Release/locked-unselected-output/output/build-report.json",
+      "sha256": "3d7f00de7cc44bf388509c582b04163dcc444139cf900e93fcb7096ef0622c2f"
+    },
+    {
+      "path": "Release/locked-unselected-output/output/build.events.jsonl",
+      "sha256": "175e694167f0f033093f3ff59f3049c7d5a054707891e9bcb084bddd5465ef43"
+    },
+    {
+      "path": "Release/maps-only/output/build-report.json",
+      "sha256": "2ce5c260737e7a8b35ceb7d5ac2e13a3ad89c9a8b70895f5dbfd5f08114f60ee"
+    },
+    {
+      "path": "Release/maps-only/output/build.events.jsonl",
+      "sha256": "7ed86605ac712b4cba950c7dc886c56cbabfdc961530cf039cb25f06a42c5606"
+    },
+    {
+      "path": "Release/optional-log-fault/output/build-report.json",
+      "sha256": "610ca49cb30358be01217ac7c7d326e659531218adb37dabd07b6d7144bdd7a3"
+    },
+    {
+      "path": "Release/optional-log-fault/output/build.events.jsonl",
+      "sha256": "6c29a3b9303a107b89b11383d99c0597562579a3634b4f6bb136029ed4ecbd5c"
+    },
+    {
+      "path": "Release/plan-all/output/build-report.json",
+      "sha256": "0d2e69782781238d9edd239755306bfc661f012ce9a120987ab2f611a3e795f6"
+    },
+    {
+      "path": "Release/plan-all/output/build.events.jsonl",
+      "sha256": "a09fbd7a66061c622c6f01f89468ff8f4ff5fb7106653a6590f428faf6b9e8b3"
+    },
+    {
+      "path": "Release/real-ui-cold-TacticalHUDBuildQueuePage/output/build-report.json",
+      "sha256": "6ae4ab8369f308eaba9d67bc7d694cf331cfec4ac8af5b399d7d05e37f79b52f"
+    },
+    {
+      "path": "Release/real-ui-cold-TacticalHUDBuildQueuePage/output/build.events.jsonl",
+      "sha256": "f2ed4593e4f5019612d7771d1e2c39633b29453e43ac394730d193afc0d143a5"
+    },
+    {
+      "path": "Release/real-ui-cold-TacticalHUDCommandListBox/output/build-report.json",
+      "sha256": "053ecab3370eddadff71d721590bae936d5764e381a0564b10b67f095f199ca3"
+    },
+    {
+      "path": "Release/real-ui-cold-TacticalHUDCommandListBox/output/build.events.jsonl",
+      "sha256": "e7f4c469f94baba882ec714b156e9231afd39b72e519c8b7ae8267f482be9098"
+    },
+    {
+      "path": "Release/real-ui-cold-TacticalHUDMainCommandBar/output/build-report.json",
+      "sha256": "2f857afe7fd8b96c23d0a9b736b434e02471da138486803984d71a570cd8a39c"
+    },
+    {
+      "path": "Release/real-ui-cold-TacticalHUDMainCommandBar/output/build.events.jsonl",
+      "sha256": "385fc0be5c47a57b5195a7192250153a7dc8b2f931f4689a1ee84b187067d24b"
+    },
+    {
+      "path": "Release/real-ui-combined/output/build-report.json",
+      "sha256": "722c41ef5b71214ac080f0eaa83119fc86063ac822b4bef23350358af09585a5"
+    },
+    {
+      "path": "Release/real-ui-combined/output/build.events.jsonl",
+      "sha256": "e35ab366b65e02df57886e02b4e72c38c9b6ba1aa0c61503118f1bf396b7c6f3"
+    },
+    {
+      "path": "Release/retry-after-bad/output/build-report.json",
+      "sha256": "fe726f6f1de76752c7043939bac2058c1a57d8c2657a7933e43422a63a993a5f"
+    },
+    {
+      "path": "Release/retry-after-bad/output/build.events.jsonl",
+      "sha256": "8ca3869c75dbabcf845f0167507f49e4f175cf8d05a4caa5ae6f9293a832009d"
+    },
+    {
+      "path": "Release/retry-after-cancel/output/build-report.json",
+      "sha256": "cb67b3cde0c8da89b7df2fbcf5de163fff9767a6e5ea931fb1ebcbd62105fd89"
+    },
+    {
+      "path": "Release/retry-after-cancel/output/build.events.jsonl",
+      "sha256": "66daad6a9cf708f7185a335fc4980e982e0d74ce0da24d7e9e86cf4adc91a29f"
+    },
+    {
+      "path": "Release/retry-after-log-fault/output/build-report.json",
+      "sha256": "50ab0ae6cd2367b17b5f4d39b79483b9ad38d16bef4f8fbda7c5ccaafca75126"
+    },
+    {
+      "path": "Release/retry-after-log-fault/output/build.events.jsonl",
+      "sha256": "1c808e1dad09eed7dd3d538da6b04577bc9fa9b7d0d8f7b4672ccc68b976aace"
+    },
+    {
+      "path": "Release/sdk-internal/output/build-report.json",
+      "sha256": "0ba198b27f2bd1eb78c5b5430b109f7c55e46691bab1b2e405fbc8fd480015c1"
+    },
+    {
+      "path": "Release/sdk-internal/output/build.events.jsonl",
+      "sha256": "9e49caffd8c7791c246a17ca0d2658d47289207b956c961742bb8e53c89f6552"
+    }
+  ],
+  "errorCount": 0,
+  "errors": [],
+  "notes": [
+    "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+    "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+  ]
+}

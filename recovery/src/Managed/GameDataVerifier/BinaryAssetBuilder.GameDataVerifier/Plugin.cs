@@ -4,45 +4,46 @@ using BinaryAssetBuilder.Core;
 
 namespace BinaryAssetBuilder.GameDataVerifier;
 
+#if NEWSdk_MONOLITHIC
+internal class Plugin : IConcurrentAssetBuilderVerifierPlugin
+#else
 internal class Plugin : IAssetBuilderVerifierPlugin, IAssetBuilderPluginBase
+#endif
 {
 	private static class GameObjectVerifier
 	{
-		private static XmlNamespaceManager _NamespaceManager;
-
-		private static Tracer _Tracer = Tracer.GetTracer("GameDataVerifier", "Verifies that Sage RTS data is logic correct");
+		private static readonly Tracer _Tracer = Tracer.GetTracer("GameDataVerifier", "Verifies that Sage RTS data is logic correct");
 
 		public static bool Verify(InstanceDeclaration declaration)
 		{
-			_NamespaceManager = declaration.Document.NamespaceManager;
-			return Verify(declaration.Node.Attributes["id"].Value, declaration.Document.SourcePath, declaration.Node);
+			return Verify(declaration.Node.Attributes["id"].Value, declaration.Document.SourcePath, declaration.Node, declaration.Document.NamespaceManager);
 		}
 
-		private static bool Verify(string gameObjectId, string srcFile, XmlNode node)
+		private static bool Verify(string gameObjectId, string srcFile, XmlNode node, XmlNamespaceManager namespaces)
 		{
 			bool flag = true;
-			flag = VerifyModuleIds(node, gameObjectId, srcFile);
-			return VerifyDrawModules(node, gameObjectId) && flag;
+			flag = VerifyModuleIds(node, gameObjectId, srcFile, namespaces);
+			return VerifyDrawModules(node, gameObjectId, namespaces) && flag;
 		}
 
-		private static bool VerifyDrawModules(XmlNode node, string gameObjectId)
+		private static bool VerifyDrawModules(XmlNode node, string gameObjectId, XmlNamespaceManager namespaces)
 		{
 			bool flag = true;
-			XmlNodeList xmlNodeList = node.SelectNodes("ea:Draws/*", _NamespaceManager);
+			XmlNodeList xmlNodeList = node.SelectNodes("ea:Draws/*", namespaces);
 			foreach (XmlNode item in xmlNodeList)
 			{
-				flag = VerifyDrawModules_DuplicateDefaultStates(item, gameObjectId) && flag;
+				flag = VerifyDrawModules_DuplicateDefaultStates(item, gameObjectId, namespaces) && flag;
 				Dictionary<string, int> stateNameAttributes = new Dictionary<string, int>();
-				flag = VerifyDrawModules_UniqueConditionsYes(item, gameObjectId, ref stateNameAttributes) && flag;
-				flag = VerifyDrawModules_StateNameReferences(item, ref stateNameAttributes, gameObjectId) && flag;
+				flag = VerifyDrawModules_UniqueConditionsYes(item, gameObjectId, ref stateNameAttributes, namespaces) && flag;
+				flag = VerifyDrawModules_StateNameReferences(item, ref stateNameAttributes, gameObjectId, namespaces) && flag;
 			}
 			return flag;
 		}
 
-		private static bool VerifyDrawModules_StateNameReferences(XmlNode mod, ref Dictionary<string, int> stateNameAttributes, string gameObjectId)
+		private static bool VerifyDrawModules_StateNameReferences(XmlNode mod, ref Dictionary<string, int> stateNameAttributes, string gameObjectId, XmlNamespaceManager namespaces)
 		{
 			bool result = true;
-			XmlNodeList xmlNodeList = mod.SelectNodes("ea:AnimationState/ea:Script", _NamespaceManager);
+			XmlNodeList xmlNodeList = mod.SelectNodes("ea:AnimationState/ea:Script", namespaces);
 			string text = "CurDrawableSetTransitionAnimState";
 			foreach (XmlNode item in xmlNodeList)
 			{
@@ -73,10 +74,10 @@ internal class Plugin : IAssetBuilderVerifierPlugin, IAssetBuilderPluginBase
 			return result;
 		}
 
-		private static bool VerifyDrawModules_UniqueConditionsYes(XmlNode mod, string gameObjectId, ref Dictionary<string, int> stateNameAttributes)
+		private static bool VerifyDrawModules_UniqueConditionsYes(XmlNode mod, string gameObjectId, ref Dictionary<string, int> stateNameAttributes, XmlNamespaceManager namespaces)
 		{
 			bool result = true;
-			XmlNodeList xmlNodeList = mod.SelectNodes("ea:AnimationState", _NamespaceManager);
+			XmlNodeList xmlNodeList = mod.SelectNodes("ea:AnimationState", namespaces);
 			Dictionary<string, int> dictionary = new Dictionary<string, int>();
 			foreach (XmlNode item in xmlNodeList)
 			{
@@ -152,10 +153,10 @@ internal class Plugin : IAssetBuilderVerifierPlugin, IAssetBuilderPluginBase
 			return result;
 		}
 
-		private static bool VerifyDrawModules_DuplicateDefaultStates(XmlNode mod, string gameObjectId)
+		private static bool VerifyDrawModules_DuplicateDefaultStates(XmlNode mod, string gameObjectId, XmlNamespaceManager namespaces)
 		{
 			bool result = true;
-			XmlNodeList xmlNodeList = mod.SelectNodes("ea:AnimationState[@ParseCondStateType=\"PARSE_DEFAULT\"]", _NamespaceManager);
+			XmlNodeList xmlNodeList = mod.SelectNodes("ea:AnimationState[@ParseCondStateType=\"PARSE_DEFAULT\"]", namespaces);
 			if (xmlNodeList.Count > 1)
 			{
 				_Tracer.TraceWarning("GameObject {0} has {1} default animation states in draw element {2}", gameObjectId, xmlNodeList.Count, mod.Name);
@@ -164,10 +165,10 @@ internal class Plugin : IAssetBuilderVerifierPlugin, IAssetBuilderPluginBase
 			return result;
 		}
 
-		private static bool VerifyModuleIds(XmlNode node, string gameObjectId, string srcFile)
+		private static bool VerifyModuleIds(XmlNode node, string gameObjectId, string srcFile, XmlNamespaceManager namespaces)
 		{
 			bool result = true;
-			XmlNodeList xmlNodeList = node.SelectNodes("ea:Behaviors/* | ea:Draws/* | ea:AI/* | ea:Body/*", _NamespaceManager);
+			XmlNodeList xmlNodeList = node.SelectNodes("ea:Behaviors/* | ea:Draws/* | ea:AI/* | ea:Body/*", namespaces);
 			Set<string> set = new Set<string>();
 			foreach (XmlNode item in xmlNodeList)
 			{
@@ -193,7 +194,7 @@ internal class Plugin : IAssetBuilderVerifierPlugin, IAssetBuilderPluginBase
 		}
 	}
 
-	private static Tracer _Tracer = Tracer.GetTracer("GameDataVerifier", "Verifies that Sage RTS data is logic correct");
+	private static readonly Tracer _Tracer = Tracer.GetTracer("GameDataVerifier", "Verifies that Sage RTS data is logic correct");
 
 	public void Initialize(object configSection, TargetPlatform platform)
 	{

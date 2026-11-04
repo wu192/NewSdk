@@ -44,11 +44,10 @@ for name,size in sizes.items():lines+=[f' if(std::strcmp(type,{q(name)})==0)retu
 lines+=[' throw std::invalid_argument("Unknown UIConfig nested type size.");','}',
 'void NamedList(const Node& n,const char* name,unsigned char* p,const char* type){List(n,name,p,NestedSize(type),[&](const Node& child,unsigned char* item){Marshal(type,child,item);});}',
 'void Nullable(const Node& n,const char* child,unsigned char* p,const char* type){auto c=Child(n,child);if(!c)return;auto target=static_cast<unsigned char*>(t.Push(reinterpret_cast<void**>(p),NestedSize(type),1));Marshal(type,*c,target);t.Pop();}',
-'void NestedChildString(const Node& n,const char* name,unsigned char* p){auto c=Child(n,name);if(c){Validate(*c,"","",false,true);Text(c->value,p);}}',
+'void NestedChildString(const Node& n,const char* name,unsigned char* p){auto c=Child(n,name);if(c){Text(c->value,p);}}',
 'void Marshal(const char* type,const Node& n,unsigned char* p){']
 for name,(size,fs) in fields.items():
- children='Color' if name=='RadiusDecalComponent' else ''
- lines+=[f' if(std::strcmp(type,{q(name)})==0){{Validate(n,{q("|".join(f[0] for f in fs))},{q(children)});']
+ lines+=[f' if(std::strcmp(type,{q(name)})==0){{']
  for a,offset,kind,default in fs:
   if kind.startswith('enum:'):lines+=[f'  EnumAttr(n,{q(a)},p+{offset},{q(kind[5:])},{q(default)});']
   elif kind=='string':lines+=[f'  String(n,{q(a)},p+{offset},{q(default)});']
@@ -57,21 +56,21 @@ for name,(size,fs) in fields.items():
  if name=='RadiusDecalComponent':lines+=['  if(auto c=Child(n,"Color"))Marshal("ColorTag",*c,p+60);']
  lines+=['  return;',' }']
 lines+=r'''
- if(std::strcmp(type,"SingleCommandList")==0){Validate(n,"CategoryName","CommandLine");String(n,"CategoryName",p);NamedList(n,"CommandLine",p+8,"SingleCommandLine");return;}
- if(std::strcmp(type,"SingleCommandLine")==0){Validate(n,"Purpose|Description","Input");String(n,"Purpose",p);String(n,"Description",p+8);NamedList(n,"Input",p+16,"InputButton");return;}
- if(std::strcmp(type,"ColorTag")==0){Validate(n,"R|G|B|A","");U32 red=ParseUnsigned(Value(n,"R","0"))&255u,green=ParseUnsigned(Value(n,"G","0"))&255u,blue=ParseUnsigned(Value(n,"B","0"))&255u,alpha=ParseUnsigned(Value(n,"A","255"))&255u;Word(p,(alpha<<24)|(red<<16)|(green<<8)|blue);return;}
- if(std::strcmp(type,"RadiusDecalTemplate")==0){Validate(n,"","Component");NamedList(n,"Component",p,"RadiusDecalComponent");return;}
- if(std::strcmp(type,"ArchiveMovieList")==0){Validate(n,"Faction","Movie");EnumAttr(n,"Faction",p,"FactionType","Soviet");NamedList(n,"Movie",p+4,"ArchivableMovie");return;}
- if(std::strcmp(type,"MultiplayerLobbyData")==0){Validate(n,"","LobbyTitleLabelSpec|UnmoderatedLobbyTitleTemplateSpec|ModeratedLobbyTitleTemplateSpec|PlayerNameLabelSpec|SlotLabelSpec|SlotState");NestedChildString(n,"LobbyTitleLabelSpec",p);NestedChildString(n,"UnmoderatedLobbyTitleTemplateSpec",p+8);NestedChildString(n,"ModeratedLobbyTitleTemplateSpec",p+16);NestedChildString(n,"PlayerNameLabelSpec",p+24);NestedChildString(n,"SlotLabelSpec",p+32);NamedList(n,"SlotState",p+40,"SlotState");return;}
- if(std::strcmp(type,"SkirmishLobbyData")==0){Validate(n,"","LoadMusic|SlotLabelSpec|SlotState");NestedChildString(n,"LoadMusic",p);NestedChildString(n,"SlotLabelSpec",p+8);NamedList(n,"SlotState",p+16,"SlotState");return;}
- if(std::strcmp(type,"FactionType")==0){Validate(n,"","",false,true);Word(p,static_cast<U32>(EnumValue(type,n.value)));return;}
- if(std::strcmp(type,"AssetId")==0||std::strcmp(type,"String")==0){Validate(n,"","",false,true);Text(n.value,p);return;}
- if(std::strcmp(type,"TypedAssetId")==0){Validate(n,"","",false,true);Word(p,HashAssetId(n.value));return;}
+ if(std::strcmp(type,"SingleCommandList")==0){String(n,"CategoryName",p);NamedList(n,"CommandLine",p+8,"SingleCommandLine");return;}
+ if(std::strcmp(type,"SingleCommandLine")==0){String(n,"Purpose",p);String(n,"Description",p+8);NamedList(n,"Input",p+16,"InputButton");return;}
+ if(std::strcmp(type,"ColorTag")==0){U32 red=ParseUnsigned(Value(n,"R","0"))&255u,green=ParseUnsigned(Value(n,"G","0"))&255u,blue=ParseUnsigned(Value(n,"B","0"))&255u,alpha=ParseUnsigned(Value(n,"A","255"))&255u;Word(p,(alpha<<24)|(red<<16)|(green<<8)|blue);return;}
+ if(std::strcmp(type,"RadiusDecalTemplate")==0){NamedList(n,"Component",p,"RadiusDecalComponent");return;}
+ if(std::strcmp(type,"ArchiveMovieList")==0){EnumAttr(n,"Faction",p,"FactionType","Soviet");NamedList(n,"Movie",p+4,"ArchivableMovie");return;}
+ if(std::strcmp(type,"MultiplayerLobbyData")==0){NestedChildString(n,"LobbyTitleLabelSpec",p);NestedChildString(n,"UnmoderatedLobbyTitleTemplateSpec",p+8);NestedChildString(n,"ModeratedLobbyTitleTemplateSpec",p+16);NestedChildString(n,"PlayerNameLabelSpec",p+24);NestedChildString(n,"SlotLabelSpec",p+32);NamedList(n,"SlotState",p+40,"SlotState");return;}
+ if(std::strcmp(type,"SkirmishLobbyData")==0){NestedChildString(n,"LoadMusic",p);NestedChildString(n,"SlotLabelSpec",p+8);NamedList(n,"SlotState",p+16,"SlotState");return;}
+ if(std::strcmp(type,"FactionType")==0){Word(p,static_cast<U32>(EnumValue(type,n.value)));return;}
+ if(std::strcmp(type,"AssetId")==0||std::strcmp(type,"String")==0){Text(n.value,p);return;}
+ if(std::strcmp(type,"TypedAssetId")==0){Word(p,HashAssetId(n.value));return;}
  if(std::strcmp(type,"ObjectFilter")==0){
-  Validate(n,"id|Rule|Relationship|Alignment|Include|Exclude|StatusBitFlags|StatusBitFlagsExclude","IncludeThing|ExcludeThing");ObjectFilterInput input;
+  ObjectFilterInput input;
   // Original scalar enum helpers63778/63789 compare C strings. Scope this adapter
   // normalization to UIConfigList; shared ObjectFilter users retain their accepted input contract.
-  for(const auto& a:n.attributes)if(a.first!="TypeId")input.attributes[a.first]=(a.first=="Rule"||a.first=="Alignment")?std::string(a.second.c_str()):a.second;for(const auto& c:n.children){Validate(c,"","",false,true);(c.name=="IncludeThing"?input.includeThings:input.excludeThings).push_back(c.value);}auto object=reinterpret_cast<ObjectFilter*>(p);MarshalObjectFilter(input,object,t);
+  for(const auto& a:n.attributes)if(a.first!="TypeId")input.attributes[a.first]=(a.first=="Rule"||a.first=="Alignment")?std::string(a.second.c_str()):a.second;for(const auto& c:n.children){(c.name=="IncludeThing"?input.includeThings:input.excludeThings).push_back(c.value);}auto object=reinterpret_cast<ObjectFilter*>(p);MarshalObjectFilter(input,object,t);
   for(unsigned at=0;at<88;at+=4)words.push_back(p+at);words.push_back(p+96);words.push_back(p+104);
   if(object->status)for(unsigned j=0;j<7;++j)words.push_back(object->status+j);if(object->statusExclude)for(unsigned j=0;j<7;++j)words.push_back(object->statusExclude+j);for(unsigned j=0;j<object->includeCount;++j)words.push_back(object->includeThings+j);for(unsigned j=0;j<object->excludeCount;++j)words.push_back(object->excludeThings+j);return;
  }

@@ -3,12 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Web.Script.Serialization;
 
 // External test host: never linked into the production executable.
 class CompilerRoutes
 {
     static void Require(bool condition, string message) { if (!condition) throw new Exception(message); }
+    static readonly Dictionary<string,string> UiDependencies=new Dictionary<string,string>(StringComparer.Ordinal) {
+        {"LibTessDotNet","6f2a8b10515fe328e1c9a28b23660958d8a3eea0ca436042516ff5e0a2ec5921"},
+        {"Clipper2Lib","48c351243cdaedc28fc726ae0e4d8fdb39207556fb8caf1a6e4d0bdfe77159f4"},
+        {"StbImageSharp","387e42762fafcac4f82cbc2bf2b418f4ada338ea444734b1d444c6a6e2d1cb6e"}
+    };
+    static void RequireEmbeddedDependency(Assembly own,string name)
+    {
+        using(Stream input=own.GetManifestResourceStream("BinaryAssetBuilder.UiCompiler.Dependencies."+name+".dll"))using(SHA256 sha=SHA256.Create()) {
+            Require(input!=null,"Missing embedded UI dependency: "+name);
+            Require(BitConverter.ToString(sha.ComputeHash(input)).Replace("-","").ToLowerInvariant()==UiDependencies[name],"Embedded UI dependency differs from its package pin: "+name);
+        }
+    }
     static object Read(object instance, string name)
     {
         Type type = instance.GetType();
@@ -64,6 +77,7 @@ class CompilerRoutes
             {
                 string name = new AssemblyName(e.Name).Name;
                 if (name == "antlr.runtime") return Assembly.LoadFrom(Path.Combine(bin, "antlr.runtime.dll"));
+                if (UiDependencies.ContainsKey(name)) return null; // The product's resource resolver owns these libraries.
                 throw new Exception("Unexpected runtime assembly resolution: " + e.Name);
             };
             Assembly own = Assembly.GetEntryAssembly();
@@ -81,8 +95,8 @@ class CompilerRoutes
             {
                 var routes = Items(Read(owner, "Routes"));
                 var plugins = Items(Read(owner, "Plugins"));
-                Require(routes.Count == 299, "Expected 299 declared built-in routes");
-                Require(plugins.Count == 6, "Expected six explicitly constructed built-in plugins");
+                Require(routes.Count == 310, "Expected 310 declared built-in routes");
+                Require(plugins.Count == 7, "Expected seven explicitly constructed built-in plugins");
                 foreach (object plugin in plugins) Require(plugin.GetType().Assembly == own, "Plugin implementation escaped production EXE");
                 var ids = new HashSet<uint>(); var names = new HashSet<string>(StringComparer.Ordinal);
                 var actual = new Dictionary<string, object>(StringComparer.Ordinal);
@@ -135,8 +149,11 @@ class CompilerRoutes
                             "ReInitialize round " + round + " route " + Read(route, "TypeName"));
                     }
                 }
-                foreach (string required in new[] { "GameObject", "WeaponTemplate", "ArmorTemplate", "W3DAnimation", "W3DMesh" })
+                foreach (string required in new[] { "GameObject", "WeaponTemplate", "ArmorTemplate", "W3DAnimation", "W3DMesh", "AptAptData" })
                     Require(actual.ContainsKey(required), "Required native family route absent: " + required);
+                Require((string)Read(actual["AptAptData"],"Family")=="ui" &&
+                    getPlugin.Invoke(registry,new object[]{Convert.ToUInt32(Read(actual["AptAptData"],"TypeId"))}).GetType().FullName=="NewModCompiler.Application.UiAptPlugin",
+                    "AptAptData is not bound to the source-aware built-in UI plugin");
                 var catalog = (Dictionary<string, object>)new JavaScriptSerializer().DeserializeObject(File.ReadAllText(args[1]));
                 int xmlCount = 0, globalCount = 0;
                 foreach (Dictionary<string, object> expected in (object[])catalog["roots"])
@@ -149,7 +166,7 @@ class CompilerRoutes
                         (bool)Read(route, "SchemaGlobal") == (bool)expected["schemaGlobal"], "XML catalog metadata differs: " + name);
                     ++xmlCount; if ((bool)expected["schemaGlobal"]) ++globalCount;
                 }
-                Require(xmlCount == 289 && globalCount == 267, "XML schema-global/non-global boundary changed");
+                Require(xmlCount == 300 && globalCount == 278, "XML schema-global/non-global boundary changed");
                 foreach (Dictionary<string, object> excluded in (object[])catalog["excluded"])
                     Require(!ids.Contains(Convert.ToUInt32(excluded["typeId"])), "Excluded XML root became supported");
                 Type routeType = routes[0].GetType();
@@ -166,7 +183,7 @@ class CompilerRoutes
                 Require(!ids.Contains(0u), "Unknown-route fixture collided");
                 object unknown = getPlugin.Invoke(registry, new object[] { 0u });
                 Reject(unknown.GetType().GetMethod("ProcessInstance"), unknown, new object[] { null }, "Unknown route");
-                Console.WriteLine("PASS production built-in registry: 299 routes, six EXE-owned factories, 289 XML declarations (267 global/22 non-global), missing/duplicate/unknown rejection; three owner reinitializations preserve plugin/route identity and metadata; metadata only, no asset differential");
+                Console.WriteLine("PASS production built-in registry: 310 routes, seven EXE-owned factories including source-aware AptAptData, 300 XML declarations (278 global/22 non-global), missing/duplicate/unknown rejection; three owner reinitializations preserve plugin/route identity and metadata; metadata only, no asset differential");
             }
             finally { ((IDisposable)owner).Dispose(); ((IDisposable)owner).Dispose(); }
             RejectDisposed(factory.GetMethod("ReInitialize"), owner, new[] { win32 }, "ReInitialize");
@@ -175,8 +192,13 @@ class CompilerRoutes
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 string name = assembly.GetName().Name;
+                if(UiDependencies.ContainsKey(name)) {
+                    Require(String.IsNullOrEmpty(assembly.Location),"UI dependency loaded from an external file: "+name);
+                    RequireEmbeddedDependency(own,name);
+                    continue;
+                }
                 Require(name == own.GetName().Name || name == Assembly.GetExecutingAssembly().GetName().Name || name == "antlr.runtime" ||
-                    name == "mscorlib" || name == "System" || name.StartsWith("System.", StringComparison.Ordinal) || name == "Microsoft.CSharp",
+                    name == "mscorlib" || name == "System" || name == "netstandard" || name.StartsWith("System.", StringComparison.Ordinal) || name == "Microsoft.CSharp",
                     "Unexpected loaded business assembly: " + name);
             }
             return 0;

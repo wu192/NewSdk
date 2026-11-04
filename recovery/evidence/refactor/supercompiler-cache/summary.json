@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "5c0c993f9b7819e04e3bb2360c470a08d5301f7e",
+  "sourceAudits": [
+    {
+      "events": [],
+      "writeEvents": 0,
+      "errors": [],
+      "name": "mymod"
+    },
+    {
+      "events": [],
+      "writeEvents": 0,
+      "errors": [],
+      "name": "upheaval"
+    },
+    {
+      "events": [],
+      "writeEvents": 0,
+      "errors": [],
+      "name": "flash8-empty"
+    }
+  ],
+  "sdkAudit": {
+    "errors": [],
+    "watchedInputTrees": 7,
+    "outsideCache": []
+  },
+  "samples": [
+    {
+      "xmlParse": null,
+      "label": "mymod-plan",
+      "artifactCount": 0,
+      "status": "passed",
+      "instanceCompile": null,
+      "exitCode": 0
+    },
+    {
+      "xmlParse": null,
+      "label": "upheaval-plan",
+      "artifactCount": 0,
+      "status": "passed",
+      "instanceCompile": null,
+      "exitCode": 0
+    },
+    {
+      "xmlParse": null,
+      "label": "big-version-required",
+      "artifactCount": null,
+      "status": "passed",
+      "instanceCompile": null,
+      "exitCode": 2
+    },
+    {
+      "xmlParse": 11,
+      "label": "mymod-loose-cold",
+      "artifactCount": 4,
+      "status": "passed",
+      "instanceCompile": 47,
+      "exitCode": 0
+    },
+    {
+      "xmlParse": 0,
+      "label": "mymod-loose-hot-newout",
+      "artifactCount": 4,
+      "status": "passed",
+      "instanceCompile": 0,
+      "exitCode": 0
+    },
+    {
+      "xmlParse": 0,
+      "label": "mymod-big-hot-newout",
+      "artifactCount": 2,
+      "status": "passed",
+      "instanceCompile": 0,
+      "exitCode": 0
+    },
+    {
+      "xmlParse": 910,
+      "label": "upheaval-loose-cold",
+      "artifactCount": 1295,
+      "status": "passed",
+      "instanceCompile": 3235,
+      "exitCode": 0
+    },
+    {
+      "xmlParse": 0,
+      "label": "upheaval-loose-hot-newout",
+      "artifactCount": 1295,
+      "status": "passed",
+      "instanceCompile": 0,
+      "exitCode": 0
+    },
+    {
+      "xmlParse": 0,
+      "label": "upheaval-big-hot-newout",
+      "artifactCount": 2,
+      "status": "passed",
+      "instanceCompile": 0,
+      "exitCode": 0
+    },
+    {
+      "xmlParse": 1,
+      "label": "fla-direct-cold",
+      "artifactCount": 4,
+      "status": "passed",
+      "instanceCompile": 3,
+      "exitCode": 0
+    },
+    {
+      "xmlParse": 0,
+      "label": "fla-direct-hot-newout",
+      "artifactCount": 4,
+      "status": "passed",
+      "instanceCompile": 0,
+      "exitCode": 0
+    }
+  ],
+  "sourceCommit": "476a78787bb026d43902e25d0b006154f14d8448",
+  "status": "passed",
+  "sdkInputDifferences": [],
+  "error": null,
+  "binarySourceCommit": "f8e8f4a024072a892177c7200fd02fc5e8c3d62f",
+  "runId": 41275643703,
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41275643703",
+  "artifact": {
+    "id": 13071407004,
+    "url": "https://github.com/wu162/NewSdk/actions/runs/41275643703/artifacts/13071407004",
+    "bytes": 2987263,
+    "sha256ReportedByActions": "ae00c45b84ae85a8fae693f54c4c374722960007da73da57788b09506d785f2f"
+  },
+  "scope": "Release Win32; complete current mymod base and complete pinned historical Upheaval base; loose cold/hot in different output directories, warm BIG; tiny flash8-empty direct FLA cold/hot; source write watchers and bytes/mtime/attributes snapshots.",
+  "upheavalInput": {
+    "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+    "tree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0"
+  },
+  "app": {
+    "runId": 41275643739,
+    "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41275643739",
+    "assertions": 1846,
+    "status": "success",
+    "allPowerShellScriptsParsed": true
+  },
+  "python": {
+    "hotCacheTests": 42,
+    "cacheAndSdkBenchmarkTests": 12,
+    "reuseTests": 19,
+    "status": "passed",
+    "compilerExecuted": false
+  },
+  "notValidated": [
+    "Original SDK differential for this migration",
+    "Complete APT/maps matrices and all FLA fixtures",
+    "Complete cache flag/invalidations/real cancellation matrix",
+    "Game runtime"
+  ],
+  "retainedAttempts": [
+    {
+      "runId": 41274457392,
+      "status": "failure",
+      "reason": "MSVC LTCG C1001 in Managed.Application.netmodule; explicit catches replaced the sole new App exception-filter IL; no MOD test executed."
+    },
+    {
+      "runId": 41274802042,
+      "status": "failure",
+      "reason": "Release built and six MOD builds passed; broad SDK watcher reported a source directory event with insufficient event details."
+    },
+    {
+      "runId": 41275348270,
+      "status": "failure",
+      "reason": "All eight builds and MOD source audits passed; broad SDK watcher overflowed on cache traffic; stale DirectoryInfo metadata also invalidated the SDK snapshot. Input subtree watchers and direct metadata reads corrected the test harness."
+    }
+  ]
+}

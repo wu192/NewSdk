@@ -1,4 +1,4 @@
-param([string]$OutputDirectory, [switch]$OriginalOnly, [switch]$IncludeMp3, [ValidateSet('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops','resample','resample-full','multichannel','multichannel-aiff')][string[]]$Groups=@('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops'))
+param([string]$OutputDirectory, [switch]$OriginalOnly, [switch]$IncludeMp3, [ValidateSet('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops','resample','resample-full','multichannel','multichannel-aiff','multichannel-eight','new-world-eight')][string[]]$Groups=@('business','pcm','xas','defaults','rates','main','pcm8','formats','loops','aiffloops'))
 $ErrorActionPreference = 'Stop'
 if (!$OriginalOnly -and (@($Groups | Where-Object { $_ -in @('resample') }).Count -gt 0)) { throw 'Unrecovered native groups are original-only evidence, not candidate validation' }
 Set-Location (Resolve-Path "$PSScriptRoot/../..")
@@ -30,7 +30,7 @@ if ($LASTEXITCODE -ne 0) { Get-Content "$out/aiff-loop-reader-oracle-build.log";
 '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$hostExe.config"
 $sourceCommit = (git rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot identify source commit' }
-$receipt = @{sourceCommit=$sourceCommit; runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant(); status='started'; configurations=@(); sdkValidated=$false; nativeAudioFileValidated=$false; scope='PathMusic and AudioFile PCM8/16/24 WAVE, AIFF8/16/24 NONE/XAS component differential'}
+$receipt = @{sourceCommit=$sourceCommit; runId=$env:GITHUB_RUN_ID; runAttempt=$env:GITHUB_RUN_ATTEMPT; originalSha256=(Get-FileHash SDK/tools/BinaryAssetBuilder.AudioCompiler.dll).Hash.ToLowerInvariant(); status='started'; configurations=@(); runtimeDirectories=@{}; sdkValidated=$false; nativeAudioFileValidated=$false; scope='PathMusic and AudioFile PCM8/16/24 WAVE, AIFF8/16/24 NONE/XAS component differential'}
 try {
     $businessScope = if ($OriginalOnly -or $IncludeMp3) { 'business' } else { 'pathmusic' }
     $receipt.mp3Validated = [bool]($IncludeMp3 -and ($Groups -contains 'business'))
@@ -43,6 +43,8 @@ try {
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$group-original.log"; throw "Original $group probe failed" }
     }
     if ($Groups -contains 'multichannel' -and @(Get-Content "$out/multichannel-original.txt").Count -ne 1728) { throw 'Expected all1728 original multichannel success records' }
+    if ($Groups -contains 'multichannel-eight' -and @(Get-Content "$out/multichannel-eight-original.txt").Count -ne 864) { throw 'Expected all864 original eight-channel success records' }
+    if ($Groups -contains 'new-world-eight' -and @(Get-Content "$out/new-world-eight-original.txt").Count -ne 4) { throw 'Expected all4 real New World eight-channel success records' }
     if ($Groups -contains 'multichannel-aiff' -and @(Get-Content "$out/multichannel-aiff-original.txt").Count -ne 6336) { throw 'Expected all6336 AIFF multichannel success records' }
     $receipt.selectedGroups = @($Groups)
     $receipt.scope = $(if ($OriginalOnly) { 'Original-only evidence: ' } else { 'Component differential: ' }) + ($Groups -join ',')
@@ -58,6 +60,7 @@ try {
         $optimize = if ($mode -eq 'Release') { '/optimize+' } else { '/optimize-' }
         & dotnet build recovery/src/Managed/Audio/BinaryAssetBuilder.AudioCompiler.csproj --configuration $mode --output $candidate -p:AssemblyName=Recovered.AudioCompiler *> "$out/$mode-build.log"
         if ($LASTEXITCODE -ne 0) { Get-Content "$out/$mode-build.log"; throw "$mode AudioCompiler build failed" }
+        $receipt.runtimeDirectories[$mode]=$candidate
         Copy-Item "$original/AudioPluginOracle.exe*" $candidate
         Copy-Item "$original/AudioExcludedPlatformOracle.exe" $candidate
         & "$candidate/AudioExcludedPlatformOracle.exe" $library *> "$out/$mode-excluded-platform.log"

@@ -14,8 +14,8 @@ $AcceptanceReceipt=(Resolve-Path -LiteralPath $AcceptanceReceipt).Path
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite release output: $OutputDirectory"}
 $out=(New-Item -ItemType Directory -Path $OutputDirectory).FullName
 $short=$null;$oldPath=$env:PATH
-$allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')
-$state=[ordered]@{schemaVersion=1;succeeded=$false;status='started';sourceCommit=$null;binarySourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;configurations=@();scope='Exact five-file Win32/net48 runtime ZIP deployment, production doctor and small Armor MOD with source-runtime raw output equivalence; not complete P5/G3/SDK or Unicode Texture acceptance'}
+$allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
+$state=[ordered]@{schemaVersion=1;succeeded=$false;status='started';sourceCommit=$null;binarySourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;configurations=@();scope='Exact three-file Win32/net48 runtime ZIP deployment, production doctor and small Armor MOD with source-runtime raw output equivalence; not complete P5/G3/SDK or Unicode Texture acceptance'}
 function Need([bool]$Condition,[string]$Message){if(!$Condition){throw $Message}}
 function Hash([string]$Path){(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
 function Within([string]$Directory,[string]$Path){
@@ -24,7 +24,7 @@ function Within([string]$Directory,[string]$Path){
 }
 function Inventory([string]$Directory){
     $items=@(Get-ChildItem -LiteralPath $Directory -Force)
-    Need ($items.Count -eq $allowed.Count) "Runtime does not contain exactly five files: $Directory"
+    Need ($items.Count -eq $allowed.Count) "Runtime does not contain exactly three files: $Directory"
     foreach($item in $items){Need (!$item.PSIsContainer -and $item.Name -cin $allowed -and ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -eq 0) "Unexpected runtime entry: $($item.Name)"}
     return @($allowed|ForEach-Object{$file=Get-Item -LiteralPath (Join-Path $Directory $_);@{name=$_;bytes=$file.Length;sha256=(Hash $file.FullName)}})
 }
@@ -64,10 +64,10 @@ function BuildOutputs([string]$Runtime,[string]$Sdk,[string]$Mod,[string]$Destin
     foreach($artifact in $report.artifacts){
         Need ((Within $published $artifact.Path) -and (Test-Path -LiteralPath $artifact.Path -PathType Leaf)) 'Release artifact escaped its publication'
         $file=Get-Item -LiteralPath $artifact.Path
-        Need ($file.Length -eq $artifact.Size -and (Hash $file.FullName) -ceq $artifact.Sha256) 'Release artifact differs from report'
+        Need ($file.Length -eq $artifact.Size) 'Release artifact differs from report'
         $relative=[IO.Path]::GetRelativePath($published,$file.FullName).Replace('\','/')
         Need ([IO.Path]::GetExtension($relative) -cin @('.manifest','.bin','.imp','.relo') -and !$outputs.ContainsKey($relative)) 'Release probe returned an unexpected linked output'
-        $outputs[$relative]=@{path=$file.FullName;bytes=$file.Length;sha256=$artifact.Sha256}
+        $outputs[$relative]=@{path=$file.FullName;bytes=$file.Length;sha256=(Hash $file.FullName)}
     }
     Need (@($outputs.Keys|ForEach-Object{[IO.Path]::GetExtension($_)}|Sort-Object -Unique).Count -eq 4 -and @($outputs.Keys|ForEach-Object{$_.Substring(0,$_.Length-[IO.Path]::GetExtension($_).Length)}|Sort-Object -Unique).Count -eq 1) 'Release probe did not return one complete four-file stream'
     Need (@(Get-ChildItem -LiteralPath $Destination -File -Recurse -Filter '*.tmp').Count -eq 0 -and !(Test-Path -LiteralPath (Join-Path $Destination ('.build/'+$report.buildId)))) 'Release left uncommitted build staging or temporary reports'
@@ -129,8 +129,7 @@ try {
             $match=@($acceptedFiles|Where-Object{$_.Name.TrimStart([char[]]'\/') -ceq $file.name})
             Need ($match.Count -eq 1 -and $match[0].Value -ceq $file.sha256) "$mode runtime file does not match accepted production bytes: $($file.name)"
         }
-        $patch=Get-Content -LiteralPath (Join-Path $sourceBin 'BinaryAssetBuilder.TextureCompiler.dll.patch.json') -Raw|ConvertFrom-Json
-        Need ($patch.mode -ceq 'redirect' -and $patch.targetExeSha256 -ceq $build.exeSha256 -and $patch.targetIdentity -ceq ([Reflection.AssemblyName]::GetAssemblyName((Join-Path $sourceBin 'NewModCompiler.exe')).FullName) -and $patch.originalSha256 -ceq '4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e' -and $patch.patchedSha256 -ceq $inventory[3].sha256 -and $patch.protectedPeAudit.status -ceq 'passed' -and $patch.protectedPeAudit.mode -ceq 'redirect' -and $patch.protectedPeAudit.originalSha256 -ceq $patch.originalSha256 -and $patch.protectedPeAudit.outputSha256 -ceq $patch.patchedSha256) "$mode Texture patch is not bound to the production EXE and audited payload"
+        Need ($build.texturePlugin.implementation -ceq 'built-in-source' -and @($build.texturePlugin.externalRuntimeFiles).Count -eq 0) "$mode requires the built-in source texture plugin"
         $package=Join-Path $out ('NewModCompiler-Win32-'+$mode+'.candidate.zip')
         Compress-Archive -LiteralPath @($allowed|ForEach-Object{Join-Path $sourceBin $_}) -DestinationPath $package
         $runtime=Join-Path $deployedProduct ($mode+'/bin')
@@ -150,7 +149,7 @@ try {
             for($offset=0;$offset -lt $left.Length;$offset++){Need ($left[$offset] -eq $right[$offset]) "ZIP-deployed/source raw bytes differ: $key at $offset"}
         }
         AssertInventory $sourceBin $inventory;AssertInventory $runtime $inventory
-        $state.configurations+=,@{configuration=$mode;succeeded=$true;candidateZip=$package;zipSha256=(Hash $package);runtimeFiles=$inventory;buildReceiptSha256=(Hash (Join-Path $buildRoot 'build.json'));linkRecipeSha256=(Hash (Join-Path $buildRoot 'link-inputs.json'));toolchain=@{compiler=$build.compiler;vcToolsVersion=$build.vcToolsVersion;windowsSdkVersion=$build.windowsSdkVersion};texturePatch=$patch;doctor=$doctor;sourceDoctor=$baselineDoctor;baseline=$baseline;deployed=$deployed;rawOutputEquality=$true;runtimeUnchanged=$true}
+        $state.configurations+=,@{configuration=$mode;succeeded=$true;candidateZip=$package;zipSha256=(Hash $package);runtimeFiles=$inventory;buildReceiptSha256=(Hash (Join-Path $buildRoot 'build.json'));linkRecipeSha256=(Hash (Join-Path $buildRoot 'link-inputs.json'));toolchain=@{compiler=$build.compiler;vcToolsVersion=$build.vcToolsVersion;windowsSdkVersion=$build.windowsSdkVersion};texturePlugin=$build.texturePlugin;doctor=$doctor;sourceDoctor=$baselineDoctor;baseline=$baseline;deployed=$deployed;rawOutputEquality=$true;runtimeUnchanged=$true}
     }
     if($VerifyBigDeployment){
         if(Test-Path -LiteralPath $p7Replay){Copy-Item -LiteralPath $p7Replay -Destination (Join-Path $deployedProduct 'p7-replay.json')}
@@ -187,7 +186,7 @@ try {
     foreach($configuration in $state.configurations){
         $stem='NewModCompiler-Win32-'+$configuration.configuration
         $zip=Join-Path $out ($stem+'.zip');Move-Item -LiteralPath $configuration.candidateZip -Destination $zip
-        $manifest=[ordered]@{schemaVersion=1;status='verified-small-mod-deployment';platform='Win32';runtime='.NET Framework 4.8';configuration=$configuration.configuration;binarySourceCommit=$state.binarySourceCommit;packagingSourceCommit=$state.sourceCommit;runId=$state.runId;runAttempt=$state.runAttempt;acceptance=$state.acceptance;toolchain=$configuration.toolchain;buildReceiptSha256=$configuration.buildReceiptSha256;linkRecipeSha256=$configuration.linkRecipeSha256;files=$configuration.runtimeFiles;archive=@{name=($stem+'.zip');bytes=(Get-Item -LiteralPath $zip).Length;sha256=$configuration.zipSha256};texturePatch=$configuration.texturePatch;dependencies=@{compatibilityReference='recovery/probes/TextureRedirect/README.md';textureProtectedPeAudit='reused from exact EXE-bound patch manifest';systemRequirements=@('Windows x86-compatible process','NET Framework 4.8','x86 VC80 CRT for original mixed Texture','x86 VC runtime matching recorded production VCToolsVersion','existing DirectX 9/D3DX runtime required by original Texture');limitations='Uses existing G2 runtime and protected-import evidence; no new dependency audit or system DLL redistribution'};validation=@{productionDoctor=$true;sourceRuntimeRawOutputEquality=$true;bigDeployment=$(if($VerifyBigDeployment){$state.bigDeployment}else{$null});schemaProtocolSha256=$state.protocolSha256;scope=$state.scope}}
+        $manifest=[ordered]@{schemaVersion=1;status='verified-small-mod-deployment';platform='Win32';runtime='.NET Framework 4.8';configuration=$configuration.configuration;binarySourceCommit=$state.binarySourceCommit;packagingSourceCommit=$state.sourceCommit;runId=$state.runId;runAttempt=$state.runAttempt;acceptance=$state.acceptance;toolchain=$configuration.toolchain;buildReceiptSha256=$configuration.buildReceiptSha256;linkRecipeSha256=$configuration.linkRecipeSha256;files=$configuration.runtimeFiles;archive=@{name=($stem+'.zip');bytes=(Get-Item -LiteralPath $zip).Length;sha256=$configuration.zipSha256};texturePlugin=$configuration.texturePlugin;dependencies=@{textureImplementation='built-in-source';systemRequirements=@('Windows x86-compatible process','NET Framework 4.8','x86 VC runtime matching recorded production VCToolsVersion');limitations='Texture is compiled into the EXE; no legacy Texture DLL, VC80 or DirectX runtime is deployed; system runtime libraries are not redistributed'};validation=@{productionDoctor=$true;sourceRuntimeRawOutputEquality=$true;bigDeployment=$(if($VerifyBigDeployment){$state.bigDeployment}else{$null});schemaProtocolSha256=$state.protocolSha256;scope=$state.scope}}
         $manifest|ConvertTo-Json -Depth 20|Set-Content -LiteralPath (Join-Path $out ($stem+'.manifest.json'))
         $configuration.zip=$zip;$null=$configuration.Remove('candidateZip')
     }

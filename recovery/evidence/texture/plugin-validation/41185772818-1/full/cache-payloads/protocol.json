@@ -1,0 +1,243 @@
+{
+  "schemaVersion": "1.0",
+  "status": "passed",
+  "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+  "sourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+  "artifactId": null,
+  "artifactArchiveSha256": null,
+  "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+  "packages": {
+    "jsonschema": "4.23.0",
+    "rfc3339-validator": "0.1.4",
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1"
+  },
+  "pythonVersion": "3.12.10",
+  "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+  "schemaInputs": [
+    {
+      "path": "build-event.schema.json",
+      "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+    },
+    {
+      "path": "build-report.schema.json",
+      "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+    }
+  ],
+  "matrix": [
+    {
+      "configuration": "Debug",
+      "reports": 12,
+      "eventFiles": 12,
+      "events": 358
+    },
+    {
+      "configuration": "Release",
+      "reports": 12,
+      "eventFiles": 12,
+      "events": 358
+    }
+  ],
+  "validatedFiles": [
+    {
+      "path": "Debug/audio-changed-disabled/build-report.json",
+      "sha256": "7a8e3ef4a2c09137055a3f615bac1df1877ea0a1ca0640ddc39bfbb1c3b8cbd4"
+    },
+    {
+      "path": "Debug/audio-changed-disabled/build.events.jsonl",
+      "sha256": "45741c818a7fec9589a6351deaefc455fd55c6b7c9cf370196d3a74aeafbf430"
+    },
+    {
+      "path": "Debug/audio-changed-hot/build-report.json",
+      "sha256": "26b754db7a5e61e97252dd073fb6a97018479fb33c07f1bf4614f58ea20d6acc"
+    },
+    {
+      "path": "Debug/audio-changed-hot/build.events.jsonl",
+      "sha256": "4ad26d734b5193de5fd0fca32a7cae4fc56b2c51006d107ad9748d29b840a27d"
+    },
+    {
+      "path": "Debug/audio-cold/build-report.json",
+      "sha256": "cf16d67bdf181d17a323881970a5b75a440311ac79b8be32e84f6272f1c7a5e3"
+    },
+    {
+      "path": "Debug/audio-cold/build.events.jsonl",
+      "sha256": "fae05eda20f574119d8c9a3d5489724b5411f0539fe14dc6afb84f6fd9933369"
+    },
+    {
+      "path": "Debug/audio-content-invalidated/build-report.json",
+      "sha256": "cf047d52e2ae708a4a853ea82e3df96b66ebfa2283d064481f563b931bf43d48"
+    },
+    {
+      "path": "Debug/audio-content-invalidated/build.events.jsonl",
+      "sha256": "e6445def591bce1fb44249d642f4d8a6bd4c65da68450eb5d3e4d6324c019cbc"
+    },
+    {
+      "path": "Debug/audio-disabled/build-report.json",
+      "sha256": "7dc0de55ff14d1f4e4673237b8a9751ca19eee70426e6c9f128c6659ea168359"
+    },
+    {
+      "path": "Debug/audio-disabled/build.events.jsonl",
+      "sha256": "ae112f051c5880ac6cac99884a7f132e1f3897be8e47b783f871e10f5b3881fa"
+    },
+    {
+      "path": "Debug/audio-hot/build-report.json",
+      "sha256": "269b5d8abc28f16ef0bc979e288db9c819417ff051b25ae2f139625fa4dfc17f"
+    },
+    {
+      "path": "Debug/audio-hot/build.events.jsonl",
+      "sha256": "4a571802ed9cbfc99956e4fdce19cccf9127ee971c31c95a9654007e60b630c1"
+    },
+    {
+      "path": "Debug/w3x-changed-disabled/build-report.json",
+      "sha256": "feefe5f664b0e4439e568c3fde9cb7a799b0cb5dce1c3e162ea9ec7ec84ee29d"
+    },
+    {
+      "path": "Debug/w3x-changed-disabled/build.events.jsonl",
+      "sha256": "e8fd17899e0670858bc35586c006b7cd7619bce9c7dca223796149f9c20db0f1"
+    },
+    {
+      "path": "Debug/w3x-changed-hot/build-report.json",
+      "sha256": "8cac39ebef50918ff36cfc04b34d68d84711b090cfa6b540abb61051d8238f1e"
+    },
+    {
+      "path": "Debug/w3x-changed-hot/build.events.jsonl",
+      "sha256": "03158f5de8687d1f0de7067b307a2ff4eb7eea4bdf3ea739ec69f55418bffa9e"
+    },
+    {
+      "path": "Debug/w3x-cold/build-report.json",
+      "sha256": "66e04e0e3426cf64cddb0d50ea6ec7b342ab6031e8d477be08ba5bf409a579d2"
+    },
+    {
+      "path": "Debug/w3x-cold/build.events.jsonl",
+      "sha256": "c06654be0fea6dda491d5b62c64af3802b8be99cc59dbf1aa27269a165513a29"
+    },
+    {
+      "path": "Debug/w3x-content-invalidated/build-report.json",
+      "sha256": "046f35437ce2ab8c292b8169b6677352521600c7dc7232c7ebd7389c4e7279c7"
+    },
+    {
+      "path": "Debug/w3x-content-invalidated/build.events.jsonl",
+      "sha256": "44aa05565bd962849c426dccaa30dca3f70d4d1489c47ce29a49cf8894e2c3df"
+    },
+    {
+      "path": "Debug/w3x-disabled/build-report.json",
+      "sha256": "7d0a26c779ba240646125ae4427c82f2dc7a69618cd8687ba8e0c27a5076204a"
+    },
+    {
+      "path": "Debug/w3x-disabled/build.events.jsonl",
+      "sha256": "310948911c189df4c4e4e55462d7155f737cdeab0f0b048dd0884feb15e67ec3"
+    },
+    {
+      "path": "Debug/w3x-hot/build-report.json",
+      "sha256": "24e57247ad2becb9ed400376d3eb188fe9982e333918be603ed2e438a34a4632"
+    },
+    {
+      "path": "Debug/w3x-hot/build.events.jsonl",
+      "sha256": "159015949900da1c0e5812fdbbfb4230a7f6f7fdf7379f8456dd28362424cb3c"
+    },
+    {
+      "path": "Release/audio-changed-disabled/build-report.json",
+      "sha256": "5efb34f6e9f5973e983b9d0e82a5a365c1730d31ee32ab07d239f8507ef4c6c5"
+    },
+    {
+      "path": "Release/audio-changed-disabled/build.events.jsonl",
+      "sha256": "96f623fe048d47ef1169647dc5b73a950cb9b93dc3132f1ad378bd506b970728"
+    },
+    {
+      "path": "Release/audio-changed-hot/build-report.json",
+      "sha256": "7494f6501b91f8e99f40342c8ee22fb750086c736b391dd7f82e6346017c609c"
+    },
+    {
+      "path": "Release/audio-changed-hot/build.events.jsonl",
+      "sha256": "95f70a0e6a92746ef05c485cbed1ae4624a2a3c89b614f73caa4d659b11413c6"
+    },
+    {
+      "path": "Release/audio-cold/build-report.json",
+      "sha256": "716006b65a90cfd982630162f92600be09a0b00cc99cf9ffc6ae27aa2c7e4f73"
+    },
+    {
+      "path": "Release/audio-cold/build.events.jsonl",
+      "sha256": "3e11e392eff221022004e95abc2a8f2f21efaa5454af45e27a4dc190f4b8730c"
+    },
+    {
+      "path": "Release/audio-content-invalidated/build-report.json",
+      "sha256": "dd0588e23803f290d7df68839fca079e1cc941193ee3827a3c16b2a1afe05f10"
+    },
+    {
+      "path": "Release/audio-content-invalidated/build.events.jsonl",
+      "sha256": "e77c8611816b3fae9dedd0cd5ba3d5a60961b3311c4b7b4840bef5a09c2b3f90"
+    },
+    {
+      "path": "Release/audio-disabled/build-report.json",
+      "sha256": "efc8cb41b66dcb12cc53dc9675a3de4e5a23f4bb2dc3af8a837f90af0678d474"
+    },
+    {
+      "path": "Release/audio-disabled/build.events.jsonl",
+      "sha256": "1d8fd8969443abe874ee8a137977ac965ba083e4927bcdb616e4d394e622eefb"
+    },
+    {
+      "path": "Release/audio-hot/build-report.json",
+      "sha256": "6b837901b2d8cc53f722f843e354a6a46ba53e71c0390db0afec87bf50f9bd67"
+    },
+    {
+      "path": "Release/audio-hot/build.events.jsonl",
+      "sha256": "260cd6e202d5a97a094a54b71d8fbb66b5199c25b6e6463e19e323b26c03f283"
+    },
+    {
+      "path": "Release/w3x-changed-disabled/build-report.json",
+      "sha256": "3e58880a6cbb0186b54216940c5318e4b27aa16a9339adbf3810bc38563edbd5"
+    },
+    {
+      "path": "Release/w3x-changed-disabled/build.events.jsonl",
+      "sha256": "89c4f12414dd3f7de483e542d8b0a006f8272c62c821d0ab76e3a93a3566f992"
+    },
+    {
+      "path": "Release/w3x-changed-hot/build-report.json",
+      "sha256": "727350b1c0d79ccc29da3d812e90a7fde3e16347440d97ecdbade870d3633cb5"
+    },
+    {
+      "path": "Release/w3x-changed-hot/build.events.jsonl",
+      "sha256": "19c6212a7d1294c79a42e776eadb0b0fedc06db03b15dffc1623290afaecb19d"
+    },
+    {
+      "path": "Release/w3x-cold/build-report.json",
+      "sha256": "148d86ef1989008f1c7d2ac582aa36fe692974d08843befb6ad67a2f8b760fb2"
+    },
+    {
+      "path": "Release/w3x-cold/build.events.jsonl",
+      "sha256": "4cfdb4e585a87304cb3e0bab0aa3c1357379d2fda5c8e632d2e3c878735e3ced"
+    },
+    {
+      "path": "Release/w3x-content-invalidated/build-report.json",
+      "sha256": "40fdb56ea8cb543043f74935dca4249c75f1a85ab6d38d2a54d7d2579d39125b"
+    },
+    {
+      "path": "Release/w3x-content-invalidated/build.events.jsonl",
+      "sha256": "5fd99e9f2163704e8eda9163569c39189ff57b2831fda3ad762af5fdd9198803"
+    },
+    {
+      "path": "Release/w3x-disabled/build-report.json",
+      "sha256": "94616372c3090186346656d0ab725101368f1b664a33abd5cb36608a3b29bafa"
+    },
+    {
+      "path": "Release/w3x-disabled/build.events.jsonl",
+      "sha256": "a7e9959fa679674624d97849c69a817eb7a381ce2e065096899ef55ef6d6e64b"
+    },
+    {
+      "path": "Release/w3x-hot/build-report.json",
+      "sha256": "994a5efa3178d171ef96b8693d915c232d730d4bb36cf2c9bb34a1412b42d9ba"
+    },
+    {
+      "path": "Release/w3x-hot/build.events.jsonl",
+      "sha256": "64a8da430f75f03fc11a87e760ea5dd3b6610fb3e442126a30d31d1efb71cf70"
+    }
+  ],
+  "errorCount": 0,
+  "errors": [],
+  "notes": [
+    "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+    "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+  ]
+}

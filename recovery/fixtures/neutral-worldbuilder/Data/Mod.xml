@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <Tags/>
+  <Includes>
+    <Include type="reference" source="DATA:static.xml"/>
+    <Include type="reference" source="DATA:global.xml"/>
+    <Include type="reference" source="DATA:audio.xml"/>
+  </Includes>
+  <!-- Override one genuine WorldBuilder object to exercise original hash repair. -->
+  <GameObject id="AM_Box01" KindOf="IMMOBILE" BuildTime="7">
+    <Body><ActiveBody id="Body" MaxHealth="123"/></Body>
+  </GameObject>
+  <!-- Strong GameObjectRef: this WB-only object recursively imports its model
+       and three textures. Weak OCL object references do not exercise insertion. -->
+  <GameObject id="NeutralWorldbuilderProbe" KindOf="IMMOBILE">
+    <Behaviors>
+      <GatherSlavesUpdate id="Gather" SlaveTemplate="AM_Bench" Radius="10" Amount="1"/>
+    </Behaviors>
+    <Body><ActiveBody id="Body" MaxHealth="123"/></Body>
+  </GameObject>
+</AssetDeclaration>

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "releaseId": 430662411,
+  "tag": "compiler-2026.11.01-neutral",
+  "url": "https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-neutral",
+  "draft": false,
+  "prerelease": false,
+  "publishedAt": "2026-11-01T15:20:09Z",
+  "latestVerified": true,
+  "binarySourceCommit": "f74da90fd8461fcb983acebcb694d66aeb8dbfdd",
+  "sourceBranch": "fix/neutral-worldbuilder-config",
+  "acceptanceRunId": "41319194413",
+  "publicationRunId": "41320643988",
+  "reusedAcceptedRuntimeBytes": true,
+  "autoArchiveFiles": [
+    "README.md",
+    "release-metadata.json"
+  ],
+  "assets": [
+    {
+      "id": 698688812,
+      "name": "compiler-manifest.json",
+      "bytes": 5417,
+      "digest": "sha256:c8b410c8acae96a4212bbec8762e5aef8cc2f16635d3d68a4b7b56056347103d",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-neutral/compiler-manifest.json"
+    },
+    {
+      "id": 698688813,
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 2100922,
+      "digest": "sha256:a973545cdf6e33c108e5d29c411f4d4749220d9d832f3048f12e49703bcea8c1",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-neutral/NewModCompiler-Win32-Debug.zip"
+    },
+    {
+      "id": 698688816,
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 1606133,
+      "digest": "sha256:a4fec82a3ea05dd8b0480993a0356562ce6b836af36ccc907b7f9e9a89e0b3b7",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-neutral/NewModCompiler-Win32-Release.zip"
+    },
+    {
+      "id": 698688815,
+      "name": "RA3-Worldbuilder-1.12-References.zip",
+      "bytes": 500207147,
+      "digest": "sha256:58a3f59dbd6b2e726bffd51ce42197ca04ee5ff0434a99a556d81cd5b7455c9a",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-neutral/RA3-Worldbuilder-1.12-References.zip"
+    },
+    {
+      "id": 698688814,
+      "name": "release-metadata.json",
+      "bytes": 5955,
+      "digest": "sha256:29dc8a49c5f8a3085a7693032effab7cb0e2955cf3f97e686818575d19081a21",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-neutral/release-metadata.json"
+    },
+    {
+      "id": 698688849,
+      "name": "SHA256SUMS.txt",
+      "bytes": 557,
+      "digest": "sha256:e48437b38fd17dfa37e6827a24db36b33093d0ab06ae0c027e22447c090e4035",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-neutral/SHA256SUMS.txt"
+    },
+    {
+      "id": 698688845,
+      "name": "USAGE.zh-CN.md",
+      "bytes": 2929,
+      "digest": "sha256:b1e75cf3633049ca2bf6094a245b180707f537ffb7f701f83c2ec357dbcb58dd",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-neutral/USAGE.zh-CN.md"
+    }
+  ]
+}
+

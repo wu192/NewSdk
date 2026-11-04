@@ -1,0 +1,14 @@
+{
+  "runId": 41137876257,
+  "artifactId": 13017905048,
+  "archiveSha256": "253f9aa9549a61e09942d5ebb9a3d733787fa0e221a53d57011ab642895d8c06",
+  "status": "failed",
+  "downloadedAndRehashed": true,
+  "selectedMembers": [
+    "artifacts/big-fixture-preflight/validation.json",
+    "evidence/refactor/core-lifecycle-deployment/41137876257-1/validation.json",
+    "artifacts/cli-output-preflight/validation.json",
+    "artifacts/session-fixture-preflight/validation.json",
+    "artifacts/core-lifecycle-product/Debug/obj/native/logs/recovery_src_Native_GameObject.log"
+  ]
+}

@@ -17,10 +17,21 @@ namespace NewModCompiler.Application
     }
     public sealed class BuildRequest
     {
+        public bool JobsAuto { get; set; }
+        public int RequestedJobs { get; set; }
+        public string PerformanceLevel { get; set; }
+        NewModCompiler.Diagnostics.BuildPerformance performance;
+        internal NewModCompiler.Diagnostics.BuildPerformance Performance { get { return performance ?? (performance = new NewModCompiler.Diagnostics.BuildPerformance(PerformanceLevel)); } }
+        internal FileHashCache FileIdentities { get; set; }
+#if NEWSdk_MONOLITHIC
+        internal CoreInputPreparation InputPreparation { get; set; }
+#endif
         public string Command { get; set; }
         public string ModRoot { get; set; }
         public string SdkRoot { get; set; }
         public string OutputRoot { get; set; }
+        public CacheLayout CacheLayout { get; internal set; }
+        internal CacheLock BuildCacheLock;
         public string EventsPath { get; set; }
         public string ReportPath { get; set; }
         public string LogPath { get; set; }
@@ -32,9 +43,10 @@ namespace NewModCompiler.Application
         public string SkudefName { get; set; }
         public bool IncludeAdditional { get; set; }
         public bool FixNeutralAssets { get; set; }
+        public string GameRoot { get; set; }
         public string[] Arguments { get; set; }
         public IDictionary<string, EffectiveOption> Options { get; private set; }
-        public BuildRequest() { ModVersion="1.0"; GameVersion="1.12"; Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }
+        public BuildRequest() { JobsAuto=true; PerformanceLevel="off"; ModVersion="1.0"; GameVersion="1.12"; Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }
     }
     public sealed class BuildTask
     {
@@ -67,14 +79,13 @@ namespace NewModCompiler.Application
         public string Path { get; set; }
         public string Kind { get; set; }
         public long Size { get; set; }
-        public string Sha256 { get; set; }
     }
     public sealed class StreamContext
     {
         public string BuildId { get; internal set; }
         public BuildTask Task { get; internal set; }
         public BuildRequest Request { get; internal set; }
-        public string StagingDirectory { get; internal set; }
+        public string OutputDirectory { get; internal set; }
     }
     // The implementation must run Core preprocessing and compilation in this process.
     // Ownership is per session, with fresh stream state per Compile invocation.
@@ -84,15 +95,10 @@ namespace NewModCompiler.Application
         void Initialize(BuildRequest request);
         IList<Artifact> Compile(StreamContext context, System.Threading.CancellationToken cancellation);
     }
-    // Optional participant owned by BuildSession after provider disposal. Commit
-    // must remain reversible until all required output channels have closed.
+    // Cache persistence belongs to Core, independently of diagnostic output.
     public interface IBuildCacheCompiler
     {
         object CacheReport { get; }
-        void CommitCache();
-        void RollbackCache();
-        // Cleanup only, idempotent and non-throwing. No new cache writes here.
-        void CompleteCache();
     }
     public interface IInputRootsCompiler
     {

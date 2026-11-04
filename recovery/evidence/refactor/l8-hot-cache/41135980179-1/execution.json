@@ -1,0 +1,61 @@
+{
+  "runId": "41135980179",
+  "sourceCommit": "873271d3a25d1c839c55af46417ff1a826ed6a41",
+  "status": "budget_exhausted",
+  "artifactId": 13018235419,
+  "archiveSha256": "43fd1665cdb09c202b77b1eecc8d9d48eb990d0d25e874261981d77061385eb9",
+  "archiveDigestVerified": true,
+  "formalSamples": 63,
+  "qualifiedFormalSamples": 62,
+  "completedCases": [
+    "C00",
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09"
+  ],
+  "workload": {
+    "partitions": 8,
+    "assets": 71037,
+    "documents": 3265,
+    "inputBytes": 312919420,
+    "fingerprint": "f6e17139193d6091954c8491090f4f3b3adfd8ff970f94dba2da7eb014518939"
+  },
+  "phaseSeconds": {
+    "workload": 70.11339740000017,
+    "calibration": 122.71693829999981,
+    "common_sampling": 1080.0301433000002
+  },
+  "calibration": [
+    {
+      "attempt": 1,
+      "partitions": 1,
+      "fingerprint": "0abdb6760e3d595ded01ec24f6c965c4b7b9077ebe5dd906211dc9d8e77a56c3",
+      "minimumMs": 3227,
+      "targetReached": false,
+      "qualified": false
+    },
+    {
+      "attempt": 2,
+      "partitions": 4,
+      "fingerprint": "3afaccec2c59df9e9c138a764a99faa7daab5b79fb4f7f7d41f5eaa70e41b929",
+      "minimumMs": 6573,
+      "targetReached": false,
+      "qualified": false
+    },
+    {
+      "attempt": 3,
+      "partitions": 8,
+      "fingerprint": "f6e17139193d6091954c8491090f4f3b3adfd8ff970f94dba2da7eb014518939",
+      "minimumMs": 11405,
+      "targetReached": true,
+      "qualified": true
+    }
+  ],
+  "note": "Sampling phase exhausted at C10 repeat 2 hot_after; no passing Common claim, no cross-VM timing comparison"
+}

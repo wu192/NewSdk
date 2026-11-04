@@ -1,0 +1,71 @@
+{
+  "fixtureInputs": [
+    {
+      "sha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+      "name": "fixture.tga"
+    },
+    {
+      "sha256": "3bf8bbd716cf3518868feeb5b3d1237273373fe41d569a68d3a0013b64eabd51",
+      "name": "fixture.tga.wrong-size.tga"
+    }
+  ],
+  "sourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+  "configurations": [
+    {
+      "separateOracleProcess": true,
+      "exeSha256": "221ba2554ad636006581470d5f51a42e312cecf4835b87892b2896b0aaff9ab8",
+      "invalidInputErrors": 3,
+      "componentExecution": "test-only host with identical production objects; source-linked texture",
+      "passed": true,
+      "sourceVersion": 4202,
+      "configuration": "Debug",
+      "textureDeployment": {
+        "externalRuntimeFiles": [],
+        "implementation": "built-in-source"
+      },
+      "sourceTranscriptSha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+      "originalTranscriptSha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+      "validationHostSha256": "1815886c1283212226705ca0f2e3264bbe5a549c17ae70d6e4a5f82bc083a6dc",
+      "singleDispose": true,
+      "externalTextureDll": false,
+      "successes": 6,
+      "originalVersion": 4202
+    },
+    {
+      "separateOracleProcess": true,
+      "exeSha256": "4749d8f5bff056011669ebd58827c16ebe83c04190e9f465f1b08c9dd4f107e7",
+      "invalidInputErrors": 3,
+      "componentExecution": "test-only host with identical production objects; source-linked texture",
+      "passed": true,
+      "sourceVersion": 4202,
+      "configuration": "Release",
+      "textureDeployment": {
+        "externalRuntimeFiles": [],
+        "implementation": "built-in-source"
+      },
+      "sourceTranscriptSha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+      "originalTranscriptSha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+      "validationHostSha256": "f364f6055b6ba38b2661e8a99abe7fbdc5c8a73e7ec66e12e8292e9965899dd9",
+      "singleDispose": true,
+      "externalTextureDll": false,
+      "successes": 6,
+      "originalVersion": 4202
+    }
+  ],
+  "fixtureSha256": "6c8fe7b249e51993742dce5717d82df6ee5a03f0777663a8bc5593f5e3df1cee",
+  "status": "passed",
+  "runId": "41185772818",
+  "originalInputs": [
+    {
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+      "path": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll"
+    },
+    {
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+      "path": "SDK/tools/BinaryAssetBuilder.Core.dll"
+    }
+  ],
+  "scope": "Built-in texture payload in test-only host using identical production objects; raw original metadata/buffers/CDATA/errors, with identical plugin version and processing hashes; not production CLI MOD compilation",
+  "schemaVersion": 2,
+  "runAttempt": "1"
+}

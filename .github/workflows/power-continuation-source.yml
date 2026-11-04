@@ -24,7 +24,17 @@ jobs:
           git commit -m "recovery: record original Power enum evidence for $GITHUB_SHA"
           git pull --rebase origin recovery/compiler-source
           git push origin HEAD:recovery/compiler-source
+      - name: Summarize CI evidence
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/gameobject-modules/power-continuation-enums.json
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
       - uses: actions/upload-artifact@v4
+        if: success()
         with:
-          name: original-power-continuation-enums
-          path: recovery/evidence/gameobject-modules/power-continuation-enums.json
+          name: 'original-power-continuation-enums'
+          path: |
+            recovery/evidence/gameobject-modules/power-continuation-enums.json
+          retention-days: 1
+          if-no-files-found: warn

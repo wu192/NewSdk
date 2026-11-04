@@ -13,4 +13,14 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <EaLayer3Native Include="../../Native/Audio/**/*.cpp;../../Native/Audio/**/*.h" />
+    <Content Include="$(IntermediateOutputPath)native/NewSdk.EaLayer3.dll" Link="NewSdk.EaLayer3.dll"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"
+             Condition="'$(OS)' == 'Windows_NT'" />
+  </ItemGroup>
+  <Target Name="BuildEaLayer3" BeforeTargets="PrepareForBuild" Condition="'$(OS)' == 'Windows_NT'"
+          Inputs="@(EaLayer3Native);../../../scripts/BuildEaLayer3.ps1" Outputs="$(IntermediateOutputPath)native/NewSdk.EaLayer3.dll">
+    <Exec Command="pwsh -NoProfile -File &quot;$(MSBuildProjectDirectory)/../../../scripts/BuildEaLayer3.ps1&quot; -OutputDirectory &quot;$(MSBuildProjectDirectory)/$(IntermediateOutputPath)native&quot; -Configuration $(Configuration)" />
+  </Target>
 </Project>

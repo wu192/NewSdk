@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using BinaryAssetBuilder.Core;
 
@@ -8,6 +9,27 @@ namespace BinaryAssetBuilder;
 public class Settings : ICloneable
 {
 	public static Settings Current;
+
+    [XmlIgnore]
+    public Func<string, IDisposable> MeasurePerformance { get; set; }
+
+    [XmlIgnore]
+    public Action<string, long, bool> RecordPerformanceCounter { get; set; }
+
+    [XmlIgnore]
+    public Action<string> StreamOutputStarted { get; set; }
+    [XmlIgnore]
+    public Action<string, bool> StreamOutputCompleted { get; set; }
+    [XmlIgnore]
+    public Action<string> CustomDataOutput { get; set; }
+	[XmlIgnore]
+	public Func<string, FileHashInfo> FileIdentity { get; set; }
+	[XmlIgnore]
+	public Action<long> FileHashRead { get; set; }
+	[XmlIgnore]
+	public Func<IEnumerable<string>, IDictionary<string, string>> SchemaFileIdentities { get; set; }
+	[XmlIgnore]
+	public Func<string, string> FindCustomData { get; set; }
 
 	private string _SchemaPath;
 

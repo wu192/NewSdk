@@ -1,0 +1,843 @@
+{
+  "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+  "baselineCommit": "b89fbadb669a8abb3ba01c5bdd031a8c3a2e405b",
+  "runId": 41062149232,
+  "runAttempt": 1,
+  "conclusion": "success",
+  "artifact": {
+    "id": 12981487698,
+    "bytes": 107714856,
+    "sha256": "a88d26f529934db89bb7fc3c154714fdb72c457f88a870cef4fa740c0fa6c927",
+    "downloadedAndRehashed": true
+  },
+  "runtimes": {
+    "Debug": {
+      "exeSha256": "4c0321f1955a8124d2b9fb161e232227669fc936a53470d7b55f2577d95e581a",
+      "textureSha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "configSha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlrSha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    "Release": {
+      "exeSha256": "ea585fe8d46281a79fbc2b3903f7c14c9e1ac2f19e52b2816a964dc8b193e3c9",
+      "textureSha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "configSha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlrSha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    }
+  },
+  "scopes": {
+    "lifecycle": {
+      "succeeded": true,
+      "scope": "P5 targeted real Core/backend/application pipeline and resource reuse in production-object validation fixtures using small Armor inputs; not production build CLI, APT business coverage, cold-process equivalence, complete MOD/SDK or G3 acceptance",
+      "modes": [
+        {
+          "configuration": "Debug",
+          "passed": true,
+          "caseCount": 0
+        },
+        {
+          "configuration": "Release",
+          "passed": true,
+          "caseCount": 0
+        }
+      ]
+    },
+    "cli": {
+      "succeeded": true,
+      "scope": "Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/inline Texture DDS comparison; full SDK/cache acceptance remain separate; direct same-path output, selection isolation, unrelated-file preservation, failure/cancellation retry and held unselected-output acceptance passed; injected late-output persistence is checked by controlled App contracts",
+      "modes": [
+        {
+          "configuration": "Debug",
+          "passed": true,
+          "caseCount": 31
+        },
+        {
+          "configuration": "Release",
+          "passed": true,
+          "caseCount": 31
+        }
+      ]
+    },
+    "session": {
+      "succeeded": true,
+      "scope": "Actual production /sc session-package disabled/cold/hot reuse, Include/XInclude defines/expressions/inheritance, complete intermediate and Audio CDATA/W3X, content invalidation, MOD isolation, corruption, cancellation/failure retries; exact raw streams, selected original BAB oracle; not complete P5/G3/SDK",
+      "modes": [
+        {
+          "configuration": "Debug",
+          "passed": true,
+          "caseCount": 108
+        },
+        {
+          "configuration": "Release",
+          "passed": true,
+          "caseCount": 108
+        }
+      ]
+    },
+    "assets": {
+      "succeeded": true,
+      "scope": "Actual production /bc asset-cache CLI acceptance using cacheable Audio-family PathMusicEvent plus noncached Texture, Armor Include/XInclude and file-backed APT streams; raw four outputs, actual asset hits/misses, same-length/same-mtime dependency invalidation, MOD isolation, actual cancellation and failure/retry; AudioFile codec/CustomData, /sc and complete SDK remain separate",
+      "modes": [
+        {
+          "configuration": "Debug",
+          "passed": true,
+          "caseCount": 31
+        },
+        {
+          "configuration": "Release",
+          "passed": true,
+          "caseCount": 31
+        }
+      ]
+    },
+    "payloads": {
+      "succeeded": true,
+      "scope": "Production /bc asset-cache replay for AudioFile PCM WAVE including complete CDATA and two W3DAnimation instances with hierarchy closure; disabled/cold/hot and partial reuse after same-length same-mtime input changes, exact four-stream and CDATA equality against independent no-cache processes; not a new original-DLL/SDK gate",
+      "modes": [
+        {
+          "configuration": "Debug",
+          "passed": true,
+          "caseCount": 12
+        },
+        {
+          "configuration": "Release",
+          "passed": true,
+          "caseCount": 12
+        }
+      ]
+    },
+    "big": {
+      "succeeded": true,
+      "scope": "Actual production P7 BIG apt/maps selected and combined, exact current loose member bytes and independent original MakeBig format/content oracle, skudef, CDATA, cancellation/failure, atomic single-file replacement and retry without MOD rollback; default base LoD, explicit SDK-then-MOD Additional overlays, and optional neutral actual hash repair with no-insertion original oracle; component insertion evidence remains separate; final distribution and game runtime acceptance excluded",
+      "modes": [
+        {
+          "configuration": "Debug",
+          "passed": true,
+          "caseCount": 23
+        },
+        {
+          "configuration": "Release",
+          "passed": true,
+          "caseCount": 23
+        }
+      ]
+    },
+    "sdk": {
+      "succeeded": true,
+      "scope": "Complete unchanged repository SDK/Mods/mymod source, base/apt/maps discovery, one production build process per Debug/Release configuration, original BAB raw four-stream and exact CDATA output comparison. BIG/SKUDEF is additionally compared to original LoD and MakeBig using this unchanged MOD; empty optional groups remain empty and no synthetic APT/map coverage or complete game runtime acceptance is inferred.",
+      "modes": [
+        {
+          "configuration": "Debug",
+          "succeeded": true,
+          "caseCount": 0
+        },
+        {
+          "configuration": "Release",
+          "succeeded": true,
+          "caseCount": 0
+        }
+      ]
+    },
+    "texture": {
+      "succeeded": true,
+      "scope": "G2 C texture payload in test-only host using identical production Native/Bridge/Foundation/Application objects; not production CLI MOD compilation",
+      "modes": []
+    },
+    "parallel": {
+      "succeeded": true,
+      "scope": "Current production mixed GameObject/Weapon/Armor/W3X/Texture/XML/APT/Audio, cache/jobs switches, raw output bytes; full MOD and component certification separate",
+      "modes": [],
+      "caseCount": 64
+    },
+    "hot": {
+      "succeeded": true,
+      "scope": "Release bounded representative matrix; not a full MOD, original DLL differential or game-runtime acceptance",
+      "modes": [],
+      "caseCount": 56
+    }
+  },
+  "protocols": {
+    "lifecycle": {
+      "schemaVersion": "1.0",
+      "status": "passed",
+      "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+      "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+      "artifactId": null,
+      "artifactArchiveSha256": null,
+      "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+      "packages": {
+        "jsonschema": "4.23.0",
+        "rfc3339-validator": "0.1.4",
+        "attrs": "26.1.0",
+        "jsonschema-specifications": "2025.9.1",
+        "referencing": "0.37.0",
+        "rpds-py": "2026.9.1"
+      },
+      "pythonVersion": "3.12.10",
+      "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+      "schemaInputs": [
+        {
+          "path": "build-event.schema.json",
+          "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+        },
+        {
+          "path": "build-report.schema.json",
+          "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+        }
+      ],
+      "matrix": [
+        {
+          "configuration": "Debug",
+          "reports": 15,
+          "eventFiles": 15,
+          "events": 489
+        },
+        {
+          "configuration": "Release",
+          "reports": 15,
+          "eventFiles": 15,
+          "events": 489
+        }
+      ],
+      "errorCount": 0,
+      "errors": [],
+      "notes": [
+        "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+        "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+      ]
+    },
+    "cli": {
+      "schemaVersion": "1.0",
+      "status": "passed",
+      "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+      "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+      "artifactId": null,
+      "artifactArchiveSha256": null,
+      "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+      "packages": {
+        "jsonschema": "4.23.0",
+        "rfc3339-validator": "0.1.4",
+        "attrs": "26.1.0",
+        "jsonschema-specifications": "2025.9.1",
+        "referencing": "0.37.0",
+        "rpds-py": "2026.9.1"
+      },
+      "pythonVersion": "3.12.10",
+      "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+      "schemaInputs": [
+        {
+          "path": "build-event.schema.json",
+          "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+        },
+        {
+          "path": "build-report.schema.json",
+          "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+        }
+      ],
+      "matrix": [
+        {
+          "configuration": "Debug",
+          "reports": 28,
+          "eventFiles": 28,
+          "events": 957
+        },
+        {
+          "configuration": "Release",
+          "reports": 28,
+          "eventFiles": 28,
+          "events": 958
+        }
+      ],
+      "errorCount": 0,
+      "errors": [],
+      "notes": [
+        "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+        "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+      ]
+    },
+    "session": {
+      "schemaVersion": "1.0",
+      "status": "passed",
+      "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+      "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+      "artifactId": null,
+      "artifactArchiveSha256": null,
+      "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+      "packages": {
+        "jsonschema": "4.23.0",
+        "rfc3339-validator": "0.1.4",
+        "attrs": "26.1.0",
+        "jsonschema-specifications": "2025.9.1",
+        "referencing": "0.37.0",
+        "rpds-py": "2026.9.1"
+      },
+      "pythonVersion": "3.12.10",
+      "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+      "schemaInputs": [
+        {
+          "path": "build-event.schema.json",
+          "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+        },
+        {
+          "path": "build-report.schema.json",
+          "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+        }
+      ],
+      "matrix": [
+        {
+          "configuration": "Debug",
+          "reports": 108,
+          "eventFiles": 108,
+          "events": 4093
+        },
+        {
+          "configuration": "Release",
+          "reports": 108,
+          "eventFiles": 108,
+          "events": 4093
+        }
+      ],
+      "errorCount": 0,
+      "errors": [],
+      "notes": [
+        "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+        "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+      ]
+    },
+    "assets": {
+      "schemaVersion": "1.0",
+      "status": "passed",
+      "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+      "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+      "artifactId": null,
+      "artifactArchiveSha256": null,
+      "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+      "packages": {
+        "jsonschema": "4.23.0",
+        "rfc3339-validator": "0.1.4",
+        "attrs": "26.1.0",
+        "jsonschema-specifications": "2025.9.1",
+        "referencing": "0.37.0",
+        "rpds-py": "2026.9.1"
+      },
+      "pythonVersion": "3.12.10",
+      "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+      "schemaInputs": [
+        {
+          "path": "build-event.schema.json",
+          "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+        },
+        {
+          "path": "build-report.schema.json",
+          "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+        }
+      ],
+      "matrix": [
+        {
+          "configuration": "Debug",
+          "reports": 31,
+          "eventFiles": 31,
+          "events": 1518
+        },
+        {
+          "configuration": "Release",
+          "reports": 31,
+          "eventFiles": 31,
+          "events": 1521
+        }
+      ],
+      "errorCount": 0,
+      "errors": [],
+      "notes": [
+        "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+        "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+      ]
+    },
+    "payloads": {
+      "schemaVersion": "1.0",
+      "status": "passed",
+      "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+      "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+      "artifactId": null,
+      "artifactArchiveSha256": null,
+      "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+      "packages": {
+        "jsonschema": "4.23.0",
+        "rfc3339-validator": "0.1.4",
+        "attrs": "26.1.0",
+        "jsonschema-specifications": "2025.9.1",
+        "referencing": "0.37.0",
+        "rpds-py": "2026.9.1"
+      },
+      "pythonVersion": "3.12.10",
+      "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+      "schemaInputs": [
+        {
+          "path": "build-event.schema.json",
+          "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+        },
+        {
+          "path": "build-report.schema.json",
+          "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+        }
+      ],
+      "matrix": [
+        {
+          "configuration": "Debug",
+          "reports": 12,
+          "eventFiles": 12,
+          "events": 358
+        },
+        {
+          "configuration": "Release",
+          "reports": 12,
+          "eventFiles": 12,
+          "events": 358
+        }
+      ],
+      "errorCount": 0,
+      "errors": [],
+      "notes": [
+        "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+        "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+      ]
+    },
+    "big": {
+      "schemaVersion": "1.0",
+      "status": "passed",
+      "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+      "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+      "artifactId": null,
+      "artifactArchiveSha256": null,
+      "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+      "packages": {
+        "jsonschema": "4.23.0",
+        "rfc3339-validator": "0.1.4",
+        "attrs": "26.1.0",
+        "jsonschema-specifications": "2025.9.1",
+        "referencing": "0.37.0",
+        "rpds-py": "2026.9.1"
+      },
+      "pythonVersion": "3.12.10",
+      "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+      "schemaInputs": [
+        {
+          "path": "build-event.schema.json",
+          "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+        },
+        {
+          "path": "build-report.schema.json",
+          "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+        }
+      ],
+      "matrix": [
+        {
+          "configuration": "Debug",
+          "reports": 23,
+          "eventFiles": 23,
+          "events": 1668
+        },
+        {
+          "configuration": "Release",
+          "reports": 23,
+          "eventFiles": 23,
+          "events": 1668
+        }
+      ],
+      "errorCount": 0,
+      "errors": [],
+      "notes": [
+        "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+        "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+      ]
+    },
+    "sdk": {
+      "schemaVersion": "1.0",
+      "status": "passed",
+      "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+      "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+      "artifactId": null,
+      "artifactArchiveSha256": null,
+      "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+      "packages": {
+        "jsonschema": "4.23.0",
+        "rfc3339-validator": "0.1.4",
+        "attrs": "26.1.0",
+        "jsonschema-specifications": "2025.9.1",
+        "referencing": "0.37.0",
+        "rpds-py": "2026.9.1"
+      },
+      "pythonVersion": "3.12.10",
+      "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+      "schemaInputs": [
+        {
+          "path": "build-event.schema.json",
+          "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+        },
+        {
+          "path": "build-report.schema.json",
+          "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+        }
+      ],
+      "matrix": [
+        {
+          "configuration": "Debug",
+          "reports": 2,
+          "eventFiles": 2,
+          "events": 246
+        },
+        {
+          "configuration": "Release",
+          "reports": 2,
+          "eventFiles": 2,
+          "events": 246
+        }
+      ],
+      "errorCount": 0,
+      "errors": [],
+      "notes": [
+        "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+        "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+      ]
+    }
+  },
+  "pairedMeasurement": {
+    "timedPairs": 18,
+    "tracedPairs": 2,
+    "totalInvocations": 40,
+    "allBigSkudefBytesEqual": true,
+    "traceWindowsComplete": true,
+    "traces": [
+      {
+        "engine": "before",
+        "phase": "cold",
+        "operations": {
+          "Process Start": 1,
+          "Thread Create": 18,
+          "Load Image": 80,
+          "RegOpenKey": 745,
+          "RegQueryValue": 610,
+          "RegCloseKey": 321,
+          "CreateFile": 2774,
+          "CreateFileSuccess": 2627,
+          "QueryOpen": 2112,
+          "QueryNameInformationFile": 52,
+          "CloseFile": 2628,
+          "IRP_MJ_CLOSE": 1545,
+          "RegSetInfoKey": 229,
+          "QueryBasicInformationFile": 399,
+          "CreateFileMapping": 128,
+          "FASTIO_RELEASE_FOR_SECTION_SYNCHRONIZATION": 128,
+          "RegQueryKey": 763,
+          "RegEnumKey": 71,
+          "RegEnumValue": 582,
+          "QueryDirectory": 141,
+          "ReadFile": 1686,
+          "QueryStandardInformationFile": 1047,
+          "QueryNetworkOpenInformationFile": 77,
+          "QueryInformationVolume": 150,
+          "QueryAllInformationFile": 150,
+          "QueryNormalizedNameInformationFile": 25,
+          "QuerySecurityFile": 371,
+          "QueryAttributeTagFile": 311,
+          "SetRenameInformationFile": 283,
+          "RegDeleteValue": 1,
+          "CreatePipe": 1,
+          "FileSystemControl": 17,
+          "RegSetValue": 9,
+          "WriteFile": 989,
+          "QueryIdInformation": 34,
+          "QuerySizeInformationVolume": 2,
+          "RegCreateKey": 1,
+          "DeviceIoControl": 20,
+          "QueryPositionInformationFile": 78,
+          "SetPositionInformationFile": 78,
+          "Process Profiling": 1,
+          "FASTIO_ACQUIRE_FOR_CC_FLUSH": 2,
+          "FASTIO_RELEASE_FOR_CC_FLUSH": 2,
+          "FASTIO_MDL_READ_COMPLETE": 2,
+          "QueryStreamInformationFile": 14,
+          "QueryEaInformationFile": 14,
+          "QueryAttributeInformationVolume": 42,
+          "QueryRemoteProtocolInformation": 28,
+          "SetEndOfFileInformationFile": 17,
+          "SetBasicInformationFile": 14,
+          "SetDispositionInformationEx": 14,
+          "SetAllocationInformationFile": 3,
+          "SetLinkInformationFile": 2,
+          "Thread Exit": 18,
+          "Process Exit": 1
+        },
+        "removedSidecars": {
+          "QueryOpen": 7,
+          "CreateFile": 3,
+          "QuerySecurityFile": 2,
+          "WriteFile": 2,
+          "CloseFile": 3,
+          "IRP_MJ_CLOSE": 2,
+          "QueryAttributeTagFile": 1,
+          "QueryBasicInformationFile": 1,
+          "SetRenameInformationFile": 1
+        },
+        "processId": 5616,
+        "rawCsvSha256": "e75a7fea61e842d0c97d7721849c971d985b0c6ab3a399e2a4c2d509ec3166d3"
+      },
+      {
+        "engine": "after",
+        "phase": "cold",
+        "operations": {
+          "Process Start": 1,
+          "Thread Create": 18,
+          "Load Image": 81,
+          "RegOpenKey": 701,
+          "RegQueryValue": 610,
+          "RegCloseKey": 299,
+          "CreateFile": 2651,
+          "CreateFileSuccess": 2540,
+          "QueryOpen": 2069,
+          "QueryNameInformationFile": 26,
+          "CloseFile": 2541,
+          "IRP_MJ_CLOSE": 1461,
+          "RegSetInfoKey": 229,
+          "QueryBasicInformationFile": 402,
+          "CreateFileMapping": 130,
+          "FASTIO_RELEASE_FOR_SECTION_SYNCHRONIZATION": 130,
+          "RegQueryKey": 763,
+          "RegEnumKey": 71,
+          "RegEnumValue": 582,
+          "QueryDirectory": 144,
+          "ReadFile": 1681,
+          "QueryStandardInformationFile": 1047,
+          "QueryNetworkOpenInformationFile": 77,
+          "QueryInformationVolume": 7,
+          "QueryAllInformationFile": 7,
+          "QueryNormalizedNameInformationFile": 12,
+          "QuerySecurityFile": 369,
+          "QueryAttributeTagFile": 310,
+          "SetRenameInformationFile": 282,
+          "RegDeleteValue": 1,
+          "CreatePipe": 1,
+          "FileSystemControl": 33,
+          "RegSetValue": 9,
+          "WriteFile": 987,
+          "QueryIdInformation": 32,
+          "QuerySizeInformationVolume": 2,
+          "RegCreateKey": 1,
+          "DeviceIoControl": 36,
+          "QueryPositionInformationFile": 78,
+          "SetPositionInformationFile": 78,
+          "Process Profiling": 1,
+          "FASTIO_MDL_READ_COMPLETE": 2,
+          "FASTIO_ACQUIRE_FOR_CC_FLUSH": 1,
+          "FASTIO_RELEASE_FOR_CC_FLUSH": 1,
+          "QueryStreamInformationFile": 14,
+          "QueryEaInformationFile": 14,
+          "QueryAttributeInformationVolume": 42,
+          "QueryRemoteProtocolInformation": 28,
+          "SetEndOfFileInformationFile": 17,
+          "SetBasicInformationFile": 14,
+          "SetDispositionInformationEx": 14,
+          "SetAllocationInformationFile": 3,
+          "SetLinkInformationFile": 2,
+          "Thread Exit": 18,
+          "Process Exit": 1
+        },
+        "removedSidecars": {},
+        "processId": 5352,
+        "rawCsvSha256": "7f449c03d99e54f86e6b96dd7126acf3bfbc0466c01ad660d127c97db7f8ae1f"
+      },
+      {
+        "engine": "before",
+        "phase": "hot",
+        "operations": {
+          "Process Start": 1,
+          "Thread Create": 11,
+          "Load Image": 76,
+          "RegOpenKey": 729,
+          "RegQueryValue": 603,
+          "RegCloseKey": 318,
+          "CreateFile": 1511,
+          "CreateFileSuccess": 1377,
+          "QueryOpen": 796,
+          "QueryNameInformationFile": 56,
+          "CloseFile": 1378,
+          "IRP_MJ_CLOSE": 580,
+          "RegSetInfoKey": 231,
+          "QueryBasicInformationFile": 86,
+          "CreateFileMapping": 124,
+          "FASTIO_RELEASE_FOR_SECTION_SYNCHRONIZATION": 124,
+          "RegQueryKey": 806,
+          "RegEnumKey": 71,
+          "RegEnumValue": 582,
+          "QueryDirectory": 135,
+          "ReadFile": 1277,
+          "QueryStandardInformationFile": 865,
+          "QueryNetworkOpenInformationFile": 76,
+          "QueryInformationVolume": 156,
+          "QueryAllInformationFile": 156,
+          "QueryNormalizedNameInformationFile": 25,
+          "QueryAttributeTagFile": 15,
+          "SetDispositionInformationEx": 12,
+          "QuerySecurityFile": 40,
+          "SetRenameInformationFile": 3,
+          "RegDeleteValue": 1,
+          "CreatePipe": 1,
+          "FileSystemControl": 23,
+          "RegSetValue": 9,
+          "WriteFile": 667,
+          "QueryIdInformation": 34,
+          "QuerySizeInformationVolume": 2,
+          "RegCreateKey": 1,
+          "DeviceIoControl": 20,
+          "Process Profiling": 1,
+          "FASTIO_MDL_READ_COMPLETE": 2,
+          "SetBasicInformationFile": 2,
+          "QueryAttributeInformationVolume": 2,
+          "QueryRemoteProtocolInformation": 14,
+          "SetSecurityFile": 2,
+          "QueryStreamInformationFile": 2,
+          "SetRenameInformationEx": 4,
+          "Thread Exit": 11,
+          "Process Exit": 1
+        },
+        "removedSidecars": {
+          "QueryOpen": 2,
+          "CreateFile": 2,
+          "ReadFile": 54,
+          "CloseFile": 2,
+          "IRP_MJ_CLOSE": 2
+        },
+        "processId": 7060,
+        "rawCsvSha256": "44cae043ed652ea147abb96bcc84e8975a2b6881ecdbb46c3685b6f574e85262"
+      },
+      {
+        "engine": "after",
+        "phase": "hot",
+        "operations": {
+          "Process Start": 1,
+          "Thread Create": 12,
+          "Load Image": 76,
+          "RegOpenKey": 729,
+          "RegQueryValue": 603,
+          "RegCloseKey": 318,
+          "CreateFile": 1383,
+          "CreateFileSuccess": 1284,
+          "QueryOpen": 770,
+          "QueryNameInformationFile": 30,
+          "CloseFile": 1285,
+          "IRP_MJ_CLOSE": 487,
+          "RegSetInfoKey": 231,
+          "QueryBasicInformationFile": 88,
+          "CreateFileMapping": 124,
+          "FASTIO_RELEASE_FOR_SECTION_SYNCHRONIZATION": 124,
+          "RegQueryKey": 806,
+          "RegEnumKey": 71,
+          "RegEnumValue": 582,
+          "QueryDirectory": 138,
+          "ReadFile": 1223,
+          "QueryStandardInformationFile": 865,
+          "QueryNetworkOpenInformationFile": 76,
+          "QueryInformationVolume": 6,
+          "QueryAllInformationFile": 6,
+          "QueryNormalizedNameInformationFile": 12,
+          "QueryAttributeTagFile": 17,
+          "SetDispositionInformationEx": 14,
+          "QuerySecurityFile": 40,
+          "SetRenameInformationFile": 3,
+          "RegDeleteValue": 1,
+          "CreatePipe": 1,
+          "FileSystemControl": 39,
+          "RegSetValue": 9,
+          "WriteFile": 652,
+          "QueryIdInformation": 32,
+          "QuerySizeInformationVolume": 2,
+          "RegCreateKey": 1,
+          "DeviceIoControl": 36,
+          "Process Profiling": 1,
+          "FASTIO_MDL_READ_COMPLETE": 2,
+          "SetBasicInformationFile": 2,
+          "QueryAttributeInformationVolume": 2,
+          "QueryRemoteProtocolInformation": 14,
+          "SetSecurityFile": 2,
+          "QueryStreamInformationFile": 2,
+          "SetRenameInformationEx": 4,
+          "Thread Exit": 12,
+          "Process Exit": 1
+        },
+        "removedSidecars": {},
+        "processId": 6112,
+        "rawCsvSha256": "2263e2c2ba71c21fe58bbb0b25807e41b62c4108119e4a44e11b7107b07ca8cc"
+      }
+    ],
+    "parallelColdCompiledOnly": {
+      "before": {
+        "effectiveJobs": [
+          4,
+          4,
+          4
+        ],
+        "maximumConcurrency": [
+          4,
+          4,
+          4
+        ],
+        "preparationMsMedian": 5.2903,
+        "fallbacks": [
+          {
+            "uncertified-plugin": 8
+          },
+          {
+            "uncertified-plugin": 8
+          },
+          {
+            "uncertified-plugin": 8
+          }
+        ]
+      },
+      "after": {
+        "effectiveJobs": [
+          4,
+          4,
+          4
+        ],
+        "maximumConcurrency": [
+          4,
+          4,
+          4
+        ],
+        "preparationMsMedian": 7.7944,
+        "fallbacks": [
+          {
+            "uncertified-plugin": 8
+          },
+          {
+            "uncertified-plugin": 8
+          },
+          {
+            "uncertified-plugin": 8
+          }
+        ]
+      }
+    },
+    "completeFileSha256Computations": {
+      "coldBefore": 854,
+      "coldAfter": 0,
+      "hotBefore": 0,
+      "hotAfter": 0,
+      "derivation": "Baseline identity.sha256 scope = 815, plus 39 FileHashItem reads that also compute SHA256 alongside the game FastHash. The raw measurement sha256Reads field counts only the separately timed identity.sha256 scope."
+    }
+  },
+  "limitations": [
+    "Synthetic input and uncontrolled OS page cache; no universal speed claim.",
+    "Three timing pairs per mode/scenario; one separate full-lifetime file trace per engine/cache mode.",
+    "Directory queries rose by 3 in each full-process trace; backend preparation median rose from 5.2903 to 7.7944 ms despite lower end-to-end time."
+  ],
+  "unchangedInputTrees": {
+    "recovery/src": "4de9c9cdda4d1a0b0c13fa9b0cffaa2a989543d6",
+    "recovery/scripts": "bbf6e3890b156d09abd6618140f1242101cf3a00",
+    "recovery/tests": "04aa56bc5be62d9e44bf313f9e22a1ae3fff3762",
+    "recovery/build": "f3af80204a3569f5b955ca3eeb2f7445a8277dd7",
+    "recovery/catalog": "12d349a0b7d7425f36f2c60457df74b68c563421",
+    "SDK": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+    ".github/workflows": "a4afd227b31a680bcbf7d78614b728ac947ca031"
+  }
+}

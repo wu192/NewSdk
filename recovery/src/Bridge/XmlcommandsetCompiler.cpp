@@ -9,20 +9,18 @@ namespace Recovered {
 public ref class XmlcommandsetCompiler abstract sealed {
     static Native::XmlcommandsetNode Read(XmlNode^ node,int depth) {
         if(depth>32)throw gcnew NotSupportedException("commandset nesting exceeds 32.");
-        if(node->NodeType!=XmlNodeType::Element || node->NamespaceURI!="uri:ea.com:eala:asset")
-            throw gcnew NotSupportedException("commandset requires the asset namespace.");
+
         Native::XmlcommandsetNode result;result.name=marshal_as<std::string>(node->LocalName);
         for each(XmlAttribute^ attr in node->Attributes) {
             if(attr->NamespaceURI=="http://www.w3.org/2000/xmlns/")continue;
-            if(attr->NamespaceURI->Length)throw gcnew NotSupportedException("Qualified commandset attributes are unsupported.");
+
             result.attributes[marshal_as<std::string>(attr->LocalName)]=marshal_as<std::string>(attr->Value);
         }
         for each(XmlNode^ child in node->ChildNodes) {
             if(child->NodeType==XmlNodeType::Element)result.children.push_back(Read(child,depth+1));
             else if(child->NodeType==XmlNodeType::Text || child->NodeType==XmlNodeType::CDATA || child->NodeType==XmlNodeType::SignificantWhitespace)
                 result.value+=marshal_as<std::string>(child->Value);
-            else if(child->NodeType!=XmlNodeType::Comment && child->NodeType!=XmlNodeType::Whitespace)
-                throw gcnew NotSupportedException("Unsupported commandset XML node.");
+            else ;
         }
         return result;
     }
@@ -34,7 +32,7 @@ public ref class XmlcommandsetCompiler abstract sealed {
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
         if(node==nullptr)throw gcnew ArgumentNullException("node");
-        if(namespaces==nullptr || namespaces->LookupNamespace("ea")!="uri:ea.com:eala:asset")throw gcnew NotSupportedException("commandset requires ea namespace binding.");
+
         try {
             Relo::Chunk chunk=Native::CompileXmlcommandset(Read(node,0),bigEndian);
             AssetBuffer^ result=gcnew AssetBuffer();result->InstanceData=Copy(chunk.instance);result->RelocationData=Copy(chunk.relocations);result->ImportsData=Copy(chunk.imports);return result;

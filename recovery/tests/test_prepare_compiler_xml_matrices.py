@@ -14,11 +14,11 @@ class PrepareXmlMatrixTests(unittest.TestCase):
     def test_all_groups_preserve_assertions_and_partial_cases(self):
         with tempfile.TemporaryDirectory() as directory:
             rows = PREPARE.prepare(ROOT, pathlib.Path(directory))
-            self.assertEqual(len(rows), 63)
-            self.assertEqual(len({r['group'] for r in rows}), 63)
+            self.assertEqual(len(rows), 64)
+            self.assertEqual(len({r['group'] for r in rows}), 64)
             for row in rows:
                 group = row['group']
-                expected = [ROOT / ('recovery/tests/' + group + 'Oracle.cs')] + sorted((ROOT / 'recovery/tests').glob(group + '*Cases.cs'))
+                expected = [ROOT / ('recovery/tests/' + group + 'Oracle.cs')] + sorted((ROOT / 'recovery/tests').glob(group + '*Cases.cs')) + [ROOT / 'recovery/tests/PluginSchemaBoundary.cs']
                 self.assertEqual([i['path'] for i in row['inputs']], [p.relative_to(ROOT).as_posix() for p in expected])
                 for original, target in zip(expected, row['sources']):
                     before = original.read_text(encoding='utf-8-sig')

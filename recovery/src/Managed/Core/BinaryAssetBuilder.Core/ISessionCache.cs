@@ -20,5 +20,8 @@ public interface ISessionCache
 
 	bool TryGetDocument(string path, string configuration, TargetPlatform platform, bool autoCreateDocument, out AssetDeclarationDocument document);
 
+	bool ReplaceDocumentForExecution(string path, string configuration, TargetPlatform platform,
+		AssetDeclarationDocument expected, AssetDeclarationDocument replacement);
+
 	void SaveDocumentToCache(string path, string configuration, TargetPlatform platform, AssetDeclarationDocument document);
 }

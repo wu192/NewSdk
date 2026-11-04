@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "evidenceKind": "workflow-status-and-job-log-summary",
+  "repository": "wu162/NewSdk",
+  "sourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "binarySourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "testSourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "runId": "40814401237",
+  "runAttempt": "1",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/40814401237",
+  "workflowPath": ".github/workflows/refactor-core-lifecycle.yml",
+  "headBranch": "recovery/legacy-sdk-cache",
+  "runStatus": "completed",
+  "runConclusion": "success",
+  "runUpdatedAt": "2026-10-29T04:08:46Z",
+  "binaryReuse": false,
+  "localContinuation": "Documentation only; production, SDK, protocol, workflow, build and test inputs unchanged since this successful source commit.",
+  "job": {
+    "id": 123251980417,
+    "name": "lifecycle",
+    "conclusion": "success",
+    "gates": [
+      {
+        "name": "Standalone P2 application contracts in Debug",
+        "conclusion": "success"
+      },
+      {
+        "name": "Standalone P2 application contracts in Release",
+        "conclusion": "success"
+      },
+      {
+        "name": "Validate CLI scripts and output contracts before long Native linking",
+        "conclusion": "success"
+      },
+      {
+        "name": "Build managed Foundation inputs",
+        "conclusion": "success"
+      },
+      {
+        "name": "Build full production combination and verify deployment and route metadata",
+        "conclusion": "success"
+      },
+      {
+        "name": "Targeted real Core, backend and application pipeline in Debug and Release",
+        "conclusion": "success"
+      },
+      {
+        "name": "Isolated original BAB baseline for the two targeted backend cases",
+        "conclusion": "success"
+      },
+      {
+        "name": "Validate actual application JSONL and reports against protocol schemas",
+        "conclusion": "success"
+      },
+      {
+        "name": "Host-bound Texture payload and deployment rejection in Debug and Release",
+        "conclusion": "success"
+      },
+      {
+        "name": "Real production CLI, cold processes and actual CtrlBreak cancellation",
+        "conclusion": "success"
+      },
+      {
+        "name": "Validate real production CLI protocol outputs",
+        "conclusion": "success"
+      },
+      {
+        "name": "Actual build-cache cold hot invalidation and retry matrix",
+        "conclusion": "success"
+      },
+      {
+        "name": "Effective input roots and original BAB output differential",
+        "conclusion": "success"
+      },
+      {
+        "name": "Actual Audio CDATA and W3X build-cache payload replay",
+        "conclusion": "success"
+      },
+      {
+        "name": "Actual session-cache documents intermediate and CDATA reuse matrix",
+        "conclusion": "success"
+      },
+      {
+        "name": "Validate actual session-cache protocol outputs",
+        "conclusion": "success"
+      },
+      {
+        "name": "Production BIG apt maps selection and original MakeBig differential",
+        "conclusion": "success"
+      },
+      {
+        "name": "Validate actual BIG production protocol outputs",
+        "conclusion": "success"
+      },
+      {
+        "name": "Validate actual cache and input-root protocol outputs",
+        "conclusion": "success"
+      },
+      {
+        "name": "Complete mymod original BAB and production SDK differential",
+        "conclusion": "success"
+      },
+      {
+        "name": "Publish final five-file packages after complete production acceptance",
+        "conclusion": "success"
+      },
+      {
+        "name": "Run actions/upload-artifact@v4",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "sdkResult": {
+    "modes": [
+      {
+        "differences": 0,
+        "configuration": "Debug",
+        "bigSucceeded": true,
+        "succeeded": true
+      },
+      {
+        "differences": 0,
+        "configuration": "Release",
+        "bigSucceeded": true,
+        "succeeded": true
+      }
+    ],
+    "error": null,
+    "sourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+    "succeeded": true
+  },
+  "sessionProtocol": {
+    "configurations": [
+      "Debug",
+      "Release"
+    ],
+    "reportsPerConfiguration": 101,
+    "eventsPerConfiguration": 4030,
+    "errors": 0,
+    "dateTimeFormatsValidated": true,
+    "logTimestamp": "2026-10-29T04:06:09.3551692Z"
+  },
+  "artifact": {
+    "id": 12871674302,
+    "name": "refactor-core-lifecycle-40814401237-1",
+    "url": "https://github.com/wu162/NewSdk/actions/runs/40814401237/artifacts/12871674302",
+    "sizeInBytes": 137119679,
+    "sha256": "6c395456add02dec40c7759e9cc5a26d34ea353f5e3ee588a12a78df3bfab044",
+    "digestBasis": "GitHub metadata, upload log and locally recomputed complete archive SHA256 agree.",
+    "expiresAt": "2027-01-27T03:50:36Z",
+    "archiveLocallyVerified": true,
+    "localDownloadStatus": "Downloaded through GitHub download_workflow_artifact and verified in the benchmark continuation; original CLI HTTP 403 remains a historical observation.",
+    "rawReceipts": [
+      "evidence/refactor/session-cache/40814401237-1/validation.json",
+      "evidence/refactor/sdk-mymod/40814401237-1/validation.json",
+      "artifacts/final-release/40814401237-1/release.json"
+    ],
+    "releaseZip": "artifacts/final-release/40814401237-1/NewModCompiler-Win32-Release.zip",
+    "debugZip": "artifacts/final-release/40814401237-1/NewModCompiler-Win32-Debug.zip",
+    "rawReceiptsLocallyRead": true,
+    "innerZips": [
+      {
+        "name": "NewModCompiler-Win32-Debug.zip",
+        "bytes": 2227129,
+        "sha256": "e4e2df5e76c16f51406aea3ee141d72a96b0f65a1245da582fb84c7e4fce8d92"
+      },
+      {
+        "name": "NewModCompiler-Win32-Release.zip",
+        "bytes": 1726007,
+        "sha256": "343198bc65976bf0cbad852ef2b64419e8ee9b44add8f14c6e0fdd9fa07f9b8d"
+      }
+    ]
+  },
+  "coverageLimits": [
+    "Actual CtrlBreak uses psc:false; psc:true completed-document persistence is directly exercised after XML failure, not after CtrlBreak.",
+    "Original BAB import directly exercises XML sessions; Deflate cold/hot and XML switching are exercised by the new host, not a direct original BAB Deflate import.",
+    "Texture CustomData presence is determined by original DLL HasCustomData; not every texture route produces CDATA.",
+    "Complete repository mymod does not contain APT/maps entries or full game data; independent cases cover APT/maps. No new WBData or in-game acceptance."
+  ]
+}

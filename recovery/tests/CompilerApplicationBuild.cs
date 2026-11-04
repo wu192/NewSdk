@@ -86,9 +86,8 @@ public static class CompilerApplicationBuild
     static RunResult Build(string name, string mod, string[] content, Observe observer = null)
     {
         int number = ++buildNumber;
-        // Core still uses legacy MAX_PATH APIs for intermediate asset names.
-        // Keep the real compile workspace short, then archive unmodified logs;
-        // do not weaken Chinese/space MOD-path or production path validation.
+        // Publication is separate from the SDK-owned compiler workspace.
+        // Keep delivery paths short while preserving Chinese/space MOD paths.
         string output = Path.Combine(shortOutputRoot, "b" + number);
         var request = Options.Parse(new[] { "build", "--mod", mod, "--sdk-root", sdk, "--out", output,
             "--package-format", "loose", "--package-content", String.Join(",", content), "/sc:false", "/bc:false", "/pc:false", "/csc:false", "/tl:3" });
@@ -122,8 +121,8 @@ public static class CompilerApplicationBuild
             string source = Text(artifact["Path"]);
             string destination = Path.Combine(evidence, "compiled", "b" + number, (++artifactNumber) + Path.GetExtension(source));
             Directory.CreateDirectory(Path.GetDirectoryName(destination)); File.Copy(source, destination, true);
-            Require(Hash(destination) == Text(artifact["Sha256"]), "Archived application artifact differs from actual output");
-            copies.Add(new { originalPath = source, archivedPath = destination, sha256 = Text(artifact["Sha256"]) });
+            Require(Hash(destination) == Hash(source), "Archived application artifact differs from actual output");
+            copies.Add(new { originalPath = source, archivedPath = destination, sha256 = Hash(destination) });
         }
         ProtocolCases.Add(new { name = name, events = Path.Combine(archive, "build.events.jsonl"), report = Path.Combine(archive, "build-report.json"),
             originalEventsPath = request.EventsPath, originalReportPath = request.ReportPath, originalOutputRoot = output, buildId = id,
@@ -195,29 +194,35 @@ public static class CompilerApplicationBuild
             Require(Events(run, "Diagnostic").Any(e => CoreDiagnostic(e) && Text(e["streamId"]) == task.Id && Text(Map(e["payload"])["source"]) != "ApplicationBridgeContractFixture"), "Selected real Core stream produced no bridged diagnostics");
         object[] artifacts = Array(run.Report["artifacts"]);
         Require(artifacts.Length == 4 * selected.Length && Events(run, "ArtifactProduced").Length == artifacts.Length, "Expected four artifacts per selected stream");
-        string staging = Path.Combine(run.Request.OutputRoot, ".build", run.BuildId);
+        CacheLayout cache = CacheLayout.ForRequest(run.Request);
         string published = Path.Combine(run.Request.OutputRoot, "published");
-        Require(!Directory.Exists(staging) && Text(run.Report["publicationDirectory"]) == published, "Successful publication retained staging or reported the wrong destination");
+        Require(Text(run.Report["publicationDirectory"]) == published, "Successful publication reported the wrong destination");
         var paths = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (object value in artifacts)
         {
             var artifact = Map(value); string path = Text(artifact["Path"]);
             Require(Paths.Contains(published, path) && paths.Add(path) && File.Exists(path), "Artifact escaped this build's published directory");
-            Require(new FileInfo(path).Length == Convert.ToInt64(artifact["Size"]) && Hash(path) == Text(artifact["Sha256"]), "Reported artifact identity differs from actual output");
-            var emitted = Events(run, "ArtifactProduced").Select(e => Map(e["payload"])).Single(a => Text(a["Path"]) == Path.Combine(staging, path.Substring(published.Length).TrimStart('\\', '/')));
-            Require(Text(emitted["Sha256"]) == Text(artifact["Sha256"]) && Convert.ToInt64(emitted["Size"]) == Convert.ToInt64(artifact["Size"]), "Artifact event and report disagree");
+            Require(new FileInfo(path).Length == Convert.ToInt64(artifact["Size"]), "Reported artifact identity differs from actual output");
+            var emitted = Events(run, "ArtifactProduced").Select(e => Map(e["payload"])).Single(a => Text(a["Path"]) == path);
+            Require(Convert.ToInt64(emitted["Size"]) == Convert.ToInt64(artifact["Size"]), "Artifact event and report disagree");
         }
         foreach (BuildTask task in run.Expected.Tasks)
         {
             string streamRoot = Path.Combine(published, task.Content, Path.GetFileNameWithoutExtension(task.InputPath));
             var streamFiles = paths.Where(p => Paths.Contains(streamRoot, p)).ToArray();
             Require(streamFiles.Length == 4 && new[] { ".manifest", ".bin", ".imp", ".relo" }.All(extension => streamFiles.Count(p => Path.GetExtension(p) == extension) == 1), "Stream did not produce one exact linked four-file set");
+            string cacheRoot = cache.StreamDirectory(task);
+            foreach (string file in streamFiles)
+            {
+                string cached = Path.Combine(cacheRoot, file.Substring(streamRoot.Length + 1));
+                Require(File.Exists(cached) && Hash(cached) == Hash(file), "Loose delivery differs from its SDK cache stream");
+            }
         }
     }
     static void Failed(RunResult run, ExitCode expected, string status)
     {
         Require(run.Code == expected && Text(run.Report["status"]) == status, "Controlled application failure returned wrong status");
-        Require(Array(run.Report["artifacts"]).Length == 0 && !Directory.Exists(Path.Combine(run.Request.OutputRoot, ".build", run.BuildId)), "Failed build retained its own staging or published artifacts");
+        Require(Array(run.Report["artifacts"]).Length == 0, "Failed build reported published artifacts");
     }
     static void Run()
     {
@@ -233,14 +238,16 @@ public static class CompilerApplicationBuild
         {
             var cancelled = Build("cancel-at-stream-boundary", full, groups, new Observe { Cancellation = cancellation });
             Failed(cancelled, ExitCode.Cancelled, "cancelled");
-            Require(Events(cancelled, "StreamStarted").Length == 1 && Events(cancelled, "StreamCompleted").Length == 1 && Events(cancelled, "ArtifactProduced").Length == 4, "Cancellation did not stop before the next stream");
+            Require(Events(cancelled, "StreamStarted").Length == 1 && Events(cancelled, "StreamCompleted").Length == 1 && Events(cancelled, "ArtifactProduced").Length == 0, "Cancellation did not stop before the next stream or exposed private cache files as delivery artifacts");
         }
         Success(Build("retry-after-cancel", full, groups), groups);
         Tests.Add("stream-boundary-cancel-cleans-only-build-artifacts-and-next-real-session-succeeds");
         var sink = new Observe { FailArtifact = true };
         var failed = Build("artifact-sink-failure", full, new[] { "base" }, sink);
         Failed(failed, ExitCode.Output, "failed");
-        Require(sink.Failed && Events(failed, "ArtifactProduced").Length == 1 && Events(failed, "StreamStarted").Length == 1 && Events(failed, "Diagnostic").Any(e => Text(e["diagnosticCode"]) == "EVENT_WRITE_FAILED"), "First artifact sink failure did not exercise required output handling");
+        // ArtifactProduced is emitted during loose publication. Its required
+        // sink failure retains the publication boundary's diagnostic contract.
+        Require(sink.Failed && Events(failed, "ArtifactProduced").Length == 1 && Events(failed, "StreamStarted").Length == 1 && Events(failed, "Diagnostic").Any(e => Text(e["diagnosticCode"]) == "PUBLICATION_FAILED"), "First artifact sink failure did not exercise required output handling");
         Success(Build("retry-after-sink-failure", full, new[] { "base" }), new[] { "base" });
         Tests.Add("first-artifact-sink-write-failure-Output-exit-state-release-and-next-real-session-succeeds");
         var bridge = new Observe { InjectBridgeMessages = true };

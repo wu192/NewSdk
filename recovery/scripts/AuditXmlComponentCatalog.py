@@ -62,7 +62,11 @@ def audit():
     component_names = {r['name'] for r in component['roots']}
     assert len(component_names) == len(component['roots']), 'duplicate component-only roots'
     assert not (baseline_names & component_names), 'SDK baseline/component-only catalogs overlap'
-    assert baseline_names | component_names == set(manifest), 'formal routes differ from accepted baseline plus component-only catalog'
+    joypad = json.loads((ROOT / 'recovery/catalog/XmljoypadTypes.json').read_text(encoding='utf-8-sig'))
+    joypad_names = {r['name'] for r in joypad['roots']}
+    assert len(joypad_names) == 11 and all('Joypad' in name for name in joypad_names), 'Joypad scope drift'
+    assert not joypad_names.intersection(baseline_names | component_names), 'Joypad routes overlap historical snapshots'
+    assert baseline_names | component_names | joypad_names == set(manifest), 'formal routes differ from historical catalogs plus Joypad'
     assert all(r['sdkValidated'] is False for r in component['roots']), 'component-only root incorrectly marked SDK accepted'
     assert component['snapshotPhase'] == 'component-acceptance-before-current-sdk', 'historical partition phase changed'
     assert component['combinedDllSdkValidatedAtSnapshot'] is False, 'historical component snapshot changed'
@@ -71,7 +75,7 @@ def audit():
     for name, values in original.items():
         rows.append(dict(name=name, **values, formalComponentRoute=name in manifest,
                          schemaGlobal=name in global_names, catalogs=memberships.get(name, []),
-                         excludedRoot=('Joypad' in name or 'GameObject' in name)))
+                         excludedRoot=(name == 'TestGameObject')))
     return dict(scope='Static registration/route/catalog audit only; not component or SDK validation',
                 originalPluginBlob='00bb9e5df72d07a21204f85f9a9a2f1d9557f00b',
                 registeredEntries=len(original), formalComponentRoutes=len(manifest),

@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "6a69c0e8f61025ad67c4ba80b6281f537d896193",
+  "runId": 41281916951,
+  "runAttempt": 1,
+  "conclusion": "success",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41281916951",
+  "artifactId": 13074145764,
+  "archiveSha256": "b579f1bbcae1127bd7610598f7b1a3072c849d93c978ae11b6f7a11934496f24",
+  "archiveDownloadedOnce": true,
+  "archiveAndRuntimeHashesVerified": true,
+  "productAndValidationObjectInventoriesMatch": true,
+  "fixtureSourcesMatchWindowsCrlfCheckout": true,
+  "sourceHashNote": "Only C# fixture source transport is compared with Windows checkout CRLF. Runtime and archive hashes use exact raw bytes; no output normalization.",
+  "validationHostSha256": "74a7929a7df5201e094cb7c1a6b86f4f3047a5c47e2f43d6f7a07a35579dd918",
+  "runtimeFiles": [
+    {
+      "name": "NewModCompiler.exe",
+      "sha256": "dcaf4fdf4ecbb64af67f9972a748974fcaad6c58b80db734b4378e31693436c3",
+      "size": 5006336
+    },
+    {
+      "name": "NewModCompiler.exe.config",
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "size": 201
+    },
+    {
+      "name": "antlr.runtime.dll",
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "size": 99328
+    }
+  ],
+  "appContractChecks": 1873,
+  "coreFixtureChecks": {
+    "CompilerCoreLifecycle": 597,
+    "CompilerApplicationBuild": 2480
+  },
+  "measurement": {
+    "pairs": 3,
+    "onMedianMs": 2754.3291,
+    "offMedianMs": 2766.9984,
+    "overheadPercent": -0.45787160556363116,
+    "targetMaxPercent": 1,
+    "targetMet": true
+  },
+  "realCallbacks": {
+    "cold": {
+      "matchedReportCache": true,
+      "xmlParsed": 910,
+      "documentsReused": 0,
+      "assetsCompleted": 3235
+    },
+    "hot": {
+      "matchedReportCache": true,
+      "xmlParsed": 0,
+      "documentsReused": 910,
+      "assetsCompleted": 3235
+    }
+  },
+  "scope": "One current Release product; existing real Core/application lifecycle fixtures; actual redirected CLI error/CtrlBreak/retry; complete unmodified pinned Upheaval base stream, warm legacy cache, three or more alternating progress-on/off pairs in newly allocated real Windows consoles. No Debug rebuild, original SDK differential or game runtime acceptance.",
+  "timingBoundary": "External process wall including equal console/process startup; setup, output comparisons, evidence copies and cache warm-up excluded. Same executable, SDK/MOD/cache, output path, jobs=4 and performance=off. OS page cache is uncontrolled.",
+  "limitations": [
+    "One Windows VM, three warm alternating pairs, external wall includes process/console startup, OS page cache uncontrolled.",
+    "Base loose stream only; no Debug, full APT/maps, original-SDK differential or in-game acceptance in this feature run.",
+    "Negative measured overhead is within run variability and is not a general speedup claim."
+  ]
+}

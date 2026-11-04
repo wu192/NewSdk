@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "status": "passed-complete-windows-production-sdk-and-zip",
+  "sourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+  "binarySourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+  "runId": "41185772818",
+  "runAttempt": "1",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41185772818",
+  "terminal": {
+    "status": "completed",
+    "conclusion": "success",
+    "metadataSha256": "15f011fd76a8182ef285f7cd7f8800f01cfef678c7874810e7eb72856bed2b5f"
+  },
+  "artifact": {
+    "id": 13037167160,
+    "url": "https://github.com/wu162/NewSdk/actions/runs/41185772818/artifacts/13037167160",
+    "bytes": 166534686,
+    "sha256": "9eaea1128cd4ca12f97718f5c8601cc3c6811b6bbe7b199c090107bd087a5f59"
+  },
+  "packages": [
+    {
+      "configuration": "Debug",
+      "archive": {
+        "bytes": 2157028,
+        "name": "NewModCompiler-Win32-Debug.zip",
+        "sha256": "a4633d226219c5777362931de58ddebba64680305c8c27ba8476b7934bda254d"
+      },
+      "manifestSha256": "dc97c49867db9ef628251048036469298305c165415083752fbfc1a387d0a529",
+      "files": [
+        {
+          "bytes": 7603200,
+          "name": "NewModCompiler.exe",
+          "sha256": "221ba2554ad636006581470d5f51a42e312cecf4835b87892b2896b0aaff9ab8"
+        },
+        {
+          "bytes": 201,
+          "name": "NewModCompiler.exe.config",
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        {
+          "bytes": 99328,
+          "name": "antlr.runtime.dll",
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "buildReceiptSha256": "1493ba2abc17582ddbc96df2dd793a3b03034e3988c0a7ccec05586f9485e838"
+    },
+    {
+      "configuration": "Release",
+      "archive": {
+        "bytes": 1624657,
+        "name": "NewModCompiler-Win32-Release.zip",
+        "sha256": "7307405c5adb43ce17fb62006a41a1e354fcb48c238c9d9513e6fc482a874116"
+      },
+      "manifestSha256": "56d201e9d04d5d13a5068bb487bcaa17b223b3e5f790270d608d6f1574f98483",
+      "files": [
+        {
+          "bytes": 4917248,
+          "name": "NewModCompiler.exe",
+          "sha256": "4749d8f5bff056011669ebd58827c16ebe83c04190e9f465f1b08c9dd4f107e7"
+        },
+        {
+          "bytes": 201,
+          "name": "NewModCompiler.exe.config",
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        {
+          "bytes": 99328,
+          "name": "antlr.runtime.dll",
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "buildReceiptSha256": "3fc4f95beaf09082f63aecaaefa4efbf0148ea7a433ed461880b16f5fa0d1f8d"
+    }
+  ],
+  "verification": {
+    "archiveIdentityVerified": true,
+    "twoZipMemberSetsExactlyThreeFiles": true,
+    "allSixRuntimeFileHashesVerifiedAgainstProductionBuilds": true,
+    "commonProductionExeHashesMatch": true,
+    "commonReceiptMatchesSeparateArtifact": true
+  },
+  "passedScopes": [
+    "deployment",
+    "core",
+    "cli",
+    "backend-parallel",
+    "build-cache",
+    "input-roots",
+    "cache-payloads",
+    "session-cache",
+    "sdk",
+    "big",
+    "texture",
+    "upheaval",
+    "texture-prepared-workers",
+    "three-file-zip-deployment",
+    "core-original-bab-oracles",
+    "common-formats-and-texture-cli"
+  ],
+  "counts": {
+    "commonCasesPerConfiguration": 31,
+    "commonAssertionsPerConfiguration": 532,
+    "textureCliCases": 16,
+    "backendParallelCases": 64,
+    "upheavalSamples": 22
+  },
+  "texturePreparedWorkers": [
+    {
+      "configuration": "Debug",
+      "checks": 5861191,
+      "workerCount": 4,
+      "maximumConcurrency": 4,
+      "assets": 8,
+      "ownerDiagnosticReplay": true,
+      "failureCancellationDrain": true,
+      "receiptSha256": "ea755f534a398309a79765e6c7e36aa10ec433b7aa8e4b4d9274a079495cb663"
+    },
+    {
+      "configuration": "Release",
+      "checks": 5861191,
+      "workerCount": 4,
+      "maximumConcurrency": 4,
+      "assets": 8,
+      "ownerDiagnosticReplay": true,
+      "failureCancellationDrain": true,
+      "receiptSha256": "6d9f21c329007d99ec3a52f4a5445a4517e6da88ffc8036e7d6b496c6c504991"
+    }
+  ],
+  "textureOriginalDifferential": {
+    "successesPerConfiguration": 6,
+    "rejectionCasesPerConfiguration": 3,
+    "originalVersion": 4202,
+    "sourceVersion": 4202,
+    "processingHashes": {
+      "Texture": 2673862832,
+      "OnDemandTexture": 4165508788,
+      "TerrainTextureAtlas": 1182597302
+    },
+    "fullRawTranscriptsByteIdentical": true,
+    "transcripts": [
+      {
+        "path": "texture/original-source-debug-release.txt.gz",
+        "bytes": 4194094,
+        "sha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+        "gzipSha256": "c30ea97c14f92550920a40adcc86c5fd5c25718e9165d3f99adcf9a820068b23",
+        "artifactPaths": [
+          "evidence/refactor/core-lifecycle-texture/41185772818-1/original.txt",
+          "evidence/refactor/core-lifecycle-texture/41185772818-1/Debug/source.txt",
+          "evidence/refactor/core-lifecycle-texture/41185772818-1/Release/source.txt"
+        ]
+      }
+    ]
+  },
+  "originalSdkIdentity": "Original Texture plugin descriptor, version and ProcessingHash retained without oracle wrapper.",
+  "skippedWorkflowSteps": [
+    "Download and strictly verify accepted historical CLI runtimes",
+    "Complete shared-helper XML route smoke",
+    "All 63 shared-helper XML original differential matrices",
+    "Complete GameObject original byte and tokenizer matrices",
+    "Complete Weapon original byte and tokenizer matrices"
+  ],
+  "limits": [
+    "BC1/DXT1 and DXT1A use the new managed codec; common tests validate decoded pixels and complete DDS layout, not legacy compressed byte identity.",
+    "S3 DXT3/5 and common-image support are validated within recorded fixtures and unchanged mymod/Upheaval scope, not every legacy texture option or input profile.",
+    "No game runtime/playback acceptance; no general speed claim from the 22 Upheaval same-VM samples."
+  ],
+  "inventory": {
+    "path": "full-file-inventory.json",
+    "sha256": "11e37ff7f8a37abab6e98d67b7e61c8b0bc98b018fc7a2bd54a6e1fdd69a26a0",
+    "archivedFiles": 85
+  }
+}

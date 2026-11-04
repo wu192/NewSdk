@@ -1,0 +1,10 @@
+{
+  "runId": "41131918949",
+  "sourceCommit": "33572fd91bd4e22b73f41e3e418a488fa222a5eb",
+  "status": "partial",
+  "artifactId": 13013387157,
+  "archiveSha256": "437ee98209dbc8b5749f0f6b5f657d657905c51ab6980861f5b2e42b087dacee",
+  "archiveDigestVerified": true,
+  "formalSamples": 0,
+  "reason": "Generated ID native FastHash collision discovered during warmup; fixed in cb720651"
+}

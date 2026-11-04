@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "runId": 41181143063,
+  "runAttempt": 1,
+  "sourceCommit": "a468271447e65804f476f95186a64006b5e3c7b7",
+  "status": "passed",
+  "workflowRun": {
+    "id": 41181143063,
+    "status": "completed",
+    "conclusion": "success",
+    "headSha": "a468271447e65804f476f95186a64006b5e3c7b7",
+    "createdAt": "2026-10-31T07:34:26Z",
+    "updatedAt": "2026-10-31T07:47:46Z",
+    "url": "https://github.com/wu162/NewSdk/actions/runs/41181143063"
+  },
+  "artifacts": [
+    {
+      "artifactId": 13035656111,
+      "artifactName": "compiler-upheaval-edits-41181143063-1-B",
+      "archiveSha256": "9e01131339b0326dc540b01a39999adbfd6954550ab66045f7d7cfc5a8b217dc",
+      "archiveBytes": 7263100,
+      "downloadedAndRehashed": 1,
+      "sourceCommit": "a468271447e65804f476f95186a64006b5e3c7b7",
+      "runId": 41181143063,
+      "status": "passed",
+      "group": "B",
+      "extractedFiles": 152,
+      "skippedOldFiles": 0,
+      "skippedSuccessfulLogs": 272,
+      "failedSamples": 0
+    },
+    {
+      "artifactId": 13034678713,
+      "artifactName": "compiler-upheaval-edits-41181143063-1-A",
+      "archiveSha256": "4ccc3823ae294f4e7b3afc11a31f6bb68609f2adee87fa4d80cb08bde644e174",
+      "archiveBytes": 7284604,
+      "downloadedAndRehashed": 1,
+      "sourceCommit": "a468271447e65804f476f95186a64006b5e3c7b7",
+      "runId": 41181143063,
+      "status": "passed",
+      "group": "A",
+      "extractedFiles": 152,
+      "skippedOldFiles": 0,
+      "skippedSuccessfulLogs": 272,
+      "failedSamples": 0
+    }
+  ],
+  "jobs": [
+    {
+      "id": 124478613603,
+      "name": "paired (B) / measure",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124478613790,
+      "name": "paired (A) / measure",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124478614358,
+      "name": "benchmark",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "identityVerification": {
+    "runAndArtifactSourceMatch": true,
+    "measurementSourceMatch": true,
+    "baselineSource": "e2dba3c321504752438b4e940d651bbfcdb58fff",
+    "baselineRunId": 41169755141,
+    "candidateSource": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+    "candidateRunId": 41178094135,
+    "productionChangesAndTreesMatch": true,
+    "runtimeReceiptsMatch": true,
+    "candidateAcceptedRuntimeReceipt": "../../hot-edit/acceptance-41178094135/archive.json",
+    "fullUpheavalPinnedTreeMatch": true,
+    "scenarioInputReceiptsMatch": true,
+    "all272SamplesPassed": true,
+    "allPublishedBytesMatched": true,
+    "allRestoreAndMeasuredHotChecksZeroParseAndCompile": true
+  },
+  "retention": {
+    "archiveDownloadsAndHashesPerArtifact": 1,
+    "reusedOldProductionArchives": true,
+    "repositoryContains": "measurement/report/input/publication/build receipts and compact raw-derived summary only",
+    "rawSampleReports": "Retained locally and in original Actions artifacts; not duplicated in repository",
+    "successfulLogs": "Retained only in original Actions artifacts",
+    "failedSamples": 0
+  }
+}

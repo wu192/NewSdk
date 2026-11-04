@@ -1,0 +1,394 @@
+{
+  "coreOffPairs": {
+    "inheritance-source": {
+      "pairs": [
+        {
+          "trial": 1,
+          "baselineWallMs": 491.929099999993,
+          "candidateWallMs": 509.5584000000031,
+          "baselineReportMs": 402,
+          "candidateReportMs": 419,
+          "baselineParse": 2,
+          "candidateParse": 2,
+          "baselineCompile": 2,
+          "candidateCompile": 2
+        },
+        {
+          "trial": 2,
+          "baselineWallMs": 551.3786999999866,
+          "candidateWallMs": 527.9042999999888,
+          "baselineReportMs": 444,
+          "candidateReportMs": 436,
+          "baselineParse": 2,
+          "candidateParse": 2,
+          "baselineCompile": 2,
+          "candidateCompile": 2
+        },
+        {
+          "trial": 3,
+          "baselineWallMs": 518.8929999999914,
+          "candidateWallMs": 511.1924000000272,
+          "baselineReportMs": 429,
+          "candidateReportMs": 421,
+          "baselineParse": 2,
+          "candidateParse": 2,
+          "baselineCompile": 2,
+          "candidateCompile": 2
+        }
+      ],
+      "summary": {
+        "baseline": {
+          "wallMedianMs": 518.8929999999914,
+          "reportMedianMs": 429
+        },
+        "candidate": {
+          "wallMedianMs": 511.1924000000272,
+          "reportMedianMs": 421
+        },
+        "wallReductionPercent": 1.4840439165616615
+      }
+    },
+    "unrelated-parent-sibling": {
+      "pairs": [
+        {
+          "trial": 1,
+          "baselineWallMs": 492.82510000000457,
+          "candidateWallMs": 520.7790999999702,
+          "baselineReportMs": 402,
+          "candidateReportMs": 428,
+          "baselineParse": 2,
+          "candidateParse": 1,
+          "baselineCompile": 1,
+          "candidateCompile": 1
+        },
+        {
+          "trial": 2,
+          "baselineWallMs": 490.596700000026,
+          "candidateWallMs": 493.78110000003517,
+          "baselineReportMs": 401,
+          "candidateReportMs": 403,
+          "baselineParse": 2,
+          "candidateParse": 1,
+          "baselineCompile": 1,
+          "candidateCompile": 1
+        },
+        {
+          "trial": 3,
+          "baselineWallMs": 490.7646999999997,
+          "candidateWallMs": 493.63360000000966,
+          "baselineReportMs": 400,
+          "candidateReportMs": 402,
+          "baselineParse": 2,
+          "candidateParse": 1,
+          "baselineCompile": 1,
+          "candidateCompile": 1
+        }
+      ],
+      "summary": {
+        "baseline": {
+          "wallMedianMs": 490.7646999999997,
+          "reportMedianMs": 401
+        },
+        "candidate": {
+          "wallMedianMs": 493.78110000003517,
+          "reportMedianMs": 403
+        },
+        "wallReductionPercent": -0.6146326335279229
+      }
+    }
+  },
+  "detailed": {
+    "single-in-large-document": {
+      "candidate": {
+        "wallMs": 516.692599999999,
+        "reportElapsedMs": 418,
+        "xmlParse": 1,
+        "instanceCompile": 1,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 3.023,
+          "core.xml.overrides": 12.5189,
+          "core.xml.expressions": 0.27080000000000004,
+          "core.xml.instance.hash": 2.2098,
+          "core.xml.instance.references": 0.6077,
+          "core.xml.schema.validate": 1.3043,
+          "core.xml.instances.validate": 4.837000000000001,
+          "core.dependencies.inheritance.identity": 0.0636,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 170.7056,
+          "cache.load": 15.6453,
+          "core.process": 123.4745
+        }
+      },
+      "baseline": {
+        "wallMs": 513.0889999999795,
+        "reportElapsedMs": 418,
+        "xmlParse": 1,
+        "instanceCompile": 1,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 2.9997000000000003,
+          "core.xml.overrides": 12.7788,
+          "core.xml.expressions": 0.2597,
+          "core.xml.instance.hash": 0.4873,
+          "core.xml.instance.references": 2.6929000000000003,
+          "core.xml.schema.validate": 1.2648000000000001,
+          "core.xml.instances.validate": 4.590800000000001,
+          "core.dependencies.inheritance.identity": 0,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 167.2929,
+          "cache.load": 15.2908,
+          "core.process": 126.52220000000001
+        }
+      }
+    },
+    "inheritance-source": {
+      "baseline": {
+        "wallMs": 505.0142999999707,
+        "reportElapsedMs": 410,
+        "xmlParse": 2,
+        "instanceCompile": 2,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 2.8195,
+          "core.xml.overrides": 5.3452,
+          "core.xml.expressions": 7.9651000000000005,
+          "core.xml.instance.hash": 0.037700000000000004,
+          "core.xml.instance.references": 0.507,
+          "core.xml.schema.validate": 0.22030000000000002,
+          "core.xml.instances.validate": 1.8181,
+          "core.dependencies.inheritance.identity": 0,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 168.5436,
+          "cache.load": 15.586400000000001,
+          "core.process": 121.35900000000001
+        }
+      },
+      "candidate": {
+        "wallMs": 512.2707000000446,
+        "reportElapsedMs": 417,
+        "xmlParse": 2,
+        "instanceCompile": 2,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 2.8399,
+          "core.xml.overrides": 4.8552,
+          "core.xml.expressions": 7.9171000000000005,
+          "core.xml.instance.hash": 0.0357,
+          "core.xml.instance.references": 0.43960000000000005,
+          "core.xml.schema.validate": 0.2283,
+          "core.xml.instances.validate": 2.2387,
+          "core.dependencies.inheritance.identity": 0.0654,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 172.3478,
+          "cache.load": 15.467500000000001,
+          "core.process": 125.45970000000001
+        }
+      }
+    },
+    "unrelated-parent-sibling": {
+      "candidate": {
+        "wallMs": 512.8533000000743,
+        "reportElapsedMs": 418,
+        "xmlParse": 1,
+        "instanceCompile": 1,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 2.7590000000000003,
+          "core.xml.overrides": 1.3891,
+          "core.xml.expressions": 7.9099,
+          "core.xml.instance.hash": 0.0268,
+          "core.xml.instance.references": 0.436,
+          "core.xml.schema.validate": 0.1802,
+          "core.xml.instances.validate": 2.2199,
+          "core.dependencies.inheritance.identity": 0.0645,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 179.2584,
+          "cache.load": 15.7721,
+          "core.process": 107.0047
+        }
+      },
+      "baseline": {
+        "wallMs": 509.7639000000527,
+        "reportElapsedMs": 415,
+        "xmlParse": 2,
+        "instanceCompile": 1,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 2.8449,
+          "core.xml.overrides": 5.9683,
+          "core.xml.expressions": 8.0888,
+          "core.xml.instance.hash": 0.0453,
+          "core.xml.instance.references": 0.5093,
+          "core.xml.schema.validate": 0.227,
+          "core.xml.instances.validate": 1.8268,
+          "core.dependencies.inheritance.identity": 0,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 179.55440000000002,
+          "cache.load": 15.3415,
+          "core.process": 98.4901
+        }
+      }
+    },
+    "define-value": {
+      "baseline": {
+        "wallMs": 522.9984999999715,
+        "reportElapsedMs": 428,
+        "xmlParse": 3,
+        "instanceCompile": 2,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 2.9927,
+          "core.xml.overrides": 4.4635,
+          "core.xml.expressions": 6.4417,
+          "core.xml.instance.hash": 0.034,
+          "core.xml.instance.references": 0.5159,
+          "core.xml.schema.validate": 0.2632,
+          "core.xml.instances.validate": 1.8458,
+          "core.dependencies.inheritance.identity": 0,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 179.3895,
+          "cache.load": 15.251800000000001,
+          "core.process": 128.4367
+        }
+      },
+      "candidate": {
+        "wallMs": 525.4920999999513,
+        "reportElapsedMs": 431,
+        "xmlParse": 3,
+        "instanceCompile": 2,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 3.0898000000000003,
+          "core.xml.overrides": 4.6917,
+          "core.xml.expressions": 6.4088,
+          "core.xml.instance.hash": 0.0359,
+          "core.xml.instance.references": 0.43270000000000003,
+          "core.xml.schema.validate": 0.2508,
+          "core.xml.instances.validate": 2.2475,
+          "core.dependencies.inheritance.identity": 0.065,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 177.8754,
+          "cache.load": 15.814100000000002,
+          "core.process": 132.28400000000002
+        }
+      }
+    },
+    "unused-define-value": {
+      "candidate": {
+        "wallMs": 471.53019999996104,
+        "reportElapsedMs": 373,
+        "xmlParse": 1,
+        "instanceCompile": 0,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 2.7377000000000002,
+          "core.xml.overrides": 0.0017000000000000001,
+          "core.xml.expressions": 0.0021000000000000003,
+          "core.xml.instance.hash": 0,
+          "core.xml.instance.references": 0,
+          "core.xml.schema.validate": 0.1071,
+          "core.xml.instances.validate": 1.4248,
+          "core.dependencies.inheritance.identity": 0.111,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 172.323,
+          "cache.load": 15.3732,
+          "core.process": 67.4017
+        }
+      },
+      "baseline": {
+        "wallMs": 469.2903999999771,
+        "reportElapsedMs": 374,
+        "xmlParse": 1,
+        "instanceCompile": 0,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 2.7197,
+          "core.xml.overrides": 0.0018000000000000002,
+          "core.xml.expressions": 0.0025,
+          "core.xml.instance.hash": 0,
+          "core.xml.instance.references": 0,
+          "core.xml.schema.validate": 0.1134,
+          "core.xml.instances.validate": 1.2612,
+          "core.dependencies.inheritance.identity": 0,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 178.8393,
+          "cache.load": 15.2902,
+          "core.process": 64.7848
+        }
+      }
+    },
+    "session-metadata-missing": {
+      "baseline": {
+        "wallMs": 527.97750000002,
+        "reportElapsedMs": 431,
+        "xmlParse": 37,
+        "instanceCompile": 0,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 6.1246,
+          "core.xml.overrides": 26.2071,
+          "core.xml.expressions": 6.519500000000001,
+          "core.xml.instance.hash": 4.9835,
+          "core.xml.instance.references": 1.7252,
+          "core.xml.schema.validate": 3.1478,
+          "core.xml.instances.validate": 18.3521,
+          "core.dependencies.inheritance.identity": 0,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 166.38930000000002,
+          "cache.load": 4.187,
+          "core.process": 154.6013
+        }
+      },
+      "candidate": {
+        "wallMs": 533.6571000000276,
+        "reportElapsedMs": 439,
+        "xmlParse": 37,
+        "instanceCompile": 0,
+        "inheritanceTargetReloads": 0,
+        "snapshotReloadsAvoided": 0,
+        "phases": {
+          "core.xml.parse": 8.540000000000001,
+          "core.xml.overrides": 17.9529,
+          "core.xml.expressions": 6.5384,
+          "core.xml.instance.hash": 1.4396,
+          "core.xml.instance.references": 4.1239,
+          "core.xml.schema.validate": 3.1466000000000003,
+          "core.xml.instances.validate": 8.4199,
+          "core.dependencies.inheritance.identity": 0.0635,
+          "core.xml.inheritance.frontend": 0,
+          "core.schema": 174.38590000000002,
+          "cache.load": 4.1981,
+          "core.process": 153.78050000000002
+        }
+      }
+    }
+  },
+  "pureHotOff": {
+    "baseline": {
+      "n": 12,
+      "wallMedianMs": 427.88270000002626,
+      "reportMedianMs": 336.5,
+      "wallMinMs": 422.29329999997844,
+      "wallMaxMs": 438.3525000000077
+    },
+    "candidate": {
+      "n": 12,
+      "wallMedianMs": 438.65665000001286,
+      "reportMedianMs": 347.0,
+      "wallMinMs": 420.34919999997555,
+      "wallMaxMs": 453.29220000002124
+    }
+  }
+}

@@ -1,0 +1,4625 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "samples": [
+    {
+      "workload": "mymod",
+      "mode": "none",
+      "phase": "uncached",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\none",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\mymod-none-0"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 1117.0217000000093,
+      "exitCode": 0,
+      "cpuMs": 734.375,
+      "peakWorkingSetBytes": 52621312,
+      "reportElapsedMs": 962,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "mymod",
+      "mode": "asset",
+      "phase": "cold",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\mymod-asset-0"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 701.2836999999763,
+      "exitCode": 0,
+      "cpuMs": 703.125,
+      "peakWorkingSetBytes": 55373824,
+      "reportElapsedMs": 620,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "mymod",
+      "mode": "session-xml",
+      "phase": "cold",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 766.8317000000116,
+      "exitCode": 0,
+      "cpuMs": 812.5,
+      "peakWorkingSetBytes": 53297152,
+      "reportElapsedMs": 684,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 287653
+    },
+    {
+      "workload": "mymod",
+      "mode": "session-deflate",
+      "phase": "cold",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 778.5010000000057,
+      "exitCode": 0,
+      "cpuMs": 750.0,
+      "peakWorkingSetBytes": 53370880,
+      "reportElapsedMs": 695,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 238060
+    },
+    {
+      "workload": "mymod",
+      "mode": "both-xml",
+      "phase": "cold",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 748.5953999999992,
+      "exitCode": 0,
+      "cpuMs": 765.625,
+      "peakWorkingSetBytes": 53321728,
+      "reportElapsedMs": 667,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 287653
+    },
+    {
+      "workload": "mymod",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 742.6295999999866,
+      "exitCode": 0,
+      "cpuMs": 750.0,
+      "peakWorkingSetBytes": 53317632,
+      "reportElapsedMs": 660,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 238060
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "none",
+      "phase": "uncached",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\none",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\upheaval-armor-none-0"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 494.8009999999954,
+      "exitCode": 0,
+      "cpuMs": 515.625,
+      "peakWorkingSetBytes": 49381376,
+      "reportElapsedMs": 416,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 12,
+        "instanceCompile": 12,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "asset",
+      "phase": "cold",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\upheaval-armor-asset-0"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 492.26899999996476,
+      "exitCode": 0,
+      "cpuMs": 531.25,
+      "peakWorkingSetBytes": 48766976,
+      "reportElapsedMs": 413,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 12,
+        "instanceCompile": 12,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "session-xml",
+      "phase": "cold",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 566.7898000000378,
+      "exitCode": 0,
+      "cpuMs": 578.125,
+      "peakWorkingSetBytes": 49770496,
+      "reportElapsedMs": 488,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 12,
+        "instanceCompile": 12,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 17807
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "session-deflate",
+      "phase": "cold",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 565.1252000000113,
+      "exitCode": 0,
+      "cpuMs": 578.125,
+      "peakWorkingSetBytes": 49766400,
+      "reportElapsedMs": 484,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 12,
+        "instanceCompile": 12,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 12080
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "both-xml",
+      "phase": "cold",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 566.3961999999856,
+      "exitCode": 0,
+      "cpuMs": 625.0,
+      "peakWorkingSetBytes": 49778688,
+      "reportElapsedMs": 488,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 12,
+        "instanceCompile": 12,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 17807
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 569.347300000004,
+      "exitCode": 0,
+      "cpuMs": 562.5,
+      "peakWorkingSetBytes": 49717248,
+      "reportElapsedMs": 491,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 12,
+        "instanceCompile": 12,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 12080
+    },
+    {
+      "workload": "texture-16",
+      "mode": "none",
+      "phase": "uncached",
+      "assetCacheApplicable": true,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\none",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\texture-16-none-0"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 762.0511000000079,
+      "exitCode": 0,
+      "cpuMs": 750.0,
+      "peakWorkingSetBytes": 50417664,
+      "reportElapsedMs": 683,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 16,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "texture-16",
+      "mode": "asset",
+      "phase": "cold",
+      "assetCacheApplicable": true,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\texture-16-asset-0"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 774.72819999997,
+      "exitCode": 0,
+      "cpuMs": 781.25,
+      "peakWorkingSetBytes": 50585600,
+      "reportElapsedMs": 695,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 0,
+        "misses": 16,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 16,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 4197184
+    },
+    {
+      "workload": "texture-16",
+      "mode": "session-xml",
+      "phase": "cold",
+      "assetCacheApplicable": true,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 857.7197000000183,
+      "exitCode": 0,
+      "cpuMs": 843.75,
+      "peakWorkingSetBytes": 52391936,
+      "reportElapsedMs": 777,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 16,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 4201932
+    },
+    {
+      "workload": "texture-16",
+      "mode": "session-deflate",
+      "phase": "cold",
+      "assetCacheApplicable": true,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 870.516900000041,
+      "exitCode": 0,
+      "cpuMs": 937.5,
+      "peakWorkingSetBytes": 52445184,
+      "reportElapsedMs": 789,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 16,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 4198139
+    },
+    {
+      "workload": "texture-16",
+      "mode": "both-xml",
+      "phase": "cold",
+      "assetCacheApplicable": true,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 877.9905000000099,
+      "exitCode": 0,
+      "cpuMs": 890.625,
+      "peakWorkingSetBytes": 52342784,
+      "reportElapsedMs": 798,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 16,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 16,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 8399116
+    },
+    {
+      "workload": "texture-16",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "assetCacheApplicable": true,
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 863.9009999999985,
+      "exitCode": 0,
+      "cpuMs": 875.0,
+      "peakWorkingSetBytes": 52281344,
+      "reportElapsedMs": 784,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 16,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 16,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 8395323
+    },
+    {
+      "workload": "mymod",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 568.1977000000416,
+      "exitCode": 0,
+      "cpuMs": 578.125,
+      "peakWorkingSetBytes": 49139712,
+      "reportElapsedMs": 486,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 245736
+    },
+    {
+      "workload": "mymod",
+      "mode": "both-xml",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 551.1070999999674,
+      "exitCode": 0,
+      "cpuMs": 546.875,
+      "peakWorkingSetBytes": 49016832,
+      "reportElapsedMs": 472,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 344922
+    },
+    {
+      "workload": "mymod",
+      "mode": "session-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 567.1648000000005,
+      "exitCode": 0,
+      "cpuMs": 546.875,
+      "peakWorkingSetBytes": 49127424,
+      "reportElapsedMs": 488,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 245736
+    },
+    {
+      "workload": "mymod",
+      "mode": "session-xml",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 560.5648000000087,
+      "exitCode": 0,
+      "cpuMs": 562.5,
+      "peakWorkingSetBytes": 49008640,
+      "reportElapsedMs": 481,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 344922
+    },
+    {
+      "workload": "mymod",
+      "mode": "asset",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\mymod-asset-1"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 705.7786000000306,
+      "exitCode": 0,
+      "cpuMs": 703.125,
+      "peakWorkingSetBytes": 55259136,
+      "reportElapsedMs": 612,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "mymod",
+      "mode": "none",
+      "phase": "uncached",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\none",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\mymod-none-1"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 693.9621000000216,
+      "exitCode": 0,
+      "cpuMs": 671.875,
+      "peakWorkingSetBytes": 55431168,
+      "reportElapsedMs": 613,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 522.5178999999684,
+      "exitCode": 0,
+      "cpuMs": 515.625,
+      "peakWorkingSetBytes": 47198208,
+      "reportElapsedMs": 443,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 12,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 13680
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "both-xml",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 528.9217999999778,
+      "exitCode": 0,
+      "cpuMs": 531.25,
+      "peakWorkingSetBytes": 47083520,
+      "reportElapsedMs": 451,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 12,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 25134
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "session-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 531.5623999999843,
+      "exitCode": 0,
+      "cpuMs": 578.125,
+      "peakWorkingSetBytes": 47173632,
+      "reportElapsedMs": 452,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 12,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 13680
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "session-xml",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 524.646300000029,
+      "exitCode": 0,
+      "cpuMs": 515.625,
+      "peakWorkingSetBytes": 46989312,
+      "reportElapsedMs": 445,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 12,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 25134
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "asset",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\upheaval-armor-asset-1"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 494.29770000000417,
+      "exitCode": 0,
+      "cpuMs": 515.625,
+      "peakWorkingSetBytes": 48693248,
+      "reportElapsedMs": 415,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 12,
+        "instanceCompile": 12,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "none",
+      "phase": "uncached",
+      "assetCacheApplicable": false,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\none",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\upheaval-armor-none-1"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 487.643300000002,
+      "exitCode": 0,
+      "cpuMs": 500.0,
+      "peakWorkingSetBytes": 48771072,
+      "reportElapsedMs": 408,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 12,
+        "instanceCompile": 12,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "texture-16",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": true,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 557.1649999999977,
+      "exitCode": 0,
+      "cpuMs": 531.25,
+      "peakWorkingSetBytes": 47153152,
+      "reportElapsedMs": 479,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 8396214
+    },
+    {
+      "workload": "texture-16",
+      "mode": "both-xml",
+      "phase": "hot",
+      "assetCacheApplicable": true,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 556.4383999999905,
+      "exitCode": 0,
+      "cpuMs": 546.875,
+      "peakWorkingSetBytes": 46870528,
+      "reportElapsedMs": 476,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 8403800
+    },
+    {
+      "workload": "texture-16",
+      "mode": "session-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": true,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 555.1017000000229,
+      "exitCode": 0,
+      "cpuMs": 562.5,
+      "peakWorkingSetBytes": 47058944,
+      "reportElapsedMs": 476,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 4199030
+    },
+    {
+      "workload": "texture-16",
+      "mode": "session-xml",
+      "phase": "hot",
+      "assetCacheApplicable": true,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 560.0458000000117,
+      "exitCode": 0,
+      "cpuMs": 578.125,
+      "peakWorkingSetBytes": 46927872,
+      "reportElapsedMs": 481,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 4206616
+    },
+    {
+      "workload": "texture-16",
+      "mode": "asset",
+      "phase": "hot",
+      "assetCacheApplicable": true,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\texture-16-asset-1"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 495.1302000000055,
+      "exitCode": 0,
+      "cpuMs": 468.75,
+      "peakWorkingSetBytes": 47816704,
+      "reportElapsedMs": 416,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 16,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 4197184
+    },
+    {
+      "workload": "texture-16",
+      "mode": "none",
+      "phase": "uncached",
+      "assetCacheApplicable": true,
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\none",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\texture-16-none-1"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 766.9503000000191,
+      "exitCode": 0,
+      "cpuMs": 781.25,
+      "peakWorkingSetBytes": 50368512,
+      "reportElapsedMs": 687,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 16,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "mymod",
+      "mode": "none",
+      "phase": "uncached",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\none",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\mymod-none-2"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 691.9481999999562,
+      "exitCode": 0,
+      "cpuMs": 671.875,
+      "peakWorkingSetBytes": 55525376,
+      "reportElapsedMs": 613,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "mymod",
+      "mode": "asset",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\mymod-asset-2"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 694.0076000000204,
+      "exitCode": 0,
+      "cpuMs": 656.25,
+      "peakWorkingSetBytes": 55308288,
+      "reportElapsedMs": 614,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "mymod",
+      "mode": "session-xml",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 553.2808999999475,
+      "exitCode": 0,
+      "cpuMs": 593.75,
+      "peakWorkingSetBytes": 49098752,
+      "reportElapsedMs": 473,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 344922
+    },
+    {
+      "workload": "mymod",
+      "mode": "session-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 555.730600000004,
+      "exitCode": 0,
+      "cpuMs": 562.5,
+      "peakWorkingSetBytes": 49111040,
+      "reportElapsedMs": 476,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\session-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 245736
+    },
+    {
+      "workload": "mymod",
+      "mode": "both-xml",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 555.2782999999977,
+      "exitCode": 0,
+      "cpuMs": 531.25,
+      "peakWorkingSetBytes": 49086464,
+      "reportElapsedMs": 475,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 344922
+    },
+    {
+      "workload": "mymod",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 550.0519999999938,
+      "exitCode": 0,
+      "cpuMs": 546.875,
+      "peakWorkingSetBytes": 49201152,
+      "reportElapsedMs": 471,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\mymod\\both-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 209548,
+          "sha256": "ffc62ed5cc97874a4e9f64ebad42dfc146d0687e05bcffb39deb83c753109012"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 64,
+          "sha256": "a54052b0b90e9fe51f87ff0b691be3488fdb47c2ace0dd0af1b614503c16180c"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 4931,
+          "sha256": "c6b8646a15eab8284a58786f60def0e03413a09504ebdb946fca854e57435fd4"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 4656,
+          "sha256": "0a7b6337d2a481bf933cd96516e05ea53279524f426ffef4c0e5ab1fa5309648"
+        }
+      },
+      "cacheBytes": 245736
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "none",
+      "phase": "uncached",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\none",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\upheaval-armor-none-2"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 492.4666000000002,
+      "exitCode": 0,
+      "cpuMs": 500.0,
+      "peakWorkingSetBytes": 48652288,
+      "reportElapsedMs": 414,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 12,
+        "instanceCompile": 12,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "asset",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\upheaval-armor-asset-2"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 486.722699999973,
+      "exitCode": 0,
+      "cpuMs": 484.375,
+      "peakWorkingSetBytes": 48701440,
+      "reportElapsedMs": 407,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 12,
+        "instanceCompile": 12,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "session-xml",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 534.8397000000205,
+      "exitCode": 0,
+      "cpuMs": 531.25,
+      "peakWorkingSetBytes": 47128576,
+      "reportElapsedMs": 454,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 12,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 25134
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "session-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 523.0412999999885,
+      "exitCode": 0,
+      "cpuMs": 531.25,
+      "peakWorkingSetBytes": 47308800,
+      "reportElapsedMs": 443,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 12,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\session-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 13680
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "both-xml",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 525.5468000000292,
+      "exitCode": 0,
+      "cpuMs": 546.875,
+      "peakWorkingSetBytes": 47075328,
+      "reportElapsedMs": 447,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 12,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 25134
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": false,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 527.4650000000065,
+      "exitCode": 0,
+      "cpuMs": 562.5,
+      "peakWorkingSetBytes": 47198208,
+      "reportElapsedMs": 447,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 12,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\upheaval-armor\\both-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 9940,
+          "sha256": "062918753c90a4fa747d44bd6a1b1ff4ff97d8c37a603623d543ea2ea9862cea"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "b2362c92e5eb4b37e6cdd50d6cbddb9476aab234d0ae0173c28226a0dbbf4861"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1317,
+          "sha256": "073252a3338af54783737f68789b3d0098092355e75b9171155df0ea6161e671"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 100,
+          "sha256": "965e7e5480dd011f2b5c0bac6923ff95d5d2e8b9434a3462848808d3550551ad"
+        }
+      },
+      "cacheBytes": 13680
+    },
+    {
+      "workload": "texture-16",
+      "mode": "none",
+      "phase": "uncached",
+      "assetCacheApplicable": true,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\none",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\texture-16-none-2"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 770.6253999999717,
+      "exitCode": 0,
+      "cpuMs": 765.625,
+      "peakWorkingSetBytes": 50429952,
+      "reportElapsedMs": 691,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 16,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 0
+    },
+    {
+      "workload": "texture-16",
+      "mode": "asset",
+      "phase": "hot",
+      "assetCacheApplicable": true,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\fresh-intermediate\\texture-16-asset-2"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 499.144900000033,
+      "exitCode": 0,
+      "cpuMs": 500.0,
+      "peakWorkingSetBytes": 47767552,
+      "reportElapsedMs": 420,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 16,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": null
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 4197184
+    },
+    {
+      "workload": "texture-16",
+      "mode": "session-xml",
+      "phase": "hot",
+      "assetCacheApplicable": true,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 556.0536999999499,
+      "exitCode": 0,
+      "cpuMs": 546.875,
+      "peakWorkingSetBytes": 46936064,
+      "reportElapsedMs": 476,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 4206616
+    },
+    {
+      "workload": "texture-16",
+      "mode": "session-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": true,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 562.9084000000262,
+      "exitCode": 0,
+      "cpuMs": 531.25,
+      "peakWorkingSetBytes": 47128576,
+      "reportElapsedMs": 483,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\session-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 4199030
+    },
+    {
+      "workload": "texture-16",
+      "mode": "both-xml",
+      "phase": "hot",
+      "assetCacheApplicable": true,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 563.7259999999742,
+      "exitCode": 0,
+      "cpuMs": 562.5,
+      "peakWorkingSetBytes": 46936064,
+      "reportElapsedMs": 479,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-xml"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 8403800
+    },
+    {
+      "workload": "texture-16",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "assetCacheApplicable": true,
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\texture-16",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:true",
+        "/sc:true",
+        "/csc:true",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 563.3935999999835,
+      "exitCode": 0,
+      "cpuMs": 562.5,
+      "peakWorkingSetBytes": 47046656,
+      "reportElapsedMs": 476,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40820325416-1\\work\\texture-16\\both-deflate"
+      },
+      "outputFiles": {
+        "base/Mod/streams/mod.bin": {
+          "bytes": 4196548,
+          "sha256": "6d25ab67c6ca85b941bef8afe12e56e1469652f7984517e2ba886bf307f7df5f"
+        },
+        "base/Mod/streams/mod.imp": {
+          "bytes": 4,
+          "sha256": "a5b805822684d4d9a9e69b91e4501d8cae0c09fe9b288cf27db068b0ef1673a0"
+        },
+        "base/Mod/streams/mod.manifest": {
+          "bytes": 1261,
+          "sha256": "9a7d14e6a3b8315718e3b149dac1108bdc04a9fe490f0c297c01707e7f35a982"
+        },
+        "base/Mod/streams/mod.relo": {
+          "bytes": 132,
+          "sha256": "7f56a523a6b8846ce6b9727b8c6c77f2819f49cf47edab374ed946673f16454f"
+        }
+      },
+      "cacheBytes": 8396214
+    }
+  ],
+  "summary": [
+    {
+      "workload": "mymod",
+      "mode": "none",
+      "phase": "uncached",
+      "n": 3,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 693.9621000000216,
+      "wallMsMin": 691.9481999999562,
+      "wallMsMax": 1117.0217000000093,
+      "reportElapsedMsMedian": 613,
+      "cpuMsMedian": 671.875,
+      "peakWorkingSetBytesMedian": 55431168,
+      "cacheBytesMedian": 0,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 11,
+      "instanceCompileMedian": 47,
+      "speedupVsNoCache": 1.0
+    },
+    {
+      "workload": "mymod",
+      "mode": "asset",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 701.2836999999763,
+      "wallMsMin": 701.2836999999763,
+      "wallMsMax": 701.2836999999763,
+      "reportElapsedMsMedian": 620,
+      "cpuMsMedian": 703.125,
+      "peakWorkingSetBytesMedian": 55373824,
+      "cacheBytesMedian": 0,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 11,
+      "instanceCompileMedian": 47,
+      "speedupVsNoCache": 0.9895597174154269
+    },
+    {
+      "workload": "mymod",
+      "mode": "session-xml",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 766.8317000000116,
+      "wallMsMin": 766.8317000000116,
+      "wallMsMax": 766.8317000000116,
+      "reportElapsedMsMedian": 684,
+      "cpuMsMedian": 812.5,
+      "peakWorkingSetBytesMedian": 53297152,
+      "cacheBytesMedian": 287653,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 11,
+      "instanceCompileMedian": 47,
+      "speedupVsNoCache": 0.90497315121429
+    },
+    {
+      "workload": "mymod",
+      "mode": "session-deflate",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 778.5010000000057,
+      "wallMsMin": 778.5010000000057,
+      "wallMsMax": 778.5010000000057,
+      "reportElapsedMsMedian": 695,
+      "cpuMsMedian": 750.0,
+      "peakWorkingSetBytesMedian": 53370880,
+      "cacheBytesMedian": 238060,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 11,
+      "instanceCompileMedian": 47,
+      "speedupVsNoCache": 0.8914081035220462
+    },
+    {
+      "workload": "mymod",
+      "mode": "both-xml",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 748.5953999999992,
+      "wallMsMin": 748.5953999999992,
+      "wallMsMax": 748.5953999999992,
+      "reportElapsedMsMedian": 667,
+      "cpuMsMedian": 765.625,
+      "peakWorkingSetBytesMedian": 53321728,
+      "cacheBytesMedian": 287653,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 11,
+      "instanceCompileMedian": 47,
+      "speedupVsNoCache": 0.9270189210353447
+    },
+    {
+      "workload": "mymod",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 742.6295999999866,
+      "wallMsMin": 742.6295999999866,
+      "wallMsMax": 742.6295999999866,
+      "reportElapsedMsMedian": 660,
+      "cpuMsMedian": 750.0,
+      "peakWorkingSetBytesMedian": 53317632,
+      "cacheBytesMedian": 238060,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 11,
+      "instanceCompileMedian": 47,
+      "speedupVsNoCache": 0.9344659841191815
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "none",
+      "phase": "uncached",
+      "n": 3,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 492.4666000000002,
+      "wallMsMin": 487.643300000002,
+      "wallMsMax": 494.8009999999954,
+      "reportElapsedMsMedian": 414,
+      "cpuMsMedian": 500.0,
+      "peakWorkingSetBytesMedian": 48771072,
+      "cacheBytesMedian": 0,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 12,
+      "instanceCompileMedian": 12,
+      "speedupVsNoCache": 1.0
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "asset",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 492.26899999996476,
+      "wallMsMin": 492.26899999996476,
+      "wallMsMax": 492.26899999996476,
+      "reportElapsedMsMedian": 413,
+      "cpuMsMedian": 531.25,
+      "peakWorkingSetBytesMedian": 48766976,
+      "cacheBytesMedian": 0,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 12,
+      "instanceCompileMedian": 12,
+      "speedupVsNoCache": 1.000401406548118
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "session-xml",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 566.7898000000378,
+      "wallMsMin": 566.7898000000378,
+      "wallMsMax": 566.7898000000378,
+      "reportElapsedMsMedian": 488,
+      "cpuMsMedian": 578.125,
+      "peakWorkingSetBytesMedian": 49770496,
+      "cacheBytesMedian": 17807,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 12,
+      "instanceCompileMedian": 12,
+      "speedupVsNoCache": 0.8688699055628161
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "session-deflate",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 565.1252000000113,
+      "wallMsMin": 565.1252000000113,
+      "wallMsMax": 565.1252000000113,
+      "reportElapsedMsMedian": 484,
+      "cpuMsMedian": 578.125,
+      "peakWorkingSetBytesMedian": 49766400,
+      "cacheBytesMedian": 12080,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 12,
+      "instanceCompileMedian": 12,
+      "speedupVsNoCache": 0.8714291983439959
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "both-xml",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 566.3961999999856,
+      "wallMsMin": 566.3961999999856,
+      "wallMsMax": 566.3961999999856,
+      "reportElapsedMsMedian": 488,
+      "cpuMsMedian": 625.0,
+      "peakWorkingSetBytesMedian": 49778688,
+      "cacheBytesMedian": 17807,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 12,
+      "instanceCompileMedian": 12,
+      "speedupVsNoCache": 0.869473700565104
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 569.347300000004,
+      "wallMsMin": 569.347300000004,
+      "wallMsMax": 569.347300000004,
+      "reportElapsedMsMedian": 491,
+      "cpuMsMedian": 562.5,
+      "peakWorkingSetBytesMedian": 49717248,
+      "cacheBytesMedian": 12080,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 12,
+      "instanceCompileMedian": 12,
+      "speedupVsNoCache": 0.8649669542649921
+    },
+    {
+      "workload": "texture-16",
+      "mode": "none",
+      "phase": "uncached",
+      "n": 3,
+      "assetCacheApplicable": true,
+      "wallMsMedian": 766.9503000000191,
+      "wallMsMin": 762.0511000000079,
+      "wallMsMax": 770.6253999999717,
+      "reportElapsedMsMedian": 687,
+      "cpuMsMedian": 765.625,
+      "peakWorkingSetBytesMedian": 50417664,
+      "cacheBytesMedian": 0,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 1,
+      "instanceCompileMedian": 16,
+      "speedupVsNoCache": 1.0
+    },
+    {
+      "workload": "texture-16",
+      "mode": "asset",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": true,
+      "wallMsMedian": 774.72819999997,
+      "wallMsMin": 774.72819999997,
+      "wallMsMax": 774.72819999997,
+      "reportElapsedMsMedian": 695,
+      "cpuMsMedian": 781.25,
+      "peakWorkingSetBytesMedian": 50585600,
+      "cacheBytesMedian": 4197184,
+      "hitsMedian": 0,
+      "missesMedian": 16,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 1,
+      "instanceCompileMedian": 16,
+      "speedupVsNoCache": 0.9899604790429066
+    },
+    {
+      "workload": "texture-16",
+      "mode": "session-xml",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": true,
+      "wallMsMedian": 857.7197000000183,
+      "wallMsMin": 857.7197000000183,
+      "wallMsMax": 857.7197000000183,
+      "reportElapsedMsMedian": 777,
+      "cpuMsMedian": 843.75,
+      "peakWorkingSetBytesMedian": 52391936,
+      "cacheBytesMedian": 4201932,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 1,
+      "instanceCompileMedian": 16,
+      "speedupVsNoCache": 0.8941735860794647
+    },
+    {
+      "workload": "texture-16",
+      "mode": "session-deflate",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": true,
+      "wallMsMedian": 870.516900000041,
+      "wallMsMin": 870.516900000041,
+      "wallMsMax": 870.516900000041,
+      "reportElapsedMsMedian": 789,
+      "cpuMsMedian": 937.5,
+      "peakWorkingSetBytesMedian": 52445184,
+      "cacheBytesMedian": 4198139,
+      "hitsMedian": 0,
+      "missesMedian": 0,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 1,
+      "instanceCompileMedian": 16,
+      "speedupVsNoCache": 0.8810286164461402
+    },
+    {
+      "workload": "texture-16",
+      "mode": "both-xml",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": true,
+      "wallMsMedian": 877.9905000000099,
+      "wallMsMin": 877.9905000000099,
+      "wallMsMax": 877.9905000000099,
+      "reportElapsedMsMedian": 798,
+      "cpuMsMedian": 890.625,
+      "peakWorkingSetBytesMedian": 52342784,
+      "cacheBytesMedian": 8399116,
+      "hitsMedian": 0,
+      "missesMedian": 16,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 1,
+      "instanceCompileMedian": 16,
+      "speedupVsNoCache": 0.873529155497708
+    },
+    {
+      "workload": "texture-16",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "n": 1,
+      "assetCacheApplicable": true,
+      "wallMsMedian": 863.9009999999985,
+      "wallMsMin": 863.9009999999985,
+      "wallMsMax": 863.9009999999985,
+      "reportElapsedMsMedian": 784,
+      "cpuMsMedian": 875.0,
+      "peakWorkingSetBytesMedian": 52281344,
+      "cacheBytesMedian": 8395323,
+      "hitsMedian": 0,
+      "missesMedian": 16,
+      "documentReuseMedian": 0,
+      "xmlParseMedian": 1,
+      "instanceCompileMedian": 16,
+      "speedupVsNoCache": 0.887775682630325
+    },
+    {
+      "workload": "mymod",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 559.1248500000177,
+      "wallMsMin": 550.0519999999938,
+      "wallMsMax": 568.1977000000416,
+      "reportElapsedMsMedian": 478.5,
+      "cpuMsMedian": 562.5,
+      "peakWorkingSetBytesMedian": 49170432.0,
+      "cacheBytesMedian": 245736.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 11.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 1.2411576770376056
+    },
+    {
+      "workload": "mymod",
+      "mode": "both-xml",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 553.1926999999826,
+      "wallMsMin": 551.1070999999674,
+      "wallMsMax": 555.2782999999977,
+      "reportElapsedMsMedian": 473.5,
+      "cpuMsMedian": 539.0625,
+      "peakWorkingSetBytesMedian": 49051648.0,
+      "cacheBytesMedian": 344922.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 11.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 1.25446720464685
+    },
+    {
+      "workload": "mymod",
+      "mode": "session-deflate",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 561.4477000000022,
+      "wallMsMin": 555.730600000004,
+      "wallMsMax": 567.1648000000005,
+      "reportElapsedMsMedian": 482.0,
+      "cpuMsMedian": 554.6875,
+      "peakWorkingSetBytesMedian": 49119232.0,
+      "cacheBytesMedian": 245736.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 11.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 1.236022696325978
+    },
+    {
+      "workload": "mymod",
+      "mode": "session-xml",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 556.9228499999781,
+      "wallMsMin": 553.2808999999475,
+      "wallMsMax": 560.5648000000087,
+      "reportElapsedMsMedian": 477.0,
+      "cpuMsMedian": 578.125,
+      "peakWorkingSetBytesMedian": 49053696.0,
+      "cacheBytesMedian": 344922.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 11.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 1.246065051918859
+    },
+    {
+      "workload": "mymod",
+      "mode": "asset",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 699.8931000000255,
+      "wallMsMin": 694.0076000000204,
+      "wallMsMax": 705.7786000000306,
+      "reportElapsedMsMedian": 613.0,
+      "cpuMsMedian": 679.6875,
+      "peakWorkingSetBytesMedian": 55283712.0,
+      "cacheBytesMedian": 0.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 0.0,
+      "xmlParseMedian": 11.0,
+      "instanceCompileMedian": 47.0,
+      "speedupVsNoCache": 0.9915258487331798
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 524.9914499999875,
+      "wallMsMin": 522.5178999999684,
+      "wallMsMax": 527.4650000000065,
+      "reportElapsedMsMedian": 445.0,
+      "cpuMsMedian": 539.0625,
+      "peakWorkingSetBytesMedian": 47198208.0,
+      "cacheBytesMedian": 13680.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 12.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 0.9380468958113736
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "both-xml",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 527.2343000000035,
+      "wallMsMin": 525.5468000000292,
+      "wallMsMax": 528.9217999999778,
+      "reportElapsedMsMedian": 449.0,
+      "cpuMsMedian": 539.0625,
+      "peakWorkingSetBytesMedian": 47079424.0,
+      "cacheBytesMedian": 25134.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 12.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 0.934056452700435
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "session-deflate",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 527.3018499999864,
+      "wallMsMin": 523.0412999999885,
+      "wallMsMax": 531.5623999999843,
+      "reportElapsedMsMedian": 447.5,
+      "cpuMsMedian": 554.6875,
+      "peakWorkingSetBytesMedian": 47241216.0,
+      "cacheBytesMedian": 13680.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 12.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 0.9339367954047817
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "session-xml",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 529.7430000000247,
+      "wallMsMin": 524.646300000029,
+      "wallMsMax": 534.8397000000205,
+      "reportElapsedMsMedian": 449.5,
+      "cpuMsMedian": 523.4375,
+      "peakWorkingSetBytesMedian": 47058944.0,
+      "cacheBytesMedian": 25134.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 12.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 0.9296330484781813
+    },
+    {
+      "workload": "upheaval-armor",
+      "mode": "asset",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": false,
+      "wallMsMedian": 490.5101999999886,
+      "wallMsMin": 486.722699999973,
+      "wallMsMax": 494.29770000000417,
+      "reportElapsedMsMedian": 411.0,
+      "cpuMsMedian": 500.0,
+      "peakWorkingSetBytesMedian": 48697344.0,
+      "cacheBytesMedian": 0.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 0.0,
+      "xmlParseMedian": 12.0,
+      "instanceCompileMedian": 12.0,
+      "speedupVsNoCache": 1.003988500137228
+    },
+    {
+      "workload": "texture-16",
+      "mode": "both-deflate",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": true,
+      "wallMsMedian": 560.2792999999906,
+      "wallMsMin": 557.1649999999977,
+      "wallMsMax": 563.3935999999835,
+      "reportElapsedMsMedian": 477.5,
+      "cpuMsMedian": 546.875,
+      "peakWorkingSetBytesMedian": 47099904.0,
+      "cacheBytesMedian": 8396214.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 1.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 1.3688713825408718
+    },
+    {
+      "workload": "texture-16",
+      "mode": "both-xml",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": true,
+      "wallMsMedian": 560.0821999999823,
+      "wallMsMin": 556.4383999999905,
+      "wallMsMax": 563.7259999999742,
+      "reportElapsedMsMedian": 477.5,
+      "cpuMsMedian": 554.6875,
+      "peakWorkingSetBytesMedian": 46903296.0,
+      "cacheBytesMedian": 8403800.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 1.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 1.3693531056692094
+    },
+    {
+      "workload": "texture-16",
+      "mode": "session-deflate",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": true,
+      "wallMsMedian": 559.0050500000245,
+      "wallMsMin": 555.1017000000229,
+      "wallMsMax": 562.9084000000262,
+      "reportElapsedMsMedian": 479.5,
+      "cpuMsMedian": 546.875,
+      "peakWorkingSetBytesMedian": 47093760.0,
+      "cacheBytesMedian": 4199030.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 1.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 1.3719917199316631
+    },
+    {
+      "workload": "texture-16",
+      "mode": "session-xml",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": true,
+      "wallMsMedian": 558.0497499999808,
+      "wallMsMin": 556.0536999999499,
+      "wallMsMax": 560.0458000000117,
+      "reportElapsedMsMedian": 478.5,
+      "cpuMsMedian": 562.5,
+      "peakWorkingSetBytesMedian": 46931968.0,
+      "cacheBytesMedian": 4206616.0,
+      "hitsMedian": 0.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 1.0,
+      "xmlParseMedian": 0.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 1.3743403701910903
+    },
+    {
+      "workload": "texture-16",
+      "mode": "asset",
+      "phase": "hot",
+      "n": 2,
+      "assetCacheApplicable": true,
+      "wallMsMedian": 497.13755000001925,
+      "wallMsMin": 495.1302000000055,
+      "wallMsMax": 499.144900000033,
+      "reportElapsedMsMedian": 418.0,
+      "cpuMsMedian": 484.375,
+      "peakWorkingSetBytesMedian": 47792128.0,
+      "cacheBytesMedian": 4197184.0,
+      "hitsMedian": 16.0,
+      "missesMedian": 0.0,
+      "documentReuseMedian": 0.0,
+      "xmlParseMedian": 1.0,
+      "instanceCompileMedian": 0.0,
+      "speedupVsNoCache": 1.542732589803344
+    }
+  ],
+  "binarySourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "benchmarkSourceCommit": "c39ad93eb5df7f7b7cd78f7028155d14a5094f2b",
+  "sourceRunId": "40814401237",
+  "runId": "40820325416",
+  "runAttempt": "1",
+  "runtimeFiles": [
+    {
+      "sha256": "3f714d9da359540f56d5d7d3211cdf6829f2a5d59978f29835da9b4b52c01de3",
+      "bytes": 4115968,
+      "name": "NewModCompiler.exe"
+    },
+    {
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "bytes": 201,
+      "name": "NewModCompiler.exe.config"
+    },
+    {
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "bytes": 99328,
+      "name": "antlr.runtime.dll"
+    },
+    {
+      "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "bytes": 917504,
+      "name": "BinaryAssetBuilder.TextureCompiler.dll"
+    },
+    {
+      "sha256": "2f5b343670ace5ed109b1f6308cb669e254860475e7433f12635e5172cd80cd1",
+      "bytes": 14326,
+      "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json"
+    }
+  ],
+  "workloads": [
+    {
+      "name": "mymod",
+      "scope": "Complete current SDK/Mods/mymod input copy; benchmark selects base only, without packaging.",
+      "assetCacheEligibility": {
+        "declaredTypes": [
+          "ArmorTemplate",
+          "GameObject",
+          "LogicCommand",
+          "LogicCommandSet",
+          "WeaponTemplate"
+        ],
+        "cacheableTypes": [],
+        "basis": "SDK plugin useBuildCache flags (omitted defaults false) and workload root asset declarations"
+      },
+      "inputFiles": 7,
+      "inputBytes": 982257
+    },
+    {
+      "name": "upheaval-armor",
+      "scope": "Subset only: eleven unchanged historical Upheaval Armor.xml documents, twelve ArmorTemplate assets, generated include entry. No full Upheaval, Texture, Audio, GameObject, APT or packaging claim.",
+      "assetCacheEligibility": {
+        "declaredTypes": [
+          "ArmorTemplate"
+        ],
+        "cacheableTypes": [],
+        "basis": "SDK plugin useBuildCache flags (omitted defaults false) and workload root asset declarations"
+      },
+      "inputFiles": 12,
+      "inputBytes": 11258
+    },
+    {
+      "name": "texture-16",
+      "scope": "Synthetic only: sixteen independent Texture identities using a generated 256x256 top-left BGRA TGA. Not Upheaval or a complete real MOD; no Audio, GameObject, APT or packaging claim.",
+      "assetCacheEligibility": {
+        "declaredTypes": [
+          "Texture"
+        ],
+        "cacheableTypes": [
+          "Texture"
+        ],
+        "basis": "SDK plugin useBuildCache flags (omitted defaults false) and workload root asset declarations"
+      },
+      "inputFiles": 2,
+      "inputBytes": 264647
+    }
+  ],
+  "limits": {
+    "perProcessSeconds": 30,
+    "totalSeconds": 180,
+    "hotRuns": 2
+  },
+  "machine": {
+    "platform": "Windows-2022Server-10.0.20348-SP0",
+    "cpuCount": 4,
+    "processor": "AMD64 Family 25 Model 17 Stepping 1, AuthenticAMD"
+  },
+  "timing": "Popen launch to exit; includes startup, parsing, compilation, linking and publication; excludes setup, input/output hashing and cache inventory",
+  "limitations": [
+    "OS page cache uncontrolled; compiler-cold is not disk-cold",
+    "One runner, small sample counts, no statistical significance claim",
+    "No input-edit/invalidation, BIG packaging or full Upheaval performance measured"
+  ],
+  "startupDoctor": {
+    "exitCode": 0,
+    "wallMs": 5458.087100000001,
+    "countedInBudget": true,
+    "countedInBuildSamples": false
+  },
+  "elapsedSeconds": 39.59668690000001,
+  "runtimeUnchanged": true,
+  "inputsUnchanged": true,
+  "sdkUnchanged": true
+}

@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "testSourceCommit": "2b4e97f9edd2759334d5a5bb54f2abedf83fac49",
+  "runId": "41178094135",
+  "runAttempt": "1",
+  "originalRunId": "41174952443",
+  "originalRunAttempt": "1",
+  "originalRunConclusion": "failure",
+  "originalArtifact": {
+    "id": 13033092082,
+    "node_id": "MDg6QXJ0aWZhY3QxMzAzMzA5MjA4Mg==",
+    "name": "refactor-core-lifecycle-41174952443-1",
+    "size_in_bytes": 126757161,
+    "url": "https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13033092082",
+    "archive_download_url": "https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13033092082/zip",
+    "expired": false,
+    "digest": "sha256:efc4f35f5e2a8e7bd489f12fb2a8dee983fe0b50dbe97123cde4cae3db90da92",
+    "created_at": "2026-10-31T06:23:16Z",
+    "updated_at": "2026-10-31T06:23:16Z",
+    "expires_at": "2027-01-29T06:02:27Z",
+    "workflow_run": {
+      "id": 41174952443,
+      "repository_id": 1429296696,
+      "head_repository_id": 1429296696,
+      "head_branch": "perf/compiler-cold-hot-cache",
+      "head_sha": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    }
+  },
+  "productionClosureUnchanged": true,
+  "productionTrees": {
+    "SDK": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+    "recovery/src": "b705bd3d82254ccb1c5859d1f19de4a5da1e3b82",
+    "recovery/build": "74fb9c0d17f0fbebc3b6ead518cd606c0f5d7900",
+    "recovery/probes": "65da54be3b6a6002f9ddf6d36a9a89aacd0a3d5a"
+  },
+  "runtimeFiles": {
+    "Debug": {
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "b56536d5395da0ce7cef8f81381fd0bd29ffeb46843c8913a20184b09e06c829",
+      "NewModCompiler.exe": "38d79feb8fcc39b916118d516b31c35785b5a2364d6a8c798c5df06072ef91e5",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    },
+    "Release": {
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "43b5e2b17563ac11696c5fc57e3b3bde250f107a40ff2b17a8141be23c1ac6e4",
+      "NewModCompiler.exe": "2f029d20abe1ef75d9730174e7f47ef2b4c0430d14aefafbcc6027acbb95a86b",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    }
+  },
+  "overlays": {
+    "recovery/scripts/TestCompilerBackendBaseline.ps1": "fb7f6c7b9d8645fe2205a82cb02fe6399791e8a51648e1c575cc2ceb7a1e5d22",
+    "recovery/scripts/TestCompilerCoreLifecycle.ps1": "2719ed2cefb3bf2929f2f3a84e7f60a0fdfc771e72a74137692cccaf0ae6381b",
+    "recovery/scripts/TestCompilerPerformance.py": "8cf2e653172ee6f0b7556290c844b1da24deb1bd05f5bc0b44b6a58bcfe55894",
+    "recovery/tests/CompilerInheritanceSnapshot.cs": "82346644722b2146be9f501b28309f1b0f152c8e277e67e7ed57707e244e9a3a",
+    "recovery/tests/CompilerInstanceIncludeCache.cs": "32312e1639cbc944d60be2ad17725b593e544ff7cfa5e59d64ca368906f2cad9",
+    "recovery/tests/CompilerReferenceSemantics.cs": "8ef1c5dd7a0a912817c476600bf86314d3c5f81242c1bebd365440b14c5a7cba"
+  },
+  "selectedFixtures": [
+    "CompilerInstanceIncludeCache"
+  ],
+  "reusedFixtures": [
+    "CompilerPreparedBackend",
+    "CompilerXmlBackendBatch",
+    "CompilerCacheContent",
+    "CompilerStableSort",
+    "CompilerInputRoots",
+    "CompilerCorePaths",
+    "CompilerUnicodeSettings",
+    "CompilerCoreLifecycle",
+    "CompilerResourceLifecycle",
+    "CompilerStateLifecycle",
+    "CompilerBackendLifecycle",
+    "CompilerApplicationBuild"
+  ],
+  "previousRepair": {
+    "runId": "41176937044",
+    "runAttempt": "1",
+    "conclusion": "failure",
+    "testSourceCommit": "fc44f6eaecbbb50849d7fe42fa1ad037754d6fdf",
+    "artifact": {
+      "id": 13032774067,
+      "node_id": "MDg6QXJ0aWZhY3QxMzAzMjc3NDA2Nw==",
+      "name": "compiler-hot-edit-validation-41176937044-1",
+      "size_in_bytes": 8642470,
+      "url": "https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13032774067",
+      "archive_download_url": "https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13032774067/zip",
+      "expired": false,
+      "digest": "sha256:394674b48cf7c1382c373410d21a67f89abcbc1e24335e143c32677dcbb425d3",
+      "created_at": "2026-10-31T06:33:07Z",
+      "updated_at": "2026-10-31T06:33:07Z",
+      "expires_at": "2027-01-29T06:31:05Z",
+      "workflow_run": {
+        "id": 41176937044,
+        "repository_id": 1429296696,
+        "head_repository_id": 1429296696,
+        "head_branch": "perf/compiler-cold-hot-cache",
+        "head_sha": "fc44f6eaecbbb50849d7fe42fa1ad037754d6fdf"
+      }
+    }
+  },
+  "reusedSuccessfulRepairFixtures": {
+    "CompilerInheritanceSnapshot": {
+      "sourceSha256": "82346644722b2146be9f501b28309f1b0f152c8e277e67e7ed57707e244e9a3a",
+      "results": {
+        "Debug": {
+          "path": "D:\\a\\NewSdk\\NewSdk\\work\\hot-edit-previous\\evidence\\refactor\\core-lifecycle\\41176937044-1\\Debug\\CompilerInheritanceSnapshot\\result.json",
+          "member": "evidence/refactor/core-lifecycle/41176937044-1/Debug/CompilerInheritanceSnapshot/result.json",
+          "sha256": "30afa9f9a2eadca10e8819339fbe95bb0098b22ac700c26ecc29f69141a55189"
+        },
+        "Release": {
+          "path": "D:\\a\\NewSdk\\NewSdk\\work\\hot-edit-previous\\evidence\\refactor\\core-lifecycle\\41176937044-1\\Release\\CompilerInheritanceSnapshot\\result.json",
+          "member": "evidence/refactor/core-lifecycle/41176937044-1/Release/CompilerInheritanceSnapshot/result.json",
+          "sha256": "563911071271eb720e3cad1bc9b8876fb52d19b0e1174c1dd286cd755c104bec"
+        }
+      }
+    },
+    "CompilerReferenceSemantics": {
+      "sourceSha256": "8ef1c5dd7a0a912817c476600bf86314d3c5f81242c1bebd365440b14c5a7cba",
+      "results": {
+        "Debug": {
+          "path": "D:\\a\\NewSdk\\NewSdk\\work\\hot-edit-previous\\evidence\\refactor\\core-lifecycle\\41176937044-1\\Debug\\CompilerReferenceSemantics\\result.json",
+          "member": "evidence/refactor/core-lifecycle/41176937044-1/Debug/CompilerReferenceSemantics/result.json",
+          "sha256": "ff635e2ae5dbe53c20a5da1cdcf2bbeb96fb26efbcd73e5f7c5c3b66cb99f402"
+        },
+        "Release": {
+          "path": "D:\\a\\NewSdk\\NewSdk\\work\\hot-edit-previous\\evidence\\refactor\\core-lifecycle\\41176937044-1\\Release\\CompilerReferenceSemantics\\result.json",
+          "member": "evidence/refactor/core-lifecycle/41176937044-1/Release/CompilerReferenceSemantics/result.json",
+          "sha256": "ff635e2ae5dbe53c20a5da1cdcf2bbeb96fb26efbcd73e5f7c5c3b66cb99f402"
+        }
+      }
+    }
+  },
+  "auxiliaryRepair": {
+    "runId": "41177598230",
+    "runAttempt": "1",
+    "conclusion": "failure",
+    "testSourceCommit": "c15f7b9c8e140bfbf479ea7170d01714da064ca5",
+    "artifact": {
+      "id": 13032754992,
+      "node_id": "MDg6QXJ0aWZhY3QxMzAzMjc1NDk5Mg==",
+      "name": "compiler-hot-edit-validation-41177598230-1",
+      "size_in_bytes": 9053296,
+      "url": "https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13032754992",
+      "archive_download_url": "https://api.github.com/repos/wu162/NewSdk/actions/artifacts/13032754992/zip",
+      "expired": false,
+      "digest": "sha256:a67f0c60b004171f707b317fc8d9ebcd9463e3f015423012f365fb3722084f37",
+      "created_at": "2026-10-31T06:42:32Z",
+      "updated_at": "2026-10-31T06:42:32Z",
+      "expires_at": "2027-01-29T06:40:53Z",
+      "workflow_run": {
+        "id": 41177598230,
+        "repository_id": 1429296696,
+        "head_repository_id": 1429296696,
+        "head_branch": "perf/compiler-cold-hot-cache",
+        "head_sha": "c15f7b9c8e140bfbf479ea7170d01714da064ca5"
+      }
+    }
+  },
+  "reusedAuxiliaryGates": {
+    "performance": {
+      "path": "recovery/evidence/refactor/performance/41178094135-1/validation.json",
+      "originalMember": "evidence/refactor/performance/41177598230-1/validation.json",
+      "sha256": "b6044068511abc3fbad4c228e17bb190ca2e962c979173253e80288c9e59f595"
+    },
+    "original-backend-Debug": {
+      "path": "recovery/evidence/refactor/core-backend-baseline/41178094135-1/Debug/validation.json",
+      "originalMember": "evidence/refactor/core-backend-baseline/41177598230-1/Debug/validation.json",
+      "sha256": "bdb04a5a1ef827f3e0e226890d31b9d2f25b91f7acaad2a9f6dc0180509ce511"
+    },
+    "original-backend-Release": {
+      "path": "recovery/evidence/refactor/core-backend-baseline/41178094135-1/Release/validation.json",
+      "originalMember": "evidence/refactor/core-backend-baseline/41177598230-1/Release/validation.json",
+      "sha256": "f2e3f5730006ffcd5494afe5a046e5aaa44c70629d23b9a9447e9e94d7cf644f"
+    },
+    "original-core-protocol": {
+      "path": "recovery/evidence/refactor/hot-edit-repair/41178094135-1/original-core-protocol.json",
+      "originalMember": "evidence/refactor/hot-edit-repair/41177598230-1/original-core-protocol.json",
+      "sha256": "95415ce9e27fa99b56c58d5606f699f9f4f4a9c4e5ec0f2ff87710e1281b4bbd"
+    }
+  },
+  "reusedScopes": {
+    "core-lifecycle-deployment": {
+      "path": "evidence/refactor/core-lifecycle-deployment/41174952443-1/validation.json",
+      "sha256": "1a7c2722794451ac07696f555cab9fa70170417373c56b2104e83201073655ee",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "ui-integration": {
+      "path": "evidence/refactor/ui-integration/41174952443-1/summary.json",
+      "sha256": "e48e1660b7ef7252ddd765303e45f85928971ccf931e55c29cbe7f3d360cbf7d",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "backend-parallel": {
+      "path": "evidence/refactor/backend-parallel/41174952443-1/validation.json",
+      "sha256": "a2d12323c9f848b167589302f1385f43bedae8ac5b57e06bbfab304468c63d1c",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "core-lifecycle-texture": {
+      "path": "evidence/refactor/core-lifecycle-texture/41174952443-1/validation.json",
+      "sha256": "da994d77487736e02c3821b29c34e18b4d5c32cd0a1105fdb513d319f47ea74a",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "core-cli": {
+      "path": "evidence/refactor/core-cli/41174952443-1/validation.json",
+      "sha256": "e3343f9dc12beddc62a9e27d351986e44d74215aa35b00ac89fe964f40296b2e",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "build-cache": {
+      "path": "evidence/refactor/build-cache/41174952443-1/validation.json",
+      "sha256": "66554b3a7697e8fc1bb37c1aa9040719aba3bf7434babc27faf1a80dc11220fb",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "input-roots": {
+      "path": "evidence/refactor/input-roots/41174952443-1/validation.json",
+      "sha256": "20d97bf085422adaa8b445218de3e1cae9fbcf8d7fb5c895a104c0db6b90860b",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "cache-payloads": {
+      "path": "evidence/refactor/cache-payloads/41174952443-1/validation.json",
+      "sha256": "d1046e7de10c218c874172a0f6425b4e1135c4c7bb7058c127b7524c83b02a93",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "session-cache": {
+      "path": "evidence/refactor/session-cache/41174952443-1/validation.json",
+      "sha256": "c99bcbfc694a31082e2b7283db4d02220fa38160591cbca49dec6e0cda4f6800",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "big": {
+      "path": "evidence/refactor/big/41174952443-1/validation.json",
+      "sha256": "7acb20f1315b524a323e68a976bf9da1098ced90d53295039e3b775c72f19060",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "hot-cache": {
+      "path": "evidence/refactor/hot-cache/41174952443-1/validation.json",
+      "sha256": "e47d79516e4c61b63ae31922653d437e18677039626eb9527a0f5a8b3d5706e6",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    }
+  },
+  "completedGates": {
+    "repaired-core": {
+      "path": "recovery/evidence/refactor/core-lifecycle/41178094135-1/validation.json",
+      "sha256": "deab5dd28cdd3069490fb3d8b3e24897c594337536deca77cd9aff8d805835da",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "performance": {
+      "path": "recovery/evidence/refactor/performance/41178094135-1/validation.json",
+      "sha256": "b6044068511abc3fbad4c228e17bb190ca2e962c979173253e80288c9e59f595",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "original-backend-Debug": {
+      "path": "recovery/evidence/refactor/core-backend-baseline/41178094135-1/Debug/validation.json",
+      "sha256": "bdb04a5a1ef827f3e0e226890d31b9d2f25b91f7acaad2a9f6dc0180509ce511",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "original-backend-Release": {
+      "path": "recovery/evidence/refactor/core-backend-baseline/41178094135-1/Release/validation.json",
+      "sha256": "f2e3f5730006ffcd5494afe5a046e5aaa44c70629d23b9a9447e9e94d7cf644f",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "original-core-protocol": {
+      "path": "recovery/evidence/refactor/hot-edit-repair/41178094135-1/original-core-protocol.json",
+      "sha256": "95415ce9e27fa99b56c58d5606f699f9f4f4a9c4e5ec0f2ff87710e1281b4bbd",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "complete-mymod": {
+      "path": "recovery/evidence/refactor/sdk-mymod/41178094135-1/validation.json",
+      "sha256": "0aa354a79a66f050f1811605a6f64ccf101b530a594170a5ec54747fc94de2d9",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "five-file-packages": {
+      "path": "recovery/artifacts/final-release/41178094135-1/release.json",
+      "sha256": "e6e1e59ab8b3bd2adab10b970376367ba97308748c50518eef3e9bef81e0face",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "complete-Upheaval": {
+      "path": "recovery/evidence/refactor/backend-parallel-performance/41178094135-1/measurement.json",
+      "sha256": "3803ab90a971ef1b219bee4803eb5892431ed79cdf8f327f0336aa852676e4d9",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    }
+  },
+  "reusedReceiptArchiveSha256": "4c839e781f38a8c6893fb2f41b135f62a841f40260406a885553ad2834d9906a",
+  "scope": "Composed acceptance of the unchanged original production binary: successful original scopes reused, failed validation fixtures repaired, all missing original SDK/package/complete MOD gates completed; original failed run retained"
+}

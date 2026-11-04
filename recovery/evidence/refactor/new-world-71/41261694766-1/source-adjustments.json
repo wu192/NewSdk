@@ -1,0 +1,575 @@
+{
+  "schemaVersion": 1,
+  "modRoot": "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods\\The New World",
+  "scope": "Only excluded XML types removed; all base/APT/global entries retained. AudioFile, AudioEvent and Texture declarations and all raw media bytes preserved; no TGA header normalization.",
+  "excludedTypes": [
+    "JoypadCommandBarButtonTemplate",
+    "JoypadCommandBarTemplate",
+    "TestGameObject",
+    "UIJoypadCommandBarButtonBuild",
+    "UIJoypadCommandBarControlGroups",
+    "UIJoypadCommandBarCoopCommunicator",
+    "UIJoypadCommandBarHomogenousGroup",
+    "UIJoypadCommandBarMixedGroup",
+    "UIJoypadCommandBarPlayerPowers",
+    "UIJoypadCommandBarSingleUnit",
+    "UIJoypadCommandBarStances",
+    "UIJoypadCommandBarTopMenu"
+  ],
+  "removedAssets": [
+    {
+      "path": "Data/NewUnit/HeavyTank/LogicCommand.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonChronoRay",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerGTWaveEffect",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerSovietPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerSpaceStron",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerSuppression",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerDeathSpawn",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerNanoFly",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerEVAAttack",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerTheWorld",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerOutPutSP",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonCampaignPlayerPoweParadrop",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerCrushPuppies",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerTerrorDroneEggs",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerSovietMassProduction",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerAirPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerHighTechnology",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerLaserUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerAntiPlus",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerAlliedFreeTrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerJapanNavalPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerJapanAdvancedMissilePacks",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerJapanRoboticAssembly",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerJapanEnhancedKamikaze",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeWarFactoryWaterTech2",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeJapanBarracksWaterTech2",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeJapanBarracksWaterTech3",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeArmorUP",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeSpeedUP",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeAttackUP",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonVIPEMP",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSmallTelekineticProjectorDevice",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSmallBombMissile",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSmallParticleCannon",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUnmiliWeapon",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeAINoSuperWeapon",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade1",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade2",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade3",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade4",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade5",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade6",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade7",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade8",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgrade9",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonUpgradeUpgradeUprising",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonAlliedUnitUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSovietUnitUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonJapanUnitUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonJapanEngineerSprintUpgade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonAlliedSpellBookUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSovietSpellBookUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonJapanPlayerSpellUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonHealthWakeSpecialPowery",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonOilDerrickExplosion",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonObservation",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonAlliedSuperStructureSpecialPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonSovietSuperStructureSpecialPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "BottonJapanSuperStructureSpecialPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerRepireDoneFile",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonNeutralEvacuate",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonCampaignPlayerPoweParadrop_Rank1",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonCampaignPlayerPoweParadrop_Rank2",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonCampaignPlayerPoweParadrop_Rank3",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectAlliedAirPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectAlliedHighTechnology",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectJapanAdvancedMissilePacks",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectJapanEnhancedKamikaze",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectJapanNavalPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectSovietTerrorDroneEggs",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectSovietCrushPuppiesPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectAlliedLaserUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectSovietAntiPlusUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerDetectedAircraft",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerSmokePrecisionStrike",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonPlayerPowerJapanInfantrySuppression",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonAlliedBaseDefenseToggleBinaryWeapon",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonJapanFighterAircraftReturnToAirfield",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonGunshipAircraftStrato",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSovietAntiNavyShipFlash",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectAlliedBaseUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectSovietBaseUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonObjectJapanBaseUpgrade",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonStateScientistLeapSpecialPower",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonToggleAbilityJapanAdvanceLeechBeam",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonStrategicArmyEvacuate",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonEUGDIKodiakStrato",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonTankLongRocket",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonSteamFastBeam",
+      "reason": "Excluded built-in XML compiler type"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "type": "JoypadCommandBarButtonTemplate",
+      "id": "ButtonHealthWakeShipSpecialPowery",
+      "reason": "Excluded built-in XML compiler type"
+    }
+  ],
+  "xmlChanges": [
+    {
+      "path": "Data/NewUnit/HeavyTank/LogicCommand.xml",
+      "originalSha256": "56706798b9ca9fea0684a8a6d4278c5e60cef74951380795126701f47128d0ee",
+      "modifiedSha256": "7ab1f86c1295066ddfb8abd4bc8952c3237df41f5c172a79c562386232361547",
+      "backup": "D:\\a\\_temp\\new-world-original-source\\Data\\NewUnit\\HeavyTank\\LogicCommand.xml"
+    },
+    {
+      "path": "Data/UnitAbilityJoypadButtonSingleState.xml",
+      "originalSha256": "461daef6d2628e8072ded85271c4c4d90b7df3aa61cb8a437595cca00b21cf5a",
+      "modifiedSha256": "297810382c37a3716ec1b76d9002e5d2908b9f337b797b53b4ad7c2820ac3759",
+      "backup": "D:\\a\\_temp\\new-world-original-source\\Data\\UnitAbilityJoypadButtonSingleState.xml"
+    }
+  ],
+  "tgaHeaderNormalizations": [],
+  "removedAssetCount": 89,
+  "normalizedTgaCount": 0,
+  "originalArchivePreserved": true,
+  "preserveMedia": true,
+  "rawMediaPreserved": true
+}

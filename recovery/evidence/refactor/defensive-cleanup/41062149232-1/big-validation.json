@@ -1,0 +1,209 @@
+{
+  "sourceReceipt": "big-validation.json",
+  "fullReceiptSha256": "5df1bc316a890578cb68624bc46e872cc939c8fd0ed5c397cc5c301e8d967bba",
+  "archivePath": "direct-tests/big/validation.json",
+  "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+  "runId": "41062149232",
+  "succeeded": true,
+  "scope": "Actual production P7 BIG apt/maps selected and combined, exact current loose member bytes and independent original MakeBig format/content oracle, skudef, CDATA, cancellation/failure, atomic single-file replacement and retry without MOD rollback; default base LoD, explicit SDK-then-MOD Additional overlays, and optional neutral actual hash repair with no-insertion original oracle; component insertion evidence remains separate; final distribution and game runtime acceptance excluded",
+  "modes": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "cases": [
+        {
+          "name": "apt-loose",
+          "passed": true
+        },
+        {
+          "name": "apt-big",
+          "passed": true
+        },
+        {
+          "name": "maps-loose",
+          "passed": true
+        },
+        {
+          "name": "maps-big",
+          "passed": true
+        },
+        {
+          "name": "apt-maps-loose",
+          "passed": true
+        },
+        {
+          "name": "apt-maps-big",
+          "passed": true
+        },
+        {
+          "name": "base-loose",
+          "passed": true
+        },
+        {
+          "name": "base-big",
+          "passed": true
+        },
+        {
+          "name": "base-apt-maps-loose",
+          "passed": true
+        },
+        {
+          "name": "base-apt-maps-big",
+          "passed": true
+        },
+        {
+          "name": "custom-package-identity",
+          "passed": true
+        },
+        {
+          "name": "rebuild-with-unrelated-output",
+          "passed": true
+        },
+        {
+          "name": "unchanged-locked-output",
+          "passed": true
+        },
+        {
+          "name": "locked-big-fault",
+          "passed": true
+        },
+        {
+          "name": "retry-after-locked-big",
+          "passed": true
+        },
+        {
+          "name": "actual-cancel",
+          "passed": true
+        },
+        {
+          "name": "retry-after-cancel",
+          "passed": true
+        },
+        {
+          "name": "all-with-additional",
+          "passed": true
+        },
+        {
+          "name": "standard-defaults",
+          "passed": true
+        },
+        {
+          "name": "development-defaults",
+          "passed": true
+        },
+        {
+          "name": "base-with-neutral-repair",
+          "passed": true
+        },
+        {
+          "name": "neutral-missing-reference",
+          "passed": true
+        },
+        {
+          "name": "neutral-retry-after-reference-restored",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "cases": [
+        {
+          "name": "apt-loose",
+          "passed": true
+        },
+        {
+          "name": "apt-big",
+          "passed": true
+        },
+        {
+          "name": "maps-loose",
+          "passed": true
+        },
+        {
+          "name": "maps-big",
+          "passed": true
+        },
+        {
+          "name": "apt-maps-loose",
+          "passed": true
+        },
+        {
+          "name": "apt-maps-big",
+          "passed": true
+        },
+        {
+          "name": "base-loose",
+          "passed": true
+        },
+        {
+          "name": "base-big",
+          "passed": true
+        },
+        {
+          "name": "base-apt-maps-loose",
+          "passed": true
+        },
+        {
+          "name": "base-apt-maps-big",
+          "passed": true
+        },
+        {
+          "name": "custom-package-identity",
+          "passed": true
+        },
+        {
+          "name": "rebuild-with-unrelated-output",
+          "passed": true
+        },
+        {
+          "name": "unchanged-locked-output",
+          "passed": true
+        },
+        {
+          "name": "locked-big-fault",
+          "passed": true
+        },
+        {
+          "name": "retry-after-locked-big",
+          "passed": true
+        },
+        {
+          "name": "actual-cancel",
+          "passed": true
+        },
+        {
+          "name": "retry-after-cancel",
+          "passed": true
+        },
+        {
+          "name": "all-with-additional",
+          "passed": true
+        },
+        {
+          "name": "standard-defaults",
+          "passed": true
+        },
+        {
+          "name": "development-defaults",
+          "passed": true
+        },
+        {
+          "name": "base-with-neutral-repair",
+          "passed": true
+        },
+        {
+          "name": "neutral-missing-reference",
+          "passed": true
+        },
+        {
+          "name": "neutral-retry-after-reference-restored",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "originalBaselineSucceeded": null,
+  "note": "Review summary; complete raw receipt is in the downloaded, SHA256-verified workflow archive."
+}

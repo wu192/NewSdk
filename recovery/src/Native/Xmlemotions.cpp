@@ -12,12 +12,7 @@ namespace Recovered { namespace Native { namespace EmotionsDetail {
 using Relo::U32;using Node=XmlemotionsNode;
 #include "XmlemotionsEnums.inc"
 void Check(bool ok,const char* message){if(!ok)throw std::invalid_argument(message);}
-bool In(const std::string& name,const char* list){return(std::string("|")+list+"|").find("|"+name+"|")!=std::string::npos;}
-void Validate(const Node& n,const char* attrs,const char* children,bool root=false){
-    Check(n.value.find_first_not_of(" \t\r\n")==std::string::npos,"Unexpected Emotions text.");
-    for(const auto& a:n.attributes)Check(a.first=="TypeId"||(root&&(a.first=="id"||a.first=="inheritFrom"))||In(a.first,attrs),"Unknown Emotions attribute.");
-    for(const auto& c:n.children)Check(In(c.name,children),"Unknown Emotions child.");
-}
+
 void Swap(void* p){U32 v;std::memcpy(&v,p,4);v=(v<<24)|((v<<8)&0xff0000u)|((v>>8)&0xff00u)|(v>>24);std::memcpy(p,&v,4);}
 struct Builder{
     Relo::Tracker tracker;std::vector<void*> words;
@@ -33,12 +28,12 @@ unsigned int XmlemotionsTypeId(const std::string& name){if(name=="StanceTemplate
 Relo::Chunk CompileXmlemotions(const XmlemotionsNode& input,bool bigEndian){
     using namespace EmotionsDetail;static_assert(sizeof(void*)==4,"Emotions require x86.");unsigned id=XmlemotionsTypeId(input.name);Check(id!=0,"Unsupported Emotions root.");bool stance=id==2525284163u;
     Builder b;unsigned char* root=nullptr;b.tracker.Push(reinterpret_cast<void**>(&root),stance?12:324,1);
-    if(stance){Validate(input,"","StanceDefinition",true);U32 count=static_cast<U32>(input.children.size());b.Word(root+4,count);
+    if(stance){U32 count=static_cast<U32>(input.children.size());b.Word(root+4,count);
         if(count){auto data=static_cast<unsigned char*>(b.tracker.Push(reinterpret_cast<void**>(root+8),8,count));unsigned i=0;
-            for(const auto& n:input.children){Validate(n,"Type|AttributeModifier","");auto p=data+8*i++;b.Enum(n,"Type",p,EStance,1);auto a=n.attributes.find("AttributeModifier");if(a!=n.attributes.end()){auto target=b.tracker.Push(reinterpret_cast<void**>(p+4),4,1);MarshalReference(b.tracker,target,a->second);b.tracker.Pop();}}
+            for(const auto& n:input.children){auto p=data+8*i++;b.Enum(n,"Type",p,EStance,1);auto a=n.attributes.find("AttributeModifier");if(a!=n.attributes.end()){auto target=b.tracker.Push(reinterpret_cast<void**>(p+4),4,1);MarshalReference(b.tracker,target,a->second);b.tracker.Pop();}}
             b.tracker.Pop();}
     }else{
-        Validate(input,"Type|Options|DurationActive|DurationInactive|DurationInactiveObject|DurationInactiveType|EnemyThreatComparison|EnemyThreat|FriendlyThreatComparison|FriendlyThreat|StartFX|UpdateFX|EndFX|AttributeModifier|AttributeModifierStartDelay|AttributeModifierDuration|AIStateLockDuration|AIState|ModelConditionsSetOnStart|ModelConditionsSetOnEnd|ModelConditionsClearOnStart|ModelConditionsClearOnEnd|AILuaEventsList","",true);
+
         b.Enum(input,"Type",root+4,EEmotionType,8);auto option=input.attributes.find("Options");if(option!=input.attributes.end()){MarshalEnumBitset(std::string(option->second.c_str()),EEmotionTemplateOptions,6,4,6,reinterpret_cast<U32*>(root+8));b.words.push_back(root+8);}
         const char* times[]={"DurationActive","DurationInactive","DurationInactiveObject","DurationInactiveType","AttributeModifierStartDelay","AttributeModifierDuration","AIStateLockDuration"};const unsigned offsets[]={12,16,20,24,60,64,68};for(unsigned i=0;i<7;++i)b.Time(input,times[i],root+offsets[i]);
         b.Enum(input,"EnemyThreatComparison",root+28,EEmotionTemplateThreatComparisonType,0);b.Int(input,"EnemyThreat",root+32);b.Enum(input,"FriendlyThreatComparison",root+36,EEmotionTemplateThreatComparisonType,0);b.Int(input,"FriendlyThreat",root+40);

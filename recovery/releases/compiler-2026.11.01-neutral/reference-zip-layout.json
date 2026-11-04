@@ -1,0 +1,791 @@
+{
+  "schemaVersion": 1,
+  "file": "RA3-Worldbuilder-1.12-References.zip",
+  "bytes": 500207147,
+  "sha256": "58a3f59dbd6b2e726bffd51ce42197ca04ee5ff0434a99a556d81cd5b7455c9a",
+  "segments": [
+    {
+      "templateBytes": 2120117,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00000.deflate",
+      "sourceBytes": 3984665
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00001.deflate",
+      "sourceBytes": 3904068
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00002.deflate",
+      "sourceBytes": 3624821
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00003.deflate",
+      "sourceBytes": 3602139
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00004.deflate",
+      "sourceBytes": 3570902
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00005.deflate",
+      "sourceBytes": 3059326
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00006.deflate",
+      "sourceBytes": 4697921
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00007.deflate",
+      "sourceBytes": 4346932
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00008.deflate",
+      "sourceBytes": 4634241
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00009.deflate",
+      "sourceBytes": 4076665
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00010.deflate",
+      "sourceBytes": 3715016
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00011.deflate",
+      "sourceBytes": 3409768
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00012.deflate",
+      "sourceBytes": 3052635
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00013.deflate",
+      "sourceBytes": 3551019
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00014.deflate",
+      "sourceBytes": 3802434
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00015.deflate",
+      "sourceBytes": 3979684
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00016.deflate",
+      "sourceBytes": 3768371
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00017.deflate",
+      "sourceBytes": 4147567
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00018.deflate",
+      "sourceBytes": 3972216
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00019.deflate",
+      "sourceBytes": 3990893
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00020.deflate",
+      "sourceBytes": 3812257
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00021.deflate",
+      "sourceBytes": 3408176
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00022.deflate",
+      "sourceBytes": 3856459
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00023.deflate",
+      "sourceBytes": 3864891
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00024.deflate",
+      "sourceBytes": 3499320
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00025.deflate",
+      "sourceBytes": 3682624
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00026.deflate",
+      "sourceBytes": 4075484
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00027.deflate",
+      "sourceBytes": 3771276
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00028.deflate",
+      "sourceBytes": 3789224
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00029.deflate",
+      "sourceBytes": 4376246
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00030.deflate",
+      "sourceBytes": 4153792
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00031.deflate",
+      "sourceBytes": 3523592
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00032.deflate",
+      "sourceBytes": 4018947
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00033.deflate",
+      "sourceBytes": 4246310
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00034.deflate",
+      "sourceBytes": 4342031
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00035.deflate",
+      "sourceBytes": 4296584
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00036.deflate",
+      "sourceBytes": 3504280
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00037.deflate",
+      "sourceBytes": 3420337
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00038.deflate",
+      "sourceBytes": 3955796
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00039.deflate",
+      "sourceBytes": 3843134
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00040.deflate",
+      "sourceBytes": 3589231
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00041.deflate",
+      "sourceBytes": 4511273
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00042.deflate",
+      "sourceBytes": 3770257
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00043.deflate",
+      "sourceBytes": 3953964
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00044.deflate",
+      "sourceBytes": 4104701
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00045.deflate",
+      "sourceBytes": 3884959
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00046.deflate",
+      "sourceBytes": 4398801
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00047.deflate",
+      "sourceBytes": 3186288
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00048.deflate",
+      "sourceBytes": 4209504
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00049.deflate",
+      "sourceBytes": 3718438
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00050.deflate",
+      "sourceBytes": 4336302
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00051.deflate",
+      "sourceBytes": 4409093
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00052.deflate",
+      "sourceBytes": 4683306
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00053.deflate",
+      "sourceBytes": 3813279
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00054.deflate",
+      "sourceBytes": 3681985
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00055.deflate",
+      "sourceBytes": 3916821
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00056.deflate",
+      "sourceBytes": 3811291
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00057.deflate",
+      "sourceBytes": 3963382
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00058.deflate",
+      "sourceBytes": 4085368
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00059.deflate",
+      "sourceBytes": 4470295
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00060.deflate",
+      "sourceBytes": 4366851
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00061.deflate",
+      "sourceBytes": 4133740
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00062.deflate",
+      "sourceBytes": 3699560
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00063.deflate",
+      "sourceBytes": 4094322
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00064.deflate",
+      "sourceBytes": 3949058
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00065.deflate",
+      "sourceBytes": 5628956
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00066.deflate",
+      "sourceBytes": 2987064
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00067.deflate",
+      "sourceBytes": 2575047
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00068.deflate",
+      "sourceBytes": 2655882
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00069.deflate",
+      "sourceBytes": 2652967
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00070.deflate",
+      "sourceBytes": 2668735
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00071.deflate",
+      "sourceBytes": 2556978
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00072.deflate",
+      "sourceBytes": 2877313
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00073.deflate",
+      "sourceBytes": 2867831
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00074.deflate",
+      "sourceBytes": 3243153
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00075.deflate",
+      "sourceBytes": 2729349
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00076.deflate",
+      "sourceBytes": 2688155
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00077.deflate",
+      "sourceBytes": 2331518
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00078.deflate",
+      "sourceBytes": 2583493
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00079.deflate",
+      "sourceBytes": 2294872
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00080.deflate",
+      "sourceBytes": 2594383
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00081.deflate",
+      "sourceBytes": 2300480
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00082.deflate",
+      "sourceBytes": 2873209
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00083.deflate",
+      "sourceBytes": 2478281
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00084.deflate",
+      "sourceBytes": 2612012
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00085.deflate",
+      "sourceBytes": 2766948
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00086.deflate",
+      "sourceBytes": 3114525
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00087.deflate",
+      "sourceBytes": 1944883
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00088.deflate",
+      "sourceBytes": 2445200
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00089.deflate",
+      "sourceBytes": 2051992
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00090.deflate",
+      "sourceBytes": 2709826
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00091.deflate",
+      "sourceBytes": 2299566
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00092.deflate",
+      "sourceBytes": 3424936
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00093.deflate",
+      "sourceBytes": 2482107
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00094.deflate",
+      "sourceBytes": 2183763
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00095.deflate",
+      "sourceBytes": 2627678
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00096.deflate",
+      "sourceBytes": 3019884
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00097.deflate",
+      "sourceBytes": 2359649
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00098.deflate",
+      "sourceBytes": 3314779
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00099.deflate",
+      "sourceBytes": 2444574
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00100.deflate",
+      "sourceBytes": 2677520
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00101.deflate",
+      "sourceBytes": 2871014
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00102.deflate",
+      "sourceBytes": 2153773
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00103.deflate",
+      "sourceBytes": 2420963
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00104.deflate",
+      "sourceBytes": 2415724
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00105.deflate",
+      "sourceBytes": 1992079
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00106.deflate",
+      "sourceBytes": 2893200
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00107.deflate",
+      "sourceBytes": 3421979
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00108.deflate",
+      "sourceBytes": 3011859
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00109.deflate",
+      "sourceBytes": 2495115
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00110.deflate",
+      "sourceBytes": 2936830
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00111.deflate",
+      "sourceBytes": 2618143
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00112.deflate",
+      "sourceBytes": 2990992
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00113.deflate",
+      "sourceBytes": 2889909
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00114.deflate",
+      "sourceBytes": 2859310
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00115.deflate",
+      "sourceBytes": 2152076
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00116.deflate",
+      "sourceBytes": 2403137
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00117.deflate",
+      "sourceBytes": 2794354
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00118.deflate",
+      "sourceBytes": 2888063
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00119.deflate",
+      "sourceBytes": 2837369
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00120.deflate",
+      "sourceBytes": 2783328
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00121.deflate",
+      "sourceBytes": 2447444
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00122.deflate",
+      "sourceBytes": 2475813
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00123.deflate",
+      "sourceBytes": 2486852
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00124.deflate",
+      "sourceBytes": 2881228
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00125.deflate",
+      "sourceBytes": 2430319
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00126.deflate",
+      "sourceBytes": 2332571
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00127.deflate",
+      "sourceBytes": 3437423
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00128.deflate",
+      "sourceBytes": 2438537
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00129.deflate",
+      "sourceBytes": 2476190
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00130.deflate",
+      "sourceBytes": 2780137
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00131.deflate",
+      "sourceBytes": 2421548
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00132.deflate",
+      "sourceBytes": 2661665
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00133.deflate",
+      "sourceBytes": 2910707
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00134.deflate",
+      "sourceBytes": 3223508
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00135.deflate",
+      "sourceBytes": 2979710
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00136.deflate",
+      "sourceBytes": 2993431
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00137.deflate",
+      "sourceBytes": 2503897
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00138.deflate",
+      "sourceBytes": 2584198
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00139.deflate",
+      "sourceBytes": 2279632
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00140.deflate",
+      "sourceBytes": 2710574
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00141.deflate",
+      "sourceBytes": 2481913
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00142.deflate",
+      "sourceBytes": 2986621
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00143.deflate",
+      "sourceBytes": 2647607
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00144.deflate",
+      "sourceBytes": 2252208
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00145.deflate",
+      "sourceBytes": 2640594
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00146.deflate",
+      "sourceBytes": 3097571
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00147.deflate",
+      "sourceBytes": 2576840
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00148.deflate",
+      "sourceBytes": 2820539
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00149.deflate",
+      "sourceBytes": 2855350
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00150.deflate",
+      "sourceBytes": 2484265
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00151.deflate",
+      "sourceBytes": 2843002
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00152.deflate",
+      "sourceBytes": 2003245
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00153.deflate",
+      "sourceBytes": 1959214
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00154.deflate",
+      "sourceBytes": 2049106
+    },
+    {
+      "templateBytes": 90,
+      "source": "SDK/builtmods/sagexml/Worldbuilder.bin.parts/block-00155.deflate",
+      "sourceBytes": 1923130
+    }
+  ],
+  "trailingTemplateBytes": 25654,
+  "templateBytes": 2159721,
+  "templateSha256": "d5080ade0dfc2d55802ae1d6e73536231c273356646ed9f1fdf127b18bcae305"
+}

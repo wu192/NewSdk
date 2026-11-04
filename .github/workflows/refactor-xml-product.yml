@@ -1,12 +1,16 @@
 name: MOD compiler linked XML matrices
 on:
   push:
-    branches: [compiler-main, refactor/modcompiler-p0-p3]
+    branches: [compiler-main, refactor/modcompiler-p0-p3, refactor/remove-plugin-schema-validation]
     paths:
       - '.github/workflows/refactor-xml-product.yml'
       - 'recovery/scripts/TestCompilerXmlMatrices.ps1'
       - 'recovery/scripts/PrepareCompilerXmlMatrices.py'
       - 'recovery/tests/XmlProductOracleTransport.cs'
+      - 'recovery/tests/Xml*Oracle.cs'
+      - 'recovery/tests/PluginSchemaBoundary.cs'
+      - 'recovery/src/Native/**'
+      - 'recovery/src/Bridge/**'
   workflow_dispatch:
 permissions:
   contents: read
@@ -23,6 +27,10 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -39,6 +47,7 @@ jobs:
             ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/native-foundation/$mode"
           }
       - name: Build and inspect the full production combination
+        id: product
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/native-foundation -BuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
@@ -48,20 +57,94 @@ jobs:
         run: |
           ./recovery/scripts/TestCompilerXmlSmoke.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-xml-smoke/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
       - name: All 63 complete XML group differential matrices
-        if: ${{ !cancelled() && success() }}
+        # Tokenizer fixture-only follow-ups reuse the independent XML matrix run.
+        if: ${{ !cancelled() && success() && !contains(github.event.head_commit.message, '[plugin-tokenizers]') }}
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerXmlMatrices.ps1 -CompilerDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-xml-matrices/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-      - uses: actions/upload-artifact@v4
+      - name: Complete GameObject original byte and tokenizer matrices
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerGameObject.ps1 -CompilerBuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-gameobject/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Complete Weapon original byte and tokenizer matrices
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerWeapon.ps1 -CompilerBuildDirectory recovery/artifacts/native-product -OutputDirectory "recovery/evidence/refactor/native-weapon/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Summarize CI evidence
         if: always()
-        with:
-          name: refactor-xml-product-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/artifacts/native-foundation/**/build.json
             recovery/artifacts/native-product/**/build.json
             recovery/artifacts/native-product/**/link-inputs.json
             recovery/artifacts/native-product/**/*.log
-          if-no-files-found: error
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'refactor-xml-product-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/native-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/native-foundation/**/build.json
+            recovery/artifacts/native-product/**/build.json
+            recovery/artifacts/native-product/**/link-inputs.json
+            recovery/artifacts/native-product/**/*.log
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

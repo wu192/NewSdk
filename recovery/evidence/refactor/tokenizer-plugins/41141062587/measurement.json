@@ -1,0 +1,172 @@
+{
+  "sourceCommit": "18ae3f0240c712e6a3ecba539e08dec64bc70a5e",
+  "runId": "41141062587",
+  "runAttempt": "1",
+  "succeeded": true,
+  "baselineBinarySource": "8f854606ac20ce372045e3661b38e58e4e933ca2",
+  "optimizedBinarySource": "9f9d176761ff28cee993c27ba61b864041a26299",
+  "binarySha256": {
+    "baseline": "4e0a554c8e795c3d09a10fe5406181ed994aa375c115769c933c366f999755dd",
+    "optimized": "646d67558a7d8c93f120e6dafacf55e6908e3895192c5b93235efc6449984e86"
+  },
+  "productionChanges": [
+    "recovery/src/Bridge/GameObjectCompiler.cpp",
+    "recovery/src/Bridge/WeaponCompiler.cpp",
+    "recovery/src/Native/GameObject.cpp",
+    "recovery/src/Native/GameObjectModuleFieldsRuntime.h",
+    "recovery/src/Native/WeaponTemplate.cpp"
+  ],
+  "inputSource": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+  "inputTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+  "jobs": 4,
+  "scope": "Complete historical Upheaval build, auto-discovered content, BIG/SKUDEF and Additional; same-VM pairs, caches disabled, fresh output each time; raw published files compared. Not original BAB or game-runtime acceptance.",
+  "sampleCaution": "3 samples per implementation; pair order alternates, OS page cache uncontrolled; no warmup.",
+  "samples": [
+    {
+      "label": "baseline",
+      "trial": 0,
+      "wallMs": 23617.409199999885,
+      "exitCode": 0,
+      "status": "succeeded",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\tokenizer-before\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\tokenizer-fullmod\\input\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\tokenizer-fullmod\\builds\\baseline-0",
+        "--jobs",
+        "4",
+        "--sc=false",
+        "--bc=false",
+        "--performance",
+        "off"
+      ]
+    },
+    {
+      "label": "optimized",
+      "trial": 0,
+      "wallMs": 21638.12280000002,
+      "exitCode": 0,
+      "status": "succeeded",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\tokenizer-accepted\\artifacts\\core-lifecycle-product\\Release\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\tokenizer-fullmod\\input\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\tokenizer-fullmod\\builds\\optimized-0",
+        "--jobs",
+        "4",
+        "--sc=false",
+        "--bc=false",
+        "--performance",
+        "off"
+      ]
+    },
+    {
+      "label": "optimized",
+      "trial": 1,
+      "wallMs": 21051.652500000047,
+      "exitCode": 0,
+      "status": "succeeded",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\tokenizer-accepted\\artifacts\\core-lifecycle-product\\Release\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\tokenizer-fullmod\\input\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\tokenizer-fullmod\\builds\\optimized-1",
+        "--jobs",
+        "4",
+        "--sc=false",
+        "--bc=false",
+        "--performance",
+        "off"
+      ]
+    },
+    {
+      "label": "baseline",
+      "trial": 1,
+      "wallMs": 22185.117499999935,
+      "exitCode": 0,
+      "status": "succeeded",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\tokenizer-before\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\tokenizer-fullmod\\input\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\tokenizer-fullmod\\builds\\baseline-1",
+        "--jobs",
+        "4",
+        "--sc=false",
+        "--bc=false",
+        "--performance",
+        "off"
+      ]
+    },
+    {
+      "label": "baseline",
+      "trial": 2,
+      "wallMs": 21317.689399999836,
+      "exitCode": 0,
+      "status": "succeeded",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\tokenizer-before\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\tokenizer-fullmod\\input\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\tokenizer-fullmod\\builds\\baseline-2",
+        "--jobs",
+        "4",
+        "--sc=false",
+        "--bc=false",
+        "--performance",
+        "off"
+      ]
+    },
+    {
+      "label": "optimized",
+      "trial": 2,
+      "wallMs": 21642.822400000114,
+      "exitCode": 0,
+      "status": "succeeded",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\tokenizer-accepted\\artifacts\\core-lifecycle-product\\Release\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\tokenizer-fullmod\\input\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\tokenizer-fullmod\\builds\\optimized-2",
+        "--jobs",
+        "4",
+        "--sc=false",
+        "--bc=false",
+        "--performance",
+        "off"
+      ]
+    }
+  ],
+  "equalPublishedPairs": [
+    0,
+    1,
+    2
+  ],
+  "baselineMs": 22185.117499999935,
+  "optimizedMs": 21638.12280000002,
+  "speedup": 1.0252792122983938
+}

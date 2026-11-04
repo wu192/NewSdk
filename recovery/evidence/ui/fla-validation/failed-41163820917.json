@@ -1,0 +1,63 @@
+{
+  "modes": [
+    {
+      "configuration": "Debug",
+      "passed": false,
+      "exeSha256": "fe2dd7a95995026ba7243c7fd442c18a85e31408a46151e57b42479dbb7a9356",
+      "cases": [
+        {
+          "passed": false,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 2256,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [],
+            "freshEventsRequired": false,
+            "exe": "D:\\a\\_temp\\uieeb2066a\\Debug\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134378906885309237,
+            "processId": 6896,
+            "processGroupId": 6896,
+            "creationFlags": 516,
+            "processExitCode": 4,
+            "elapsedMs": 1789,
+            "auditPolls": 106,
+            "descendants": []
+          },
+          "name": "cold",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\uieeb2066a\\Debug\\mod",
+            "--sdk-root",
+            "D:\\a\\_temp\\uieeb2066a\\Debug\\sdk",
+            "--out",
+            "D:\\a\\_temp\\uieeb2066a\\Debug\\cached",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=true",
+            "--bc=true",
+            "--iod",
+            "D:\\a\\_temp\\uieeb2066a\\Debug\\intermediate"
+          ],
+          "expectedExit": 0
+        }
+      ]
+    }
+  ],
+  "scope": "Production CLI direct binary MX2004/Flash8 FLA and AS to Core mixed MOD four streams; both unchanged user sources, file/folder routes, siblings, same-length/mtime AS edit, AS addition/deletion, duplicate generated identities and failure/retry. No SWF input, Flash process or in-game playback oracle.",
+  "schemaVersion": 1,
+  "sourceCommit": "314390f8405179fc33aa19d633575451bd2ae612",
+  "runId": "41163820917",
+  "runAttempt": "1",
+  "succeeded": false
+}

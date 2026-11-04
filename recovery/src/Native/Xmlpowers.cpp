@@ -96,17 +96,9 @@ U32 RawHash(const std::string& text) {
  h^=h<<3;h+=h>>5;h^=h<<2;h+=h>>15;return (h<<10)^h;
 }
 void Check(bool ok,const char* message){if(!ok)throw std::invalid_argument(message);}
-bool White(const std::string& s){return s.find_first_not_of(" \t\r\n")==std::string::npos;}
-bool In(const std::string& name,const char* allowed){
- std::string a="|"+std::string(allowed)+"|";return a.find("|"+name+"|")!=std::string::npos;
-}
-void Validate(const XmlpowersNode& n,const Field* fields,size_t count,const char* children,bool root=false){
- for(const auto& a:n.attributes){bool found=root&&a.first=="id";for(size_t i=0;i<count;++i)found|=a.first==fields[i].name;Check(found,"Unknown attribute in Xmlpowers input");}
- Check(White(n.text),"Unexpected structured text");
- for(const auto& c:n.children)Check(In(c.name,children),"Unknown child in Xmlpowers input");
-}
+
 const XmlpowersNode* Child(const XmlpowersNode& n,const char* name){
- const XmlpowersNode* out=nullptr;for(const auto& c:n.children)if(c.name==name){Check(!out,"Duplicate singleton child");out=&c;}return out;
+ const XmlpowersNode* out=nullptr;for(const auto& c:n.children)if(c.name==name){out=&c;}return out;
 }
 struct Builder {
  Relo::Tracker data;std::vector<void*> words;std::vector<ObjectFilter*> filters;
@@ -150,30 +142,27 @@ struct Builder {
  template<size_t N>void Fields(const XmlpowersNode& n,unsigned char* p,const Field(&f)[N]){Fields(n,p,f,N);}
  void Filter(const XmlpowersNode* n,ObjectFilter* p){
  if(!n)return;
- static const char* allowed="id|Rule|Relationship|Alignment|Include|Exclude|StatusBitFlags|StatusBitFlagsExclude";
- for(const auto& a:n->attributes)Check(In(a.first,allowed),"Unknown ObjectFilter attribute");
- Check(White(n->text),"Unexpected filter text");ObjectFilterInput input;input.attributes=n->attributes;
- for(const auto& c:n->children){Check(c.name=="IncludeThing"||c.name=="ExcludeThing","Unknown filter child");Check(c.attributes.empty()&&c.children.empty(),"Structured filter reference");(c.name=="IncludeThing"?input.includeThings:input.excludeThings).push_back(c.text);}
+
+ ObjectFilterInput input;input.attributes=n->attributes;
+ for(const auto& c:n->children){(c.name=="IncludeThing"?input.includeThings:input.excludeThings).push_back(c.text);}
  MarshalObjectFilter(input,p,data);filters.push_back(p);
  }
  void LeafList(const XmlpowersNode& n,const char* name,unsigned char* p,bool reference){
  std::vector<const XmlpowersNode*> nodes;for(const auto& c:n.children)if(c.name==name)nodes.push_back(&c);
  Word(p,static_cast<U32>(nodes.size()));if(nodes.empty())return;
  auto values=static_cast<U32*>(data.Push(reinterpret_cast<void**>(p+4),4,static_cast<U32>(nodes.size())));
- for(size_t i=0;i<nodes.size();++i){Check(nodes[i]->attributes.empty()&&nodes[i]->children.empty(),"Structured list reference");
+ for(size_t i=0;i<nodes.size();++i){
  if(reference)MarshalReference(data,values+i,nodes[i]->text);else Word(values+i,HashAssetId(nodes[i]->text));}
  data.Pop();
  }
  void Vector(const XmlpowersNode* n,unsigned char* p,bool range=false,bool pointer=true){
- if(!n)return;Validate(*n,range?rangeFields:vectorFields,range?2:3,"");
+ if(!n)return;
  unsigned char* target=p;if(pointer)target=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(p),range?8:12,1));
  Fields(*n,target,range?rangeFields:vectorFields,range?2:3);if(pointer)data.Pop();
  }
  void Dependency(const XmlpowersNode* n,unsigned char* field){
  if(!n)return;
- for(const auto& a:n->attributes)Check(In(a.first,"id|RequiredModelConditionsAny|ForbiddenModelConditions|RequiredObjectStatusAny"),"Unknown dependency attribute");
- Check(White(n->text),"Unexpected dependency text");
- for(const auto& c:n->children)Check(In(c.name,"RequiredObject|ForbiddenUpgrade|NeededUpgrade|ObjectFilter"),"Unknown dependency child");
+
  auto p=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(field),40,1));
  const char* names[]={"RequiredModelConditionsAny","ForbiddenModelConditions","RequiredObjectStatusAny"};
  for(unsigned i=0;i<3;++i){auto a=n->attributes.find(names[i]);if(a!=n->attributes.end()){void* mask=data.Push(reinterpret_cast<void**>(p+4*i),i==2?28:60,1);Bits(mask,a->second,i==2?StatusBits:ModelBits);data.Pop();}}
@@ -184,8 +173,8 @@ struct Builder {
  void Nugget(const XmlpowersNode& n,unsigned char* p,unsigned group){
  static const Field* fields[]={createFields,attackFields,fireFields,flingFields,strafeFields,parabolicFields};
  static const size_t counts[]={sizeof(createFields)/sizeof(Field),3,1,6,5,10};
- const char* children[]={"Offset|RequiredUpgrade|ForbiddenUpgrade|CreateObject","","","Offset|DistanceFromTarget|AngleAroundTarget|DistanceAtTarget","InterOffset|IntraOffset","Offset"};
- Validate(n,fields[group],counts[group],children[group]);Fields(n,p,fields[group],counts[group]);
+
+ Fields(n,p,fields[group],counts[group]);
  if(group==0){Vector(Child(n,"Offset"),p+216);LeafList(n,"RequiredUpgrade",p+220,true);LeafList(n,"ForbiddenUpgrade",p+228,true);LeafList(n,"CreateObject",p+236,false);}
  if(group==3){Vector(Child(n,"Offset"),p+24);Vector(Child(n,"DistanceFromTarget"),p+28,true,false);Vector(Child(n,"AngleAroundTarget"),p+36,true,false);Vector(Child(n,"DistanceAtTarget"),p+44,true);}
  if(group==4){Vector(Child(n,"InterOffset"),p+20);Vector(Child(n,"IntraOffset"),p+24);}
@@ -200,13 +189,13 @@ struct Builder {
 Relo::Chunk CompileXmlpowers(const XmlpowersNode& input,bool bigEndian){
  Builder b;unsigned char* root=nullptr;
  if(input.name=="SpecialPowerTemplate"){
- Validate(input,powerFields,sizeof(powerFields)/sizeof(Field),"ObjectFilter|ForbiddenObjectFilter|GameDependency|ForbiddenPlayerTech",true);
+
  b.data.Push(reinterpret_cast<void**>(&root),552,1);b.Fields(input,root,powerFields);
  b.Filter(Child(input,"ObjectFilter"),reinterpret_cast<ObjectFilter*>(root+312));
  b.Filter(Child(input,"ForbiddenObjectFilter"),reinterpret_cast<ObjectFilter*>(root+424));
  b.Dependency(Child(input,"GameDependency"),root+536);b.LeafList(input,"ForbiddenPlayerTech",root+540,true);
  }else if(input.name=="ObjectCreationList"){
- Validate(input,oclFields,1,"CreateObject|Attack|FireWeapon|FlingObject|StrafeAreaSquad|ParabolicCurve",true);
+
  b.data.Push(reinterpret_cast<void**>(&root),56,1);b.Fields(input,root,oclFields);
  const char* names[]={"CreateObject","Attack","FireWeapon","FlingObject","StrafeAreaSquad","ParabolicCurve"};
  const unsigned sizes[]={248,16,8,52,32,48};

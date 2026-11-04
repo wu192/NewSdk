@@ -1,0 +1,112 @@
+name: CLI progress contracts and full Upheaval measurement
+on:
+  push:
+    branches: [feat/cli-build-progress]
+    paths:
+      - '.github/workflows/cli-progress.yml'
+      - 'recovery/scripts/TestCliProgress.ps1'
+      - 'recovery/src/App/**'
+      - 'recovery/src/Managed/Core/**'
+      - 'recovery/tests/App/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cli-progress-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  progress:
+    runs-on: windows-2022
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Check scripts and pinned complete Upheaval before native compilation
+        shell: pwsh
+        run: |
+          $tokens=$null; $errors=$null
+          [Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'recovery/scripts/TestCliProgress.ps1'),[ref]$tokens,[ref]$errors) | Out-Null
+          if($errors.Count){throw ($errors|Out-String)}
+          $tree=git rev-parse 'bacfc69fc3e71c8116d1f22b933b8b6173170ecf:SDK/Mods/Upheaval'
+          if($LASTEXITCODE -ne 0 -or $tree -cne '5551fc26a6f96b62613443e0d0fa2958c14cbce0'){throw 'Pinned complete Upheaval unavailable'}
+      - name: Compile and run managed App and interactive renderer contracts first
+        shell: pwsh
+        run: |
+          $out='recovery/artifacts/cli-progress-app'
+          ./recovery/scripts/BuildApp.ps1 -Tests -Configuration Release -OutputDirectory $out
+          & "$out/NewModCompiler.AppTests.exe" 'C:\nsc-progress-app' *> "$out/contracts.log"
+          if($LASTEXITCODE -ne 0){Get-Content "$out/contracts.log" -Tail 100; throw 'App progress contracts failed'}
+          Get-Content "$out/contracts.log" -Tail 12
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Build one current Release product and its production-object fixture host
+        shell: pwsh
+        run: |
+          ./recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory recovery/artifacts/cli-progress-product
+          ./recovery/scripts/BuildCompilerValidationHost.ps1 -ProductBuildDirectory recovery/artifacts/cli-progress-product -OutputDirectory recovery/artifacts/cli-progress-product/validation
+      - name: Real Core CLI cancellation and console-attached full Upheaval hot pairs
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCliProgress.ps1 -ProductBuildDirectory recovery/artifacts/cli-progress-product -OutputDirectory recovery/artifacts/cli-progress-validation -Pairs 3
+      - name: Summarize CI evidence
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/cli-progress-app/contracts.log
+            recovery/artifacts/cli-progress-validation/**/*.json
+            recovery/artifacts/cli-progress-validation/**/*.log
+            recovery/artifacts/cli-progress-validation/**/*.md
+            recovery/artifacts/cli-progress-validation/**/*.csv
+            recovery/artifacts/cli-progress-validation/**/*.tsv
+            recovery/artifacts/cli-progress-product/build.json
+            recovery/artifacts/cli-progress-product/link-inputs.json
+            recovery/artifacts/cli-progress-product/*-build.log
+            recovery/artifacts/cli-progress-product/link.log
+            recovery/artifacts/cli-progress-product/obj/foundation/*.log
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.json
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.log
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.md
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.csv
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.tsv
+            recovery/artifacts/cli-progress-product/validation/build.json
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'cli-progress-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/cli-progress-app/contracts.log
+            recovery/artifacts/cli-progress-validation/**/*.json
+            recovery/artifacts/cli-progress-validation/**/*.log
+            recovery/artifacts/cli-progress-validation/**/*.md
+            recovery/artifacts/cli-progress-validation/**/*.csv
+            recovery/artifacts/cli-progress-validation/**/*.tsv
+            recovery/artifacts/cli-progress-product/build.json
+            recovery/artifacts/cli-progress-product/link-inputs.json
+            recovery/artifacts/cli-progress-product/*-build.log
+            recovery/artifacts/cli-progress-product/link.log
+            recovery/artifacts/cli-progress-product/obj/foundation/*.log
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.json
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.log
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.md
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.csv
+            recovery/artifacts/cli-progress-product/obj/native/logs/**/*.tsv
+            recovery/artifacts/cli-progress-product/validation/build.json
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

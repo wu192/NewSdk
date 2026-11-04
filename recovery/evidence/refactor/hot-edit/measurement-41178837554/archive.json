@@ -1,0 +1,20 @@
+{
+  "runId": 41178837554,
+  "sourceCommit": "2b4e97f9edd2759334d5a5bb54f2abedf83fac49",
+  "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "candidateAcceptanceRunId": "41178094135",
+  "artifactId": 13034450692,
+  "archiveSha256": "6a83c6cc54f89f8e454bd91c608ccf14741e24b926a73c5d6ab901e0af1ffed1",
+  "archiveBytes": 344257,
+  "downloadedAndRehashed": true,
+  "status": "passed",
+  "samples": 80,
+  "pairCount": 3,
+  "baselineBinarySource": "e2dba3c321504752438b4e940d651bbfcdb58fff",
+  "baselineRunId": "41169755141",
+  "allSamplesPassed": true,
+  "allGenerationsRawPublishedIdentical": true,
+  "allHotSamplesZeroParseZeroCompile": true,
+  "formalOffPairsPerCoreScenario": 3,
+  "scope": "Synthetic 512 Armor, two selected parent edits; separate six-event detailed diagnostics. No stable end-to-end edit speedup shown by these samples."
+}

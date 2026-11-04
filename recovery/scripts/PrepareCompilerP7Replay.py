@@ -76,6 +76,7 @@ def prepare(archive,candidate,output,repo):
     previous=guard.closure,guard.FIXTURES,guard.CLI_CASES
     try:
         guard.closure=lambda *a,**k:changed
+        # Historical accepted archives included this fixture; current production no longer has the boundary.
         guard.FIXTURES=previous[1]|{'CompilerCacheContent','CompilerCacheBoundary','CompilerInputRoots'}
         guard.CLI_CASES=(previous[2]-{'cache-rejected','session-cache-rejected'})|{'compressed-session-cache-rejected'}
         receipt=guard.prepare(archive,SHA256,SOURCE,candidate,output,repo)

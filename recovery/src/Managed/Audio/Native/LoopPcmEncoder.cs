@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace BinaryAssetBuilder.AudioCompiler
@@ -78,19 +77,20 @@ namespace BinaryAssetBuilder.AudioCompiler
             int sampleRate, bool streamed, int loopStart, int loopEnd, bool xas)
         {
             if (samples == null) throw new ArgumentNullException("samples");
-            if ((channels != 1 && channels != 2 && channels != 4 && channels != 6) || samples.Length % channels != 0)
+            if ((channels != 1 && channels != 2 && channels != 4 && channels != 6 && channels != 8) || samples.Length % channels != 0)
                 throw new ArgumentOutOfRangeException("channels");
             int sourceFrames = samples.Length / channels;
             if (loopStart < 0 || loopEnd < loopStart || loopEnd >= sourceFrames)
                 throw new NotSupportedException("Loop points must describe an inclusive range within the audio source");
             if (sourceFrames > 0x1fffffff)
                 throw new ArgumentOutOfRangeException("samples");
-            List<byte> data = new List<byte>();
-            if (loopStart > 0)
-                AppendSegment(data, samples, channels, sampleRate, streamed, 0, loopStart, xas);
-            int loopOffset = data.Count;
-            AppendSegment(data, samples, channels, sampleRate, streamed,
-                loopStart, loopEnd - loopStart + 1, xas);
+            if (xas) Xas1Encoder.ValidateSamples(samples, (loopEnd + 1) * channels);
+            else if (sampleRate <= 0 || sampleRate > 0x3ffff) throw new ArgumentOutOfRangeException("sampleRate");
+            int maximum = streamed ? Pcm16Encoder.NativeBlockFrames(
+                sampleRate * channels * (xas ? 0.59375f : 2.0f), sampleRate) : loopEnd + 1;
+            int loopFrames = loopEnd - loopStart + 1;
+            int loopOffset = loopStart == 0 ? 0 : SegmentLength(loopStart, channels, maximum, streamed, xas);
+            int dataLength = checked(loopOffset + SegmentLength(loopFrames, channels, maximum, streamed, xas));
 
             // Original header writer 0x2cc5c..0x2ccc1:
             // loop flag at bit29, inclusive loop end+1 in low29 bits,
@@ -103,31 +103,31 @@ namespace BinaryAssetBuilder.AudioCompiler
             WriteBE(header, 8, loopStart);
             if (streamed) WriteBE(header, 12, loopOffset);
 
-            byte[] custom;
-            if (streamed) custom = data.ToArray();
-            else
-            {
-                custom = new byte[header.Length + data.Count];
-                Buffer.BlockCopy(header, 0, custom, 0, header.Length);
-                data.CopyTo(custom, header.Length);
-            }
+            int dataOffset = streamed ? 0 : header.Length;
+            byte[] custom = new byte[checked(dataOffset + dataLength)];
+            if (!streamed) Buffer.BlockCopy(header, 0, custom, 0, header.Length);
+            float[] source = xas ? new float[30] : null;
+            if (loopStart > 0)
+                EncodeSegment(samples, 0, loopStart, channels, maximum, streamed, custom, dataOffset, xas, source);
+            EncodeSegment(samples, loopStart * channels, loopFrames, channels, maximum,
+                streamed, custom, dataOffset + loopOffset, xas, source);
             // The plugin obtains the source frame count before writing SNR.
             // Trailing samples are absent from SNR but remain in the runtime.
             return new PcmEncodingResult(streamed ? header : new byte[0], custom,
                 sampleRate, channels, sourceFrames);
         }
 
-        private static void AppendSegment(List<byte> destination, float[] samples,
-            int channels, int rate, bool streamed, int first, int frames, bool xas)
+        private static int SegmentLength(int frames, int channels, int maximum, bool streamed, bool xas)
         {
-            float[] segment = new float[checked(frames * channels)];
-            Array.Copy(samples, checked(first * channels), segment, 0, segment.Length);
-            PcmEncodingResult encoded = xas ?
-                Xas1Encoder.EncodeSamples(segment, channels, rate, streamed) :
-                Pcm16Encoder.EncodeSamples(segment, channels, rate, streamed);
-            int skip = streamed ? 0 : 8;
-            for (int i = skip; i < encoded.CustomData.Length; ++i)
-                destination.Add(encoded.CustomData[i]);
+            return xas ? Xas1Encoder.SegmentLength(frames, channels, maximum, streamed) :
+                Pcm16Encoder.SegmentLength(frames, channels, maximum, streamed);
+        }
+
+        private static void EncodeSegment(float[] samples, int sampleOffset, int frames, int channels,
+            int maximum, bool streamed, byte[] output, int outputOffset, bool xas, float[] source)
+        {
+            if (xas) Xas1Encoder.EncodeSegment(samples, sampleOffset, frames, channels, maximum, streamed, output, outputOffset, source);
+            else Pcm16Encoder.EncodeSegment(samples, sampleOffset, frames, channels, maximum, streamed, output, outputOffset);
         }
 
         private static void WriteBE(byte[] destination, int at, int value)

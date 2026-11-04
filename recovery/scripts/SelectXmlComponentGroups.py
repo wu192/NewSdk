@@ -80,6 +80,8 @@ def include_closure(root, paths, ref=None):
 def dependencies(root, group, ref=None):
     available = version_files(root, ref)
     paths = {f'recovery/scripts/TestXml{group}.ps1'}
+    if group == 'joypad':
+        paths.add('recovery/scripts/PrepareJoypadFixtures.py')
     patterns = [f'recovery/src/Native/Xml{group}*', f'recovery/src/Bridge/Xml{group}*',
                 f'recovery/tests/Xml{group}*.cs']
     paths.update(p for p in available if any(fnmatch.fnmatchcase(p, pattern) for pattern in patterns))

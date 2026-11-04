@@ -1,4 +1,5 @@
 #pragma once
+#include "AttributeMap.h"
 #include "Relocation.h"
 #include "ObjectFilter.h"
 #include "WeaponNugget.h"
@@ -17,14 +18,14 @@ struct WeaponField {
 };
 const WeaponField* WeaponFields();
 unsigned WeaponFieldCount();
-using WeaponOptionalInput = std::map<std::string, std::string>;
+using WeaponOptionalInput = AttributeMap;
 struct WeaponScatterInput {
     std::string radius = "0.0", modelConditions;
     bool hasFilter = false;
     ObjectFilterInput filter;
 };
 struct WeaponDurationInput { std::string minSeconds, maxSeconds; };
-Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
+Relo::Chunk CompileWeapon(const AttributeMap& attributes,
     const std::map<std::string, WeaponDurationInput>& durations,
     const std::map<std::string, WeaponOptionalInput>& optionalBlocks,
     const std::vector<std::string>& incompatibleModifiers,

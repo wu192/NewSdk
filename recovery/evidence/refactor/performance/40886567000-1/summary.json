@@ -1,0 +1,254 @@
+{
+  "schemaVersion": 1,
+  "runId": "40886567000",
+  "runAttempt": 1,
+  "conclusion": "success",
+  "binarySourceCommit": "239949602a8cc361fd6fb4f3bdb226e84abc6723",
+  "testSourceCommit": "239949602a8cc361fd6fb4f3bdb226e84abc6723",
+  "artifactId": 12902997041,
+  "archiveSha256": "81197c389f4b36fb7b0e9f6513b8c86d79f710ffbfe43607e34880b67401e164",
+  "archiveSha256LocallyVerified": true,
+  "archiveBytes": 147600,
+  "elapsedSeconds": 8.02322270000002,
+  "limits": {
+    "totalSeconds": 60,
+    "perProcessSeconds": 10
+  },
+  "samples": 14,
+  "scope": "Synthetic two-Texture/one-Armor base stream; off/summary/detailed, cold+2 hot, BIG, invalid XML; no full MOD claim",
+  "originalBytesEqual": true,
+  "profilingBytesEqual": true,
+  "hotWallMs": {
+    "off": {
+      "n": 2,
+      "medianWallMs": 445.84870000005594,
+      "samplesWallMs": [
+        450.15890000001946,
+        441.5385000000924
+      ]
+    },
+    "summary": {
+      "n": 2,
+      "medianWallMs": 449.10219999997025,
+      "samplesWallMs": [
+        451.56599999995706,
+        446.63839999998345
+      ]
+    },
+    "detailed": {
+      "n": 2,
+      "medianWallMs": 454.1148000000135,
+      "samplesWallMs": [
+        469.00909999999385,
+        439.2205000000331
+      ]
+    }
+  },
+  "topSelfMs": {
+    "detailed-cold": [
+      {
+        "name": "core.schema.read",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 150.3476,
+        "selfMs": 138.81210000000002,
+        "maxMs": 150.3476
+      },
+      {
+        "name": "backend.initialize",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 34.3675,
+        "selfMs": 34.3675,
+        "maxMs": 34.3675
+      },
+      {
+        "name": "core.xml.validate",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 33.9015,
+        "selfMs": 33.6023,
+        "maxMs": 32.8498
+      },
+      {
+        "name": "core.schema.metadata",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 28.8716,
+        "selfMs": 28.8716,
+        "maxMs": 28.8716
+      },
+      {
+        "name": "core.schema.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 23.388,
+        "selfMs": 23.388,
+        "maxMs": 23.388
+      },
+      {
+        "name": "core.document",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 174.3443,
+        "selfMs": 15.639100000000001,
+        "maxMs": 105.14420000000001
+      },
+      {
+        "name": "stream.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 369.89660000000003,
+        "selfMs": 14.285400000000001,
+        "maxMs": 369.89660000000003
+      },
+      {
+        "name": "core.document.open",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 16.424500000000002,
+        "selfMs": 11.0222,
+        "maxMs": 13.7378
+      },
+      {
+        "name": "core.providers",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 10.1431,
+        "selfMs": 10.1431,
+        "maxMs": 10.1431
+      },
+      {
+        "name": "identity.sha256",
+        "streamId": "base/Mod",
+        "count": 819,
+        "totalMs": 9.8512,
+        "selfMs": 9.8512,
+        "maxMs": 0.15460000000000002
+      },
+      {
+        "name": "core.compiler.ArmorTemplate",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 9.5915,
+        "selfMs": 9.5915,
+        "maxMs": 9.5915
+      },
+      {
+        "name": "core.compiler.Texture",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 8.6548,
+        "selfMs": 8.6548,
+        "maxMs": 8.4548
+      }
+    ],
+    "detailed-hot1": [
+      {
+        "name": "core.schema.read",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 138.3484,
+        "selfMs": 136.5085,
+        "maxMs": 138.3484
+      },
+      {
+        "name": "core.document",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 103.3572,
+        "selfMs": 48.935300000000005,
+        "maxMs": 63.7954
+      },
+      {
+        "name": "backend.initialize",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 36.2648,
+        "selfMs": 36.2648,
+        "maxMs": 36.2648
+      },
+      {
+        "name": "core.schema.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 25.5001,
+        "selfMs": 25.5001,
+        "maxMs": 25.5001
+      },
+      {
+        "name": "cache.load",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 15.340300000000001,
+        "selfMs": 15.2408,
+        "maxMs": 15.340300000000001
+      },
+      {
+        "name": "core.schema.metadata",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 15.012400000000001,
+        "selfMs": 15.012400000000001,
+        "maxMs": 15.012400000000001
+      },
+      {
+        "name": "stream.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 307.6997,
+        "selfMs": 14.0425,
+        "maxMs": 307.6997
+      },
+      {
+        "name": "core.providers",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 9.8909,
+        "selfMs": 9.8909,
+        "maxMs": 9.8909
+      },
+      {
+        "name": "core.settings",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 6.8722,
+        "selfMs": 6.8722,
+        "maxMs": 6.8722
+      },
+      {
+        "name": "core.output.references",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 5.5437,
+        "selfMs": 5.5437,
+        "maxMs": 5.5437
+      },
+      {
+        "name": "identity.load",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 5.4874,
+        "selfMs": 5.4874,
+        "maxMs": 5.4874
+      },
+      {
+        "name": "stage.plan",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 5.0987,
+        "selfMs": 5.0987,
+        "maxMs": 5.0987
+      }
+    ]
+  },
+  "limitations": [
+    "Synthetic base only, not complete MOD/Upheaval or full Debug/Release acceptance.",
+    "Hot n=2 per level on one VM with uncontrolled OS page cache. Descriptive timings, not a causal estimate of profiling overhead.",
+    "Profile snapshot stops before report serialization/write and final output/transaction cleanup. External wallMs includes the full fresh process.",
+    "Archive preserves every sample report/event log and production build logs. Representative detailed reports are copied here."
+  ],
+  "exeSha256": "58aa9c4ec76e7facc1aeb6f6c4d38854666402551c16e60504b8313e328b50dd",
+  "productionBuild": "Release passed",
+  "appContracts": "Release passed"
+}

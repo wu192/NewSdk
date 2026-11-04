@@ -1,0 +1,23 @@
+{
+  "sdkFileCount": 14715,
+  "sdkBytes": 125887928,
+  "rawInventorySha256": "301102125242f9c3ecbba94e0e0a69fb430527125304bf001b7b515ad54e5bf6",
+  "rawInventoryArchivePath": "shared-inputs.json",
+  "inputRootExistence": {
+    "D:\\a\\_temp\\cb\\workloads\\mymod\\Data": true,
+    "D:\\a\\NewSdk\\NewSdk\\SDK": true,
+    "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods": true,
+    "D:\\a\\NewSdk\\NewSdk\\SDK\\SAGEXML": true,
+    "D:\\a\\_temp\\cb\\workloads\\mymod\\Art": false,
+    "D:\\a\\NewSdk\\NewSdk\\SDK\\Art": true,
+    "D:\\a\\_temp\\cb\\workloads\\mymod\\Audio": false,
+    "D:\\a\\NewSdk\\NewSdk\\SDK\\Audio": false,
+    "D:\\a\\_temp\\cb\\workloads\\upheaval-armor\\Data": true,
+    "D:\\a\\_temp\\cb\\workloads\\upheaval-armor\\Art": false,
+    "D:\\a\\_temp\\cb\\workloads\\upheaval-armor\\Audio": false,
+    "D:\\a\\_temp\\cb\\workloads\\texture-16\\Data": true,
+    "D:\\a\\_temp\\cb\\workloads\\texture-16\\Art": false,
+    "D:\\a\\_temp\\cb\\workloads\\texture-16\\Audio": false
+  },
+  "sharedInputFingerprint": "3c2ec227ee161c8d699c45aa41073dfeedd64f131f482fbf43bb9779205f6396"
+}

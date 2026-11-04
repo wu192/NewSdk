@@ -1,0 +1,78 @@
+{
+  "succeeded": true,
+  "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "runId": "41176937044",
+  "checks": 40,
+  "tests": [
+    "request-sequential-stream-parent-front-end-reload-avoided-original-PSVI-defaults-transient-reset-four-published-byte-oracle",
+    "changed-parent-discards-old-source-snapshot-full-XSD-rejection-no-new-publication",
+    "failed-after-self-inheritance-request-before-completion-no-snapshot-publication",
+    "cancelled-after-self-inheritance-request-before-completion-no-snapshot-publication"
+  ],
+  "counters": {
+    "cache.document.new": 12,
+    "dependency.include.visits": 10,
+    "dependency.include.maxDepth": 2,
+    "cache.inheritanceSnapshot.publishedDocuments": 3,
+    "cache.inheritanceSnapshot.publishedInstances": 3,
+    "dependency.inheritance.sourceIdentityBuilds": 6,
+    "cache.inheritanceSnapshot.hits": 1,
+    "cache.inheritanceSnapshot.reloadAvoided": 1,
+    "cache.reload.inheritanceTarget": 1,
+    "cache.invalidation.contentChanged": 1,
+    "cache.invalidation.reloads": 1,
+    "cache.invalidation.documents": 1,
+    "cache.invalidation.selfInstances": 2
+  },
+  "snapshot": {
+    "candidate": {
+      "xmlParse": 2,
+      "instanceCompile": 1,
+      "wallMs": 14.1917,
+      "xmlParseMs": 0.24560000000000048,
+      "prevalidatedLoadFrontendMs": 0,
+      "parentPhasesMs": {
+        "core.xml.parse": 0,
+        "core.xml.expressions": 0,
+        "core.xml.overrides": 0,
+        "core.xml.schema.validate": 0,
+        "core.xml.instances.validate": 0,
+        "core.xml.instance.hash": 0,
+        "core.xml.instance.references": 0
+      },
+      "reloadsAvoided": 1
+    },
+    "serializedSessionControl": {
+      "xmlParse": 3,
+      "instanceCompile": 1,
+      "wallMs": 15.2346,
+      "xmlParseMs": 0.29410000000000025,
+      "prevalidatedLoadFrontendMs": 0,
+      "parentPhasesMs": {
+        "core.xml.parse": 0.0917,
+        "core.xml.expressions": 0.0015999999999999903,
+        "core.xml.overrides": 0.02279999999999993,
+        "core.xml.schema.validate": 0.043399999999999994,
+        "core.xml.instances.validate": 0.028500000000000192,
+        "core.xml.instance.hash": 0.0196,
+        "core.xml.instance.references": 0.0040000000000000036
+      },
+      "inheritanceTargetReloads": 1
+    },
+    "backendSeed": {
+      "assetCount": 3,
+      "source": "First-stream intermediate assets copied identically into independent second-stream intermediate directories; Armor UseBuildCache=false"
+    },
+    "publishedInstances": 1,
+    "publishedDocuments": 1,
+    "retainedDocumentCount": 1,
+    "retainedNodeCount": 4,
+    "retainedAttributeCount": 15,
+    "retainedDocumentXmlCharacters": 228,
+    "memoryScope": "Original source node retains its OwnerDocument; counts describe this tiny fixture, not managed-memory bytes",
+    "timingScope": "One detailed diagnostic pair with identical input and first-generation backend assets; parentPhasesMs uses the parent.xml traversal frame. prevalidatedLoadFrontendMs covers only PrevalidatedLoad, not Shallow Load. Not a stable throughput estimate"
+  },
+  "scope": "Request-equivalent sequential Core streams, source defaults/PSVI, invalidation, failure/cancellation and raw publication equality; no persisted snapshots",
+  "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "testSourceCommit": "fc44f6eaecbbb50849d7fe42fa1ad037754d6fdf"
+}

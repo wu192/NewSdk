@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using System.Text;
 using NewModCompiler.Application;
 using NewModCompiler.Diagnostics;
 
@@ -11,6 +12,11 @@ namespace NewModCompiler.Cli
     {
         public static int Main(string[] args)
         {
+            // Progress uses Chinese labels on both redirected and real consoles.
+            try { Console.OutputEncoding = new UTF8Encoding(false); } catch (IOException) { }
+#if NEWSdk_MONOLITHIC
+            BinaryAssetBuilder.UiCompiler.UiEmbeddedDependencies.Initialize();
+#endif
             if (args.Length == 1 && (args[0] == "--help" || args[0] == "-h")) { Console.WriteLine(Options.Help); return 0; }
             if (args.Length == 1 && args[0] == "--help-advanced") { Console.WriteLine(Options.AdvancedHelp); return 0; }
             var sinks = new List<IBuildEventSink>();
@@ -19,7 +25,7 @@ namespace NewModCompiler.Cli
                 if (request.Command == "doctor") {
 #if NEWSdk_MONOLITHIC
                     CoreStreamCompiler.ProbeEnvironment(request.SdkRoot);
-                    Console.WriteLine("CORE_ENVIRONMENT_OK: SDK configuration/schema, Win32 providers/verifier, ANTLR and EXE-bound texture initialized. No stream compiled.");
+                    Console.WriteLine("CORE_ENVIRONMENT_OK: SDK configuration/schema, Win32 providers/verifier, ANTLR and built-in texture initialized. No stream compiled.");
                     return (int)ExitCode.Success;
 #else
                     Console.Error.WriteLine("SDK directory exists: " + request.SdkRoot);
@@ -32,7 +38,10 @@ namespace NewModCompiler.Cli
 #endif
                 // Invalidate a previous report before opening any required output channels.
                 Reports.RemoveStale(request.ReportPath);
-                sinks.Add(new JsonLineSink(request.EventsPath)); sinks.Add(new TextLogSink(request.LogPath));
+                sinks.Add(new JsonLineSink(request.EventsPath));
+                try { sinks.Add(new TextLogSink(request.LogPath)); }
+                catch (IOException error) { try { Console.Error.WriteLine("Optional text log unavailable: " + error.Message); } catch (IOException) { } }
+                catch (UnauthorizedAccessException error) { try { Console.Error.WriteLine("Optional text log unavailable: " + error.Message); } catch (IOException) { } }
                 // Transfer ownership so partial-startup cleanup cannot close successful
                 // session sinks a second time after the exit code has been finalized.
                 var ownedSinks=sinks.ToArray(); sinks.Clear();
@@ -47,17 +56,24 @@ namespace NewModCompiler.Cli
         {
             using (var events = new EventDispatcher(Guid.NewGuid().ToString("N"),sinks))
             using (var cancellation = new CancellationTokenSource()) {
-                ConsoleCancelEventHandler handler = (sender,e) => { e.Cancel=true; cancellation.Cancel(); };
-                Console.CancelKeyPress += handler;
-                BuildSession session = null;
-                IStreamCompiler compiler = null;
+                // Default progress is independent of optional performance sampling.
+                // The opt-out also removes Core callbacks for paired measurements.
+                var progress = string.Equals(Environment.GetEnvironmentVariable("NEWSDK_PROGRESS"),"off",StringComparison.OrdinalIgnoreCase)
+                    ? null : new BuildProgressState(() => events.ElapsedMilliseconds);
+                using (var renderer = progress == null ? null : new ConsoleProgressRenderer(progress)) {
+                    events.ConsoleOutput = renderer;
+                    ConsoleCancelEventHandler handler = (sender,e) => { e.Cancel=true; cancellation.Cancel(); };
+                    Console.CancelKeyPress += handler;
+                    BuildSession session = null;
+                    IStreamCompiler compiler = null;
 #if NEWSdk_MONOLITHIC
-                if (request.Command == "build")
-                    compiler = new CoreStreamCompiler((source,eventType,message) => session.RecordCoreTrace(source,eventType,message));
+                    if (request.Command == "build")
+                        compiler = new CoreStreamCompiler((source,eventType,message) => session.RecordCoreTrace(source,eventType,message),progress);
 #endif
-                session = new BuildSession(request,compiler,events);
-                try { return (int)session.Run(cancellation.Token); }
-                finally { Console.CancelKeyPress -= handler; }
+                    session = new BuildSession(request,compiler,events,progress:progress);
+                    try { return (int)session.Run(cancellation.Token); }
+                    finally { Console.CancelKeyPress -= handler; }
+                }
             }
         }
     }

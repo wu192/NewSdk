@@ -1,0 +1,35 @@
+{
+  "succeeded": true,
+  "binarySourceCommit": "6d39f833bfbad40e3576b5517e1da685a995a77a",
+  "testSourceCommit": "02987cbc41e6d4ba62469c62aa22fc73830b5a28",
+  "sourceRunId": 40915444929,
+  "sourceRunConclusion": "failure",
+  "sourceArtifactId": 12916669037,
+  "sourceArchiveSha256": "74060c4774d760ac8684479d119457f329e14df815336746d4610487aea66b5a",
+  "productionInputsUnchanged": true,
+  "requiredSuccessfulSteps": [
+    "Actual Audio CDATA and W3X build-cache payload replay",
+    "Actual build-cache cold hot invalidation and retry matrix",
+    "Actual session-cache documents intermediate and CDATA reuse matrix",
+    "Build full production combination and verify deployment and route metadata",
+    "Complete mymod original BAB and production SDK differential",
+    "Effective input roots and original BAB output differential",
+    "Full certified backend production cache and jobs matrix",
+    "Host-bound Texture payload and operation without deployment manifest in Debug and Release",
+    "Isolated original BAB baseline for the two targeted backend cases",
+    "Production BIG apt maps selection and original MakeBig differential",
+    "Publish final five-file packages after complete production acceptance",
+    "Real production CLI, cold processes and actual CtrlBreak cancellation",
+    "Standalone P2 application contracts in Debug",
+    "Standalone P2 application contracts in Release",
+    "Targeted real Core, backend and application pipeline in Debug and Release"
+  ],
+  "runtimeSha256": {
+    "NewModCompiler.exe": "15fc7ee3ed23cf083e8c63271b4c220983b063c2f186bad03c3d8df7a62fc1ce",
+    "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+    "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+    "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+    "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "e742df324b022d7d346a29d3a854d0c4f257b2debd8e4ebe5f7ef4c3846f6e79"
+  },
+  "scope": "Accepted identical Release bytes, no source/native build; only measurement/test/controller/docs may differ."
+}

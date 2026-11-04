@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "repository": "wu162/NewSdk",
+  "sourceBranch": "recovery/legacy-sdk-cache",
+  "binarySourceCommit": "680c4f0c4439bd7435addebfc57a1a16c3c320e3",
+  "releaseTag": "compiler-2026.11.01",
+  "publicationStatus": "pending-user-confirmation; no release or release tag created",
+  "releaseTagPolicy": "On future approved publication, use an independent documentation/metadata snapshot so generated GitHub archives contain no compiler source. The actual production source is binarySourceCommit.",
+  "runId": "41297316677",
+  "binaryBuildRunId": "41295495489",
+  "independentReplayRunId": "41296844301",
+  "xmlMatrixRunId": "41297071528",
+  "testSourceCommit": "8a21b367d774c5621c339a88a9e086e0a90a4987",
+  "acceptanceProvenance": "Successful original production build and independent groups are reused; the original aggregate failures are retained. Corrected harness groups, exact owner/worker matrix, ZIP deployment and 22 full Upheaval samples establish the final accepted scope.",
+  "buildUrl": "https://github.com/wu162/NewSdk/actions/runs/41297316677",
+  "checks": {
+    "productionCli": true,
+    "packagedDoctor": true,
+    "independentZipBigDeployment": true,
+    "archiveCrc": true,
+    "archiveAndFileSha256": true,
+    "matchesProductionBinaries": true,
+    "exactThreeRuntimeFiles": true,
+    "sourceFilesIncluded": false
+  },
+  "packages": [
+    {
+      "configuration": "Debug",
+      "archive": {
+        "name": "NewModCompiler-Win32-Debug.zip",
+        "bytes": 2191397,
+        "sha256": "4ee63aafa57c188ccd048a3e5aa5415b6e7c98a93d6afe2770eb9904bc449d79"
+      },
+      "files": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 7706112,
+          "sha256": "393f13ae85a184c3d4561a6d57d9a64fad289b4199cd92b0b6901905584aeb0e"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "toolchain": {
+        "vcToolsVersion": "14.44.35207",
+        "windowsSdkVersion": "10.0.26100.0\\",
+        "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1"
+      }
+    },
+    {
+      "configuration": "Release",
+      "archive": {
+        "name": "NewModCompiler-Win32-Release.zip",
+        "bytes": 1655033,
+        "sha256": "f4f0982655f8945f7289be04e3fd9df2a2e907f4f2268d4bd6847af0961a5b28"
+      },
+      "files": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 5006336,
+          "sha256": "739f9e9360fa3c28b9fddd37a86168aba7ec06d83cec105920c49d314ccfd8a9"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "toolchain": {
+        "vcToolsVersion": "14.44.35207",
+        "windowsSdkVersion": "10.0.26100.0\\",
+        "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1"
+      }
+    }
+  ],
+  "reviewPackage": {
+    "runId": "41298119902",
+    "artifactId": 13079722889,
+    "url": "https://github.com/wu162/NewSdk/actions/runs/41298119902/artifacts/13079722889",
+    "bytes": 3798473,
+    "sha256": "b80478d802159882fbfac25f3be47e46a302933da771d693578575f457425c3a",
+    "containsCompilerSources": false
+  }
+}

@@ -1,0 +1,287 @@
+{
+  "status": "passed-component-and-small-cli",
+  "runId": 41260620635,
+  "runAttempt": 1,
+  "sourceCommit": "24f83d2b53c0ad14c7bfc17db643dc035e769639",
+  "artifactId": 13065357010,
+  "artifactSha256": "76d9866ceb90af74171208c49909fd0a605c6e0150861f164ee6fe30da0c3ed4",
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/41260620635/artifacts/13065357010",
+  "runtime": {
+    "Debug": {
+      "sourceCommit": "24f83d2b53c0ad14c7bfc17db643dc035e769639",
+      "files": {
+        "NewModCompiler.exe": "ab52e994373be9d269da11bc6da2b1a998407e1f9ae1428e120700582ecc4b56",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+      },
+      "runtime": "net48/Win32",
+      "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1",
+      "vcToolsVersion": "14.44.35207"
+    },
+    "Release": {
+      "sourceCommit": "24f83d2b53c0ad14c7bfc17db643dc035e769639",
+      "files": {
+        "NewModCompiler.exe": "5aa008d05ca4288265f7b51a15b09c01a1d10be305fbdf9616ec4946468cd4db",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+      },
+      "runtime": "net48/Win32",
+      "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1",
+      "vcToolsVersion": "14.44.35207"
+    }
+  },
+  "textureInputs": [
+    {
+      "differentBuffers": [],
+      "passed": true,
+      "exeSha256": "ab52e994373be9d269da11bc6da2b1a998407e1f9ae1428e120700582ecc4b56",
+      "configuration": "Debug",
+      "caseCount": 255,
+      "exactThreeBufferCases": 246,
+      "validationHostSha256": "6503a988c270431c299d324857886a370892e55c5bfd403afdc8c7bb603bd4a0"
+    },
+    {
+      "differentBuffers": [],
+      "passed": true,
+      "exeSha256": "5aa008d05ca4288265f7b51a15b09c01a1d10be305fbdf9616ec4946468cd4db",
+      "configuration": "Release",
+      "caseCount": 255,
+      "exactThreeBufferCases": 246,
+      "validationHostSha256": "bd886021c5b411fc01be5d0562be5fda76784ba2079600326596f78d61739dc5"
+    }
+  ],
+  "textureRoutes": [
+    {
+      "originalTranscriptSha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+      "validationHostSha256": "6503a988c270431c299d324857886a370892e55c5bfd403afdc8c7bb603bd4a0",
+      "passed": true,
+      "originalVersion": 4202,
+      "textureDeployment": {
+        "implementation": "built-in-source",
+        "externalRuntimeFiles": []
+      },
+      "invalidInputErrors": 3,
+      "successes": 6,
+      "configuration": "Debug",
+      "sourceTranscriptSha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+      "sourceVersion": 4202,
+      "componentExecution": "test-only host with identical production objects; source-linked texture",
+      "singleDispose": true,
+      "exeSha256": "ab52e994373be9d269da11bc6da2b1a998407e1f9ae1428e120700582ecc4b56",
+      "externalTextureDll": false,
+      "separateOracleProcess": true
+    },
+    {
+      "originalTranscriptSha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+      "validationHostSha256": "bd886021c5b411fc01be5d0562be5fda76784ba2079600326596f78d61739dc5",
+      "passed": true,
+      "originalVersion": 4202,
+      "textureDeployment": {
+        "implementation": "built-in-source",
+        "externalRuntimeFiles": []
+      },
+      "invalidInputErrors": 3,
+      "successes": 6,
+      "configuration": "Release",
+      "sourceTranscriptSha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+      "sourceVersion": 4202,
+      "componentExecution": "test-only host with identical production objects; source-linked texture",
+      "singleDispose": true,
+      "exeSha256": "5aa008d05ca4288265f7b51a15b09c01a1d10be305fbdf9616ec4946468cd4db",
+      "externalTextureDll": false,
+      "separateOracleProcess": true
+    }
+  ],
+  "commonFormats": [
+    {
+      "configuration": "Debug",
+      "caseCount": 31,
+      "passed": true
+    },
+    {
+      "configuration": "Release",
+      "caseCount": 31,
+      "passed": true
+    }
+  ],
+  "commonTextureCli": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "failureRetryPassed": true,
+      "onlyDependentTextureRecompiled": true,
+      "caseNames": [
+        "cold",
+        "cold-jobs4",
+        "cold-jobsauto",
+        "warm-jobs-switch",
+        "one-image-mutated",
+        "fresh-no-cache",
+        "missing-image",
+        "restored-retry"
+      ]
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "failureRetryPassed": true,
+      "onlyDependentTextureRecompiled": true,
+      "caseNames": [
+        "cold",
+        "cold-jobs4",
+        "cold-jobsauto",
+        "warm-jobs-switch",
+        "one-image-mutated",
+        "fresh-no-cache",
+        "missing-image",
+        "restored-retry"
+      ]
+    }
+  ],
+  "audio": {
+    "inputSha256": "153891dd0a249385207c22a5bdf0962d706ad8bbc59d226d03d9de08a69f703e",
+    "configurations": [
+      {
+        "passed": true,
+        "directEncoderComparisons": 64,
+        "configuration": "Debug",
+        "directCases": 32,
+        "boundaries": 42
+      },
+      {
+        "passed": true,
+        "directEncoderComparisons": 64,
+        "configuration": "Release",
+        "directCases": 32,
+        "boundaries": 42
+      }
+    ],
+    "originalDifferentialRecordsPerConfiguration": {
+      "Debug": 4347,
+      "Release": 4347
+    },
+    "releaseGroups": [
+      {
+        "group": "multichannel-eight",
+        "records": 864,
+        "passed": true
+      },
+      {
+        "group": "new-world-eight",
+        "records": 4,
+        "passed": true
+      },
+      {
+        "group": "multichannel",
+        "records": 1728,
+        "passed": true
+      },
+      {
+        "group": "business",
+        "records": 77,
+        "passed": true
+      },
+      {
+        "group": "pcm",
+        "records": 8,
+        "passed": true
+      },
+      {
+        "group": "xas",
+        "records": 12,
+        "passed": true
+      },
+      {
+        "group": "defaults",
+        "records": 4,
+        "passed": true
+      },
+      {
+        "group": "rates",
+        "records": 2,
+        "passed": true
+      },
+      {
+        "group": "main",
+        "records": 8,
+        "passed": true
+      },
+      {
+        "group": "pcm8",
+        "records": 24,
+        "passed": true
+      },
+      {
+        "group": "formats",
+        "records": 1200,
+        "passed": true
+      },
+      {
+        "group": "loops",
+        "records": 216,
+        "passed": true
+      },
+      {
+        "group": "aiffloops",
+        "records": 200,
+        "passed": true
+      }
+    ],
+    "independentEaLayer3DecodedCases": 100,
+    "audioCliCases": [
+      {
+        "name": "jobs1-cold",
+        "passed": true,
+        "customFiles": 52,
+        "xmlParse": 1,
+        "instanceCompile": 52
+      },
+      {
+        "name": "jobs4-cold",
+        "passed": true,
+        "customFiles": 52,
+        "xmlParse": 1,
+        "instanceCompile": 52
+      },
+      {
+        "name": "jobs4-hot",
+        "passed": true,
+        "customFiles": 52,
+        "xmlParse": 0,
+        "instanceCompile": 0
+      },
+      {
+        "name": "modified-audio",
+        "passed": true,
+        "customFiles": 52,
+        "xmlParse": 1,
+        "instanceCompile": 3
+      },
+      {
+        "name": "modified-independent",
+        "passed": true,
+        "customFiles": 52,
+        "xmlParse": 1,
+        "instanceCompile": 52
+      },
+      {
+        "name": "modified-hot",
+        "passed": true,
+        "customFiles": 52,
+        "xmlParse": 0,
+        "instanceCompile": 0
+      }
+    ],
+    "realWaveXasCustomData": {
+      "bytes": 397648,
+      "sha256": "892b3c9b00929a2adb28d88d8c455401ebac72d82313b7cb878c54851a75fd67",
+      "originalDebugReleaseEqual": true
+    }
+  },
+  "wholeModCodecTestPerformed": false,
+  "wholeMymodSdkTestPerformed": false,
+  "scope": "User requested component and small CLI verification only. Full15 compilation is done solely by the separate performance workflow. Existing BC1 byte differences and fullMOD inheritance hot-cache failure are not fixed or disguised.",
+  "mergedPr": 43,
+  "mergeCommit": "a15e3c1e543565e358d13b85e7cdd780f4703363",
+  "performanceRun": 41261694766
+}

@@ -1,0 +1,126 @@
+{
+  "sourceCommit": "300812cd6b2f372cbc6ee72f8bc89058b922f079",
+  "runId": "41004795406",
+  "runAttempt": "1",
+  "succeeded": true,
+  "baselineBinarySource": "436115db594c405c1650d27754594454eed54bdc",
+  "optimizedBinarySource": "4e9c9a279bef892439822310976e87081ca0ce72",
+  "binarySha256": {
+    "baseline": "d84c206904cdb1959b80b0a4364b76cd6916815f73b4b743b43e771a5d9572e5",
+    "optimized": "1c408acfd12bf87a9b1c564ccf82fb56a08b1a4e0f93e2e01e66a18c642da9cc"
+  },
+  "productionChanges": [
+    "recovery/src/Native/W3x/AdaptiveDelta.cpp",
+    "recovery/src/Native/W3x/AdaptiveDelta.h",
+    "recovery/src/Native/W3x/AnimationCompiler.cpp",
+    "recovery/src/Native/W3x/AnimationPipeline.cpp",
+    "recovery/src/Native/W3x/AnimationPipeline.h",
+    "recovery/src/Native/W3x/Timecoded.cpp"
+  ],
+  "inputSource": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+  "inputTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+  "jobs": 4,
+  "scope": "Complete historical Upheaval build, auto-discovered content, BIG/SKUDEF and Additional; two same-VM pairs, caches disabled, fresh output each time; raw published files compared. Not original BAB or game-runtime acceptance.",
+  "sampleCaution": "Two samples per implementation; order reversed in pair two, OS page cache uncontrolled; no warmup.",
+  "samples": [
+    {
+      "label": "baseline",
+      "trial": 0,
+      "wallMs": 35257.43749999998,
+      "exitCode": 0,
+      "status": "succeeded",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\w3x-fullmod-baseline\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\w3x-fullmod\\input\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\w3x-fullmod\\builds\\baseline-0",
+        "--jobs",
+        "4",
+        "--sc=false",
+        "--bc=false",
+        "--performance",
+        "off"
+      ]
+    },
+    {
+      "label": "optimized",
+      "trial": 0,
+      "wallMs": 29763.308499999992,
+      "exitCode": 0,
+      "status": "succeeded",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\w3x-accepted\\artifacts\\w3x-compression-product\\Release\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\w3x-fullmod\\input\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\w3x-fullmod\\builds\\optimized-0",
+        "--jobs",
+        "4",
+        "--sc=false",
+        "--bc=false",
+        "--performance",
+        "off"
+      ]
+    },
+    {
+      "label": "optimized",
+      "trial": 1,
+      "wallMs": 29468.0515,
+      "exitCode": 0,
+      "status": "succeeded",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\w3x-accepted\\artifacts\\w3x-compression-product\\Release\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\w3x-fullmod\\input\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\w3x-fullmod\\builds\\optimized-1",
+        "--jobs",
+        "4",
+        "--sc=false",
+        "--bc=false",
+        "--performance",
+        "off"
+      ]
+    },
+    {
+      "label": "baseline",
+      "trial": 1,
+      "wallMs": 32406.39319999997,
+      "exitCode": 0,
+      "status": "succeeded",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\w3x-fullmod-baseline\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\w3x-fullmod\\input\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\w3x-fullmod\\builds\\baseline-1",
+        "--jobs",
+        "4",
+        "--sc=false",
+        "--bc=false",
+        "--performance",
+        "off"
+      ]
+    }
+  ],
+  "equalPublishedPairs": [
+    0,
+    1
+  ],
+  "baselineMs": 33831.915349999974,
+  "optimizedMs": 29615.679999999997,
+  "speedup": 1.1423649684896642
+}

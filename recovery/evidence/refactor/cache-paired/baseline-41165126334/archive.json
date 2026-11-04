@@ -1,0 +1,35 @@
+{
+  "runId": 41165126334,
+  "artifactId": 13028968508,
+  "sourceCommit": "75d29895be464d9a560f5f946d612e359bf4b396",
+  "baselineHead": "074bf768fe58e042bfec3ea94d830156990823d6",
+  "productionClosureUnchanged": true,
+  "archiveSha256": "e88d0b947f89e6e1cdf98444d675372dc6a7b3ff7803da1e139acecbb5bacf10",
+  "downloadedAndRehashed": true,
+  "runtime": {
+    "Debug": {
+      "NewModCompiler.exe": "fded8922e884e43d911bc7b510bb158ee1ea4d7adc8d773f92cf4b71d80cd530",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "194772d26bdf1a623822dcad6b5d21675731843a9ec3d15bc6cedd94279648d5"
+    },
+    "Release": {
+      "NewModCompiler.exe": "d3893f1d6a8327755f89714bb7b85e322cfb3278d25247cfd80edaa5768b9892",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "8101a936dee79718662c93f50a89735eabaa6d5601ea1e0a3da8b3f82c76794d"
+    }
+  },
+  "packages": {
+    "Debug": {
+      "path": "ui-tests/release/NewModCompiler-Win32-Debug.zip",
+      "sha256": "83430faa18860fe15cd53c10b13d38536c4c7792eac4455dce574209df536d72"
+    },
+    "Release": {
+      "path": "ui-tests/release/NewModCompiler-Win32-Release.zip",
+      "sha256": "2e8060223b33b787b29b669f3152437036caa1bf6c654aad86655b23212534bf"
+    }
+  }
+}

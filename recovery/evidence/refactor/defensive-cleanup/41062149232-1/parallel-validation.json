@@ -1,0 +1,12 @@
+{
+  "sourceReceipt": "parallel-validation.json",
+  "fullReceiptSha256": "38af71233343ce02794b21a69d30316ad2cedafbd7f975b3f2bf042ecec8ab9c",
+  "archivePath": "direct-tests/parallel/validation.json",
+  "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+  "runId": "41062149232",
+  "succeeded": true,
+  "scope": "Current production mixed GameObject/Weapon/Armor/W3X/Texture/XML/APT/Audio, cache/jobs switches, raw output bytes; full MOD and component certification separate",
+  "modes": [],
+  "originalBaselineSucceeded": null,
+  "note": "Review summary; complete raw receipt is in the downloaded, SHA256-verified workflow archive."
+}

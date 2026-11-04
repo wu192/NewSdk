@@ -11,26 +11,18 @@ namespace BinaryAssetBuilder.Core;
 [Serializable]
 public class SessionCache : ISessionCache
 {
-	private class FileConfig
-	{
-		public FileItem LastCached;
-
-		public List<FileItem> All = new List<FileItem>();
-	}
-
 	private class CurrentState
 	{
-		public IDictionary<string, FileConfig> FileConfigs;
-
 		public IDictionary<string, FileItem> Files;
 
 		public DateTime Created;
 
 		public uint AssetCompilersVersion;
 
+		public string SchemaIdentity;
+
 		public void FromScratch()
 		{
-			FileConfigs = new SortedDictionary<string, FileConfig>();
 			Files = new SortedDictionary<string, FileItem>();
 			Created = DateTime.Now;
 			AssetCompilersVersion = 0u;
@@ -38,24 +30,15 @@ public class SessionCache : ISessionCache
 
 		public void FromLast(LastState last)
 		{
-			FileConfigs = new SortedDictionary<string, FileConfig>();
+			using var performance = PerformanceScope.Measure("cache.from-last");
 			Files = new SortedDictionary<string, FileItem>();
 			Created = last.Created;
 			AssetCompilersVersion = last.AssetCompilersVersion;
+			SchemaIdentity = last.SchemaIdentity;
 			FileItem[] files = last.Files;
 			foreach (FileItem fileItem in files)
 			{
 				string text = fileItem.HashItem.Path.ToLower();
-				if (!FileConfigs.TryGetValue(text, out var value))
-				{
-					value = new FileConfig();
-					FileConfigs[text] = value;
-				}
-				value.All.Add(fileItem);
-				if (fileItem.Document != null)
-				{
-					value.LastCached = fileItem;
-				}
 				string postfix = GetPostfix(fileItem.HashItem.BuildConfiguration, fileItem.HashItem.TargetPlatform);
 				Files[text + postfix] = fileItem;
 			}
@@ -65,6 +48,7 @@ public class SessionCache : ISessionCache
 	[Serializable]
 	private class LastState
 	{
+		public string SchemaIdentity;
 		private FileItem[] _files;
 
 		private uint _version;
@@ -147,10 +131,12 @@ public class SessionCache : ISessionCache
 			Version = 18u;
 			DocumentProcessorVersion = 11u;
 			_assetCompilersVersion = current.AssetCompilersVersion;
+			SchemaIdentity = current.SchemaIdentity;
 		}
 
 		public void ReadXml(XmlReader reader)
 		{
+			SchemaIdentity = reader.GetAttribute("schema");
 			reader.MoveToAttribute("d");
 			string[] array = reader.Value.Split(';');
 			Created = Convert.ToDateTime(array[0]);
@@ -166,6 +152,7 @@ public class SessionCache : ISessionCache
 		public void WriteXml(XmlWriter writer)
 		{
 			writer.WriteStartElement("sc");
+			if (SchemaIdentity != null) writer.WriteAttributeString("schema", SchemaIdentity);
 			writer.WriteAttributeString("d", $"{Created};{Version};{DocumentProcessorVersion};{AssetCompilersVersion}");
 			XmlHelper.WriteCollection(writer, "fic", Files);
 			writer.WriteEndElement();
@@ -196,6 +183,17 @@ public class SessionCache : ISessionCache
 	// Initialization can reject an obsolete serialized session without throwing.
 	public bool HasCachedState => _Last != null;
 
+	public bool HasChanges { get; private set; }
+	public bool LoadedCompressed { get; private set; }
+	private bool _ReadOnlySource;
+
+	public void LoadCacheFrom(string source, string output)
+	{
+		_ReadOnlySource = true;
+		try { LoadCache(source); }
+		finally { _ReadOnlySource = false; _cacheFileName = output; }
+	}
+
 	public virtual uint AssetCompilersVersion
 	{
 		get
@@ -204,12 +202,17 @@ public class SessionCache : ISessionCache
 		}
 		set
 		{
+			AssetCompilersVersionChanged |= _Current.AssetCompilersVersion != value;
+			if (_Current.AssetCompilersVersion != value) HasChanges = true;
 			_Current.AssetCompilersVersion = value;
 		}
 	}
 
+	public bool AssetCompilersVersionChanged { get; private set; }
+
 	public virtual void LoadCache(string sessionCachePath)
 	{
+		LoadedCompressed = !string.IsNullOrEmpty(sessionCachePath) && File.Exists(sessionCachePath + ".deflate");
 		if (!string.IsNullOrEmpty(sessionCachePath))
 		{
 			try
@@ -238,14 +241,14 @@ public class SessionCache : ISessionCache
 			{
 				try
 				{
-					File.Move(sessionCachePath, sessionCachePath + ".corrupt");
+					if (!_ReadOnlySource) File.Move(sessionCachePath, sessionCachePath + ".corrupt");
 				}
 				catch
 				{
 				}
 				try
 				{
-					File.Move(sessionCachePath + ".deflate", sessionCachePath + ".deflate.corrupt");
+					if (!_ReadOnlySource) File.Move(sessionCachePath + ".deflate", sessionCachePath + ".deflate.corrupt");
 				}
 				catch
 				{
@@ -263,6 +266,22 @@ public class SessionCache : ISessionCache
 
 	public virtual void InitializeCache(List<string> knownChangedFiles)
 	{
+		InitializeCache(knownChangedFiles, null);
+	}
+
+	public void InitializeCache(List<string> knownChangedFiles, string schemaIdentity)
+	{
+		using var performance = PerformanceScope.Measure("cache.initialize");
+		// Completed documents can skip XSD validation while plugin TypeHash /
+		// ProcessingHash stay constant. Revalidate changed schema constraints;
+		// original BAB imports have no schema attribute.
+		if (_Last?.SchemaIdentity != null && schemaIdentity != null && _Last.SchemaIdentity != schemaIdentity)
+		{
+			PerformanceScope.Count("cache.session.schemaChanged");
+			_Last = null;
+		}
+		HasChanges = false;
+		AssetCompilersVersionChanged = false;
 		_Current = new CurrentState();
 		_dirtyStreams = new List<string>();
 		checkFiles(knownChangedFiles);
@@ -275,12 +294,17 @@ public class SessionCache : ISessionCache
 		{
 			_Tracer.TraceInfo("Cached session data not available.");
 			_Current.FromScratch();
+			HasChanges = true;
 			_dirtyStreams = null;
 		}
+
+		if (_Current.SchemaIdentity != schemaIdentity) HasChanges = true;
+		_Current.SchemaIdentity = schemaIdentity;
 	}
 
 	private void checkFiles(List<string> knownChangedFiles)
 	{
+		using var performance = PerformanceScope.Measure("cache.check-files");
 		bool flag = knownChangedFiles.Count == 0;
 		if (_Last == null)
 		{
@@ -288,12 +312,14 @@ public class SessionCache : ISessionCache
 		}
 		if (_Last.Version != 18)
 		{
+			PerformanceScope.Count("cache.session.formatChanged");
 			_Tracer.TraceInfo("Session cache outdated. Version is {0}. Expected version is {1}.", _Last.Version, 18u);
 			_Last = null;
 			return;
 		}
 		if (_Last.DocumentProcessorVersion != 11)
 		{
+			PerformanceScope.Count("cache.session.processorChanged");
 			_Tracer.TraceInfo("DocumentProcessor version mismatch. Version is {0}. Expected version is {1}.", _Last.DocumentProcessorVersion, 11u);
 			_Last = null;
 			return;
@@ -333,6 +359,7 @@ public class SessionCache : ISessionCache
 					}
 				}
 			}
+			HasChanges = true;
 			num++;
 			if (!flag && !knownChangedFiles.Contains(fileItem.HashItem.Path))
 			{
@@ -376,7 +403,10 @@ public class SessionCache : ISessionCache
 			File.Move(text, text + ".old");
 		}
 		File.Move(text + ".tmp", text);
+
 	}
+
+	public void AcceptSavedChanges(bool compressed) { HasChanges = false; LoadedCompressed = compressed; }
 
 	public virtual bool TryGetFile(string path, string configuration, TargetPlatform platform, out FileHashItem hashItem)
 	{
@@ -401,8 +431,24 @@ public class SessionCache : ISessionCache
 		string key = path + GetPostfix(configuration, platform);
 		if (_Current.Files.TryGetValue(key, out var value))
 		{
+			if (!Object.ReferenceEquals(value.Document, document) || document.CacheChanged) HasChanges = true;
 			value.Document = document;
 		}
+	}
+
+	// Owner-only version replacement. The previous document can remain alive in
+	// execution scopes while a new version gets its own declarations and DOM.
+	// This does not make the replacement cacheable or record compilation success;
+	// only the completed version's SaveDocumentToCache call does that.
+	public virtual bool ReplaceDocumentForExecution(string path, string configuration, TargetPlatform platform,
+		AssetDeclarationDocument expected, AssetDeclarationDocument replacement)
+	{
+		if (replacement == null) throw new ArgumentNullException(nameof(replacement));
+		string key = path.ToLower() + GetPostfix(configuration?.ToLower(), platform);
+		if (!_Current.Files.TryGetValue(key, out var item) || !Object.ReferenceEquals(item.Document, expected))
+			return false;
+		item.Document = replacement;
+		return true;
 	}
 
 	private static string GetPostfix(string configuration, TargetPlatform platform)
@@ -420,7 +466,6 @@ public class SessionCache : ISessionCache
 		path = path.ToLower();
 		configuration = configuration?.ToLower();
 		string key = path + GetPostfix(configuration, platform);
-		string key2 = path;
 		documentItem = null;
 		if (!_Current.Files.TryGetValue(key, out documentItem))
 		{
@@ -429,27 +474,13 @@ public class SessionCache : ISessionCache
 			if (documentItem.HashItem.Exists)
 			{
 				_Current.Files[key] = documentItem;
-				if (!_Current.FileConfigs.TryGetValue(key2, out var value))
-				{
-					value = new FileConfig();
-					_Current.FileConfigs[key2] = value;
-				}
-				value.All.Add(documentItem);
-				if (documentItem.Document != null)
-				{
-					value.LastCached = documentItem;
-				}
+				HasChanges = true;
 			}
 		}
 		if (autoCreateDocument && documentItem.Document == null)
 		{
 			documentItem.Document = new AssetDeclarationDocument();
-			if (!_Current.FileConfigs.TryGetValue(key2, out var value2))
-			{
-				value2 = new FileConfig();
-				_Current.FileConfigs[key2] = value2;
-			}
-			value2.LastCached = documentItem;
+			HasChanges = true;
 		}
 		return documentItem.HashItem.Exists;
 	}
@@ -460,3 +491,4 @@ public class SessionCache : ISessionCache
 		_Last.FromCurrent(_Current);
 	}
 }
+

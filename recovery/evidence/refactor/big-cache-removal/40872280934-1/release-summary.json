@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "succeeded": true,
+  "status": "verified-small-mod-deployment",
+  "sourceCommit": "7fca1e4f38c304bfc107e5301b1b72b70cbfacea",
+  "binarySourceCommit": "7fca1e4f38c304bfc107e5301b1b72b70cbfacea",
+  "runId": "40872280934",
+  "runAttempt": "1",
+  "scope": "Exact five-file Win32/net48 runtime ZIP deployment, production doctor and small Armor MOD with source-runtime raw output equivalence; not complete P5/G3/SDK or Unicode Texture acceptance; independently extracted exact runtime additionally passed real base/APT/maps BIG builds, original LoD and MakeBig raw member differential, explicit SDK/MOD Additional against original CopyFolders and MakeBig, opt-in neutral hash repair against original HashFix/Resolver/LoD/MakeBig (no-insertion scope), CDATA and rollback/cancellation matrices",
+  "bigDeployment": {
+    "packagedRuntime": true,
+    "receiptSha256": "11740ebc1cd545412e736b5f0306b3a1f416f475cc3e6e9386a5d3215d2541cb",
+    "succeeded": true,
+    "sourceCommit": "7fca1e4f38c304bfc107e5301b1b72b70cbfacea",
+    "scope": "Actual production P7 BIG apt/maps selected and combined, exact current loose member bytes and independent original MakeBig format/content oracle, skudef, CDATA, cancellation/failure/publication rollback; default base LoD, explicit SDK-then-MOD Additional overlays, and optional neutral actual hash repair with no-insertion original oracle; component insertion evidence remains separate; final distribution and game runtime acceptance excluded"
+  },
+  "rawReceiptArchivePath": "artifacts/final-release/40872280934-1/release.json",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "succeeded": true,
+      "runtimeUnchanged": true,
+      "zipSha256": "2acb319ece8693c6990bb68151b43ba29e5cd181b203c3c0d83d6fed7e4ee614",
+      "runtimeFiles": [
+        {
+          "bytes": 6583808,
+          "sha256": "555bcaabf66eb60617fad4f071a11810b09b8004d2637ab963fd380b1abdcd97",
+          "name": "NewModCompiler.exe"
+        },
+        {
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "name": "NewModCompiler.exe.config"
+        },
+        {
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "name": "antlr.runtime.dll"
+        },
+        {
+          "bytes": 917504,
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll"
+        },
+        {
+          "bytes": 14326,
+          "sha256": "6d0264b34978e456d77a8bc7181e869de3aa25e5169694781930c5f1129ff6b7",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json"
+        }
+      ]
+    },
+    {
+      "configuration": "Release",
+      "succeeded": true,
+      "runtimeUnchanged": true,
+      "zipSha256": "e201c511462f25585e2a4a66f33f432731261be9cf89a50c322414523d1b0ea7",
+      "runtimeFiles": [
+        {
+          "bytes": 4144128,
+          "sha256": "7cdf0501546a4161442697026044a4460569f0da3335eefad699a2a14f5a6e70",
+          "name": "NewModCompiler.exe"
+        },
+        {
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "name": "NewModCompiler.exe.config"
+        },
+        {
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "name": "antlr.runtime.dll"
+        },
+        {
+          "bytes": 917504,
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll"
+        },
+        {
+          "bytes": 14326,
+          "sha256": "b920ed55d12b24a0d21f5cdbd84e0e243cb6b0f9db53926728c206a3e2991147",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json"
+        }
+      ]
+    }
+  ]
+}

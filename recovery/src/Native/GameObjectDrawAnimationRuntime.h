@@ -4,15 +4,17 @@ void EndianDrawAnimation(unsigned char* output) {EndianModuleFields(output,drawA
 void MarshalDrawLuaEvent(const GameObjectChild& input,unsigned char* output,Relo::Tracker& data) {MarshalModuleFields(input,output,drawLuaEventFields,data);}
 void EndianDrawLuaEvent(unsigned char* output) {EndianModuleFields(output,drawLuaEventFields);}
 void MarshalDrawAnimationState(const GameObjectChild& input,unsigned char* output,Relo::Tracker& data) {
+    const char* names[]={"Animation","FXEvent","LuaEvent","ParticleSysBone","Script"};
+    GameObjectChildGroups<5> groups(input.children,names);
     MarshalModuleFields(input,output,drawAnimationStateFields,data);
-    MarshalDrawModelList(input,"Animation",output,100,60,data,MarshalDrawAnimation);
-    for(const auto& c:input.children)if(c.name=="Script") {
+    MarshalDrawModelList(groups,0,output,100,60,data,MarshalDrawAnimation);
+    if(auto child=groups.First(4)) {
         auto row=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+108),8,1));
-        MarshalString(data,row,c.text);data.Pop();break;
+        MarshalString(data,row,child->text);data.Pop();
     }
-    MarshalDrawModelList(input,"FXEvent",output,112,28,data,MarshalDrawFXEvent);
-    MarshalDrawModelList(input,"LuaEvent",output,120,16,data,MarshalDrawLuaEvent);
-    MarshalDrawModelList(input,"ParticleSysBone",output,128,36,data,MarshalDrawParticleSysBone);
+    MarshalDrawModelList(groups,1,output,112,28,data,MarshalDrawFXEvent);
+    MarshalDrawModelList(groups,2,output,120,16,data,MarshalDrawLuaEvent);
+    MarshalDrawModelList(groups,3,output,128,36,data,MarshalDrawParticleSysBone);
 }
 void EndianDrawAnimationState(unsigned char* output) {
     EndianModuleFields(output,drawAnimationStateFields);

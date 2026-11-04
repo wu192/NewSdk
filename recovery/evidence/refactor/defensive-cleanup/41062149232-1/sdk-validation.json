@@ -1,0 +1,23 @@
+{
+  "sourceReceipt": "sdk-validation.json",
+  "fullReceiptSha256": "f543dd447be7eeefb5c9f81a744e18e7a5acf0ad0941574864b642e0352ee212",
+  "archivePath": "direct-tests/sdk/validation.json",
+  "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+  "runId": "41062149232",
+  "succeeded": true,
+  "scope": "Complete unchanged repository SDK/Mods/mymod source, base/apt/maps discovery, one production build process per Debug/Release configuration, original BAB raw four-stream and exact CDATA output comparison. BIG/SKUDEF is additionally compared to original LoD and MakeBig using this unchanged MOD; empty optional groups remain empty and no synthetic APT/map coverage or complete game runtime acceptance is inferred.",
+  "modes": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "cases": []
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "cases": []
+    }
+  ],
+  "originalBaselineSucceeded": true,
+  "note": "Review summary; complete raw receipt is in the downloaded, SHA256-verified workflow archive."
+}

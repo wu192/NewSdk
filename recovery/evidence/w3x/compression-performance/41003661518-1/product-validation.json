@@ -1,0 +1,54 @@
+{
+  "configurations": [
+    {
+      "threeBufferComparisons": 4029,
+      "businessDllsAbsent": true,
+      "configuration": "Debug",
+      "passed": true,
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c",
+      "meshFixtures": 666,
+      "animationFixtures": 675,
+      "validationHostSha256": "6328d1ccaa8f1b9d76d271cf162c76f6830d13ffe5cebec6665dadec44208801",
+      "productMetadataPlatforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "exeSha256": "42d1d47df75fffea3936de7046c5643848efa97c5bbde60cedb277c0612c79eb",
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7"
+    },
+    {
+      "threeBufferComparisons": 4029,
+      "businessDllsAbsent": true,
+      "configuration": "Release",
+      "passed": true,
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c",
+      "meshFixtures": 666,
+      "animationFixtures": 675,
+      "validationHostSha256": "7341ffb889bf7fd950502dfd4e48df005fdb9794b42b43c8aef3a78cf63c071e",
+      "productMetadataPlatforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "exeSha256": "1c408acfd12bf87a9b1c564ccf82fb56a08b1a4e0f93e2e01e66a18c642da9cc",
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7"
+    }
+  ],
+  "reusedInputsSha256": "642e051e49c5f7df35cd394a7bcea2a4e17ae51a9416e30868111daad867993b",
+  "sourceCommit": "4e9c9a279bef892439822310976e87081ca0ce72",
+  "pluginReceiptSha256": "67625e3c16a16cd53da15519e207ef033bafd99482a888eec84e8500bb9e32fb",
+  "lowLevelNativeMatrixRerun": false,
+  "componentReceiptSha256": "044a2b71f46d22908bdfeeef2dbe2753180b96d3e73e9d9f2ef8c419c364e38c",
+  "reusedCaptureRunId": "41003661518",
+  "lowLevelEvidenceScope": "unchanged implementation and tests; historical component toolchain only, product build mode covered by new captured ProcessInstance replay",
+  "schemaVersion": 1,
+  "reusedCaptureRunAttempt": "1",
+  "scope": "complete captured W3X ProcessInstance matrix replay against product EXE; SDK not run",
+  "status": "passed",
+  "reusedCaptureSourceCommit": "4e9c9a279bef892439822310976e87081ca0ce72",
+  "runId": "41003661518",
+  "runAttempt": "1"
+}

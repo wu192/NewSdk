@@ -1,0 +1,29 @@
+{
+  "binarySourceCommit": "6d39f833bfbad40e3576b5517e1da685a995a77a",
+  "runId": 40915444929,
+  "runConclusion": "failure",
+  "functionalAcceptance": "all required functional steps passed; only independent performance fixture failed, then corrected without production changes and accepted in40920804580",
+  "artifactId": 12916669037,
+  "archiveSha256": "74060c4774d760ac8684479d119457f329e14df815336746d4610487aea66b5a",
+  "archiveDigestRecomputed": true,
+  "productionCases": 64,
+  "debugReleaseValidated": true,
+  "metadataTypeIds": 284,
+  "metadataModuleFamilies": 62,
+  "componentPlatforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "nativeFailureAndCancellationActiveAtRequest": 3,
+  "verifiedRuntimeFiveFiles": {
+    "NewModCompiler.exe": "15fc7ee3ed23cf083e8c63271b4c220983b063c2f186bad03c3d8df7a62fc1ce",
+    "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+    "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+    "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+    "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "e742df324b022d7d346a29d3a854d0c4f257b2debd8e4ebe5f7ef4c3846f6e79"
+  },
+  "verifiedZipSha256": "4729239a1bbf99c68806d4d187a14d95c5d7e1592bfbed0f98eb0afe0849b4f3",
+  "sourceAndTestProvenance": "Production module source6d39f833, fixture/controller source6d39f833; independent performance test source02987cbc, exact same production byte hashes."
+}

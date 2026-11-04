@@ -1,0 +1,1088 @@
+{
+  "schemaVersion": 1,
+  "succeeded": true,
+  "sourceCommit": "57c0c78375c2a41ecb206c04dd761f5d9db1adcc",
+  "runId": "41324686715",
+  "runAttempt": "1",
+  "modes": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "exeSha256": "76c41f77165d87c8df92f3f0c8d96d9f454ad66a4bad7320fb709b4b907abc1c",
+      "cases": [
+        {
+          "name": "loose-source",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "commandLine",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 0,
+            "sessionPackageMisses": 1,
+            "documentReuse": 0,
+            "xmlParse": 4,
+            "instanceCompile": 2,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 4,
+            "fileHashReuses": 815,
+            "fileHashBytesRead": 1211,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Debug\\sdk\\SuperCompilerCache\\neutralwbpro_1d56420b22bf55a36f909dab93b997bc\\session"
+          }
+        },
+        {
+          "name": "explicit-cold",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "commandLine",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Debug\\sdk\\SuperCompilerCache\\neutralwbpro_1d56420b22bf55a36f909dab93b997bc\\session"
+          }
+        },
+        {
+          "name": "explicit-hot",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "commandLine",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Debug\\sdk\\SuperCompilerCache\\neutralwbpro_1d56420b22bf55a36f909dab93b997bc\\session"
+          }
+        },
+        {
+          "name": "project-over-app",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "project",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Debug\\sdk\\SuperCompilerCache\\neutralwbpro_1d56420b22bf55a36f909dab93b997bc\\session"
+          }
+        },
+        {
+          "name": "application-config",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "applicationConfig",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Debug\\sdk\\SuperCompilerCache\\neutralwbpro_1d56420b22bf55a36f909dab93b997bc\\session"
+          }
+        },
+        {
+          "name": "registry-32",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "registry",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Debug\\sdk\\SuperCompilerCache\\neutralwbpro_1d56420b22bf55a36f909dab93b997bc\\session"
+          },
+          "registry": {
+            "key": "SOFTWARE\\Electronic Arts\\Electronic Arts\\Red Alert 3",
+            "value": "Install Dir",
+            "view": 32
+          },
+          "registryRestored": true
+        },
+        {
+          "name": "registry-64",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "registry",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Debug\\sdk\\SuperCompilerCache\\neutralwbpro_1d56420b22bf55a36f909dab93b997bc\\session"
+          },
+          "registry": {
+            "key": "SOFTWARE\\Electronic Arts\\Electronic Arts\\Red Alert 3",
+            "value": "Install Dir",
+            "view": 64
+          },
+          "registryRestored": true
+        },
+        {
+          "name": "missing-game-big",
+          "passed": true,
+          "expectedExit": 3,
+          "rootSource": "commandLine",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 0,
+            "sessionPackageMisses": 0,
+            "documentReuse": 0,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 0,
+            "fileHashReuses": 0,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": null
+          }
+        },
+        {
+          "name": "restored-game-retry",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "commandLine",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Debug\\sdk\\SuperCompilerCache\\neutralwbpro_1d56420b22bf55a36f909dab93b997bc\\session"
+          }
+        }
+      ],
+      "originalChain": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "originalTools": {
+          "HashFix.exe": "005682dfa26e401799f18c775cc8b6e0e2b0cd3efa08438597bf46a765e4e72a",
+          "ModAssetResolver.exe": "b16c35fbf4eb6bea683d1d9baff65d29c2b2131ef2e5493b996d196de7361bb0",
+          "LoDStreamBuilder.exe": "e28b665a17cbbf597b47a2069a6efd979da00b44021f8f73b6beb0fb076fac0b",
+          "MakeBig.exe": "2eaa2dfa8473ed5a74b5901c65ab133ddea26f70c8cb2747a0d8725c6c5a7cf9",
+          "ModAssetResolver_TypeHashes.txt": "1924064fa35614f45e9dd96366f0cec63d693260619f0edde0aa13ef3d2df920",
+          "ModAssetResolver_InstanceHashes.txt": "7c6a753eb399509d006723a6268c1b4d0fdfa36699e90c93738729badfdd28a2"
+        },
+        "originalMakeBig": {
+          "magic": "BIG4",
+          "bytes": 734007,
+          "headerBytes": 310,
+          "members": [
+            {
+              "name": "data\\mod.bin",
+              "offset": 310,
+              "bytes": 730468,
+              "sha256": "e7bda3e8291522c881d83944d701109801cf30682836100cffb759ab61bdb577"
+            },
+            {
+              "name": "data\\mod.imp",
+              "offset": 730778,
+              "bytes": 20,
+              "sha256": "c65ec6178b6cbab11940f1f2c4bb1d224bbb51e2435ba3c709e4a38e56c53e4d"
+            },
+            {
+              "name": "data\\mod.manifest",
+              "offset": 730798,
+              "bytes": 799,
+              "sha256": "4b5855956ee7a41bad145535ef2ae01b4e4b191f0477f9113dbf70dece28693e"
+            },
+            {
+              "name": "data\\mod.relo",
+              "offset": 731597,
+              "bytes": 860,
+              "sha256": "c1448b25e6c1c4034db0db217f2918675513172b06b5b68dd2da163f68039394"
+            },
+            {
+              "name": "data\\mod_l.bin",
+              "offset": 732457,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            },
+            {
+              "name": "data\\mod_l.imp",
+              "offset": 732461,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            },
+            {
+              "name": "data\\mod_l.manifest",
+              "offset": 732465,
+              "bytes": 763,
+              "sha256": "ef4e14311d8f6d12d6b1792d8dd97178bc77617bb95969b95f8ae120a66d4b15"
+            },
+            {
+              "name": "data\\mod_l.relo",
+              "offset": 733228,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            },
+            {
+              "name": "data\\mod_m.bin",
+              "offset": 733232,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            },
+            {
+              "name": "data\\mod_m.imp",
+              "offset": 733236,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            },
+            {
+              "name": "data\\mod_m.manifest",
+              "offset": 733240,
+              "bytes": 763,
+              "sha256": "ef4e14311d8f6d12d6b1792d8dd97178bc77617bb95969b95f8ae120a66d4b15"
+            },
+            {
+              "name": "data\\mod_m.relo",
+              "offset": 734003,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            }
+          ],
+          "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+        }
+      },
+      "sharedCache": {
+        "sharedCacheAcrossMods": true,
+        "concurrentSharedExtraction": true,
+        "secondModHotMetadataUnchanged": true,
+        "payloadCopies": 1,
+        "jobsPerProcess": 1,
+        "secondModArtifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ],
+        "concurrentProcesses": [
+          {
+            "processId": 1296,
+            "exitCode": 0,
+            "arguments": [
+              "build",
+              "--mod",
+              "D:\\gwb-iusy447k\\Debug\\NeutralWbProbe",
+              "--sdk-root",
+              "D:\\gwb-iusy447k\\Debug\\sdk",
+              "--game-root",
+              "D:\\gwb-iusy447k\\game",
+              "--out",
+              "D:\\gwb-iusy447k\\Debug\\concurrent-out-0",
+              "--jobs",
+              "1",
+              "--include-additional=false",
+              "--fix-neutral-assets=true",
+              "--package-format",
+              "big",
+              "--mod-version",
+              "1.0"
+            ],
+            "wallSeconds": 1.4463376999999582,
+            "artifacts": [
+              {
+                "name": "NeutralWbProbe_1.0.big",
+                "bytes": 734007,
+                "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+              },
+              {
+                "name": "NeutralWbProbe_1.0.skudef",
+                "bytes": 47,
+                "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+              }
+            ]
+          },
+          {
+            "processId": 7816,
+            "exitCode": 0,
+            "arguments": [
+              "build",
+              "--mod",
+              "D:\\gwb-iusy447k\\Debug\\second\\NeutralWbProbe",
+              "--sdk-root",
+              "D:\\gwb-iusy447k\\Debug\\sdk",
+              "--game-root",
+              "D:\\gwb-iusy447k\\game",
+              "--out",
+              "D:\\gwb-iusy447k\\Debug\\concurrent-out-1",
+              "--jobs",
+              "1",
+              "--include-additional=false",
+              "--fix-neutral-assets=true",
+              "--package-format",
+              "big",
+              "--mod-version",
+              "1.0"
+            ],
+            "wallSeconds": 1.4501410000000305,
+            "artifacts": [
+              {
+                "name": "NeutralWbProbe_1.0.big",
+                "bytes": 734007,
+                "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+              },
+              {
+                "name": "NeutralWbProbe_1.0.skudef",
+                "bytes": 47,
+                "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+              }
+            ]
+          }
+        ]
+      },
+      "sharedCacheAcrossMods": true,
+      "concurrentSharedExtraction": true,
+      "inputsUnchanged": true,
+      "hotExtractionMetadataUnchanged": true,
+      "exactOriginalChainRawMembers": true
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "exeSha256": "8d567d55a26136c0f006c579e738835ae9be0d0bacd2e458d4a8376e880b417f",
+      "cases": [
+        {
+          "name": "loose-source",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "commandLine",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 0,
+            "sessionPackageMisses": 1,
+            "documentReuse": 0,
+            "xmlParse": 4,
+            "instanceCompile": 2,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 4,
+            "fileHashReuses": 815,
+            "fileHashBytesRead": 1211,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Release\\sdk\\SuperCompilerCache\\neutralwbpro_e222d92196f2069041c662bc30aba6ec\\session"
+          }
+        },
+        {
+          "name": "explicit-cold",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "commandLine",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Release\\sdk\\SuperCompilerCache\\neutralwbpro_e222d92196f2069041c662bc30aba6ec\\session"
+          }
+        },
+        {
+          "name": "explicit-hot",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "commandLine",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Release\\sdk\\SuperCompilerCache\\neutralwbpro_e222d92196f2069041c662bc30aba6ec\\session"
+          }
+        },
+        {
+          "name": "project-over-app",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "project",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Release\\sdk\\SuperCompilerCache\\neutralwbpro_e222d92196f2069041c662bc30aba6ec\\session"
+          }
+        },
+        {
+          "name": "application-config",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "applicationConfig",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Release\\sdk\\SuperCompilerCache\\neutralwbpro_e222d92196f2069041c662bc30aba6ec\\session"
+          }
+        },
+        {
+          "name": "registry-32",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "registry",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Release\\sdk\\SuperCompilerCache\\neutralwbpro_e222d92196f2069041c662bc30aba6ec\\session"
+          },
+          "registry": {
+            "key": "SOFTWARE\\Electronic Arts\\Electronic Arts\\Red Alert 3",
+            "value": "Install Dir",
+            "view": 32
+          },
+          "registryRestored": true
+        },
+        {
+          "name": "registry-64",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "registry",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Release\\sdk\\SuperCompilerCache\\neutralwbpro_e222d92196f2069041c662bc30aba6ec\\session"
+          },
+          "registry": {
+            "key": "SOFTWARE\\Electronic Arts\\Electronic Arts\\Red Alert 3",
+            "value": "Install Dir",
+            "view": 64
+          },
+          "registryRestored": true
+        },
+        {
+          "name": "missing-game-big",
+          "passed": true,
+          "expectedExit": 3,
+          "rootSource": "commandLine",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 0,
+            "sessionPackageMisses": 0,
+            "documentReuse": 0,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 0,
+            "fileHashReuses": 0,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": null
+          }
+        },
+        {
+          "name": "restored-game-retry",
+          "passed": true,
+          "expectedExit": 0,
+          "rootSource": "commandLine",
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 4,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 819,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": null,
+            "sessionCacheDirectory": "D:\\gwb-iusy447k\\Release\\sdk\\SuperCompilerCache\\neutralwbpro_e222d92196f2069041c662bc30aba6ec\\session"
+          }
+        }
+      ],
+      "originalChain": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "originalTools": {
+          "HashFix.exe": "005682dfa26e401799f18c775cc8b6e0e2b0cd3efa08438597bf46a765e4e72a",
+          "ModAssetResolver.exe": "b16c35fbf4eb6bea683d1d9baff65d29c2b2131ef2e5493b996d196de7361bb0",
+          "LoDStreamBuilder.exe": "e28b665a17cbbf597b47a2069a6efd979da00b44021f8f73b6beb0fb076fac0b",
+          "MakeBig.exe": "2eaa2dfa8473ed5a74b5901c65ab133ddea26f70c8cb2747a0d8725c6c5a7cf9",
+          "ModAssetResolver_TypeHashes.txt": "1924064fa35614f45e9dd96366f0cec63d693260619f0edde0aa13ef3d2df920",
+          "ModAssetResolver_InstanceHashes.txt": "7c6a753eb399509d006723a6268c1b4d0fdfa36699e90c93738729badfdd28a2"
+        },
+        "originalMakeBig": {
+          "magic": "BIG4",
+          "bytes": 734007,
+          "headerBytes": 310,
+          "members": [
+            {
+              "name": "data\\mod.bin",
+              "offset": 310,
+              "bytes": 730468,
+              "sha256": "e7bda3e8291522c881d83944d701109801cf30682836100cffb759ab61bdb577"
+            },
+            {
+              "name": "data\\mod.imp",
+              "offset": 730778,
+              "bytes": 20,
+              "sha256": "c65ec6178b6cbab11940f1f2c4bb1d224bbb51e2435ba3c709e4a38e56c53e4d"
+            },
+            {
+              "name": "data\\mod.manifest",
+              "offset": 730798,
+              "bytes": 799,
+              "sha256": "4b5855956ee7a41bad145535ef2ae01b4e4b191f0477f9113dbf70dece28693e"
+            },
+            {
+              "name": "data\\mod.relo",
+              "offset": 731597,
+              "bytes": 860,
+              "sha256": "c1448b25e6c1c4034db0db217f2918675513172b06b5b68dd2da163f68039394"
+            },
+            {
+              "name": "data\\mod_l.bin",
+              "offset": 732457,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            },
+            {
+              "name": "data\\mod_l.imp",
+              "offset": 732461,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            },
+            {
+              "name": "data\\mod_l.manifest",
+              "offset": 732465,
+              "bytes": 763,
+              "sha256": "ef4e14311d8f6d12d6b1792d8dd97178bc77617bb95969b95f8ae120a66d4b15"
+            },
+            {
+              "name": "data\\mod_l.relo",
+              "offset": 733228,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            },
+            {
+              "name": "data\\mod_m.bin",
+              "offset": 733232,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            },
+            {
+              "name": "data\\mod_m.imp",
+              "offset": 733236,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            },
+            {
+              "name": "data\\mod_m.manifest",
+              "offset": 733240,
+              "bytes": 763,
+              "sha256": "ef4e14311d8f6d12d6b1792d8dd97178bc77617bb95969b95f8ae120a66d4b15"
+            },
+            {
+              "name": "data\\mod_m.relo",
+              "offset": 734003,
+              "bytes": 4,
+              "sha256": "b5727ac5ac665165ecb004ee225d65e09139874de7366d5a9e83e85e8804a9ba"
+            }
+          ],
+          "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+        }
+      },
+      "sharedCache": {
+        "sharedCacheAcrossMods": true,
+        "concurrentSharedExtraction": true,
+        "secondModHotMetadataUnchanged": true,
+        "payloadCopies": 1,
+        "jobsPerProcess": 1,
+        "secondModArtifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ],
+        "concurrentProcesses": [
+          {
+            "processId": 1052,
+            "exitCode": 0,
+            "arguments": [
+              "build",
+              "--mod",
+              "D:\\gwb-iusy447k\\Release\\NeutralWbProbe",
+              "--sdk-root",
+              "D:\\gwb-iusy447k\\Release\\sdk",
+              "--game-root",
+              "D:\\gwb-iusy447k\\game",
+              "--out",
+              "D:\\gwb-iusy447k\\Release\\concurrent-out-0",
+              "--jobs",
+              "1",
+              "--include-additional=false",
+              "--fix-neutral-assets=true",
+              "--package-format",
+              "big",
+              "--mod-version",
+              "1.0"
+            ],
+            "wallSeconds": 1.4171404999999595,
+            "artifacts": [
+              {
+                "name": "NeutralWbProbe_1.0.big",
+                "bytes": 734007,
+                "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+              },
+              {
+                "name": "NeutralWbProbe_1.0.skudef",
+                "bytes": 47,
+                "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+              }
+            ]
+          },
+          {
+            "processId": 4424,
+            "exitCode": 0,
+            "arguments": [
+              "build",
+              "--mod",
+              "D:\\gwb-iusy447k\\Release\\second\\NeutralWbProbe",
+              "--sdk-root",
+              "D:\\gwb-iusy447k\\Release\\sdk",
+              "--game-root",
+              "D:\\gwb-iusy447k\\game",
+              "--out",
+              "D:\\gwb-iusy447k\\Release\\concurrent-out-1",
+              "--jobs",
+              "1",
+              "--include-additional=false",
+              "--fix-neutral-assets=true",
+              "--package-format",
+              "big",
+              "--mod-version",
+              "1.0"
+            ],
+            "wallSeconds": 1.4212701999999808,
+            "artifacts": [
+              {
+                "name": "NeutralWbProbe_1.0.big",
+                "bytes": 734007,
+                "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+              },
+              {
+                "name": "NeutralWbProbe_1.0.skudef",
+                "bytes": 47,
+                "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+              }
+            ]
+          }
+        ]
+      },
+      "sharedCacheAcrossMods": true,
+      "concurrentSharedExtraction": true,
+      "inputsUnchanged": true,
+      "hotExtractionMetadataUnchanged": true,
+      "exactOriginalChainRawMembers": true
+    }
+  ],
+  "packages": [
+    {
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 2103982,
+      "sha256": "28eb7d0b22c4bb3c6d160119bf1a7273c4cd193f21c57d52b93c77dfab61e0a2",
+      "configuration": "Debug",
+      "sourceCommit": "57c0c78375c2a41ecb206c04dd761f5d9db1adcc",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 7726080,
+          "sha256": "76c41f77165d87c8df92f3f0c8d96d9f454ad66a4bad7320fb709b4b907abc1c"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 330,
+          "sha256": "57926cc13c550bbf4ae2d3b152dfca5dc7ee32566854b0e390b414538e0598f9"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "independentZipDeployment": {
+        "succeeded": true,
+        "coldGameExtraction": true,
+        "sharedWorldbuilderCache": true,
+        "exactAcceptedRawOutputs": true,
+        "artifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ]
+      },
+      "neutralAcceptance": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "caseCount": 9,
+        "rawOriginalMembers": true
+      }
+    },
+    {
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 1609756,
+      "sha256": "94f9d1afb934b75840344c04381256cb1cd65eb2757bf87110f66557da099525",
+      "configuration": "Release",
+      "sourceCommit": "57c0c78375c2a41ecb206c04dd761f5d9db1adcc",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 5024256,
+          "sha256": "8d567d55a26136c0f006c579e738835ae9be0d0bacd2e458d4a8376e880b417f"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 330,
+          "sha256": "57926cc13c550bbf4ae2d3b152dfca5dc7ee32566854b0e390b414538e0598f9"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "independentZipDeployment": {
+        "succeeded": true,
+        "coldGameExtraction": true,
+        "sharedWorldbuilderCache": true,
+        "exactAcceptedRawOutputs": true,
+        "artifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ]
+      },
+      "neutralAcceptance": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "caseCount": 9,
+        "rawOriginalMembers": true
+      }
+    }
+  ],
+  "scope": "Debug/Release actual two-asset MOD; game-layout official BIG extraction, CLI/project/appSettings precedence, both original registry views, extraction cold/hot/failed retry, two MODs sharing one SDK extraction and overlapping cold extraction, unchanged inputs, original HashFix/Resolver/LoD/MakeBig raw differential and independent three-file ZIP cold shared extraction. No full MOD or in-game acceptance.",
+  "gameInput": {
+    "name": "WBData_12.big",
+    "bytes": 1330449285,
+    "sha256": "80ca43054d08c8de8da37079940d8c9715706616fb51cc3987de95cda0289a16",
+    "mtimeNs": 1793549583787888500,
+    "officialStreams": {
+      ".manifest": {
+        "name": "Worldbuilder.manifest",
+        "bytes": 1978623,
+        "sha256": "1f621187352425571d72a0761fa56ca11cba525b12220cca27c94345080eeedd"
+      },
+      ".bin": {
+        "name": "Worldbuilder.bin",
+        "bytes": 1308421704,
+        "sha256": "682b7c654c589a61e90eae565860497e5847e02bcee4ab303d6161ecc7280e36"
+      },
+      ".imp": {
+        "name": "Worldbuilder.imp",
+        "bytes": 102044,
+        "sha256": "ac569110c44583fd5ce462fe81db987ce0a475e9e8c4208e78a58ac346673216"
+      },
+      ".relo": {
+        "name": "Worldbuilder.relo",
+        "bytes": 19946772,
+        "sha256": "b925077947506e35a8ee2cd33e0a8929d8c71c427b320d36961ad73cbe23c6c6"
+      }
+    },
+    "officialBinRestored": {
+      "file": "Worldbuilder.bin",
+      "bytes": 1308421704,
+      "sha256": "682b7c654c589a61e90eae565860497e5847e02bcee4ab303d6161ecc7280e36"
+    }
+  },
+  "gameInputUnchanged": true,
+  "artifactId": 13090784649,
+  "artifactSha256": "9259dead38b4dabc36feb57378e7b58ba18a2a5c7d466a5b9d3e3691efa3aef4",
+  "appAssertionsPerConfiguration": 1901,
+  "sharedCachePath": "SDK/SuperCompilerCache/shared/neutral-worldbuilder",
+  "fullCoreCliMatrixRerun": false,
+  "inGameValidated": false
+}

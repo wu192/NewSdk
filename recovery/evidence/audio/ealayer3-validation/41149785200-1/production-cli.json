@@ -1,0 +1,1409 @@
+{
+  "sourceCommit": "4ddac274b859be7fdb537df8d21d1e25e7ef8e06",
+  "runId": "41149785200",
+  "passed": true,
+  "cases": [
+    {
+      "name": "jobs1-cold",
+      "jobs": 1,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 44,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 44,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 45,
+        "fileHashReuses": 815,
+        "fileHashBytesRead": 1688639,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "1",
+          "effectiveJobs": 1,
+          "minimumEffectiveJobs": 1,
+          "backendCalls": 44,
+          "backendCallsByType": {
+            "AudioFile": 44
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 385.86920000000003,
+          "ownerCommitMs": 53.788900000000005,
+          "fallbackByReason": {
+            "resource-capacity": 44
+          },
+          "sampledPeakPrivateBytes": 38461440,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11284894958,
+              "endTicks": 11285038916,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11285102838,
+              "endTicks": 11285140407,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11285153226,
+              "endTicks": 11285181531,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11285193570,
+              "endTicks": 11285231789,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11285244041,
+              "endTicks": 11285298925,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11285533954,
+              "endTicks": 11285600926,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11285614544,
+              "endTicks": 11285666583,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11285679299,
+              "endTicks": 11285744931,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11285759350,
+              "endTicks": 11285867047,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11285880042,
+              "endTicks": 11286013935,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11286026685,
+              "endTicks": 11286131630,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11286143836,
+              "endTicks": 11286279155,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11286291205,
+              "endTicks": 11286448336,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11286473944,
+              "endTicks": 11286677056,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11286690777,
+              "endTicks": 11286872359,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11286886326,
+              "endTicks": 11287086185,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287097777,
+              "endTicks": 11287151527,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287163877,
+              "endTicks": 11287217151,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287229679,
+              "endTicks": 11287279811,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287291919,
+              "endTicks": 11287341555,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287354302,
+              "endTicks": 11287405075,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287416871,
+              "endTicks": 11287482026,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287504716,
+              "endTicks": 11287558190,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287569441,
+              "endTicks": 11287622986,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287637884,
+              "endTicks": 11287688807,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287700670,
+              "endTicks": 11287746170,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287758707,
+              "endTicks": 11287824525,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11287836708,
+              "endTicks": 11288066345,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11288078777,
+              "endTicks": 11288276857,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11288289775,
+              "endTicks": 11288342242,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11288354861,
+              "endTicks": 11288419606,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11288431431,
+              "endTicks": 11288926047,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11288948670,
+              "endTicks": 11288959385,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11288971158,
+              "endTicks": 11288984159,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11288995409,
+              "endTicks": 11289008724,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11289020349,
+              "endTicks": 11289033899,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11289045198,
+              "endTicks": 11289057988,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11289069646,
+              "endTicks": 11289083244,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11289094590,
+              "endTicks": 11289107759,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11289119790,
+              "endTicks": 11289136523,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11289148826,
+              "endTicks": 11289161745,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11289173254,
+              "endTicks": 11289188335,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11289199773,
+              "endTicks": 11289229577,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11289241116,
+              "endTicks": 11289592492,
+              "threadId": 1
+            }
+          ],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\ea-cli\\j1"
+      },
+      "customFiles": 44,
+      "outputs": {
+        "base/Mod/streams/mod.bin": "eba03f09b3ec90cda6cb0b4b48f11b93268c491fa2a989f73f30fda214fe5fa0",
+        "base/Mod/streams/mod.imp": "ec3fee5825e4c9d06a9b855419a896f74e01884face85c17d7253a39e4bb8cbe",
+        "base/Mod/streams/mod.manifest": "aa726d9e8089ff66f949a2b0482720fcdb898e7cb342844b90e628b97b3ea962",
+        "base/Mod/streams/mod.relo": "30df20ef80962fac4673bd2e0ef02af50e86f24377b920bcf3ed5fc835dabb62",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.012d994d.807c4804.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.03cc6dde.caf61e87.cdata": "5f915ffdbe1886fc99ad52ae58407f88baa3a813418aa6db1a603a53368887be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0a09debd.27887aac.cdata": "16a8f5e64f7ea130c2a77ed08dbde2cb80de8cda9e2093f8085dcfb88565f36f",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0b6c607b.c584510e.cdata": "313b023aeb21390419030bcb14680bf643d93ffea632b4385fbd01214b882b99",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.168605c2.5e17c90a.cdata": "5dfa6d90a6b8aa1b184621bd625d01c7c88afe9be4a87cc2693a447ca4ac1552",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.2f79de78.f8c75b1c.cdata": "f90bcf7740d15a4259fa24af89c3ee30f8c6dd4b60daa37590fb04fcd5a25687",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.341f18a2.e90cd25b.cdata": "19fbff217fd785f37e3e82cc5381c4d034b2d5f526bb3858f87547854cfb7d90",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3463033f.675ababa.cdata": "1c71fc8b35fcbd2144960c16bf5c9560a2e70d4cad0fb6990c41a68dd8bba038",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.37bc9667.99ae2ac7.cdata": "7a78047952bbc5b6ca3f634aa90cfa2870e2c3e6401f4391d729cb7de684cbbd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3998db1c.95f97026.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3d8dae8a.59827fac.cdata": "efc56a81ff76c9e8ec65b3edd1129c6ebce51192ea10a6f0b52482db85435d72",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4535cd59.e52873cd.cdata": "d613695daefb44ac6c3a869d11cf39cc33a9b98770d23648acbb3ce0db799cb5",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.47e4475a.7b363ab1.cdata": "5890d647a107bc9e23047273a9dd962ebbe6c2ad8fb17a3073740b10151fd234",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.48efec1c.ffc4278f.cdata": "5dfa6d90a6b8aa1b184621bd625d01c7c88afe9be4a87cc2693a447ca4ac1552",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.494fdf1a.10350ce4.cdata": "44fa4987c742ee619024a08951e0ccf66c663040ac2a16821e608d5ed862157d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4dc48a6e.eae282e8.cdata": "0eb327893177de32db9dd011dda0f61357dc4fc4a7a681107516ae3c4af6534d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.503ea44f.d1ac7b90.cdata": "db08c6c38ca10b3b7008c270a63385d808264a09a2f6f517e59db0186d8dee00",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5626c674.0a708b4f.cdata": "1d46eb10da07d5db586770299b24305220788532f921033beb03a12ba8bd8470",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5aa1cfe1.40e12ade.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5fdb7b37.75f2bb9e.cdata": "16191a050ce19e516bae9419625b922b084b544f3c4a2ff79c38447e334d2416",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.65b585ad.1b1bd1a1.cdata": "5362781d9fbb457a4d64e7856d773abc7d77fa5799f170e19583ad3cdc9cfb9a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.730fd646.b1d076c1.cdata": "3c9e16487c7098c435991f9e73c7b097ceb7e8d8d3751cf8663da29aa2a39371",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.75a9ae4c.2a54c1ff.cdata": "758d84950b0297abee23263fc1bb224b1bb965648c8915f9b7ae649880dceb9c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7958f2b8.136053b7.cdata": "7ec45336547e5b38f56108a32d7e43a88f02bbe969469252ef4a3e505cec0a03",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7998f578.e551be1f.cdata": "c3ea8a103c3a2f3ade6cd32a919cfc5d2a3a142e9afb77369272b8767c372653",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.81d15dcb.9cf75e45.cdata": "5c1a9d0b7c9fa139e9502b11e499e6d8cff0d841eab6e4171bf4f9ae2376f4be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.822bf90f.a6a08398.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.87a5765d.7a9835b3.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.8a2db4a1.0ee820ec.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.96cb8db4.289d003b.cdata": "96dfca39d1be9dabfc06b12d122d6ab85927b095687c409df267c15047c563cf",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b34aa71d.2342cdea.cdata": "ffdca3d507ec203af7ba03566fcf4672616c991b60bc971156f3815d990b329e",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b5b0a068.14546893.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.c2f425f0.d44d1d4c.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ce69caa2.f00fc293.cdata": "4a3e8d91006b1bfbf4af445c156b4aa91112a500dfa624555f422fc892879f52",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.d389574f.11339f9d.cdata": "e72654c4b623b6ba71a91cb97879be2714e74c9d2a5b416b8c14232485372236",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dc641830.04ae0d26.cdata": "bfcc4fac679b596d8290ac01fff32361a9b76f24bf88d1cd71f3d6382926f4c3",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dd2f34e1.9697c01e.cdata": "070c24815b1608e52c5a7c9fa5a3d1fb85dce45733c2884087edd35dcb45186c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.de6658ff.b756f773.cdata": "18a3634819ced12cbab64e5a809d76eda17a36d3bdad550f5bae73b72544a31a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dfec6651.568e6905.cdata": "e5f4d970f95fb207cd8240057810369c935dad6959d505b8402e46ccc66eb7fd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.e7337d1d.76dbd014.cdata": "80db5cc6c1fa176a9d104dc260b1cae51947d5d0f6b9c77b6eeb06b887c0293a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ede67b9e.9a90115c.cdata": "860ea60906963cd08f6e86438cb7d5ff6d614598942df528ad59d9976a8e5443",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.f7aa294b.87d27493.cdata": "03e72673aa68f4e0e21bb2cab41c6913947a7be094467380b52c9ca2b0d61058",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fb266ed4.92bd748b.cdata": "4dbf73e9152fb8766579347cd6d314a6876158669360ac104ca2ba800e14c366",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fedc965d.ed99247c.cdata": "851d027ecd04450c83ebd8f2753d454d14e1d21e4aaecab2d47c8008cd06af80"
+      },
+      "passed": true
+    },
+    {
+      "name": "jobs4-cold",
+      "jobs": 4,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 44,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 44,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 45,
+        "fileHashReuses": 815,
+        "fileHashBytesRead": 1688639,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 44,
+          "backendCallsByType": {
+            "AudioFile": 44
+          },
+          "maxBackendConcurrency": 4,
+          "prepareMs": 8.8635,
+          "workerWaitMs": 163.6,
+          "workerComputeMs": 562.0925,
+          "ownerCommitMs": 72.7536,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 41234432,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11295850757,
+              "endTicks": 11296007679,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11295856049,
+              "endTicks": 11296009182,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11295857779,
+              "endTicks": 11296009523,
+              "threadId": 8
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11295862843,
+              "endTicks": 11296014967,
+              "threadId": 9
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296103632,
+              "endTicks": 11296173408,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296119350,
+              "endTicks": 11296215087,
+              "threadId": 8
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296137757,
+              "endTicks": 11296215743,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296159352,
+              "endTicks": 11296255842,
+              "threadId": 9
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296196286,
+              "endTicks": 11296348433,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296249297,
+              "endTicks": 11296449222,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296230482,
+              "endTicks": 11296449357,
+              "threadId": 8
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296277071,
+              "endTicks": 11296456386,
+              "threadId": 9
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296459268,
+              "endTicks": 11296679522,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296496165,
+              "endTicks": 11296752117,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296477717,
+              "endTicks": 11296761250,
+              "threadId": 8
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296699870,
+              "endTicks": 11296772057,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296779465,
+              "endTicks": 11296853142,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296798586,
+              "endTicks": 11296864830,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296593570,
+              "endTicks": 11296908866,
+              "threadId": 9
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296924898,
+              "endTicks": 11296992210,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296940062,
+              "endTicks": 11297009304,
+              "threadId": 9
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296972711,
+              "endTicks": 11297050098,
+              "threadId": 8
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11296954546,
+              "endTicks": 11297050870,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297010161,
+              "endTicks": 11297085473,
+              "threadId": 9
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297028838,
+              "endTicks": 11297209912,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297075783,
+              "endTicks": 11297210659,
+              "threadId": 8
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297095377,
+              "endTicks": 11297298419,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297264252,
+              "endTicks": 11297340743,
+              "threadId": 9
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297316736,
+              "endTicks": 11297389726,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297229018,
+              "endTicks": 11297421488,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297244257,
+              "endTicks": 11297493772,
+              "threadId": 8
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297509248,
+              "endTicks": 11297523219,
+              "threadId": 11
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297523871,
+              "endTicks": 11297540814,
+              "threadId": 11
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297538664,
+              "endTicks": 11297552739,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297440026,
+              "endTicks": 11297961189,
+              "threadId": 9
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297978596,
+              "endTicks": 11297992199,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11297993724,
+              "endTicks": 11298007860,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11298008049,
+              "endTicks": 11298023147,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11298025098,
+              "endTicks": 11298038996,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11298040559,
+              "endTicks": 11298054294,
+              "threadId": 8
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11298055417,
+              "endTicks": 11298068825,
+              "threadId": 10
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11298079502,
+              "endTicks": 11298095255,
+              "threadId": 7
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11298094262,
+              "endTicks": 11298125076,
+              "threadId": 8
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11298114037,
+              "endTicks": 11298551013,
+              "threadId": 10
+            }
+          ],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\ea-cli\\j4"
+      },
+      "customFiles": 44,
+      "outputs": {
+        "base/Mod/streams/mod.bin": "eba03f09b3ec90cda6cb0b4b48f11b93268c491fa2a989f73f30fda214fe5fa0",
+        "base/Mod/streams/mod.imp": "ec3fee5825e4c9d06a9b855419a896f74e01884face85c17d7253a39e4bb8cbe",
+        "base/Mod/streams/mod.manifest": "aa726d9e8089ff66f949a2b0482720fcdb898e7cb342844b90e628b97b3ea962",
+        "base/Mod/streams/mod.relo": "30df20ef80962fac4673bd2e0ef02af50e86f24377b920bcf3ed5fc835dabb62",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.012d994d.807c4804.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.03cc6dde.caf61e87.cdata": "5f915ffdbe1886fc99ad52ae58407f88baa3a813418aa6db1a603a53368887be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0a09debd.27887aac.cdata": "16a8f5e64f7ea130c2a77ed08dbde2cb80de8cda9e2093f8085dcfb88565f36f",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0b6c607b.c584510e.cdata": "313b023aeb21390419030bcb14680bf643d93ffea632b4385fbd01214b882b99",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.168605c2.5e17c90a.cdata": "5dfa6d90a6b8aa1b184621bd625d01c7c88afe9be4a87cc2693a447ca4ac1552",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.2f79de78.f8c75b1c.cdata": "f90bcf7740d15a4259fa24af89c3ee30f8c6dd4b60daa37590fb04fcd5a25687",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.341f18a2.e90cd25b.cdata": "19fbff217fd785f37e3e82cc5381c4d034b2d5f526bb3858f87547854cfb7d90",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3463033f.675ababa.cdata": "1c71fc8b35fcbd2144960c16bf5c9560a2e70d4cad0fb6990c41a68dd8bba038",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.37bc9667.99ae2ac7.cdata": "7a78047952bbc5b6ca3f634aa90cfa2870e2c3e6401f4391d729cb7de684cbbd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3998db1c.95f97026.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3d8dae8a.59827fac.cdata": "efc56a81ff76c9e8ec65b3edd1129c6ebce51192ea10a6f0b52482db85435d72",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4535cd59.e52873cd.cdata": "d613695daefb44ac6c3a869d11cf39cc33a9b98770d23648acbb3ce0db799cb5",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.47e4475a.7b363ab1.cdata": "5890d647a107bc9e23047273a9dd962ebbe6c2ad8fb17a3073740b10151fd234",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.48efec1c.ffc4278f.cdata": "5dfa6d90a6b8aa1b184621bd625d01c7c88afe9be4a87cc2693a447ca4ac1552",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.494fdf1a.10350ce4.cdata": "44fa4987c742ee619024a08951e0ccf66c663040ac2a16821e608d5ed862157d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4dc48a6e.eae282e8.cdata": "0eb327893177de32db9dd011dda0f61357dc4fc4a7a681107516ae3c4af6534d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.503ea44f.d1ac7b90.cdata": "db08c6c38ca10b3b7008c270a63385d808264a09a2f6f517e59db0186d8dee00",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5626c674.0a708b4f.cdata": "1d46eb10da07d5db586770299b24305220788532f921033beb03a12ba8bd8470",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5aa1cfe1.40e12ade.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5fdb7b37.75f2bb9e.cdata": "16191a050ce19e516bae9419625b922b084b544f3c4a2ff79c38447e334d2416",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.65b585ad.1b1bd1a1.cdata": "5362781d9fbb457a4d64e7856d773abc7d77fa5799f170e19583ad3cdc9cfb9a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.730fd646.b1d076c1.cdata": "3c9e16487c7098c435991f9e73c7b097ceb7e8d8d3751cf8663da29aa2a39371",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.75a9ae4c.2a54c1ff.cdata": "758d84950b0297abee23263fc1bb224b1bb965648c8915f9b7ae649880dceb9c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7958f2b8.136053b7.cdata": "7ec45336547e5b38f56108a32d7e43a88f02bbe969469252ef4a3e505cec0a03",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7998f578.e551be1f.cdata": "c3ea8a103c3a2f3ade6cd32a919cfc5d2a3a142e9afb77369272b8767c372653",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.81d15dcb.9cf75e45.cdata": "5c1a9d0b7c9fa139e9502b11e499e6d8cff0d841eab6e4171bf4f9ae2376f4be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.822bf90f.a6a08398.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.87a5765d.7a9835b3.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.8a2db4a1.0ee820ec.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.96cb8db4.289d003b.cdata": "96dfca39d1be9dabfc06b12d122d6ab85927b095687c409df267c15047c563cf",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b34aa71d.2342cdea.cdata": "ffdca3d507ec203af7ba03566fcf4672616c991b60bc971156f3815d990b329e",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b5b0a068.14546893.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.c2f425f0.d44d1d4c.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ce69caa2.f00fc293.cdata": "4a3e8d91006b1bfbf4af445c156b4aa91112a500dfa624555f422fc892879f52",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.d389574f.11339f9d.cdata": "e72654c4b623b6ba71a91cb97879be2714e74c9d2a5b416b8c14232485372236",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dc641830.04ae0d26.cdata": "bfcc4fac679b596d8290ac01fff32361a9b76f24bf88d1cd71f3d6382926f4c3",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dd2f34e1.9697c01e.cdata": "070c24815b1608e52c5a7c9fa5a3d1fb85dce45733c2884087edd35dcb45186c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.de6658ff.b756f773.cdata": "18a3634819ced12cbab64e5a809d76eda17a36d3bdad550f5bae73b72544a31a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dfec6651.568e6905.cdata": "e5f4d970f95fb207cd8240057810369c935dad6959d505b8402e46ccc66eb7fd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.e7337d1d.76dbd014.cdata": "80db5cc6c1fa176a9d104dc260b1cae51947d5d0f6b9c77b6eeb06b887c0293a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ede67b9e.9a90115c.cdata": "860ea60906963cd08f6e86438cb7d5ff6d614598942df528ad59d9976a8e5443",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.f7aa294b.87d27493.cdata": "03e72673aa68f4e0e21bb2cab41c6913947a7be094467380b52c9ca2b0d61058",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fb266ed4.92bd748b.cdata": "4dbf73e9152fb8766579347cd6d314a6876158669360ac104ca2ba800e14c366",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fedc965d.ed99247c.cdata": "851d027ecd04450c83ebd8f2753d454d14e1d21e4aaecab2d47c8008cd06af80"
+      },
+      "passed": true
+    },
+    {
+      "name": "jobs4-hot",
+      "jobs": 4,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 860,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\ea-cli\\j4"
+      },
+      "customFiles": 44,
+      "outputs": {
+        "base/Mod/streams/mod.bin": "eba03f09b3ec90cda6cb0b4b48f11b93268c491fa2a989f73f30fda214fe5fa0",
+        "base/Mod/streams/mod.imp": "ec3fee5825e4c9d06a9b855419a896f74e01884face85c17d7253a39e4bb8cbe",
+        "base/Mod/streams/mod.manifest": "aa726d9e8089ff66f949a2b0482720fcdb898e7cb342844b90e628b97b3ea962",
+        "base/Mod/streams/mod.relo": "30df20ef80962fac4673bd2e0ef02af50e86f24377b920bcf3ed5fc835dabb62",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.012d994d.807c4804.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.03cc6dde.caf61e87.cdata": "5f915ffdbe1886fc99ad52ae58407f88baa3a813418aa6db1a603a53368887be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0a09debd.27887aac.cdata": "16a8f5e64f7ea130c2a77ed08dbde2cb80de8cda9e2093f8085dcfb88565f36f",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0b6c607b.c584510e.cdata": "313b023aeb21390419030bcb14680bf643d93ffea632b4385fbd01214b882b99",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.168605c2.5e17c90a.cdata": "5dfa6d90a6b8aa1b184621bd625d01c7c88afe9be4a87cc2693a447ca4ac1552",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.2f79de78.f8c75b1c.cdata": "f90bcf7740d15a4259fa24af89c3ee30f8c6dd4b60daa37590fb04fcd5a25687",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.341f18a2.e90cd25b.cdata": "19fbff217fd785f37e3e82cc5381c4d034b2d5f526bb3858f87547854cfb7d90",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3463033f.675ababa.cdata": "1c71fc8b35fcbd2144960c16bf5c9560a2e70d4cad0fb6990c41a68dd8bba038",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.37bc9667.99ae2ac7.cdata": "7a78047952bbc5b6ca3f634aa90cfa2870e2c3e6401f4391d729cb7de684cbbd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3998db1c.95f97026.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3d8dae8a.59827fac.cdata": "efc56a81ff76c9e8ec65b3edd1129c6ebce51192ea10a6f0b52482db85435d72",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4535cd59.e52873cd.cdata": "d613695daefb44ac6c3a869d11cf39cc33a9b98770d23648acbb3ce0db799cb5",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.47e4475a.7b363ab1.cdata": "5890d647a107bc9e23047273a9dd962ebbe6c2ad8fb17a3073740b10151fd234",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.48efec1c.ffc4278f.cdata": "5dfa6d90a6b8aa1b184621bd625d01c7c88afe9be4a87cc2693a447ca4ac1552",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.494fdf1a.10350ce4.cdata": "44fa4987c742ee619024a08951e0ccf66c663040ac2a16821e608d5ed862157d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4dc48a6e.eae282e8.cdata": "0eb327893177de32db9dd011dda0f61357dc4fc4a7a681107516ae3c4af6534d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.503ea44f.d1ac7b90.cdata": "db08c6c38ca10b3b7008c270a63385d808264a09a2f6f517e59db0186d8dee00",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5626c674.0a708b4f.cdata": "1d46eb10da07d5db586770299b24305220788532f921033beb03a12ba8bd8470",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5aa1cfe1.40e12ade.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5fdb7b37.75f2bb9e.cdata": "16191a050ce19e516bae9419625b922b084b544f3c4a2ff79c38447e334d2416",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.65b585ad.1b1bd1a1.cdata": "5362781d9fbb457a4d64e7856d773abc7d77fa5799f170e19583ad3cdc9cfb9a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.730fd646.b1d076c1.cdata": "3c9e16487c7098c435991f9e73c7b097ceb7e8d8d3751cf8663da29aa2a39371",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.75a9ae4c.2a54c1ff.cdata": "758d84950b0297abee23263fc1bb224b1bb965648c8915f9b7ae649880dceb9c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7958f2b8.136053b7.cdata": "7ec45336547e5b38f56108a32d7e43a88f02bbe969469252ef4a3e505cec0a03",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7998f578.e551be1f.cdata": "c3ea8a103c3a2f3ade6cd32a919cfc5d2a3a142e9afb77369272b8767c372653",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.81d15dcb.9cf75e45.cdata": "5c1a9d0b7c9fa139e9502b11e499e6d8cff0d841eab6e4171bf4f9ae2376f4be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.822bf90f.a6a08398.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.87a5765d.7a9835b3.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.8a2db4a1.0ee820ec.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.96cb8db4.289d003b.cdata": "96dfca39d1be9dabfc06b12d122d6ab85927b095687c409df267c15047c563cf",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b34aa71d.2342cdea.cdata": "ffdca3d507ec203af7ba03566fcf4672616c991b60bc971156f3815d990b329e",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b5b0a068.14546893.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.c2f425f0.d44d1d4c.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ce69caa2.f00fc293.cdata": "4a3e8d91006b1bfbf4af445c156b4aa91112a500dfa624555f422fc892879f52",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.d389574f.11339f9d.cdata": "e72654c4b623b6ba71a91cb97879be2714e74c9d2a5b416b8c14232485372236",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dc641830.04ae0d26.cdata": "bfcc4fac679b596d8290ac01fff32361a9b76f24bf88d1cd71f3d6382926f4c3",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dd2f34e1.9697c01e.cdata": "070c24815b1608e52c5a7c9fa5a3d1fb85dce45733c2884087edd35dcb45186c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.de6658ff.b756f773.cdata": "18a3634819ced12cbab64e5a809d76eda17a36d3bdad550f5bae73b72544a31a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dfec6651.568e6905.cdata": "e5f4d970f95fb207cd8240057810369c935dad6959d505b8402e46ccc66eb7fd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.e7337d1d.76dbd014.cdata": "80db5cc6c1fa176a9d104dc260b1cae51947d5d0f6b9c77b6eeb06b887c0293a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ede67b9e.9a90115c.cdata": "860ea60906963cd08f6e86438cb7d5ff6d614598942df528ad59d9976a8e5443",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.f7aa294b.87d27493.cdata": "03e72673aa68f4e0e21bb2cab41c6913947a7be094467380b52c9ca2b0d61058",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fb266ed4.92bd748b.cdata": "4dbf73e9152fb8766579347cd6d314a6876158669360ac104ca2ba800e14c366",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fedc965d.ed99247c.cdata": "851d027ecd04450c83ebd8f2753d454d14e1d21e4aaecab2d47c8008cd06af80"
+      },
+      "passed": true
+    },
+    {
+      "name": "modified-audio",
+      "jobs": 4,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 1,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 1,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 1,
+        "fileHashReuses": 859,
+        "fileHashBytesRead": 32816,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 1,
+          "backendCallsByType": {
+            "AudioFile": 1
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 4.7552,
+          "workerWaitMs": 16.117900000000002,
+          "workerComputeMs": 16.3524,
+          "ownerCommitMs": 4.6593,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 33894400,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11309459998,
+              "endTicks": 11309623522,
+              "threadId": 7
+            }
+          ],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\ea-cli\\j4"
+      },
+      "customFiles": 44,
+      "outputs": {
+        "base/Mod/streams/mod.bin": "041d49eb1d575650a135098a967d2fb456d39de0b59900e94fd14fe1b258145e",
+        "base/Mod/streams/mod.imp": "e67219807361187346b57be495e74af46d563a31ad8ad3acd0ee35c46515a85d",
+        "base/Mod/streams/mod.manifest": "09ca386a2b2c42ae75a5d5377db4c729f4996553516f3c5acd2ec5b71f621cb2",
+        "base/Mod/streams/mod.relo": "13b0c044d2b8c2c5e173be45b4202dbbf66cd2582f5cbaf73a8dd45a7361a4be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.012d994d.807c4804.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.03cc6dde.caf61e87.cdata": "5f915ffdbe1886fc99ad52ae58407f88baa3a813418aa6db1a603a53368887be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0a09debd.27887aac.cdata": "16a8f5e64f7ea130c2a77ed08dbde2cb80de8cda9e2093f8085dcfb88565f36f",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0b6c607b.c584510e.cdata": "313b023aeb21390419030bcb14680bf643d93ffea632b4385fbd01214b882b99",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.168605c2.5e17c90a.cdata": "5dfa6d90a6b8aa1b184621bd625d01c7c88afe9be4a87cc2693a447ca4ac1552",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.2f79de78.f8c75b1c.cdata": "f90bcf7740d15a4259fa24af89c3ee30f8c6dd4b60daa37590fb04fcd5a25687",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.341f18a2.e90cd25b.cdata": "19fbff217fd785f37e3e82cc5381c4d034b2d5f526bb3858f87547854cfb7d90",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3463033f.675ababa.cdata": "1c71fc8b35fcbd2144960c16bf5c9560a2e70d4cad0fb6990c41a68dd8bba038",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.37bc9667.99ae2ac7.cdata": "7a78047952bbc5b6ca3f634aa90cfa2870e2c3e6401f4391d729cb7de684cbbd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3998db1c.95f97026.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3d8dae8a.59827fac.cdata": "efc56a81ff76c9e8ec65b3edd1129c6ebce51192ea10a6f0b52482db85435d72",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4535cd59.e52873cd.cdata": "d613695daefb44ac6c3a869d11cf39cc33a9b98770d23648acbb3ce0db799cb5",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.47e4475a.7b363ab1.cdata": "5890d647a107bc9e23047273a9dd962ebbe6c2ad8fb17a3073740b10151fd234",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.48efec1c.d92d39b6.cdata": "1dd67e753368c889c99f31d63b460199463edb8e79ea9f5ed419b0ee0b071645",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.494fdf1a.10350ce4.cdata": "44fa4987c742ee619024a08951e0ccf66c663040ac2a16821e608d5ed862157d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4dc48a6e.eae282e8.cdata": "0eb327893177de32db9dd011dda0f61357dc4fc4a7a681107516ae3c4af6534d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.503ea44f.d1ac7b90.cdata": "db08c6c38ca10b3b7008c270a63385d808264a09a2f6f517e59db0186d8dee00",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5626c674.0a708b4f.cdata": "1d46eb10da07d5db586770299b24305220788532f921033beb03a12ba8bd8470",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5aa1cfe1.40e12ade.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5fdb7b37.75f2bb9e.cdata": "16191a050ce19e516bae9419625b922b084b544f3c4a2ff79c38447e334d2416",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.65b585ad.1b1bd1a1.cdata": "5362781d9fbb457a4d64e7856d773abc7d77fa5799f170e19583ad3cdc9cfb9a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.730fd646.b1d076c1.cdata": "3c9e16487c7098c435991f9e73c7b097ceb7e8d8d3751cf8663da29aa2a39371",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.75a9ae4c.2a54c1ff.cdata": "758d84950b0297abee23263fc1bb224b1bb965648c8915f9b7ae649880dceb9c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7958f2b8.136053b7.cdata": "7ec45336547e5b38f56108a32d7e43a88f02bbe969469252ef4a3e505cec0a03",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7998f578.e551be1f.cdata": "c3ea8a103c3a2f3ade6cd32a919cfc5d2a3a142e9afb77369272b8767c372653",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.81d15dcb.9cf75e45.cdata": "5c1a9d0b7c9fa139e9502b11e499e6d8cff0d841eab6e4171bf4f9ae2376f4be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.822bf90f.a6a08398.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.87a5765d.7a9835b3.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.8a2db4a1.0ee820ec.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.96cb8db4.289d003b.cdata": "96dfca39d1be9dabfc06b12d122d6ab85927b095687c409df267c15047c563cf",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b34aa71d.2342cdea.cdata": "ffdca3d507ec203af7ba03566fcf4672616c991b60bc971156f3815d990b329e",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b5b0a068.14546893.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.c2f425f0.d44d1d4c.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ce69caa2.f00fc293.cdata": "4a3e8d91006b1bfbf4af445c156b4aa91112a500dfa624555f422fc892879f52",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.d389574f.11339f9d.cdata": "e72654c4b623b6ba71a91cb97879be2714e74c9d2a5b416b8c14232485372236",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dc641830.04ae0d26.cdata": "bfcc4fac679b596d8290ac01fff32361a9b76f24bf88d1cd71f3d6382926f4c3",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dd2f34e1.9697c01e.cdata": "070c24815b1608e52c5a7c9fa5a3d1fb85dce45733c2884087edd35dcb45186c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.de6658ff.b756f773.cdata": "18a3634819ced12cbab64e5a809d76eda17a36d3bdad550f5bae73b72544a31a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dfec6651.568e6905.cdata": "e5f4d970f95fb207cd8240057810369c935dad6959d505b8402e46ccc66eb7fd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.e7337d1d.76dbd014.cdata": "80db5cc6c1fa176a9d104dc260b1cae51947d5d0f6b9c77b6eeb06b887c0293a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ede67b9e.9a90115c.cdata": "860ea60906963cd08f6e86438cb7d5ff6d614598942df528ad59d9976a8e5443",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.f7aa294b.87d27493.cdata": "03e72673aa68f4e0e21bb2cab41c6913947a7be094467380b52c9ca2b0d61058",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fb266ed4.92bd748b.cdata": "4dbf73e9152fb8766579347cd6d314a6876158669360ac104ca2ba800e14c366",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fedc965d.ed99247c.cdata": "851d027ecd04450c83ebd8f2753d454d14e1d21e4aaecab2d47c8008cd06af80"
+      },
+      "passed": true
+    },
+    {
+      "name": "modified-independent",
+      "jobs": 1,
+      "exitCode": 0,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 1,
+        "instanceCompile": 44,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 45,
+        "fileHashReuses": 815,
+        "fileHashBytesRead": 1688639,
+        "textureCache": false,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "1",
+          "effectiveJobs": 1,
+          "minimumEffectiveJobs": 1,
+          "backendCalls": 44,
+          "backendCallsByType": {
+            "AudioFile": 44
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 384.62080000000003,
+          "ownerCommitMs": 16.017,
+          "fallbackByReason": {
+            "resource-capacity": 44
+          },
+          "sampledPeakPrivateBytes": 38477824,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11315152028,
+              "endTicks": 11315291220,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11315333382,
+              "endTicks": 11315370770,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11315374313,
+              "endTicks": 11315402534,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11315405886,
+              "endTicks": 11315442645,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11315445924,
+              "endTicks": 11315499995,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11315505492,
+              "endTicks": 11315574765,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11315599592,
+              "endTicks": 11315651697,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11315655360,
+              "endTicks": 11315722484,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11315726223,
+              "endTicks": 11315832556,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11315836894,
+              "endTicks": 11315972710,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11315977349,
+              "endTicks": 11316084123,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11316088302,
+              "endTicks": 11316223437,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11316227708,
+              "endTicks": 11316387142,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11316391026,
+              "endTicks": 11316592150,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11316606190,
+              "endTicks": 11316772117,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11316776543,
+              "endTicks": 11316975984,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11316983165,
+              "endTicks": 11317037018,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317041008,
+              "endTicks": 11317093181,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317096921,
+              "endTicks": 11317147035,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317150824,
+              "endTicks": 11317200679,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317204168,
+              "endTicks": 11317252761,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317256463,
+              "endTicks": 11317322006,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317325506,
+              "endTicks": 11317379027,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317382626,
+              "endTicks": 11317437900,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317443247,
+              "endTicks": 11317494817,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317498495,
+              "endTicks": 11317537150,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317540771,
+              "endTicks": 11317610682,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317623885,
+              "endTicks": 11317757724,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317761268,
+              "endTicks": 11317959461,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11317963563,
+              "endTicks": 11318014944,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318018486,
+              "endTicks": 11318185965,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318190614,
+              "endTicks": 11318690412,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318703743,
+              "endTicks": 11318714065,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318717343,
+              "endTicks": 11318730138,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318733420,
+              "endTicks": 11318746233,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318749535,
+              "endTicks": 11318762280,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318765663,
+              "endTicks": 11318778440,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318781796,
+              "endTicks": 11318794882,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318798243,
+              "endTicks": 11318811280,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318814548,
+              "endTicks": 11318831084,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318838119,
+              "endTicks": 11318851613,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318855064,
+              "endTicks": 11318869895,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318873231,
+              "endTicks": 11318901964,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 11318905367,
+              "endTicks": 11319256537,
+              "threadId": 1
+            }
+          ],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": null
+      },
+      "customFiles": 44,
+      "outputs": {
+        "base/Mod/streams/mod.bin": "041d49eb1d575650a135098a967d2fb456d39de0b59900e94fd14fe1b258145e",
+        "base/Mod/streams/mod.imp": "e67219807361187346b57be495e74af46d563a31ad8ad3acd0ee35c46515a85d",
+        "base/Mod/streams/mod.manifest": "09ca386a2b2c42ae75a5d5377db4c729f4996553516f3c5acd2ec5b71f621cb2",
+        "base/Mod/streams/mod.relo": "13b0c044d2b8c2c5e173be45b4202dbbf66cd2582f5cbaf73a8dd45a7361a4be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.012d994d.807c4804.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.03cc6dde.caf61e87.cdata": "5f915ffdbe1886fc99ad52ae58407f88baa3a813418aa6db1a603a53368887be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0a09debd.27887aac.cdata": "16a8f5e64f7ea130c2a77ed08dbde2cb80de8cda9e2093f8085dcfb88565f36f",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0b6c607b.c584510e.cdata": "313b023aeb21390419030bcb14680bf643d93ffea632b4385fbd01214b882b99",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.168605c2.5e17c90a.cdata": "5dfa6d90a6b8aa1b184621bd625d01c7c88afe9be4a87cc2693a447ca4ac1552",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.2f79de78.f8c75b1c.cdata": "f90bcf7740d15a4259fa24af89c3ee30f8c6dd4b60daa37590fb04fcd5a25687",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.341f18a2.e90cd25b.cdata": "19fbff217fd785f37e3e82cc5381c4d034b2d5f526bb3858f87547854cfb7d90",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3463033f.675ababa.cdata": "1c71fc8b35fcbd2144960c16bf5c9560a2e70d4cad0fb6990c41a68dd8bba038",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.37bc9667.99ae2ac7.cdata": "7a78047952bbc5b6ca3f634aa90cfa2870e2c3e6401f4391d729cb7de684cbbd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3998db1c.95f97026.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3d8dae8a.59827fac.cdata": "efc56a81ff76c9e8ec65b3edd1129c6ebce51192ea10a6f0b52482db85435d72",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4535cd59.e52873cd.cdata": "d613695daefb44ac6c3a869d11cf39cc33a9b98770d23648acbb3ce0db799cb5",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.47e4475a.7b363ab1.cdata": "5890d647a107bc9e23047273a9dd962ebbe6c2ad8fb17a3073740b10151fd234",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.48efec1c.d92d39b6.cdata": "1dd67e753368c889c99f31d63b460199463edb8e79ea9f5ed419b0ee0b071645",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.494fdf1a.10350ce4.cdata": "44fa4987c742ee619024a08951e0ccf66c663040ac2a16821e608d5ed862157d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4dc48a6e.eae282e8.cdata": "0eb327893177de32db9dd011dda0f61357dc4fc4a7a681107516ae3c4af6534d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.503ea44f.d1ac7b90.cdata": "db08c6c38ca10b3b7008c270a63385d808264a09a2f6f517e59db0186d8dee00",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5626c674.0a708b4f.cdata": "1d46eb10da07d5db586770299b24305220788532f921033beb03a12ba8bd8470",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5aa1cfe1.40e12ade.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5fdb7b37.75f2bb9e.cdata": "16191a050ce19e516bae9419625b922b084b544f3c4a2ff79c38447e334d2416",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.65b585ad.1b1bd1a1.cdata": "5362781d9fbb457a4d64e7856d773abc7d77fa5799f170e19583ad3cdc9cfb9a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.730fd646.b1d076c1.cdata": "3c9e16487c7098c435991f9e73c7b097ceb7e8d8d3751cf8663da29aa2a39371",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.75a9ae4c.2a54c1ff.cdata": "758d84950b0297abee23263fc1bb224b1bb965648c8915f9b7ae649880dceb9c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7958f2b8.136053b7.cdata": "7ec45336547e5b38f56108a32d7e43a88f02bbe969469252ef4a3e505cec0a03",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7998f578.e551be1f.cdata": "c3ea8a103c3a2f3ade6cd32a919cfc5d2a3a142e9afb77369272b8767c372653",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.81d15dcb.9cf75e45.cdata": "5c1a9d0b7c9fa139e9502b11e499e6d8cff0d841eab6e4171bf4f9ae2376f4be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.822bf90f.a6a08398.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.87a5765d.7a9835b3.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.8a2db4a1.0ee820ec.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.96cb8db4.289d003b.cdata": "96dfca39d1be9dabfc06b12d122d6ab85927b095687c409df267c15047c563cf",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b34aa71d.2342cdea.cdata": "ffdca3d507ec203af7ba03566fcf4672616c991b60bc971156f3815d990b329e",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b5b0a068.14546893.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.c2f425f0.d44d1d4c.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ce69caa2.f00fc293.cdata": "4a3e8d91006b1bfbf4af445c156b4aa91112a500dfa624555f422fc892879f52",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.d389574f.11339f9d.cdata": "e72654c4b623b6ba71a91cb97879be2714e74c9d2a5b416b8c14232485372236",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dc641830.04ae0d26.cdata": "bfcc4fac679b596d8290ac01fff32361a9b76f24bf88d1cd71f3d6382926f4c3",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dd2f34e1.9697c01e.cdata": "070c24815b1608e52c5a7c9fa5a3d1fb85dce45733c2884087edd35dcb45186c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.de6658ff.b756f773.cdata": "18a3634819ced12cbab64e5a809d76eda17a36d3bdad550f5bae73b72544a31a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dfec6651.568e6905.cdata": "e5f4d970f95fb207cd8240057810369c935dad6959d505b8402e46ccc66eb7fd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.e7337d1d.76dbd014.cdata": "80db5cc6c1fa176a9d104dc260b1cae51947d5d0f6b9c77b6eeb06b887c0293a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ede67b9e.9a90115c.cdata": "860ea60906963cd08f6e86438cb7d5ff6d614598942df528ad59d9976a8e5443",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.f7aa294b.87d27493.cdata": "03e72673aa68f4e0e21bb2cab41c6913947a7be094467380b52c9ca2b0d61058",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fb266ed4.92bd748b.cdata": "4dbf73e9152fb8766579347cd6d314a6876158669360ac104ca2ba800e14c366",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fedc965d.ed99247c.cdata": "851d027ecd04450c83ebd8f2753d454d14e1d21e4aaecab2d47c8008cd06af80"
+      },
+      "passed": true
+    },
+    {
+      "name": "modified-hot",
+      "jobs": 4,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 1,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 860,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\ea-cli\\j4"
+      },
+      "customFiles": 44,
+      "outputs": {
+        "base/Mod/streams/mod.bin": "041d49eb1d575650a135098a967d2fb456d39de0b59900e94fd14fe1b258145e",
+        "base/Mod/streams/mod.imp": "e67219807361187346b57be495e74af46d563a31ad8ad3acd0ee35c46515a85d",
+        "base/Mod/streams/mod.manifest": "09ca386a2b2c42ae75a5d5377db4c729f4996553516f3c5acd2ec5b71f621cb2",
+        "base/Mod/streams/mod.relo": "13b0c044d2b8c2c5e173be45b4202dbbf66cd2582f5cbaf73a8dd45a7361a4be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.012d994d.807c4804.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.03cc6dde.caf61e87.cdata": "5f915ffdbe1886fc99ad52ae58407f88baa3a813418aa6db1a603a53368887be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0a09debd.27887aac.cdata": "16a8f5e64f7ea130c2a77ed08dbde2cb80de8cda9e2093f8085dcfb88565f36f",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.0b6c607b.c584510e.cdata": "313b023aeb21390419030bcb14680bf643d93ffea632b4385fbd01214b882b99",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.168605c2.5e17c90a.cdata": "5dfa6d90a6b8aa1b184621bd625d01c7c88afe9be4a87cc2693a447ca4ac1552",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.2f79de78.f8c75b1c.cdata": "f90bcf7740d15a4259fa24af89c3ee30f8c6dd4b60daa37590fb04fcd5a25687",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.341f18a2.e90cd25b.cdata": "19fbff217fd785f37e3e82cc5381c4d034b2d5f526bb3858f87547854cfb7d90",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3463033f.675ababa.cdata": "1c71fc8b35fcbd2144960c16bf5c9560a2e70d4cad0fb6990c41a68dd8bba038",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.37bc9667.99ae2ac7.cdata": "7a78047952bbc5b6ca3f634aa90cfa2870e2c3e6401f4391d729cb7de684cbbd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3998db1c.95f97026.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.3d8dae8a.59827fac.cdata": "efc56a81ff76c9e8ec65b3edd1129c6ebce51192ea10a6f0b52482db85435d72",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4535cd59.e52873cd.cdata": "d613695daefb44ac6c3a869d11cf39cc33a9b98770d23648acbb3ce0db799cb5",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.47e4475a.7b363ab1.cdata": "5890d647a107bc9e23047273a9dd962ebbe6c2ad8fb17a3073740b10151fd234",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.48efec1c.d92d39b6.cdata": "1dd67e753368c889c99f31d63b460199463edb8e79ea9f5ed419b0ee0b071645",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.494fdf1a.10350ce4.cdata": "44fa4987c742ee619024a08951e0ccf66c663040ac2a16821e608d5ed862157d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.4dc48a6e.eae282e8.cdata": "0eb327893177de32db9dd011dda0f61357dc4fc4a7a681107516ae3c4af6534d",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.503ea44f.d1ac7b90.cdata": "db08c6c38ca10b3b7008c270a63385d808264a09a2f6f517e59db0186d8dee00",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5626c674.0a708b4f.cdata": "1d46eb10da07d5db586770299b24305220788532f921033beb03a12ba8bd8470",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5aa1cfe1.40e12ade.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.5fdb7b37.75f2bb9e.cdata": "16191a050ce19e516bae9419625b922b084b544f3c4a2ff79c38447e334d2416",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.65b585ad.1b1bd1a1.cdata": "5362781d9fbb457a4d64e7856d773abc7d77fa5799f170e19583ad3cdc9cfb9a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.730fd646.b1d076c1.cdata": "3c9e16487c7098c435991f9e73c7b097ceb7e8d8d3751cf8663da29aa2a39371",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.75a9ae4c.2a54c1ff.cdata": "758d84950b0297abee23263fc1bb224b1bb965648c8915f9b7ae649880dceb9c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7958f2b8.136053b7.cdata": "7ec45336547e5b38f56108a32d7e43a88f02bbe969469252ef4a3e505cec0a03",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.7998f578.e551be1f.cdata": "c3ea8a103c3a2f3ade6cd32a919cfc5d2a3a142e9afb77369272b8767c372653",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.81d15dcb.9cf75e45.cdata": "5c1a9d0b7c9fa139e9502b11e499e6d8cff0d841eab6e4171bf4f9ae2376f4be",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.822bf90f.a6a08398.cdata": "5a613b6164a93c7b4d70d7c3d6a83ce32b0d6d267350c9bb0363004b98ab23e7",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.87a5765d.7a9835b3.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.8a2db4a1.0ee820ec.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.96cb8db4.289d003b.cdata": "96dfca39d1be9dabfc06b12d122d6ab85927b095687c409df267c15047c563cf",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b34aa71d.2342cdea.cdata": "ffdca3d507ec203af7ba03566fcf4672616c991b60bc971156f3815d990b329e",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.b5b0a068.14546893.cdata": "e868010f48260a58277c85f437c71b080b07af87c829ce1ab7f64c05c30f426c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.c2f425f0.d44d1d4c.cdata": "d7bfa4bd61ac5b58830077fd4a624575cf9451b6ea3cc850ac1f3aa252efe826",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ce69caa2.f00fc293.cdata": "4a3e8d91006b1bfbf4af445c156b4aa91112a500dfa624555f422fc892879f52",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.d389574f.11339f9d.cdata": "e72654c4b623b6ba71a91cb97879be2714e74c9d2a5b416b8c14232485372236",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dc641830.04ae0d26.cdata": "bfcc4fac679b596d8290ac01fff32361a9b76f24bf88d1cd71f3d6382926f4c3",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dd2f34e1.9697c01e.cdata": "070c24815b1608e52c5a7c9fa5a3d1fb85dce45733c2884087edd35dcb45186c",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.de6658ff.b756f773.cdata": "18a3634819ced12cbab64e5a809d76eda17a36d3bdad550f5bae73b72544a31a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.dfec6651.568e6905.cdata": "e5f4d970f95fb207cd8240057810369c935dad6959d505b8402e46ccc66eb7fd",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.e7337d1d.76dbd014.cdata": "80db5cc6c1fa176a9d104dc260b1cae51947d5d0f6b9c77b6eeb06b887c0293a",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.ede67b9e.9a90115c.cdata": "860ea60906963cd08f6e86438cb7d5ff6d614598942df528ad59d9976a8e5443",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.f7aa294b.87d27493.cdata": "03e72673aa68f4e0e21bb2cab41c6913947a7be094467380b52c9ca2b0d61058",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fb266ed4.92bd748b.cdata": "4dbf73e9152fb8766579347cd6d314a6876158669360ac104ca2ba800e14c366",
+        "base/Mod/streams/mod/cdata/166b084d.53c81e47.fedc965d.ed99247c.cdata": "851d027ecd04450c83ebd8f2753d454d14e1d21e4aaecab2d47c8008cd06af80"
+      },
+      "passed": true
+    }
+  ]
+}

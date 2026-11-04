@@ -1,0 +1,89 @@
+name: Audio XAS performance and byte equivalence
+on:
+  push:
+    branches: [perf/audio-xas-ranges]
+    paths:
+      - 'recovery/src/Managed/Audio/Native/Xas1Encoder.cs'
+      - 'recovery/src/Managed/Audio/Native/LoopPcmEncoder.cs'
+      - 'recovery/src/Managed/Audio/Native/Pcm16Encoder.cs'
+      - 'recovery/tests/AudioXasPerformance.cs'
+      - 'recovery/scripts/TestAudioXasPerformance.ps1'
+      - '.github/workflows/audio-xas-performance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: audio-xas-performance-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: windows-2022
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned original XAS oracle dependencies
+        run: python -m pip install unicorn==2.1.4 pefile==2024.8.26
+      - name: Existing original plugin differential, Debug and Release x86
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioPlugin.ps1 -Groups pcm,xas,loops,aiffloops,multichannel,multichannel-aiff,resample-full
+      - name: Existing original encoder and float precision oracles
+        if: '!cancelled()'
+        shell: pwsh
+        run: |
+          $original="recovery/evidence/audio/plugin-validation/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          ./recovery/scripts/TestAudioPcm.ps1 -OriginalEvidenceDirectory $original
+          ./recovery/scripts/TestAudioPcm.ps1 -Codec XAS -OriginalEvidenceDirectory $original
+          ./recovery/scripts/TestAudioXasPrecision.ps1
+      - name: Same-machine baseline and optimized long audio measurements
+        if: '!cancelled()'
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioXasPerformance.ps1
+      - name: Summarize audio-xas-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/Original-calls.tsv
+            !**/Recovered-calls.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "audio-xas-performance reports"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audio-xas-performance-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/Original-calls.tsv
+            !**/Recovered-calls.tsv
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize audio-xas-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+        run: python recovery/scripts/WriteCiSummary.py --title "audio-xas-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: audio-xas-performance-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+          retention-days: 1
+          if-no-files-found: warn

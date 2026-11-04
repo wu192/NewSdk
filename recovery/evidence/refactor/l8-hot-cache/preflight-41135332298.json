@@ -1,0 +1,22 @@
+{
+  "sourceCommit": "873271d3a25d1c839c55af46417ff1a826ed6a41",
+  "runId": "41135332298",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41135332298",
+  "scope": "Portable controller/workload/report/snapshot checks on both host filesystems; no compiler performance claim",
+  "jobs": [
+    {
+      "jobId": 124336260595,
+      "name": "preflight (ubuntu-latest)",
+      "conclusion": "success",
+      "tests": 33,
+      "seconds": 4.48
+    },
+    {
+      "jobId": 124336261009,
+      "name": "preflight (windows-2022)",
+      "conclusion": "success",
+      "tests": 33,
+      "seconds": 25.54
+    }
+  ]
+}

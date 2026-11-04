@@ -1,0 +1,8 @@
+{
+  "scope": "Isolated original and before/after C++/CLI plugin components, Release /O2 x86. Four synthetic prepared-XML fixtures; both byte orders compared; five alternating Win32 measurement pairs. XML parsing, Core preparation, caches and full MOD compilation excluded. managedAllocatedBytes excludes native heap allocations.",
+  "runId": "41137277732",
+  "status": "failed",
+  "error": "System.Management.Automation.RuntimeException: Component byte equivalence or measurement failed",
+  "baselineCommit": "8f854606ac20ce372045e3661b38e58e4e933ca2",
+  "sourceCommit": "e6b611f0e21f0fbd44dd43797aa1312483649ca3"
+}

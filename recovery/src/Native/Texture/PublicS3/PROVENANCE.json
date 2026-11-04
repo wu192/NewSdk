@@ -1,0 +1,82 @@
+{
+  "scope": "Monolithic Win32/PC DXT3/5 source; per-thread state validated with exact-byte concurrency and unchanged common results",
+  "blockSourceCommit": "cda610ed4ad1348eae7c1631824ce6d8c35a7e3c",
+  "blockRunId": "40646658908",
+  "files": [
+    {
+      "upstreamPath": "libs/libxgraphics/dxtc/s3_quant.cpp",
+      "repository": "Team-Resurgent/RXDK-Libs",
+      "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+      "blobSha": "315790d5618adeeac2fefe2f80fe15420b43f554",
+      "sha256": "922a6f46cb23a550a71cfa478ab79328be310a85049b0071dc30224c48c515a0",
+      "bytes": 94887,
+      "upstreamBlobSha": "c34b68c5c6a8e345948492a5c5b62cfd05f355d2",
+      "upstreamSha256": "80b30c4bd4097f64c23bffa65268828993277d7790f637f53ceb57a2ab436cf8",
+      "compatibilityPatch": "Forced-four-colour working mapping contract, fixed legacy grayscale constants; readable general PC float quick candidate and floor-palette final error/reindex wrapper; compile-time stage diagnostics only; no encoder callbacks or corpus-ID selection; exact RGB all-same equality for normalized float domain; final wrapper uses owned inline x87 scoring/comparisons and extended intermediates; restore quick projection indices from the pre-scoring snapshot when quick wins; explicit mode3 with fixed original gray constants, three-point floor palette and opaque DXT1 black-index scoring (DXT1A excludes transparent index); preserve static scratch storage and initialization per native thread, thread-local interpolation policy and lazy single-colour grids; immutable coefficient tables shared const; no numerical algorithm or x87 changes",
+      "file": "s3_quant.cpp",
+      "previousBlobSha": "006f68a2034a4dd053d3b54558123690581a5d84",
+      "previousSha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
+      "previousBytes": 94548
+    },
+    {
+      "upstreamPath": "libs/libxgraphics/dxtc/S3_quant.h",
+      "repository": "Team-Resurgent/RXDK-Libs",
+      "commit": "b7c9f2b3a24ece1aec850dca52155a4f8633686c",
+      "blobSha": "ba9a7180467f3e1ea744c83ba1fe5249c2928345",
+      "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+      "bytes": 2724,
+      "file": "S3_quant.h"
+    },
+    {
+      "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608+8192 (8192 bytes)",
+      "repository": "wu162/NewSdk",
+      "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+      "blobSha": "b188483b80391cee4d7e5f9b85f01832bfa1f012",
+      "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+      "bytes": 7023,
+      "origin": "existing recovered fixed codec optimization data, not public S3 upstream and not corpus payloads",
+      "sourceDataSha256": "c8c04516fe9c09fd35f56b5ef96e889db56a41ab1f575385f90ee1fa2e558211",
+      "file": "LegacyGray4.inl"
+    },
+    {
+      "file": "TexturePublicS3.cpp",
+      "origin": "owned bounded PC ABI; no encoder implementation callbacks",
+      "sha256": "13a26e58d76e040ea2b774224dc9e99fbd5abfbb718fdbe4c9569f793f27b054",
+      "blobSha": "46c4b05cf9967be24d6c5ecaaa79cfdc8af70567",
+      "bytes": 3145,
+      "referenceOnly": true,
+      "monolithicReplacement": "recovery/src/Bridge/TextureCompiler.cpp",
+      "note": "Reference branch ABI fingerprint retained; this file is adapted into the monolithic bridge rather than copied locally."
+    },
+    {
+      "file": "LegacyGray3.inl",
+      "origin": "existing recovered codec optimization data, not corpus payloads",
+      "repository": "wu162/NewSdk",
+      "commit": "ce37532f192f6b2275adcd044cddce5232aa3c1e",
+      "upstreamPath": "src/TextureCompiler/Colour/TextureColour.asm D_000B9608 first8192 bytes",
+      "sourceDataSha256": "c9feeaf992d2457d146d414a2d27543b5178bd07f4797fd4b596d914eaa7013e",
+      "sha256": "04915b4cb6b5af4182697a5479ec9ca388b1e445762937135089d1c866e11a0b",
+      "bytes": 6934,
+      "blobSha": "160505d3cea649e811f9ace75991c7e0bb726a9f"
+    }
+  ],
+  "threadSafety": {
+    "sourceRef": "wu162/NewSdk@b30dffac5aeb027cf37a6dac0cd47beafe9fbea0",
+    "status": "accepted in Windows Debug/Release: cold TLS, four overlapping workers, owner/worker buffers and private CDATA equal",
+    "mutableStorage": "native thread_local; no shared mutable encoder scratch/cache",
+    "scratchDoubleBytes": 11120,
+    "gridBytes": 13824,
+    "initFlagBytes": 8,
+    "policyBytes": 4,
+    "tlsPayloadBytesPerNativeThread": 24956,
+    "estimatedAlignedTlsBytesPerNativeThread": 24960,
+    "scope": "STATIC and STATIC_ARR doubles, allSame grids/initFlags, LegacyInterpolationPolicy; immutable coefficients and fixed gray records remain shared const",
+    "validation": {
+      "productionSourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+      "runId": "41185772818",
+      "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41185772818",
+      "receipt": "recovery/evidence/texture/plugin-validation/41185772818-1/full-summary.json",
+      "previousCommonResultsByteIdentical": true
+    }
+  }
+}

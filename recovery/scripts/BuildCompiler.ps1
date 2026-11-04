@@ -44,7 +44,7 @@ try {
     $arguments=@('/nologo','/noconfig','/nostdlib+','/codepage:65001','/target:module','/platform:anycpu','/langversion:10.0','/deterministic+','/unsafe+','/define:NEWSdk_MONOLITHIC',('/out:"'+$application+'"'),('/addmodule:"'+$foundation+'"'))
     foreach($bridgeObject in $nativeBuild.bridgeObjects){$arguments+=('/addmodule:"'+$bridgeObject+'"')}
     $arguments+=if($Configuration -eq 'Release'){'/optimize+'}else{'/optimize-'}
-    foreach($reference in @('mscorlib','System','System.Core','System.Xml','System.Configuration','System.Data','System.Web','System.Configuration.Install','System.Web.Extensions')){$arguments+=('/reference:"'+(Join-Path $framework ($reference+'.dll'))+'"')}
+    foreach($reference in @('mscorlib','System','System.Core','System.Xml','System.Configuration','System.Data','System.Web','System.Configuration.Install','System.Web.Extensions','System.Drawing')){$arguments+=('/reference:"'+(Join-Path $framework ($reference+'.dll'))+'"')}
     $arguments+=('/reference:"'+(Resolve-Path 'SDK/tools/antlr.runtime.dll').Path+'"')
     $arguments+=@($sources|ForEach-Object{'"'+$_.FullName+'"'})
     $rsp=Join-Path $obj 'Application.rsp'
@@ -55,7 +55,7 @@ try {
     $optimization=if($Configuration -eq 'Release'){'/O2'}else{'/Od'}
     Invoke-CompilerTool 'cl.exe' @('/nologo','/c','/clr','/MD','/EHa','/fp:precise',$optimization,('/AI'+$obj),('/AI'+$FoundationDirectory),('/Fo'+$hostObject),$hostingSource) (Join-Path $out 'host-build.log')
     $exe=Join-Path $bin 'NewModCompiler.exe'
-    $linkArguments=@('/nologo','/LTCG','/MACHINE:X86','/SUBSYSTEM:CONSOLE','/ENTRY:NewModCompiler.Hosting.CompilerEntry.Main',('/OUT:'+$exe),$hostObject,$foundation,$application)
+    $linkArguments=@('/nologo','/LTCG','/MACHINE:X86','/SUBSYSTEM:CONSOLE','/ENTRY:NewModCompiler.Hosting.CompilerEntry.Main',('/OUT:'+$exe),('/IMPLIB:'+(Join-Path $obj 'EaLayer3Exports.lib')),$hostObject,$foundation,$application)
     $linkArguments+=@($nativeBuild.objects)
     $resources=@(Get-Content (Join-Path $FoundationDirectory 'resources.json') -Raw|ConvertFrom-Json)
     foreach($resource in $resources){$linkArguments+=('/ASSEMBLYRESOURCE:'+$resource.path+','+$resource.logicalName)}
@@ -76,7 +76,6 @@ try {
     $metadataTool=(Resolve-Path 'recovery/build/ManagedMetadata/bin/Release/net8.0/ManagedMetadata.dll').Path
     Invoke-CompilerTool 'dotnet' @($metadataTool,'verify-linked',$exe,(Resolve-Path 'SDK/tools/BinaryAssetBuilder.Utility.dll').Path) (Join-Path $out 'metadata.log')
     if((Get-FileHash $exe -Algorithm SHA256).Hash -cne $before){throw 'Metadata verification mutated the mixed executable'}
-    & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe|Out-Host
     @{
         schemaVersion=2;sourceCommit=(git rev-parse HEAD).Trim();configuration=$Configuration;runtime='net48/Win32';intermediateModules='AnyCPU'
         entryPoint='NewModCompiler.Hosting.CompilerEntry.Main';foundationSha256=$foundationReceipt.moduleSha256
@@ -85,7 +84,8 @@ try {
         sources=@($sources|ForEach-Object{@{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
         hostingSource=@{path='recovery/src/Hosting/CompilerEntry.cpp';sha256=(Get-FileHash $hostingSource -Algorithm SHA256).Hash.ToLowerInvariant()}
         nativeBuild=$nativeBuild
-        resources=$resources;runtimeFiles=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')
+        resources=$resources;runtimeFiles=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
+        texturePlugin=@{implementation='built-in-source';externalRuntimeFiles=@()}
         scope='Unified Native/Bridge, built-in compilers and managed Foundation in one EXE; experimental in-process no-cache CLI backend, with P5/G3/SDK acceptance tracked separately'
         containsProbeOrTestSources=$false;backendIntegrated=$true;modCompilationSupported=$false;modCompilationAcceptance='Not established by a build receipt; require actual CLI and P5/G3/SDK evidence';status='built; clean deployment and runtime validation required'
     }|ConvertTo-Json -Depth 8|Set-Content (Join-Path $out 'build.json')

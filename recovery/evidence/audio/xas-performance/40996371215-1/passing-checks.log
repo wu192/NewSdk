@@ -1,0 +1,39 @@
+2026-10-30T03:18:23.9724074Z PASS excluded platforms: 48 catalog/lifecycle/direct-compile/policy rejection contracts; no original comparison or SDK execution
+2026-10-30T03:18:24.1193656Z PASS Audio input rejection boundaries: 15
+2026-10-30T03:18:24.1853500Z PASS loop candidate safety: 14 structural/unsupported/point-boundary checks; separate from original equivalence
+2026-10-30T03:18:24.2384411Z PASS AIFF loop candidate safety: 16 boundary checks; separate from original equivalence
+2026-10-30T03:18:24.4221656Z PASS Audio plugin Debug pcm: 8 identical three-buffer/custom-data records
+2026-10-30T03:18:24.5705797Z PASS Audio plugin Debug xas: 12 identical three-buffer/custom-data records
+2026-10-30T03:18:25.0310302Z PASS Audio plugin Debug loops: 216 identical three-buffer/custom-data records
+2026-10-30T03:18:25.3310461Z PASS Audio plugin Debug aiffloops: 200 identical three-buffer/custom-data records
+2026-10-30T03:21:30.7624445Z PASS Audio plugin Debug multichannel: 1728 identical three-buffer/custom-data records
+2026-10-30T03:34:30.1778004Z PASS Audio plugin Debug multichannel-aiff: 6336 identical three-buffer/custom-data records
+2026-10-30T03:34:46.6431701Z PASS Audio plugin Debug resample-full: 424 identical three-buffer/custom-data records
+2026-10-30T03:34:49.1680487Z PASS excluded platforms: 48 catalog/lifecycle/direct-compile/policy rejection contracts; no original comparison or SDK execution
+2026-10-30T03:34:49.2912927Z PASS Audio input rejection boundaries: 15
+2026-10-30T03:34:49.3465182Z PASS loop candidate safety: 14 structural/unsupported/point-boundary checks; separate from original equivalence
+2026-10-30T03:34:49.4021950Z PASS AIFF loop candidate safety: 16 boundary checks; separate from original equivalence
+2026-10-30T03:34:49.5982264Z PASS Audio plugin Release pcm: 8 identical three-buffer/custom-data records
+2026-10-30T03:34:49.7522974Z PASS Audio plugin Release xas: 12 identical three-buffer/custom-data records
+2026-10-30T03:34:50.0891258Z PASS Audio plugin Release loops: 216 identical three-buffer/custom-data records
+2026-10-30T03:34:50.3504127Z PASS Audio plugin Release aiffloops: 200 identical three-buffer/custom-data records
+2026-10-30T03:36:04.1644440Z PASS Audio plugin Release multichannel: 1728 identical three-buffer/custom-data records
+2026-10-30T03:41:18.8358966Z PASS Audio plugin Release multichannel-aiff: 6336 identical three-buffer/custom-data records
+2026-10-30T03:41:25.7069732Z PASS Audio plugin Release resample-full: 424 identical three-buffer/custom-data records
+2026-10-30T03:41:26.6706829Z PASS PCM encoder component: 8 original HeaderData/CustomData comparisons; no SDK or plugin acceptance
+2026-10-30T03:41:26.7211213Z PASS PCM native block-size differential: 504 original x87 53-bit cases including 400/431 Hz
+2026-10-30T03:41:26.9105913Z PASS PCM encoder component: 8 original HeaderData/CustomData comparisons; no SDK or plugin acceptance
+2026-10-30T03:41:26.9515884Z PASS PCM native block-size differential: 504 original x87 53-bit cases including 400/431 Hz
+2026-10-30T03:41:27.6205600Z PASS XAS encoder component: 12 original HeaderData/CustomData comparisons; no SDK or plugin acceptance
+2026-10-30T03:41:27.6761247Z PASS XAS native block-size differential: 504 original x87 53-bit cases including 400/431 Hz
+2026-10-30T03:41:27.7816951Z PASS XAS native-block differential: 262 cases, predictors 0/1/2/3, mono/stereo, original DLL machine-code oracle
+2026-10-30T03:41:27.9810345Z PASS XAS encoder component: 12 original HeaderData/CustomData comparisons; no SDK or plugin acceptance
+2026-10-30T03:41:28.0191864Z PASS XAS native block-size differential: 504 original x87 53-bit cases including 400/431 Hz
+2026-10-30T03:41:28.0837860Z PASS XAS native-block differential: 262 cases, predictors 0/1/2/3, mono/stereo, original DLL machine-code oracle
+2026-10-30T03:41:28.6289549Z PASS original x86 XAS oracle: 264 cases; predictors [0, 1, 2, 3]; shifts [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+2026-10-30T03:41:29.0010992Z PASS XAS native-block differential: 264 cases, two signed16-derived strict-binary32 regressions, predictors 0/1/2/3, mono/stereo, original DLL machine-code oracle
+2026-10-30T03:41:29.2089079Z PASS XAS native-block differential: 264 cases, two signed16-derived strict-binary32 regressions, predictors 0/1/2/3, mono/stereo, original DLL machine-code oracle
+2026-10-30T03:48:41.5784380Z Allocation metric: AppDomain.MonitoringTotalAllocatedMemorySize
+2026-10-30T03:48:41.5786363Z Runtime: 4.0.30319.42000; pointer bits: 32
+2026-10-30T03:48:41.5786910Z PASS before/after boundary comparisons: 3280
+2026-10-30T03:48:41.5840462Z PASS long audio byte comparisons: 21

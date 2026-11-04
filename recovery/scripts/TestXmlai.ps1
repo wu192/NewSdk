@@ -43,7 +43,7 @@ try {
         $build = "$evidence/$mode-build.txt"
         & cl /nologo /clr /LD /MD /EHa "/$mode" /fp:precise /AI"$out" /Fo"$out/" /Fe"$out/Recovered.Xmlai.dll" @sources *> $build
         if ($LASTEXITCODE -ne 0) { Get-Content $build; throw "$mode Xmlai x86 C++/CLI build failed" }
-        & $csc /nologo /platform:x86 /r:"$out/Recovered.Xmlai.dll" /r:"$out/BinaryAssetBuilder.Core.dll" /out:"$out/XmlaiOracle.exe" @oracleDefines @oracleSources *> "$evidence/$mode-host-build.txt"
+        & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /platform:x86 /r:"$out/Recovered.Xmlai.dll" /r:"$out/BinaryAssetBuilder.Core.dll" /out:"$out/XmlaiOracle.exe" @oracleDefines @oracleSources *> "$evidence/$mode-host-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-host-build.txt"; throw "$mode Xmlai oracle build failed" }
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$out/XmlaiOracle.exe.config"
         & "$out/XmlaiOracle.exe" $original *> "$evidence/$mode-oracle.txt"

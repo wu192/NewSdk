@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "ae4654a892446724bf870348e56f2e8072fafa58",
+  "binarySourceCommit": "ae4654a892446724bf870348e56f2e8072fafa58",
+  "testSourceCommit": "ae4654a892446724bf870348e56f2e8072fafa58",
+  "runId": 40868109538,
+  "runAttempt": 1,
+  "status": "success",
+  "branch": "recovery/legacy-sdk-cache",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/40868109538",
+  "artifact": {
+    "id": 12895217223,
+    "sizeInBytes": 144093264,
+    "sha256": "4ee867eb1341228181c8e4147f774609de221035f1ce2c9c5309d931ad25bb28",
+    "downloadedAndDigestVerified": true
+  },
+  "stableSort": {
+    "Debug": {
+      "assets": 1024,
+      "referenceComparisons": 523776,
+      "optimizedComparisons": 1023,
+      "referenceMs": 69.25110000000001,
+      "optimizedMs": 0.2361,
+      "scope": "Single direct production sorting-helper sample, excluding initial schema sort, serialization, native compilation and publication; not an end-to-end SDK speedup"
+    },
+    "Release": {
+      "assets": 1024,
+      "referenceComparisons": 523776,
+      "optimizedComparisons": 1023,
+      "referenceMs": 58.680800000000005,
+      "optimizedMs": 0.2396,
+      "scope": "Single direct production sorting-helper sample, excluding initial schema sort, serialization, native compilation and publication; not an end-to-end SDK speedup"
+    }
+  },
+  "stableSortCasesPerConfiguration": 66,
+  "stableSortReference": "Frozen insertion rule from 072beb3f; current helper invoked from the real production-object validation host",
+  "endToEndSpeedupMeasured": false,
+  "combinedSessionHot": {
+    "Debug": {
+      "documentReuse": 3,
+      "xmlParse": 0,
+      "instanceCompile": 0,
+      "fileHashReads": 0,
+      "fileHashBytesRead": 0,
+      "fileHashReuses": 837,
+      "linkedStreamsRestored": 2,
+      "publicationUnchanged": true
+    },
+    "Release": {
+      "documentReuse": 3,
+      "xmlParse": 0,
+      "instanceCompile": 0,
+      "fileHashReads": 0,
+      "fileHashBytesRead": 0,
+      "fileHashReuses": 837,
+      "linkedStreamsRestored": 2,
+      "publicationUnchanged": true
+    }
+  },
+  "sdk": {
+    "succeeded": true,
+    "inputsUnchanged": true,
+    "receipt": "sdk-validation-summary.json",
+    "scope": "Complete unchanged repository SDK/Mods/mymod source, base/apt/maps discovery, one production build process per Debug/Release configuration, original BAB raw four-stream and exact CDATA output comparison. BIG/SKUDEF is additionally compared to original LoD and MakeBig using this unchanged MOD; empty optional groups remain empty and no synthetic APT/map coverage or complete game runtime acceptance is inferred."
+  },
+  "release": {
+    "succeeded": true,
+    "receipt": "release-summary.json",
+    "scope": "Exact five-file Win32/net48 runtime ZIP deployment, production doctor and small Armor MOD with source-runtime raw output equivalence; not complete P5/G3/SDK or Unicode Texture acceptance; independently extracted exact runtime additionally passed real base/APT/maps BIG builds, original LoD and MakeBig raw member differential, explicit SDK/MOD Additional against original CopyFolders and MakeBig, opt-in neutral hash repair against original HashFix/Resolver/LoD/MakeBig (no-insertion scope), CDATA and rollback/cancellation matrices"
+  },
+  "schemaValidationCleanup": "Core validation receipt bypasses duplicate LogicCommandSet structure validation; direct unvalidated entry remains checked; other compiler capability and payload checks retained",
+  "retainedFailures": [
+    {
+      "runId": 40860991872,
+      "sourceCommit": "590025dc6b5d9fa308f3e36ed9039f400a6337ed",
+      "reason": "Schema equal-mtime fixture mutation within one filesystem clock tick"
+    },
+    {
+      "runId": 40861431337,
+      "sourceCommit": "2bea659822494d14ca344c917a47be780816e17c",
+      "reason": "Schema equal-mtime fixture mutation within one filesystem clock tick"
+    },
+    {
+      "runId": 40862734658,
+      "sourceCommit": "447865078745c87188c7021e0b9a29761b4b1366",
+      "reason": "Schema equal-mtime fixture mutation within one filesystem clock tick"
+    },
+    {
+      "runId": 40865913560,
+      "sourceCommit": "a458d1231d8522feea5f5f205e617b527225c61a",
+      "reason": "Synthetic benchmark assumed unique legacy type hashes; 63 order cases had passed; new fixture handles collisions explicitly"
+    }
+  ],
+  "coverage": "Debug/Release application and Core lifecycle; schema identities and checked/validated dispatch; real CLI/cold processes/CtrlBreak; asset/session caches and missing-output repair; Texture/Audio/W3X; BIG/Additional/neutral rollback and protocols; complete unchanged mymod original raw output comparison; exact five-file ZIP deployment. Full game/WBData and Unicode Texture acceptance not newly claimed.",
+  "rawReceipts": "Exact original receipts retained in the downloaded, digest-verified GitHub archive; repository files provide bounded extracts."
+}

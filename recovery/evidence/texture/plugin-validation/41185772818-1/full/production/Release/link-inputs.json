@@ -1,0 +1,784 @@
+{
+  "configuration": "Release",
+  "schemaVersion": 1,
+  "arguments": [
+    "/nologo",
+    "/LTCG",
+    "/MACHINE:X86",
+    "/SUBSYSTEM:CONSOLE",
+    "/ENTRY:NewModCompiler.Hosting.CompilerEntry.Main",
+    "/OUT:D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\bin\\NewModCompiler.exe",
+    "/IMPLIB:D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\EaLayer3Exports.lib",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\CompilerEntry.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\Managed.Foundation.netmodule",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\Managed.Application.netmodule",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Relocation.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_ScalarParsing.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_DataInitializers.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_ResourceMarshaling.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_EnumBitset.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_ObjectFilter.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_ArmorTemplate.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_WeaponNugget.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_WeaponTemplate.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_WeaponSlotOrder.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_GameObject.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlabilitybuttons.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlai.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlaptdata.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlarmyopening.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlassetindexes.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlattributes.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlaudio.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlbuildeconomy.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcampaign.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlchatcolors.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcommandset.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlconditions.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlconnections.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlconquercards.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcontent.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcrowd.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmldamagefx.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmldynamics.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmleffects.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmleffectsEnums.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmleffectsNuggets.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlemotions.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlenvironment.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlevaachievement.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlforcefeedback.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlfxparticle.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlgamemap.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlgamescripts.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlhealthbars.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlhotkeymaps.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmllocalization.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmllocomotor.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmapmetadata.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmaterialrules.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmouse.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmoviearchive.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmusicscript.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlobjectsets.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlpathmusic.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlplayers.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlpowers.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlprogression.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmlprogressionFont.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmlprogressionUi.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlprojectilepath.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlradar.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlredalert.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlrenderassets.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlrenderdevice.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlruntimeopaque.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlsinglesound.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlsoundmaps.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlsystemsettings.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmltacticalhotkeys.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmltargeting.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlterrain.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmltesttextures.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluichat.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluiconfig.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluidecals.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluiimages.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluisettings.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluitactical.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlunitoverlay.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlvisibility.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlvisualsystems.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlw3d.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_AdaptiveDelta.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_AnimationCompiler.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_AnimationPipeline.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshAsset.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshBuilder.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshConverters.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshSerialization.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_Shader.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_Timecoded.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_bitreserve.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_ealayer3core.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_VbrTag.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_bitstream.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_encoder.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_fft.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_gain_analysis.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_id3tag.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_lame.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_newmdct.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_presets.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_psymodel.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_quantize.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_quantize_pvt.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_reservoir.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_set_get.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_tables.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_takehiro.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_util.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_vbrquantize.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_version.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mp3toea.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpeg.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpeghufftables.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpegl3base.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpegpoly_c.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3Encoder.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_scalesamples.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Texture_PublicS3_s3_quant.obj",
+    "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\CompilerBridges.obj",
+    "/ASSEMBLYRESOURCE:D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\BinaryAssetBuilderProject.xsd,BinaryAssetBuilderProject.xsd",
+    "/ASSEMBLYRESOURCE:D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\Mvp.Xml.Common.SR.resources,Mvp.Xml.Common.SR.resources",
+    "/ASSEMBLYRESOURCE:D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources,Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources",
+    "/ASSEMBLYRESOURCE:D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\Mvp.Xml.XPointer.SR.resources,Mvp.Xml.XPointer.SR.resources",
+    "/ASSEMBLYRESOURCE:D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\Mvp.Xml.XInclude.SR.resources,Mvp.Xml.XInclude.SR.resources",
+    "/ASSEMBLYRESOURCE:D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\LibTessDotNet.dll,BinaryAssetBuilder.UiCompiler.Dependencies.LibTessDotNet.dll",
+    "/ASSEMBLYRESOURCE:D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\Clipper2Lib.dll,BinaryAssetBuilder.UiCompiler.Dependencies.Clipper2Lib.dll",
+    "/ASSEMBLYRESOURCE:D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\StbImageSharp.dll,BinaryAssetBuilder.UiCompiler.Dependencies.StbImageSharp.dll"
+  ],
+  "sourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+  "inputs": [
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\Managed.Foundation.netmodule",
+      "kind": "foundation",
+      "sha256": "e4ff16bf1e53d901dfab79d6245db8ca8ccbefa585098d73a4d155964310200a"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\Managed.Application.netmodule",
+      "kind": "application",
+      "sha256": "8a9c2dc345c71b498d6d5db2d132573c0fe7196cd30a8ccaa3a764e83e4f4fbc"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\CompilerEntry.obj",
+      "kind": "entry",
+      "sha256": "0bd6a91f06c881967c3998da9e5884d26e65ca06a9dc580eba56314278ed31bd"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Relocation.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "6c62486977e793f34559885815bf51db7242b00a791b064e163ac9cd557ffd86"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_ScalarParsing.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "760baea383d0946db3ae0724125c795202405b0042632f5f32b321d1159d69d0"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_DataInitializers.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "689a6f23f688e3ca8143b7797fae87c0c565cf0c2cf7a3f3e45b01cbc5a06db7"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_ResourceMarshaling.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "fd38b2b4c1cc7e77399ec089f73ac2b5a15d999d78e408713e5fc66f2e14e087"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_EnumBitset.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "4d5e55e0d4795f38946a6628c997fe4abc9860be605a2389e0bf918c58f35806"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_ObjectFilter.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "699897cbe960e04b66e79a7e25f2dcae533265f3e8b06c726051a94ae79ece82"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_ArmorTemplate.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "b6177709a8a316edf91a17be4fc9c00caf58057df3b798ce6c5bcbc7b699fdd5"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_WeaponNugget.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "b8fe5a135abe108bf4fa10858cbc77b6cdbe2074c0b5d00b9e5a0fe02ef8bd02"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_WeaponTemplate.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "fbd8e9b0dcf823dbfa7ba23ec7c728c7f8ff6d9bd47b170d8d00348cbc0c33a3"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_WeaponSlotOrder.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "906872ed85b8b58518613255203b647143b0599a2324d90593ef9e0ea2d0281b"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_GameObject.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "626cdf3f100d76824a8898ee67010331c7d8f28d42d6836ed92488b952962b57"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlabilitybuttons.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "d11237c708d7c9b2ef33e48c0a23a49fcf1e0b8e243a3d3500e0098a33c22cc1"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlai.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "7e3c430184910d787a6c906570a010dd869d95e249a91d39220ca0dc098f4cc6"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlaptdata.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "e37b313ecc80309f638825060a3e534a345516af468d71529df14cb333bd9ee1"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlarmyopening.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "8c3a9255f956ac8629dd9a3352aaad84d1149e4a76e2bc3f717aeb55f4d857ee"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlassetindexes.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "cbf0bdc5b31b9ff917ec92d493f2f99d3854c2d01d604f7eabf4e7e55a368d95"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlattributes.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "a99e5c6f8403544dce3ff7bc73ab68ae621a5e03345f2697c81508dda07bba01"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlaudio.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "ec8b23a09a25ad6327b3122d29f75dd9bc21cffa8295f8329fef922fcb08dddc"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlbuildeconomy.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "319f9963506319fa01f99a35647e90d843c27ed197c8921de9804f0b6e49d0d4"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcampaign.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "cb9eb249813c03d59ade22114ff415e210e358f1800c62def868aaa2d5bb4bc9"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlchatcolors.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "a0a13bc4cd42edc0c9c0d9531158ae937f2674e396a3e9295c245df6c2a1ea55"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcommandset.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "4029bce5b5b50ed74fc419a766a35bc695c07f7bd9b780b83cdfe9f58c3f8e13"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlconditions.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "1081a3283a84c6bf748cb867d19a9616636de5d157093ce5b42c87fbd2e7e49f"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlconnections.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "5510c77f47b6c6c098a48beb68aeedf100ee3fd319d9b672afd22c01614cb784"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlconquercards.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "43c3d785cbc8aea8bb05541076dc7dcd608a9dabe4d2e89935c216ac5d4b4adf"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcontent.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "8042506a5b288da3404479daa03f10c728fa09eba1fbd38f566d1178eb994a8f"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcrowd.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "98fb20b554ea30738d4bf21cc1f1dbc5769010fdc103b0693b2dbcfb773845a0"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmldamagefx.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "abfd7d5b02829d96c5ab1534184edd0401dbcdd19d6f1d2165119fa36faaf908"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmldynamics.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "841385f28dc07d99cf28f8cbe9e1ef15f21c93e704f36cef7282e0401f537bf1"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmleffects.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "de4f9d19787aef0b42d6b59278c1751104fee5ab118f3cfa05414ff3b6173f4e"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmleffectsEnums.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "ba9ce3410de1fd75de397d43e14c0ce1ca9086f42b26372e9bde640bc687529d"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmleffectsNuggets.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "d4e0b6af5ecc0d4eb8e1cd6e3e62cf7d7750476d2873b2d2ffa0d0a6a413cd7e"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlemotions.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "33844421e69052107e340062602ce814c97e74f0e3ae7d4fea42beb9a7f82045"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlenvironment.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "b1d8311cbef889ca6ba97720dc6361c2645cb5208ac9ac989caadc9ff0cac6a9"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlevaachievement.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "219e42ad977a9068471c52dd35a62d0b07417e52ff196fb03885ef6f5ed7a825"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlforcefeedback.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "8a7642fd01b1845b4cedb01f27c7951b88bdd821bd64df50bdc1e76d8f9cf796"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlfxparticle.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "dd7ce9cda0d59ce755901891c9a5eadf8adb3e724f2e599f93c284816ac8fd41"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlgamemap.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "cfe8384665ea263102579a81792b5a78c24fe1c6e0d1e2beb823b9a336e88638"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlgamescripts.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "94b6a8a5f59ddb33e3e48ab02a9beff2fa463c122acb91fa990b029847b547a9"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlhealthbars.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "a2ce0485777fdf6711f5432085b66224ef5aab0e1bd14f0087573c8c374eeda9"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlhotkeymaps.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "02a94178f7969fb955a58669a78b84ef81d7690c3745bebdd5bd607a1d1641bf"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmllocalization.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "243637fb3dc32eb7fcab7a79185a820b090a8085d130b3d57f64c6bb28469db2"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmllocomotor.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "18413c9e09f9d57bba3d7263456120bf8376291fe8224097bfea52f1ec9eb6ef"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmapmetadata.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "0882538f1e68143a82129cf5bae3c8c9f18d2ca117eff84f6cc38c624d29e197"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmaterialrules.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "84959057d2dec0d1c67a6e8069cf3a2b0e18e571dcb951b2a811bc23f2d37909"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmouse.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "2cf814ba3577a11118738f2c75b9b06e227fa66649cf8bf680311cedda5b5f78"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmoviearchive.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "13e2a7fd6c4fc9cec183e3e92e2e05f44ed7fff46190db89b10449b803d24a52"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmusicscript.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "0e0823bdeb8bfaa1c0375514bc8191fc49d6b5bf8914ba30d066ad554d8315c7"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlobjectsets.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "8c66eca1bef5a987a29789e0de0d186399a95a4b03832ad88fce4cebf0673427"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlpathmusic.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "6c73b30c91d0d8553a5b074089050404f5820ce7b07bb09bdc7648257474eaf3"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlplayers.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "ec5ee8319174d10da472e7c4d6feeb58dc67b66b216d1cc8736f05a68c61acce"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlpowers.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "a0502b73569fc661c11098ca1f31d84ed936b76ec0c5bb17ce77ee83f573ec86"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlprogression.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "636067b90e9828fecbaeef061d68c0fe15f3d8a736147c5c534f48eff12fce5a"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmlprogressionFont.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "2b6133f1cf7267c9d36fb22a86c0c9234732fdd6cf7ddd950a7e8330d05a015b"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmlprogressionUi.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "c6c7aac4a37bd544951a8fbeab65fadbb87470f93c3fa5d0645a0046d36c6b73"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlprojectilepath.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "db56c81311a119d404a44c2cc69607f51259f9957581e47e3683ecb3214cba78"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlradar.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "99242989b781f878e339c7b006549e174e883cb5c38fea276be60dd7eba5a8ef"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlredalert.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "737fe6145278622647d20ef5d301381ea5df7c9f6e696df2b48799a9adc26798"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlrenderassets.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "e1a10b6b0021da1fcd7572c54495319dd9dfd758dd519438e38ac7638b5ea806"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlrenderdevice.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "4db8d73b5353761c7ea11fe0b612a532a5ab8175ce467110aada8f50329e508e"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlruntimeopaque.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "876cb86a48fe219b4a63dd4b757b5cc09f139f23d18506154c3f6b2572d60022"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlsinglesound.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "a06db06cd65da499d38c0881d9d0284d532915add78b0bc844bf0265c8e140ef"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlsoundmaps.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "121722dcc9cc9c59416a15f8b78c27d8f44ddda2a7f4efc3271414712e2f2ce7"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlsystemsettings.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "b2bd268dd94b017b5a9eefb3eb2be2785d225c9eb592dd6e411e4f5a39fdffaa"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmltacticalhotkeys.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "9e2d4dfe62211866d33be8685a22f9c1afcb4c1f2731bb43e7dabb66d610e216"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmltargeting.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "aef8b14719c73b0677a44e24bccd60ce219c112bc9ac5594a0ba5e6ff5fb1cb7"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlterrain.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "554b2dd872f80ca5f49f268f1a7946476b34684d352440439cfd592afcac07c2"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmltesttextures.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "0d24b77be0979ee0fb68a56a14ed3cfc5406908003c4b613e07f46e196213e84"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluichat.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "13f165d769f187c95a0650c79b9b4440ddabbe2664f13b41809fdb0d346e0199"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluiconfig.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "735b41719ea9e04ad58e01395641ee4e6e629373d5b20db127be8b3bac1bd359"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluidecals.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "0b06f2503cf81c81ed5402f1c81f63d828fb5f89221391e605c6f31117496c55"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluiimages.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "5d5b98595477cfc7cca0c9d54a0e1eb84949a17c45c8afc631ae3cdce06b9c04"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluisettings.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "9fc4afcc73340930f457154c6077c444efa51035ab2741c433d851f5a50753fe"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluitactical.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "ad3577bfeae1bc20805ebc9fed81e933ea1d7c0d54e87eac9182c1c34bfab7b9"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlunitoverlay.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "5925580bd3d073b6bfc9884d108a60336b8cd4977bf910e34d820c929f2850a4"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlvisibility.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "65385b868e5b05943fa706c4927e1e27771ddeb74bc1fdb7a9aa83fb97c0d134"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlvisualsystems.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "5a21178aae518caed799c7816fe86fe07c866018d8855ba9c6135843178ba00e"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlw3d.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "deaf20d8780a32df7f265edbb96839af79decc2af54c400df6cfe0f666694823"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_AdaptiveDelta.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "54d6f4ee74a30f892b6a9fac963fb338d2f76f81f0e149202bf106ac0502fd0a"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_AnimationCompiler.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "0e802c4c45dee7d14182fadd1abf2db47d52c9fbb56f3cb5c28432e47710941a"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_AnimationPipeline.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "4b13d45aeb60514aef813296282e94a3bb81f92d554c287bc95baf807e51620b"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshAsset.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "c6d5ad285a72b53aece20cff62d6c3743a93e26be3432fcb40f99d013fd750cb"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshBuilder.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "34e99c195887873d26b7a0d31f187b9d1d8cd360483f912c1c2b2becf6e25877"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshConverters.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "6aadd84a577516cce952dc19918dc0f92ca3069a9c0ef1101a4921257eba1f0d"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshSerialization.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "4148e7f1e033e44fe1030399b453ab874eac8736d6e376d63940e6b7970d0f87"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_Shader.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "b364197ed5744d9fa88a4f8aad91f8d314028691a1dddcb5281cfee364e6751e"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_Timecoded.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "9e46e7b0d2c5b8d4cf3f07af8fe2b6363af2b0dadf16200bedbddd1b2dfb987c"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_bitreserve.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "cf20198dfe87461b4729a02b5588c0de4bbb06263b6994cb5554ca6219dddf61"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_ealayer3core.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "2da066fdd768501abbbfd9b2547b10f0ea5bd9a51eaedcf66cc1fb8a8bc7b92c"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_VbrTag.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "970653421d91e8c4dcd83fdc8c1c43daf5060453ea5ea6ca8bb6a0d5b678db6f"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_bitstream.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "afb0c7f7cd82fc899f234eefd095b9339e52eac22ebd546bcbb0a2ad9d8522c4"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_encoder.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "06e88a7ea5e60c32dd487e699fe4702ed268a4fe53a6e1c95fa8cd5754137da5"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_fft.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "798d0700af3e4e2033d1b72f05c77a73d0b0325d00590656954642c47d4484af"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_gain_analysis.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "753f076ce1fb8bd5b6e8f7561a9ea144d8cdd4c4b5984f6ec2389446bcdfac18"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_id3tag.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "18faa7295a1121dd610d77a42c31cdcea08caa1c300dca355a25c6318482b2b1"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_lame.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "bb1b95f75e8ebff8594afe179b6f6f4c6a5784dd0dffa77643aa3c632419c429"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_newmdct.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "b766d6130321a47e12bb12627c6524a83dcfc5aa4b226a1e6b9f1ab6ca9facd9"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_presets.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "ea175c6bfe1c41553e9242e197e58d711a8a6bc638c14927d7abfb0b14b6f5c3"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_psymodel.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "2a4431bb2cec67921d60e1dfb002d8e5e722e5e1043f184eb3ceff245360ea26"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_quantize.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "6932a29006e87e482073c195e4678bafbee0e5ef844015a9f20c608e3f3fde56"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_quantize_pvt.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "3eaf8a711c3a0fe3f34a22ccf41febfc84f09252316a8a18fbedfadca944f90b"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_reservoir.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "a73b470b28481470f04595ec5552149c6289e02158ecfd40c42d6ba328f0f9d2"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_set_get.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "68afcb891ba4f255de24775a2d858a3f44a4ed99d57cdb3b185e562a7fc3b965"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_tables.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "ed42f38d2d755ce2c4b08a7bd4576d5d4f4d004cc7385355a656d4b74dfc3a1d"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_takehiro.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "e3d44df64300704e7949192d0016dea3409bfdc07647b69e25d47f4aad890970"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_util.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "81c285449087a3737f7c951115ebef2a26cf3ccfd7b3ea3f5f16ba19a8a8912a"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_vbrquantize.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "c0b8f0fe3fa3b4472b7341901814aa733d47bfa76eff050823cc2504bfaf4771"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_version.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "f4025045a14283991943b6955e5cf0a35fdb4c2a1ddca5a2fe6607d54f6fae61"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mp3toea.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "e6b379bdad4a1a1e2fbee668faa1f06c9412568257ee4edd6cbc24d03902ec40"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpeg.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "99d915e9999521e5146c7d59473b2fcfe78f4ee4039731326a5d2cbc5cd5d25b"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpeghufftables.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "fc35bb36c566dbc29ccd20e653945b06596a1d3540dd782ebf9adaba18d31cbf"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpegl3base.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "7a303fda29b70e4fb127268d1ebc50333365411fb8ed86d2608c7f5d2060db00"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpegpoly_c.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "f7ca33eb4d483d420925fe70a6e3a598c313b238aa90df8013fb2dbe9f5527aa"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3Encoder.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "d822d0ca6b5d4b8763e9561e64259abaf58d55effff8d2c7e004461294fc21f7"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_scalesamples.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "7728af5c12df963eb3645ce756852c51fe77beb85324c6b82182fcbb008f675a"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\recovery_src_Native_Texture_PublicS3_s3_quant.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "5d1e202d0bd73fc45eb5cadb3e0bcf8af42655eb9a9d1bfde93ba0b391bcdc5b"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Release\\obj\\native\\objects\\CompilerBridges.obj",
+      "kind": "nativeOrBridge",
+      "sha256": "490e1a2e5e4d55fae1c02c01a1c6510bc5afd14e6e785e6434bd6547bf92e367"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\BinaryAssetBuilderProject.xsd",
+      "kind": "resource",
+      "sha256": "3ffe9a0f876bc76deaf28d2e0302f32d63b0c842d719f3d9c428dc961b7616c1"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\Mvp.Xml.Common.SR.resources",
+      "kind": "resource",
+      "sha256": "65bc06e64351f384b3f8658d273a36d7dcb2af167e458adc0f9579bb2cf0a1cb"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources",
+      "kind": "resource",
+      "sha256": "a3237a994521c1904b0367691fdafc8b4b309371b845157bd149f27b53849d76"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\Mvp.Xml.XPointer.SR.resources",
+      "kind": "resource",
+      "sha256": "fb2b9ea0745131e0ba26b9c7967a4f74885427d73dbeb6ad68114c8a3bacb1de"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\Mvp.Xml.XInclude.SR.resources",
+      "kind": "resource",
+      "sha256": "0ef800084cbdf48a5a0b2de121f52737410aaa1356a6325fae779a8b56a77f6c"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\LibTessDotNet.dll",
+      "kind": "resource",
+      "sha256": "6f2a8b10515fe328e1c9a28b23660958d8a3eea0ca436042516ff5e0a2ec5921"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\Clipper2Lib.dll",
+      "kind": "resource",
+      "sha256": "48c351243cdaedc28fc726ae0e4d8fdb39207556fb8caf1a6e4d0bdfe77159f4"
+    },
+    {
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Release\\resources\\StbImageSharp.dll",
+      "kind": "resource",
+      "sha256": "387e42762fafcac4f82cbc2bf2b418f4ada338ea444734b1d444c6a6e2d1cb6e"
+    }
+  ]
+}

@@ -11,13 +11,9 @@ using Node=XmltacticalhotkeysNode;
 struct Field {const char* name;unsigned offset;};
 struct EnumEntry {const char* name;int value;};
 #include "XmltacticalhotkeysFields.inc"
-bool In(const std::string& name,const char* allowed){return (std::string("|")+allowed+"|").find("|"+name+"|")!=std::string::npos;}
+
 void Check(bool ok,const char* message){if(!ok)throw std::invalid_argument(message);}
-void Validate(const Node& n,const std::string& attrs,const char* children,bool root=false,bool text=false){
-    Check(text||n.value.find_first_not_of(" \t\r\n")==std::string::npos,"Unexpected tactical hotkey text.");
-    for(const auto& a:n.attributes)Check(a.first=="TypeId"||(root&&(a.first=="id"||a.first=="inheritFrom"))||In(a.first,attrs.c_str()),"Unknown tactical hotkey attribute.");
-    for(const auto& c:n.children)Check(In(c.name,children),"Unknown tactical hotkey child.");
-}
+
 void Word(void* p,U32 value){std::memcpy(p,&value,4);}
 void Swap(void* p){U32 v;std::memcpy(&v,p,4);Word(p,(v<<24)|((v<<8)&0xff0000u)|((v>>8)&0xff00u)|(v>>24));}
 void Reference(Relo::Tracker& t,unsigned char* p,const Node& n,const char* name){auto a=n.attributes.find(name);if(a!=n.attributes.end())MarshalReference(t,p,a->second);}
@@ -30,7 +26,7 @@ struct Builder {
         const U32 count=static_cast<U32>(items.size());Word(root+at,count);
         if(count){
             auto list=static_cast<unsigned char*>(tracker.Push(reinterpret_cast<void**>(root+at+4),4,count));
-            for(U32 i=0;i<count;++i){Validate(*items[i],"","",false,true);MarshalReference(tracker,list+4*i,items[i]->value);}
+            for(U32 i=0;i<count;++i){MarshalReference(tracker,list+4*i,items[i]->value);}
             tracker.Pop();
         }
         if(big)Swap(root+at);
@@ -41,7 +37,7 @@ struct Builder {
         if(count){
             auto list=static_cast<unsigned char*>(tracker.Push(reinterpret_cast<void**>(root+at+4),8,count));
             for(U32 i=0;i<count;++i){
-                Validate(*items[i],std::string(enumAttr)+"|"+refAttr,"");auto item=list+8*i;
+                auto item=list+8*i;
                 auto value=items[i]->attributes.find(enumAttr);
                 if(value!=items[i]->attributes.end())Word(item,static_cast<U32>(Enum(value->second,entries,enumCount,fallback)));
                 Reference(tracker,item+4,*items[i],refAttr);if(big)Swap(item);
@@ -66,20 +62,19 @@ Relo::Chunk CompileXmltacticalhotkeys(const XmltacticalhotkeysNode& input,bool b
     const unsigned id=XmltacticalhotkeysTypeId(input.name);Check(id!=0,"Unsupported tactical hotkey root.");
     const unsigned size=id==2591692061u?24:id==2014061824u?200:12;
     Builder b(bigEndian);unsigned char* root=nullptr;b.tracker.Push(reinterpret_cast<void**>(&root),size,1);
-    if(id==1296329066u){Validate(input,"","UnitAbilitySlot",true);b.RefList(input,"UnitAbilitySlot",root,4);}
-    else if(id==2283998413u){Validate(input,"","Slot",true);b.RefList(input,"Slot",root,4);}
+    if(id==1296329066u){b.RefList(input,"UnitAbilitySlot",root,4);}
+    else if(id==2283998413u){b.RefList(input,"Slot",root,4);}
     else if(id==2591692061u){
-        Validate(input,"SelectionRefinementPageSlot","BuildQueuePage|ButtonSlot",true);
+
         Reference(b.tracker,root+4,input,"SelectionRefinementPageSlot");
         b.EnumRefList(input,"BuildQueuePage",root,8,"QueueType","Slot",QueueValues,8,4);
         b.RefList(input,"ButtonSlot",root,16);
     }else if(id==2014061824u){
-        std::string allowed;for(const auto& f:MiscFields){allowed+="|";allowed+=f.name;}
-        Validate(input,allowed,"StanceSettings",true);
+
         for(const auto& f:MiscFields)Reference(b.tracker,root+f.offset,input,f.name);
         b.EnumRefList(input,"StanceSettings",root,192,"Stance","Slot",StanceValues,4,1);
     }else{
-        Validate(input,"","ElementHotKeyMapping",true);
+
         b.EnumRefList(input,"ElementHotKeyMapping",root,4,"ElementId","HotKeySlot",ElementValues,36,21);
     }
     return b.tracker.MakeRelocatable(bigEndian,0);

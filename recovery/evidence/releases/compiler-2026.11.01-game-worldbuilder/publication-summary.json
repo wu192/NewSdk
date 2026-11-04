@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "succeeded": true,
+  "published": true,
+  "tag": "compiler-2026.11.01-game-worldbuilder",
+  "binaryRebuilt": false,
+  "publicationSourceCommit": "0ba6431aa2daa1901bbbb87644e133e314596752",
+  "publicationRunId": "41323676291",
+  "runId": 41322569300,
+  "artifactId": 13090520584,
+  "sourceCommit": "3cf65b6de24358647447ed242621e8460243f847",
+  "localAssets": [
+    {
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 2103501,
+      "sha256": "f6f66b15d230302829bbf5f28b42b0978c605c667e0baa6a3d0b703654f28b02"
+    },
+    {
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 1609442,
+      "sha256": "5a4f35583c5a3e0bb15c7fc17055f524c08772c9be896d88988ed663f61b0f81"
+    },
+    {
+      "name": "compiler-manifest.json",
+      "bytes": 3713,
+      "sha256": "f18cc3549a9cb8280eacae98dc4da8fd96868d958c8f570e7442fd635682a12a"
+    },
+    {
+      "name": "release-metadata.json",
+      "bytes": 4210,
+      "sha256": "37f6143db948bdbc59e79ca0f5b2721758b32332e9d1c80fdf1aba865130e196"
+    },
+    {
+      "name": "USAGE.zh-CN.md",
+      "bytes": 3253,
+      "sha256": "e717555a2dcbc1158e51137a8f87e12dc7a3ece84000cb90655b6ed18ee9fcc1"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 454,
+      "sha256": "416496dac9e0984ea7e2cb84eaf783f955ae06c8db10f07597d228e2ad078b74"
+    }
+  ],
+  "releaseId": 430685456,
+  "remoteAssetsBeforePublication": [
+    {
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 2103501,
+      "digest": "sha256:f6f66b15d230302829bbf5f28b42b0978c605c667e0baa6a3d0b703654f28b02",
+      "url": "https://github.com/wu162/NewSdk/releases/download/untagged-4f5893e9fcaab889eb13/NewModCompiler-Win32-Debug.zip"
+    },
+    {
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 1609442,
+      "digest": "sha256:5a4f35583c5a3e0bb15c7fc17055f524c08772c9be896d88988ed663f61b0f81",
+      "url": "https://github.com/wu162/NewSdk/releases/download/untagged-4f5893e9fcaab889eb13/NewModCompiler-Win32-Release.zip"
+    },
+    {
+      "name": "compiler-manifest.json",
+      "bytes": 3713,
+      "digest": "sha256:f18cc3549a9cb8280eacae98dc4da8fd96868d958c8f570e7442fd635682a12a",
+      "url": "https://github.com/wu162/NewSdk/releases/download/untagged-4f5893e9fcaab889eb13/compiler-manifest.json"
+    },
+    {
+      "name": "release-metadata.json",
+      "bytes": 4210,
+      "digest": "sha256:37f6143db948bdbc59e79ca0f5b2721758b32332e9d1c80fdf1aba865130e196",
+      "url": "https://github.com/wu162/NewSdk/releases/download/untagged-4f5893e9fcaab889eb13/release-metadata.json"
+    },
+    {
+      "name": "USAGE.zh-CN.md",
+      "bytes": 3253,
+      "digest": "sha256:e717555a2dcbc1158e51137a8f87e12dc7a3ece84000cb90655b6ed18ee9fcc1",
+      "url": "https://github.com/wu162/NewSdk/releases/download/untagged-4f5893e9fcaab889eb13/USAGE.zh-CN.md"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 454,
+      "digest": "sha256:416496dac9e0984ea7e2cb84eaf783f955ae06c8db10f07597d228e2ad078b74",
+      "url": "https://github.com/wu162/NewSdk/releases/download/untagged-4f5893e9fcaab889eb13/SHA256SUMS.txt"
+    }
+  ],
+  "remoteAssets": [
+    {
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 2103501,
+      "digest": "sha256:f6f66b15d230302829bbf5f28b42b0978c605c667e0baa6a3d0b703654f28b02",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-game-worldbuilder/NewModCompiler-Win32-Debug.zip"
+    },
+    {
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 1609442,
+      "digest": "sha256:5a4f35583c5a3e0bb15c7fc17055f524c08772c9be896d88988ed663f61b0f81",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-game-worldbuilder/NewModCompiler-Win32-Release.zip"
+    },
+    {
+      "name": "compiler-manifest.json",
+      "bytes": 3713,
+      "digest": "sha256:f18cc3549a9cb8280eacae98dc4da8fd96868d958c8f570e7442fd635682a12a",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-game-worldbuilder/compiler-manifest.json"
+    },
+    {
+      "name": "release-metadata.json",
+      "bytes": 4210,
+      "digest": "sha256:37f6143db948bdbc59e79ca0f5b2721758b32332e9d1c80fdf1aba865130e196",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-game-worldbuilder/release-metadata.json"
+    },
+    {
+      "name": "USAGE.zh-CN.md",
+      "bytes": 3253,
+      "digest": "sha256:e717555a2dcbc1158e51137a8f87e12dc7a3ece84000cb90655b6ed18ee9fcc1",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-game-worldbuilder/USAGE.zh-CN.md"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 454,
+      "digest": "sha256:416496dac9e0984ea7e2cb84eaf783f955ae06c8db10f07597d228e2ad078b74",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01-game-worldbuilder/SHA256SUMS.txt"
+    }
+  ],
+  "releaseUrl": "https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-game-worldbuilder"
+}

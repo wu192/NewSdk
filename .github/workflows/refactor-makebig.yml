@@ -41,9 +41,31 @@ jobs:
             if($LASTEXITCODE -ne 0){$failed+=$mode}
           }
           if($failed.Count -ne 0){throw ('Original MakeBig differential failed: '+($failed -join ','))}
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/makebig/**/*.json
+            recovery/artifacts/makebig/**/*.log
+            recovery/artifacts/makebig/**/*.md
+            recovery/artifacts/makebig/**/*.csv
+            recovery/artifacts/makebig/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: recovered-makebig-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/artifacts/makebig/**
-          if-no-files-found: error
+          name: 'recovered-makebig-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/makebig/**/*.json
+            recovery/artifacts/makebig/**/*.log
+            recovery/artifacts/makebig/**/*.md
+            recovery/artifacts/makebig/**/*.csv
+            recovery/artifacts/makebig/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

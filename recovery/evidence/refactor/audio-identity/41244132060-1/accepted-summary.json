@@ -1,0 +1,55 @@
+{
+  "sourceCommit": "8050f22de81539c65aeca3903e9b48f53a572068",
+  "runId": "41244132060",
+  "status": "passed",
+  "artifactId": 13059127186,
+  "archiveSha256": "0b6b9aedfdfc6ee0b32629e83708fe2d8f8f2d567d6a3ff43bd60f95412f6193",
+  "runtime": {
+    "Debug": {
+      "files": {
+        "NewModCompiler.exe": "0611346b07b4a76d877569e7ec6394683864b5c6a869aaaca628259a00bef401",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+      },
+      "buildReceiptMatched": true,
+      "zipSha256": "aecf0c543686d8f2f75c31a4d6ada6c7f5a3de5409b6d6ea74215f7df62a1594",
+      "zipExactRuntimeBytesMatched": true
+    },
+    "Release": {
+      "files": {
+        "NewModCompiler.exe": "2e04db720b2860bf337a66557572eb7ad2bc667b950e5a2ec69d81181c222b43",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+      },
+      "buildReceiptMatched": true,
+      "zipSha256": "177d1aace3643a10f60957dd23931136290573c59b14de845f43a3acf2376d02",
+      "zipExactRuntimeBytesMatched": true
+    }
+  },
+  "mixedAudioStepPassed": true,
+  "mixedAudioDetailsInOriginalArtifact": false,
+  "mixedAudioDetailsToBeSupplementedWithSameAcceptedBinary": true,
+  "packageAcceptance": {
+    "succeeded": true,
+    "sourceCommit": "8050f22de81539c65aeca3903e9b48f53a572068",
+    "binarySourceCommit": "8050f22de81539c65aeca3903e9b48f53a572068",
+    "runId": "41244132060",
+    "runAttempt": "1",
+    "configurations": [
+      {
+        "configuration": "Debug",
+        "rawOutputEquality": true,
+        "zipSha256": "aecf0c543686d8f2f75c31a4d6ada6c7f5a3de5409b6d6ea74215f7df62a1594",
+        "succeeded": true
+      },
+      {
+        "configuration": "Release",
+        "rawOutputEquality": true,
+        "zipSha256": "177d1aace3643a10f60957dd23931136290573c59b14de845f43a3acf2376d02",
+        "succeeded": true
+      }
+    ]
+  },
+  "archiveDigestMatched": true,
+  "mixedAudioStepLog": "https://github.com/wu162/NewSdk/actions/runs/41244132060/job/124663915759"
+}

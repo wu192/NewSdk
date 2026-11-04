@@ -39,7 +39,7 @@ partial class GameObjectOracle {
 #if GO_TRANSCRIPT_PRODUCT
         GameObjectTranscript.Rejection(p,attrs,children);
 #endif
-        try {Recovered.GameObjectCompiler.ProcessInstance(Declaration(attrs,children),p);}catch(NotSupportedException){++refusals;return;}
+        try { PluginSchemaBoundary.Validate(Declaration(attrs,children).Node); Recovered.GameObjectCompiler.ProcessInstance(Declaration(attrs,children),p);}catch(NotSupportedException){++refusals;return;}
 #endif
         throw new Exception("Unsupported GameObject accepted: "+attrs+children);
     }

@@ -1,0 +1,16 @@
+{
+  "scenario": "animation-batch",
+  "description": "Change frame rates in 32 real W3X animation documents",
+  "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+  "sourceTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+  "scope": "Complete pinned original Upheaval; no trimmed inputs or Armor expansion",
+  "setup": [],
+  "expectedPublicationChanged": true,
+  "input": {
+    "fingerprint": "c41fdfd1d72f340351fba7b2828e92c33a0d63ff562ddc8b9962d2be002497f7",
+    "documents": 954,
+    "assets": 3852,
+    "inputBytes": 300900885,
+    "inputFiles": 2723
+  }
+}

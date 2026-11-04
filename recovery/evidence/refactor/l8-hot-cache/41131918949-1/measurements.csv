@@ -1,0 +1,2 @@
+﻿label,case,phase,repeat,formal,performance,mode,jobs,status,wallMs,reportElapsedMs,cpuMs,over8s,pathExercised,exitCode,changedAssets,changedDocuments,changedMaterials,changedCaches,changedOutputs,streamIds,workerWaitMs,workerComputeMs,ownerCommitMs,xmlParse,instanceCompile,documentReuse,hits,misses,linkedStreamsRestored,fileHashReads,fileHashBytesRead,error
+000-calibration-0-warmup,calibration,warmup,0,False,off,both-deflate,auto,SessionCache,40064.069200000005,37154,59203.125,False,False,4,,,,,,,,,,913,3267,0,0,1732,0,2338,174453945,Compiler did not complete normally

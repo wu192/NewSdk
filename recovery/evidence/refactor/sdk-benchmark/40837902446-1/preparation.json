@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "succeeded": true,
+  "binarySourceCommit": "4ad5d0d9f9c162783641a8dde5a5222cd61b5c29",
+  "sourceCommit": "4ad5d0d9f9c162783641a8dde5a5222cd61b5c29",
+  "benchmarkSourceCommit": "0fb98df2ad029ae14acb3006d8800cafb0b8fbfc",
+  "sourceRunId": "40836177604",
+  "sourceRunAttempt": 1,
+  "artifactId": "12881800506",
+  "archiveSha256": "30ee535f25609213da6ddab37cf7a174718a064516b8cbe4c397823cdd7d8837",
+  "runtimeDirectory": "D:\\a\\_temp\\cb\\runtime",
+  "runtimeFiles": [
+    {
+      "sha256": "8ece9d68723f7b5203475e61a950b8bbae4998c874a9c962f0cd36c42e386854",
+      "name": "NewModCompiler.exe",
+      "bytes": 4129280
+    },
+    {
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "name": "NewModCompiler.exe.config",
+      "bytes": 201
+    },
+    {
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "name": "antlr.runtime.dll",
+      "bytes": 99328
+    },
+    {
+      "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "name": "BinaryAssetBuilder.TextureCompiler.dll",
+      "bytes": 917504
+    },
+    {
+      "sha256": "19f0862a958774ab6aa33bc4b94514367c155c790f6cc53988e4cf01dbac15ef",
+      "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+      "bytes": 14326
+    }
+  ],
+  "productionSourcesUnchanged": true,
+  "allowedChanges": [
+    "recovery/REFACTOR_RESUME.md",
+    "recovery/RESUME.md",
+    "recovery/docs/CACHE_PERFORMANCE_ANALYSIS.md",
+    "recovery/docs/LEGACY_INCREMENTAL_CACHE.md"
+  ],
+  "sdkRoot": "D:\\a\\NewSdk\\NewSdk\\SDK",
+  "workloads": [
+    {
+      "name": "mymod",
+      "modRoot": "D:\\a\\_temp\\cb\\workloads\\mymod",
+      "scope": "Complete current SDK/Mods/mymod input copy; benchmark selects base only, without packaging.",
+      "files": [
+        {
+          "path": "Additional/Data/gamestrings.csf",
+          "bytes": 827422,
+          "sha256": "67591bb700b7fc3472083325dcc61d7a187c5448940470d112056859684cbd06"
+        },
+        {
+          "path": "Data/CommandData.xml",
+          "bytes": 1149,
+          "sha256": "69349eae29b8bcf64a047c5f00f6b9bfb6c144bc2c41dced56429932d1e8827e"
+        },
+        {
+          "path": "Data/Mod.xml",
+          "bytes": 814,
+          "sha256": "da23958410bc4b612643c94f6d4fdd16ed91646fd69a3f226f0d5bef77722a59"
+        },
+        {
+          "path": "Data/mytank.xml",
+          "bytes": 16072,
+          "sha256": "be98d44a20da38e0058aac86cb1723b23aafb4536d202090171b81af4e5acb3c"
+        },
+        {
+          "path": "Data/RecoveryArmorProbe.xml",
+          "bytes": 757,
+          "sha256": "93d0923c10f1c9eccf6ad5c00a407c28f2001b9d3bc26f8784e1b46deb250257"
+        },
+        {
+          "path": "Data/RecoveryWeaponNuggetProbe.xml",
+          "bytes": 51051,
+          "sha256": "72a64cedd81a211f5c8879b4bc7d3ddc5624759331d1fc61b2daa5067d9f73b8"
+        },
+        {
+          "path": "Data/【配套教程】【代码篇】RA3DIY---入门教程 初级教程.doc",
+          "bytes": 84992,
+          "sha256": "722db1388ea9fd9434cf5c7bcf24ac2a5cb9b5fbd06bc0c753a7128a4551b505"
+        }
+      ],
+      "sourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+      "sourcePath": "SDK/Mods/mymod",
+      "fullModInputCopy": true
+    },
+    {
+      "name": "upheaval-armor",
+      "modRoot": "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+      "scope": "Subset only: eleven unchanged historical Upheaval Armor.xml documents, twelve ArmorTemplate assets, generated include entry. No full Upheaval, Texture, Audio, GameObject, APT or packaging claim.",
+      "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+      "sourceTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+      "sources": [
+        {
+          "path": "Data/armor-00.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Archer Maiden/Armor.xml",
+          "gitBlob": "2379200e6bb2b868427e8836f7ff3137b808506b",
+          "sha256": "30873dbbfb4ad76468af1d49d606535b881feb5263bc7e40fa5fe518ffcd3af5"
+        },
+        {
+          "path": "Data/armor-01.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Cryo Legionnaire/Armor.xml",
+          "gitBlob": "75239cc18dcc18abb2eec63312a3136c32b19008",
+          "sha256": "2dc203dd4247a3f93d55ad464f76adcf928bd1424b94912eacd0f1389c80a485"
+        },
+        {
+          "path": "Data/armor-02.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Desolator/Armor.xml",
+          "gitBlob": "23b8fb5854cf6cec9ca6317209a13c8d325ef702",
+          "sha256": "d0522655d684266f56376bb6016aaa630fcc556ae80fffe223d0547389b84c0e"
+        },
+        {
+          "path": "Data/armor-03.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Future Tank X-1/Armor.xml",
+          "gitBlob": "da837d9c92f52d926ceb9e7df222d8c3971908f5",
+          "sha256": "a8cb56551d02df5346ab31ef7e748567e9e73a0d0ca2056a145f67d0cd8d2c85"
+        },
+        {
+          "path": "Data/armor-04.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Giga-Fortress/Armor.xml",
+          "gitBlob": "f885247df712e92db690c94f80165430b99e62df",
+          "sha256": "33b1796227cbc992b4f7443cd4feb9f997e6d8772f43030c3dc9b7ff96fd9a22"
+        },
+        {
+          "path": "Data/armor-05.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Grinder/Armor.xml",
+          "gitBlob": "0b3d24af4e3341c714bbf04483b343c54508f7f1",
+          "sha256": "8c1efd890d1c9dfb1bb925366e8739736ccddb9e48fd05959ca9677fe2c60fbd"
+        },
+        {
+          "path": "Data/armor-06.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Harbinger Gunship/Armor.xml",
+          "gitBlob": "5819e0f0144220d1324041ddb6b4cf7de328aee1",
+          "sha256": "52ba95a90ef74bd4dff02dd762f07676993033fee8610062efb49e288ef71b65"
+        },
+        {
+          "path": "Data/armor-07.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Mortar Cycle/Armor.xml",
+          "gitBlob": "751b12b6a1c5cde1b4e857af3a66b5103cbe8236",
+          "sha256": "6e6e36b6217e4bd24a2d1744037838d67f7beae5c2e35623889c77cd42cc4aca"
+        },
+        {
+          "path": "Data/armor-08.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Pacifier FAV/Armor.xml",
+          "gitBlob": "7246fb22914ebac3ffe6e395de6b70ca01fc44b9",
+          "sha256": "3aa77afc5fe2afd7fdc41ce9324612c8dc275cb380ebcb6a31cee4918923e1d3"
+        },
+        {
+          "path": "Data/armor-09.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Reaper/Armor.xml",
+          "gitBlob": "2d955fb23e7bb61a736e2961676e6161265920dd",
+          "sha256": "1736991e51dc5d3bb9b620566f1573a96c87bef3634ac2cba1b2f1af00ff5d13"
+        },
+        {
+          "path": "Data/armor-10.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Steel Ronin/Armor.xml",
+          "gitBlob": "a4e4a5b8a124bf9ab0a1cfce27227b4131eeed76",
+          "sha256": "1dba3d709416181d8b3740e4dfc3b5993ba1860bc5b60c85101d0df0ae61d6aa"
+        }
+      ],
+      "assetCount": 12,
+      "fullModInputCopy": false,
+      "files": [
+        {
+          "path": "Data/armor-00.xml",
+          "bytes": 907,
+          "sha256": "30873dbbfb4ad76468af1d49d606535b881feb5263bc7e40fa5fe518ffcd3af5"
+        },
+        {
+          "path": "Data/armor-01.xml",
+          "bytes": 905,
+          "sha256": "2dc203dd4247a3f93d55ad464f76adcf928bd1424b94912eacd0f1389c80a485"
+        },
+        {
+          "path": "Data/armor-02.xml",
+          "bytes": 901,
+          "sha256": "d0522655d684266f56376bb6016aaa630fcc556ae80fffe223d0547389b84c0e"
+        },
+        {
+          "path": "Data/armor-03.xml",
+          "bytes": 945,
+          "sha256": "a8cb56551d02df5346ab31ef7e748567e9e73a0d0ca2056a145f67d0cd8d2c85"
+        },
+        {
+          "path": "Data/armor-04.xml",
+          "bytes": 950,
+          "sha256": "33b1796227cbc992b4f7443cd4feb9f997e6d8772f43030c3dc9b7ff96fd9a22"
+        },
+        {
+          "path": "Data/armor-05.xml",
+          "bytes": 952,
+          "sha256": "8c1efd890d1c9dfb1bb925366e8739736ccddb9e48fd05959ca9677fe2c60fbd"
+        },
+        {
+          "path": "Data/armor-06.xml",
+          "bytes": 696,
+          "sha256": "52ba95a90ef74bd4dff02dd762f07676993033fee8610062efb49e288ef71b65"
+        },
+        {
+          "path": "Data/armor-07.xml",
+          "bytes": 894,
+          "sha256": "6e6e36b6217e4bd24a2d1744037838d67f7beae5c2e35623889c77cd42cc4aca"
+        },
+        {
+          "path": "Data/armor-08.xml",
+          "bytes": 952,
+          "sha256": "3aa77afc5fe2afd7fdc41ce9324612c8dc275cb380ebcb6a31cee4918923e1d3"
+        },
+        {
+          "path": "Data/armor-09.xml",
+          "bytes": 1643,
+          "sha256": "1736991e51dc5d3bb9b620566f1573a96c87bef3634ac2cba1b2f1af00ff5d13"
+        },
+        {
+          "path": "Data/armor-10.xml",
+          "bytes": 950,
+          "sha256": "1dba3d709416181d8b3740e4dfc3b5993ba1860bc5b60c85101d0df0ae61d6aa"
+        },
+        {
+          "path": "Data/Mod.xml",
+          "bytes": 563,
+          "sha256": "ded6a0f030a15d1a6d1c145bf0f94f9966f63b1b180eb575727a293b9bc34bce"
+        }
+      ]
+    },
+    {
+      "name": "texture-16",
+      "modRoot": "D:\\a\\_temp\\cb\\workloads\\texture-16",
+      "assetCount": 16,
+      "scope": "Synthetic only: sixteen independent Texture identities using a generated 256x256 top-left BGRA TGA. Not Upheaval or a complete real MOD; no Audio, GameObject, APT or packaging claim.",
+      "synthetic": true,
+      "fullModInputCopy": false,
+      "files": [
+        {
+          "path": "Data/Mod.xml",
+          "bytes": 2485,
+          "sha256": "5cb2cc988235b16cc663326b2577c82f7e9ab35ca04ccedfa31f110efefb748c"
+        },
+        {
+          "path": "Data/probe.tga",
+          "bytes": 262162,
+          "sha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4"
+        }
+      ]
+    }
+  ]
+}

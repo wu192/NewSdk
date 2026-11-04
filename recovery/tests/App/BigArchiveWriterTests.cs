@@ -47,8 +47,8 @@ namespace NewModCompiler.Tests
             Check(expectedOffset==data.Length,"Archive contains unlisted/trailing bytes");
             string skudef=Path.Combine(root,"package/Example_1.0.skudef");BigArchiveWriter.WriteSkudef(skudef,"Example_1.0.big");
             Check(File.ReadAllBytes(skudef).SequenceEqual(Encoding.ASCII.GetBytes("mod-game 1.12\r\nadd-big Example_1.0.big\r\n")),"SKUDEF differs from legacy script commands or CRLF/ASCII format");
-            Reject<IOException>(()=>BigArchiveWriter.Write(output,entries),"Existing archive was overwritten");
-            Check(File.ReadAllBytes(output).SequenceEqual(data),"Refused overwrite changed previous package");
+            BigArchiveWriter.Write(output,entries);
+            Check(File.ReadAllBytes(output).SequenceEqual(data),"Direct replacement changed package bytes");
             Reject<InvalidDataException>(()=>BigArchiveWriter.Write(Path.Combine(root,"duplicate.big"),new[]{Entry(source,"data/a.bin"),Entry(text,"DATA\\A.BIN")}),"Case-insensitive normalized duplicate was accepted");
             foreach(string invalid in new[]{"","../a.bin","data/../a.bin","/root.bin","C:\\a.bin","data//a.bin","data\\.\\a.bin","data/中文.bin","data/a\nb.bin","data/*.bin","data/ a.bin"})
                 Reject<ArgumentException>(()=>BigArchiveWriter.Write(Path.Combine(root,"bad.big"),new[]{Entry(source,invalid)}),"Unsafe/non-ASCII entry name accepted: "+invalid);

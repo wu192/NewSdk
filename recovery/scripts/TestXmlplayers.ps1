@@ -35,7 +35,7 @@ try {
     foreach ($mode in @('Od', 'O2')) {
         & cl /nologo /std:c++17 /clr /LD /MD /EHa "/$mode" /fp:precise /AI"$out" /Fo"$out/" /Fe"$out/Recovered.Xmlplayers.dll" @sources *> "$evidence/$mode-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-build.txt"; throw "$mode Xmlplayers x86 C++/CLI build failed" }
-        & $csc /nologo /codepage:65001 /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll /r:"$out/Recovered.Xmlplayers.dll" /r:"$out/BinaryAssetBuilder.Core.dll" /out:"$out/XmlplayersOracle.exe" @oracleSources *> "$evidence/$mode-host-build.txt"
+        & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /codepage:65001 /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll /r:"$out/Recovered.Xmlplayers.dll" /r:"$out/BinaryAssetBuilder.Core.dll" /out:"$out/XmlplayersOracle.exe" @oracleSources *> "$evidence/$mode-host-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-host-build.txt"; throw "$mode Xmlplayers oracle build failed" }
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$out/XmlplayersOracle.exe.config"
         & "$out/XmlplayersOracle.exe" $original "$evidence/$mode-result.json" *> "$evidence/$mode-oracle.txt"

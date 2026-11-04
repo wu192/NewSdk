@@ -1,0 +1,39 @@
+{
+  "sourceCommit": "300812cd6b2f372cbc6ee72f8bc89058b922f079",
+  "runId": 41004795406,
+  "runAttempt": 1,
+  "conclusion": "success",
+  "url": "https://github.com/wu162/NewSdk/actions/runs/41004795406",
+  "artifactId": 12955182905,
+  "artifactBytes": 308435,
+  "artifactSha256": "940c9e80a49084c400c69161f5fceab028fecbad3d0522f02bb703945b818c2b",
+  "evidenceSha256": "940c9e80a49084c400c69161f5fceab028fecbad3d0522f02bb703945b818c2b",
+  "checks": {
+    "fullModBuilds": 4,
+    "equalPublishedPairs": [
+      0,
+      1
+    ],
+    "downloadedPublishedManifestsIdentical": true,
+    "diagnostics": {
+      "baseline-0": {
+        "warning": 1859
+      },
+      "baseline-1": {
+        "warning": 1859
+      },
+      "optimized-0": {
+        "warning": 1859
+      },
+      "optimized-1": {
+        "warning": 1859
+      }
+    },
+    "optimizedExeMatchesFunctionalAcceptance": true
+  },
+  "baselineMs": 33831.915349999974,
+  "optimizedMs": 29615.679999999997,
+  "speedup": 1.1423649684896642,
+  "timeReductionPercent": 12.462301665105047,
+  "note": "CI compared full published bytes; raw BIG is not duplicated in this measurement archive; published manifests and all original reports/logs retained."
+}

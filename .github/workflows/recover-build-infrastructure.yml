@@ -28,15 +28,30 @@ jobs:
       - name: Compare original and source-built contracts and behavior
         shell: pwsh
         run: ./recovery/scripts/TestBuildInfrastructure.ps1
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/build-infrastructure/${{ github.run_id }}-${{ github.run_attempt }}/*.json
+            recovery/evidence/build-infrastructure/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/build-infrastructure/${{ github.run_id }}-${{ github.run_attempt }}/*difference*.txt
+            recovery/evidence/build-infrastructure/validation/${{ github.run_id }}-${{ github.run_attempt }}/*.json
+            recovery/evidence/build-infrastructure/validation/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/build-infrastructure/validation/${{ github.run_id }}-${{ github.run_attempt }}/*difference*.txt
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: build-infrastructure-${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'build-infrastructure-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
-            recovery/src/Managed/Core
-            recovery/src/Managed/Remote
-            recovery/src/Managed/EALABuild
-            recovery/evidence/build-infrastructure
+            recovery/evidence/build-infrastructure/${{ github.run_id }}-${{ github.run_attempt }}/*.json
+            recovery/evidence/build-infrastructure/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/build-infrastructure/${{ github.run_id }}-${{ github.run_attempt }}/*difference*.txt
+            recovery/evidence/build-infrastructure/validation/${{ github.run_id }}-${{ github.run_attempt }}/*.json
+            recovery/evidence/build-infrastructure/validation/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/build-infrastructure/validation/${{ github.run_id }}-${{ github.run_attempt }}/*difference*.txt
+          retention-days: 1
+          if-no-files-found: warn
       - name: Save source and evidence
         if: always()
         shell: pwsh

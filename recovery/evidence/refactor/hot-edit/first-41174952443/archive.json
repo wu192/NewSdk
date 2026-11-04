@@ -1,0 +1,125 @@
+{
+  "runId": 41174952443,
+  "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "status": "failed",
+  "artifactId": 13033092082,
+  "archiveSha256": "efc4f35f5e2a8e7bd489f12fb2a8dee983fe0b50dbe97123cde4cae3db90da92",
+  "archiveBytes": 126757161,
+  "downloadedAndRehashed": true,
+  "runtime": {
+    "Debug": {
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "b56536d5395da0ce7cef8f81381fd0bd29ffeb46843c8913a20184b09e06c829",
+      "NewModCompiler.exe": "38d79feb8fcc39b916118d516b31c35785b5a2364d6a8c798c5df06072ef91e5",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    },
+    "Release": {
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "43b5e2b17563ac11696c5fc57e3b3bde250f107a40ff2b17a8141be23c1ac6e4",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "NewModCompiler.exe": "2f029d20abe1ef75d9730174e7f47ef2b4c0430d14aefafbcc6027acbb95a86b",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    }
+  },
+  "coreFixtureResults": {
+    "Debug/CompilerInstanceIncludeCache": {
+      "succeeded": false,
+      "checks": 11,
+      "error": "System.Exception: Unrelated parent sibling reparsed its child/grandchild\r\n   at CompilerInstanceIncludeCache.Need(Boolean condition, String message) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInstanceIncludeCache.cs:line 21\r\n   at CompilerInstanceIncludeCache.Chain(BuiltinCompilers plugins) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInstanceIncludeCache.cs:line 137\r\n   at CompilerInstanceIncludeCache.Main(String[] args) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInstanceIncludeCache.cs:line 215"
+    },
+    "Debug/CompilerInheritanceSnapshot": {
+      "succeeded": false,
+      "checks": 1,
+      "error": "System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-2ae810af6b7e\\D-f10\\build-cache'.\r\n   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)\r\n   at System.IO.FileSystemEnumerableIterator`1.CommonInit()\r\n   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)\r\n   at System.IO.Directory.GetFiles(String path, String searchPattern, SearchOption searchOption)\r\n   at CompilerInheritanceSnapshot.CopyDirectory(String source, String destination) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInheritanceSnapshot.cs:line 34\r\n   at CompilerInheritanceSnapshot.Streams(BuiltinCompilers plugins, SchemaSet schemas, Settings settings) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInheritanceSnapshot.cs:line 136\r\n   at CompilerInheritanceSnapshot.Main(String[] args) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInheritanceSnapshot.cs:line 254"
+    },
+    "Debug/CompilerReferenceSemantics": {
+      "succeeded": false,
+      "checks": 64,
+      "error": "BinaryAssetBuilder.BinaryAssetBuilderException: Element xsi:type in instance Container:Probe [d94825fc:3f8aba3d] doesn't have a schema type.\r\n   at CompilerReferenceSemantics.References(XmlDocument xml, UInt32& hash) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerReferenceSemantics.cs:line 103\r\n   at CompilerReferenceSemantics.ReferenceCases() in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerReferenceSemantics.cs:line 148\r\n   at CompilerReferenceSemantics.Main(String[] args) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerReferenceSemantics.cs:line 195"
+    },
+    "Release/CompilerInstanceIncludeCache": {
+      "succeeded": false,
+      "checks": 11,
+      "error": "System.Exception: Unrelated parent sibling reparsed its child/grandchild\r\n   at CompilerInstanceIncludeCache.Need(Boolean condition, String message)\r\n   at CompilerInstanceIncludeCache.Chain(BuiltinCompilers plugins)\r\n   at CompilerInstanceIncludeCache.Main(String[] args)"
+    },
+    "Release/CompilerInheritanceSnapshot": {
+      "succeeded": false,
+      "checks": 1,
+      "error": "System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-2ae810af6b7e\\R-f10\\build-cache'.\r\n   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)\r\n   at System.IO.FileSystemEnumerableIterator`1.CommonInit()\r\n   at System.IO.FileSystemEnumerableIterator`1..ctor(String path, String originalUserPath, String searchPattern, SearchOption searchOption, SearchResultHandler`1 resultHandler, Boolean checkHost)\r\n   at System.IO.Directory.GetFiles(String path, String searchPattern, SearchOption searchOption)\r\n   at CompilerInheritanceSnapshot.CopyDirectory(String source, String destination)\r\n   at CompilerInheritanceSnapshot.Streams(BuiltinCompilers plugins, SchemaSet schemas, Settings settings)\r\n   at CompilerInheritanceSnapshot.Main(String[] args)"
+    },
+    "Release/CompilerReferenceSemantics": {
+      "succeeded": false,
+      "checks": 64,
+      "error": "BinaryAssetBuilder.BinaryAssetBuilderException: Element xsi:type in instance Container:Probe [d94825fc:3f8aba3d] doesn't have a schema type.\r\n   at CompilerReferenceSemantics.References(XmlDocument xml, UInt32& hash)\r\n   at CompilerReferenceSemantics.ReferenceCases()\r\n   at CompilerReferenceSemantics.Main(String[] args)"
+    }
+  },
+  "topReceipts": {
+    "evidence/refactor/performance/41174952443-1/validation.json": {
+      "status": "failed",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": null
+    },
+    "evidence/refactor/hot-cache/41174952443-1/validation.json": {
+      "status": "passed",
+      "sourceCommit": null,
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "evidence/refactor/ui-integration/41174952443-1/summary.json": {
+      "status": true,
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": null
+    },
+    "evidence/refactor/backend-parallel/41174952443-1/validation.json": {
+      "status": true,
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": null
+    },
+    "evidence/refactor/big/41174952443-1/validation.json": {
+      "status": true,
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": null
+    },
+    "evidence/refactor/session-cache/41174952443-1/validation.json": {
+      "status": true,
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "evidence/refactor/cache-payloads/41174952443-1/validation.json": {
+      "status": true,
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "evidence/refactor/input-roots/41174952443-1/validation.json": {
+      "status": true,
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": null
+    },
+    "evidence/refactor/build-cache/41174952443-1/validation.json": {
+      "status": true,
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    },
+    "evidence/refactor/core-lifecycle-deployment/41174952443-1/validation.json": {
+      "status": "passed",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": null
+    },
+    "evidence/refactor/core-lifecycle/41174952443-1/validation.json": {
+      "status": false,
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": null
+    },
+    "evidence/refactor/core-lifecycle-texture/41174952443-1/validation.json": {
+      "status": "passed",
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": null
+    },
+    "evidence/refactor/core-cli/41174952443-1/validation.json": {
+      "status": true,
+      "sourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe"
+    }
+  },
+  "receiptArchiveSha256": "8c5954eb307fcab59b641afa7285d088edfb5b57edecb2dcf65fbbf6c9d81823"
+}

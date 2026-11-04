@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "succeeded": true,
+  "status": "verified-small-mod-deployment",
+  "sourceCommit": "ae4654a892446724bf870348e56f2e8072fafa58",
+  "binarySourceCommit": "ae4654a892446724bf870348e56f2e8072fafa58",
+  "runId": "40868109538",
+  "runAttempt": "1",
+  "scope": "Exact five-file Win32/net48 runtime ZIP deployment, production doctor and small Armor MOD with source-runtime raw output equivalence; not complete P5/G3/SDK or Unicode Texture acceptance; independently extracted exact runtime additionally passed real base/APT/maps BIG builds, original LoD and MakeBig raw member differential, explicit SDK/MOD Additional against original CopyFolders and MakeBig, opt-in neutral hash repair against original HashFix/Resolver/LoD/MakeBig (no-insertion scope), CDATA and rollback/cancellation matrices",
+  "rawReceiptArchivePath": "artifacts/final-release/40868109538-1/release.json",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "succeeded": true,
+      "runtimeUnchanged": true,
+      "zipSha256": "c3f68145560f5c52e285cbbb3e8cf8259dc257f9cb5b982b97f03b974df2f551",
+      "zip": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\final-release\\40868109538-1\\NewModCompiler-Win32-Debug.zip",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 6586368,
+          "sha256": "2ba4d621964c04211dd41fb83a2cf606c48dc57db5ce3ada141961d4faaf2684"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "bytes": 917504,
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "bytes": 14326,
+          "sha256": "498ddd9003aa3e7373d9c2a4351da2c3d186c1ef6c9bbaf65103167a334bdc83"
+        }
+      ]
+    },
+    {
+      "configuration": "Release",
+      "succeeded": true,
+      "runtimeUnchanged": true,
+      "zipSha256": "ef4913adef7f016f7184cbafc71b4a80a54d48205133b0b027b4979b48e8b089",
+      "zip": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\final-release\\40868109538-1\\NewModCompiler-Win32-Release.zip",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 4146688,
+          "sha256": "daf7e3bfd3deb3067bdb61e0c27792a143b9d60aaa0fd942dd530f2a8e8120d7"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "bytes": 917504,
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+        },
+        {
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "bytes": 14326,
+          "sha256": "c09d8b66cdb33527c3f01912595fda9bd75d8f68335b9d775c2857983f1e223a"
+        }
+      ]
+    }
+  ]
+}

@@ -156,20 +156,14 @@ struct Builder {
     void Apply(const std::string& type,const XmluisettingsNode& node,unsigned char* target,unsigned depth) {
         if(depth>32)throw std::invalid_argument("UiSettings nesting exceeds 32.");
         const Layout& layout=Get(type);
-        for(const auto& attr:node.attributes) {
-            if(attr.first=="TypeId"||(XmluisettingsTypeId(type)&&(attr.first=="id"||attr.first=="inheritFrom")))continue;
-            bool known=false;
-            for(const auto& f:layout.fields)if(attr.first==f.name){known=true;break;}
-            if(type=="PackedColor"&&(attr.first=="R"||attr.first=="G"||attr.first=="B"||attr.first=="A"))known=true;
-            if(!known)throw std::invalid_argument("Unknown uisettings attribute: "+attr.first);
-        }
+
         if(type=="String") {
-            if(!node.children.empty())throw std::invalid_argument("UiSettings string has child elements.");
+
             MarshalString(data,target,node.value);words.push_back(target);return;
         }
-        if(NonWhitespace(node.value))throw std::invalid_argument("Unexpected uisettings text.");
+        ;
         if(type=="PackedColor") {
-            if(!node.children.empty())throw std::invalid_argument("Color has children.");
+
             const char* channels[]={"B","G","R","A"};U32 packed=0;
             for(unsigned i=0;i<4;++i){auto a=node.attributes.find(channels[i]);U32 n=a==node.attributes.end()?(i==3?255u:0u):ParseUnsigned(a->second);packed|=(n&255u)<<(8*i);}
             Word(target,packed);return;
@@ -193,10 +187,7 @@ struct Builder {
             case Kind::Enum:Word(p,Enum(f.enumeration,text));break;
             }
         }
-        for(const auto& child:node.children) {
-            bool known=false;for(const auto& c:layout.children)if(child.name==c.name){known=true;break;}
-            if(!known)throw std::invalid_argument("Unknown uisettings child: "+child.name);
-        }
+        ;
         for(const auto& child:layout.children) {
             std::vector<const XmluisettingsNode*> matches;
             for(const auto& c:node.children)if(c.name==child.name)matches.push_back(&c);
@@ -209,7 +200,7 @@ struct Builder {
                     data.Pop();
                 }
             } else {
-                if(matches.size()>1)throw std::invalid_argument("Duplicate uisettings singleton: "+std::string(child.name));
+
                 if(matches.empty())continue;
                 if(child.kind==ChildKind::Pointer){auto item=Allocate(p,Get(child.type).size);Apply(child.type,*matches[0],item,depth+1);data.Pop();}
                 else Apply(child.type,*matches[0],p,depth+1);

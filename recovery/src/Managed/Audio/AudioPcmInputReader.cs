@@ -5,7 +5,7 @@ using System.Text;
 namespace BinaryAssetBuilder.AudioCompiler
 {
     // SIMEX WAVE importer 0x37210 and AIFF importer 0x381c0. This reader
-    // accepts 1/2/4/6-channel integral WAVE and AIFF/AIFC NONE input.
+    // accepts 1/2/4/6/8-channel integral WAVE and 1/2/4/6-channel AIFF/AIFC NONE input.
     internal static class AudioPcmInputReader
     {
         internal static Pcm16Encoder.PcmWaveInput Read(byte[] bytes, bool allowLoop = false)
@@ -91,8 +91,8 @@ namespace BinaryAssetBuilder.AudioCompiler
                     throw new NotSupportedException("Audio loop and marker metadata has not been recovered");
                 at = next + (size & 1);
             }
-            if (format != 1 || (bits != 8 && bits != 16 && bits != 24) || (channels != 1 && channels != 2 && channels != 4 && channels != 6))
-                throw new NotSupportedException("Only 1/2/4/6-channel WAVE or AIFF/AIFC PCM8/16/24 input is supported");
+            if (format != 1 || (bits != 8 && bits != 16 && bits != 24) || (channels != 1 && channels != 2 && channels != 4 && channels != 6 && !(wave && channels == 8)))
+                throw new NotSupportedException("Only 1/2/4/6/8-channel WAVE or 1/2/4/6-channel AIFF/AIFC PCM8/16/24 input is supported");
             // Native representation13 has only mono/stereo readers; the generic
             // callback is null (RVA fdfd4). Refuse before allocation or decoding.
             if (adp4 && channels > 2)

@@ -1,0 +1,10 @@
+{
+  "runId": "41132655545",
+  "sourceCommit": "9042e11de3765424139e1c25526d960b67311024",
+  "status": "partial",
+  "artifactId": 13014635012,
+  "archiveSha256": "b42ff216b9ec9182ee53684b0353fa87942191976a3509805b00f8c0356a1672",
+  "archiveDigestVerified": true,
+  "formalSamples": 0,
+  "reason": "Shared XInclude Defines produced distinct origins and duplicate global definitions; fixed in e667ea70"
+}

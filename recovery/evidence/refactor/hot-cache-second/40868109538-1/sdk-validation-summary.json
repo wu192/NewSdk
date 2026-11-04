@@ -1,0 +1,28 @@
+{
+  "succeeded": true,
+  "sourceCommit": "ae4654a892446724bf870348e56f2e8072fafa58",
+  "binarySourceCommit": "ae4654a892446724bf870348e56f2e8072fafa58",
+  "testSourceCommit": "ae4654a892446724bf870348e56f2e8072fafa58",
+  "runId": "40868109538",
+  "runAttempt": "1",
+  "inputsUnchanged": true,
+  "originalBaselinePassed": true,
+  "scope": "Complete unchanged repository SDK/Mods/mymod source, base/apt/maps discovery, one production build process per Debug/Release configuration, original BAB raw four-stream and exact CDATA output comparison. BIG/SKUDEF is additionally compared to original LoD and MakeBig using this unchanged MOD; empty optional groups remain empty and no synthetic APT/map coverage or complete game runtime acceptance is inferred.",
+  "sdkGitTree": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+  "modGitTree": "7d6f0192069e357c1b1508faf9fa9f0647468678",
+  "rawReceiptArchivePath": "evidence/refactor/sdk-mymod/40868109538-1/validation.json",
+  "modes": [
+    {
+      "configuration": "Debug",
+      "succeeded": true,
+      "looseSucceeded": true,
+      "eventCount": 170
+    },
+    {
+      "configuration": "Release",
+      "succeeded": true,
+      "looseSucceeded": true,
+      "eventCount": 170
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "272515c3ea8a4a316cb8fcc25b329d688d7a9452",
+  "runId": 41179953079,
+  "scope": "Focused common texture artifact; independent remaining job scopes retain their own receipts",
+  "status": "failed",
+  "artifact": {
+    "id": 13034741579,
+    "bytes": 14027,
+    "sha256": "2675a6c8bd188b4ca8aa8dfae5947d742c12ccd973dfaee70c0c6d1579503c1c",
+    "downloadedAndVerified": true
+  },
+  "failure": "Six common cases passed after RLE fixture repair, then standard indexed BMP decoded with incorrect RGB through GDI+ fallback. Fixed by explicit BI_RGB indexed palette decoding in 4c74bf64b; copied legacy direct-color decoder and pixel thresholds unchanged.",
+  "followup": "Full candidate adds independent-case collection, maintains exactly31 success cases and original thresholds, and still requires all scopes passed."
+}

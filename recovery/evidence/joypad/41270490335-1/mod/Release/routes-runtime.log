@@ -1,0 +1,2 @@
+PASS production built-in registry: 310 routes, seven EXE-owned factories including source-aware AptAptData, 300 XML declarations (278 global/22 non-global), missing/duplicate/unknown rejection; three owner reinitializations preserve plugin/route identity and metadata; metadata only, no asset differential
+PASS built-in owner disposal: repeated Dispose is safe; Registry and ReInitialize reject disposed owner

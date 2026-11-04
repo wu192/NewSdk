@@ -5,14 +5,15 @@ using BinaryAssetBuilder.Core;
 
 namespace Recovered.XmlPriority
 {
-    // Generated 289 recovered entries; see catalog/XmlSdkTypes.json and GenerateXmlSdkRoutes.py. Every payload is generated
+    // Generated 300 recovered entries; see catalog/XmlSdkTypes.json and GenerateXmlSdkRoutes.py. Every payload is generated
     // by the recovered bridge; this assembly does not load the original compiler.
     public sealed class Plugin : IAssetBuilderPlugin
     {
         private TargetPlatform platform;
+        private string trace;
         private static readonly object TraceGate = new object();
 
-        public void Initialize(object configObject, TargetPlatform target) { platform = target; }
+        public void Initialize(object configObject, TargetPlatform target) { platform = target; trace = Environment.GetEnvironmentVariable("RA3_RECOVERED_XML_PRIORITY_TRACE"); }
         public void ReInitialize(object configObject, TargetPlatform target) { Initialize(configObject, target); }
         public uint GetAllTypesHash() { return 1424942948u; }
         public uint GetVersionNumber()
@@ -319,31 +320,21 @@ namespace Recovered.XmlPriority
                 case 3737094024u: info.TypeName = "GameScriptList"; info.TypeHash = 2724763994u; break;
                 case 3575309793u: info.TypeName = "GameMap"; info.TypeHash = 4100291602u; break;
                 case 3072160547u: info.TypeName = "UIConfigList"; info.TypeHash = 3852040349u; break;
+                case 1276968974u: info.TypeName = "UIJoypadCommandBarMixedGroup"; info.TypeHash = 3983232506u; break;
+                case 1546953756u: info.TypeName = "UIJoypadCommandBarHomogenousGroup"; info.TypeHash = 2225127171u; break;
+                case 1654297531u: info.TypeName = "UIJoypadCommandBarCoopCommunicator"; info.TypeHash = 2835608034u; break;
+                case 1804891371u: info.TypeName = "JoypadCommandBarButtonTemplate"; info.TypeHash = 689163324u; break;
+                case 1887864852u: info.TypeName = "UIJoypadCommandBarStances"; info.TypeHash = 1145979021u; break;
+                case 1931769760u: info.TypeName = "JoypadCommandBarTemplate"; info.TypeHash = 1959031257u; break;
+                case 2170044043u: info.TypeName = "UIJoypadCommandBarTopMenu"; info.TypeHash = 360514692u; break;
+                case 2742786440u: info.TypeName = "UIJoypadCommandBarPlayerPowers"; info.TypeHash = 1752851487u; break;
+                case 3423839194u: info.TypeName = "UIJoypadCommandBarButtonBuild"; info.TypeHash = 1141570868u; break;
+                case 3645205636u: info.TypeName = "UIJoypadCommandBarControlGroups"; info.TypeHash = 3852026165u; break;
+                case 3901433122u: info.TypeName = "UIJoypadCommandBarSingleUnit"; info.TypeHash = 1804668011u; break;
                 default: throw new NotSupportedException("XmlPriority supports only its generated recovered scope; excluded roots remain unsupported.");
             }
             info.ProcessingHash = info.TypeHash ^ GetVersionNumber();
             return info;
-        }
-        private void WriteFailedInput(InstanceDeclaration instance, uint typeId, Exception error)
-        {
-            string trace = Environment.GetEnvironmentVariable("RA3_RECOVERED_XML_PRIORITY_TRACE");
-            if (String.IsNullOrEmpty(trace)) return;
-            // Diagnostics must preserve the original compiler exception. Failed inputs
-            // are separate from successful calls.tsv and never enter replay counts.
-            try
-            {
-                lock (TraceGate)
-                {
-                    Directory.CreateDirectory(trace);
-                    string stem = "failed-" + Guid.NewGuid().ToString("N");
-                    string path = Path.Combine(trace, stem);
-                    File.WriteAllText(path + ".xml", instance.Node.OuterXml);
-                    File.WriteAllText(path + ".error.txt", "TypeId=" +
-                        typeId.ToString(CultureInfo.InvariantCulture) + " platform=" +
-                        ((int)platform).ToString(CultureInfo.InvariantCulture) + Environment.NewLine + error);
-                }
-            }
-            catch { /* Preserve the original failure if diagnostics cannot be written. */ }
         }
         // buildRule/typeHashCode are legal BaseAssetType metadata, not XmlCompiler payload fields.
         // Original Module reads neither attribute. Normalize a detached copy only at the
@@ -358,8 +349,6 @@ namespace Recovered.XmlPriority
             if (clone.Attributes["typeHashCode"] != null) clone.Attributes.RemoveNamedItem("typeHashCode");
             InstanceDeclaration normalized = new InstanceDeclaration(instance.Document);
             normalized.XmlNode = clone;
-            if (normalized.Handle.TypeId != instance.Handle.TypeId)
-                throw new InvalidOperationException("SDK metadata normalization changed the root TypeId.");
             return normalized;
         }
         public AssetBuffer ProcessInstance(InstanceDeclaration instance)
@@ -368,1176 +357,1211 @@ namespace Recovered.XmlPriority
             uint typeId = instance.Handle.TypeId;
             string typeName;
             AssetBuffer result;
-            try
+            InstanceDeclaration compilationInstance = CompilerInput(instance);
+            switch (typeId)
             {
-                InstanceDeclaration compilationInstance = CompilerInput(instance);
-                switch (typeId)
-                {
-                    case 3319822471u:
-                        typeName = "AttributeModifier";
-                        result = global::Recovered.AttributeModifierCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2254974584u:
-                        typeName = "FXList";
-                        result = global::Recovered.FXListCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2178440954u:
-                        typeName = "SpecialPowerTemplate";
-                        result = global::Recovered.SpecialPowerTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3899542881u:
-                        typeName = "ObjectCreationList";
-                        result = global::Recovered.ObjectCreationListCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3972178387u:
-                        typeName = "LocomotorTemplate";
-                        result = global::Recovered.LocomotorTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3959844197u:
-                        typeName = "LogicCommandSet";
-                        result = global::Recovered.LogicCommandSetCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 686292351u:
-                        typeName = "FXParticleSystemTemplate";
-                        result = global::Recovered.FXParticleSystemTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3786401627u:
-                        typeName = "UpgradeTemplate";
-                        result = global::Recovered.UpgradeTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3604279694u:
-                        typeName = "AIPersonalityDefinition";
-                        result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 607123156u:
-                        typeName = "AIStrategicStateDefinition";
-                        result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2423780215u:
-                        typeName = "AIMicroManagerData";
-                        result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2893598307u:
-                        typeName = "AIBudgetStateDefinition";
-                        result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3239935619u:
-                        typeName = "AIStateDefinition";
-                        result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 926814458u:
-                        typeName = "AITargetingHeuristic";
-                        result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2101756272u:
-                        typeName = "LogicCommand";
-                        result = global::Recovered.LogicCommandCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2131237081u:
-                        typeName = "PlayerTech";
-                        result = global::Recovered.PlayerTechCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1802643394u:
-                        typeName = "PlayerTechRank";
-                        result = global::Recovered.PlayerTechRankCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2140592493u:
-                        typeName = "PlayerTechUpgradeBinding";
-                        result = global::Recovered.PlayerTechUpgradeBindingCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1874610847u:
-                        typeName = "ExperienceLevelTemplate";
-                        result = global::Recovered.ExperienceLevelTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1213037816u:
-                        typeName = "PlayerTechStoreTemplate";
-                        result = global::Recovered.PlayerTechStoreTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1566941920u:
-                        typeName = "PurchasePlayerTechButtonTemplate";
-                        result = global::Recovered.PurchasePlayerTechButtonTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3048039928u:
-                        typeName = "ButtonSingleStateData";
-                        result = global::Recovered.ButtonSingleStateDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 134745024u:
-                        typeName = "UICommandButton";
-                        result = global::Recovered.UICommandButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1371131236u:
-                        typeName = "FontDefaultSetting";
-                        result = global::Recovered.FontDefaultSettingCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1318336226u:
-                        typeName = "FontTranslation";
-                        result = global::Recovered.FontTranslationCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 91719417u:
-                        typeName = "FontSubstitution";
-                        result = global::Recovered.FontSubstitutionCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2430161325u:
-                        typeName = "Weather";
-                        result = global::Recovered.WeatherCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1479531562u:
-                        typeName = "WaterTransparency";
-                        result = global::Recovered.WaterTransparencyCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2728605516u:
-                        typeName = "WaterSetting";
-                        result = global::Recovered.WaterSettingCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 680780553u:
-                        typeName = "Environment";
-                        result = global::Recovered.EnvironmentCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3169690211u:
-                        typeName = "LightingSettings";
-                        result = global::Recovered.LightingSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2995571269u:
-                        typeName = "WaterTextureList";
-                        result = global::Recovered.WaterTextureListCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1469498551u:
-                        typeName = "TerrainParticleMapping";
-                        result = global::Recovered.TerrainParticleMappingCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2368878637u:
-                        typeName = "BounceKickTerrainMapping";
-                        result = global::Recovered.BounceKickTerrainMappingCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4157475773u:
-                        typeName = "ShadowMap";
-                        result = global::Recovered.ShadowMapCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2996766068u:
-                        typeName = "OrdersManagerSettings";
-                        result = global::Recovered.OrdersManagerSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1184276792u:
-                        typeName = "TerrainVisualSettings";
-                        result = global::Recovered.TerrainVisualSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3898802054u:
-                        typeName = "CameraSettings";
-                        result = global::Recovered.CameraSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3827723072u:
-                        typeName = "AIData";
-                        result = global::Recovered.AIDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2964891936u:
-                        typeName = "UnitAISettings";
-                        result = global::Recovered.UnitAISettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4063352333u:
-                        typeName = "PlayerTemplate";
-                        result = global::Recovered.PlayerTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 191082224u:
-                        typeName = "MultiplayerSettings";
-                        result = global::Recovered.MultiplayerSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1644972043u:
-                        typeName = "AIBuildStateDefinition";
-                        result = global::Recovered.AIBuildStateDefinitionCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2010562192u:
-                        typeName = "AIStrategicStateName";
-                        result = global::Recovered.AIStrategicStateNameCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2384988189u:
-                        typeName = "MultiplayerColor";
-                        result = global::Recovered.MultiplayerColorCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4086175864u:
-                        typeName = "AIPersonalityToAchievementEventMapping";
-                        result = global::Recovered.AIPersonalityToAchievementEventMappingCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 838130914u:
-                        typeName = "FormationAssistantUnitDefinition";
-                        result = global::Recovered.FormationAssistantUnitDefinitionCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2912385462u:
-                        typeName = "FormationAssistantTemplate";
-                        result = global::Recovered.FormationAssistantTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3374519264u:
-                        typeName = "FormationSelectionTemplate";
-                        result = global::Recovered.FormationSelectionTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1963196508u:
-                        typeName = "FormationAssistant";
-                        result = global::Recovered.FormationAssistantCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3249689110u:
-                        typeName = "GameStatsModeData";
-                        result = global::Recovered.GameStatsModeDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 402082255u:
-                        typeName = "SkirmishSettings";
-                        result = global::Recovered.SkirmishSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2905958645u:
-                        typeName = "DamageFX";
-                        result = global::Recovered.DamageFXCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 75989905u:
-                        typeName = "DamageFXSettings";
-                        result = global::Recovered.DamageFXSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 417176643u:
-                        typeName = "GeneralHotKeySlots";
-                        result = global::Recovered.GeneralHotKeySlotsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3741098742u:
-                        typeName = "DefaultHotKeys";
-                        result = global::Recovered.DefaultHotKeysCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3359870461u:
-                        typeName = "DebugHotKeys";
-                        result = global::Recovered.DebugHotKeysCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1350608344u:
-                        typeName = "MappableKey";
-                        result = global::Recovered.MappableKeyCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3906227957u:
-                        typeName = "AudioEventLimitGroup";
-                        result = global::Recovered.AudioEventLimitGroupCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 299416263u:
-                        typeName = "AudioLOD";
-                        result = global::Recovered.AudioLODCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1443425905u:
-                        typeName = "AudioSettings";
-                        result = global::Recovered.AudioSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 587347702u:
-                        typeName = "Video";
-                        result = global::Recovered.VideoCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1447728787u:
-                        typeName = "VideoEventList";
-                        result = global::Recovered.VideoEventListCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1826140078u:
-                        typeName = "MicrophoneSettings";
-                        result = global::Recovered.MicrophoneSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3370391592u:
-                        typeName = "BootupDisplaySequence";
-                        result = global::Recovered.BootupDisplaySequenceCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2800139175u:
-                        typeName = "HotKeySlot";
-                        result = global::Recovered.HotKeySlotCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3784442503u:
-                        typeName = "MouseCursor";
-                        result = global::Recovered.MouseCursorCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 611271731u:
-                        typeName = "BasicMouseCursors";
-                        result = global::Recovered.BasicMouseCursorsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 611126373u:
-                        typeName = "UIMouseDragSelectionFeedback";
-                        result = global::Recovered.UIMouseDragSelectionFeedbackCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1559937240u:
-                        typeName = "UIFloatingTextDisplay";
-                        result = global::Recovered.UIFloatingTextDisplayCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1697313181u:
-                        typeName = "UIMessageDisplay";
-                        result = global::Recovered.UIMessageDisplayCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1043989897u:
-                        typeName = "UIMilitaryCaptionDisplay";
-                        result = global::Recovered.UIMilitaryCaptionDisplayCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 165611890u:
-                        typeName = "UISubtitleDisplay";
-                        result = global::Recovered.UISubtitleDisplayCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 951036436u:
-                        typeName = "UITimerDisplay";
-                        result = global::Recovered.UITimerDisplayCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2901356964u:
-                        typeName = "DynamicGameLOD";
-                        result = global::Recovered.DynamicGameLODCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 354222972u:
-                        typeName = "GameLODPreset";
-                        result = global::Recovered.GameLODPresetCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 531798225u:
-                        typeName = "StaticGameLOD";
-                        result = global::Recovered.StaticGameLODCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4243804314u:
-                        typeName = "UICoopTinting";
-                        result = global::Recovered.UICoopTintingCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 544776545u:
-                        typeName = "RadiusCursor";
-                        result = global::Recovered.RadiusCursorCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1302035577u:
-                        typeName = "AnimationSoundSettings";
-                        result = global::Recovered.AnimationSoundSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2070603733u:
-                        typeName = "MiscAudio";
-                        result = global::Recovered.MiscAudioCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 534008255u:
-                        typeName = "LargeGroupAudioMap";
-                        result = global::Recovered.LargeGroupAudioMapCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1296329066u:
-                        typeName = "UIMouseTacticalSelectionDetailsButtonHotKeys";
-                        result = global::Recovered.UIMouseTacticalSelectionDetailsButtonHotKeysCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2591692061u:
-                        typeName = "UIMouseTacticalMainCommandBarHotKeys";
-                        result = global::Recovered.UIMouseTacticalMainCommandBarHotKeysCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2283998413u:
-                        typeName = "UIMouseTacticalPlayerPowerHotKeys";
-                        result = global::Recovered.UIMouseTacticalPlayerPowerHotKeysCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2014061824u:
-                        typeName = "UIMouseTacticalMiscHotKeys";
-                        result = global::Recovered.UIMouseTacticalMiscHotKeysCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2738273474u:
-                        typeName = "UIMouseHUDElementHotKeyGate";
-                        result = global::Recovered.UIMouseHUDElementHotKeyGateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4098431913u:
-                        typeName = "UIQuickChatMessage";
-                        result = global::Recovered.UIQuickChatMessageCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2891878770u:
-                        typeName = "UIMouseTacticalQuickChatDisplay";
-                        result = global::Recovered.UIMouseTacticalQuickChatDisplayCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3746130610u:
-                        typeName = "UIMouseVoiceChat";
-                        result = global::Recovered.UIMouseVoiceChatCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2599418799u:
-                        typeName = "UIDecalGrid";
-                        result = global::Recovered.UIDecalGridCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2524893660u:
-                        typeName = "UIDecalCloud";
-                        result = global::Recovered.UIDecalCloudCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1532214660u:
-                        typeName = "UIDecalDestinationMarker";
-                        result = global::Recovered.UIDecalDestinationMarkerCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1238702511u:
-                        typeName = "UIWorldBuilderDecalGrid";
-                        result = global::Recovered.UIWorldBuilderDecalGridCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1079232276u:
-                        typeName = "BaseAudioEventInfo";
-                        result = global::Recovered.BaseAudioEventInfoCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3228425025u:
-                        typeName = "BaseSingleSound";
-                        result = global::Recovered.BaseSingleSoundCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2219670431u:
-                        typeName = "AudioEvent";
-                        result = global::Recovered.AudioEventCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1883691512u:
-                        typeName = "MusicTrack";
-                        result = global::Recovered.MusicTrackCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1013434420u:
-                        typeName = "MP3MusicTrack";
-                        result = global::Recovered.MP3MusicTrackCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3558134211u:
-                        typeName = "DialogEvent";
-                        result = global::Recovered.DialogEventCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1479988269u:
-                        typeName = "MP3DialogEvent";
-                        result = global::Recovered.MP3DialogEventCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3928762264u:
-                        typeName = "AmbientStream";
-                        result = global::Recovered.AmbientStreamCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1813598662u:
-                        typeName = "MP3AmbientStream";
-                        result = global::Recovered.MP3AmbientStreamCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2745675575u:
-                        typeName = "Multisound";
-                        result = global::Recovered.MultisoundCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 97402485u:
-                        typeName = "PathMusicGameDynamicState";
-                        result = global::Recovered.PathMusicGameDynamicStateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 343094706u:
-                        typeName = "PathMusicGameDynamicStateSet";
-                        result = global::Recovered.PathMusicGameDynamicStateSetCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2343360052u:
-                        typeName = "PathMusicGameDynamicTransition";
-                        result = global::Recovered.PathMusicGameDynamicTransitionCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1122327197u:
-                        typeName = "PathMusicEventRuntime";
-                        result = global::Recovered.PathMusicEventRuntimeCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3339496789u:
-                        typeName = "PathMusicEventSet";
-                        result = global::Recovered.PathMusicEventSetCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2026048286u:
-                        typeName = "PathMusicMapRuntime";
-                        result = global::Recovered.PathMusicMapRuntimeCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2407383451u:
-                        typeName = "MusicPalette";
-                        result = global::Recovered.MusicPaletteCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2292378780u:
-                        typeName = "MusicScriptConditionNuggetBase";
-                        result = global::Recovered.MusicScriptConditionNuggetBaseCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 849624115u:
-                        typeName = "MusicScriptConditionExpensiveNuggetBase";
-                        result = global::Recovered.MusicScriptConditionExpensiveNuggetBaseCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 188286714u:
-                        typeName = "MusicScriptConditionNugget_LocalPlayerIsObserver";
-                        result = global::Recovered.MusicScriptConditionNugget_LocalPlayerIsObserverCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2620791304u:
-                        typeName = "MusicScriptConditionNugget_UnitsFarFromBase";
-                        result = global::Recovered.MusicScriptConditionNugget_UnitsFarFromBaseCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1464425282u:
-                        typeName = "MusicScriptConditionNugget_TimeFromStartOfLevel";
-                        result = global::Recovered.MusicScriptConditionNugget_TimeFromStartOfLevelCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 57370491u:
-                        typeName = "MusicScriptConditionNugget_TrackPlayedCount";
-                        result = global::Recovered.MusicScriptConditionNugget_TrackPlayedCountCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 739280456u:
-                        typeName = "MusicScriptConditionNugget_SpecificTrackTypePlaying";
-                        result = global::Recovered.MusicScriptConditionNugget_SpecificTrackTypePlayingCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3402992833u:
-                        typeName = "MusicScriptConditionNugget_AnyTrackPlaying";
-                        result = global::Recovered.MusicScriptConditionNugget_AnyTrackPlayingCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4286308287u:
-                        typeName = "MusicScriptConditionNugget_ObjectsOfTypeExist";
-                        result = global::Recovered.MusicScriptConditionNugget_ObjectsOfTypeExistCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2743973749u:
-                        typeName = "MusicScriptConditionNugget_EvaEventPlayedRecently";
-                        result = global::Recovered.MusicScriptConditionNugget_EvaEventPlayedRecentlyCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3386715757u:
-                        typeName = "MusicScriptConditionNugget_ObjectsNearEvaEvent";
-                        result = global::Recovered.MusicScriptConditionNugget_ObjectsNearEvaEventCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3620764004u:
-                        typeName = "MusicScriptConditionNugget_ScoredKillCount";
-                        result = global::Recovered.MusicScriptConditionNugget_ScoredKillCountCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4007043648u:
-                        typeName = "MusicScriptConditionNugget_Not";
-                        result = global::Recovered.MusicScriptConditionNugget_NotCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2281773838u:
-                        typeName = "MusicScriptConditionNugget_Or";
-                        result = global::Recovered.MusicScriptConditionNugget_OrCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1343682755u:
-                        typeName = "MusicScriptConditionNugget_And";
-                        result = global::Recovered.MusicScriptConditionNugget_AndCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2912435838u:
-                        typeName = "MusicScriptConditionNugget_PathMusicStateLastActive";
-                        result = global::Recovered.MusicScriptConditionNugget_PathMusicStateLastActiveCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3727134806u:
-                        typeName = "MusicScriptConditionNugget_PathMusicStateCurrentlyActive";
-                        result = global::Recovered.MusicScriptConditionNugget_PathMusicStateCurrentlyActiveCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3476397162u:
-                        typeName = "MusicScriptConditionNugget_EngagementCount";
-                        result = global::Recovered.MusicScriptConditionNugget_EngagementCountCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2818967523u:
-                        typeName = "MusicScriptConditionNugget_LocalPlayerKillRatio";
-                        result = global::Recovered.MusicScriptConditionNugget_LocalPlayerKillRatioCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1634186921u:
-                        typeName = "MusicScriptConditionNugget_HitBySuperWeapon";
-                        result = global::Recovered.MusicScriptConditionNugget_HitBySuperWeaponCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1038067901u:
-                        typeName = "MusicScriptTrack";
-                        result = global::Recovered.MusicScriptTrackCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 104126924u:
-                        typeName = "UIMouseTacticalCoOpAIButtonsHelpButton";
-                        result = global::Recovered.UIMouseTacticalCoOpAIButtonsHelpButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 113029208u:
-                        typeName = "UIMouseTacticalCommandCommunicateWithAllies";
-                        result = global::Recovered.UIMouseTacticalCommandCommunicateWithAlliesCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 346077409u:
-                        typeName = "UIMouseTacticalToggleRepairModeButton";
-                        result = global::Recovered.UIMouseTacticalToggleRepairModeButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 442957564u:
-                        typeName = "UIMouseTacticalAttackMoveButton";
-                        result = global::Recovered.UIMouseTacticalAttackMoveButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 485977567u:
-                        typeName = "UIMouseTacticalCommandPlaceWall";
-                        result = global::Recovered.UIMouseTacticalCommandPlaceWallCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 694838069u:
-                        typeName = "UIMouseTacticalForceAttackMoveButton";
-                        result = global::Recovered.UIMouseTacticalForceAttackMoveButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 772462768u:
-                        typeName = "UIMouseTacticalCoOpAIButtonsHoldObjectButton";
-                        result = global::Recovered.UIMouseTacticalCoOpAIButtonsHoldObjectButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1014034471u:
-                        typeName = "UIMouseTacticalExitContainerButton";
-                        result = global::Recovered.UIMouseTacticalExitContainerButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1138847078u:
-                        typeName = "UIMouseTacticalPlayerTechStoreButton";
-                        result = global::Recovered.UIMouseTacticalPlayerTechStoreButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1234485619u:
-                        typeName = "UIMouseTacticalCommandMove";
-                        result = global::Recovered.UIMouseTacticalCommandMoveCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1249197161u:
-                        typeName = "UIMouseTacticalCommandSell";
-                        result = global::Recovered.UIMouseTacticalCommandSellCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1277109486u:
-                        typeName = "UIMouseTacticalUnitIntroButton";
-                        result = global::Recovered.UIMouseTacticalUnitIntroButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1334543376u:
-                        typeName = "UIMouseTacticalCommandSelect";
-                        result = global::Recovered.UIMouseTacticalCommandSelectCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1371977384u:
-                        typeName = "UIMouseTacticalCoOpAIButtonsNormalButton";
-                        result = global::Recovered.UIMouseTacticalCoOpAIButtonsNormalButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1474300054u:
-                        typeName = "UIMouseTacticalCommandPlaceRallyPoint";
-                        result = global::Recovered.UIMouseTacticalCommandPlaceRallyPointCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1499648070u:
-                        typeName = "UIMouseTacticalCommandHarvest";
-                        result = global::Recovered.UIMouseTacticalCommandHarvestCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1956336137u:
-                        typeName = "UIMouseTacticalCommandToggleSelfRepair";
-                        result = global::Recovered.UIMouseTacticalCommandToggleSelfRepairCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1974922393u:
-                        typeName = "UIMouseTacticalBuildQueueTab";
-                        result = global::Recovered.UIMouseTacticalBuildQueueTabCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2067763016u:
-                        typeName = "UIMouseTacticalCommandGetCrate";
-                        result = global::Recovered.UIMouseTacticalCommandGetCrateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2047841880u:
-                        typeName = "UIMouseTacticalDeactivateMissionHotSpotsButton";
-                        result = global::Recovered.UIMouseTacticalDeactivateMissionHotSpotsButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2074164365u:
-                        typeName = "UIMouseTacticalCommandForceAttack";
-                        result = global::Recovered.UIMouseTacticalCommandForceAttackCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2278083954u:
-                        typeName = "UIMouseTacticalPlanningModeButton";
-                        result = global::Recovered.UIMouseTacticalPlanningModeButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2505151835u:
-                        typeName = "UIMouseTacticalCommandMisc";
-                        result = global::Recovered.UIMouseTacticalCommandMiscCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2635272840u:
-                        typeName = "UIMouseTacticalSelectionRefinementTab";
-                        result = global::Recovered.UIMouseTacticalSelectionRefinementTabCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2697587777u:
-                        typeName = "UIMouseTacticalCommandForceMove";
-                        result = global::Recovered.UIMouseTacticalCommandForceMoveCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2808773267u:
-                        typeName = "UIMouseTacticalOpenAdvancedCommandsButton";
-                        result = global::Recovered.UIMouseTacticalOpenAdvancedCommandsButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2873949396u:
-                        typeName = "UIMouseTacticalSetStanceButton";
-                        result = global::Recovered.UIMouseTacticalSetStanceButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2914137727u:
-                        typeName = "UIMouseTacticalCoOpAIButtonsHoldPositionButton";
-                        result = global::Recovered.UIMouseTacticalCoOpAIButtonsHoldPositionButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2957071942u:
-                        typeName = "UIMouseTacticalCommandMineOre";
-                        result = global::Recovered.UIMouseTacticalCommandMineOreCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2958905921u:
-                        typeName = "UIMouseTacticalWaypointModeButton";
-                        result = global::Recovered.UIMouseTacticalWaypointModeButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2987234945u:
-                        typeName = "UIMouseTacticalReverseMoveButton";
-                        result = global::Recovered.UIMouseTacticalReverseMoveButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3057018816u:
-                        typeName = "UIMouseTacticalCommandEnter";
-                        result = global::Recovered.UIMouseTacticalCommandEnterCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3094553884u:
-                        typeName = "UIMouseTacticalCoOpAIButtonsAssaultButton";
-                        result = global::Recovered.UIMouseTacticalCoOpAIButtonsAssaultButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3420020972u:
-                        typeName = "UIMouseTacticalPauseButton";
-                        result = global::Recovered.UIMouseTacticalPauseButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3548787763u:
-                        typeName = "UIMouseTacticalCommandAttack";
-                        result = global::Recovered.UIMouseTacticalCommandAttackCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3575834349u:
-                        typeName = "UIMouseTacticalCommandAttackMove";
-                        result = global::Recovered.UIMouseTacticalCommandAttackMoveCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3716369729u:
-                        typeName = "UIMouseTacticalForceMoveButton";
-                        result = global::Recovered.UIMouseTacticalForceMoveButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3756168709u:
-                        typeName = "UIMouseTacticalForceAttackButton";
-                        result = global::Recovered.UIMouseTacticalForceAttackButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3809842710u:
-                        typeName = "UIMouseTacticalCommandPlaceAIBeacon";
-                        result = global::Recovered.UIMouseTacticalCommandPlaceAIBeaconCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3976885676u:
-                        typeName = "UIMouseTacticalCommandDock";
-                        result = global::Recovered.UIMouseTacticalCommandDockCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4026878150u:
-                        typeName = "UIMouseTacticalCommandReverseMove";
-                        result = global::Recovered.UIMouseTacticalCommandReverseMoveCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4094578721u:
-                        typeName = "UIMouseTacticalBuildQueueTypeTab";
-                        result = global::Recovered.UIMouseTacticalBuildQueueTypeTabCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4102242385u:
-                        typeName = "UIMouseTacticalSellModeButton";
-                        result = global::Recovered.UIMouseTacticalSellModeButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4140422551u:
-                        typeName = "UIMouseTacticalStopButton";
-                        result = global::Recovered.UIMouseTacticalStopButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4180354873u:
-                        typeName = "UIMouseTacticalCommandSetRallyPoint";
-                        result = global::Recovered.UIMouseTacticalCommandSetRallyPointCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4232364483u:
-                        typeName = "UIMouseTacticalFastForwardButton";
-                        result = global::Recovered.UIMouseTacticalFastForwardButtonCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 241329492u:
-                        typeName = "UIMouseTacticalGroupSelection";
-                        result = global::Recovered.UIMouseTacticalGroupSelectionCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1795213437u:
-                        typeName = "UIMouseTacticalLookAt";
-                        result = global::Recovered.UIMouseTacticalLookAtCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3366599054u:
-                        typeName = "UIMouseTacticalRadarTelestrator";
-                        result = global::Recovered.UIMouseTacticalRadarTelestratorCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1921726501u:
-                        typeName = "UIMouseTacticalTelestrator";
-                        result = global::Recovered.UIMouseTacticalTelestratorCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4143989686u:
-                        typeName = "UIMouseTacticalThreatMeter";
-                        result = global::Recovered.UIMouseTacticalThreatMeterCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3899256902u:
-                        typeName = "BaseConditionData";
-                        result = global::Recovered.BaseConditionDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 519519951u:
-                        typeName = "ObjectConditionData";
-                        result = global::Recovered.ObjectConditionDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 76901015u:
-                        typeName = "UpgradeConditionData";
-                        result = global::Recovered.UpgradeConditionDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2309012900u:
-                        typeName = "GameplayConditionData";
-                        result = global::Recovered.GameplayConditionDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3600209407u:
-                        typeName = "TargetingBaseCompare";
-                        result = global::Recovered.TargetingBaseCompareCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2359666647u:
-                        typeName = "TargetingDistanceCompare";
-                        result = global::Recovered.TargetingDistanceCompareCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 89767986u:
-                        typeName = "TargetingCombatChainCompare";
-                        result = global::Recovered.TargetingCombatChainCompareCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2007776008u:
-                        typeName = "TargetingInTurretArcCompare";
-                        result = global::Recovered.TargetingInTurretArcCompareCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3188107749u:
-                        typeName = "TargetingCompareList";
-                        result = global::Recovered.TargetingCompareListCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1268003905u:
-                        typeName = "SiegeEvaEvent";
-                        result = global::Recovered.SiegeEvaEventCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2361666546u:
-                        typeName = "EvaSettings";
-                        result = global::Recovered.EvaSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 357806494u:
-                        typeName = "EvaEvent";
-                        result = global::Recovered.EvaEventCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1807540972u:
-                        typeName = "MiscEvaEvents";
-                        result = global::Recovered.MiscEvaEventsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4230032093u:
-                        typeName = "AchievementEvent";
-                        result = global::Recovered.AchievementEventCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3594283852u:
-                        typeName = "MapNameToAchievementEventMapping";
-                        result = global::Recovered.MapNameToAchievementEventMappingCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 348670903u:
-                        typeName = "GameplayAchievementTriggerData";
-                        result = global::Recovered.GameplayAchievementTriggerDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1507490649u:
-                        typeName = "HealthBarTemplate";
-                        result = global::Recovered.HealthBarTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3919360587u:
-                        typeName = "HealthBarSettings";
-                        result = global::Recovered.HealthBarSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2421413379u:
-                        typeName = "UnitOverlayIconSettings";
-                        result = global::Recovered.UnitOverlayIconSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1151702845u:
-                        typeName = "ObjectFilterAsset";
-                        result = global::Recovered.ObjectFilterAssetCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 814796096u:
-                        typeName = "RegisteredObjectSet";
-                        result = global::Recovered.RegisteredObjectSetCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 772930644u:
-                        typeName = "ObjectVisionRangeItem";
-                        result = global::Recovered.ObjectVisionRangeItemCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1431290504u:
-                        typeName = "InvisibilityTemplate";
-                        result = global::Recovered.InvisibilityTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 254471188u:
-                        typeName = "InvisibilityManagerSettings";
-                        result = global::Recovered.InvisibilityManagerSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2525284163u:
-                        typeName = "StanceTemplate";
-                        result = global::Recovered.StanceTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2836737428u:
-                        typeName = "EmotionTemplate";
-                        result = global::Recovered.EmotionTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1710207315u:
-                        typeName = "ProjectilePath";
-                        result = global::Recovered.ProjectilePathCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 474482543u:
-                        typeName = "ForceFeedbackEvent";
-                        result = global::Recovered.ForceFeedbackEventCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3058114834u:
-                        typeName = "EngagingContent";
-                        result = global::Recovered.EngagingContentCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 11280974u:
-                        typeName = "EngagingContentGroup";
-                        result = global::Recovered.EngagingContentGroupCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3799634821u:
-                        typeName = "EngagingContentSequence";
-                        result = global::Recovered.EngagingContentSequenceCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 530081230u:
-                        typeName = "IntelDB";
-                        result = global::Recovered.IntelDBCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1870180772u:
-                        typeName = "UnitIntro";
-                        result = global::Recovered.UnitIntroCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1626415288u:
-                        typeName = "BreezeInfo";
-                        result = global::Recovered.BreezeInfoCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1968811301u:
-                        typeName = "ModelSettings";
-                        result = global::Recovered.ModelSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3278684478u:
-                        typeName = "AutoParticleSystemSettings";
-                        result = global::Recovered.AutoParticleSystemSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 400896388u:
-                        typeName = "CrowdResponse";
-                        result = global::Recovered.CrowdResponseCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1099769729u:
-                        typeName = "RadarTerrainImage";
-                        result = global::Recovered.RadarTerrainImageCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4039592522u:
-                        typeName = "UIRadarObjectsLayer";
-                        result = global::Recovered.UIRadarObjectsLayerCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1469055344u:
-                        typeName = "W3DDeviceSettings";
-                        result = global::Recovered.W3DDeviceSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2383722691u:
-                        typeName = "ScorchMarkSettings";
-                        result = global::Recovered.ScorchMarkSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2915726794u:
-                        typeName = "Language";
-                        result = global::Recovered.LanguageCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1218703046u:
-                        typeName = "HeaderTemplate";
-                        result = global::Recovered.HeaderTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3569007303u:
-                        typeName = "FontDirectory";
-                        result = global::Recovered.FontDirectoryCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4236434438u:
-                        typeName = "TheVersion";
-                        result = global::Recovered.TheVersionCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3978455785u:
-                        typeName = "Credits";
-                        result = global::Recovered.CreditsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2584759047u:
-                        typeName = "CommandSet";
-                        result = global::Recovered.CommandSetCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3516764358u:
-                        typeName = "Road";
-                        result = global::Recovered.RoadCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3166846828u:
-                        typeName = "ShaderOverride";
-                        result = global::Recovered.ShaderOverrideCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3648907125u:
-                        typeName = "ShaderOverrideRule";
-                        result = global::Recovered.ShaderOverrideRuleCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 565855655u:
-                        typeName = "ImageSequence";
-                        result = global::Recovered.ImageSequenceCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3614134471u:
-                        typeName = "UnitTypeIcon";
-                        result = global::Recovered.UnitTypeIconCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2913856066u:
-                        typeName = "DrawGroupInfo";
-                        result = global::Recovered.DrawGroupInfoCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1345252658u:
-                        typeName = "OnlineChatColors";
-                        result = global::Recovered.OnlineChatColorsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3741496377u:
-                        typeName = "ArchivableMovie";
-                        result = global::Recovered.ArchivableMovieCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2099472558u:
-                        typeName = "ArchiveMovieList";
-                        result = global::Recovered.ArchiveMovieListCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4272453293u:
-                        typeName = "NetworkSettings";
-                        result = global::Recovered.NetworkSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 970663416u:
-                        typeName = "PathfindSettings";
-                        result = global::Recovered.PathfindSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3279338544u:
-                        typeName = "ResourceSettings";
-                        result = global::Recovered.ResourceSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2846460739u:
-                        typeName = "GraphicsHardware";
-                        result = global::Recovered.GraphicsHardwareCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1482556238u:
-                        typeName = "CampaignTemplate";
-                        result = global::Recovered.CampaignTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 731899443u:
-                        typeName = "CampaignEnumerator";
-                        result = global::Recovered.CampaignEnumeratorCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3477794083u:
-                        typeName = "MissionTemplate";
-                        result = global::Recovered.MissionTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3175516876u:
-                        typeName = "MissionHotSpotSettings";
-                        result = global::Recovered.MissionHotSpotSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3408790761u:
-                        typeName = "TutorialMapData";
-                        result = global::Recovered.TutorialMapDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 315614191u:
-                        typeName = "LocalBuildListMonitor";
-                        result = global::Recovered.LocalBuildListMonitorCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3974617950u:
-                        typeName = "BuildSystemSettings";
-                        result = global::Recovered.BuildSystemSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1047799468u:
-                        typeName = "GiftManagerSettings";
-                        result = global::Recovered.GiftManagerSettingsCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 741706624u:
-                        typeName = "MpGameRules";
-                        result = global::Recovered.MpGameRulesCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1044178106u:
-                        typeName = "DynamicsContactTagMapping";
-                        result = global::Recovered.DynamicsContactTagMappingCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 105587076u:
-                        typeName = "ConnectionLineManager";
-                        result = global::Recovered.ConnectionLineManagerCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4141306833u:
-                        typeName = "RedAlertTemplate";
-                        result = global::Recovered.RedAlertTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3258480561u:
-                        typeName = "ConquerCardDefinitionBase";
-                        result = global::Recovered.ConquerCardDefinitionBaseCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3562795973u:
-                        typeName = "ConquerCardDefinitionUnit";
-                        result = global::Recovered.ConquerCardDefinitionUnitCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4289687760u:
-                        typeName = "ConquerCardDefinitionStructure";
-                        result = global::Recovered.ConquerCardDefinitionStructureCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4164089898u:
-                        typeName = "ConquerCardDefinitionPower";
-                        result = global::Recovered.ConquerCardDefinitionPowerCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2806522526u:
-                        typeName = "ConquerCardPrebuiltDeck";
-                        result = global::Recovered.ConquerCardPrebuiltDeckCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3587539190u:
-                        typeName = "ArmyDefinition";
-                        result = global::Recovered.ArmyDefinitionCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3971904488u:
-                        typeName = "SkirmishOpeningMove";
-                        result = global::Recovered.SkirmishOpeningMoveCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 212695140u:
-                        typeName = "DLContent";
-                        result = global::Recovered.DLContentCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 255713734u:
-                        typeName = "AssetReportTable";
-                        result = global::Recovered.AssetReportTableCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 300273508u:
-                        typeName = "StringHashTable";
-                        result = global::Recovered.StringHashTableCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 815686049u:
-                        typeName = "MeshInstanceTemplate";
-                        result = global::Recovered.MeshInstanceTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1449288224u:
-                        typeName = "PackedTextureImage";
-                        result = global::Recovered.PackedTextureImageCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4262364347u:
-                        typeName = "OnDemandTextureImage";
-                        result = global::Recovered.OnDemandTextureImageCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1816258268u:
-                        typeName = "AptAptData";
-                        result = global::Recovered.AptAptDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 983359664u:
-                        typeName = "AptConstData";
-                        result = global::Recovered.AptConstDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1110676961u:
-                        typeName = "AptDatData";
-                        result = global::Recovered.AptDatDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1034587168u:
-                        typeName = "AptGeometryData";
-                        result = global::Recovered.AptGeometryDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2989459401u:
-                        typeName = "BaseRenderAssetType";
-                        result = global::Recovered.BaseRenderAssetTypeCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 584092973u:
-                        typeName = "AudioFileRuntime";
-                        result = global::Recovered.AudioFileRuntimeCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2525492603u:
-                        typeName = "Mouse";
-                        result = global::Recovered.MouseCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3517887782u:
-                        typeName = "UnitAbilityButtonTemplate";
-                        result = global::Recovered.UnitAbilityButtonTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4044322798u:
-                        typeName = "PlayerPowerButtonTemplate";
-                        result = global::Recovered.PlayerPowerButtonTemplateCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 2826773070u:
-                        typeName = "TestTexture";
-                        result = global::Recovered.TestTextureCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 49556361u:
-                        typeName = "TestTextureCollection";
-                        result = global::Recovered.TestTextureCollectionCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 582251659u:
-                        typeName = "TerrainAssetCollection";
-                        result = global::Recovered.TerrainAssetCollectionCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3878948534u:
-                        typeName = "TerrainTextureAtlasRuntime";
-                        result = global::Recovered.TerrainTextureAtlasRuntimeCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1641540160u:
-                        typeName = "W3DHierarchy";
-                        result = global::Recovered.W3DHierarchyCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 4042295058u:
-                        typeName = "W3DContainer";
-                        result = global::Recovered.W3DContainerCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3534264507u:
-                        typeName = "W3DAnimationRuntime";
-                        result = global::Recovered.W3DAnimationRuntimeCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3810008068u:
-                        typeName = "W3DCollisionBox";
-                        result = global::Recovered.W3DCollisionBoxCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 1603703110u:
-                        typeName = "MapMetaData";
-                        result = global::Recovered.MapMetaDataCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3737094024u:
-                        typeName = "GameScriptList";
-                        result = global::Recovered.GameScriptListCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3575309793u:
-                        typeName = "GameMap";
-                        result = global::Recovered.GameMapCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    case 3072160547u:
-                        typeName = "UIConfigList";
-                        result = global::Recovered.UIConfigListCompiler.ProcessInstance(compilationInstance, platform);
-                        break;
-                    default: throw new NotSupportedException("XmlPriority supports only its generated recovered scope; excluded roots remain unsupported.");
-                }
+                case 3319822471u:
+                    typeName = "AttributeModifier";
+                    result = global::Recovered.AttributeModifierCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2254974584u:
+                    typeName = "FXList";
+                    result = global::Recovered.FXListCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2178440954u:
+                    typeName = "SpecialPowerTemplate";
+                    result = global::Recovered.SpecialPowerTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3899542881u:
+                    typeName = "ObjectCreationList";
+                    result = global::Recovered.ObjectCreationListCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3972178387u:
+                    typeName = "LocomotorTemplate";
+                    result = global::Recovered.LocomotorTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3959844197u:
+                    typeName = "LogicCommandSet";
+                    result = global::Recovered.LogicCommandSetCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 686292351u:
+                    typeName = "FXParticleSystemTemplate";
+                    result = global::Recovered.FXParticleSystemTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3786401627u:
+                    typeName = "UpgradeTemplate";
+                    result = global::Recovered.UpgradeTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3604279694u:
+                    typeName = "AIPersonalityDefinition";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 607123156u:
+                    typeName = "AIStrategicStateDefinition";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2423780215u:
+                    typeName = "AIMicroManagerData";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2893598307u:
+                    typeName = "AIBudgetStateDefinition";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3239935619u:
+                    typeName = "AIStateDefinition";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 926814458u:
+                    typeName = "AITargetingHeuristic";
+                    result = global::Recovered.XmlaiCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2101756272u:
+                    typeName = "LogicCommand";
+                    result = global::Recovered.LogicCommandCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2131237081u:
+                    typeName = "PlayerTech";
+                    result = global::Recovered.PlayerTechCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1802643394u:
+                    typeName = "PlayerTechRank";
+                    result = global::Recovered.PlayerTechRankCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2140592493u:
+                    typeName = "PlayerTechUpgradeBinding";
+                    result = global::Recovered.PlayerTechUpgradeBindingCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1874610847u:
+                    typeName = "ExperienceLevelTemplate";
+                    result = global::Recovered.ExperienceLevelTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1213037816u:
+                    typeName = "PlayerTechStoreTemplate";
+                    result = global::Recovered.PlayerTechStoreTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1566941920u:
+                    typeName = "PurchasePlayerTechButtonTemplate";
+                    result = global::Recovered.PurchasePlayerTechButtonTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3048039928u:
+                    typeName = "ButtonSingleStateData";
+                    result = global::Recovered.ButtonSingleStateDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 134745024u:
+                    typeName = "UICommandButton";
+                    result = global::Recovered.UICommandButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1371131236u:
+                    typeName = "FontDefaultSetting";
+                    result = global::Recovered.FontDefaultSettingCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1318336226u:
+                    typeName = "FontTranslation";
+                    result = global::Recovered.FontTranslationCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 91719417u:
+                    typeName = "FontSubstitution";
+                    result = global::Recovered.FontSubstitutionCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2430161325u:
+                    typeName = "Weather";
+                    result = global::Recovered.WeatherCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1479531562u:
+                    typeName = "WaterTransparency";
+                    result = global::Recovered.WaterTransparencyCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2728605516u:
+                    typeName = "WaterSetting";
+                    result = global::Recovered.WaterSettingCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 680780553u:
+                    typeName = "Environment";
+                    result = global::Recovered.EnvironmentCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3169690211u:
+                    typeName = "LightingSettings";
+                    result = global::Recovered.LightingSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2995571269u:
+                    typeName = "WaterTextureList";
+                    result = global::Recovered.WaterTextureListCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1469498551u:
+                    typeName = "TerrainParticleMapping";
+                    result = global::Recovered.TerrainParticleMappingCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2368878637u:
+                    typeName = "BounceKickTerrainMapping";
+                    result = global::Recovered.BounceKickTerrainMappingCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4157475773u:
+                    typeName = "ShadowMap";
+                    result = global::Recovered.ShadowMapCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2996766068u:
+                    typeName = "OrdersManagerSettings";
+                    result = global::Recovered.OrdersManagerSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1184276792u:
+                    typeName = "TerrainVisualSettings";
+                    result = global::Recovered.TerrainVisualSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3898802054u:
+                    typeName = "CameraSettings";
+                    result = global::Recovered.CameraSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3827723072u:
+                    typeName = "AIData";
+                    result = global::Recovered.AIDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2964891936u:
+                    typeName = "UnitAISettings";
+                    result = global::Recovered.UnitAISettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4063352333u:
+                    typeName = "PlayerTemplate";
+                    result = global::Recovered.PlayerTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 191082224u:
+                    typeName = "MultiplayerSettings";
+                    result = global::Recovered.MultiplayerSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1644972043u:
+                    typeName = "AIBuildStateDefinition";
+                    result = global::Recovered.AIBuildStateDefinitionCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2010562192u:
+                    typeName = "AIStrategicStateName";
+                    result = global::Recovered.AIStrategicStateNameCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2384988189u:
+                    typeName = "MultiplayerColor";
+                    result = global::Recovered.MultiplayerColorCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4086175864u:
+                    typeName = "AIPersonalityToAchievementEventMapping";
+                    result = global::Recovered.AIPersonalityToAchievementEventMappingCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 838130914u:
+                    typeName = "FormationAssistantUnitDefinition";
+                    result = global::Recovered.FormationAssistantUnitDefinitionCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2912385462u:
+                    typeName = "FormationAssistantTemplate";
+                    result = global::Recovered.FormationAssistantTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3374519264u:
+                    typeName = "FormationSelectionTemplate";
+                    result = global::Recovered.FormationSelectionTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1963196508u:
+                    typeName = "FormationAssistant";
+                    result = global::Recovered.FormationAssistantCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3249689110u:
+                    typeName = "GameStatsModeData";
+                    result = global::Recovered.GameStatsModeDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 402082255u:
+                    typeName = "SkirmishSettings";
+                    result = global::Recovered.SkirmishSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2905958645u:
+                    typeName = "DamageFX";
+                    result = global::Recovered.DamageFXCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 75989905u:
+                    typeName = "DamageFXSettings";
+                    result = global::Recovered.DamageFXSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 417176643u:
+                    typeName = "GeneralHotKeySlots";
+                    result = global::Recovered.GeneralHotKeySlotsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3741098742u:
+                    typeName = "DefaultHotKeys";
+                    result = global::Recovered.DefaultHotKeysCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3359870461u:
+                    typeName = "DebugHotKeys";
+                    result = global::Recovered.DebugHotKeysCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1350608344u:
+                    typeName = "MappableKey";
+                    result = global::Recovered.MappableKeyCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3906227957u:
+                    typeName = "AudioEventLimitGroup";
+                    result = global::Recovered.AudioEventLimitGroupCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 299416263u:
+                    typeName = "AudioLOD";
+                    result = global::Recovered.AudioLODCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1443425905u:
+                    typeName = "AudioSettings";
+                    result = global::Recovered.AudioSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 587347702u:
+                    typeName = "Video";
+                    result = global::Recovered.VideoCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1447728787u:
+                    typeName = "VideoEventList";
+                    result = global::Recovered.VideoEventListCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1826140078u:
+                    typeName = "MicrophoneSettings";
+                    result = global::Recovered.MicrophoneSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3370391592u:
+                    typeName = "BootupDisplaySequence";
+                    result = global::Recovered.BootupDisplaySequenceCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2800139175u:
+                    typeName = "HotKeySlot";
+                    result = global::Recovered.HotKeySlotCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3784442503u:
+                    typeName = "MouseCursor";
+                    result = global::Recovered.MouseCursorCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 611271731u:
+                    typeName = "BasicMouseCursors";
+                    result = global::Recovered.BasicMouseCursorsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 611126373u:
+                    typeName = "UIMouseDragSelectionFeedback";
+                    result = global::Recovered.UIMouseDragSelectionFeedbackCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1559937240u:
+                    typeName = "UIFloatingTextDisplay";
+                    result = global::Recovered.UIFloatingTextDisplayCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1697313181u:
+                    typeName = "UIMessageDisplay";
+                    result = global::Recovered.UIMessageDisplayCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1043989897u:
+                    typeName = "UIMilitaryCaptionDisplay";
+                    result = global::Recovered.UIMilitaryCaptionDisplayCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 165611890u:
+                    typeName = "UISubtitleDisplay";
+                    result = global::Recovered.UISubtitleDisplayCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 951036436u:
+                    typeName = "UITimerDisplay";
+                    result = global::Recovered.UITimerDisplayCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2901356964u:
+                    typeName = "DynamicGameLOD";
+                    result = global::Recovered.DynamicGameLODCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 354222972u:
+                    typeName = "GameLODPreset";
+                    result = global::Recovered.GameLODPresetCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 531798225u:
+                    typeName = "StaticGameLOD";
+                    result = global::Recovered.StaticGameLODCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4243804314u:
+                    typeName = "UICoopTinting";
+                    result = global::Recovered.UICoopTintingCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 544776545u:
+                    typeName = "RadiusCursor";
+                    result = global::Recovered.RadiusCursorCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1302035577u:
+                    typeName = "AnimationSoundSettings";
+                    result = global::Recovered.AnimationSoundSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2070603733u:
+                    typeName = "MiscAudio";
+                    result = global::Recovered.MiscAudioCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 534008255u:
+                    typeName = "LargeGroupAudioMap";
+                    result = global::Recovered.LargeGroupAudioMapCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1296329066u:
+                    typeName = "UIMouseTacticalSelectionDetailsButtonHotKeys";
+                    result = global::Recovered.UIMouseTacticalSelectionDetailsButtonHotKeysCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2591692061u:
+                    typeName = "UIMouseTacticalMainCommandBarHotKeys";
+                    result = global::Recovered.UIMouseTacticalMainCommandBarHotKeysCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2283998413u:
+                    typeName = "UIMouseTacticalPlayerPowerHotKeys";
+                    result = global::Recovered.UIMouseTacticalPlayerPowerHotKeysCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2014061824u:
+                    typeName = "UIMouseTacticalMiscHotKeys";
+                    result = global::Recovered.UIMouseTacticalMiscHotKeysCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2738273474u:
+                    typeName = "UIMouseHUDElementHotKeyGate";
+                    result = global::Recovered.UIMouseHUDElementHotKeyGateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4098431913u:
+                    typeName = "UIQuickChatMessage";
+                    result = global::Recovered.UIQuickChatMessageCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2891878770u:
+                    typeName = "UIMouseTacticalQuickChatDisplay";
+                    result = global::Recovered.UIMouseTacticalQuickChatDisplayCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3746130610u:
+                    typeName = "UIMouseVoiceChat";
+                    result = global::Recovered.UIMouseVoiceChatCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2599418799u:
+                    typeName = "UIDecalGrid";
+                    result = global::Recovered.UIDecalGridCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2524893660u:
+                    typeName = "UIDecalCloud";
+                    result = global::Recovered.UIDecalCloudCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1532214660u:
+                    typeName = "UIDecalDestinationMarker";
+                    result = global::Recovered.UIDecalDestinationMarkerCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1238702511u:
+                    typeName = "UIWorldBuilderDecalGrid";
+                    result = global::Recovered.UIWorldBuilderDecalGridCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1079232276u:
+                    typeName = "BaseAudioEventInfo";
+                    result = global::Recovered.BaseAudioEventInfoCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3228425025u:
+                    typeName = "BaseSingleSound";
+                    result = global::Recovered.BaseSingleSoundCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2219670431u:
+                    typeName = "AudioEvent";
+                    result = global::Recovered.AudioEventCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1883691512u:
+                    typeName = "MusicTrack";
+                    result = global::Recovered.MusicTrackCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1013434420u:
+                    typeName = "MP3MusicTrack";
+                    result = global::Recovered.MP3MusicTrackCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3558134211u:
+                    typeName = "DialogEvent";
+                    result = global::Recovered.DialogEventCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1479988269u:
+                    typeName = "MP3DialogEvent";
+                    result = global::Recovered.MP3DialogEventCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3928762264u:
+                    typeName = "AmbientStream";
+                    result = global::Recovered.AmbientStreamCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1813598662u:
+                    typeName = "MP3AmbientStream";
+                    result = global::Recovered.MP3AmbientStreamCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2745675575u:
+                    typeName = "Multisound";
+                    result = global::Recovered.MultisoundCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 97402485u:
+                    typeName = "PathMusicGameDynamicState";
+                    result = global::Recovered.PathMusicGameDynamicStateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 343094706u:
+                    typeName = "PathMusicGameDynamicStateSet";
+                    result = global::Recovered.PathMusicGameDynamicStateSetCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2343360052u:
+                    typeName = "PathMusicGameDynamicTransition";
+                    result = global::Recovered.PathMusicGameDynamicTransitionCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1122327197u:
+                    typeName = "PathMusicEventRuntime";
+                    result = global::Recovered.PathMusicEventRuntimeCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3339496789u:
+                    typeName = "PathMusicEventSet";
+                    result = global::Recovered.PathMusicEventSetCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2026048286u:
+                    typeName = "PathMusicMapRuntime";
+                    result = global::Recovered.PathMusicMapRuntimeCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2407383451u:
+                    typeName = "MusicPalette";
+                    result = global::Recovered.MusicPaletteCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2292378780u:
+                    typeName = "MusicScriptConditionNuggetBase";
+                    result = global::Recovered.MusicScriptConditionNuggetBaseCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 849624115u:
+                    typeName = "MusicScriptConditionExpensiveNuggetBase";
+                    result = global::Recovered.MusicScriptConditionExpensiveNuggetBaseCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 188286714u:
+                    typeName = "MusicScriptConditionNugget_LocalPlayerIsObserver";
+                    result = global::Recovered.MusicScriptConditionNugget_LocalPlayerIsObserverCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2620791304u:
+                    typeName = "MusicScriptConditionNugget_UnitsFarFromBase";
+                    result = global::Recovered.MusicScriptConditionNugget_UnitsFarFromBaseCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1464425282u:
+                    typeName = "MusicScriptConditionNugget_TimeFromStartOfLevel";
+                    result = global::Recovered.MusicScriptConditionNugget_TimeFromStartOfLevelCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 57370491u:
+                    typeName = "MusicScriptConditionNugget_TrackPlayedCount";
+                    result = global::Recovered.MusicScriptConditionNugget_TrackPlayedCountCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 739280456u:
+                    typeName = "MusicScriptConditionNugget_SpecificTrackTypePlaying";
+                    result = global::Recovered.MusicScriptConditionNugget_SpecificTrackTypePlayingCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3402992833u:
+                    typeName = "MusicScriptConditionNugget_AnyTrackPlaying";
+                    result = global::Recovered.MusicScriptConditionNugget_AnyTrackPlayingCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4286308287u:
+                    typeName = "MusicScriptConditionNugget_ObjectsOfTypeExist";
+                    result = global::Recovered.MusicScriptConditionNugget_ObjectsOfTypeExistCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2743973749u:
+                    typeName = "MusicScriptConditionNugget_EvaEventPlayedRecently";
+                    result = global::Recovered.MusicScriptConditionNugget_EvaEventPlayedRecentlyCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3386715757u:
+                    typeName = "MusicScriptConditionNugget_ObjectsNearEvaEvent";
+                    result = global::Recovered.MusicScriptConditionNugget_ObjectsNearEvaEventCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3620764004u:
+                    typeName = "MusicScriptConditionNugget_ScoredKillCount";
+                    result = global::Recovered.MusicScriptConditionNugget_ScoredKillCountCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4007043648u:
+                    typeName = "MusicScriptConditionNugget_Not";
+                    result = global::Recovered.MusicScriptConditionNugget_NotCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2281773838u:
+                    typeName = "MusicScriptConditionNugget_Or";
+                    result = global::Recovered.MusicScriptConditionNugget_OrCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1343682755u:
+                    typeName = "MusicScriptConditionNugget_And";
+                    result = global::Recovered.MusicScriptConditionNugget_AndCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2912435838u:
+                    typeName = "MusicScriptConditionNugget_PathMusicStateLastActive";
+                    result = global::Recovered.MusicScriptConditionNugget_PathMusicStateLastActiveCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3727134806u:
+                    typeName = "MusicScriptConditionNugget_PathMusicStateCurrentlyActive";
+                    result = global::Recovered.MusicScriptConditionNugget_PathMusicStateCurrentlyActiveCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3476397162u:
+                    typeName = "MusicScriptConditionNugget_EngagementCount";
+                    result = global::Recovered.MusicScriptConditionNugget_EngagementCountCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2818967523u:
+                    typeName = "MusicScriptConditionNugget_LocalPlayerKillRatio";
+                    result = global::Recovered.MusicScriptConditionNugget_LocalPlayerKillRatioCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1634186921u:
+                    typeName = "MusicScriptConditionNugget_HitBySuperWeapon";
+                    result = global::Recovered.MusicScriptConditionNugget_HitBySuperWeaponCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1038067901u:
+                    typeName = "MusicScriptTrack";
+                    result = global::Recovered.MusicScriptTrackCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 104126924u:
+                    typeName = "UIMouseTacticalCoOpAIButtonsHelpButton";
+                    result = global::Recovered.UIMouseTacticalCoOpAIButtonsHelpButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 113029208u:
+                    typeName = "UIMouseTacticalCommandCommunicateWithAllies";
+                    result = global::Recovered.UIMouseTacticalCommandCommunicateWithAlliesCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 346077409u:
+                    typeName = "UIMouseTacticalToggleRepairModeButton";
+                    result = global::Recovered.UIMouseTacticalToggleRepairModeButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 442957564u:
+                    typeName = "UIMouseTacticalAttackMoveButton";
+                    result = global::Recovered.UIMouseTacticalAttackMoveButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 485977567u:
+                    typeName = "UIMouseTacticalCommandPlaceWall";
+                    result = global::Recovered.UIMouseTacticalCommandPlaceWallCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 694838069u:
+                    typeName = "UIMouseTacticalForceAttackMoveButton";
+                    result = global::Recovered.UIMouseTacticalForceAttackMoveButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 772462768u:
+                    typeName = "UIMouseTacticalCoOpAIButtonsHoldObjectButton";
+                    result = global::Recovered.UIMouseTacticalCoOpAIButtonsHoldObjectButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1014034471u:
+                    typeName = "UIMouseTacticalExitContainerButton";
+                    result = global::Recovered.UIMouseTacticalExitContainerButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1138847078u:
+                    typeName = "UIMouseTacticalPlayerTechStoreButton";
+                    result = global::Recovered.UIMouseTacticalPlayerTechStoreButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1234485619u:
+                    typeName = "UIMouseTacticalCommandMove";
+                    result = global::Recovered.UIMouseTacticalCommandMoveCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1249197161u:
+                    typeName = "UIMouseTacticalCommandSell";
+                    result = global::Recovered.UIMouseTacticalCommandSellCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1277109486u:
+                    typeName = "UIMouseTacticalUnitIntroButton";
+                    result = global::Recovered.UIMouseTacticalUnitIntroButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1334543376u:
+                    typeName = "UIMouseTacticalCommandSelect";
+                    result = global::Recovered.UIMouseTacticalCommandSelectCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1371977384u:
+                    typeName = "UIMouseTacticalCoOpAIButtonsNormalButton";
+                    result = global::Recovered.UIMouseTacticalCoOpAIButtonsNormalButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1474300054u:
+                    typeName = "UIMouseTacticalCommandPlaceRallyPoint";
+                    result = global::Recovered.UIMouseTacticalCommandPlaceRallyPointCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1499648070u:
+                    typeName = "UIMouseTacticalCommandHarvest";
+                    result = global::Recovered.UIMouseTacticalCommandHarvestCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1956336137u:
+                    typeName = "UIMouseTacticalCommandToggleSelfRepair";
+                    result = global::Recovered.UIMouseTacticalCommandToggleSelfRepairCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1974922393u:
+                    typeName = "UIMouseTacticalBuildQueueTab";
+                    result = global::Recovered.UIMouseTacticalBuildQueueTabCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2067763016u:
+                    typeName = "UIMouseTacticalCommandGetCrate";
+                    result = global::Recovered.UIMouseTacticalCommandGetCrateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2047841880u:
+                    typeName = "UIMouseTacticalDeactivateMissionHotSpotsButton";
+                    result = global::Recovered.UIMouseTacticalDeactivateMissionHotSpotsButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2074164365u:
+                    typeName = "UIMouseTacticalCommandForceAttack";
+                    result = global::Recovered.UIMouseTacticalCommandForceAttackCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2278083954u:
+                    typeName = "UIMouseTacticalPlanningModeButton";
+                    result = global::Recovered.UIMouseTacticalPlanningModeButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2505151835u:
+                    typeName = "UIMouseTacticalCommandMisc";
+                    result = global::Recovered.UIMouseTacticalCommandMiscCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2635272840u:
+                    typeName = "UIMouseTacticalSelectionRefinementTab";
+                    result = global::Recovered.UIMouseTacticalSelectionRefinementTabCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2697587777u:
+                    typeName = "UIMouseTacticalCommandForceMove";
+                    result = global::Recovered.UIMouseTacticalCommandForceMoveCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2808773267u:
+                    typeName = "UIMouseTacticalOpenAdvancedCommandsButton";
+                    result = global::Recovered.UIMouseTacticalOpenAdvancedCommandsButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2873949396u:
+                    typeName = "UIMouseTacticalSetStanceButton";
+                    result = global::Recovered.UIMouseTacticalSetStanceButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2914137727u:
+                    typeName = "UIMouseTacticalCoOpAIButtonsHoldPositionButton";
+                    result = global::Recovered.UIMouseTacticalCoOpAIButtonsHoldPositionButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2957071942u:
+                    typeName = "UIMouseTacticalCommandMineOre";
+                    result = global::Recovered.UIMouseTacticalCommandMineOreCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2958905921u:
+                    typeName = "UIMouseTacticalWaypointModeButton";
+                    result = global::Recovered.UIMouseTacticalWaypointModeButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2987234945u:
+                    typeName = "UIMouseTacticalReverseMoveButton";
+                    result = global::Recovered.UIMouseTacticalReverseMoveButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3057018816u:
+                    typeName = "UIMouseTacticalCommandEnter";
+                    result = global::Recovered.UIMouseTacticalCommandEnterCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3094553884u:
+                    typeName = "UIMouseTacticalCoOpAIButtonsAssaultButton";
+                    result = global::Recovered.UIMouseTacticalCoOpAIButtonsAssaultButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3420020972u:
+                    typeName = "UIMouseTacticalPauseButton";
+                    result = global::Recovered.UIMouseTacticalPauseButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3548787763u:
+                    typeName = "UIMouseTacticalCommandAttack";
+                    result = global::Recovered.UIMouseTacticalCommandAttackCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3575834349u:
+                    typeName = "UIMouseTacticalCommandAttackMove";
+                    result = global::Recovered.UIMouseTacticalCommandAttackMoveCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3716369729u:
+                    typeName = "UIMouseTacticalForceMoveButton";
+                    result = global::Recovered.UIMouseTacticalForceMoveButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3756168709u:
+                    typeName = "UIMouseTacticalForceAttackButton";
+                    result = global::Recovered.UIMouseTacticalForceAttackButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3809842710u:
+                    typeName = "UIMouseTacticalCommandPlaceAIBeacon";
+                    result = global::Recovered.UIMouseTacticalCommandPlaceAIBeaconCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3976885676u:
+                    typeName = "UIMouseTacticalCommandDock";
+                    result = global::Recovered.UIMouseTacticalCommandDockCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4026878150u:
+                    typeName = "UIMouseTacticalCommandReverseMove";
+                    result = global::Recovered.UIMouseTacticalCommandReverseMoveCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4094578721u:
+                    typeName = "UIMouseTacticalBuildQueueTypeTab";
+                    result = global::Recovered.UIMouseTacticalBuildQueueTypeTabCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4102242385u:
+                    typeName = "UIMouseTacticalSellModeButton";
+                    result = global::Recovered.UIMouseTacticalSellModeButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4140422551u:
+                    typeName = "UIMouseTacticalStopButton";
+                    result = global::Recovered.UIMouseTacticalStopButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4180354873u:
+                    typeName = "UIMouseTacticalCommandSetRallyPoint";
+                    result = global::Recovered.UIMouseTacticalCommandSetRallyPointCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4232364483u:
+                    typeName = "UIMouseTacticalFastForwardButton";
+                    result = global::Recovered.UIMouseTacticalFastForwardButtonCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 241329492u:
+                    typeName = "UIMouseTacticalGroupSelection";
+                    result = global::Recovered.UIMouseTacticalGroupSelectionCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1795213437u:
+                    typeName = "UIMouseTacticalLookAt";
+                    result = global::Recovered.UIMouseTacticalLookAtCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3366599054u:
+                    typeName = "UIMouseTacticalRadarTelestrator";
+                    result = global::Recovered.UIMouseTacticalRadarTelestratorCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1921726501u:
+                    typeName = "UIMouseTacticalTelestrator";
+                    result = global::Recovered.UIMouseTacticalTelestratorCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4143989686u:
+                    typeName = "UIMouseTacticalThreatMeter";
+                    result = global::Recovered.UIMouseTacticalThreatMeterCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3899256902u:
+                    typeName = "BaseConditionData";
+                    result = global::Recovered.BaseConditionDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 519519951u:
+                    typeName = "ObjectConditionData";
+                    result = global::Recovered.ObjectConditionDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 76901015u:
+                    typeName = "UpgradeConditionData";
+                    result = global::Recovered.UpgradeConditionDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2309012900u:
+                    typeName = "GameplayConditionData";
+                    result = global::Recovered.GameplayConditionDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3600209407u:
+                    typeName = "TargetingBaseCompare";
+                    result = global::Recovered.TargetingBaseCompareCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2359666647u:
+                    typeName = "TargetingDistanceCompare";
+                    result = global::Recovered.TargetingDistanceCompareCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 89767986u:
+                    typeName = "TargetingCombatChainCompare";
+                    result = global::Recovered.TargetingCombatChainCompareCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2007776008u:
+                    typeName = "TargetingInTurretArcCompare";
+                    result = global::Recovered.TargetingInTurretArcCompareCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3188107749u:
+                    typeName = "TargetingCompareList";
+                    result = global::Recovered.TargetingCompareListCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1268003905u:
+                    typeName = "SiegeEvaEvent";
+                    result = global::Recovered.SiegeEvaEventCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2361666546u:
+                    typeName = "EvaSettings";
+                    result = global::Recovered.EvaSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 357806494u:
+                    typeName = "EvaEvent";
+                    result = global::Recovered.EvaEventCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1807540972u:
+                    typeName = "MiscEvaEvents";
+                    result = global::Recovered.MiscEvaEventsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4230032093u:
+                    typeName = "AchievementEvent";
+                    result = global::Recovered.AchievementEventCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3594283852u:
+                    typeName = "MapNameToAchievementEventMapping";
+                    result = global::Recovered.MapNameToAchievementEventMappingCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 348670903u:
+                    typeName = "GameplayAchievementTriggerData";
+                    result = global::Recovered.GameplayAchievementTriggerDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1507490649u:
+                    typeName = "HealthBarTemplate";
+                    result = global::Recovered.HealthBarTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3919360587u:
+                    typeName = "HealthBarSettings";
+                    result = global::Recovered.HealthBarSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2421413379u:
+                    typeName = "UnitOverlayIconSettings";
+                    result = global::Recovered.UnitOverlayIconSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1151702845u:
+                    typeName = "ObjectFilterAsset";
+                    result = global::Recovered.ObjectFilterAssetCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 814796096u:
+                    typeName = "RegisteredObjectSet";
+                    result = global::Recovered.RegisteredObjectSetCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 772930644u:
+                    typeName = "ObjectVisionRangeItem";
+                    result = global::Recovered.ObjectVisionRangeItemCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1431290504u:
+                    typeName = "InvisibilityTemplate";
+                    result = global::Recovered.InvisibilityTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 254471188u:
+                    typeName = "InvisibilityManagerSettings";
+                    result = global::Recovered.InvisibilityManagerSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2525284163u:
+                    typeName = "StanceTemplate";
+                    result = global::Recovered.StanceTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2836737428u:
+                    typeName = "EmotionTemplate";
+                    result = global::Recovered.EmotionTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1710207315u:
+                    typeName = "ProjectilePath";
+                    result = global::Recovered.ProjectilePathCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 474482543u:
+                    typeName = "ForceFeedbackEvent";
+                    result = global::Recovered.ForceFeedbackEventCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3058114834u:
+                    typeName = "EngagingContent";
+                    result = global::Recovered.EngagingContentCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 11280974u:
+                    typeName = "EngagingContentGroup";
+                    result = global::Recovered.EngagingContentGroupCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3799634821u:
+                    typeName = "EngagingContentSequence";
+                    result = global::Recovered.EngagingContentSequenceCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 530081230u:
+                    typeName = "IntelDB";
+                    result = global::Recovered.IntelDBCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1870180772u:
+                    typeName = "UnitIntro";
+                    result = global::Recovered.UnitIntroCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1626415288u:
+                    typeName = "BreezeInfo";
+                    result = global::Recovered.BreezeInfoCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1968811301u:
+                    typeName = "ModelSettings";
+                    result = global::Recovered.ModelSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3278684478u:
+                    typeName = "AutoParticleSystemSettings";
+                    result = global::Recovered.AutoParticleSystemSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 400896388u:
+                    typeName = "CrowdResponse";
+                    result = global::Recovered.CrowdResponseCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1099769729u:
+                    typeName = "RadarTerrainImage";
+                    result = global::Recovered.RadarTerrainImageCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4039592522u:
+                    typeName = "UIRadarObjectsLayer";
+                    result = global::Recovered.UIRadarObjectsLayerCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1469055344u:
+                    typeName = "W3DDeviceSettings";
+                    result = global::Recovered.W3DDeviceSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2383722691u:
+                    typeName = "ScorchMarkSettings";
+                    result = global::Recovered.ScorchMarkSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2915726794u:
+                    typeName = "Language";
+                    result = global::Recovered.LanguageCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1218703046u:
+                    typeName = "HeaderTemplate";
+                    result = global::Recovered.HeaderTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3569007303u:
+                    typeName = "FontDirectory";
+                    result = global::Recovered.FontDirectoryCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4236434438u:
+                    typeName = "TheVersion";
+                    result = global::Recovered.TheVersionCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3978455785u:
+                    typeName = "Credits";
+                    result = global::Recovered.CreditsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2584759047u:
+                    typeName = "CommandSet";
+                    result = global::Recovered.CommandSetCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3516764358u:
+                    typeName = "Road";
+                    result = global::Recovered.RoadCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3166846828u:
+                    typeName = "ShaderOverride";
+                    result = global::Recovered.ShaderOverrideCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3648907125u:
+                    typeName = "ShaderOverrideRule";
+                    result = global::Recovered.ShaderOverrideRuleCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 565855655u:
+                    typeName = "ImageSequence";
+                    result = global::Recovered.ImageSequenceCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3614134471u:
+                    typeName = "UnitTypeIcon";
+                    result = global::Recovered.UnitTypeIconCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2913856066u:
+                    typeName = "DrawGroupInfo";
+                    result = global::Recovered.DrawGroupInfoCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1345252658u:
+                    typeName = "OnlineChatColors";
+                    result = global::Recovered.OnlineChatColorsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3741496377u:
+                    typeName = "ArchivableMovie";
+                    result = global::Recovered.ArchivableMovieCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2099472558u:
+                    typeName = "ArchiveMovieList";
+                    result = global::Recovered.ArchiveMovieListCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4272453293u:
+                    typeName = "NetworkSettings";
+                    result = global::Recovered.NetworkSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 970663416u:
+                    typeName = "PathfindSettings";
+                    result = global::Recovered.PathfindSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3279338544u:
+                    typeName = "ResourceSettings";
+                    result = global::Recovered.ResourceSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2846460739u:
+                    typeName = "GraphicsHardware";
+                    result = global::Recovered.GraphicsHardwareCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1482556238u:
+                    typeName = "CampaignTemplate";
+                    result = global::Recovered.CampaignTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 731899443u:
+                    typeName = "CampaignEnumerator";
+                    result = global::Recovered.CampaignEnumeratorCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3477794083u:
+                    typeName = "MissionTemplate";
+                    result = global::Recovered.MissionTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3175516876u:
+                    typeName = "MissionHotSpotSettings";
+                    result = global::Recovered.MissionHotSpotSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3408790761u:
+                    typeName = "TutorialMapData";
+                    result = global::Recovered.TutorialMapDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 315614191u:
+                    typeName = "LocalBuildListMonitor";
+                    result = global::Recovered.LocalBuildListMonitorCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3974617950u:
+                    typeName = "BuildSystemSettings";
+                    result = global::Recovered.BuildSystemSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1047799468u:
+                    typeName = "GiftManagerSettings";
+                    result = global::Recovered.GiftManagerSettingsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 741706624u:
+                    typeName = "MpGameRules";
+                    result = global::Recovered.MpGameRulesCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1044178106u:
+                    typeName = "DynamicsContactTagMapping";
+                    result = global::Recovered.DynamicsContactTagMappingCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 105587076u:
+                    typeName = "ConnectionLineManager";
+                    result = global::Recovered.ConnectionLineManagerCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4141306833u:
+                    typeName = "RedAlertTemplate";
+                    result = global::Recovered.RedAlertTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3258480561u:
+                    typeName = "ConquerCardDefinitionBase";
+                    result = global::Recovered.ConquerCardDefinitionBaseCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3562795973u:
+                    typeName = "ConquerCardDefinitionUnit";
+                    result = global::Recovered.ConquerCardDefinitionUnitCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4289687760u:
+                    typeName = "ConquerCardDefinitionStructure";
+                    result = global::Recovered.ConquerCardDefinitionStructureCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4164089898u:
+                    typeName = "ConquerCardDefinitionPower";
+                    result = global::Recovered.ConquerCardDefinitionPowerCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2806522526u:
+                    typeName = "ConquerCardPrebuiltDeck";
+                    result = global::Recovered.ConquerCardPrebuiltDeckCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3587539190u:
+                    typeName = "ArmyDefinition";
+                    result = global::Recovered.ArmyDefinitionCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3971904488u:
+                    typeName = "SkirmishOpeningMove";
+                    result = global::Recovered.SkirmishOpeningMoveCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 212695140u:
+                    typeName = "DLContent";
+                    result = global::Recovered.DLContentCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 255713734u:
+                    typeName = "AssetReportTable";
+                    result = global::Recovered.AssetReportTableCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 300273508u:
+                    typeName = "StringHashTable";
+                    result = global::Recovered.StringHashTableCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 815686049u:
+                    typeName = "MeshInstanceTemplate";
+                    result = global::Recovered.MeshInstanceTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1449288224u:
+                    typeName = "PackedTextureImage";
+                    result = global::Recovered.PackedTextureImageCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4262364347u:
+                    typeName = "OnDemandTextureImage";
+                    result = global::Recovered.OnDemandTextureImageCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1816258268u:
+                    typeName = "AptAptData";
+                    result = global::Recovered.AptAptDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 983359664u:
+                    typeName = "AptConstData";
+                    result = global::Recovered.AptConstDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1110676961u:
+                    typeName = "AptDatData";
+                    result = global::Recovered.AptDatDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1034587168u:
+                    typeName = "AptGeometryData";
+                    result = global::Recovered.AptGeometryDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2989459401u:
+                    typeName = "BaseRenderAssetType";
+                    result = global::Recovered.BaseRenderAssetTypeCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 584092973u:
+                    typeName = "AudioFileRuntime";
+                    result = global::Recovered.AudioFileRuntimeCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2525492603u:
+                    typeName = "Mouse";
+                    result = global::Recovered.MouseCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3517887782u:
+                    typeName = "UnitAbilityButtonTemplate";
+                    result = global::Recovered.UnitAbilityButtonTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4044322798u:
+                    typeName = "PlayerPowerButtonTemplate";
+                    result = global::Recovered.PlayerPowerButtonTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2826773070u:
+                    typeName = "TestTexture";
+                    result = global::Recovered.TestTextureCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 49556361u:
+                    typeName = "TestTextureCollection";
+                    result = global::Recovered.TestTextureCollectionCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 582251659u:
+                    typeName = "TerrainAssetCollection";
+                    result = global::Recovered.TerrainAssetCollectionCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3878948534u:
+                    typeName = "TerrainTextureAtlasRuntime";
+                    result = global::Recovered.TerrainTextureAtlasRuntimeCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1641540160u:
+                    typeName = "W3DHierarchy";
+                    result = global::Recovered.W3DHierarchyCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 4042295058u:
+                    typeName = "W3DContainer";
+                    result = global::Recovered.W3DContainerCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3534264507u:
+                    typeName = "W3DAnimationRuntime";
+                    result = global::Recovered.W3DAnimationRuntimeCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3810008068u:
+                    typeName = "W3DCollisionBox";
+                    result = global::Recovered.W3DCollisionBoxCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1603703110u:
+                    typeName = "MapMetaData";
+                    result = global::Recovered.MapMetaDataCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3737094024u:
+                    typeName = "GameScriptList";
+                    result = global::Recovered.GameScriptListCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3575309793u:
+                    typeName = "GameMap";
+                    result = global::Recovered.GameMapCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3072160547u:
+                    typeName = "UIConfigList";
+                    result = global::Recovered.UIConfigListCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1276968974u:
+                    typeName = "UIJoypadCommandBarMixedGroup";
+                    result = global::Recovered.UIJoypadCommandBarMixedGroupCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1546953756u:
+                    typeName = "UIJoypadCommandBarHomogenousGroup";
+                    result = global::Recovered.UIJoypadCommandBarHomogenousGroupCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1654297531u:
+                    typeName = "UIJoypadCommandBarCoopCommunicator";
+                    result = global::Recovered.UIJoypadCommandBarCoopCommunicatorCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1804891371u:
+                    typeName = "JoypadCommandBarButtonTemplate";
+                    result = global::Recovered.JoypadCommandBarButtonTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1887864852u:
+                    typeName = "UIJoypadCommandBarStances";
+                    result = global::Recovered.UIJoypadCommandBarStancesCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 1931769760u:
+                    typeName = "JoypadCommandBarTemplate";
+                    result = global::Recovered.JoypadCommandBarTemplateCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2170044043u:
+                    typeName = "UIJoypadCommandBarTopMenu";
+                    result = global::Recovered.UIJoypadCommandBarTopMenuCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 2742786440u:
+                    typeName = "UIJoypadCommandBarPlayerPowers";
+                    result = global::Recovered.UIJoypadCommandBarPlayerPowersCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3423839194u:
+                    typeName = "UIJoypadCommandBarButtonBuild";
+                    result = global::Recovered.UIJoypadCommandBarButtonBuildCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3645205636u:
+                    typeName = "UIJoypadCommandBarControlGroups";
+                    result = global::Recovered.UIJoypadCommandBarControlGroupsCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                case 3901433122u:
+                    typeName = "UIJoypadCommandBarSingleUnit";
+                    result = global::Recovered.UIJoypadCommandBarSingleUnitCompiler.ProcessInstance(compilationInstance, platform);
+                    break;
+                default: throw new NotSupportedException("XmlPriority supports only its generated recovered scope; excluded roots remain unsupported.");
             }
-            catch (Exception error)
-            {
-                WriteFailedInput(instance, typeId, error);
-                throw;
-            }
-            string trace = Environment.GetEnvironmentVariable("RA3_RECOVERED_XML_PRIORITY_TRACE");
             if (!String.IsNullOrEmpty(trace))
             {
                 lock (TraceGate)

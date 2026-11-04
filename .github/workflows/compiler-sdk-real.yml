@@ -57,15 +57,37 @@ jobs:
           $out="recovery/evidence/refactor/sdk-script/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           python recovery/scripts/ValidateAppProtocol.py $out --source-commit $env:GITHUB_SHA --output "$out/protocol.json"
           if($LASTEXITCODE -ne 0){throw 'SDK protocol failed'}
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
-        with:
-          name: compiler-sdk-real-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/evidence/refactor/sdk-script/${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/sdk-script/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/sdk-script/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/sdk-script/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/sdk-script/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/sdk-script/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/artifacts/sdk-real-product/**/build.json
             recovery/artifacts/sdk-real-product/**/link-inputs.json
-            recovery/artifacts/sdk-real-product/**/bin/*
             recovery/artifacts/sdk-real-product/**/*.log
-          include-hidden-files: true
-          if-no-files-found: error
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'compiler-sdk-real-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/refactor/sdk-script/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/sdk-script/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/sdk-script/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/sdk-script/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/sdk-script/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/sdk-real-product/**/build.json
+            recovery/artifacts/sdk-real-product/**/link-inputs.json
+            recovery/artifacts/sdk-real-product/**/*.log
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

@@ -103,7 +103,7 @@ unsafe partial class WeaponOracle
 #endif
         var xml = new XmlDocument(); xml.LoadXml(xmlText);
         var ns = new XmlNamespaceManager(xml.NameTable); ns.AddNamespace("ea", AssetNamespace);
-        try { WeaponCompiler.CompileXml(xml.DocumentElement, ns, false); }
+        try { PluginSchemaBoundary.Validate(xml);  WeaponCompiler.CompileXml(xml.DocumentElement, ns, false); }
         catch (NotSupportedException) { ++rejections; return; }
         throw new Exception("Unsupported input was accepted: " + xmlText);
 #endif

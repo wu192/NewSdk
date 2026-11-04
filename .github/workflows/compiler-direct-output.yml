@@ -1,0 +1,165 @@
+name: Direct compiler output and legacy cache
+on:
+  push:
+    branches: [perf/direct-sdk-output]
+  workflow_dispatch:
+    inputs:
+      compare_baseline:
+        description: Rebuild the original head and repeat the same-VM I/O comparison
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: direct-output-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[direct-output]')
+    runs-on: windows-2022
+    timeout-minutes: 50
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Install pinned build and protocol dependencies
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+      - name: App contracts and controller preflight
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/TestApp.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/direct-app/$mode"
+          }
+          foreach($path in Get-ChildItem recovery/scripts/TestCompiler*.ps1) {
+            $tokens=$null;$errors=$null
+            $null=[Management.Automation.Language.Parser]::ParseFile($path.FullName,[ref]$tokens,[ref]$errors)
+            if($errors.Count){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
+          }
+          python -m unittest discover -s recovery/tests -p test_compiler_hot_cache.py -v
+          if($LASTEXITCODE -ne 0){throw 'Hot-cache preflight failed'}
+      - name: Build current Debug and Release Win32 products
+        id: product
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/direct-product/$mode"
+            ./recovery/scripts/BuildCompilerValidationHost.ps1 -ProductBuildDirectory "recovery/artifacts/direct-product/$mode" -OutputDirectory "recovery/artifacts/direct-product/$mode/validation"
+          }
+      - uses: actions/checkout@v4
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && (inputs.compare_baseline == true || contains(github.event.head_commit.message, '[direct-output-measure]')) }}
+        with:
+          ref: 5c1843aea5f9b0cdcbe04325b251a8a944ed0fae
+          path: work/baseline
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Rebuild the original branch head for same VM comparison
+        id: baseline
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && (inputs.compare_baseline == true || contains(github.event.head_commit.message, '[direct-output-measure]')) }}
+        shell: pwsh
+        run: ./work/baseline/recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory "$env:RUNNER_TEMP/direct-before"
+      - name: Paired BIG bytes, logical process I/O and publication time
+        if: ${{ !cancelled() && steps.baseline.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/scripts/MeasureDirectOutput.py --before "$env:RUNNER_TEMP/direct-before/bin/NewModCompiler.exe" --after recovery/artifacts/direct-product/Release/bin/NewModCompiler.exe --work "$env:RUNNER_TEMP/direct-paired" --output recovery/artifacts/direct-tests/paired --source-commit $env:GITHUB_SHA --baseline-commit 5c1843aea5f9b0cdcbe04325b251a8a944ed0fae
+          if($LASTEXITCODE -ne 0){throw 'Paired direct-output measurement or bytes failed'}
+          Copy-Item "$env:RUNNER_TEMP/direct-before/build.json" recovery/artifacts/direct-tests/paired/baseline-build.json
+          Copy-Item "$env:RUNNER_TEMP/direct-before/link-inputs.json" recovery/artifacts/direct-tests/paired/baseline-link-inputs.json
+      - name: Targeted Core lifecycle and application pipeline
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/direct-product -OutputDirectory recovery/artifacts/direct-tests/lifecycle
+      - name: Actual CLI cancellation and content selections
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerCli.ps1 -CompilerDirectory recovery/artifacts/direct-product -OutputDirectory recovery/artifacts/direct-tests/cli
+      - name: Original SDK cache formats, cold hot edits and CDATA
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerSessionCache.ps1 -CompilerDirectory recovery/artifacts/direct-product -OutputDirectory recovery/artifacts/direct-tests/session
+      - name: Build asset cache and payload invalidation
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerBuildCache.ps1 -CompilerDirectory recovery/artifacts/direct-product -OutputDirectory recovery/artifacts/direct-tests/assets
+          ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -CompilerDirectory recovery/artifacts/direct-product -OutputDirectory recovery/artifacts/direct-tests/payloads
+      - name: BIG LoD Additional SKUDEF against original MakeBig
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerBig.ps1 -CompilerDirectory recovery/artifacts/direct-product -OutputDirectory recovery/artifacts/direct-tests/big
+      - name: Complete mymod original SDK output differential
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/direct-product -OutputDirectory recovery/artifacts/direct-tests/sdk -TimeoutSeconds 600
+      - name: Bounded mixed hot cache and dependency invalidation
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestCompilerHotCache.py --build-directory recovery/artifacts/direct-product/Release --work "$env:RUNNER_TEMP/direct-hot" --output recovery/artifacts/direct-tests/hot --source-commit $env:GITHUB_SHA --budget 120 --timeout 15
+          if($LASTEXITCODE -ne 0){throw 'Hot-cache matrix failed'}
+      - name: Validate actual Debug and Release protocol records
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: |
+          foreach($scope in @('lifecycle','cli','session','assets','payloads','big','sdk')) {
+            python recovery/scripts/ValidateAppProtocol.py "recovery/artifacts/direct-tests/$scope" --source-commit $env:GITHUB_SHA --output "recovery/artifacts/direct-tests/$scope-protocol.json"
+            if($LASTEXITCODE -ne 0){throw "Protocol validation failed: $scope"}
+          }
+      - name: Summarize CI evidence
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/direct-app/**/*.json
+            recovery/artifacts/direct-app/**/*.log
+            recovery/artifacts/direct-app/**/*.md
+            recovery/artifacts/direct-app/**/*.csv
+            recovery/artifacts/direct-app/**/*.tsv
+            recovery/artifacts/direct-product/**/*.log
+            recovery/artifacts/direct-product/**/*.json
+            recovery/artifacts/direct-tests/**/*.json
+            recovery/artifacts/direct-tests/**/*.log
+            recovery/artifacts/direct-tests/**/*.md
+            recovery/artifacts/direct-tests/**/*.csv
+            recovery/artifacts/direct-tests/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'compiler-direct-output-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/direct-app/**/*.json
+            recovery/artifacts/direct-app/**/*.log
+            recovery/artifacts/direct-app/**/*.md
+            recovery/artifacts/direct-app/**/*.csv
+            recovery/artifacts/direct-app/**/*.tsv
+            recovery/artifacts/direct-product/**/*.log
+            recovery/artifacts/direct-product/**/*.json
+            recovery/artifacts/direct-tests/**/*.json
+            recovery/artifacts/direct-tests/**/*.log
+            recovery/artifacts/direct-tests/**/*.md
+            recovery/artifacts/direct-tests/**/*.csv
+            recovery/artifacts/direct-tests/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

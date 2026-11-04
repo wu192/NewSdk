@@ -7,9 +7,10 @@
 namespace Recovered { namespace Native {
 namespace {
 bool Space(unsigned char c) { return c == ' ' || (c >= 9 && c <= 13); }
-bool All(const std::string& token) {
-    return token.size() == 3 && (token[0] == 'A' || token[0] == 'a') &&
-        (token[1] == 'L' || token[1] == 'l') && (token[2] == 'L' || token[2] == 'l');
+struct TokenView {const char* data;std::size_t size;};
+bool All(TokenView token) {
+    return token.size == 3 && (token.data[0] == 'A' || token.data[0] == 'a') &&
+        (token.data[1] == 'L' || token.data[1] == 'l') && (token.data[2] == 'L' || token.data[2] == 'l');
 }
 // Names/values recovered from the original PE enumMap, not a different SDK.
 const EnumNameValue modelConditions[] = {
@@ -698,7 +699,7 @@ const EnumNameValue objectStatus[] = {
 };
 }
 void MarshalEnumBitset(const std::string& text, const EnumNameValue* names,
-    std::size_t nameCount, int fallback, unsigned bitCount, std::uint32_t* words) {
+    std::size_t nameCount, int fallback, unsigned bitCount, std::uint32_t* words, bool sortedNames) {
     // Original Utils.Tokenize uses C isspace and stops at the first NUL.
     std::size_t cursor = 0, end = text.find('\0');
     if (end == std::string::npos) end = text.size();
@@ -707,15 +708,23 @@ void MarshalEnumBitset(const std::string& text, const EnumNameValue* names,
         if (cursor == end) break;
         std::size_t start = cursor;
         while (cursor < end && !Space(static_cast<unsigned char>(text[cursor]))) ++cursor;
-        std::string token = text.substr(start, cursor-start);
+        TokenView token={text.data()+start,cursor-start};
         bool add = true;
-        if (token[0] == '+' || token[0] == '-') { add = token[0] != '-'; token.erase(0, 1); }
+        if(token.data[0]=='+' || token.data[0]=='-') {add=token.data[0]!='-';++token.data;--token.size;}
         // Original ALL branch does not advance its token pointer: all remaining
         // iterations process ALL again. Its sign is ignored; padding bits stay set.
         if (All(token)) { std::fill(words, words+(bitCount+31)/32, UINT32_MAX); return; }
         int bit = fallback;
-        for (std::size_t i = 0; i < nameCount; ++i)
-            if (token == names[i].name) { bit = names[i].value; break; }
+        auto equal=[&](const EnumNameValue& entry) {
+            return std::strlen(entry.name)==token.size && std::memcmp(entry.name,token.data,token.size)==0;
+        };
+        if(sortedNames) {
+            auto found=std::lower_bound(names,names+nameCount,token,[](const EnumNameValue& entry,TokenView value) {
+                auto size=std::strlen(entry.name);int order=std::memcmp(entry.name,value.data,std::min(size,value.size));
+                return order<0 || (order==0 && size<value.size);
+            });
+            if(found!=names+nameCount && equal(*found)) bit=found->value;
+        } else for(std::size_t i=0;i<nameCount;++i) if(equal(names[i])) {bit=names[i].value;break;}
         if (bit < 0 || static_cast<unsigned>(bit) >= bitCount) continue;
         std::uint32_t mask = std::uint32_t(1) << (bit & 31);
         if (add) words[bit >> 5] |= mask;
@@ -723,10 +732,10 @@ void MarshalEnumBitset(const std::string& text, const EnumNameValue* names,
     }
 }
 void MarshalModelCondition(const std::string& text, std::uint32_t* fifteenWords) {
-    MarshalEnumBitset(text, modelConditions, sizeof(modelConditions)/sizeof(modelConditions[0]), 233, 456, fifteenWords);
+    MarshalEnumBitset(text, modelConditions, sizeof(modelConditions)/sizeof(modelConditions[0]), 233, 456, fifteenWords, true);
 }
 void MarshalObjectStatus(const std::string& text, std::uint32_t* sevenWords) {
-    MarshalEnumBitset(text, objectStatus, sizeof(objectStatus)/sizeof(objectStatus[0]), 198, 223, sevenWords);
+    MarshalEnumBitset(text, objectStatus, sizeof(objectStatus)/sizeof(objectStatus[0]), 198, 223, sevenWords, true);
 }
 }}
 #ifdef _MANAGED

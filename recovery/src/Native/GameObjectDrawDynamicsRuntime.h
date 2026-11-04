@@ -34,7 +34,7 @@ bool DrawDynamicsSchemaAttribute(const DrawDynamicsSchema& schema,const std::str
     for(unsigned i=0;i<schema.fields.count;++i)if(name==schema.fields.fields[i].name)return true;
     return schema.parent&&DrawDynamicsSchemaAttribute(*schema.parent,name);
 }
-bool DrawDynamicsRootAttribute(const std::string& name) {return DrawDynamicsSchemaAttribute(drawDynamicsSchemaW3DDynamicsDrawModuleData,name);}
+
 const DrawDynamicsChild* DrawDynamicsFindChild(const DrawDynamicsSchema& schema,const std::string& name) {
     for(unsigned i=0;i<schema.count;++i)if(name==schema.children[i].name)return schema.children+i;
     return schema.parent?DrawDynamicsFindChild(*schema.parent,name):nullptr;

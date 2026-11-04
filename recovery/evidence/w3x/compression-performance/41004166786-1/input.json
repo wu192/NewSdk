@@ -1,0 +1,786 @@
+{
+  "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+  "tree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+  "animations": 194,
+  "channels": 7390,
+  "expandedFrames": 468946,
+  "fixtureSha256": "bb4bac4ebb558eac74345ea139122c427584eed5941e3438469ff77466221c22",
+  "sources": [
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/EXJAPANARROWGEO.w3x",
+      "sha256": "56bc903f58a43c8b6321c5a5ca1e67f1affe5580988004933c97ee6f36882936"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/EXJAPANARROWGEOVET.w3x",
+      "sha256": "577609aaf40495b86c10136376de6af3593116361d356514327a4b76aa0f0365"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRYCHARGEFX.w3x",
+      "sha256": "8b9fda47e1f2962c3eb9fa3bb15109cf719eb2fb6b97e3e91f24d5324c32ab4e"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRYCHARGEFX_2.w3x",
+      "sha256": "aef57da053306635d805dfa20ab57e491d683df971baa6c2cdf3a93bc53a9317"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_ABTA.w3x",
+      "sha256": "b24b01e223229cbf64d7e014b5c5e58976f54219c7c05923cb3b24a6ff1e97cf"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_AIDA.w3x",
+      "sha256": "86dd9e1f9251aac1eb27a20e5fe08b20f7ad9a3eade27b614f7e951c91d1941f"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_AIDLE.w3x",
+      "sha256": "e3049a134e9b2a3c937f3131b751aac62b22140abba559193c63ef6315417a20"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_ATKB.w3x",
+      "sha256": "5e6ba716e27143e365af797545f86ae282e19e42b9d87f31cfb7c340519cbc39"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_ATKC.w3x",
+      "sha256": "8ad5cf7a0c6891745c456ee598a3b6d9da6c693fcf9bf958016b505cbd092834"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_BATA.w3x",
+      "sha256": "e2e51071d1d21c751fb03fb6c37124d3b1cf890debca852810b1c1be226461a5"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_BIDA.w3x",
+      "sha256": "3e1084e785b89d2f4a47bc9827614bf7e5b5d18d390eba5b51d817801824fc55"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_BIFA.w3x",
+      "sha256": "20dd9cd6beaba2f620cbc236ecdd23570096d9ca49dab790d212085d9fbc8343"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_BIFB.w3x",
+      "sha256": "90c6093c094f9d19bf6745e68441672ed62027f1a436e960ff99590fa4f95d73"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_CDTA.w3x",
+      "sha256": "d9b2ee4af2c374072020bedb6e1c2776eca50f58ed660df39763a8d836ab2b35"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_CDTB.w3x",
+      "sha256": "8dccf11cf359c8318046dfb250e1599fe170be8fd404a6a71254255e7f075bb8"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_CWRA.w3x",
+      "sha256": "acae704fbc3267370b8ac7dac265cc05fb54b2021d99e81302265904074235f1"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_CWRB.w3x",
+      "sha256": "52d9a92b17b0cc17c8c677252868cfffcc827ee8b387bf7796b31dba82ea55c0"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_DTBA.w3x",
+      "sha256": "7cbe70b8bad22017602cac2d7e8cdad107c0e87c40b148e2858d544481f60f23"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_DTBB.w3x",
+      "sha256": "5666403bfeee35e1d986c65b679855e9123e61ebdb7995e82720c8a03880ed87"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_FLYA.w3x",
+      "sha256": "963a58432ea3c3d29ae8e3f90d0b06c980665daec77426a42d95b1668ae8a125"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_GTPA.w3x",
+      "sha256": "b8f5d3b4d917e41ae4b639ed47ee2c9fa7f4cbbf690c3681bb10671c9f6d7479"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_LNDA.w3x",
+      "sha256": "1a794541837934b67c0ad6e31598c0ef72cce67ebda3443486eb7ea525bec444"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_MCNA.w3x",
+      "sha256": "2b423b26a63b8a21e54038ac2a52b317616bbf37d3ac3ea7d96c3fb77eb23237"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_MCNB.w3x",
+      "sha256": "1cfde0199ea67adb04133d8f3c86e52189a2274bc87c294e73708aab206d4827"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_MCNC.w3x",
+      "sha256": "9d84918f8e8a668d4814758beaf8d41758f684ea6e4bd7f6fe1a9ea6d743fc46"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_MCND.w3x",
+      "sha256": "00d586a24d4961d65b0176492cd07f202a7a2882c31c2b6d3e4b7611dc75f9ee"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_RUNA.w3x",
+      "sha256": "2b30f2f69af6760d6f4567c1192fdb26adb9eb6bc32301a48afdbbbb044f8e12"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_RUNB.w3x",
+      "sha256": "adc63e222258293d86939effc2d8b01929a711b064e47e3cb46cbfb4bb59190d"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_RUNDA.w3x",
+      "sha256": "7f7c0f93ec02e64eb21ffd3a5ce84d4ff61fbbb117afc72b88d94b0e467602a2"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_SATKA.w3x",
+      "sha256": "d74993c690aebc08d09f93523b07dd95f2342d15d82f4d9c85da9d50b449e5de"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_SIDA.w3x",
+      "sha256": "b63ddde8bfc23e6ab60f8df093be5d29510c37ad6ccc112cab0ec7d0af6eea4d"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_SIDLE.w3x",
+      "sha256": "4ae757f40234e3e2fb8a4ca97c8102625dd1293424742510f7224addaab6bfe5"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_SMVA.w3x",
+      "sha256": "b21e13d1e1af2b2296658460e3a288e9c204d8cb4c7cb255c2547cc5a27eb5f4"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_SWMA.w3x",
+      "sha256": "3563c6f878ea8ddb2f6ea44eb32b02e8fdc8a57fea2d90c992ab8e18adf836ee"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_SWMB.w3x",
+      "sha256": "0af05fefa552e2e23de9518ff0d6d2683b8ea9edbe5e4d2bf47858af31144a46"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_SWMC.w3x",
+      "sha256": "7bd21547f762aab3b6e3d8514268c5ed5e3d4fa87c034ea3d9cbd8ecf017bcd3"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Archer Maiden/JUARCHERINFANTRY_WAIDA.w3x",
+      "sha256": "fff87867d5d4f07b85885a0c31e2b4931fb61ad9fbe237dcdd169f28f94fb186"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_ABTA.w3x",
+      "sha256": "5ec5018dc14026fe431362cf18dd652524055419247fa44a3cae35c10df14bea"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_AIDA.w3x",
+      "sha256": "6a89f4ad38d265c81e6302c67862620b31556ad4de04172f91df075c6d7d1b9a"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_AIFA.w3x",
+      "sha256": "1cc1f81b131fb1df790b0f43ca03ea9abd45bc0a6e212a606e7c988f5dd96fa5"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_AIFB.w3x",
+      "sha256": "c634d094456f9707e2f1f590fd825bbc97a753992e8acff1ad75d4187402c215"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_AIFC.w3x",
+      "sha256": "f76f03d95a06e3771aea33d4764229f3903577898335c79a43b7b091a2c25999"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_ATKB.w3x",
+      "sha256": "2f702957880cd3ef60f714ebc0cd17192bb4aefc739bd1cf473b1556e057af62"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_BATA.w3x",
+      "sha256": "d5b74fcc56363c577be726d614cbf0d5a41b041937ec6c1946a76ecb4bb3ff70"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_BIDA.w3x",
+      "sha256": "404844546995b42d2bb9abcd616686d1154789acb8a7573aa7497f0c0b4bbb8a"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_BIFA.w3x",
+      "sha256": "d5b39dfb74abefb1ec62aaa54bc99159597e69c504cbc34cc2bb9a8a0e3401b0"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_BIFB.w3x",
+      "sha256": "4f318c9df2529ae51a10eaaac3bdf621cc1e9c0107e0f4e65deb9cdfafc26d7e"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_BIFC.w3x",
+      "sha256": "b8ba93e0fa522ac613646427fafca1a9503c9bba1fa3e0a59a41bde3728de527"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_CDTA.w3x",
+      "sha256": "9d8fed1491cede993e6b00776083a10bdbaf5ca6f0ceb8a4279828719208b608"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_CDTB.w3x",
+      "sha256": "2cfa75e3ab6c2b4b76e14ec1ede6d088f7fed4fca007f067abe36b765dbd6142"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_CWRA.w3x",
+      "sha256": "fe23a4db1828c7e89758a10a1d7c525c324912bc246010c8334761143851c439"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_DTBA.w3x",
+      "sha256": "aa6eeb51a5463c0842bf0e9aa94f3f84e25ecba94ff6256cc2a02da5a290e5ba"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_DTBB.w3x",
+      "sha256": "c09ad5afb0a8a6f4314a9ae277a5c3da08ebe30b2919b46ae05f7519dcd0e783"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_FLYA.w3x",
+      "sha256": "c2edeeb38eba4303a769492eee2c9da296c8a0fe17ede5cc27fbe4e43035f909"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_GTPA.w3x",
+      "sha256": "c7b2ce265047612255b41106314ad09d1871fda745afe7a5408ed982346123b5"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_LNDA.w3x",
+      "sha256": "20d6f1f230a495d0959f046258eb5af8f527579e320a884e1ffd8d6989a82cad"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_MCNA.w3x",
+      "sha256": "31b8eee687f4d642d58ba439a87f96bc5f6f6fe54d544ec98ff6869811a6458e"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_MCNB.w3x",
+      "sha256": "6cc47fe7d1c7b40a5351403f31f64608d1367105abec0eb5250e4ee02a4a366e"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_MCNC.w3x",
+      "sha256": "bc40a1cc9df7c60f5301017b92f1a60454b70ec0886471d65ab85788e24d70d3"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_MCND.w3x",
+      "sha256": "a7e10bb74b95e87bc194bff2d26303900d8eca8037d3d2016743868aa5b9ad51"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_RUNA.w3x",
+      "sha256": "e38c3456482929224b83b408c621ebd017465969f225ce37b8dd8dffc00de669"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_WDIEA.w3x",
+      "sha256": "101f32928e702be8ee8d76e46289f5f43f8ab23c5283af2091b3c6745f56dda8"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_XJMPA.w3x",
+      "sha256": "53457213ef8cf9a88e0f7fcc4d03e4d7a9c52fd9b94c49d6e91ffc7066b37c14"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_XJMPB.w3x",
+      "sha256": "1c74988a21f0dd2d491eed2485e08bcb585582bf57ea622bd625fd6de985e805"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Cryo Legionnaire/AULEGIONNAIREINFANTRY_XJMPC.w3x",
+      "sha256": "064b14b6469398234ab717078dbb1e24bf6c791ca28cea82921ec2c948d6e2ab"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/FXDESOLATORBLATPROJECTILE.w3x",
+      "sha256": "3dfba382d7bf2cd7593dbc4f2eb752081544e83fd1ff2994e17c3e5542960ca0"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_ABTA.w3x",
+      "sha256": "c3771a163b7e93cd5d80e21e43306efce1abe1438a8bfd710575d00d61945d4c"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_AIDA.w3x",
+      "sha256": "936fac1026c2fafb3dc197c2f5603f9ad5f429a0f1e27a449555058ca96d7670"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_ATKB.w3x",
+      "sha256": "06493c8efbedb1e6a18b3a06b9eda849f39c8cf07329837b17a4b0977f55e88e"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_BATA.w3x",
+      "sha256": "d75c5036b14dc7c8ba85a892098f4af0517259f7d2c73e0c3feea99e904a82b4"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_BIDA.w3x",
+      "sha256": "724196ba0708fad27762d4206b8339d1da9b72ea8289b7faaccb31bc403b6866"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_BIFA.w3x",
+      "sha256": "3380dd90a1b20e74712c657fbb88286b8a4ff6b864fd9e1204d7a19b41f73c7e"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_BIFB.w3x",
+      "sha256": "b0bf49f2e8cec3cc565f9c5b95ff946a4d1d6703adf2aef395fae7eb41d6e4a8"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_BIFC.w3x",
+      "sha256": "c8623b842a822fd130a86e882d656d64463191f90ec503e4398a07f68a24c340"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_CDTA.w3x",
+      "sha256": "7c7186ffd7b7453849577cb5a5dd6a6590b05fb22df74db465e1dba65eb930a5"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_CDTB.w3x",
+      "sha256": "73275c436f3fcf961e025ddf1e60d0ff1cec09ffee1cac9eb3a15d01e85a149b"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_CWRA.w3x",
+      "sha256": "18db09c6e2f7277e7dbb266b6c9981f9370b42b31ced6c26138e1ae7c755d816"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_DTBA.w3x",
+      "sha256": "dea252a81a9101939a880cf9642ea87bd7a23b138c6752bb558382546135f052"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_FLYA.w3x",
+      "sha256": "cf3a715835ff9f41d44e86f98878abd805522caa32e5d8bbd029ab572a90350f"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_GTPA.w3x",
+      "sha256": "37d325bbfae41662533bea49eac96112a6f64c6df68957852d7fc2505e417088"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_LNDA.w3x",
+      "sha256": "1699298a04b994e143bda615158cc89d71d1218a16d3bcbd5b357bb0deb86d17"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_MCNA.w3x",
+      "sha256": "9ec2938a573e950c88d2f4f71911010abe79c38b36a4f46f8a7e3cf50388474c"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_MCNB.w3x",
+      "sha256": "c5d3eb4ce949e66dbe6795fb2118e862c2dd3eb2e16b0a61d5713cc6b2a905be"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_MCNC.w3x",
+      "sha256": "400ec8084a8dafd9bb04c9499690f3b23f3b1532aef53319775d05f0e69c6315"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_MCND.w3x",
+      "sha256": "51a4cda40afa9b4970e38bfd2e76c32ef60b5176d445aef0326dbfe6a6feb7d2"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_RNDA.w3x",
+      "sha256": "914c1dc84dad2ba9509770715fcb1cdabcb8dd53b9965a5872bbf8472f77cd72"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SABTA.w3x",
+      "sha256": "7e4ec73fec6a7c2c6bd9cb7fc1ac8cd801e892a82dbb9b33b2f8ab42fb9b9abe"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SAIDA.w3x",
+      "sha256": "bd0c256e955768895cf392bf4fb1045a6a6a422c0a4b2b1d94c9e6fadfaa414b"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SATKA.w3x",
+      "sha256": "cc0876057fb2059b4fd5b1a6b44112886789210fb4fe9a61ec41ae11a3e50f2b"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SBATA.w3x",
+      "sha256": "782e1d0791e8613aaf3788d6e0025710fb66e3d3f2fd80ec83c942a5cf887b71"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SBIDA.w3x",
+      "sha256": "39dbc036512effcfe6cdf998ad2d0f6aa2028efdfc216397d909ee6d7895a922"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SCDTA.w3x",
+      "sha256": "88da5ad0ef7b15c8bbf82ad964fb93d2420e9914ef615d87394d0534668a711e"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SCDTB.w3x",
+      "sha256": "371f04378e25c33af96f66f45ca8450d9bfb586d588c78481f5c4c2c6e71f0c6"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SCWRA.w3x",
+      "sha256": "758c4c78ac1ef4141bc1b61a354f3901540764bae35009bfdfd32038b17697ac"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SDIEA.w3x",
+      "sha256": "08ff8dc3abccc3263d1bac8f98080b08bd3178827940fc7d8ea9866096cee96a"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SFLYA.w3x",
+      "sha256": "5a8dcf8ffac66f0c21962dea65c680de35bb087fec105d210e30ea4f6814ad5e"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SGTPA.w3x",
+      "sha256": "79a0b4e977a12e6e28738df6ce86152cb6a051b9ca3d60c2d59a0f5502e0fcaf"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SLNDA.w3x",
+      "sha256": "5dbbb8515a7e92f4adb6af701eed5676b0a8ed9886927b24e297ef77be919ab6"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SMCNA.w3x",
+      "sha256": "98f060138c1a2941c704fa44fb493c7629c428d7a5bc6104dc52e23162507641"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SMCNB.w3x",
+      "sha256": "1138f502841f488afcedbd7aa682a4fc9a3b31e63a08d61f2bd960d5b0a0b132"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SMCNC.w3x",
+      "sha256": "df0c520ee23522c42af7cab982cfed546aea0604517d4b82e6500e2ec46f56b4"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SMCND.w3x",
+      "sha256": "c1f3d11182ae24e73f4a40b934d18a53fdd31483e6b9771796f64a5f60e3c121"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SRNDA.w3x",
+      "sha256": "61f080b3ccdd19f6ed355877373252f0ab7144dbeadd12967e09ec7df4286073"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_STRANS.w3x",
+      "sha256": "f977a3fbcfbfc24b6a11c1b3773133dd9d0c257ecc5d49f804719c351905eaf4"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SWLKA.w3x",
+      "sha256": "c2486b0cdf36287841d4269bf5de8146483d0f640d275b6fb60606a6b01808b4"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SWMA.w3x",
+      "sha256": "43b0713d031b6d238132b1231791f768dba4d8ab3c60d9e9a4fe4eaa1b1ea1a9"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SWMB.w3x",
+      "sha256": "d30b49dd3abf1758b8a7bd0a586997784048970237b017fb89000d876153abe9"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_SWMC.w3x",
+      "sha256": "c416ee2ff1bdc3e996527fde7482e0987b11fa9eed65b5ffdd32043129e37041"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_WADA.w3x",
+      "sha256": "79d65290f769559cba5f47553ce121f96abba79fd283f7ef608c941ea8f14e54"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Desolator/SUDESOLATOR_WLKA.w3x",
+      "sha256": "1441c1690eb6f5703f680a91a39de369299dae8c852ceea18e3571ecc5606dae"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/AUFUTURETANK_ABTA.w3x",
+      "sha256": "db734a2cf97bbaeaa59e19a7134901bd818af9ff7f41c2886764b2b775a603a8"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/AUFUTURETANK_AIDA.w3x",
+      "sha256": "e9748ca543907b6361fea9f5099944248fca782f0d34b2db8a0189b14bcf2528"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/AUFUTURETANK_ATKD.w3x",
+      "sha256": "baf824e6f12a9eaef7d0b0818f94a04bbd1e3ebf617b3681004ad1df46fb52d0"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/AUFUTURETANK_ATKE.w3x",
+      "sha256": "3f621a9f471ee0fe5c94433112c98694fd1bd7ead2a331f39857220d8e75c43b"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/AUFUTURETANK_ATKF.w3x",
+      "sha256": "71a11462a9a4f302facaa60a1f40f2fec17369bb884a24a2c2343ba1e5965d29"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/AUFUTURETANK_ATKG.w3x",
+      "sha256": "f3254231d98e839580d66d6fb78dd136c59638c7acdaf1136f318cfbbe621b77"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/AUFUTURETANK_BATA.w3x",
+      "sha256": "5f0e1a503d1287664495be6b3e4f1e35a87673aee1c1e0d7389257ce3b9fb89b"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/AUFUTURETANK_BATB.w3x",
+      "sha256": "5432655be93eff483f581aeedc5e2ecf2e324351fa2d981ae69e271b465c0024"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/AUFUTURETANK_BIDA.w3x",
+      "sha256": "2ad1f3af3c4437efd4000e72b17981f6cb64c191c65300dd40f57d8d7512cec0"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/AUFUTURETANK_MOVA.w3x",
+      "sha256": "da14e3a885c41820f1cfc734f0c95d68d5faa3b65261f7341ae9e3ec72549cec"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/AUFUTURETANK_XMOVA.w3x",
+      "sha256": "5dfe00042036e54e435af2ab2b6c24b4efe4c37e61a95bba1cfee5f44f9eab87"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Future Tank X-1/EXFUTURETANKCHARGE.w3x",
+      "sha256": "8c52ae7b0f238e9f745cbc7f4c72b62dab9488c2e3097344a680937b62732460"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Giga-Fortress/JUFORTRESSSHIPHEAD_IDLA.w3x",
+      "sha256": "f43b6e58987ae0b2f8a460e4ed83b05668d8d039ba29aac51eb0a45bce963c91"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Giga-Fortress/JUFORTRESSSHIP_BLD.w3x",
+      "sha256": "50a1b59b5ebb8b84b1e39fcf6a335c134b1aa0e8375c92add50b436584935c00"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Giga-Fortress/JUFORTRESSSHIP_BLD2.w3x",
+      "sha256": "1eddf5db871b60a7ff017e81664fa757ecf698dad18658099f9e5929b0801df6"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Giga-Fortress/JUFORTRESSSHIP_IDLA.w3x",
+      "sha256": "f8ab37e9a1cc046a68f027f4115178fef934bd79a49e75a55ea9e3f0f32762a4"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Giga-Fortress/JUFORTRESSSHIP_TRANS.w3x",
+      "sha256": "d35c70b6768b06a86dfb104a7d5decb788cf500a3b58ed8a96dcd8737a7abb43"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Grinder/SUGRINDERVEHICLE_IDLA.w3x",
+      "sha256": "4ab1f2d9a4a3be00a683bfc2dd67814c6c35bf952ff2bd3c895736d52924890d"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Grinder/SUGRINDERVEHICLE_WIDL.w3x",
+      "sha256": "78e5cf6637c86fdf0ee40733a9f11b4537877ae62b62c2ea7c1d30eb6ea68d40"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Grinder/SUGRINDERVEHICLE_WTRANS.w3x",
+      "sha256": "62750f4d467f4e3d700f61e3a878f07ab98d0dba67481a134107718ad9e64918"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/EXSOVMORTAR.w3x",
+      "sha256": "fc778a3ec378f6e0b4f7491db9ca230754326ece6d255072851c4d3010ecb621"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_ABTA.w3x",
+      "sha256": "beac6c06f404f4e7d4d43709b1b60eb6ab468e0606a3df8fb56958cda6b2c6bd"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_ACCL.w3x",
+      "sha256": "2a62d506d1db5bca4353de098ed8c805a082730768f937326f3a5f25661c892e"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_AIDA.w3x",
+      "sha256": "1c8258485aca475f9eb0c135abc8742dc6a8d731aba39ff6d10efe82bb10e5b7"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_ATKA.w3x",
+      "sha256": "caae2d776fbea891646bf86b4f20bcf1d060ff301269efaeedadaa88086fe3cb"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_BATA.w3x",
+      "sha256": "ed44bd883409841d7b35817c5dfb8123afbab1b6cbec1d1ddb142c4d940ada59"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_BIDA.w3x",
+      "sha256": "a80524bf5561b886142ca00ccb107f5aa80eef09ee0fa1c51ce151e03a4c4055"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_BIFA.w3x",
+      "sha256": "83b7c7e6e0ebc0994302edaeeafa3956194a2a10afcbd4fe366ff9d94c000c9b"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_BIFB.w3x",
+      "sha256": "7c6402eea8ddfe9f387cf7ad88dfa20100ca76cc57e98608875192641cfb56b2"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_BIFC.w3x",
+      "sha256": "a509d69e17d9fe8ac4d9e12beaba8ae372335f2999ee8aad6b90653567c56582"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MABTA.w3x",
+      "sha256": "bceb67053cf9bdf8344b706be70c9fd197dfece3bec504fd3950c52c123178fb"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MAIDA.w3x",
+      "sha256": "af927636965350883a60a9235a2f042c45b9650a209d97834cca55c884aa7376"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MATKA.w3x",
+      "sha256": "781a07f0746e5963385d5cbc7126cc45efc72f641a360e9645e1844ebb03c45c"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MBATA.w3x",
+      "sha256": "e9f227b6fbd355b10e6516380e1078b5dc09aab50dfda14e624f8ffde4c090d0"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MBIDA.w3x",
+      "sha256": "6f19a817b5cc686dd551e24fea6b87c81b734eb73371d62019998e9f6977e005"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MBIFA.w3x",
+      "sha256": "6f7fd3a4d713babd54e76e1cf848837f28940ffa12f54c13bad4a504fcd080c1"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MBIFB.w3x",
+      "sha256": "36584cf51e813b901440113482017a292cf32e0730fd55b7c0cecc1edbbadd90"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MBIFC.w3x",
+      "sha256": "75173a13d9c7fdfa33745d154a53c4e233ced173f08f8e90e7fe2d95d029f2ab"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MRUNA.w3x",
+      "sha256": "229f181d6d455d63f2dbf58e7cf1b75ba96174256b565a53503b14a202ad6b08"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MSWPA.w3x",
+      "sha256": "89e343b5081b7967304e3d9e26d81b9fcf5dfd01c95768eee575e42cf4f9b54e"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MTURNL.w3x",
+      "sha256": "ff5046d350c94a8740d70b43cbb44c8dc8ce03b6e7d01cc2d9e8a4abf75892e1"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_MTURNR.w3x",
+      "sha256": "53a02a5822b69857330eed420c30dc51769a37cb83e8b83894c4562d3b686546"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_RUNA.w3x",
+      "sha256": "5db075d3eca968c6150467cc9ea451e4354eb090bcd3f46ba72239520d6935a5"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_SWPA.w3x",
+      "sha256": "73c60065079c9374990cafded772043baf78e15e90e61669f4ce99c6dd2cd79d"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_TURNL.w3x",
+      "sha256": "bba07d02953a20d41b522dfb77e18d7476256e8c71426bfaf7404912b1a35084"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Mortar Cycle/SUMORTARCYCLE_TURNR.w3x",
+      "sha256": "05992931acd838865a4c1455f32c9bc07acf4220c8694cfe194b9e108e65ee41"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Pacifier FAV/AUARTILLERYVEHICLE_ATKA.w3x",
+      "sha256": "23a119d092905d4452f3d9a66f06060adca2c0767c058009f47bbde28896c6d1"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Pacifier FAV/AUARTILLERYVEHICLE_ATRA.w3x",
+      "sha256": "0bd307a0dc011ffcbf44c4f79eb72cc1d59f27a7db19c1062861599fb56f65fc"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Pacifier FAV/AUARTILLERYVEHICLE_BIDA.w3x",
+      "sha256": "36ccf0b2cf2ef35a83f6d8f83034a7a7122ee84cc6569e2217f5b0c0d61d9643"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Pacifier FAV/AUARTILLERYVEHICLE_DPLY.w3x",
+      "sha256": "e5aee5638af425ffa6ff7d794ba44c4b028650bb9b291ba907c9364cd0e2bd27"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Pacifier FAV/AUARTILLERYVEHICLE_MOVA.w3x",
+      "sha256": "731322da72448da84a99b89cf5da0187c10539978a5635d146b780af278f10d7"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Pacifier FAV/AUARTILLERYVEHICLE_MOVB.w3x",
+      "sha256": "b232a8381f837105105a92c785ae492af5805cc877efa5f9f393449db60d9060"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Pacifier FAV/AUARTILLERYVEHICLE_TRNL.w3x",
+      "sha256": "4778fc08c394569051a61750d39809ba28d74741d441f573ed518558d459a328"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Pacifier FAV/AUARTILLERYVEHICLE_TRNR.w3x",
+      "sha256": "509123654d9657adc645dd9d2f67a9798c80fa86456a4ebd36d7d96743556e6c"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/EXSOVIETGRENADE.w3x",
+      "sha256": "ded86d6c8482edc6bab8b0a9319d2711d53fc351fe2c0770c7e95f21c1e176de"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERTURRET_GAR.w3x",
+      "sha256": "f7c20d3416ace4fc8eab5bf3d73980143afd980c683183acc8c44e800d99f975"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_ABTA.w3x",
+      "sha256": "51e47a179fd2662298030867d17a32e63286a4114b2d409b27c1d647fa407f2f"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_AIDA.w3x",
+      "sha256": "2db90f2fe613fa696419c5dbe9115492bdcb319a20b1f2641be0d626d188f67a"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_AIDB.w3x",
+      "sha256": "35f19c68010bd11ff84896195e10433f332bb5c2ddedf66e56c77cc2adc5a7a1"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_AIFA.w3x",
+      "sha256": "394ea271f707810f428b2c3f997edbac642d3ed53f0823edb9f7ea3a1436eb5a"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_BATA.w3x",
+      "sha256": "12e11837f975d850715696879c622671e1f3e9de6e6ff2fc92236dfc9e0b6426"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_BIDA.w3x",
+      "sha256": "aad1115b689c43fbab95dc294613dccade480896e0d905871fb09b2e5c0407af"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_BIFA.w3x",
+      "sha256": "c124765c6f974f5708934a9158b1b882dcca7e3ec600194343471394a42b64f9"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_BIFB.w3x",
+      "sha256": "1a5b85148c3788ddad3cca676679295f49859dc2362e8d6ea6b19382f7593b11"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_BIFC.w3x",
+      "sha256": "50909cced80e3af26375745186674bc86f0f49ab9b740107dc381343b2e82ef1"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_JMPA.w3x",
+      "sha256": "3e8ad10d5a51f8553b36d71d353674142f984aa361216ea7b5e726557cee5972"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_JMPB.w3x",
+      "sha256": "60eebf52d24b3a3f4bea08d7998fd3b835f877a2c7ad6fcadadfe98d260f69e2"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_JMPC_LEGS.w3x",
+      "sha256": "f0ffab1acb88742ab96dcafce2fa82e71d968dc7f14605fae4c8c0b2cbb5efdb"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_TRNL.w3x",
+      "sha256": "f7ae54f471c41f8da25a9d9a8b5232af3be0c83808ecdb63cee05a97a092b240"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_TRNR.w3x",
+      "sha256": "60c7776722b32f264ccf11316172521ba91dd5016270b9b0658a0ff71c836a15"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Reaper/SUHEAVYWALKERVEHICLE_WLKA.w3x",
+      "sha256": "ea51b6840a024885292c001ec55166c565f4d5077635140083de18debfbae36a"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_ABTA.w3x",
+      "sha256": "ce4f4db73ca617acc7a4aff53d9442fad85beb7f00723166dcde527f943d885e"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_AIDA.w3x",
+      "sha256": "3d921b564c20d70e40c00b1d344ac7651ae9826d65c9141c2866ea88c0b07358"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_ATKA.w3x",
+      "sha256": "ed8535de8124219235fb2cffb19e3ad157ca058e4603cad987937b6c797c7620"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_BATA.w3x",
+      "sha256": "37c0e091e4cd44e81d851933916a7fb314ccc23f3abd6b303d5f827759efe835"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_BIDA.w3x",
+      "sha256": "c168715a6a869d09ba455af738a4c0849dfc61774ee7e9cc0182914293f8beb2"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_DIEA.w3x",
+      "sha256": "8531a7283f8504e482559a419d3eb4071ef4dcbc55a357150aca6261f23f80b2"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_RUNA.w3x",
+      "sha256": "151472bf43a5c88fa0258d883478ea2c1e24a365d9bffd8993218b7d0c92a30a"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_SWPA.w3x",
+      "sha256": "aaaa553813e0235a0fd73225f240611680cf7c0e0a05fac5d2543c6d14be1502"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_WLKA.w3x",
+      "sha256": "be80e5715d3712e6a440564fd86301ed25a9e53f05c93ead838b6ee42cd636d2"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_XAIDA.w3x",
+      "sha256": "5eeb14e58a37fe5cac4ba409e3cc21c1717b074c96e9d3f7d4da47da2d70ae06"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_XATKA.w3x",
+      "sha256": "2ef3b52d39e1d402570d3d96d21c1cc982170314f7c18a1cb3bff7ca405c7edb"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_XATKB.w3x",
+      "sha256": "0a4a572080dfc0b95ad612988c976a11a71b1b1d0860418469a1cbe390811564"
+    },
+    {
+      "path": "SDK/Mods/Upheaval/Art/Units/Steel Ronin/JUSENTINELVEHICLE_XWLKA.w3x",
+      "sha256": "2e33f87bd6ec1d82ddd07994937b048b73e1e8fa06d7a3942c0894a37ae99645"
+    }
+  ]
+}

@@ -1,6 +1,24 @@
 # 编译器最小发行包
 
-## 当前修复版工具（2026-10-27）
+## 当前分支候选：完整缓存恢复（2026-10-29）
+
+`recovery/legacy-sdk-cache` 的 [PR #19](https://github.com/wu162/NewSdk/pull/19) 已通过[完整运行 40814401237](https://github.com/wu162/NewSdk/actions/runs/40814401237)，待审查，未合入 `compiler-main`。生产二进制、测试及发行源码均为 `39039961847cd1ca9cb93743fd51741a4e5c9f49`，Debug/Release 在该运行重建；后续文档提交不改变来源。
+
+候选恢复缓存默认开启、三种纹理、XML/Deflate、部分/冻结会话、touch 及旧目录。完整生产矩阵、mymod 原 BAB/LoD/MakeBig/SKUDEF 差分，以及五文件包独立解压后的生产 BIG 和协议均通过。[准确覆盖边界](docs/LEGACY_INCREMENTAL_CACHE.md) 与[核对摘要](evidence/refactor/legacy-cache/40814401237-1/summary.json)。
+
+[下载候选及验收产物](https://github.com/wu162/NewSdk/actions/runs/40814401237/artifacts/12871674302)。外层归档内的发行包路径：
+
+- `artifacts/final-release/40814401237-1/NewModCompiler-Win32-Release.zip`
+- `artifacts/final-release/40814401237-1/NewModCompiler-Win32-Debug.zip`
+
+外层归档为 137119679 字节，SHA256 `6c395456add02dec40c7759e9cc5a26d34ea353f5e3ee588a12a78df3bfab044`，GitHub 元数据、上传日志及后续本地重新计算一致，保留至 2027-01-27。首次 CLI 下载 HTTP 403 的历史保留；性能基准续接时已通过 GitHub 产物下载工具取得原始 ZIP，读取原始清单/收据，并校验完整 Release 五文件和 Texture 绑定。此候选链接不更改主线既有发行来源。
+
+| 正式 ZIP | 字节数 | SHA256 |
+| --- | ---: | --- |
+| NewModCompiler-Win32-Debug.zip | 2227129 | `e4e2df5e76c16f51406aea3ee141d72a96b0f65a1245da582fb84c7e4fce8d92` |
+| NewModCompiler-Win32-Release.zip | 1726007 | `343198bc65976bf0cbad852ef2b64419e8ee9b44add8f14c6e0fdd9fa07f9b8d` |
+
+## 前次主线修复版工具（2026-10-27）
 
 默认 `/ss:true /pc:true /slowclean:true` 已恢复，并支持逐项关闭；缓存默认关闭。本轮 [运行40440661815](https://github.com/wu162/NewSdk/actions/runs/40440661815) 整体成功，二进制、测试和发行源码均为 `57354fbc013369eac1ad4c6e3346134d81a68a6c`。后续文档提交不冒充新的二进制构建。
 

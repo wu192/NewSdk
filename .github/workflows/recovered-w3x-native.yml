@@ -50,17 +50,57 @@ jobs:
       - name: Parse SDK facilities and validate complete MOD schema without running SDK
         shell: pwsh
         run: ./recovery/scripts/TestW3xSdkPreparation.ps1
-      - name: Publish results
+      - name: Summarize CI evidence
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: w3x-native-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/plugin-validation.json
             recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/*.log
             recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/plugin-build.json
-            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**
-            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered.W3x*.dll
-            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}
-          retention-days: 30
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**/*.json
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**/*.log
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**/*.md
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**/*.csv
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**/*.tsv
+            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'w3x-native-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/native-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/plugin-validation.json
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/*.log
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/plugin-build.json
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**/*.json
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**/*.log
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**/*.md
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**/*.csv
+            recovery/evidence/w3x/plugin-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/build-logs/**/*.tsv
+            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/preparation-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

@@ -1,0 +1,29 @@
+{
+  "runId": "40819603709",
+  "benchmarkSourceCommit": "484676ffb80844626e5e6a66df6c8f589d63e451",
+  "binarySourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "status": "failed",
+  "error": "ValueError: Hot asset cache did not hit independently of intermediate files",
+  "elapsedSeconds": 18.599146299999916,
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/40819603709/artifacts/12874161121",
+  "artifactSha256": "84c53aa484aadde178c681e774a424895d022a9efa102d83d76993c1b1006987",
+  "failedSampleCache": {
+    "status": "BuildAssetCache",
+    "hits": 0,
+    "misses": 0,
+    "sessionCache": false,
+    "sessionPackageHits": 0,
+    "sessionPackageMisses": 0,
+    "documentReuse": 0,
+    "xmlParse": 11,
+    "instanceCompile": 47,
+    "textureCache": true,
+    "compressedSessionCache": false,
+    "partialSessionCache": true,
+    "freezeSessionCache": false,
+    "alwaysTouchCache": false,
+    "partialSessionsSaved": 0,
+    "sessionCacheDirectory": null
+  },
+  "explanation": "Original SDK types in mymod do not enable useBuildCache. Initial benchmark incorrectly required native cache hits; production build succeeded and did not create an eligible cache entry. Subsequent benchmark distinguishes applicability and adds a synthetic native Texture workload."
+}

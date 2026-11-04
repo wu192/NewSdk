@@ -1,0 +1,45 @@
+{
+  "succeeded": true,
+  "sourceCommit": "12848f8e293d53ef6936f06c4dda99398f350571",
+  "baselineCommit": "436115db594c405c1650d27754594454eed54bdc",
+  "workingTreeDirty": false,
+  "runId": "41004166786",
+  "runAttempt": "1",
+  "input": {
+    "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+    "tree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+    "animations": 194,
+    "channels": 7390,
+    "expandedFrames": 468946,
+    "fixtureSha256": "bb4bac4ebb558eac74345ea139122c427584eed5941e3438469ff77466221c22"
+  },
+  "scope": "All historical Upheaval native channel compression and original format selection; XML parsing, preparation and wire encoding excluded from timing. Full selected wire bytes compared in both endian modes; not a full MOD/SDK build.",
+  "warmups": 1,
+  "measuredPairs": 3,
+  "samplesMs": {
+    "baseline": [
+      25161.3,
+      25727.2,
+      25017.6
+    ],
+    "optimized": [
+      8448.98,
+      8591.7,
+      8449.11
+    ]
+  },
+  "selectedFormats": {
+    "channels": 7390,
+    "timecoded": 3198,
+    "delta": 4192
+  },
+  "outputSha256": {
+    "-1": "1ca19e2a6b166beb62eedb892882816cdd51db6537fd9bdd870db07c0ad40bc4",
+    "0": "1ca19e2a6b166beb62eedb892882816cdd51db6537fd9bdd870db07c0ad40bc4",
+    "1": "1ca19e2a6b166beb62eedb892882816cdd51db6537fd9bdd870db07c0ad40bc4",
+    "2": "1ca19e2a6b166beb62eedb892882816cdd51db6537fd9bdd870db07c0ad40bc4"
+  },
+  "baselineMs": 25161.3,
+  "optimizedMs": 8449.11,
+  "speedup": 2.9779822963602083
+}

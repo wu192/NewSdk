@@ -1,0 +1,3 @@
+PASS Utility exact public/family flags and custom signature contracts: 187
+PASS Foundation IL module: only declared AssemblyRefs, 51 EXSLT aliases, resources deferred to linker, direct expression binding
+PASS final linked EXE: read-only Utility ABI and EXSLT contract verification

@@ -1,0 +1,4636 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "e3272ffd087148d31e1363670848a5119f09e4fc",
+  "runId": "41037021490",
+  "runAttempt": "1",
+  "succeeded": true,
+  "status": "passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate",
+  "modes": [
+    {
+      "passed": true,
+      "productExeSha256": "41a99a27e9dd794c729faf772025c6075770b274a6434b746b4a90d31263a289",
+      "validationHostSha256": "67bf953805256f13fc21d04a354676422ec64500d701a30acb63e78be7b72e70",
+      "textureDeployment": {
+        "targetExeSha256": "67bf953805256f13fc21d04a354676422ec64500d701a30acb63e78be7b72e70",
+        "scope": "Host-bound registration/lifecycle only; texture payload differential remains separate",
+        "manifestSha256": "d372e106e369cd177894d9c6fdaf5c0d127a49c369a518318c562c5cf0f8167e",
+        "patchedSha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+        "protectedPeAudit": {
+          "schemaVersion": 1,
+          "mode": "redirect",
+          "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+          "outputSha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "checks": {
+            "machine-x86": true,
+            "native-entry-rva": true,
+            "clr-flags-entry": true,
+            "imports": true,
+            "resources": true,
+            "relocations": true,
+            "tls": true,
+            "iat": true,
+            "clr-VTableFixups": true,
+            "clr-ManagedNativeHeader": true,
+            "clr-ExportAddressTableJumps": true,
+            "clr-Resources": true,
+            "metadata-TypeRef": true,
+            "metadata-MemberRef": true,
+            "metadata-TypeSpec": true,
+            "metadata-StandAloneSig": true,
+            "metadata-MethodDef": true,
+            "metadata-Field": true,
+            "TypeRef-scope-tokens": true,
+            "AssemblyRef-count": true,
+            "AssemblyRef-change-allowlist": true,
+            "native-MethodDef-ranges": true
+          },
+          "directories": {
+            "imports": {
+              "originalRva": 747364,
+              "outputRva": 747364,
+              "originalSha256": "221f85bfd1e4582e1423f364c160fea41688631a7f33c5afa6d551478c4bd444",
+              "outputSha256": "221f85bfd1e4582e1423f364c160fea41688631a7f33c5afa6d551478c4bd444"
+            },
+            "resources": {
+              "originalRva": 823296,
+              "outputRva": 823296,
+              "originalSha256": "10db15924211296e2b4d0da4ccaf01c6064d33adc72e28361d61b50c0dae44eb",
+              "outputSha256": "10db15924211296e2b4d0da4ccaf01c6064d33adc72e28361d61b50c0dae44eb"
+            },
+            "relocations": {
+              "originalRva": 827392,
+              "outputRva": 827392,
+              "originalSha256": "2f9e1362b33ab1a20f117aefd13856dbca85268e68e415f078ff43b2b6cac42f",
+              "outputSha256": "2f9e1362b33ab1a20f117aefd13856dbca85268e68e415f078ff43b2b6cac42f"
+            },
+            "tls": {
+              "originalRva": 0,
+              "outputRva": 0,
+              "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "iat": {
+              "originalRva": 618496,
+              "outputRva": 618496,
+              "originalSha256": "4cbd577617120bd10549de55b727788df42f14cb3e36be704a114f5115ca9f10",
+              "outputSha256": "4cbd577617120bd10549de55b727788df42f14cb3e36be704a114f5115ca9f10"
+            }
+          },
+          "assemblyRefChanges": [
+            {
+              "rid": 5,
+              "before": [
+                "BinaryAssetBuilder.Core",
+                1,
+                0,
+                0,
+                0,
+                "",
+                ""
+              ],
+              "after": [
+                "NewModCompiler",
+                0,
+                0,
+                0,
+                0,
+                "",
+                ""
+              ]
+            }
+          ],
+          "nativeRanges": [
+            {
+              "token": "0x60000bf",
+              "rva": 21328,
+              "bytes": 40,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c0",
+              "rva": 7168,
+              "bytes": 16,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c1",
+              "rva": 6848,
+              "bytes": 16,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c2",
+              "rva": 7184,
+              "bytes": 16,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c3",
+              "rva": 6864,
+              "bytes": 8,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c4",
+              "rva": 6464,
+              "bytes": 16,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c5",
+              "rva": 6480,
+              "bytes": 48,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c6",
+              "rva": 6528,
+              "bytes": 20,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c7",
+              "rva": 7200,
+              "bytes": 36,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c8",
+              "rva": 22192,
+              "bytes": 8,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c9",
+              "rva": 6656,
+              "bytes": 88,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ca",
+              "rva": 7792,
+              "bytes": 32,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000cb",
+              "rva": 7824,
+              "bytes": 60,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000cc",
+              "rva": 329936,
+              "bytes": 8320,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000cd",
+              "rva": 321528,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ce",
+              "rva": 612188,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000cf",
+              "rva": 612170,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d0",
+              "rva": 249024,
+              "bytes": 4724,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d1",
+              "rva": 323092,
+              "bytes": 80,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d2",
+              "rva": 323080,
+              "bytes": 12,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d3",
+              "rva": 612152,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d4",
+              "rva": 321344,
+              "bytes": 12,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d5",
+              "rva": 253748,
+              "bytes": 67596,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d6",
+              "rva": 612164,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d7",
+              "rva": 321362,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d8",
+              "rva": 612182,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d9",
+              "rva": 323074,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000da",
+              "rva": 321534,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000db",
+              "rva": 338256,
+              "bytes": 528,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000dc",
+              "rva": 338784,
+              "bytes": 273368,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000dd",
+              "rva": 612176,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000de",
+              "rva": 321356,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000df",
+              "rva": 612158,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e0",
+              "rva": 321368,
+              "bytes": 160,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e1",
+              "rva": 49264,
+              "bytes": 144,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e2",
+              "rva": 49408,
+              "bytes": 144,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e3",
+              "rva": 49552,
+              "bytes": 31474,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e4",
+              "rva": 48832,
+              "bytes": 432,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e5",
+              "rva": 323172,
+              "bytes": 196,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e6",
+              "rva": 321540,
+              "bytes": 1418,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e7",
+              "rva": 322958,
+              "bytes": 116,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e8",
+              "rva": 81026,
+              "bytes": 167998,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e9",
+              "rva": 324701,
+              "bytes": 11,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ea",
+              "rva": 324120,
+              "bytes": 44,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000eb",
+              "rva": 324164,
+              "bytes": 452,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ec",
+              "rva": 328102,
+              "bytes": 1834,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ed",
+              "rva": 612350,
+              "bytes": 3266,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ee",
+              "rva": 612332,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ef",
+              "rva": 612344,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f0",
+              "rva": 612326,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f1",
+              "rva": 612338,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f2",
+              "rva": 612320,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f3",
+              "rva": 612194,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f4",
+              "rva": 612200,
+              "bytes": 120,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f5",
+              "rva": 323368,
+              "bytes": 400,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f6",
+              "rva": 323768,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f7",
+              "rva": 323780,
+              "bytes": 340,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f8",
+              "rva": 323774,
+              "bytes": 6,
+              "unchanged": true
+            }
+          ],
+          "status": "passed",
+          "limitation": "Static audit only; native functions without MethodDef rows are not exhaustively disassembled. Full G2 runtime and integration checks still required."
+        }
+      },
+      "fixtures": [
+        {
+          "timeoutSeconds": 300,
+          "passed": true,
+          "processId": 2444,
+          "runtimeLogSha256": "7ca2574359d42b8b0bf920acae91d9d0a25440b2c28deaa6b6714bab0169187e",
+          "fixtureExeSha256": "13b2ee49bdb7b31641c629a48ef750771907f5a0cb2a684538c5f7c0bb782fbb",
+          "sourceSha256": "38438092e75a9e9a852426e75e0b7396a279e6a59d0fec829b3df1edd5bc4b0e",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f1",
+          "name": "CompilerPreparedBackend",
+          "resultSha256": "94688eb76c96a5c69ee84682489fc1b6fbcc12e605b78bc32203b42e57a913a0"
+        },
+        {
+          "timeoutSeconds": 300,
+          "passed": true,
+          "processId": 2728,
+          "runtimeLogSha256": "800965c16337e737da22f3718979a972dc09c4120d56f516f2b66d9d6fe012a7",
+          "fixtureExeSha256": "92ddcc6f99196f16627dd4116758f1586cbc1cec214564736bf307a5f9d493ff",
+          "sourceSha256": "fea94e88288212e4297a91f0489fa6ebd5b8339523aa5869ecd102ed79be0cec",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f2",
+          "name": "CompilerXmlBackendBatch",
+          "resultSha256": "39ebc2ab653e4149c3dc27b06cf5f83a21da0a2f1606148d7becddb6d6d4fe72"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 1788,
+          "runtimeLogSha256": "c96205bf92e4b02efada7be4a43dab12909eca10b2d5cda9f2c6527ca72818fe",
+          "fixtureExeSha256": "a050a5e8138ae148f0aebbd145c5fcc672fd6ef8587aa206ba0d4d495f21533f",
+          "sourceSha256": "fadc16af7e483ab1b3dacf2a9f0f8f0a7bac56c559f9d0f6c593d027366e06b9",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f3",
+          "name": "CompilerCacheContent",
+          "resultSha256": "02cbbbffe84c290082b1059e41b2b400304f85372acc905be1f510203dba1851"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 5204,
+          "runtimeLogSha256": "2b8b777ca8d4062139b36565f56b0cfc8b1066a57f4f66ccdeacb37d1c2d1bf8",
+          "fixtureExeSha256": "97fe75cbc8edcb9726dc885419d8323e262ed5cc77b78b1ae62e5acec0aaf8c2",
+          "sourceSha256": "46050fd974a1c44e911255cb0dc56bca1f2bf523a91baf74d5ce38024f060be8",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f4",
+          "name": "CompilerStableSort",
+          "resultSha256": "1b3b1e573b1a10b61012898aa60c625332c9c50a98d75ac7783969915b498688"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 6300,
+          "runtimeLogSha256": "fbf9c9bba7d4576da541fc6d02456f84c076e05695d6b7cf204158401174a410",
+          "fixtureExeSha256": "dfd89b33cd166a751f0a812c926de3a7048d562d38d76b495ba39f49b41ddc3a",
+          "sourceSha256": "9885e7d57ac6aaf7ef962114181d7a5a1cd0e44f7839b383a344a87839b01fdd",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f5",
+          "name": "CompilerCacheBoundary",
+          "resultSha256": "54d7fb14a368748766768da0289101cbe0d4b117b086357e2bbbed4d66c85752"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 6700,
+          "runtimeLogSha256": "8ad0435abd7b4b28dec753c8cb3aeb0aa0a7a29948858d2fbd67cc629a0cc414",
+          "fixtureExeSha256": "d925cfb76c676f25e33ba4293e969592efef267d5ecd3227272e6e11bb139e62",
+          "sourceSha256": "1396c2b3fcebcdd87d6c5828816f694a462a1752dceecf45336e9ca4ce9dfa11",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f6",
+          "name": "CompilerInputRoots",
+          "resultSha256": "638e3f147d13eddc56ef743890f46798cc2a1758df21783ccd03edc6c1e5f779"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 4328,
+          "runtimeLogSha256": "39317eee6685502e701735388e8bce848a0b58a05316e822ef9faa8a842a52c8",
+          "fixtureExeSha256": "918b7bdcbb850cedf4b1488502dafd258ad7223b20fe96dbc05c11c066508029",
+          "sourceSha256": "ca9ccfbc3e12bfb7c5c1b281be4e09f1fecadda4a37161887c2955f9b63defe0",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f7",
+          "name": "CompilerCorePaths",
+          "resultSha256": "eac32df8643cea5b9e00954ab7354f3e4b61d358326cae44ba844fa7de89bc5e"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 5400,
+          "runtimeLogSha256": "2863acad45f2d257e9580e6a676fec57659e5019af032bca04330a973635ca56",
+          "fixtureExeSha256": "a9d7c243bed78dd406afb8138c5560fb99711bccf38e913a091bc2b495bfce54",
+          "sourceSha256": "aceb9475ea27e8e382424d4708d28cdc4ccb11d11090941b973c0010a2853025",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f8",
+          "name": "CompilerUnicodeSettings",
+          "resultSha256": "a7fdffe11773e2ed15598bef44e016068468c75a939cd5e3d2a62a54280f2fec"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 636,
+          "runtimeLogSha256": "103e361178d52fa0f628102a9c2ea6809e581ea66c1baf5f787101fe4584a121",
+          "fixtureExeSha256": "ad6f866c67c24449824c189d5ca8cdbbd0f20c61c3a9c02be32ac354a1a75de1",
+          "sourceSha256": "642eadab133ed8516b431462414cb564506fd0aeae3d8b0f441542bbed4a0f72",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f9",
+          "name": "CompilerCoreLifecycle",
+          "resultSha256": "b6705567512c0882682c9b8efa2dffdb06c8a1bc1ff4b940c866da8821117f52"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 5468,
+          "runtimeLogSha256": "77e22d5a68fd79de61d5736a5afb9fa02a1a7cfa4ff5743e4d7a500456fce267",
+          "fixtureExeSha256": "4ac58eab89ca31ebc8f021dfd14431adb6c35b625a3f56ac02fcab9cba21136b",
+          "sourceSha256": "c6f792b608062f465deafd2c245dcc3ffcf4ca55446ea0a0a3396694ba003885",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f10",
+          "name": "CompilerResourceLifecycle",
+          "resultSha256": "d7fba681d4451190d1b5b303a1abb4e92ef1f378863a3b41cd344ded16117d14"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 2920,
+          "runtimeLogSha256": "04e0a189cf268ae78cc73a43550e50fa692bfc9f68c48775163871cdc2c93279",
+          "fixtureExeSha256": "44756ac91fdebb287fb38b1bc6b391e4756b826275b3bfc19fafea2749047c17",
+          "sourceSha256": "f5bfc28a3db0815b33bc5fde00d3008361c414adf853ab0014b14e2c36af9f82",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f11",
+          "name": "CompilerStateLifecycle",
+          "resultSha256": "71351e158603d80f6e7927b2a4cc109cbb4a7eeee40a55a65b60f83d181ff5a5"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 7832,
+          "runtimeLogSha256": "89a09fd22e775526b90db39bb65eb23de74f2b20ed2ddf8186c09f3c67679258",
+          "fixtureExeSha256": "ac2ecb1880aa60dc62d27cf7965d24b2828538c4c1f07df2c9a0b28ed8dbca0e",
+          "sourceSha256": "c23179224cf0bf06ce251f7e5c5b3a7b2b448b5a5ebe2d6616e07d88c6745d40",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f12",
+          "name": "CompilerBackendLifecycle",
+          "resultSha256": "4c2c8d631d2c68ad2ad433081147fe7d555f0936b78713e6541ac4b8e97fedb6"
+        },
+        {
+          "timeoutSeconds": 600,
+          "passed": true,
+          "processId": 4472,
+          "runtimeLogSha256": "0c0c36e3f1e76f6f56a741498ba94ae3176930d7cc497fa5af9cf4f4b6070d57",
+          "fixtureExeSha256": "a0b7960bd1128418e1822f53eda0123cc2467d3002cec28911bae6d242586dad",
+          "sourceSha256": "39f1c9e27e180ae14c351b252fd8c91af4b6554c7e6d62d5fbceca379bc844fd",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\D-f13",
+          "name": "CompilerApplicationBuild",
+          "resultSha256": "f5be6d9cde405387682ec2bacfa4ce5d5f4e9e8226650350aabef95d87770142"
+        }
+      ],
+      "runtimeFiles": [
+        {
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "name": "NewModCompiler.exe.config"
+        },
+        {
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "name": "antlr.runtime.dll"
+        }
+      ],
+      "linkRecipeSha256": "f0e59637499e9f040fa2eabf6dfb6dd189d483926ea33a25a96b4dd3649a3c25",
+      "configuration": "Debug"
+    },
+    {
+      "passed": true,
+      "productExeSha256": "c1d8250c65f7f02424d9f062ab0a09b376b5244becab801cda23e92f07abd579",
+      "validationHostSha256": "ba636fa5abea564db7bb9ce2ca9bc642a7af0dcd7a10c1035e67cc39ddc06773",
+      "textureDeployment": {
+        "targetExeSha256": "ba636fa5abea564db7bb9ce2ca9bc642a7af0dcd7a10c1035e67cc39ddc06773",
+        "scope": "Host-bound registration/lifecycle only; texture payload differential remains separate",
+        "manifestSha256": "aa4b0889cbd66a187dcee34ce3dd23dae2e7531f043ef0760852fa706f3d9e33",
+        "patchedSha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+        "protectedPeAudit": {
+          "schemaVersion": 1,
+          "mode": "redirect",
+          "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+          "outputSha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "checks": {
+            "machine-x86": true,
+            "native-entry-rva": true,
+            "clr-flags-entry": true,
+            "imports": true,
+            "resources": true,
+            "relocations": true,
+            "tls": true,
+            "iat": true,
+            "clr-VTableFixups": true,
+            "clr-ManagedNativeHeader": true,
+            "clr-ExportAddressTableJumps": true,
+            "clr-Resources": true,
+            "metadata-TypeRef": true,
+            "metadata-MemberRef": true,
+            "metadata-TypeSpec": true,
+            "metadata-StandAloneSig": true,
+            "metadata-MethodDef": true,
+            "metadata-Field": true,
+            "TypeRef-scope-tokens": true,
+            "AssemblyRef-count": true,
+            "AssemblyRef-change-allowlist": true,
+            "native-MethodDef-ranges": true
+          },
+          "directories": {
+            "imports": {
+              "originalRva": 747364,
+              "outputRva": 747364,
+              "originalSha256": "221f85bfd1e4582e1423f364c160fea41688631a7f33c5afa6d551478c4bd444",
+              "outputSha256": "221f85bfd1e4582e1423f364c160fea41688631a7f33c5afa6d551478c4bd444"
+            },
+            "resources": {
+              "originalRva": 823296,
+              "outputRva": 823296,
+              "originalSha256": "10db15924211296e2b4d0da4ccaf01c6064d33adc72e28361d61b50c0dae44eb",
+              "outputSha256": "10db15924211296e2b4d0da4ccaf01c6064d33adc72e28361d61b50c0dae44eb"
+            },
+            "relocations": {
+              "originalRva": 827392,
+              "outputRva": 827392,
+              "originalSha256": "2f9e1362b33ab1a20f117aefd13856dbca85268e68e415f078ff43b2b6cac42f",
+              "outputSha256": "2f9e1362b33ab1a20f117aefd13856dbca85268e68e415f078ff43b2b6cac42f"
+            },
+            "tls": {
+              "originalRva": 0,
+              "outputRva": 0,
+              "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "iat": {
+              "originalRva": 618496,
+              "outputRva": 618496,
+              "originalSha256": "4cbd577617120bd10549de55b727788df42f14cb3e36be704a114f5115ca9f10",
+              "outputSha256": "4cbd577617120bd10549de55b727788df42f14cb3e36be704a114f5115ca9f10"
+            }
+          },
+          "assemblyRefChanges": [
+            {
+              "rid": 5,
+              "before": [
+                "BinaryAssetBuilder.Core",
+                1,
+                0,
+                0,
+                0,
+                "",
+                ""
+              ],
+              "after": [
+                "NewModCompiler",
+                0,
+                0,
+                0,
+                0,
+                "",
+                ""
+              ]
+            }
+          ],
+          "nativeRanges": [
+            {
+              "token": "0x60000bf",
+              "rva": 21328,
+              "bytes": 40,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c0",
+              "rva": 7168,
+              "bytes": 16,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c1",
+              "rva": 6848,
+              "bytes": 16,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c2",
+              "rva": 7184,
+              "bytes": 16,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c3",
+              "rva": 6864,
+              "bytes": 8,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c4",
+              "rva": 6464,
+              "bytes": 16,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c5",
+              "rva": 6480,
+              "bytes": 48,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c6",
+              "rva": 6528,
+              "bytes": 20,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c7",
+              "rva": 7200,
+              "bytes": 36,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c8",
+              "rva": 22192,
+              "bytes": 8,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000c9",
+              "rva": 6656,
+              "bytes": 88,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ca",
+              "rva": 7792,
+              "bytes": 32,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000cb",
+              "rva": 7824,
+              "bytes": 60,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000cc",
+              "rva": 329936,
+              "bytes": 8320,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000cd",
+              "rva": 321528,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ce",
+              "rva": 612188,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000cf",
+              "rva": 612170,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d0",
+              "rva": 249024,
+              "bytes": 4724,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d1",
+              "rva": 323092,
+              "bytes": 80,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d2",
+              "rva": 323080,
+              "bytes": 12,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d3",
+              "rva": 612152,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d4",
+              "rva": 321344,
+              "bytes": 12,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d5",
+              "rva": 253748,
+              "bytes": 67596,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d6",
+              "rva": 612164,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d7",
+              "rva": 321362,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d8",
+              "rva": 612182,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000d9",
+              "rva": 323074,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000da",
+              "rva": 321534,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000db",
+              "rva": 338256,
+              "bytes": 528,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000dc",
+              "rva": 338784,
+              "bytes": 273368,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000dd",
+              "rva": 612176,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000de",
+              "rva": 321356,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000df",
+              "rva": 612158,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e0",
+              "rva": 321368,
+              "bytes": 160,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e1",
+              "rva": 49264,
+              "bytes": 144,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e2",
+              "rva": 49408,
+              "bytes": 144,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e3",
+              "rva": 49552,
+              "bytes": 31474,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e4",
+              "rva": 48832,
+              "bytes": 432,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e5",
+              "rva": 323172,
+              "bytes": 196,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e6",
+              "rva": 321540,
+              "bytes": 1418,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e7",
+              "rva": 322958,
+              "bytes": 116,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e8",
+              "rva": 81026,
+              "bytes": 167998,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000e9",
+              "rva": 324701,
+              "bytes": 11,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ea",
+              "rva": 324120,
+              "bytes": 44,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000eb",
+              "rva": 324164,
+              "bytes": 452,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ec",
+              "rva": 328102,
+              "bytes": 1834,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ed",
+              "rva": 612350,
+              "bytes": 3266,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ee",
+              "rva": 612332,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000ef",
+              "rva": 612344,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f0",
+              "rva": 612326,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f1",
+              "rva": 612338,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f2",
+              "rva": 612320,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f3",
+              "rva": 612194,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f4",
+              "rva": 612200,
+              "bytes": 120,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f5",
+              "rva": 323368,
+              "bytes": 400,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f6",
+              "rva": 323768,
+              "bytes": 6,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f7",
+              "rva": 323780,
+              "bytes": 340,
+              "unchanged": true
+            },
+            {
+              "token": "0x60000f8",
+              "rva": 323774,
+              "bytes": 6,
+              "unchanged": true
+            }
+          ],
+          "status": "passed",
+          "limitation": "Static audit only; native functions without MethodDef rows are not exhaustively disassembled. Full G2 runtime and integration checks still required."
+        }
+      },
+      "fixtures": [
+        {
+          "timeoutSeconds": 300,
+          "passed": true,
+          "processId": 7528,
+          "runtimeLogSha256": "7ca2574359d42b8b0bf920acae91d9d0a25440b2c28deaa6b6714bab0169187e",
+          "fixtureExeSha256": "87b08e369066544815f75435326c4585ea70359de06fa3a3a55ed0d091016ae5",
+          "sourceSha256": "38438092e75a9e9a852426e75e0b7396a279e6a59d0fec829b3df1edd5bc4b0e",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f1",
+          "name": "CompilerPreparedBackend",
+          "resultSha256": "3e2fc5bd7fbfe50843128ca70b4b1bd30d0f4cf5afdbf7fbce1bb1e5d3525557"
+        },
+        {
+          "timeoutSeconds": 300,
+          "passed": true,
+          "processId": 2628,
+          "runtimeLogSha256": "800965c16337e737da22f3718979a972dc09c4120d56f516f2b66d9d6fe012a7",
+          "fixtureExeSha256": "1a5dce6d53a8839e7422f3353db98a4c72a347eaeb5fb15d8e6e05f140ba14e3",
+          "sourceSha256": "fea94e88288212e4297a91f0489fa6ebd5b8339523aa5869ecd102ed79be0cec",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f2",
+          "name": "CompilerXmlBackendBatch",
+          "resultSha256": "196eaebf56e3ff2a91867346ed52e3e3092f1be4fefebb80d7ff140b212d232c"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 2100,
+          "runtimeLogSha256": "c96205bf92e4b02efada7be4a43dab12909eca10b2d5cda9f2c6527ca72818fe",
+          "fixtureExeSha256": "682748ed23131f21f13452c96fe4f9bde290a56d0bf4b01761e3e2b9d40a3bf1",
+          "sourceSha256": "fadc16af7e483ab1b3dacf2a9f0f8f0a7bac56c559f9d0f6c593d027366e06b9",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f3",
+          "name": "CompilerCacheContent",
+          "resultSha256": "02cbbbffe84c290082b1059e41b2b400304f85372acc905be1f510203dba1851"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 2772,
+          "runtimeLogSha256": "eb56abbace6c6d76976ae52798ed2fe45b531568cee0af39f53d5f77e602222e",
+          "fixtureExeSha256": "469110fee47365bd2ff98c7562dbbbd7180897aaeda4bd88122dd2dcc0faf3f3",
+          "sourceSha256": "46050fd974a1c44e911255cb0dc56bca1f2bf523a91baf74d5ce38024f060be8",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f4",
+          "name": "CompilerStableSort",
+          "resultSha256": "de2341d321b75ff8debff2fb3d7f2cc9035a1c85ca1526943350b3ca8ce389e6"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 7068,
+          "runtimeLogSha256": "fbf9c9bba7d4576da541fc6d02456f84c076e05695d6b7cf204158401174a410",
+          "fixtureExeSha256": "41b8580165fcef707874fa5567c503ac7d7f5fdb6d2148e495f87f8b516b1e4c",
+          "sourceSha256": "9885e7d57ac6aaf7ef962114181d7a5a1cd0e44f7839b383a344a87839b01fdd",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f5",
+          "name": "CompilerCacheBoundary",
+          "resultSha256": "54d7fb14a368748766768da0289101cbe0d4b117b086357e2bbbed4d66c85752"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 2608,
+          "runtimeLogSha256": "8ad0435abd7b4b28dec753c8cb3aeb0aa0a7a29948858d2fbd67cc629a0cc414",
+          "fixtureExeSha256": "ca7ab6ba4b4813bb24f783db9b7875ce6abc8d93ce61a370954a4574d7efc0d0",
+          "sourceSha256": "1396c2b3fcebcdd87d6c5828816f694a462a1752dceecf45336e9ca4ce9dfa11",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f6",
+          "name": "CompilerInputRoots",
+          "resultSha256": "638e3f147d13eddc56ef743890f46798cc2a1758df21783ccd03edc6c1e5f779"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 1300,
+          "runtimeLogSha256": "39317eee6685502e701735388e8bce848a0b58a05316e822ef9faa8a842a52c8",
+          "fixtureExeSha256": "0be00836d5e75ff0912691d040281b91a500541057f76f42409313b688997b2f",
+          "sourceSha256": "ca9ccfbc3e12bfb7c5c1b281be4e09f1fecadda4a37161887c2955f9b63defe0",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f7",
+          "name": "CompilerCorePaths",
+          "resultSha256": "eac32df8643cea5b9e00954ab7354f3e4b61d358326cae44ba844fa7de89bc5e"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 5968,
+          "runtimeLogSha256": "2863acad45f2d257e9580e6a676fec57659e5019af032bca04330a973635ca56",
+          "fixtureExeSha256": "6ff53f42b3313cfbd0647ae62cb987752276e12080bca3d209b759ae966fcc28",
+          "sourceSha256": "aceb9475ea27e8e382424d4708d28cdc4ccb11d11090941b973c0010a2853025",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f8",
+          "name": "CompilerUnicodeSettings",
+          "resultSha256": "a7fdffe11773e2ed15598bef44e016068468c75a939cd5e3d2a62a54280f2fec"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 1544,
+          "runtimeLogSha256": "103e361178d52fa0f628102a9c2ea6809e581ea66c1baf5f787101fe4584a121",
+          "fixtureExeSha256": "a60d0056564d33b9a314472247e4d6141e8d525c3ebb43969edc590e60d36ef7",
+          "sourceSha256": "642eadab133ed8516b431462414cb564506fd0aeae3d8b0f441542bbed4a0f72",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f9",
+          "name": "CompilerCoreLifecycle",
+          "resultSha256": "b6705567512c0882682c9b8efa2dffdb06c8a1bc1ff4b940c866da8821117f52"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 6592,
+          "runtimeLogSha256": "77e22d5a68fd79de61d5736a5afb9fa02a1a7cfa4ff5743e4d7a500456fce267",
+          "fixtureExeSha256": "d21749ff01e14e3478232200b28856b62d22d92c5d0c84ba750205a9033d5847",
+          "sourceSha256": "c6f792b608062f465deafd2c245dcc3ffcf4ca55446ea0a0a3396694ba003885",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f10",
+          "name": "CompilerResourceLifecycle",
+          "resultSha256": "d7fba681d4451190d1b5b303a1abb4e92ef1f378863a3b41cd344ded16117d14"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 7220,
+          "runtimeLogSha256": "04e0a189cf268ae78cc73a43550e50fa692bfc9f68c48775163871cdc2c93279",
+          "fixtureExeSha256": "ef9cec8d2895726c60d592cd66dbb8ed81fb977f05c5dfa294c2dde88c0ec244",
+          "sourceSha256": "f5bfc28a3db0815b33bc5fde00d3008361c414adf853ab0014b14e2c36af9f82",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f11",
+          "name": "CompilerStateLifecycle",
+          "resultSha256": "71351e158603d80f6e7927b2a4cc109cbb4a7eeee40a55a65b60f83d181ff5a5"
+        },
+        {
+          "timeoutSeconds": 180,
+          "passed": true,
+          "processId": 3412,
+          "runtimeLogSha256": "89a09fd22e775526b90db39bb65eb23de74f2b20ed2ddf8186c09f3c67679258",
+          "fixtureExeSha256": "f0bbef56451daadc766bf57f448dbf342ce8f6b5c3a903725c4b5ec7aaf0eb88",
+          "sourceSha256": "c23179224cf0bf06ce251f7e5c5b3a7b2b448b5a5ebe2d6616e07d88c6745d40",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f12",
+          "name": "CompilerBackendLifecycle",
+          "resultSha256": "0342f216ada0ff33ab14cc1e9f8ccdc86f024a2e7f195e2a4dbc3354cd0980f5"
+        },
+        {
+          "timeoutSeconds": 600,
+          "passed": true,
+          "processId": 1668,
+          "runtimeLogSha256": "0c0c36e3f1e76f6f56a741498ba94ae3176930d7cc497fa5af9cf4f4b6070d57",
+          "fixtureExeSha256": "fa0a2c1b76a02c24b22952c2ec9d0cf5ceca46e536b0166a8fae1f753ff63bbb",
+          "sourceSha256": "39f1c9e27e180ae14c351b252fd8c91af4b6554c7e6d62d5fbceca379bc844fd",
+          "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8\\R-f13",
+          "name": "CompilerApplicationBuild",
+          "resultSha256": "68887fdfc4a12f3035ceb8a5574fe5d388b3be640540035e3f41caf8bb5b14fb"
+        }
+      ],
+      "runtimeFiles": [
+        {
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "name": "NewModCompiler.exe.config"
+        },
+        {
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "name": "antlr.runtime.dll"
+        }
+      ],
+      "linkRecipeSha256": "87350a0f2f4fe0421f8716280812c56f317b87c587dce28635649761a5d4eb82",
+      "configuration": "Release"
+    }
+  ],
+  "sdkValidated": false,
+  "g3Validated": false,
+  "coldProcessValidated": false,
+  "longPathsValidated": false,
+  "scope": "P5 targeted real Core/backend/application pipeline and resource reuse in production-object validation fixtures using small Armor inputs; not production build CLI, APT business coverage, cold-process equivalence, complete MOD/SDK or G3 acceptance",
+  "workRoot": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\clr-8d90f8cb23e8",
+  "runnerSha256": "064f1e5e617ef0c4d70ce85783f9435677739347ae490011f01c6fa604ec41d0",
+  "schemaInputs": [
+    {
+      "sha256": "d6e8bab7f62337955b5a32e16a20f6d70c2d69345018df967b9c8f6a55b5e9a0",
+      "path": "Schemas/xsd/AssetTypeAchievementData.xsd"
+    },
+    {
+      "sha256": "3aaabe208f85929b5cbc5dfb12b7c4d5bdff86d34235b5105d0fc8e2a942fcfd",
+      "path": "Schemas/xsd/AssetTypeAIData.xsd"
+    },
+    {
+      "sha256": "9e8403504c963442cd7306a70f143211aa00c4b82d6a1887812c9af49625cedc",
+      "path": "Schemas/xsd/AssetTypeAptAssets.xsd"
+    },
+    {
+      "sha256": "9d3d68c431adb56a493582c1d9337aafaa89bdfd490fb62a4acd7b13ff2bce39",
+      "path": "Schemas/xsd/AssetTypeArmorTemplate.xsd"
+    },
+    {
+      "sha256": "96f797e59bb54c415eff90b0224f85b4b3fc5344477bc4d7c8204107fcdb6f22",
+      "path": "Schemas/xsd/AssetTypeAssetReport.xsd"
+    },
+    {
+      "sha256": "ececb6e4d36c1f46dad1b0067f3f24bc1b85e1819b907f230b1ad5d09fa5d8a1",
+      "path": "Schemas/xsd/AssetTypeAttributeModifier.xsd"
+    },
+    {
+      "sha256": "844701f6997668afb48d5799f44d177d1825bb2f6f403d53fcc495f4b54450e3",
+      "path": "Schemas/xsd/AssetTypeAudio.xsd"
+    },
+    {
+      "sha256": "5af9a86dda4e84a08d76e078928d1ebbafdf1e4e8abfd24842bef48be889a280",
+      "path": "Schemas/xsd/AssetTypeBasicMouseCursors.xsd"
+    },
+    {
+      "sha256": "1c025096fa05b31581e6c0d04721a5fbe25496787f76cf74d478fb1be8b01ae0",
+      "path": "Schemas/xsd/AssetTypeBootupDisplaySequence.xsd"
+    },
+    {
+      "sha256": "2deb08052ff45ee9d0ab95ad90dd19c97a7d1dc35974e67e76c9557f2d19b48b",
+      "path": "Schemas/xsd/AssetTypeButtonState.xsd"
+    },
+    {
+      "sha256": "06bb54f2a8917f4eeb147a03604d024ecc3ea7d412d9004159a29a6f9b6d4d80",
+      "path": "Schemas/xsd/AssetTypeCampaignManager.xsd"
+    },
+    {
+      "sha256": "595f22e7a690ef38c1a761d2a0fd9fa856a4453f9f9a313e175a0dabff664e45",
+      "path": "Schemas/xsd/AssetTypeCommandSet.xsd"
+    },
+    {
+      "sha256": "9e08e4376038712b64cc405c1116da7dfc450f50240174c9ba449ff97d402867",
+      "path": "Schemas/xsd/AssetTypeConnectionLineManager.xsd"
+    },
+    {
+      "sha256": "70ddd5ae0d0196a4e452e0014acab08a5b66c9f7e1551fa529dc237ababf9239",
+      "path": "Schemas/xsd/AssetTypeCredits.xsd"
+    },
+    {
+      "sha256": "dc2575b5dfcd6e535c97ceb1bfe60386a5e779e68c3d1dfdc182b8f640959038",
+      "path": "Schemas/xsd/AssetTypeCrowdResponse.xsd"
+    },
+    {
+      "sha256": "764c2c0b16952be669840469cd5cef52720edc9aeffd0fdc512f9bc5406e7955",
+      "path": "Schemas/xsd/AssetTypeDamageFX.xsd"
+    },
+    {
+      "sha256": "aeb269c59e5a10bc5fd94eb2ac54e3e2c4f2e4ced31e8c06de124abffd55aa4a",
+      "path": "Schemas/xsd/AssetTypeDebugHotKeys.xsd"
+    },
+    {
+      "sha256": "212baffc5cf610acf53706169ca52c152fa8cf945d8eacf9377cd274f3b8423d",
+      "path": "Schemas/xsd/AssetTypeDefaultHotKeys.xsd"
+    },
+    {
+      "sha256": "85dd212bea7b593b8b1a695f2b32d4f8d7c137b85d09ce52aa9aa81641d1e938",
+      "path": "Schemas/xsd/AssetTypeDLContent.xsd"
+    },
+    {
+      "sha256": "f9d5e6eba74a6d2592ad9aa86a39a778de3d81b0ae24afe23d65389a48977d18",
+      "path": "Schemas/xsd/AssetTypeDrawGroupInfo.xsd"
+    },
+    {
+      "sha256": "390fe1ea37a8da580a72d24e25f7e93921dea246e9cd469d25bb6213e42f3a13",
+      "path": "Schemas/xsd/AssetTypeEmotionTemplate.xsd"
+    },
+    {
+      "sha256": "1e87d2958cc56e4d71108ee00de266508f2f62980aa7f91f057c2168b142fe18",
+      "path": "Schemas/xsd/AssetTypeEngagingContent.xsd"
+    },
+    {
+      "sha256": "b3d70d9502854c8105c919e50885274b4739fe5fc4627239ee65142876dfa051",
+      "path": "Schemas/xsd/AssetTypeEnvironment.xsd"
+    },
+    {
+      "sha256": "cb8314b7e9ce605e041ccf3b4c5cc7ec0fc8dcb1db94ef67d013e876684320eb",
+      "path": "Schemas/xsd/AssetTypeExperienceLevelTemplate.xsd"
+    },
+    {
+      "sha256": "907182fc1150e2679969ce2671d43520963ed50612b7263e127ee28f8fe0e0ef",
+      "path": "Schemas/xsd/AssetTypeFontDirectory.xsd"
+    },
+    {
+      "sha256": "21c24cf9a0ea5dd91ce0485c3617d5a8083033f135f8c0c67de598f5bb8c83ac",
+      "path": "Schemas/xsd/AssetTypeFontSettings.xsd"
+    },
+    {
+      "sha256": "a609fe234c72d343d79c825678bf8bcd736808fbb403a52003fb6e225037eb8a",
+      "path": "Schemas/xsd/AssetTypeFontSubstitution.xsd"
+    },
+    {
+      "sha256": "cc49792116d8c4769d903f847c2958307053b9fa17eff0dc3beb0957543e5e22",
+      "path": "Schemas/xsd/AssetTypeFontTranslation.xsd"
+    },
+    {
+      "sha256": "4d872245298fdebfcabfbad75c55e7bdeefbe6219a660ffd15e39cf54c03fffb",
+      "path": "Schemas/xsd/AssetTypeForceFeedbackEvent.xsd"
+    },
+    {
+      "sha256": "d8aa5c0d8797664aeeae19891b799c4e890f2c9c32c6448c65c253d788a09b10",
+      "path": "Schemas/xsd/AssetTypeFormationAssistantTemplate.xsd"
+    },
+    {
+      "sha256": "809672491ab6e5a5a749aff075a77ebf76ffe23824d794e8075646f7150737f5",
+      "path": "Schemas/xsd/AssetTypeFXList.xsd"
+    },
+    {
+      "sha256": "2e7477390020c428c5f82d0f20fc031ffce307bdef195da57ee1d53cd12271e8",
+      "path": "Schemas/xsd/AssetTypeFXParticleSystem.xsd"
+    },
+    {
+      "sha256": "7b1d7d62684f18ee9ff528d244e072e33771b1fb106aea258862744a508c4b5d",
+      "path": "Schemas/xsd/AssetTypeGameMap.xsd"
+    },
+    {
+      "sha256": "ac8dabafb7e4bee5655dbc027ef869e7ceb7b7e447eb1d53f0ea2886a8d75457",
+      "path": "Schemas/xsd/AssetTypeGameObject.xsd"
+    },
+    {
+      "sha256": "6d58a1fa175e15be14081761e2090342fb082098d0e0b6a97b74e3754d90bd43",
+      "path": "Schemas/xsd/AssetTypeGameplayAchievementTrigger.xsd"
+    },
+    {
+      "sha256": "80beb430dc182d073b0ed99be4958a6025cc54527f1d0b2f32d5ca10bb8fbf01",
+      "path": "Schemas/xsd/AssetTypeGameplayCondition.xsd"
+    },
+    {
+      "sha256": "083aef669bbe55d0932a68e0f32b5faf7eac1d7cbe944ffcc6e03482d76ff9bd",
+      "path": "Schemas/xsd/AssetTypeGameScriptList.xsd"
+    },
+    {
+      "sha256": "8a3f8542caaba01407ed2fbbaaa38857777fd618163e45240acc702a6e0e8415",
+      "path": "Schemas/xsd/AssetTypeGeneralHotKeySlots.xsd"
+    },
+    {
+      "sha256": "045db01f913099a18a505f4a3072ff88f29954f6d79154030ac96a1fc07f918f",
+      "path": "Schemas/xsd/AssetTypeHeaderTemplate.xsd"
+    },
+    {
+      "sha256": "6df5f5a4b980ad3288870d06d814c2540c6828411e5bf0ca916dc54acc548977",
+      "path": "Schemas/xsd/AssetTypeHealthBarTemplate.xsd"
+    },
+    {
+      "sha256": "d2ff148a7054c81547df7ba34151ffc240d3a71027579048efb1e976216b0407",
+      "path": "Schemas/xsd/AssetTypeHotKeySlot.xsd"
+    },
+    {
+      "sha256": "9bca9f6cbb52866d1b704ae9aac150cdb59c9d95905f9451d5e1a1e37ed03f96",
+      "path": "Schemas/xsd/AssetTypeImageSequence.xsd"
+    },
+    {
+      "sha256": "efa10f58b1686be460c51616c9ec3dee6201736a19be46a7a72af45f13490777",
+      "path": "Schemas/xsd/AssetTypeIntelDatabase.xsd"
+    },
+    {
+      "sha256": "b6e9654c111288838dada7c048298bd68856cc7117ff9da34c6e2686be29d079",
+      "path": "Schemas/xsd/AssetTypeInvisibilityTemplate.xsd"
+    },
+    {
+      "sha256": "53f2122b50f50a92784639b3e3989df25315ef10cd8ecea16b0b98ec2e349d99",
+      "path": "Schemas/xsd/AssetTypeJoypadCommandBarButtonTemplate.xsd"
+    },
+    {
+      "sha256": "c68893023df53451f48fc6afd837cbf5e3b1e280e189ce5aafaee94f5f6d55dc",
+      "path": "Schemas/xsd/AssetTypeJoypadCommandBarTemplate.xsd"
+    },
+    {
+      "sha256": "4f026a8cdaf0c99015b6aca3f3851d49a6cae8d33c45dd8144c429b1d0b10ea9",
+      "path": "Schemas/xsd/AssetTypeLanguage.xsd"
+    },
+    {
+      "sha256": "d1ab8c5b1dc42c83166ed866dc5ebeee952ccaf359fb93c8868f5b9fc81a5c09",
+      "path": "Schemas/xsd/AssetTypeLargeGroupAudio.xsd"
+    },
+    {
+      "sha256": "ba40d53e79e75f9cf7ec067aaf4e3c8504eac245d5ec187cfb4f86d7a469f15d",
+      "path": "Schemas/xsd/AssetTypeLocalBuildListMonitor.xsd"
+    },
+    {
+      "sha256": "648e09e85448f2b47a4ea42dc0b740361b73f8bd060f133738282b5126e4dd54",
+      "path": "Schemas/xsd/AssetTypeLocomotorTemplate.xsd"
+    },
+    {
+      "sha256": "e186a41de8c80eeb0cc0eb14d3dd3c3899e66dfec253294cfd9382a09e342940",
+      "path": "Schemas/xsd/AssetTypeLogicCommand.xsd"
+    },
+    {
+      "sha256": "400f91fddf0f3535d34d68020f04b54c3095cb716878796b3c098e33cebcc5c9",
+      "path": "Schemas/xsd/AssetTypeLogicCommandSet.xsd"
+    },
+    {
+      "sha256": "007063bc6506cd576d554b941994bb76b04bb31580fc16639369879b5f29c92c",
+      "path": "Schemas/xsd/AssetTypeMapMetaData.xsd"
+    },
+    {
+      "sha256": "967061b586da604cd0bbb3c7dc2a840f388040034fa528550d5f9fa77aac92cb",
+      "path": "Schemas/xsd/AssetTypeMappableKey.xsd"
+    },
+    {
+      "sha256": "f0ff2a2ec20c06eab029672e5fd2aa278cc6671c696ce52555950d1aa5a51f03",
+      "path": "Schemas/xsd/AssetTypeMeshInstanceTemplate.xsd"
+    },
+    {
+      "sha256": "2931df2f9b5f474304b1122b8921e3246d8c2d5c283635da091dbe120498c4b9",
+      "path": "Schemas/xsd/AssetTypeMouse.xsd"
+    },
+    {
+      "sha256": "de219155d078e2bd1dcba239dc1350df382857533f8036270f54cc7e3a63749c",
+      "path": "Schemas/xsd/AssetTypeMouseCursor.xsd"
+    },
+    {
+      "sha256": "d09e590559e993a83d709ca3c5587fe3e573aa849f01cd7acc0a197828b9b8a8",
+      "path": "Schemas/xsd/AssetTypeMultiplayerColor.xsd"
+    },
+    {
+      "sha256": "15f5f9f2653fca545626f83ae31f4ff3039a8d0f5788cc9e6ba8e6db310d4f9f",
+      "path": "Schemas/xsd/AssetTypeMultiplayerSettings.xsd"
+    },
+    {
+      "sha256": "e4896ee5bffe5170f207eeba2b76682ee9b3b5962e5923b69e3c253089c3f7d6",
+      "path": "Schemas/xsd/AssetTypeMusicScript.xsd"
+    },
+    {
+      "sha256": "15254b5d048913dc613f40c7ad883b470c81de6fe4c4b1c3e5ebc74c2387d99a",
+      "path": "Schemas/xsd/AssetTypeObjectCreationList.xsd"
+    },
+    {
+      "sha256": "4aae5e5655ea40d61f474dc02b139fdc8410ab178373149dc1be1536d27d7e10",
+      "path": "Schemas/xsd/AssetTypeObjectFilter.xsd"
+    },
+    {
+      "sha256": "fc9e3fc11d28c51dcc1713a449997434a63d6975104be5793cd12c7ba1aff7d0",
+      "path": "Schemas/xsd/AssetTypeOnDemandTextureImage.xsd"
+    },
+    {
+      "sha256": "cab21d2c8a3887292d283f8cc53ed618474dfff2f2938f9f5ec3bbdfcb112f87",
+      "path": "Schemas/xsd/AssetTypeOnlineChatColors.xsd"
+    },
+    {
+      "sha256": "9abcb9ae0acbb0971d77f75efe6579b8a609dd746d2df010e3aa4c8c2f948326",
+      "path": "Schemas/xsd/AssetTypePackedTexture.xsd"
+    },
+    {
+      "sha256": "427ba66f2b60d41542dc58ab24eb88f213d34c163406f061bf4925ddbdd4d611",
+      "path": "Schemas/xsd/AssetTypePathMusic.xsd"
+    },
+    {
+      "sha256": "58d9d35adeb681ed799217e39e788e26711a5bfbc131fe2279d83eb7672b401e",
+      "path": "Schemas/xsd/AssetTypePipelineTestType.xsd"
+    },
+    {
+      "sha256": "e39d87c3f6ec5e3e40c7983616bf0bb072f0fe69f721923b80275c8fe7a77b3f",
+      "path": "Schemas/xsd/AssetTypePlayerPowerButtonTemplate.xsd"
+    },
+    {
+      "sha256": "23f31fe1ce58471539582ecf254752dc959efe0dc0bb7de14315febb505c9c0d",
+      "path": "Schemas/xsd/AssetTypePlayerTech.xsd"
+    },
+    {
+      "sha256": "b250217613bd5ca13ffcf1de808c086eeaa5b818b9ba3ef2519c6cd4cefbafd1",
+      "path": "Schemas/xsd/AssetTypePlayerTechRank.xsd"
+    },
+    {
+      "sha256": "55e9e9442b71ee50dee3965943ac5434ac6f5c5a888f85e24ab3c3bc4664caf1",
+      "path": "Schemas/xsd/AssetTypePlayerTechUpgradeBinding.xsd"
+    },
+    {
+      "sha256": "c1259d1bad0db9e3254e034812eca8c78a69d1e5846b569fd85fb77d495fdcab",
+      "path": "Schemas/xsd/AssetTypePlayerTemplate.xsd"
+    },
+    {
+      "sha256": "7d2367896eb36591f69f73d429497f3f2791b83b3d42650b6cce77b64d96068b",
+      "path": "Schemas/xsd/AssetTypeProjectilePath.xsd"
+    },
+    {
+      "sha256": "eb594c64507297b255dd1847a293c5ff73f039be3e23db7f981ea839bddee8d9",
+      "path": "Schemas/xsd/AssetTypeRadarTerrainImage.xsd"
+    },
+    {
+      "sha256": "25f0fdfa6d0a36ea39beffdfc20e888d23ac2c134a122eb81adf9389ad5493c3",
+      "path": "Schemas/xsd/AssetTypeRedAlert.xsd"
+    },
+    {
+      "sha256": "a206cee460d335b949cf2666ecf922df0e430209a2c5512f999f187701fb819b",
+      "path": "Schemas/xsd/AssetTypeRegisteredObjectSet.xsd"
+    },
+    {
+      "sha256": "31333c7a814a539c6da9210416f3046eeb71828cdd47bacf19939219f60d1046",
+      "path": "Schemas/xsd/AssetTypeRoads.xsd"
+    },
+    {
+      "sha256": "1b4bc5b3c80d7eac6652c1cc1e3e7230701666df8dda145ee6f7e3300efc301d",
+      "path": "Schemas/xsd/AssetTypeShaderOverride.xsd"
+    },
+    {
+      "sha256": "88b97024f142426eb2ae218a4db14e0d7dca8075905c2f0e81e7583ee5e7b91f",
+      "path": "Schemas/xsd/AssetTypeShadowMap.xsd"
+    },
+    {
+      "sha256": "8879f0c01efb64180e74e5be5b52a703cd9d44e106e81b768b756ed726500055",
+      "path": "Schemas/xsd/AssetTypeSpecialPowerTemplate.xsd"
+    },
+    {
+      "sha256": "cce15651c2d5b866f18edc0f1c79341064a9037ebc24ee4c588305acdd5d6013",
+      "path": "Schemas/xsd/AssetTypeStanceTemplate.xsd"
+    },
+    {
+      "sha256": "4ea24000dbd1c964212b2350361d881494392cd644a994aa9b660d07988bac72",
+      "path": "Schemas/xsd/AssetTypeStringHashEnum.xsd"
+    },
+    {
+      "sha256": "30118f9db3947e696de6e72e493a080a437420cc70979312d4df1fb78cb62a32",
+      "path": "Schemas/xsd/AssetTypeStringHashTable.xsd"
+    },
+    {
+      "sha256": "1e95ccba46f796b0e25ab04962eeb1a2b78881c6d2729598c9cdfc8a53758319",
+      "path": "Schemas/xsd/AssetTypeTerrainAsset.xsd"
+    },
+    {
+      "sha256": "d8a325303fb7303db6382155ff89307a2230a212df0a3defb6b022c91f25ebb6",
+      "path": "Schemas/xsd/AssetTypeTerrainTextureAtlas.xsd"
+    },
+    {
+      "sha256": "2473906207db08324687cdd482b2b1a34bbee04598681ae44c57ac734afaa08f",
+      "path": "Schemas/xsd/AssetTypeTexture.xsd"
+    },
+    {
+      "sha256": "251a7a1c3788d91c11b8f5b113e4be3c95a001b89b714300a34b0fe5e680c0f2",
+      "path": "Schemas/xsd/AssetTypeTheVersion.xsd"
+    },
+    {
+      "sha256": "a2187a3847196ccaafdbb090de106e2b596be45a657b5a37d2d362dbcabaeb79",
+      "path": "Schemas/xsd/AssetTypeTutorialData.xsd"
+    },
+    {
+      "sha256": "a1446e8577c11549b4c995b2709f0c1382addd1a74d154126ca2a5cbfc66f1b6",
+      "path": "Schemas/xsd/AssetTypeUIConfigList.xsd"
+    },
+    {
+      "sha256": "491374b6e8af5f5e72dcd8b864024472a8ae2b6120eb32cbe036f8cfacc68830",
+      "path": "Schemas/xsd/AssetTypeUIJoypadSettings.xsd"
+    },
+    {
+      "sha256": "151b7d0b50dfe93139df7b03de749b07cb45079f104d328d1b4561b7ab0e0fcf",
+      "path": "Schemas/xsd/AssetTypeUIMouseSettings.xsd"
+    },
+    {
+      "sha256": "149859848153954d665eacdf67dd68db610624667660cbacb75f150296c5fa53",
+      "path": "Schemas/xsd/AssetTypeUISettings.xsd"
+    },
+    {
+      "sha256": "310784a324dbc33813a29e49b0b49da8e2001ef4499f29de7d488578ae5c17f9",
+      "path": "Schemas/xsd/AssetTypeUnitAbilityButtonTemplate.xsd"
+    },
+    {
+      "sha256": "b6c720b0342a639139ba5da135286fc44eda134717e698b8882b44f0afc7364f",
+      "path": "Schemas/xsd/AssetTypeUnitIntro.xsd"
+    },
+    {
+      "sha256": "a2aee034c6e6a3a9334f6426feec53101512a4d38546b62af32919e87602d787",
+      "path": "Schemas/xsd/AssetTypeUnitOverlayIconSettings.xsd"
+    },
+    {
+      "sha256": "d7bb14ff158d10dd472e1c061b635e92b057124eaa7c433b29f6ffff1b6cac5a",
+      "path": "Schemas/xsd/AssetTypeUnitTypeIcon.xsd"
+    },
+    {
+      "sha256": "6cfaa13aa017796d1c37b195064ccddc969470cd60dd5999da1cfbb7d2baa802",
+      "path": "Schemas/xsd/AssetTypeUpgradeTemplate.xsd"
+    },
+    {
+      "sha256": "96a7200285568ec8369836f73c9173732861722a58c051d32fd9f5f47b387e6a",
+      "path": "Schemas/xsd/AssetTypeVideo.xsd"
+    },
+    {
+      "sha256": "030533df6eb275f9dced8f586bcb28564e1462684463183fb15a57d52b31ab6c",
+      "path": "Schemas/xsd/AssetTypeVideoSequence.xsd"
+    },
+    {
+      "sha256": "385164e23ab89dd3a3fac30a3c1cc4fd212e59297c2371ed753a6ccc9f4947bf",
+      "path": "Schemas/xsd/AssetTypeW3D.xsd"
+    },
+    {
+      "sha256": "1b29bedd7b7c6f6d5613c97b12f64fcc38827134e9d8a9d1c065dffed46f0257",
+      "path": "Schemas/xsd/AssetTypeWaterSetting.xsd"
+    },
+    {
+      "sha256": "a0bdff1621bd8c78f5b95e34f12c26c9494ca36078072d2885a635f3b1804afb",
+      "path": "Schemas/xsd/AssetTypeWaterTextureList.xsd"
+    },
+    {
+      "sha256": "460dc34e741b7b649c312c3f6ca1b642dbda23b9b3e88898715a08cfa711f5a0",
+      "path": "Schemas/xsd/AssetTypeWaterTransparency.xsd"
+    },
+    {
+      "sha256": "4e4dc03847c30f5e9a6e7282cceb6db936f7525192e4dd70ee554513f467e998",
+      "path": "Schemas/xsd/AssetTypeWeaponTemplate.xsd"
+    },
+    {
+      "sha256": "6927636256b49a06f81b81e8269d2d3b84adfc22348b1c26daac22b6ea8a7cd1",
+      "path": "Schemas/xsd/AssetTypeWeather.xsd"
+    },
+    {
+      "sha256": "9f2e1b1331cb4b3972a0ce78522aa9385b848536ece12c28450d7ea1ef3f15e6",
+      "path": "Schemas/xsd/Base/AssetBase.xsd"
+    },
+    {
+      "sha256": "978969350cbeb64ca0d0b2d84e2594debe5fa9021d984923d6f8db93b9acc821",
+      "path": "Schemas/xsd/CnC3Types.xsd"
+    },
+    {
+      "sha256": "0062da8007d92126cfa259a5b042e77fa5834755f212d2980a45ac75495ee7c7",
+      "path": "Schemas/xsd/FXParticleSystem/DrawModules.xsd"
+    },
+    {
+      "sha256": "a297eabb4e94589ec0e89d30b51bbbe3d6e6022670efa00ae2fb2e6b9734c14f",
+      "path": "Schemas/xsd/FXParticleSystem/EventModules.xsd"
+    },
+    {
+      "sha256": "99a9ced463d516f1b9e39d00ceac3024d8216b0a09fbdabf020dd621e8c757d6",
+      "path": "Schemas/xsd/FXParticleSystem/FXParticleBase.xsd"
+    },
+    {
+      "sha256": "1828e71a38a66b0fa515daacf86647e1b0164b854193ff61c13c02555515b530",
+      "path": "Schemas/xsd/FXParticleSystem/UpdateModules.xsd"
+    },
+    {
+      "sha256": "3a9011f06470ebd7c49c35c61b62c604b70df61fc9b7abdd95af499a82fc936b",
+      "path": "Schemas/xsd/FXParticleSystem/VelocityModules.xsd"
+    },
+    {
+      "sha256": "61dff9cb2f8bba80ef95fc18fe62ff61baeb8365f0e14e4c28ec63327837c5e5",
+      "path": "Schemas/xsd/FXParticleSystem/VolumeModules.xsd"
+    },
+    {
+      "sha256": "37e2cd068ab2b1679f5fd9053f8b1aca9fc7be1f109057edfc4ecb68cb509529",
+      "path": "Schemas/xsd/GameData.xsd"
+    },
+    {
+      "sha256": "96554d22716304f29e5b2a885f54e11defe6bf87d37be389faaa69df1b896d96",
+      "path": "Schemas/xsd/GameObject/RadarPriority.xsd"
+    },
+    {
+      "sha256": "9fc0420534aaf7ba86c1f9915e5e0fcdd06a5c7a94bafdf32fc51897f7d0414f",
+      "path": "Schemas/xsd/GameObject/ThingSort.xsd"
+    },
+    {
+      "sha256": "b2262a2deda5990ceb19449dcee4a85316f5ef4d6e1bcc5d096ac2ca724b9a2a",
+      "path": "Schemas/xsd/HotKey/HotKeyModifier.xsd"
+    },
+    {
+      "sha256": "ee147bcc0b3ee543be349604c5b965e833b39afb27d716d90d4f92cbd8735211",
+      "path": "Schemas/xsd/HotKey/HotKeySlotGroup.xsd"
+    },
+    {
+      "sha256": "ad2a41ce687db74b15ffc387efd822c66bebbece8e8c085de5945a91fedce312",
+      "path": "Schemas/xsd/Includes/AIBaseType.xsd"
+    },
+    {
+      "sha256": "cc203f19a739856dbd5b616c7ed3a791d0f00d6efa80e744cf8ae6a9abc0607e",
+      "path": "Schemas/xsd/Includes/AIBeaconType.xsd"
+    },
+    {
+      "sha256": "de9428f200c681860721ed39dc88178576b9436d035f88e8ce6ca690345aa8ed",
+      "path": "Schemas/xsd/Includes/AICannotAttackTargetReaction.xsd"
+    },
+    {
+      "sha256": "1200e5ca1cf74d9da59b3e4ab5759b3bb263e20e042cf6422176ec3a81c4a4de",
+      "path": "Schemas/xsd/Includes/AIKindOf.xsd"
+    },
+    {
+      "sha256": "997ac322df36b018e0ee746839181596b59e2a0df2181bf8c5f67fae4311249b",
+      "path": "Schemas/xsd/Includes/AIUpgradeHeuristic.xsd"
+    },
+    {
+      "sha256": "73dc907faab972e680ef604285f2fa53110ebb2d340eae5e8e26ca7c43225077",
+      "path": "Schemas/xsd/Includes/AnimationMode.xsd"
+    },
+    {
+      "sha256": "9951512fb632912f070c9785bf9037a3ba5c2c6e4a98c2996cb28e09a5f2e690",
+      "path": "Schemas/xsd/Includes/AnimationSoundSettings.xsd"
+    },
+    {
+      "sha256": "c6adf8bf75f1cecfae4b9cecbc2b27cea55689648cc1dac55e448ba2447af084",
+      "path": "Schemas/xsd/Includes/AudioSettings.xsd"
+    },
+    {
+      "sha256": "9dcd383ddf1008d98c2940f0dea47224698dbdf867ce1b85d28b5ee2c73035d2",
+      "path": "Schemas/xsd/Includes/Base.xsd"
+    },
+    {
+      "sha256": "d1793b1743cd94892414751c093f47b2fa298bc95bbc0ce5116c21e10a40940d",
+      "path": "Schemas/xsd/Includes/BuildingPlacementSurface.xsd"
+    },
+    {
+      "sha256": "6308f109748d1d3a4fae654078b70dc6184ff797edc588ffbe0990008d5c09f7",
+      "path": "Schemas/xsd/Includes/ButtonState.xsd"
+    },
+    {
+      "sha256": "2340db0f0ff68f6e22a485e0e423a61012ba1f73908bbc35c8cd25a24c24599f",
+      "path": "Schemas/xsd/Includes/Common.xsd"
+    },
+    {
+      "sha256": "0d416191445086ddbcf65e3804a7b7a0e6ccb9a3ce3a5a82b3e60bde40143e9b",
+      "path": "Schemas/xsd/Includes/DamageDef.xsd"
+    },
+    {
+      "sha256": "ba72e3bb6ef1a8086fd95c9bb1755145eed95c10795e78965c3cad7dbf531676",
+      "path": "Schemas/xsd/Includes/DamageFX.xsd"
+    },
+    {
+      "sha256": "fe44070bbc158c10e780f9b70b778d77ccbc1b19a87751cc444da504f0092fc5",
+      "path": "Schemas/xsd/Includes/Death.xsd"
+    },
+    {
+      "sha256": "236870959a7459601530e343b74e7e22679a4cd4c9a6ade443f3c34015a37cef",
+      "path": "Schemas/xsd/Includes/Decal.xsd"
+    },
+    {
+      "sha256": "0912d5080b0135ad6e7427b0bd65d4c80d81bcbe0463dbd31e4d34c7b6a58f3e",
+      "path": "Schemas/xsd/Includes/DieMux.xsd"
+    },
+    {
+      "sha256": "12494341774394d00f6017a03ca55941d73b6e7ccfe146c0d32b1ec3eb6d3250",
+      "path": "Schemas/xsd/Includes/DistTestType.xsd"
+    },
+    {
+      "sha256": "def16e96a6a09a996d342f8d60a9ff0af7181c15d90158fe2125925e9442ae49",
+      "path": "Schemas/xsd/Includes/Dynamics.xsd"
+    },
+    {
+      "sha256": "734584b7b43b290b1030dfded0eaee1ab54307b04f7cb7c0987f4ef46547fe5b",
+      "path": "Schemas/xsd/Includes/Emotion.xsd"
+    },
+    {
+      "sha256": "7e71df2ab41daef1a2e6c4612cc0687f8431b8d2256f028866327cae09b4a1aa",
+      "path": "Schemas/xsd/Includes/Envelope.xsd"
+    },
+    {
+      "sha256": "8018b9ad5ae2723b721e76232efcbcca231eea0a81fcc9b39a1621d476043cbd",
+      "path": "Schemas/xsd/Includes/Eva.xsd"
+    },
+    {
+      "sha256": "07f0bda7e73d55dadf65bf999cea0a669b243d53a3e8cc36d6c8f38f1e0f0a62",
+      "path": "Schemas/xsd/Includes/FactionType.xsd"
+    },
+    {
+      "sha256": "3c2c62fe066b4f30e9620636e7ee66ced6981bbe813a785ab82ba853c722ac1d",
+      "path": "Schemas/xsd/Includes/GameDependency.xsd"
+    },
+    {
+      "sha256": "8c22c39bb45f24373b2cbc09507cf92b47f64050bc348a6216057a978586160d",
+      "path": "Schemas/xsd/Includes/GameDifficulty.xsd"
+    },
+    {
+      "sha256": "e9016a5b31222ffe3ccdf58dd27f2b4a27e25d5bdc05182f7595fd8e15ff5646",
+      "path": "Schemas/xsd/Includes/Geometry.xsd"
+    },
+    {
+      "sha256": "7555b56ee73cfe0504554678886071b550323390efdbaa0e0b7c43be9cf1bc0e",
+      "path": "Schemas/xsd/Includes/GlobalGameData.xsd"
+    },
+    {
+      "sha256": "2437aa70ffc580e0271104904a56aaa37e382decdc7c3f5c0066f506893d4767",
+      "path": "Schemas/xsd/Includes/HotKeyMap.xsd"
+    },
+    {
+      "sha256": "1b7ff1f3ece14c8f76933e1c73c4cc3048c7c27698d33e4d142b6294402c8571",
+      "path": "Schemas/xsd/Includes/JoypadHUDFixedElementId.xsd"
+    },
+    {
+      "sha256": "8b066d871499ade8feb7effcedb4e71f9305ef4f828a4434fbc0a204ba0fa56e",
+      "path": "Schemas/xsd/Includes/KindOf.xsd"
+    },
+    {
+      "sha256": "08ec12b128154b3b5939df22f63a3b886ff6958036eb010690dcda78f1318eac",
+      "path": "Schemas/xsd/Includes/MapBorder.xsd"
+    },
+    {
+      "sha256": "19ef8c3f2bc826ace20eace9a9f2307810133f4975cf8ce7120140526da3c01c",
+      "path": "Schemas/xsd/Includes/MetaDataCommon.xsd"
+    },
+    {
+      "sha256": "02b2778531f71dca350945d13973f48545bc4458aaebfa24052901bc9a3d19fa",
+      "path": "Schemas/xsd/Includes/MiscAudio.xsd"
+    },
+    {
+      "sha256": "797d2b5c49b5289336e0010d8adc943672d4a7b088d2d3d734f319dea0aa9f99",
+      "path": "Schemas/xsd/Includes/MiscEvaEvents.xsd"
+    },
+    {
+      "sha256": "0fd5a6e33ac669049c0aa21eda40704f5c0e415800f604e6cc766c196968766c",
+      "path": "Schemas/xsd/Includes/MissionObjectiveCategory.xsd"
+    },
+    {
+      "sha256": "10cd2b5d6dd32fa513b5925cb995cab79db675254d9012d37dcb2e7fcb5f57dd",
+      "path": "Schemas/xsd/Includes/MissionObjectiveStatus.xsd"
+    },
+    {
+      "sha256": "63dc5e983104226a587e81d33eba4b739e45a313b4ba7a7533cf36c1c8fb8da5",
+      "path": "Schemas/xsd/Includes/ModelState.xsd"
+    },
+    {
+      "sha256": "becb6df321f2390bd34a85db84dfb9feb4c7a225055ead6e616e12fb8269862f",
+      "path": "Schemas/xsd/Includes/MoneyTransactionCategory.xsd"
+    },
+    {
+      "sha256": "81a3d1a56599c8b9308caf2dc23136fb8f25493c314f840763a05b5eed1e9257",
+      "path": "Schemas/xsd/Includes/MouseHUDFixedElementId.xsd"
+    },
+    {
+      "sha256": "8c675d6d3f69ea6ebc08b55688bb61525e1f4d2f13430c8aecc3c584eeb2a29a",
+      "path": "Schemas/xsd/Includes/ObjectEva.xsd"
+    },
+    {
+      "sha256": "5a7402c48e4caa2075dd85004cf45983dc18d2d61db9589ac397d492a30523e6",
+      "path": "Schemas/xsd/Includes/ObjectEvaTypes.xsd"
+    },
+    {
+      "sha256": "007c5a7661dbbad64674e0904eae18a08ec84131dd40c3292df66fe04a323f6d",
+      "path": "Schemas/xsd/Includes/ObjectFilter.xsd"
+    },
+    {
+      "sha256": "4f5df5ce1d4c0d979153b5f7d21d581564acafffb55abf4742515999f3987756",
+      "path": "Schemas/xsd/Includes/ObjectSound.xsd"
+    },
+    {
+      "sha256": "751decdac28927bb499ea4198493a5ab2777f8d861ae4534b4e9ee3747320d0e",
+      "path": "Schemas/xsd/Includes/ObjectSoundTypes.xsd"
+    },
+    {
+      "sha256": "bfb67717cf60af4f69a4550b74f446fa17a091b69ca9fa57af8cf10899eba1f3",
+      "path": "Schemas/xsd/Includes/ObjectStatus.xsd"
+    },
+    {
+      "sha256": "0968a5e7dec5fb7e63c89e8314ec5e2d486dbac0e4e8059219dd7f171bb8927a",
+      "path": "Schemas/xsd/Includes/OutlineDrawType.xsd"
+    },
+    {
+      "sha256": "e0e3408697c92091ae79fc70915f39cd210fed37473b46b5207b764cc20d45fb",
+      "path": "Schemas/xsd/Includes/PathfindingCheckType.xsd"
+    },
+    {
+      "sha256": "899cb30e6360ebada62f8b9ef151fe9b6f9a4c5c262a4122a4f48fc93187f0f2",
+      "path": "Schemas/xsd/Includes/ProductionQueue.xsd"
+    },
+    {
+      "sha256": "1fa1734461f7e66664b24eae8814ac10f0c869b5d93ba62ed8e313f2d8ed5509",
+      "path": "Schemas/xsd/Includes/Ref.xsd"
+    },
+    {
+      "sha256": "e4d37a6b02e2f4858c53a68d4ab84365d6e5c2b65288f22acd4a86d36ab1a454",
+      "path": "Schemas/xsd/Includes/RegisteredObjectSetId.xsd"
+    },
+    {
+      "sha256": "c4ef099268eae4caeb5602f9715621d6523bd99b809537383bdb896e9aab9108",
+      "path": "Schemas/xsd/Includes/Relationship.xsd"
+    },
+    {
+      "sha256": "c50aed813be841798d3e471f4b0c39b8e73afce936ebf8f57c3b890ade68a54c",
+      "path": "Schemas/xsd/Includes/RenderScene.xsd"
+    },
+    {
+      "sha256": "1ec9f12215772ceed9018538ac26475c96b6af49ad49d42dfb525bcd07684f0e",
+      "path": "Schemas/xsd/Includes/SpecialPowerDef.xsd"
+    },
+    {
+      "sha256": "6e95f736219d34ec529b6e9b9a029b8edab723c6f4342a5c8b5233c09cddb292",
+      "path": "Schemas/xsd/Includes/Stance.xsd"
+    },
+    {
+      "sha256": "1c44e51d2cd25c4f1772daf73ab09a6735e1db6e34953ee6329016d5da83301b",
+      "path": "Schemas/xsd/Includes/UIBaseComponent.xsd"
+    },
+    {
+      "sha256": "e3de3204a41b521f39fdb50d397b40211c6b6bd8640195a5f3b9c7785bdcff16",
+      "path": "Schemas/xsd/Includes/UIStateProposition.xsd"
+    },
+    {
+      "sha256": "eeedb1ff2164440db49144ee478b0b6f5493e39338ed02629572fcaf686084a6",
+      "path": "Schemas/xsd/Includes/UnitAIStateEnums.xsd"
+    },
+    {
+      "sha256": "108c502ccf4ded32a56d8ed26885de44952b6f328c7ef8fa8ff2c44ef3e4949f",
+      "path": "Schemas/xsd/Includes/UnitCategory.xsd"
+    },
+    {
+      "sha256": "c97bc343fdb6c4dcad4edbd66121a999ea6ad62e465558f9ee68573f4dac72ed",
+      "path": "Schemas/xsd/Includes/UpgradeDef.xsd"
+    },
+    {
+      "sha256": "e8c76ce5c8f878e22f4f456bd3f5bfb774124205fbcc30b004659f25be124c94",
+      "path": "Schemas/xsd/Includes/View.xsd"
+    },
+    {
+      "sha256": "2a98f86a2b76dca66bf5b4f12788f796624e1c0e5492c38aa3865e5ecb32a79b",
+      "path": "Schemas/xsd/Includes/WaterTexture.xsd"
+    },
+    {
+      "sha256": "3ec3e823f0ff96cdb79ec0c0fc2113984ab92eb51bd29812035085ffff24d52e",
+      "path": "Schemas/xsd/Includes/WeaponCategory.xsd"
+    },
+    {
+      "sha256": "1c9a7d6de890fa6f4bbb808afd6867971b3884429ce669ec85e8e60a96b39fbe",
+      "path": "Schemas/xsd/InGameUI/FontDesc.xsd"
+    },
+    {
+      "sha256": "8aae5927bc7c12a0dde0583993e44dd921581bf5224793b5a9d81d35852b8f11",
+      "path": "Schemas/xsd/InGameUI/SimpleHelpTemplate.xsd"
+    },
+    {
+      "sha256": "c4be95626ec6fb15d003146c08f7749345ae78d0484251c2fee76bcba2bc323e",
+      "path": "Schemas/xsd/InGameUI/UIComponentAptJoypad.xsd"
+    },
+    {
+      "sha256": "50f77f672c17d0f6d84ca5e0944f9841232b771910e80f4ce54be971c3e9c038",
+      "path": "Schemas/xsd/InGameUI/UIComponentAptMediator.xsd"
+    },
+    {
+      "sha256": "7f99ed2aaa2ea9603b81a7d1af449b414bc49899ce4e965665d4db061031672f",
+      "path": "Schemas/xsd/InGameUI/UIComponentCheats.xsd"
+    },
+    {
+      "sha256": "100bc63ad1a34cd5ce79f0b692c95401dfc176ab5df25ce1155dc368800376a6",
+      "path": "Schemas/xsd/InGameUI/UIComponentCommandBar.xsd"
+    },
+    {
+      "sha256": "3316e861d0b6b4aceb29d02ba7f0234491b254e1586230797f753e3f04ee6dc6",
+      "path": "Schemas/xsd/InGameUI/UIComponentCursor.xsd"
+    },
+    {
+      "sha256": "6f8683b69969426348bcd3d82069f340c5d4350485f058397610a9ecf5650e69",
+      "path": "Schemas/xsd/InGameUI/UIComponentFormation.xsd"
+    },
+    {
+      "sha256": "9b86f443daaf5b1bfab4ad5a4e896add88e14829d6837eafe5e3eab618b622c5",
+      "path": "Schemas/xsd/InGameUI/UIComponentGameViewJoypad.xsd"
+    },
+    {
+      "sha256": "eff5db8078924a41d8766ced220ce6f511ec21425d33ed241c737c502d7dcd4f",
+      "path": "Schemas/xsd/InGameUI/UIComponentInGameShowHide.xsd"
+    },
+    {
+      "sha256": "1b3a690d658d1f5d6fa8dfadfec19c0e22f585db4f6bb3ae7562f56f8cc5b62b",
+      "path": "Schemas/xsd/InGameUI/UIComponentInGameText.xsd"
+    },
+    {
+      "sha256": "b5422cd1e44be45dbcd3a9439fb90b626815b35a9b97d622929b442ad8c548a5",
+      "path": "Schemas/xsd/InGameUI/UIComponentInputBridge.xsd"
+    },
+    {
+      "sha256": "39ba7437a72de67d9cc1bea875007b6d6f96120a35314ea5ac30be3edf841004",
+      "path": "Schemas/xsd/InGameUI/UIComponentMode.xsd"
+    },
+    {
+      "sha256": "9d07a6273b7fb6363a80534ac975084c21e00fe25c00ce4c9ba17a0d71b95fa9",
+      "path": "Schemas/xsd/InGameUI/UIComponentObjectAction.xsd"
+    },
+    {
+      "sha256": "f95c7b3294b9669abaaae12b8b9c2d436af9aa82afac0926cb1de7e562a0c3fc",
+      "path": "Schemas/xsd/InGameUI/UIComponentObjectives.xsd"
+    },
+    {
+      "sha256": "6954c03ff902e2eff0739459d1d26e75b1975c0ea4b294a46b3fd12693c17210",
+      "path": "Schemas/xsd/InGameUI/UIComponentObjectSelector.xsd"
+    },
+    {
+      "sha256": "0a539897f15e35c6a18fb3c84bc30cc24a8cb15a4275415269d6d204df64c23f",
+      "path": "Schemas/xsd/InGameUI/UIComponentPause.xsd"
+    },
+    {
+      "sha256": "5dadfdc500798337b573ac46032a6186919d28a0277999271dbc75f01d889980",
+      "path": "Schemas/xsd/InGameUI/UIComponentSpecialPowers.xsd"
+    },
+    {
+      "sha256": "599cc3aba3f2bb2ded23ddfbb12ab51cadb250206ee6af6964e55e82842bfe36",
+      "path": "Schemas/xsd/InGameUI/UIComponentSUDs.xsd"
+    },
+    {
+      "sha256": "b07cb051d37047454418c0127f3806113e51179e2a154164518aa088472b10ba",
+      "path": "Schemas/xsd/InGameUI/UIComponentVictoryDefeat.xsd"
+    },
+    {
+      "sha256": "7e847118c127e532b1253e36a03af7c2c998e33b2e4a2e05e72b4998a3043488",
+      "path": "Schemas/xsd/Modules/ActivateModuleSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "c78f6737e6067a5f137cde849db30c3eeac1b3adec796fe3ab89a5ea42a52cec",
+      "path": "Schemas/xsd/Modules/ActivateModuleSpecialPower.xsd"
+    },
+    {
+      "sha256": "10368ce5ad1129611603373cf3406e89099a863e18547eb6645788c993d23fed",
+      "path": "Schemas/xsd/Modules/ActivateSpecialPowerOnCreate.xsd"
+    },
+    {
+      "sha256": "1e9cfdf8b4acf3e93f41391784a3dfec8ab54d515738930b45ccd8d568af713e",
+      "path": "Schemas/xsd/Modules/ActiveBody.xsd"
+    },
+    {
+      "sha256": "467290eb1921345a796a619ea8ba58ba69a3c63698b1d561ea9eba20080ad231",
+      "path": "Schemas/xsd/Modules/AIGateUpdate.xsd"
+    },
+    {
+      "sha256": "853f7c4fdaff88b4ad235f2cc737e5fa22f8d63c8d398b1eba9c20b558f94692",
+      "path": "Schemas/xsd/Modules/AimWeaponBehavior.xsd"
+    },
+    {
+      "sha256": "2e42350a2cfd802c167c1876a309cce1cb333f7bac157c2da1f55a1f30bea056",
+      "path": "Schemas/xsd/Modules/AIUpdate.xsd"
+    },
+    {
+      "sha256": "7a430ac453d302b1e92edf87e4a181e010fb5e0f8ae3590f069938bc1467a7ee",
+      "path": "Schemas/xsd/Modules/AnimalAIUpdate.xsd"
+    },
+    {
+      "sha256": "d2168b4dcc39b529821ace50d020565df4f1e3549aecae13131277e6eedbddec",
+      "path": "Schemas/xsd/Modules/AnimationSoundClientBehavior.xsd"
+    },
+    {
+      "sha256": "a282822b13062319a0c8f24bb30ab20d4460db4d196fb0243273a8558cc43df6",
+      "path": "Schemas/xsd/Modules/AreaRestrictSpecialPowerBehavior.xsd"
+    },
+    {
+      "sha256": "8e24e76e43f812e2dd9d8c35d13c562b5d9a3d25aaa2836574af83781e0b0264",
+      "path": "Schemas/xsd/Modules/ArmorUpgrade.xsd"
+    },
+    {
+      "sha256": "56a3fd72427c344f1c794865404fd735330f9fe042814aca375435a63a03fb65",
+      "path": "Schemas/xsd/Modules/AssaultTransportAIUpdate.xsd"
+    },
+    {
+      "sha256": "f4c9b862f64e9b9adc72a63cee6b42f13db19c0ddf036cb2fc15229cfab21472",
+      "path": "Schemas/xsd/Modules/AssembleStructureSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "5b812388f32507136d32b7841008865c29300a4ee21441e1478a061fc5e684cc",
+      "path": "Schemas/xsd/Modules/AssignSlavesTargetObjectSpecialPower.xsd"
+    },
+    {
+      "sha256": "8e863ac40400b254d9cc4eed830e6536217154276489a1d6dfa7e095966ce89b",
+      "path": "Schemas/xsd/Modules/AssistedPlacementBehavior.xsd"
+    },
+    {
+      "sha256": "2f2d3dc57442dfe369e2fd3f1519577b7c79472adb0d7ca75a422a384a312aa7",
+      "path": "Schemas/xsd/Modules/AssistedPlacementInfoBehavior.xsd"
+    },
+    {
+      "sha256": "adaf1a39b942d5db1a8ed06bcb83cd4909d3168e3ab6213f1202c002f875db4b",
+      "path": "Schemas/xsd/Modules/AssistedTargetingUpdate.xsd"
+    },
+    {
+      "sha256": "ee018bf5ae6401f1710ece9e58389009166b66af4d71aa7a22dcc2e2abee76fd",
+      "path": "Schemas/xsd/Modules/AssistResponseBehavior.xsd"
+    },
+    {
+      "sha256": "9581ac84586118bbbd79e0307bdf892fb0bb6ebb77bebcea90a6f46050328377",
+      "path": "Schemas/xsd/Modules/AttachUpdate.xsd"
+    },
+    {
+      "sha256": "ae093e22e4c4e461b24ccaf101597d2294f9843c0075c0b606749537404b4f53",
+      "path": "Schemas/xsd/Modules/AttackTargetSpecialPower.xsd"
+    },
+    {
+      "sha256": "9ecc3f8363da6a26631bb3ad8a5164c90f36213ae06bd1ba523fed867871b454",
+      "path": "Schemas/xsd/Modules/AttributeCrateCollide.xsd"
+    },
+    {
+      "sha256": "566c781503c21176833629db7eaa3b7e4726a48c5db75b460c714b03e137c996",
+      "path": "Schemas/xsd/Modules/AttributeModifierAuraUpdate.xsd"
+    },
+    {
+      "sha256": "8d5ccc7e971407d7c34683667ce50cd78e662f35620c99e8fffe9534e1430260",
+      "path": "Schemas/xsd/Modules/AttributeModifierNaval.xsd"
+    },
+    {
+      "sha256": "71dbd8714d2f647a5ecf8095e1b88c744aac32ef90f708ca958dc362e19c6097",
+      "path": "Schemas/xsd/Modules/AttributeModifierPoolUpdate.xsd"
+    },
+    {
+      "sha256": "8155570c870ca718b49bc8cd32cc510ccf0dbc052ef7789c81f6c7a92eddf590",
+      "path": "Schemas/xsd/Modules/AttributeModifierUpgrade.xsd"
+    },
+    {
+      "sha256": "c90d149a8e0bf7d09d592fc2e0c32e228b197967764ad23a9d0be1509f2e8a5d",
+      "path": "Schemas/xsd/Modules/AudioLoopUpgrade.xsd"
+    },
+    {
+      "sha256": "61ae99f3544ec05a3419c9cea18716abffd31fc8be7e8ed1d9136eb2516988c3",
+      "path": "Schemas/xsd/Modules/AutoAbilityBehavior.xsd"
+    },
+    {
+      "sha256": "eca1b4f4e723974c4d233f590325c9ad3480c9d535a550789bd98acee35a6afc",
+      "path": "Schemas/xsd/Modules/AutoDepositUpdate.xsd"
+    },
+    {
+      "sha256": "06507b46500b56cc34c85e001cd7c1ccc7dc4af4f08ca6818cca79caded656d5",
+      "path": "Schemas/xsd/Modules/AutoHealBehavior.xsd"
+    },
+    {
+      "sha256": "079fe2abdb7c8422712d567763dd8591afc12c2e0382cc4e31b7defa31759c76",
+      "path": "Schemas/xsd/Modules/BaseModules.xsd"
+    },
+    {
+      "sha256": "116b83448c1b7c70dd8a23d113e1b1266e432cb04a4e69882ff601c5a07d52db",
+      "path": "Schemas/xsd/Modules/BaseUpgrade.xsd"
+    },
+    {
+      "sha256": "11905d9829c5a60ae582a0b03ebc044fae4fa4109367b7f93a69fa86ca51ba8c",
+      "path": "Schemas/xsd/Modules/BeaconClientUpdate.xsd"
+    },
+    {
+      "sha256": "93a39346773d4c34a3a1ebcd8516a5545fa1328f9d03bb87802bf89c1607815b",
+      "path": "Schemas/xsd/Modules/BeamSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "677f02a64dad24abde7337e87cdcc348f1ff777f9eb3893eed223d16c80862e1",
+      "path": "Schemas/xsd/Modules/BeamTargetModule.xsd"
+    },
+    {
+      "sha256": "cf1904d1afa25dd08e29f6c0c5334c16529d7b1580e72dc91d132608de7a2bd5",
+      "path": "Schemas/xsd/Modules/BezierProjectile.xsd"
+    },
+    {
+      "sha256": "3790d3ecfe9c029c26115b73edc8df466d62f8563a519f7190b41ebf59154349",
+      "path": "Schemas/xsd/Modules/Body.xsd"
+    },
+    {
+      "sha256": "d0410e8dbcfd05da5472efe4eed24bf32cfdcea2efffca3e44b512675ef1592a",
+      "path": "Schemas/xsd/Modules/BombardAreaUpdate.xsd"
+    },
+    {
+      "sha256": "ef081f2b50d5bfc65736525291d90b0aeb141eb70f02b1a608dd36647e8b0675",
+      "path": "Schemas/xsd/Modules/BoobyTrapUpdate.xsd"
+    },
+    {
+      "sha256": "dedf0016154e6304c7719a8b59fd8329d28368eb843febb7d5b39cf25308962a",
+      "path": "Schemas/xsd/Modules/BoredUpdate.xsd"
+    },
+    {
+      "sha256": "f4e552717cc0d1ff89f23efad6f17cedc618062683d4b4b1ad30a8f493e1d4ac",
+      "path": "Schemas/xsd/Modules/BridgeBuilderBehavior.xsd"
+    },
+    {
+      "sha256": "ffd2fa04b56fdcae796e5af4e471b20a5e66e4dfb03216558e027ea2257d6c8a",
+      "path": "Schemas/xsd/Modules/BroadcastStealthUpdate.xsd"
+    },
+    {
+      "sha256": "47bd1c7d5638a3202839d50c5adc4499ba1c02167de75552d95713fc8e229a5a",
+      "path": "Schemas/xsd/Modules/Building.xsd"
+    },
+    {
+      "sha256": "60e25036ec527fe31dfc0a869fbd5850b21bd6392211adfd4a0ada1c394ebb29",
+      "path": "Schemas/xsd/Modules/BuildingDestructionBehavior.xsd"
+    },
+    {
+      "sha256": "f1f12c84e7be9c088bf9d9fafa6d70dd42e2a4dc328b5c2f9330d646c499e501",
+      "path": "Schemas/xsd/Modules/CallHelpOnDamage.xsd"
+    },
+    {
+      "sha256": "17bd7a511824f0126eeecf372cb67fb8b97a7edb08e8736324f00bd7366e8e87",
+      "path": "Schemas/xsd/Modules/CaptureAndGiveCommandSetSpecialPower.xsd"
+    },
+    {
+      "sha256": "f9c2c5f471677d6908225cfaef85765d41995434306ce94b4692851fbfa52342",
+      "path": "Schemas/xsd/Modules/CaptureAndGiveUpgradeBehavior.xsd"
+    },
+    {
+      "sha256": "98bffc4e4d2c88f1049cc250a39a890f23e29edbeab2eff5f63873fffe18d658",
+      "path": "Schemas/xsd/Modules/CaptureBehavior.xsd"
+    },
+    {
+      "sha256": "27271bbd757bf30946707a0757b1d8590558b790de89df56feb5503033b7bfba",
+      "path": "Schemas/xsd/Modules/CaptureSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "9c4d6e0b2de5bb11a5afe020660463b0181e8a2e1009d3eee199fac1272962ac",
+      "path": "Schemas/xsd/Modules/CashHackSpecialPower.xsd"
+    },
+    {
+      "sha256": "ae2fe8d24a10cbbc7cfa3cbcb318d17959f15640bc9415a4791def42f41d2cf6",
+      "path": "Schemas/xsd/Modules/CaveContain.xsd"
+    },
+    {
+      "sha256": "30675c7e8e172a4cddab1b22ff4e3d617b98a23a6d7aa1edecea8da3bce14c1f",
+      "path": "Schemas/xsd/Modules/ChargeWeaponUpdate.xsd"
+    },
+    {
+      "sha256": "f1222eef1af753c93c89ba5a0d8c156d241881b5f1df305d6631d6a1276347cd",
+      "path": "Schemas/xsd/Modules/CircularDamageUpdate.xsd"
+    },
+    {
+      "sha256": "160dd297a56a6a69124a0b928c8bf1aaaf36d260a83e8f5c0c73b2e32522ddb1",
+      "path": "Schemas/xsd/Modules/CivilianSpawnCollide.xsd"
+    },
+    {
+      "sha256": "1b4bf957a8b4e84c7f7f44c892ff491b605d0549a430452276c014e3a2ecbb0c",
+      "path": "Schemas/xsd/Modules/ClearanceTestingSlowDeathBehavior.xsd"
+    },
+    {
+      "sha256": "befb04ebd46b8bea17b790004ca38ee920794197337f17d59b8d213a36dbd5c0",
+      "path": "Schemas/xsd/Modules/CloneStoredObjectsSpecialPowerUpdate.xsd"
+    },
+    {
+      "sha256": "a99851b237013bcbfe05170b3a3d69a377c74b9f6b5c2a13b51c839ca7811ae2",
+      "path": "Schemas/xsd/Modules/ClusterBombUpdate.xsd"
+    },
+    {
+      "sha256": "4fae1449876c63abdacdac491f19acd07f831483a5658463b557f1897b3fa583",
+      "path": "Schemas/xsd/Modules/Collide.xsd"
+    },
+    {
+      "sha256": "e828579bf48a73d632318357fee005a01c816fd93946c2b27bfaca9003a0294a",
+      "path": "Schemas/xsd/Modules/CombinedInfoModule.xsd"
+    },
+    {
+      "sha256": "19599edc7b9ba0a05ec892d71c29446b60242543a7eb4801f5f5319df1574a20",
+      "path": "Schemas/xsd/Modules/CombineSpecialPower.xsd"
+    },
+    {
+      "sha256": "4893f1c2d68d4fea7dbc5ee1256c958964233817dc26026fdcf670280eaf4736",
+      "path": "Schemas/xsd/Modules/CommandPointsUpgrade.xsd"
+    },
+    {
+      "sha256": "ab43a1489519861ce54eb159cd861997d0dc38d2cd54b4c59175fccb3c8f3d32",
+      "path": "Schemas/xsd/Modules/CommandSetUpgrade.xsd"
+    },
+    {
+      "sha256": "27e11e7b11150b844cfe0a7040c91364243de0c72a169856602e774265ce6138",
+      "path": "Schemas/xsd/Modules/CompositeStructureInfoModule.xsd"
+    },
+    {
+      "sha256": "71b80ac80bb97ba2b7262b69ad92d2f978b95eb47ab79590975a88f27832cac0",
+      "path": "Schemas/xsd/Modules/ConstructionYardAIUpdate.xsd"
+    },
+    {
+      "sha256": "15265f3a4c6d7053bfd208b4b96fb92067f20bad2530336329398c2ac2584016",
+      "path": "Schemas/xsd/Modules/ContestableGarrisonContain.xsd"
+    },
+    {
+      "sha256": "ef746661daa537eb1861110996cf1e6b1178b669ba51f3b97d3aeffb7830bff3",
+      "path": "Schemas/xsd/Modules/ConvergingLaserStateModule.xsd"
+    },
+    {
+      "sha256": "90cd71b76330200ccca8f1a4c5fff84c34cd18efa881ab2b3ea3644cb94aed63",
+      "path": "Schemas/xsd/Modules/CostModifierUpgrade.xsd"
+    },
+    {
+      "sha256": "870b23bad06e7f070151434fb3eabcb35f087b8da9926828f21df4960fbe881f",
+      "path": "Schemas/xsd/Modules/CrateCollide.xsd"
+    },
+    {
+      "sha256": "373177ed0048add69d525170006acdf2926a4a79d0cce08906492fa797985b63",
+      "path": "Schemas/xsd/Modules/Create.xsd"
+    },
+    {
+      "sha256": "944c84824defd55a27a4d4f4c19e94f72a5fdd2d19c4420b0ca77a17e40b92cf",
+      "path": "Schemas/xsd/Modules/CreateAndEnterObjectSpecialPower.xsd"
+    },
+    {
+      "sha256": "7d8db547634051e7e300167d9927163f1c0fe1d459cec3c4cb9fa8e3746bf437",
+      "path": "Schemas/xsd/Modules/CreateObjectDie.xsd"
+    },
+    {
+      "sha256": "d2cc9fb06481f2b6afaf22b34899b032fab38bb48d14cc496d5976782f80ca73",
+      "path": "Schemas/xsd/Modules/CrushDie.xsd"
+    },
+    {
+      "sha256": "0b64e261ecea170d13b65488b45921dbe3ad8f775b8223c03665746fa4f0ab8a",
+      "path": "Schemas/xsd/Modules/Damage.xsd"
+    },
+    {
+      "sha256": "9c31550b4aad2929c6797756c71af8dc308ca3f32cf6389c4d21dd584556c97a",
+      "path": "Schemas/xsd/Modules/DamageFieldUpdate.xsd"
+    },
+    {
+      "sha256": "15363ee15c43140468c93d9935b93243450f36c753e60811bf0b0c453e46f4ca",
+      "path": "Schemas/xsd/Modules/DamageFilteredCreateObjectDie.xsd"
+    },
+    {
+      "sha256": "5bba79997401d1959901cea5a57d0911b0c40a45e1c3a605153eff42cc8483ed",
+      "path": "Schemas/xsd/Modules/Damager.xsd"
+    },
+    {
+      "sha256": "b5a87521523a17d992a58eb97d7b435c11c4079a8f1a679c0e3d27db7d04ac14",
+      "path": "Schemas/xsd/Modules/DamageStateList.xsd"
+    },
+    {
+      "sha256": "2e5ab1321aed3617b82fc6fa4a9ac38a64c57696deac43cee1022c7670294f45",
+      "path": "Schemas/xsd/Modules/DefaultProductionExitUpdate.xsd"
+    },
+    {
+      "sha256": "d9a428ce4639972fdc2fcf5eef7701313126af2fa5832d3a286166161cc0c4dd",
+      "path": "Schemas/xsd/Modules/DefectorSpecialPower.xsd"
+    },
+    {
+      "sha256": "5028e1f9d748311f22e5dde81df6e06cd86d354fb6c4df9be729c3fed41982f7",
+      "path": "Schemas/xsd/Modules/DeflectSpecialPower.xsd"
+    },
+    {
+      "sha256": "2c41625f01f804bf3d25f77eb4275a8c88bd14a06efac1d395d247272e6893c4",
+      "path": "Schemas/xsd/Modules/DelayedUpgrade.xsd"
+    },
+    {
+      "sha256": "fe8a16a1badc5e468eed0824a94dac46c5b5ccd4e18dc11a0d015c6e247ea6b2",
+      "path": "Schemas/xsd/Modules/DelayedWeaponFireSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "7136260b01fe9ce940d1cd03f661333eb0bf0d09588cf53375e8bd4c3fb1afff",
+      "path": "Schemas/xsd/Modules/DeletionUpdate.xsd"
+    },
+    {
+      "sha256": "468441fe43b8e7af299fb8af4ace0c111614764da8b8e8953720c3a2180886d7",
+      "path": "Schemas/xsd/Modules/DemoTrapUpdate.xsd"
+    },
+    {
+      "sha256": "0891d658af36a6fd0cc50550b7fa87274a15848bbe69c8fa335e907405aabf76",
+      "path": "Schemas/xsd/Modules/DeployStyleAIUpdate.xsd"
+    },
+    {
+      "sha256": "c43a72537e5afbfb2eb5ebf0a6eeb0844f50c7d8d4990b9e2ad65a4dc8cd0d36",
+      "path": "Schemas/xsd/Modules/Destroy.xsd"
+    },
+    {
+      "sha256": "d77f6b62e4dde8c83a04b214b9a916b0b5a04510c48310c600f22655ffa6d4ad",
+      "path": "Schemas/xsd/Modules/DestroyDie.xsd"
+    },
+    {
+      "sha256": "8008d8a9ff08372e2a9678d5cf265ff0a85bf9b78d756a252482e06c39a7308f",
+      "path": "Schemas/xsd/Modules/DestroyObjectsUpdate.xsd"
+    },
+    {
+      "sha256": "1fe7e12f37a251731402dc7de8afa5a41c1715ff0c2a9c124ce39459d1856dc2",
+      "path": "Schemas/xsd/Modules/DestructibleEnvironmentUpdate.xsd"
+    },
+    {
+      "sha256": "9b8a6a09e6099fd0fd6a0c23f96a4c5f9f63a2b441fc2dd4f64d7cf40601c0c0",
+      "path": "Schemas/xsd/Modules/Die.xsd"
+    },
+    {
+      "sha256": "190977fc6dc7d38a13108c0c0e880e9a8d342a12e28262513f4e71c498dfd793",
+      "path": "Schemas/xsd/Modules/DieOnProducerDeathUpdate.xsd"
+    },
+    {
+      "sha256": "907e3e768354d81acbacc2dc4427337252f86ea4a74ca59b3173285f0e24c69e",
+      "path": "Schemas/xsd/Modules/DistributedMoneyBehavior.xsd"
+    },
+    {
+      "sha256": "fa4b1dc7a3a23b6ce00f6364c21de7a3215865103df4924d22ee8108f8287800",
+      "path": "Schemas/xsd/Modules/DistributeEnergyToAllies.xsd"
+    },
+    {
+      "sha256": "437e235ae6803ad63827ab26c0ae649e05f66b3f44736b769b6bc3366c74cafe",
+      "path": "Schemas/xsd/Modules/DockUpdate.xsd"
+    },
+    {
+      "sha256": "0611cbc064291f5671ac2a8b8b01e340cb9e92301b4aa85038c2bb1a3b169b6f",
+      "path": "Schemas/xsd/Modules/DominateEnemySpecialPower.xsd"
+    },
+    {
+      "sha256": "023bb6047c993b4391cb240aa64a518d4f710e78698955beceb36358ee6295e5",
+      "path": "Schemas/xsd/Modules/DozerAIUpdate.xsd"
+    },
+    {
+      "sha256": "debe7a236389893506cc1fd2f72a30e5854634ef55e96c5f3659ce97a2e88b38",
+      "path": "Schemas/xsd/Modules/DynamicPortalBehaviour.xsd"
+    },
+    {
+      "sha256": "7eaa43c18ce9a08fbe2d2646ab3d33b3e30ff741309e6623df6677f58381aa15",
+      "path": "Schemas/xsd/Modules/DynamicsDraw.xsd"
+    },
+    {
+      "sha256": "36667ca60a83a11fa838d0b69b22428f8ca057f50287649594933c3009fe031e",
+      "path": "Schemas/xsd/Modules/DynamicsUpdate.xsd"
+    },
+    {
+      "sha256": "00e484e011b731fb700dc5a9799404d7380e04472864761771c29fc62b3dc367",
+      "path": "Schemas/xsd/Modules/EjectPassengersSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "9a17e96e73e12eddde7bfb8924be9a6990ea691e5c167b122a693ecac3ecd4f6",
+      "path": "Schemas/xsd/Modules/EmotionTrackerUpdate.xsd"
+    },
+    {
+      "sha256": "39990651e75378e06c1d25023058884baa5cef09d8f3c7b9dc3eb6cd838b203b",
+      "path": "Schemas/xsd/Modules/EMPUpdate.xsd"
+    },
+    {
+      "sha256": "5fe87a6d9fc0b7a014808d6e49873c99c5c86605c0d0a795ba1acc72903150e0",
+      "path": "Schemas/xsd/Modules/EnableDynamicsCollide.xsd"
+    },
+    {
+      "sha256": "9fa234f2e58cbdb66f6b8cf898291b4cc1c92c1270d5b108fc5e792299bbc43c",
+      "path": "Schemas/xsd/Modules/EncloseBehavior.xsd"
+    },
+    {
+      "sha256": "962448949aaecbc26e8b58c557cde512b026b25b27b25554c29844beb7b9c100",
+      "path": "Schemas/xsd/Modules/EnergyDisablingBehavior.xsd"
+    },
+    {
+      "sha256": "689ede5454ecfe949d1db89619fa581e3a7645a15ad37b4f19c8c7876ba82f5f",
+      "path": "Schemas/xsd/Modules/EngineerContain.xsd"
+    },
+    {
+      "sha256": "cf8f03de34a876aca192a2e0122aa3fc51244914ede670cd79348dc9c9abe984",
+      "path": "Schemas/xsd/Modules/EvaAnnounceClientCreate.xsd"
+    },
+    {
+      "sha256": "92048996e79c48ae59072ad29761d276bc519fcf861353ce8b192da2483d9fb3",
+      "path": "Schemas/xsd/Modules/EvaAnnounceSpecialPowerReadyClientUpdate.xsd"
+    },
+    {
+      "sha256": "40b921b1bfcb58889cde42751b7d7bb14b61317c899eaca4d069dd0ce52b0550",
+      "path": "Schemas/xsd/Modules/EvacuateDamage.xsd"
+    },
+    {
+      "sha256": "cc3c07084d23d5bc9f9926754ddf5bb5acb3b7d562caf397a2082c87d2743ec2",
+      "path": "Schemas/xsd/Modules/EvacuateGarrisonSpecialPower.xsd"
+    },
+    {
+      "sha256": "2d656c99d78c2aeca87f954aa5c5bb53d8eeda8b8f0a8f6ed1181e7042d27d52",
+      "path": "Schemas/xsd/Modules/ExperienceLevelCreate.xsd"
+    },
+    {
+      "sha256": "293b0aa77eccfe22dd6b146a3686d18f4bec5c120374fa5d3708713527054ba3",
+      "path": "Schemas/xsd/Modules/ExperienceScalarUpgrade.xsd"
+    },
+    {
+      "sha256": "d520d7a0a1c16015023cac20a3d69e24a97090f894d2fabee4309b6e78c6584d",
+      "path": "Schemas/xsd/Modules/FakePathfindPortalBehaviour.xsd"
+    },
+    {
+      "sha256": "9437d2caafd5f9f1c5ea64c1376696f9ae94a6cc82c7161dea5c414c3dd4d049",
+      "path": "Schemas/xsd/Modules/FindCoverBehavior.xsd"
+    },
+    {
+      "sha256": "624e7af456a9aa797813bc7dee224cd7343d71fcbe0cfdbd7e89fe12a0c036ec",
+      "path": "Schemas/xsd/Modules/FireSpreadUpdate.xsd"
+    },
+    {
+      "sha256": "f7eb4ff1949fecf154a13160d3092a3aaac4489c2717878552f8faefc8d6cb47",
+      "path": "Schemas/xsd/Modules/FireWeaponCollide.xsd"
+    },
+    {
+      "sha256": "ebd325629c8f3eead3c0c66dc9d86ab84b610e91255fb852f3d2fd605a9e9f06",
+      "path": "Schemas/xsd/Modules/FireWeaponUpdate.xsd"
+    },
+    {
+      "sha256": "8858b72b0cac65bf7e9a24a1aa16c71753ddec4d6ab5da8007d479b6b5251992",
+      "path": "Schemas/xsd/Modules/FireWeaponWhenDamagedBehavior.xsd"
+    },
+    {
+      "sha256": "45e0438d6f9a97780ec5bb153e810612ce8c956c17ca0de33313a089bba96c84",
+      "path": "Schemas/xsd/Modules/FireWeaponWhenDeadBehavior.xsd"
+    },
+    {
+      "sha256": "ed0b390e47aca1c70a9cf230533513e7327cc86213527e5ee7067130072f3107",
+      "path": "Schemas/xsd/Modules/FiringTracker.xsd"
+    },
+    {
+      "sha256": "663c6faca5fe08906f92e946b5b0cd095515597e54b7eff9be761bbd3bf05540",
+      "path": "Schemas/xsd/Modules/FlammableUpdate.xsd"
+    },
+    {
+      "sha256": "729f50a280050642f1812d6eef475792a6be399300459813eba11cdad7b1ccd0",
+      "path": "Schemas/xsd/Modules/FlingPassengerSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "be85f57eff9d143bebde712cea52795c827db2d9d0a03a3d71df9690ba5de92a",
+      "path": "Schemas/xsd/Modules/FreefallUpdate.xsd"
+    },
+    {
+      "sha256": "5363f90e6e858ec6db1c353686503e855c52c6e76d5eb93b125093d04252352b",
+      "path": "Schemas/xsd/Modules/FXListBehavior.xsd"
+    },
+    {
+      "sha256": "56358078ad3e824568762b7c067e4ff8bb9a29f0361a440ffc0dc5bc1a861759",
+      "path": "Schemas/xsd/Modules/GarrisonContain.xsd"
+    },
+    {
+      "sha256": "46abaaed391b70095926f09508a0caabf61dc497bd7a0d0e5299951463c32d08",
+      "path": "Schemas/xsd/Modules/GarrisonUpgrade.xsd"
+    },
+    {
+      "sha256": "7990d8be46cbcf8eeb6825576d6cb378efcdfc67762b0084fd7d6fa738788491",
+      "path": "Schemas/xsd/Modules/GateOpenAndCloseBehavior.xsd"
+    },
+    {
+      "sha256": "79f1fb0ab406e9b81caaa2f8fc2ac9c1ca8c8b29dc8e56ee7cabc5304feb01e4",
+      "path": "Schemas/xsd/Modules/GateProxyBehavior.xsd"
+    },
+    {
+      "sha256": "e3e79367b90bcc505be968ac637dbefe357bd8fb18e436bda20e00a5b1b7bf76",
+      "path": "Schemas/xsd/Modules/GatherEjectUpdate.xsd"
+    },
+    {
+      "sha256": "b18879c23fd2293b4d73895cf3e8557a5391b6a6cf0717feebb6d1d23c867ac5",
+      "path": "Schemas/xsd/Modules/GatherSlavesUpdate.xsd"
+    },
+    {
+      "sha256": "437b738a1a59c88cd1e12ac64c48e5db12e676555b355dbc5e6f63962c115e0d",
+      "path": "Schemas/xsd/Modules/GeometryUpgrade.xsd"
+    },
+    {
+      "sha256": "3d3a349a137788a9e1a784a03facc48ef855dcefa54094a21442733ce395aad4",
+      "path": "Schemas/xsd/Modules/GiveOrRestoreUpgradeSpecialPower.xsd"
+    },
+    {
+      "sha256": "a2697a3f203df7c81ea40a90fed6e909d0349eef8b7ddd1afad16b422d76c2fc",
+      "path": "Schemas/xsd/Modules/GiveProductionBonusSpecialPower.xsd"
+    },
+    {
+      "sha256": "c7bc563488c7fa70cbe1645133001f55dc04778826261bf5ed434f6b9cc4e9ae",
+      "path": "Schemas/xsd/Modules/GiveUpgradeUpdate.xsd"
+    },
+    {
+      "sha256": "91db82452c27aa346ea6f20095986cec63e5408079b92c3a38475a4d0f431548",
+      "path": "Schemas/xsd/Modules/GrantUpgradeAreaOfEffectSpecialPower.xsd"
+    },
+    {
+      "sha256": "5bbfa163df398544ebd198eb25fc7f15f9839401b1fad7677e5dedcfce53160f",
+      "path": "Schemas/xsd/Modules/GrantUpgradeCreate.xsd"
+    },
+    {
+      "sha256": "909226fa86e4d9801f0d381f957413d52600c056f435e7e581da8b635c388348",
+      "path": "Schemas/xsd/Modules/GrapplingHookUpdate.xsd"
+    },
+    {
+      "sha256": "9ccfd438335efbac86d9d76a43a96daa76f9357ce29ed04b7db48bd66623d871",
+      "path": "Schemas/xsd/Modules/HealContain.xsd"
+    },
+    {
+      "sha256": "323ef703e30feab2abeb2919f5c14317c299bc42531f0006371318588499f05b",
+      "path": "Schemas/xsd/Modules/HealCrateCollide.xsd"
+    },
+    {
+      "sha256": "a43681b3c9c10bb9655f7672a054d271e9c91cc50d690bfa425b4cfe529474f2",
+      "path": "Schemas/xsd/Modules/HeightDieUpdate.xsd"
+    },
+    {
+      "sha256": "90b3d9f25fd859f797a478c757e8ec473dcc951975471f7121977518f17c1442",
+      "path": "Schemas/xsd/Modules/HelicopterSlowDeathBehavior.xsd"
+    },
+    {
+      "sha256": "b81bad275ae00f57954888a33cb42bad248b21e4cac183db3a8a4ff4249286ad",
+      "path": "Schemas/xsd/Modules/HighlanderBody.xsd"
+    },
+    {
+      "sha256": "ee663dc6ae48aadf9e7b14219833c8ae0b2560ca3e9d8e1e40d717033a27dd00",
+      "path": "Schemas/xsd/Modules/HijackerUpdate.xsd"
+    },
+    {
+      "sha256": "dd7175eb5870553aa8b84e1b1ebb55cebd1d82240e2a7c56c10b39aabbce861a",
+      "path": "Schemas/xsd/Modules/HitReactionBehavior.xsd"
+    },
+    {
+      "sha256": "a38e2d1faf214b73d154c9ccde70ff371b6095476eccda0939427510854747a4",
+      "path": "Schemas/xsd/Modules/HordeAIUpdate.xsd"
+    },
+    {
+      "sha256": "39361f37da24a7dd9684a963eed0fd337c84cb382a26c40712ce4f11a10b9e57",
+      "path": "Schemas/xsd/Modules/HordeContain.xsd"
+    },
+    {
+      "sha256": "8955ab6c108c0c4e562e473f8ccc508c2bd65e1313b1a6326247d99c77ff88d8",
+      "path": "Schemas/xsd/Modules/HordeDispatchSpecialPower.xsd"
+    },
+    {
+      "sha256": "c9df792d72f8d845a3ce757ec2f2e5d362f25752d26ebc6c50290849fdeb7d5e",
+      "path": "Schemas/xsd/Modules/HordeGarrisonContain.xsd"
+    },
+    {
+      "sha256": "e496844aeac46a955de9059f71e3377d0ab8087c972a51f9685924b7c4000a2e",
+      "path": "Schemas/xsd/Modules/HordeMemberCollide.xsd"
+    },
+    {
+      "sha256": "70a211f3623c9eb5f83f15605254f5aa4fd3144d9ffe320355a1f85d40052af1",
+      "path": "Schemas/xsd/Modules/HordeNotifyTargetsOfImminentProbableCrushingUpdate.xsd"
+    },
+    {
+      "sha256": "35e73eb724f2b66e8cfdc25358b9788608b4f642fc1bf6941cc4a5af15d80b53",
+      "path": "Schemas/xsd/Modules/HordeTransportContain.xsd"
+    },
+    {
+      "sha256": "a67829594501bac07a3b4f6e9dff858d1a1d9fa302c923caddb2048040983215",
+      "path": "Schemas/xsd/Modules/HordeTransportContainDamage.xsd"
+    },
+    {
+      "sha256": "f44ab11ab700efdd0c075442f7bcf7e76804b08af702d2872bf33200beb6adf6",
+      "path": "Schemas/xsd/Modules/HorseHordeContain.xsd"
+    },
+    {
+      "sha256": "608d7ba9a95b7b31cdbd04ceaa152aa5abe5370d4211b0920ba4111506a24022",
+      "path": "Schemas/xsd/Modules/ImmortalBody.xsd"
+    },
+    {
+      "sha256": "5a8a3327df9586885c251655629e5185272d1ddc31486358a9fc14c624a394ed",
+      "path": "Schemas/xsd/Modules/InactiveBody.xsd"
+    },
+    {
+      "sha256": "9fa47932473b81e0f0f7d2b5588daf0ef15c38de3cec2a49080e5a182641a4db",
+      "path": "Schemas/xsd/Modules/InfiltratorContain.xsd"
+    },
+    {
+      "sha256": "b37847f38549f5a90d653a36b8d4da3d4f76669da26bac53808e6a756a66d91e",
+      "path": "Schemas/xsd/Modules/InfiltratorEffectType.xsd"
+    },
+    {
+      "sha256": "f1eacce58495382b984098bbee2cc5ff0fbf87f78342a344c65764835e6e6779",
+      "path": "Schemas/xsd/Modules/InheritUpgradeCreate.xsd"
+    },
+    {
+      "sha256": "300962c6b0fd45e7a9a848144c94e56c2df81488cacafd747f55dc8cf2bc5cb5",
+      "path": "Schemas/xsd/Modules/InitiateRepairDie.xsd"
+    },
+    {
+      "sha256": "f41cd3b2598fd6248f2af39a4a5d6f23d64e15662c8b787683019a7da5be0e23",
+      "path": "Schemas/xsd/Modules/InvalidTargetsDeathUpdate.xsd"
+    },
+    {
+      "sha256": "165e4ccdeac050f304772603d47961e12794cb19725518c61a3b90ca4c7bb111",
+      "path": "Schemas/xsd/Modules/InvisibilityBehaviorModule.xsd"
+    },
+    {
+      "sha256": "bacd6d2f6e104377aa53d92a6d68a887bdd019bea713aebe70accff9040dad8a",
+      "path": "Schemas/xsd/Modules/InvisibilityBroadcastUpdate.xsd"
+    },
+    {
+      "sha256": "7f0c72fc0dea317ec750e75a74fea586a12c3a0e5e5913a23d59d569021a114f",
+      "path": "Schemas/xsd/Modules/InvisibilitySpecialPower.xsd"
+    },
+    {
+      "sha256": "4cde2c0d7eaa050fd8b7fe29e48cf684e56031670d2d27ffec07de213d7d337b",
+      "path": "Schemas/xsd/Modules/InvisibilityUpdate.xsd"
+    },
+    {
+      "sha256": "99660271a7f3768aa0500cc672d535e0dbf75ffa213ee74481c907475bc03417",
+      "path": "Schemas/xsd/Modules/InvisibilityUpgrade.xsd"
+    },
+    {
+      "sha256": "61acd748e21b009ace256a3f65b4d403854326754b84816082397749a7710382",
+      "path": "Schemas/xsd/Modules/JetAIUpdate.xsd"
+    },
+    {
+      "sha256": "8459633153cc4836249c1efa77788551a75943c13fc3c5501f2210a6f863a8b3",
+      "path": "Schemas/xsd/Modules/KeepObjectDie.xsd"
+    },
+    {
+      "sha256": "8250e3c4778ffce47474632a095e95ace72c7faf07fb24cdd7da1c1c3cdda96d",
+      "path": "Schemas/xsd/Modules/LargeGroupAudioClientUpdate.xsd"
+    },
+    {
+      "sha256": "3b7614709edec0f69ccd1cae3db879bb70b46f0dfbec8effac218e41109da895",
+      "path": "Schemas/xsd/Modules/LargeGroupBonusUpdate.xsd"
+    },
+    {
+      "sha256": "52c9c2c4b71d5380961c42c22bdbb0c7fe0d5f63ff95b006284d4b797a57cc23",
+      "path": "Schemas/xsd/Modules/LaserDraw.xsd"
+    },
+    {
+      "sha256": "b972e3dc7ae2878bba570081833d7c5ee2afe2881fdbb56c01074c00338a1e77",
+      "path": "Schemas/xsd/Modules/LaserScatterUpdate.xsd"
+    },
+    {
+      "sha256": "f6646a3b53dd774ad640c7b4aa615dea780767eed2a4e76b82cbc133a2712717",
+      "path": "Schemas/xsd/Modules/LaserStateModule.xsd"
+    },
+    {
+      "sha256": "52015929fa5faecf446b2f13e35832157c3ca39acfb2a695a0193bb97db2b40c",
+      "path": "Schemas/xsd/Modules/LaserUpdate.xsd"
+    },
+    {
+      "sha256": "684f166da8df605bd4b3402a5d3967b8d0c53ee73f3472e6ccbeb37cdf3c8777",
+      "path": "Schemas/xsd/Modules/LeechTargetingAttachUpdate.xsd"
+    },
+    {
+      "sha256": "90fc4c0d60122f9565688896ea276e85298f8fa535e1a9ace21e5edc101acf10",
+      "path": "Schemas/xsd/Modules/LevelGrantSpecialPower.xsd"
+    },
+    {
+      "sha256": "6ad359f0b56824bb57e0794fc2c9ac0bb24b1323f09ac683d3b1221e870503da",
+      "path": "Schemas/xsd/Modules/LevelUpUpgrade.xsd"
+    },
+    {
+      "sha256": "7fd398934b875710812ddb590146ed740087e1677de1123d32fcfcc22c3b8685",
+      "path": "Schemas/xsd/Modules/LifetimeUpdate.xsd"
+    },
+    {
+      "sha256": "222ffc0faf7851419cef3dad72c204e3b79d37ac0029ce6c8b58712fa69052de",
+      "path": "Schemas/xsd/Modules/LiftObjectUpdate.xsd"
+    },
+    {
+      "sha256": "4a0420a828033b0203b9957fa7f45fb059b7221dfaf05591bc269147be4aff88",
+      "path": "Schemas/xsd/Modules/LinearDamageUpdate.xsd"
+    },
+    {
+      "sha256": "b90f6db4732e571d40bc63b5eb8661e4268d846c11605f2d1234e5407f9fcf80",
+      "path": "Schemas/xsd/Modules/LineSegmentDamageUpdate.xsd"
+    },
+    {
+      "sha256": "32c298eafae9a4f30a2bdcb8ab544cec5dfcbf745fa1ab957ee910b8f56bbb6f",
+      "path": "Schemas/xsd/Modules/LocomotorSetUpgrade.xsd"
+    },
+    {
+      "sha256": "9d19eb229887ec3d9567f287d26932c934b34ee122bfb3fd6515e2c99e9bf0b4",
+      "path": "Schemas/xsd/Modules/LoseHealthUpdate.xsd"
+    },
+    {
+      "sha256": "ccad4c3b7fc422491906044784a48260b6047a47c69d667da3ad21b956d3ad67",
+      "path": "Schemas/xsd/Modules/LUAEventList.xsd"
+    },
+    {
+      "sha256": "fe33b42c019a74c834d2e9777729734b168a1d873e3c8281ceb5f19a41d2c117",
+      "path": "Schemas/xsd/Modules/MagneticEffectUpdate.xsd"
+    },
+    {
+      "sha256": "b97c33a7aaafe322b70ef216a2188adabfa2af27bc0721a49a5e628413f6d672",
+      "path": "Schemas/xsd/Modules/ManagedActiveBody.xsd"
+    },
+    {
+      "sha256": "003c5ca6ae017f077abb91488cf05f4ee0dfd5b2d48d2973ddd8066c54c6fb30",
+      "path": "Schemas/xsd/Modules/ManagedImmortalBody.xsd"
+    },
+    {
+      "sha256": "88fc3a0e5840efe7102cfdbf58e297735955c268285230e56d65e862095d6f33",
+      "path": "Schemas/xsd/Modules/ManagerBody.xsd"
+    },
+    {
+      "sha256": "2cafa367e78cbb89cf1d92683a40460c49e6fe79c40bee3b922cd670c9be43a2",
+      "path": "Schemas/xsd/Modules/MaxHealthUpgrade.xsd"
+    },
+    {
+      "sha256": "2578cb10673108359aa85a29f61882b5e1efc1783644509bd125712fc6ff2339",
+      "path": "Schemas/xsd/Modules/MinefieldBehavior.xsd"
+    },
+    {
+      "sha256": "891f0b1b9056f026d9f3b8f0f8ec8fa754f1b718b8fc11436e62a283bdb341f1",
+      "path": "Schemas/xsd/Modules/MissileUpdate.xsd"
+    },
+    {
+      "sha256": "8a4a822317b66d0ad80ad84f1b16630f6cd05294c7aa99c996498f46caec4c47",
+      "path": "Schemas/xsd/Modules/ModelConditionAudioLoopClientBehavior.xsd"
+    },
+    {
+      "sha256": "d73f42473055c3131b417ef5af870e2a00bc07cbf9bdee1d9309d7e6ce4c7bcd",
+      "path": "Schemas/xsd/Modules/ModelConditionEvaEventSelectorClientBehavior.xsd"
+    },
+    {
+      "sha256": "c96cc84bc13830cb1dcedc4fc5ab22adf5ba21fd2b36574b0683773511fd064b",
+      "path": "Schemas/xsd/Modules/ModelConditionSoundSelectorClientBehavior.xsd"
+    },
+    {
+      "sha256": "3d290e94ffcbb7f478c70edbe08152b233da2b5fe0bddd74a2fc925e245c591c",
+      "path": "Schemas/xsd/Modules/ModelConditionUpgrade.xsd"
+    },
+    {
+      "sha256": "919d69d10c1b208ff20936c556138f7104fe42d77040967877c2b50f3213d8da",
+      "path": "Schemas/xsd/Modules/MoneyCrateCollide.xsd"
+    },
+    {
+      "sha256": "9bb6ebed95ddb770838aed6ceee8587707ec9ae04c68687cb3f204526087cec3",
+      "path": "Schemas/xsd/Modules/MoneyGainAttachUpdate.xsd"
+    },
+    {
+      "sha256": "83532fc1d5457e42cd136983ebe659ad09dc6aa4bc203e4ca2414b8f680fe6ad",
+      "path": "Schemas/xsd/Modules/MonitorConditionUpdate.xsd"
+    },
+    {
+      "sha256": "2c497c37f2072822f8dd2e59cea8c919936fd993d3165207f23017f5a06cbf86",
+      "path": "Schemas/xsd/Modules/MonitorSpecialPowerTimerUpdate.xsd"
+    },
+    {
+      "sha256": "b1460a7284de92076a7fa00a2aaa064b65f7ec4313af092dd3b3d075d5987350",
+      "path": "Schemas/xsd/Modules/MovementSpecialPower.xsd"
+    },
+    {
+      "sha256": "e92708a301adc84ab2c5249ccf117f769ffd239f5b4ddc3ea483c4d429ba398e",
+      "path": "Schemas/xsd/Modules/MoveToPositionAndEvacuateSpecialPower.xsd"
+    },
+    {
+      "sha256": "09e5afe2b9e8fc58cbefb440c84961521cdcea4ecf433f522f9556f4587491c7",
+      "path": "Schemas/xsd/Modules/MoveToPositionAndReplaceSelfSpecialPower.xsd"
+    },
+    {
+      "sha256": "9f96d6dcfa562beef9a64b8ef4724327f7ced5f35718028c1a6e5ce4e5258631",
+      "path": "Schemas/xsd/Modules/NotifyTargetsOfImminentProbableCrushingUpdate.xsd"
+    },
+    {
+      "sha256": "b783c91a810dea996fef35dd95eab3fce47fcd6d0b292a102bee79bad14d4c73",
+      "path": "Schemas/xsd/Modules/NotifyWhenAttackingBehavior.xsd"
+    },
+    {
+      "sha256": "5e995ceab2fb2d5f2c9ecd3fbaed18dbece52b71861b69575b11a1ad20d2f626",
+      "path": "Schemas/xsd/Modules/ObjectCreationUpgrade.xsd"
+    },
+    {
+      "sha256": "65ca709f71fa1f60dacb6bca50583b1ad2c2aedc8b218dd86c10d46fa77f64b8",
+      "path": "Schemas/xsd/Modules/ObjectDefectionHelper.xsd"
+    },
+    {
+      "sha256": "1a47c2fcd1f4c629fb9f419dced10357c1b7e41d2f022bf0489c6495511f86a2",
+      "path": "Schemas/xsd/Modules/ObjectHelper.xsd"
+    },
+    {
+      "sha256": "9c6c217d31a96f5b6295a79d67b13128d16faed9c0a985c1908e3d25db37fab3",
+      "path": "Schemas/xsd/Modules/ObjectSMCHelper.xsd"
+    },
+    {
+      "sha256": "e453621b97849ba9944cf8e9098e9fe921a89be361f963d82f1101c2d51f1621",
+      "path": "Schemas/xsd/Modules/ObjectStatusSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "bb2d55be21eeaa2f85e27fc04bb2e8c5f8dfb336ec0c7194df9332e2894bec78",
+      "path": "Schemas/xsd/Modules/ObjectWeaponStatusHelper.xsd"
+    },
+    {
+      "sha256": "8a0223e924a98dbe888c400a261892167e2eebadfbd27d88c84777c4174aeca3",
+      "path": "Schemas/xsd/Modules/OCLMonitorSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "f90a6187f4c66b1041f2fad5595001a4ebc3a42a2a0dd92e2f0d93849c42112d",
+      "path": "Schemas/xsd/Modules/OCLMonitorUpdate.xsd"
+    },
+    {
+      "sha256": "065767ae4d1d51649a7cca77c6e3c6508bc2c03b186f39dbec5cf30ac82622d6",
+      "path": "Schemas/xsd/Modules/OCLSpecialPower.xsd"
+    },
+    {
+      "sha256": "a8dd861fefa4a891e338020767b2d84e685c8ae4a07691ff56dd4d82d594429c",
+      "path": "Schemas/xsd/Modules/OCLUpdate.xsd"
+    },
+    {
+      "sha256": "42d93ba9c03a916e1605d38fd5587325da2f93ce77483c0bde824827eb13afe0",
+      "path": "Schemas/xsd/Modules/OpenContain.xsd"
+    },
+    {
+      "sha256": "e2021dd3860855c4a378a218c75146312fe65c45ab51d99a906e1b5d0319f883",
+      "path": "Schemas/xsd/Modules/OreMinerBehavior.xsd"
+    },
+    {
+      "sha256": "acd9b184b093d50f0cf5d991cacfe75e334a0bf5577251aa529ae43f3d42fcf6",
+      "path": "Schemas/xsd/Modules/OreNodeBehavior.xsd"
+    },
+    {
+      "sha256": "8a3ae1e73f035d5f4cc390b41d72ffb385916ae310469e156822647fd3a75e33",
+      "path": "Schemas/xsd/Modules/ParabolicCurveUpdate.xsd"
+    },
+    {
+      "sha256": "8baf59fd3f45b1d7a5ad8ac42d0635311f0564d20478bc4a0b0a07c515a04c9c",
+      "path": "Schemas/xsd/Modules/ParkingPlaceBehavior.xsd"
+    },
+    {
+      "sha256": "972b9665a5f310eb702a1772bab4a2d6e1562b51db89ececb61e35a43ff09ded",
+      "path": "Schemas/xsd/Modules/PassiveAreaEffectBehavior.xsd"
+    },
+    {
+      "sha256": "a63247c1ef017cb62434cf48e8d8e1ef9849f3510c81c4b35bf07b4789783977",
+      "path": "Schemas/xsd/Modules/PhysicsBehavior.xsd"
+    },
+    {
+      "sha256": "4080eb7f92a053615143bff1ad9cb0e0b53d05e8a7b78e0b9e834d9867581f80",
+      "path": "Schemas/xsd/Modules/PillageModule.xsd"
+    },
+    {
+      "sha256": "8acea870d00bee43900ade9e656045669fe7579fa6fa813e77b82830bdda07b0",
+      "path": "Schemas/xsd/Modules/PlayerHealSpecialPower.xsd"
+    },
+    {
+      "sha256": "a8dd97de4f0acf96384e5686e595fcd45e93ecd495e2ae53018d0b52f1e92686",
+      "path": "Schemas/xsd/Modules/PlayerPowerManagerBehavior.xsd"
+    },
+    {
+      "sha256": "239bedba68251fffa79ed62d940b6dc2fa4201d5aa2b38049c0a3d4d6ce65505",
+      "path": "Schemas/xsd/Modules/PlayerUpgradeSpecialPower.xsd"
+    },
+    {
+      "sha256": "3e1575c0e7784fb6a85f0efb3318107f1d179a755e8f28c7fcc888e8f7c78f36",
+      "path": "Schemas/xsd/Modules/PoisonedBehavior.xsd"
+    },
+    {
+      "sha256": "e54289df7c76d14edbc932ba1a2dd58d433e11cb7131cded426b64bf3b25927f",
+      "path": "Schemas/xsd/Modules/PowerUpdate.xsd"
+    },
+    {
+      "sha256": "a2017d40fe14c75456cfe7adb6b6a56b59b6708b3f9137b0fa422eeb9a5aa89a",
+      "path": "Schemas/xsd/Modules/PowerUpgrade.xsd"
+    },
+    {
+      "sha256": "3828b2d6f0738164215254294f329a7b05b97112688464386698f56745085b4d",
+      "path": "Schemas/xsd/Modules/PrematureDischargeSpecialPower.xsd"
+    },
+    {
+      "sha256": "4c10c56cc02d75ef3e065752d1b738e60dd1486f4d020d6070dc0ab8fdc5efb3",
+      "path": "Schemas/xsd/Modules/PreorderCreate.xsd"
+    },
+    {
+      "sha256": "0ecb377c5866abce1039893ba562a1d7da5283cbf942f147b95e3ad7da38389b",
+      "path": "Schemas/xsd/Modules/ProductionQueueHordeContain.xsd"
+    },
+    {
+      "sha256": "c1f3b78db73167585d970c3d8a52fedcb0ee01c1c506a713480b7b23c5dfaf42",
+      "path": "Schemas/xsd/Modules/ProductionUpdate.xsd"
+    },
+    {
+      "sha256": "daacff179b5ef77aee1fd17e30a7eb1a9ed9b871cc6f0e8ef3367123988e5ee0",
+      "path": "Schemas/xsd/Modules/ProductionUpdateInfoModule.xsd"
+    },
+    {
+      "sha256": "508f99db238bd4bdc481f67995459bda012196a651b89cca517735c098e3af7d",
+      "path": "Schemas/xsd/Modules/ProjectileUpdate.xsd"
+    },
+    {
+      "sha256": "2de5e4cab768ea4cdf06fbefe0d1ca9d6be64460449ae13b4f1b0824c2f1724c",
+      "path": "Schemas/xsd/Modules/ProneUpdate.xsd"
+    },
+    {
+      "sha256": "f8ba862b8cd1b23c36eb4c26ac78846b2cbfc786bc1db2c00acfcf81004e6a34",
+      "path": "Schemas/xsd/Modules/PropBody.xsd"
+    },
+    {
+      "sha256": "f47f57bf6f75b98566f456e5c923b5bca34f47d91da5c51bcf0f621b17079e76",
+      "path": "Schemas/xsd/Modules/PropDraw.xsd"
+    },
+    {
+      "sha256": "0586023465143be627f0bc59626ae8f3f08865d0ba0c12672902e543ca873d73",
+      "path": "Schemas/xsd/Modules/QueueDockBehavior.xsd"
+    },
+    {
+      "sha256": "269f382a7f1776c0c037d23f5ec37c3843d6f9af7d0549bcb0c7bd461f639dcb",
+      "path": "Schemas/xsd/Modules/QueueProductionExitUpdate.xsd"
+    },
+    {
+      "sha256": "4ca798ee9a18c6113808f26ae387b30fb9f2b3ad00aad91ce2c788b8a09e9ffd",
+      "path": "Schemas/xsd/Modules/RadarBehavior.xsd"
+    },
+    {
+      "sha256": "6ad8d183faf9e296ca265f94c63c3d8788179c8df0792405baf78c84445114d1",
+      "path": "Schemas/xsd/Modules/RadarFreezeSpecialPower.xsd"
+    },
+    {
+      "sha256": "246f9dcf2c443bfb77d4411ad12930dcb112858e900a64f41de55456aad09296",
+      "path": "Schemas/xsd/Modules/RadarHackSpecialPower.xsd"
+    },
+    {
+      "sha256": "83c3b30f922deaecbf1995fcc7e49495848415107a07b3f1f85f9008606fdd78",
+      "path": "Schemas/xsd/Modules/RadarJamSpecialPower.xsd"
+    },
+    {
+      "sha256": "0cc3ddbd6491c9d8d337c79e1223621b8ad2522da377c8b2a59459abfa6ee314",
+      "path": "Schemas/xsd/Modules/RadarMarkerClientUpdate.xsd"
+    },
+    {
+      "sha256": "42ec8a812e6bd12f337eee22a604fee28e779c04d3cab8d006275030c19a6237",
+      "path": "Schemas/xsd/Modules/RadarScanMapSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "95b8ad8f538e6ec1e8f9b869b0d50c92f30d63b0ad1e59608dea3daf467d7de2",
+      "path": "Schemas/xsd/Modules/RadarSpySpecialPower.xsd"
+    },
+    {
+      "sha256": "721e87435260bed535cb8554143543e1c0a68d01a2bdfab0c50d127e0fda49c5",
+      "path": "Schemas/xsd/Modules/RadarUpdate.xsd"
+    },
+    {
+      "sha256": "d3a76bcb906ba8d142dc7d92420175e0da11b5e1e8596063aad502792221c26c",
+      "path": "Schemas/xsd/Modules/RadiateFearUpdate.xsd"
+    },
+    {
+      "sha256": "5c8940806de1f14f0b9fc72ceee490a1d2e021c737f631f91b17563db8932a8e",
+      "path": "Schemas/xsd/Modules/RailedTransportDockUpdate.xsd"
+    },
+    {
+      "sha256": "c9494cff56c76eff3d3d50c78bf84ac0b9a61da7bff464ebb2ae3ba5998b69ec",
+      "path": "Schemas/xsd/Modules/RandomCrateCollide.xsd"
+    },
+    {
+      "sha256": "056b10d5ed99799b280448b82aaaa896f47a04e643bbf79a75aafd659076bc1e",
+      "path": "Schemas/xsd/Modules/RandomModelCondition.xsd"
+    },
+    {
+      "sha256": "92e08a8e90ed6103aa027ebca73441a848b6e018f1e94191300af68a470f8efb",
+      "path": "Schemas/xsd/Modules/RandomSoundSelectorClientBehavior.xsd"
+    },
+    {
+      "sha256": "951107dfc14610ae3a307ddd90f52d4649193d39fd4705837acd0e8c83a742e1",
+      "path": "Schemas/xsd/Modules/RecallUnitsSpecialPower.xsd"
+    },
+    {
+      "sha256": "ebe3030457c4b94371564a06793a8f7ba21c341229bc1a0a4f243462efc4d1f6",
+      "path": "Schemas/xsd/Modules/ReconstituteStateSpecialAbility.xsd"
+    },
+    {
+      "sha256": "9f75a97c0a77a2d62a71d6bd2eb544fd4264bf730cccceda52c455d50b1a8b66",
+      "path": "Schemas/xsd/Modules/ReflectDamage.xsd"
+    },
+    {
+      "sha256": "25d2ea3aed38f884986127a919eb92b68342ead25b045b3e5053778cb105416a",
+      "path": "Schemas/xsd/Modules/RefundDie.xsd"
+    },
+    {
+      "sha256": "2a813f8c1a0c4ac5aab4bd96fb34f0457ccb61717c96d179c05e58fdae5d25aa",
+      "path": "Schemas/xsd/Modules/RemoveUpgradeUpgrade.xsd"
+    },
+    {
+      "sha256": "ec0de12aea3dd8ffd7a897a278a776299b491697cb5ea0bfa354b82d06187898",
+      "path": "Schemas/xsd/Modules/RepairDockUpdate.xsd"
+    },
+    {
+      "sha256": "5fc8e17c836cec5af0610badb30d9f77a39bee56a784f8b785f9875889b78cf0",
+      "path": "Schemas/xsd/Modules/RepairSpecialPower.xsd"
+    },
+    {
+      "sha256": "9e4f98e4053be18edfeacf87096347da92aacabd95f8e2ebbf2dc6f4aca80993",
+      "path": "Schemas/xsd/Modules/RepairUpdate.xsd"
+    },
+    {
+      "sha256": "4690a1097bb25e40e187b3bdf0f16b1a4b600647b43b1f4f43c0461254c10729",
+      "path": "Schemas/xsd/Modules/ReplaceDrawModuleBehavior.xsd"
+    },
+    {
+      "sha256": "13787703df8adb11c8850416cedd058408c68a72b9b02db28e984663b5c074a3",
+      "path": "Schemas/xsd/Modules/ReplaceObjectUpdate.xsd"
+    },
+    {
+      "sha256": "c6e6b25b230d7375fb7827561f96628417bffe1ceaff2d0072cac6a98b74a1de",
+      "path": "Schemas/xsd/Modules/ReplaceSelfSpecialAbility.xsd"
+    },
+    {
+      "sha256": "06648a180651bfbe5b0b1e29a60f8d085174177a73be72c60d055dee30fc1f2f",
+      "path": "Schemas/xsd/Modules/ReplaceSelfUpgrade.xsd"
+    },
+    {
+      "sha256": "b04d4b3983bfa8a7f7e5f9cb381cee71206c70b6800161484020ae086a130734",
+      "path": "Schemas/xsd/Modules/RestrictSpecialPowerBehavior.xsd"
+    },
+    {
+      "sha256": "a52ab058c503346e495b805e1f9371bb92787d1c9d517fcd5e8e757555038769",
+      "path": "Schemas/xsd/Modules/ReturnToDockSpecialPower.xsd"
+    },
+    {
+      "sha256": "34b14b2dc0d1218b7bbe886978dc20fc64cc587d13004d852d6de413420c0585",
+      "path": "Schemas/xsd/Modules/ReturnToProducerSpecialPower.xsd"
+    },
+    {
+      "sha256": "214b1ba56370ec751c4b6d4c8c6be100d049f4cc318a3c887a7f734e0d4e9fd0",
+      "path": "Schemas/xsd/Modules/RunOffMapBehavior.xsd"
+    },
+    {
+      "sha256": "ee81fddcd4b1eac8b9bbf0a0608c91b53cfe60069e14ac6375bc8a7297b8df57",
+      "path": "Schemas/xsd/Modules/SalvageCrateCollide.xsd"
+    },
+    {
+      "sha256": "bc2b2965e9d32a6199bc7b663c36b43ce4dcf5a51a4a53af817824b86be5b9a2",
+      "path": "Schemas/xsd/Modules/ScavengerSpecialPower.xsd"
+    },
+    {
+      "sha256": "8f48c2adb679c27b7fbd87465367aa3a3ebc729069a3edca2f2d9bb5d9f920bf",
+      "path": "Schemas/xsd/Modules/ScriptedModelDraw.xsd"
+    },
+    {
+      "sha256": "ca3a6e9013e6cf7c7c50d64b717957717f92ebfa1af76ea08366ac4396b1389f",
+      "path": "Schemas/xsd/Modules/SecondaryDamageTracker.xsd"
+    },
+    {
+      "sha256": "176264a4c5f3ccacb2510015aa049cd38cd9d06ab70d55a38c990bbb3d0f74fc",
+      "path": "Schemas/xsd/Modules/SecondaryObjectListenerModule.xsd"
+    },
+    {
+      "sha256": "ee494ad271a11ebca292dba0c2912d03d011051952691b8bbe1f72f484ecfaee",
+      "path": "Schemas/xsd/Modules/SelectiveVisibilityBehavior.xsd"
+    },
+    {
+      "sha256": "e93d7451c8399b7f09b86d5047201eec64f3134443b70e41f94d1d4ef3c9ecf0",
+      "path": "Schemas/xsd/Modules/Sell.xsd"
+    },
+    {
+      "sha256": "9dc1a1b188223c376c1de0c2d8c7867e77e30d4553d51fd065defc19d0fd1f85",
+      "path": "Schemas/xsd/Modules/SetLocomotorSpeedUpdate.xsd"
+    },
+    {
+      "sha256": "6cfed3d9a36a073b3df2e4ec7420d345cad49cfdda2a5e7e2f863f5bf65b937f",
+      "path": "Schemas/xsd/Modules/ShareExperienceBehavior.xsd"
+    },
+    {
+      "sha256": "d37a12846972105df6009eb691f3ea29c04f6f5ef904717eb8b0db8ce58d6cba",
+      "path": "Schemas/xsd/Modules/ShieldBody.xsd"
+    },
+    {
+      "sha256": "7e1526e078914912e6be8867748774922c22a206e2c6f4e758785e5cc4b6b71f",
+      "path": "Schemas/xsd/Modules/ShieldBodyUpdate.xsd"
+    },
+    {
+      "sha256": "051df4a0953288c01ce45040968499e21db30ba847d3617fed0311b112f59965",
+      "path": "Schemas/xsd/Modules/ShieldSphereUpdate.xsd"
+    },
+    {
+      "sha256": "efcddd2df9eac69e5486234bed71ec34d7c066b7e5a4444fb44e7cc678757ade",
+      "path": "Schemas/xsd/Modules/ShipSlowDeathBehavior.xsd"
+    },
+    {
+      "sha256": "f524ed38c7996cf9488ad0781263b45aa70c5a1c2b994090562c52095daf4dd5",
+      "path": "Schemas/xsd/Modules/SlaughterHordeContain.xsd"
+    },
+    {
+      "sha256": "a76ca2f86f6fd0a846d68cc35cc6eec8dfa8d03814705746490ed56f2fb66c3e",
+      "path": "Schemas/xsd/Modules/SlavedUpdate.xsd"
+    },
+    {
+      "sha256": "0e05bc010b200c96e8816ee51ec90c08ffd29ecc9f8549776861d411e8b27777",
+      "path": "Schemas/xsd/Modules/SlaveWatcherBehavior.xsd"
+    },
+    {
+      "sha256": "e5e531c3aa0871d8dfcbde13705e00094a4b49efae73ac04be8429d0c3b4b644",
+      "path": "Schemas/xsd/Modules/SlowDeath.xsd"
+    },
+    {
+      "sha256": "b1c242fed8ea11fb57d413f40cc48efcc306f89994708d36d02679094ad8f624",
+      "path": "Schemas/xsd/Modules/SpawnBehavior.xsd"
+    },
+    {
+      "sha256": "2562983384ea60d600c89849e3ccd825a19f45014e5b27c4ffed0ad433f355ba",
+      "path": "Schemas/xsd/Modules/SpawnCrateUpdate.xsd"
+    },
+    {
+      "sha256": "9892266d04203129dfe44cc57995e8776bfd44431ba867fa2a9e4bd00af77178",
+      "path": "Schemas/xsd/Modules/SpawnedModelConditionCreate.xsd"
+    },
+    {
+      "sha256": "003a7f82e0a25aada626666db0f0178c9b4c4cb531a7f2be521c4771fee3db0c",
+      "path": "Schemas/xsd/Modules/SpawnPointProductionExitUpdate.xsd"
+    },
+    {
+      "sha256": "c7109b780fdf4a3a137cad2cd25aad27089eda45843fbd48729bb94fc7092a2c",
+      "path": "Schemas/xsd/Modules/SpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "52ee939ed3577736816736595af9fe37e9b6d0cdb5225d529b3cf9e9fc17a11c",
+      "path": "Schemas/xsd/Modules/SpecialDisguiseUpdate.xsd"
+    },
+    {
+      "sha256": "081f2a9e2923ba268865b71a7dbdb4139a4f036fa396b8e583de6b33cb941252",
+      "path": "Schemas/xsd/Modules/SpecialEnemySenseUpdate.xsd"
+    },
+    {
+      "sha256": "4b7f0b7ea666a61879545b80ad8fda5ce0dad218fb0b149366410482721d12e3",
+      "path": "Schemas/xsd/Modules/SpecialPower.xsd"
+    },
+    {
+      "sha256": "707852a5b27071b91f94651e62405d1bc05e8e605997a742d255e981afb80637",
+      "path": "Schemas/xsd/Modules/SpecialPowerCompletionDie.xsd"
+    },
+    {
+      "sha256": "16cfcab91f8b6de3cae2dd1aed17a16cb3e3b43e81b6525facd1c91ee8379564",
+      "path": "Schemas/xsd/Modules/SpecialPowerCreate.xsd"
+    },
+    {
+      "sha256": "06242a0544490177205b8c76e5decd775fda74b31f61a9ceef7068186fe0dfb0",
+      "path": "Schemas/xsd/Modules/SpecialPowerDispatchSpecialPower.xsd"
+    },
+    {
+      "sha256": "698e721fd9a9b1da33a25fde6e0d7c06fd867aa9258a8ba45581b8129900ca89",
+      "path": "Schemas/xsd/Modules/SpecialPowerTimerRefreshSpecialPower.xsd"
+    },
+    {
+      "sha256": "f9ddcb7eef6fd18b6d070e75f918b236f8b71d2079b5ed8a91b5178448fa070c",
+      "path": "Schemas/xsd/Modules/SpecialPowerUpdate.xsd"
+    },
+    {
+      "sha256": "b3e61a532d67fff9fe9d9106ab19763c4f4d1239d90a02418226c5966c037108",
+      "path": "Schemas/xsd/Modules/SpiderHoleUpdate.xsd"
+    },
+    {
+      "sha256": "75741a5a147e7b4374a6b765a525343b217b48690a93488017aeda9784f016ad",
+      "path": "Schemas/xsd/Modules/SpotlightDraw.xsd"
+    },
+    {
+      "sha256": "54b8fe5bf06804c903193f0553412b965d4bb0f77f4a619e124a18590f9a933d",
+      "path": "Schemas/xsd/Modules/SqueezeFlingUpdate.xsd"
+    },
+    {
+      "sha256": "e1bf633a5f49fe0d5fe6f20c3dcf6f84202a3233ee627468cb8243ff6aed7b38",
+      "path": "Schemas/xsd/Modules/SquishCollide.xsd"
+    },
+    {
+      "sha256": "758e10f5fef3f759390cadee78f93f12ece5ce2097b971ff89d0c51567db85d1",
+      "path": "Schemas/xsd/Modules/StancesBehavior.xsd"
+    },
+    {
+      "sha256": "3f1d1bc665a4408bdfb5883a482520a878f0e438d6b5b8e95c67887a9797a85a",
+      "path": "Schemas/xsd/Modules/StatusBitsUpgrade.xsd"
+    },
+    {
+      "sha256": "96548d08aee27d403806adc426148fcd78d15262c8a406f6254044c0bcdb16dd",
+      "path": "Schemas/xsd/Modules/StealthDetectorUpdate.xsd"
+    },
+    {
+      "sha256": "31e57ea5bf2dad420829b113e51a1dbf0b0690f117804947afe65393540647a7",
+      "path": "Schemas/xsd/Modules/StealUnitUpdate.xsd"
+    },
+    {
+      "sha256": "27ecf8bcb96f73038b78edcc33d87e4954a02f8e159d1d42d291eff45bcb24c7",
+      "path": "Schemas/xsd/Modules/StopSpecialPower.xsd"
+    },
+    {
+      "sha256": "296cd8fef99d63fb35dcf81da973f1bd1d4f93282dc955fbcd0d20abefdc4f8f",
+      "path": "Schemas/xsd/Modules/StoreCurrentStateUpdate.xsd"
+    },
+    {
+      "sha256": "13f3ff42ce8db04e090cc7eda9eb271c441f6bf518d0fb3186771623bb8353b4",
+      "path": "Schemas/xsd/Modules/StoreObjectsSpecialPower.xsd"
+    },
+    {
+      "sha256": "60be027da9ccb2b1d91cfe7c8c0e2eae5c0909d9f999ac581a9f3a1d3bc76d70",
+      "path": "Schemas/xsd/Modules/StorePurchasedUpgradeBehavior.xsd"
+    },
+    {
+      "sha256": "8a4862be39e352fd153e4c897aa323d599f3bb99816d715568418bf070e2068e",
+      "path": "Schemas/xsd/Modules/StoreTemplateIDBehavior.xsd"
+    },
+    {
+      "sha256": "4da8b2cf495efd55b82c3d4f04e5c1340054d3838b2858276bb9628dfb2c4037",
+      "path": "Schemas/xsd/Modules/StrafeAreaTargetChooser.xsd"
+    },
+    {
+      "sha256": "cc0725626828b56616ba32d7d01bcd731f1e3bfd52d181b4f9f1d439f443da60",
+      "path": "Schemas/xsd/Modules/StrafeAreaUpdate.xsd"
+    },
+    {
+      "sha256": "56d440d511f069ffe41a7bdc94a2211f63e6d6ebc580f8b3a68bebd45e07939e",
+      "path": "Schemas/xsd/Modules/StreamDraw.xsd"
+    },
+    {
+      "sha256": "039f9db685de5b79a1cc38b5b64526e954f13e7eb0d93c186b031189465852af",
+      "path": "Schemas/xsd/Modules/StreamStateModule.xsd"
+    },
+    {
+      "sha256": "483beabfadd5d8530eb180938484f3996a49fcbc5da13387f8d94b48ce913f93",
+      "path": "Schemas/xsd/Modules/StructurePlacementBehavior.xsd"
+    },
+    {
+      "sha256": "88ea7238a814fcba6adfd06bc82f2b66879ecd081f30e5aa2dd619d4640a64ef",
+      "path": "Schemas/xsd/Modules/StructureSellUpdate.xsd"
+    },
+    {
+      "sha256": "a93d13a9cddc03ada7e3b0f741fb642fda3404614dbbed8dfa51db150702ab8a",
+      "path": "Schemas/xsd/Modules/StructureUnpackUpdate.xsd"
+    },
+    {
+      "sha256": "ad89189196ec98f5b20bcadf7dacbceefb9224485ca1ad00c12858488239585f",
+      "path": "Schemas/xsd/Modules/SubObjectsUpgrade.xsd"
+    },
+    {
+      "sha256": "9dfed151b8146bfbf2cd7fff7e980001600f3b074e3adfe47c915677cd0afb13",
+      "path": "Schemas/xsd/Modules/SubStructureBehavior.xsd"
+    },
+    {
+      "sha256": "9a25a84c04f935f39401a719621ed9e31058873069fe2e99409cdf8cc123eea7",
+      "path": "Schemas/xsd/Modules/SubStructureBuildUpgrade.xsd"
+    },
+    {
+      "sha256": "dd8d5555860b7c346aae118cc12f4f30a3169c52289bb9c620ae4a3a84cef0f6",
+      "path": "Schemas/xsd/Modules/SubStructureStorageBehavior.xsd"
+    },
+    {
+      "sha256": "d850dd09bf1017c5a925fdd954a7f40453b7d71a8d835476f008ba22eee25881",
+      "path": "Schemas/xsd/Modules/SuckUpObjectsUpdate.xsd"
+    },
+    {
+      "sha256": "e0f70e6f39c04dd58919ccc0cf163467cc7399543b33a66da01823567347515d",
+      "path": "Schemas/xsd/Modules/SupplyCenterCreate.xsd"
+    },
+    {
+      "sha256": "dabab0db264a738fed3b75ae947f7d2342286489049c87cb0055ad7c79ccf8fa",
+      "path": "Schemas/xsd/Modules/SupplyCenterDockUpdate.xsd"
+    },
+    {
+      "sha256": "4e5a88415247027b1698e1789ab30e0a226cdeeb89e3de7b7eba774caee7c31a",
+      "path": "Schemas/xsd/Modules/SupplyCenterProductionExitUpdate.xsd"
+    },
+    {
+      "sha256": "02fb3062cea3648b69bb7f7b187000e00e8c5b37f26976788cc6fe39e6c9cf44",
+      "path": "Schemas/xsd/Modules/SupplyTruckAIUpdate.xsd"
+    },
+    {
+      "sha256": "2812922077e332c070691400d505211b87422a6dcb8ae2e125d006c8ee0f9192",
+      "path": "Schemas/xsd/Modules/SupplyWarehouseCripplingBehavior.xsd"
+    },
+    {
+      "sha256": "f5db52b0cce04adb1a5023e37e9ebbd52fe09e6f41b00b5673fe388dd5ab8405",
+      "path": "Schemas/xsd/Modules/SupplyWarehouseDockUpdate.xsd"
+    },
+    {
+      "sha256": "db869a17cd23a04068287f7b656d7785d6117302f4bfb6ab40f2e905165b5a34",
+      "path": "Schemas/xsd/Modules/SuppressionUpdate.xsd"
+    },
+    {
+      "sha256": "b1e5e588c3529b2a239805f8a1b2862bb542ddc8c0089a2f9c148e84cdb9490f",
+      "path": "Schemas/xsd/Modules/SweepingLaserStateModule.xsd"
+    },
+    {
+      "sha256": "2c4469318245b5c801e334dee6800749b8d58a4d8d38374522d83eb6f754a888",
+      "path": "Schemas/xsd/Modules/SwitchLocomotorsSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "2d973d79c056aec7d31d52efb521ff6ba26e92153af293c693c9d6ca8e61d087",
+      "path": "Schemas/xsd/Modules/SwitchLocomotorUpdate.xsd"
+    },
+    {
+      "sha256": "8a26445ceab699b620c9ff7bd3cb2e390d2ce76ed14be30cc1933557608dc458",
+      "path": "Schemas/xsd/Modules/TankDraw.xsd"
+    },
+    {
+      "sha256": "637ed2084a6fe7fd9846dd116ce9e7811aed7e42678c725037cd097d1ef27e56",
+      "path": "Schemas/xsd/Modules/TechUpgrade.xsd"
+    },
+    {
+      "sha256": "12a3677aa2ad01a651ba61fd26aa0901aa3b805396e8fdbc1eacb0068a4e53e5",
+      "path": "Schemas/xsd/Modules/TechUpgradeReceiver.xsd"
+    },
+    {
+      "sha256": "9ef489f047db3dfc49f72b721281a5312140a0c501cd7c995af7f05fd72dcfd6",
+      "path": "Schemas/xsd/Modules/TeleportSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "eeb57cce5bd9917c19cf626b04a9d04d8a912332a3f7b81cec1a87a934fcee50",
+      "path": "Schemas/xsd/Modules/TeleportStoredObjectsSpecialPower.xsd"
+    },
+    {
+      "sha256": "48dbb78f87fa6d1923b744532bd0e15ca5fee785dddb0741b1f91a69d0bd74b2",
+      "path": "Schemas/xsd/Modules/TeleportStoredObjectsUpdate.xsd"
+    },
+    {
+      "sha256": "c3a1f5595b3c1476ac82be475e13897cd216feeb839990a036a96199a6e2392f",
+      "path": "Schemas/xsd/Modules/TeleportToCasterSpecialPower.xsd"
+    },
+    {
+      "sha256": "a470a8f84b5f45d6d91508a28e851c472775f10e288816a37368ec5c7e575f23",
+      "path": "Schemas/xsd/Modules/TemporarilyDefectUpdate.xsd"
+    },
+    {
+      "sha256": "bf9395e517650e31dcd109785eeaf82e7a556830b63f826c3ab23859c6d1da2b",
+      "path": "Schemas/xsd/Modules/TemporaryOwnerSpecialPower.xsd"
+    },
+    {
+      "sha256": "be885bdf08a72e940b9a85f27c229735dcdf72f8e1ae11f93542244c4cde7eb0",
+      "path": "Schemas/xsd/Modules/TerrainResource.xsd"
+    },
+    {
+      "sha256": "d5ec98599a3e323832fb618c7c7f4d9afb48c934f0a5d41b8adf6fe74551ebd0",
+      "path": "Schemas/xsd/Modules/ThreatFinderUpdate.xsd"
+    },
+    {
+      "sha256": "d9ba529655712071288fdc307a67571845c27223ad0b4dcf3ca0e2d06009666b",
+      "path": "Schemas/xsd/Modules/TiberiumCrystal.xsd"
+    },
+    {
+      "sha256": "b8af631a364e187145f84dbe4ca52330c3f76b2ac72bc8c3ad3e250c15b95534",
+      "path": "Schemas/xsd/Modules/TiberiumField.xsd"
+    },
+    {
+      "sha256": "9ddaa4fac987cef551b992f36e95f3a7b1d4dee4e701ba42d91950e976376e26",
+      "path": "Schemas/xsd/Modules/TiberiumGrowthModBehavior.xsd"
+    },
+    {
+      "sha256": "d3e3c4ed290422912e0b7327ac6956c91a36da560e44b9fce363e589949dac00",
+      "path": "Schemas/xsd/Modules/TiberiumThiefSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "435126bbfea096eaac12ffd561e9bd0b87fdbdc114bd68788c55a98a043a4778",
+      "path": "Schemas/xsd/Modules/TimedOpacityUpdate.xsd"
+    },
+    {
+      "sha256": "67bcbf465255df4c15c72d676b1fa0907d837fbdfec0892bd6c0a077c4c42d9e",
+      "path": "Schemas/xsd/Modules/ToggleDeploySpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "07ccb127ecdad63b943d52f2e4b90d035a770671d33d68d9bcfcaa96cb2ab234",
+      "path": "Schemas/xsd/Modules/ToggleHiddenSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "619c975956a6daf3cbc01be86d6a7ccff0b8432e45d15652985540ab218c18f0",
+      "path": "Schemas/xsd/Modules/ToggleMountedSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "b0092a3348529e2b9a76c794dfba8b2a763493fd915a9c226b6091889eb837d8",
+      "path": "Schemas/xsd/Modules/ToggleStatusSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "6848d6a5e91b4f8b98f7490a9733b728278083a5b8cc6128073b84d820235f7a",
+      "path": "Schemas/xsd/Modules/TooltipUpgrade.xsd"
+    },
+    {
+      "sha256": "21d2a8804986b46772188dfe98759a09509836fb2e6e2f81e179a203a6412f16",
+      "path": "Schemas/xsd/Modules/ToppleUpdate.xsd"
+    },
+    {
+      "sha256": "4556f113b5ccd79acd166ce3e210386d86a94934546f2b696261ce015676ec97",
+      "path": "Schemas/xsd/Modules/TracerDraw.xsd"
+    },
+    {
+      "sha256": "a6b0e50655724ac3b2e14444932fcc1276c2fcdadd7b83f80b77000004bd4385",
+      "path": "Schemas/xsd/Modules/TrackDamage.xsd"
+    },
+    {
+      "sha256": "f603280bf657f336ada7445d1910301b5d668e395af7931fb33f32bba03faaa9",
+      "path": "Schemas/xsd/Modules/TrackIncomingWeaponFireBehavior.xsd"
+    },
+    {
+      "sha256": "26e3b1cd6dc1042b20f6a19ec509ce30ff63f22fa18b77c1da36fd7fc615ab8a",
+      "path": "Schemas/xsd/Modules/TransportAIUpdate.xsd"
+    },
+    {
+      "sha256": "d610505a2d1f4b67e4cc75b59630b760cb87651e3d8e4a4d4cfd0ab0ee9fa3f7",
+      "path": "Schemas/xsd/Modules/TransportContain.xsd"
+    },
+    {
+      "sha256": "3d505f361fbae485aa9f939782951b7a394fdaa2ef775fde55df3a57eff071d9",
+      "path": "Schemas/xsd/Modules/TruckDraw.xsd"
+    },
+    {
+      "sha256": "1f68f31fdd0e505d1c520998d76b2d987c1ff45af7f3754f777c371271cb2e93",
+      "path": "Schemas/xsd/Modules/TunnelContain.xsd"
+    },
+    {
+      "sha256": "ace9823d6db87657f02d091c331039a71913f0c0fe7f33c7c5f5497ead535700",
+      "path": "Schemas/xsd/Modules/TunnelTeleportContain.xsd"
+    },
+    {
+      "sha256": "eabd6a654be9906fa064abb49d02563141ac8ab0260c5f1db9d7f00a33e3bd25",
+      "path": "Schemas/xsd/Modules/TurretAI.xsd"
+    },
+    {
+      "sha256": "230c9e235ef688cafd3e6fba0ed106746b76e3805d8c9ccbc3cb2b9800276ef6",
+      "path": "Schemas/xsd/Modules/UncombineSpecialPower.xsd"
+    },
+    {
+      "sha256": "7d934604fdbfa0ea8a0e7b38577afd5c05d34a8de5498bb3227adbcc5fbb744a",
+      "path": "Schemas/xsd/Modules/UnifiedControlBehavior.xsd"
+    },
+    {
+      "sha256": "5d423f527a3241874346810684c4452c230c6a634fbadce4c7437fb2fe98e164",
+      "path": "Schemas/xsd/Modules/UnifiedShroudRevealBehavior.xsd"
+    },
+    {
+      "sha256": "d6798b6c53b3dfee42233b2521957c5a4607aad9e30d9f8877a92c6d4100c8de",
+      "path": "Schemas/xsd/Modules/UnitAITargetChooser.xsd"
+    },
+    {
+      "sha256": "44a78783be418350f43d8cb58c31417b7bbba5f399d35e2746ca5641e7e430e9",
+      "path": "Schemas/xsd/Modules/UnitCrateCollide.xsd"
+    },
+    {
+      "sha256": "8d8edd8c25ee3657c776aecc0c7383c1adb85dd2ca0f2e87252f9e2dd67b4a11",
+      "path": "Schemas/xsd/Modules/UnitVisionBehavior.xsd"
+    },
+    {
+      "sha256": "5b158f3f2a377d7673ea10c527084b2919d0384a8698167d1d8abd4c435a0ba1",
+      "path": "Schemas/xsd/Modules/UnpauseSpecialPowerUpgrade.xsd"
+    },
+    {
+      "sha256": "cf8e369a76c1a69089db43a69f91c26270a9da7f47c34c911fad989c811a724c",
+      "path": "Schemas/xsd/Modules/UpdateModule.xsd"
+    },
+    {
+      "sha256": "5c149ac76d5231a1bcb7c6e6809a059f85d029f935c5df9bdd1cfe4372df3926",
+      "path": "Schemas/xsd/Modules/Upgrade.xsd"
+    },
+    {
+      "sha256": "2e42f1a680f5fa3a220a4079d3a6420797cefca2dec3b0ab06bf1d3e60bcdb2b",
+      "path": "Schemas/xsd/Modules/UpgradeDie.xsd"
+    },
+    {
+      "sha256": "803ee7f80e44f709c540a020b5a2d7c86549dbfdffa17200249308e7e68b6821",
+      "path": "Schemas/xsd/Modules/UpgradeSoundSelectorClientBehavior.xsd"
+    },
+    {
+      "sha256": "08d87a8f4256f1bb1b7948deb13fe77fcab024e78c30d090c808daad3b6fec90",
+      "path": "Schemas/xsd/Modules/VeterancyCrateCollide.xsd"
+    },
+    {
+      "sha256": "2f551ad18a0522c2bfb539cd8009e62dda5ea6d68c0e41f221df55f15d6667ae",
+      "path": "Schemas/xsd/Modules/WallBuilderBehavior.xsd"
+    },
+    {
+      "sha256": "fe99fb4942cce293bbdd9d9feb8aed972939be5cb24312ea321362eaa33a2198",
+      "path": "Schemas/xsd/Modules/WallHubBehavior.xsd"
+    },
+    {
+      "sha256": "18cbcf5748cd3759534205d3b132711a78b2b6dae5002b692615710c154b08d2",
+      "path": "Schemas/xsd/Modules/WanderAIUpdate.xsd"
+    },
+    {
+      "sha256": "b37ffb7a96ddfa95f26a5f272dc1d460f03c921f1a5d39e129b93e26a6de0691",
+      "path": "Schemas/xsd/Modules/WeaponFireSpecialAbilityUpdate.xsd"
+    },
+    {
+      "sha256": "b75852c8270ff7e0d64f4385781e4698f1a0f1e64daa307ffe8c83298f54c34a",
+      "path": "Schemas/xsd/Modules/WeaponModeSpecialPowerUpdate.xsd"
+    },
+    {
+      "sha256": "5768fd0f648566ad370fb48ee1ca5f9f804002bfc2c594b63fe692601ecbe414",
+      "path": "Schemas/xsd/Modules/WeaponScatterEffectUpdate.xsd"
+    },
+    {
+      "sha256": "79d4f5d3229446e7a1966a1a337f3e5ccf59af023ddd7ef45b9558aaa5475270",
+      "path": "Schemas/xsd/Modules/WeaponSetUpdate.xsd"
+    },
+    {
+      "sha256": "8461c870c85ec1aee2b324ea73cbda90089ebc2ca5c17892039968fe7e86b915",
+      "path": "Schemas/xsd/Multiplayer/ConquerMode.xsd"
+    },
+    {
+      "sha256": "8b3d549c3840a46a5d873f6d5e722852ad3ca587fe25198653d412bc212ac68e",
+      "path": "Schemas/xsd/Multiplayer/NetworkSettings.xsd"
+    },
+    {
+      "sha256": "b949507591abb7da4d491762b5503d27247fc34867d5927303a912bc02345a78",
+      "path": "Schemas/xsd/Multiplayer/SiegeEvaEvents.xsd"
+    },
+    {
+      "sha256": "5ee58dd9c360a55e5b612df2096b01cf54d3e2f7b6ce78ea68d110a7b89ab094",
+      "path": "Schemas/xsd/PlayerPowerButtons/MultiplePowersTargetedPlayerPowerButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "9a7c2a6aa72659e3e61471acc0dbcd13bedf69fb108556df435e64a85c66b0ce",
+      "path": "Schemas/xsd/PlayerPowerButtons/MultipleTargetsTargetedPlayerPowerButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "5c0fe7c1562717ff57f9465a260ebe757464166f0bd7cf901b675512d2589ebf",
+      "path": "Schemas/xsd/PlayerPowerButtons/PlayerPowerButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "ae0884d4327644138b5c6bf53459b3b1cd9413158f6f4f411ac7f600b1f0abab",
+      "path": "Schemas/xsd/PlayerPowerButtons/TargetedPlayerPowerButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "9fe0323ebd7374e88ba02cee0cc173a71e9956370b56bd762235cffd353fb7e2",
+      "path": "Schemas/xsd/Shell/MpGameRules.xsd"
+    },
+    {
+      "sha256": "2acb5738ed4ef8c7f460ed9a04141f54b4cd120029c5aab5e416686baa5817a4",
+      "path": "Schemas/xsd/Shell/MultiplayerCommonUIData.xsd"
+    },
+    {
+      "sha256": "b5529936d606259c5d7668ba3ca6193a7e965c1b8431da59a09227b1307c1213",
+      "path": "Schemas/xsd/Shell/UIComponentBootup.xsd"
+    },
+    {
+      "sha256": "d5597624d311082b3f3079b8a13430fe8ada42812599ea5891ae3050c82cd3cf",
+      "path": "Schemas/xsd/Shell/UIComponentGameInfo.xsd"
+    },
+    {
+      "sha256": "dcb69da6c9bacaae83e5918e47728c1e095bee832d067c97ae51d2b8de3e7e28",
+      "path": "Schemas/xsd/Shell/UIComponentLobby.xsd"
+    },
+    {
+      "sha256": "0b13c102db11d2538d7e82b6cfc0d20c89f08898c31075be64ee3822c64a3695",
+      "path": "Schemas/xsd/Shell/UIComponentMovie.xsd"
+    },
+    {
+      "sha256": "275ea678e740dcfccf8aed5f3d997b39ef0f872f3c28dc6683237961aab41118",
+      "path": "Schemas/xsd/Shell/UIComponentMultiplayerMatchLobby.xsd"
+    },
+    {
+      "sha256": "357f46f0c1a1362a835d8da4dd3bfe9685b1708f4329ec3932f923a32fe324ac",
+      "path": "Schemas/xsd/Shell/UIComponentOptions.xsd"
+    },
+    {
+      "sha256": "4b3ffe457cb3415e02d77e718ab74bd4dde583455d4c072bffedd10083f9db53",
+      "path": "Schemas/xsd/Shell/UIComponentPlasmaInterface.xsd"
+    },
+    {
+      "sha256": "785dd713586e7faf8b9a83c276d1935d57f71b015c9c325147904edcafba56f0",
+      "path": "Schemas/xsd/Shell/UIComponentSaveLoad.xsd"
+    },
+    {
+      "sha256": "40e31a0dea338d8e72ae63953a5c57ec82c70f12031700f68dea08d98b375546",
+      "path": "Schemas/xsd/Shell/UIComponentShell.xsd"
+    },
+    {
+      "sha256": "1677b4d2f4e455c611b873ae5ee61d914e6375cd19764afa7159a3bd7290dfbc",
+      "path": "Schemas/xsd/Shell/UIComponentShellMultiplayer.xsd"
+    },
+    {
+      "sha256": "853f6dcffba9f1ef1d9ba57fdffce2d11c84ccc0e88b72c3cd2fe8846ee9240c",
+      "path": "Schemas/xsd/Shell/UIComponentStats.xsd"
+    },
+    {
+      "sha256": "7d87590a76e94abac79e3de620e55523c702f6829e0c338532d021ae941f4a02",
+      "path": "Schemas/xsd/Shell/UIComponentTicker.xsd"
+    },
+    {
+      "sha256": "f32e7b4335e4ed00dd732aef8a13a357325ca3a1964e39db472a6f26fe045f03",
+      "path": "Schemas/xsd/SkirmishAI/AIBank.xsd"
+    },
+    {
+      "sha256": "6931cfb38afb6cab24b7ec6623b726145837e504a056c858e8adeb050022afb2",
+      "path": "Schemas/xsd/SkirmishAI/AIBaseSelectionCriteria.xsd"
+    },
+    {
+      "sha256": "fca0f257d032de56e5cdc898886fcee1bded324906b4b687234e7ac1390d9b05",
+      "path": "Schemas/xsd/SkirmishAI/AIDifficulties.xsd"
+    },
+    {
+      "sha256": "eeef54b26ec7a8b63bdbb090e8e70c78cf9d3ed861d5f0d1917a100f459787ea",
+      "path": "Schemas/xsd/SkirmishAI/AIFeedbackWorthySkirmishGameEvent.xsd"
+    },
+    {
+      "sha256": "587662b10a04d5805bd631dcae7ae69ddcfcde81ad75f4a5740f613397fb170e",
+      "path": "Schemas/xsd/SkirmishAI/AIStrategicDirective.xsd"
+    },
+    {
+      "sha256": "09e991f7900d2ade155e9409e436141e16bb10f3143502882f74fef673f66774",
+      "path": "Schemas/xsd/SkirmishAI/AITargetDisposition.xsd"
+    },
+    {
+      "sha256": "320e8db5f31b3794576628f39b99d44115b08a451d0b5e2f00cf4ceaadbdb137",
+      "path": "Schemas/xsd/SkirmishAI/AssetTyeSkirmishOpeningMove.xsd"
+    },
+    {
+      "sha256": "87ec5e0e6fc446e80e2ea853c0718f4a28bc512b21f6a1e5d5aec2ddd7909b5e",
+      "path": "Schemas/xsd/SkirmishAI/AssetTypeAIBuilderDefinition.xsd"
+    },
+    {
+      "sha256": "f5f929254ce46a2677380bfe72efc579a55697f439d389af9ef7596e9562737e",
+      "path": "Schemas/xsd/SkirmishAI/AssetTypeAIMicroManager.xsd"
+    },
+    {
+      "sha256": "8927bd18e71b34fe0592246ff850cf1f7317a4b3b49dbf4727eb826a56548809",
+      "path": "Schemas/xsd/SkirmishAI/AssetTypeAIMicroManagerStates.xsd"
+    },
+    {
+      "sha256": "4b7b1830af8861225a7e8b10c2595228404efae3d690c0033e9d18ca75eed1f1",
+      "path": "Schemas/xsd/SkirmishAI/AssetTypeAIPersonalityDefinition.xsd"
+    },
+    {
+      "sha256": "a86506f5a3390cb83c8f97730abc56b078f645e2e8c2043a376260e039b01b4c",
+      "path": "Schemas/xsd/SkirmishAI/AssetTypeAISpecialPower.xsd"
+    },
+    {
+      "sha256": "7374defabaef7fd61e9fc48e5aed5ee589c46509d566ef4378f25741a1f5a5df",
+      "path": "Schemas/xsd/SkirmishAI/AssetTypeAIStateDefinition.xsd"
+    },
+    {
+      "sha256": "753f0e79252e29b54b0abc2d26f089546d0f0f4b8d3c1c9545ac99749dfc5cc4",
+      "path": "Schemas/xsd/SkirmishAI/AssetTypeAITeamTemplate.xsd"
+    },
+    {
+      "sha256": "65429e497953d8408bb69a4a388df1875fdf42b5a4e431e11dadc33bddd65b66",
+      "path": "Schemas/xsd/SkirmishAI/AssetTypeArmyDefinition.xsd"
+    },
+    {
+      "sha256": "cfccb8b13d0020dc7165a5a6213b9dbdbe1239ea6d900a80f1c80490db37e3f8",
+      "path": "Schemas/xsd/SkirmishAI/AssetTypeTargetHeuristics.xsd"
+    },
+    {
+      "sha256": "64079236cb92c6208c23adce2378ef1b0e0f5dfe0b86f11bf0c43ba3a265aa5d",
+      "path": "Schemas/xsd/System/AutoParticleSettings.xsd"
+    },
+    {
+      "sha256": "8d3b7f0bc1e6dff39d03bff8bce2c2864f5d4b63ca7849f357c34d0c4060e7fa",
+      "path": "Schemas/xsd/System/BaseSingletonSettings.xsd"
+    },
+    {
+      "sha256": "0577d47a4ee105fea1a3a36da5d0723ade6db3d65b1a80255be8e1df1b7ff084",
+      "path": "Schemas/xsd/System/BaseSubsystemSettings.xsd"
+    },
+    {
+      "sha256": "3e70f3dee3e5fcf46f5b0f00435690c067256d48722eadcb56f44ef670998cb7",
+      "path": "Schemas/xsd/System/BreezeInfo.xsd"
+    },
+    {
+      "sha256": "e00f7fd83071e275146ee54848e7f69fcb57cd875068237f8d456ac2c585b8e3",
+      "path": "Schemas/xsd/System/BuildSystemSettings.xsd"
+    },
+    {
+      "sha256": "71e4fe4896bcda8b4de806288f7f2e442c7bcc993cfc8fa56b3b9033c684b36c",
+      "path": "Schemas/xsd/System/CameraSettings.xsd"
+    },
+    {
+      "sha256": "4c0936e16d2673106d3ffee6eb154d48b0fdcdf1bc8c26f8da72b9bcc555935a",
+      "path": "Schemas/xsd/System/DamageFXSettings.xsd"
+    },
+    {
+      "sha256": "f05ec299c7abe34112de7e0769c9782948fc96c17f39b2ba82dc0fbf69a2444d",
+      "path": "Schemas/xsd/System/DynamicsContactTagMapping.xsd"
+    },
+    {
+      "sha256": "0592859d194e543a502b99e1cab8f00489667d38ff0cb281f954249b3e46ec93",
+      "path": "Schemas/xsd/System/GameLOD.xsd"
+    },
+    {
+      "sha256": "6b393c7edf4a90f7be68e89b28c7e7df8470fec3c2e310fa4516397f69d0452e",
+      "path": "Schemas/xsd/System/GiftManagerSettings.xsd"
+    },
+    {
+      "sha256": "6967b2a717284b3037fbcfe4513c068d58c5029464cf7a22a28c1019446f7981",
+      "path": "Schemas/xsd/System/InvisibilityManagerSettings.xsd"
+    },
+    {
+      "sha256": "b63b7b8d303842a0857ed7345c8562088ba6df87472e98e7bfd59402c4e12ae6",
+      "path": "Schemas/xsd/System/LightingSettings.xsd"
+    },
+    {
+      "sha256": "5ecc0faaf81ec7b290fad186a67740cb2adce4c90baf671c068fc59e6756c044",
+      "path": "Schemas/xsd/System/MissionHotSpotSettings.xsd"
+    },
+    {
+      "sha256": "e59e450c6e5efffd97c1c97e3d398c4830e6b41fb90b93d763c1569cb4dbd1e0",
+      "path": "Schemas/xsd/System/ModelSettings.xsd"
+    },
+    {
+      "sha256": "3587fe319a4c16c9dc2dc7123bc617b6e00cbf3e70fe2dcc0094a007cc458bbb",
+      "path": "Schemas/xsd/System/OrdersManagerSettings.xsd"
+    },
+    {
+      "sha256": "36fe148bc74c7c907fa293373de1e48b40843b71cb6d2a0e9b49c7b72168b586",
+      "path": "Schemas/xsd/System/PathfindSettings.xsd"
+    },
+    {
+      "sha256": "0f8b4839c3929f38fe6a4e466b1084c691fc492ee9eedfcfcb306c8aec91372a",
+      "path": "Schemas/xsd/System/ResourceSettings.xsd"
+    },
+    {
+      "sha256": "a30d9e98cfbe159787d1780b8da23e366795fb00b29488a83b23e8bd27bf79cd",
+      "path": "Schemas/xsd/System/ScorchMarkSettings.xsd"
+    },
+    {
+      "sha256": "f9739317b4aa28521b210c713e9b1d967aa9e3ff574176c6889404a25157d0fc",
+      "path": "Schemas/xsd/System/SkirmishSettings.xsd"
+    },
+    {
+      "sha256": "b4914f31c1410394b736b515963c1cb94d2de24cc518a3acb482181875588c9c",
+      "path": "Schemas/xsd/System/TerrainParticleMapping.xsd"
+    },
+    {
+      "sha256": "6d0eb6c2f716abf6d28a3ced43adfee4c5916aeffc27620fc634ebd9c3e5b2a8",
+      "path": "Schemas/xsd/System/TerrainVisualSettings.xsd"
+    },
+    {
+      "sha256": "a9ff9085390ac989008d3d2acdfaf627b177eda8bb8d6431632f3dd487417a0d",
+      "path": "Schemas/xsd/System/TreadScrollingMapping.xsd"
+    },
+    {
+      "sha256": "02446969527f92b035ad9226a4bdf9ad0c396d90f9c089ae738e75003c16b6e1",
+      "path": "Schemas/xsd/System/UnitAISettings.xsd"
+    },
+    {
+      "sha256": "8afe8a619b89f95efd95e0a0568c0db2ae8e145622c0bd5dcdaf23e132795e09",
+      "path": "Schemas/xsd/System/W3DDeviceSettings.xsd"
+    },
+    {
+      "sha256": "cddb5babd7e19f1912b5b289c98eb8778684878b028f743e5bd65b30a7acc8d0",
+      "path": "Schemas/xsd/UI/CommandButton.xsd"
+    },
+    {
+      "sha256": "8381379f2cc768713f3b79a192abfcc35f4045bce71105152db01a09fe005167",
+      "path": "Schemas/xsd/UI/Components/UIComponentCampaign.xsd"
+    },
+    {
+      "sha256": "15e428134ffc8d7dfe94f460d8c441306a510a7d7014f07302263d714f433656",
+      "path": "Schemas/xsd/UI/Components/UIComponentCredits.xsd"
+    },
+    {
+      "sha256": "4acab0a964a3fab6b78f5ee33eb430f61e08f69a19c31c25970af27d98d4b7b9",
+      "path": "Schemas/xsd/UI/Components/UIComponentLoadScreen.xsd"
+    },
+    {
+      "sha256": "8ab886b0a4758e45728b72bf13fc0365d39c26e5abc91cd8f2051d3a5f4162ee",
+      "path": "Schemas/xsd/UI/Components/UIComponentMessage.xsd"
+    },
+    {
+      "sha256": "1f27ab3e2a87011c22cc37af6d202482a6889ed58c62470b8b7adba2f7eb256a",
+      "path": "Schemas/xsd/UI/Components/UIComponentMovieArchive.xsd"
+    },
+    {
+      "sha256": "d17bf97bd9a9b7cf19bde1dddc0adea1e33aa6b7d10a15c904e2c964a7a74438",
+      "path": "Schemas/xsd/UI/Components/UIComponentPostGame.xsd"
+    },
+    {
+      "sha256": "d01e9b9b8221ee631ae36a176146eda1fcbf4a1b54c4b8e4839315a5cd7b2bcf",
+      "path": "Schemas/xsd/UI/Components/UIComponentSound.xsd"
+    },
+    {
+      "sha256": "4014cbaa5eedbf95010b3e285c80b6a158c42e18fd17c3a59da0eb34ef80b116",
+      "path": "Schemas/xsd/UI/Components/UIComponentTutorial.xsd"
+    },
+    {
+      "sha256": "7231776ea3c8c595b96327a8f6c586102b36f8b184f3c2a85920973964d3778e",
+      "path": "Schemas/xsd/UI/CoopTinting.xsd"
+    },
+    {
+      "sha256": "df5550252d9d4bb779cad67cf3799a0a03f5a6278cf8c0db1f56fe5b2b131986",
+      "path": "Schemas/xsd/UI/Decal/DestinationMarker.xsd"
+    },
+    {
+      "sha256": "4fb1fd0a04db67f3d27cdb2575a1ec936564902724828fa16dee9cf3508a108c",
+      "path": "Schemas/xsd/UI/Decal/DestinationType.xsd"
+    },
+    {
+      "sha256": "0f3ec847d22ddae6d36ac08497a8cf1d322608a292c96528122d0a0c67f2d936",
+      "path": "Schemas/xsd/UI/DecalCloud.xsd"
+    },
+    {
+      "sha256": "b41f9a960dedacc45a793d80f80def784f09c7df2fee228f7b36e9488eaefa45",
+      "path": "Schemas/xsd/UI/DecalGrid.xsd"
+    },
+    {
+      "sha256": "a4422e1fa100780eaa88185cf2f96ae40ec9f5f481e4d310cc5ca21264040be6",
+      "path": "Schemas/xsd/UI/FloatingTextDisplay.xsd"
+    },
+    {
+      "sha256": "a72ebd14e262e6d2e3e7b7c311b9cc5e5f00379f6fcbbf18023572ee07fa815f",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonBuild.xsd"
+    },
+    {
+      "sha256": "b2a19004471fd2ee72b6970cc7b751c91db7eeea9ea3f2febc346fafca947adb",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "1010a01542ba8461be5b4aa24039c963dd60f9256781ba4f29eab4333252e321",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataActivateHotSpot.xsd"
+    },
+    {
+      "sha256": "aa52b321e9d8f2831a9007497265f41ecb9fe24c303b3b41b577f8865f9a5c5c",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataAIStrategicDirective.xsd"
+    },
+    {
+      "sha256": "c3b0c24ff404176ee8ccb103173d1e1f22cdd1f3ec48723cf95db1e97ee4808b",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataAssembleStructure.xsd"
+    },
+    {
+      "sha256": "10a46ff1bf0845516c119f496ff7a8a1ae9a80a74dad1a3e19dea7fb5fe6ce55",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataAutoControlGroup.xsd"
+    },
+    {
+      "sha256": "19306097bbf657947d36917d805b11cdd1032fee7ee7c83feb3e1bb5d2c893f0",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataBaseSpecialPower.xsd"
+    },
+    {
+      "sha256": "24e7efe225a992a003c7c76bdc9eacd1d6536a6bfa6503e704801fa011fa100d",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataEnterCommandMode.xsd"
+    },
+    {
+      "sha256": "0a0a6e8ba64a8497ff1c37e6a649ba6ffe13d3606af8c522b447c5dd66584d81",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataEvacuate.xsd"
+    },
+    {
+      "sha256": "746a81d3c804ad51516ed54a4c85528ecc6da39f7f6520d8f867e6b3dcbedabf",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataMultiplePowersTargetedSpecialPower.xsd"
+    },
+    {
+      "sha256": "ba1fa00bd9164e215fbe54535a8f41f6396917c1f1ce860ec893fda99c5c72a3",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataObjectUpgrade.xsd"
+    },
+    {
+      "sha256": "19b1135a41b645dfadf7fbef43e0e786ecc20fae8f6176ae8c10bfd22d143a2f",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataOpenControlGroups.xsd"
+    },
+    {
+      "sha256": "77816a165059e0843f418eee57aae921fac31f8d6a3752a6cea5eec982d5eebb",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataOpenCoopCommunicator.xsd"
+    },
+    {
+      "sha256": "7a44e9837b704e583b82449cb34f491a7a549ca38a723dce36b2eb5f2d72c47b",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataOpenPlayerPowers.xsd"
+    },
+    {
+      "sha256": "4016e066a0189dfd83d1fe0a3b5a252cd94429c9478949c48d306b0ee0929212",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataOpenPlayerTechStore.xsd"
+    },
+    {
+      "sha256": "15667fb3d1733d082d893a61224b9cd1cd7309ad366fe4576601f88d9257d6a1",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataOpenStances.xsd"
+    },
+    {
+      "sha256": "ce98f2aa99ef2b73c3ef701b90df63ff9a0719eb62cacf628c95120dded3b6cd",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataOpenUnitAbilities.xsd"
+    },
+    {
+      "sha256": "d8f772a74c926b3a902586fde8b4477be29f2a1ccdf910a7dc2a323ed4c3ffa9",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataOpenUnitsMenu.xsd"
+    },
+    {
+      "sha256": "599b51c8734a63e6f18e3650c8485f2eae05b2f09cfc58b2e1f42896aa9b286b",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataPlaceReadyStructure.xsd"
+    },
+    {
+      "sha256": "9f588d5833c5668e4ba91268bfe8964c75427b52789b3a1ebd78a48ff2f97bb7",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataPlayerControlGroup.xsd"
+    },
+    {
+      "sha256": "df93cc402943603572b802f3168ef15d9c6182a5e0bbd47001ab0faacf4e92fb",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataPlayerMultiplePowersTargetedPower.xsd"
+    },
+    {
+      "sha256": "28c81def635bc82028114e918fe9ee6b273bdb7e664fc666b3f2c475d7d8842c",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataPlayerMultipleTargetsTargetedPower.xsd"
+    },
+    {
+      "sha256": "21effa83b725336e2b466ffa183b8cf49403d73415eeb527bc8283b3bf60ebc1",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataPlayerPower.xsd"
+    },
+    {
+      "sha256": "57d58b09631b24f688ec61c58cd912e59670ac8b3ace0e56babd08561acd34b3",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataPlayerTargetedPower.xsd"
+    },
+    {
+      "sha256": "97088a69df5458e1e7490e9d9bffcdcf45d60f1bbf490467c4381fcddfa78218",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataPlayerUpgrade.xsd"
+    },
+    {
+      "sha256": "7bbe5bd17c2f5b6dd01b2e19aa6bdd569910aca4dfcc388d9acb197a1209493b",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataProduceStructureBase.xsd"
+    },
+    {
+      "sha256": "c83723edc928c9ede3d1b6d67897acfbc2640670ba4f0ab7bf1c2f30c0fcd5e7",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataProductionQueueType.xsd"
+    },
+    {
+      "sha256": "c72a305a633baefa5e4f08e09fa4d74e4dc9de03fb47ff8646552f6dacc08cbd",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataRedAlert.xsd"
+    },
+    {
+      "sha256": "961fb5407652bae5db021c4e95ab2adbf05f194c38a298b1c9ec5be3b3db33cb",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataSetStance.xsd"
+    },
+    {
+      "sha256": "47f337da513e7a2d1d6749ee3aff067d490dcb33c1988c9e92c2e413322ba814",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataSingleState.xsd"
+    },
+    {
+      "sha256": "130d07bd1a8256fbb2fd5249581e300894ce657a40fe154ecd1a3ce775b1fb06",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataSpecialPower.xsd"
+    },
+    {
+      "sha256": "69bd92e5b4a26404e7584309a818187dbf112345ce9da7bd594f525b1e9c1d19",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataTargetedSpecialPower.xsd"
+    },
+    {
+      "sha256": "7a96068d3a94416fd8d1192899af5cfb8d270b045c3f54b9de9e972e73e6eb13",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataToggleSpecialPower.xsd"
+    },
+    {
+      "sha256": "c23dbb7580b7cde8504740620077f6503c07cddc202efccdd644756617a1afd7",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataUnitAbility.xsd"
+    },
+    {
+      "sha256": "ca2479909cb7f12010e990fb8be85970b1c4144d5de5775fe8b25293a409cefb",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataUnpack.xsd"
+    },
+    {
+      "sha256": "8c6343a82e087c8b6a11db42edb63249f3667f05ce57347961e8867f14774a74",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/ButtonTemplateDataUpgrade.xsd"
+    },
+    {
+      "sha256": "30ff21781ee32fe00bb2b92b13a780f4f108659a5912610de3377577ad037628",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/CommandBarControlGroups.xsd"
+    },
+    {
+      "sha256": "51af1b88a53c5f810ceea41821cb6e44b0374acd9ea662952ded41400f86080c",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/CommandBarCoopCommunicatorMenu.xsd"
+    },
+    {
+      "sha256": "22f172ec7cf726b9ee2f34ef2f053a1039d0c25b2c7a3e2ca357d618345c71e1",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/CommandBarHomogenousGroup.xsd"
+    },
+    {
+      "sha256": "8a327162d7e48d05299309ec253c0e355258d63016cea9daaba9cd33968e4e50",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/CommandBarMixedGroup.xsd"
+    },
+    {
+      "sha256": "35dfa5ece82b824c2a1728aaa8ac1c281741a400d393aad124de5f65f53e4fb2",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/CommandBarPlayerPowers.xsd"
+    },
+    {
+      "sha256": "a37f4395f57815738a240c353d1918c250c781ae1f3f721f95ff9acabac6c855",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/CommandBarSingleUnit.xsd"
+    },
+    {
+      "sha256": "711cc3efd18e6fc03092e272185c05007533fe59a63390957245135faf11b761",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/CommandBarStances.xsd"
+    },
+    {
+      "sha256": "087bf1a81e838918c244112584dbc4a0c34470d524e6a1b8932e69a5953a2f43",
+      "path": "Schemas/xsd/UI/Joypad/CommandBar/CommandBarTopMenu.xsd"
+    },
+    {
+      "sha256": "a77bd497dc111822d1077758a3328db552aa101a2caa1b0bb676bca167e2219e",
+      "path": "Schemas/xsd/UI/Joypad/CommandMode.xsd"
+    },
+    {
+      "sha256": "7cf97b7f4e841673da62002a7489d1c85fc56acd91dc0ab189b544ce428c798f",
+      "path": "Schemas/xsd/UI/Joypad/Components/UIComponentCommandList.xsd"
+    },
+    {
+      "sha256": "1b0a37dedab5bea9e2b9f722d8cb5af2d9a08cc23b886a86c4e1a8db8e15de4a",
+      "path": "Schemas/xsd/UI/Joypad/Components/UIComponentCoopCommander.xsd"
+    },
+    {
+      "sha256": "0d74f6aba3d19dd3247233288c093ca5979c5b243019cae7e6a0185600b6c8b2",
+      "path": "Schemas/xsd/UI/Joypad/Components/UIComponentJoypadTactical.xsd"
+    },
+    {
+      "sha256": "a470b42a37dae237fcd9f4692a244ad0bcd270cb4083d5eb8994ba862650c445",
+      "path": "Schemas/xsd/UI/Joypad/Components/UIComponentPlayerPowers.xsd"
+    },
+    {
+      "sha256": "435e8f73cb79170fcbab47906c510ae78199f25ec74cb30ae14df7d9b4046149",
+      "path": "Schemas/xsd/UI/Joypad/Components/UIComponentPlayerTechStore.xsd"
+    },
+    {
+      "sha256": "baf018c0448fc29b45084f3f35e7595fbe8ce8d68bf7ff2ddccd62325d32e2ae",
+      "path": "Schemas/xsd/UI/Joypad/Components/UIComponentRadar.xsd"
+    },
+    {
+      "sha256": "f94a79016e7ec5c32f1516cafb3cf4f67bbd28ac69be97a42b23fcfe2a444482",
+      "path": "Schemas/xsd/UI/Joypad/JoypadCursor.xsd"
+    },
+    {
+      "sha256": "0929b6f76a51aff6813f0c482f928658841ecf2dc6722d39de59c945f2eae6a8",
+      "path": "Schemas/xsd/UI/MessageDisplay.xsd"
+    },
+    {
+      "sha256": "955cb34b9786757df20944c676fd41623c784a3a150af62bff917f2ddd01bb7a",
+      "path": "Schemas/xsd/UI/MilitaryCaptionDisplay.xsd"
+    },
+    {
+      "sha256": "3dff0c1f7db33356f0d9bf922cb7413b539df7b7a7416e2cc90ef29d5dfe3103",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentAutoMatch.xsd"
+    },
+    {
+      "sha256": "71e388fe91b00b30dcc9ad2971914c72a8cff95825e117d5792c88b7269f928c",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentCareerStats.xsd"
+    },
+    {
+      "sha256": "d61734e9690c6d7a33c812c949b9dafe981ff1ed9b5c770f54514197e4a73b76",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentChat.xsd"
+    },
+    {
+      "sha256": "7190ac324476d72a6e44d81f004883f6c1737c0ffd2d2187d16b0beaff2b7752",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentComlinkNotification.xsd"
+    },
+    {
+      "sha256": "6fec0a5f58831821a327c11a0e9031b62ad7ec948396d54f0e740bf267407440",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentDisconnect.xsd"
+    },
+    {
+      "sha256": "2f6fd079b2e6c1ae15e0f08d472d4511ed32d55ee309f09cc9a010306498f268",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentGameSetup.xsd"
+    },
+    {
+      "sha256": "717c2bb31ca98b8c3b29daaa43e59bf226925d4173d586fbc18d1086535c3c10",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentKeyboard.xsd"
+    },
+    {
+      "sha256": "7928628caf80462d54f4314797efb64bf61afa7c2b89ac08b9318562c3f583bb",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentLanLobby.xsd"
+    },
+    {
+      "sha256": "0d55adcc0595954f15406f4e111621aa5ed85f00c86eee105e1834d64ca249bd",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentMapList.xsd"
+    },
+    {
+      "sha256": "a15df2e571477a24ff968da53a5363392086dd766f6e27a2eb8307375aac026b",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentMouse.xsd"
+    },
+    {
+      "sha256": "6fe07f04ace31acb0756df7c2534de21028d7dc8c30403526edce7b331f6266e",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentMouseInGame.xsd"
+    },
+    {
+      "sha256": "d217b3513c08fdc301216544b9ecabf5c06478ea0ff5666869322ce06592402c",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentMouseTactical.xsd"
+    },
+    {
+      "sha256": "43e3f4759f1bc1912753430d4eca2890ba0d6b0012977c03ed9f49e49567f45a",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentOnlineBuddyList.xsd"
+    },
+    {
+      "sha256": "ddc73aef03a38c0539e94b3c4c77c0cdb8db5a9aee3dd403746f09575081da59",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentOnlineGameList.xsd"
+    },
+    {
+      "sha256": "93d2f00b9553a834ed14f88af6e88231af7a093b6b7f9120203d48632434fefb",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentOnlineInvite.xsd"
+    },
+    {
+      "sha256": "2fc0bbc932eba35ffaa8bcf50db522b41e3c7ef95a5a3c799faecdc5f7ae62ce",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentOnlineLobbyList.xsd"
+    },
+    {
+      "sha256": "3292aefe6ae9bc4dc795aeb3901be82541ce3ce615356e0eaab9a69e3c015a4b",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentOnlineLogin.xsd"
+    },
+    {
+      "sha256": "5a34475eafedf20163cbb02e5f99f3a0a2a693dcf88dd3119ec3777ac3f4c0b0",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentOnlinePlayerList.xsd"
+    },
+    {
+      "sha256": "a30afbee50a2b75a6ea10f8d98f0ab9a0185adc702160719af1f34af171bb7f8",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentOptionsSettingsAudio.xsd"
+    },
+    {
+      "sha256": "9085030a5ad82cb41a124fa563caba3c83bde3610ebe19563a880a903ae3aa06",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentOptionsSettingsGeneral.xsd"
+    },
+    {
+      "sha256": "046ea2cf6045fd52639c743ca2aa8b51ca68fcc92293121d6ef08f043bf669ce",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentOptionsSettingsGraphics.xsd"
+    },
+    {
+      "sha256": "934c837975e78e7c6212e25f228b910be8c55a0e942408197b06287913fdfdbd",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentOptionsSettingsHotkeys.xsd"
+    },
+    {
+      "sha256": "8566da59059e2cb7f611a7b7997fa67077330254182f9b4a83ddf8a224ee64b5",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentOptionsSettingsNetwork.xsd"
+    },
+    {
+      "sha256": "14ce892d10fe14cd9ef21b8fdfedc524990cb441df97ffdbe54447cafc90ba3d",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentPcSaveLoad.xsd"
+    },
+    {
+      "sha256": "39f5349db6518071002617de15c132a5f50a65b5efa6b5706e96e64a556b52a9",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentProfileManager.xsd"
+    },
+    {
+      "sha256": "77780bdcf7acea12837a84eadda10fb01d8110071a26f10d1f0cd9ea10db8cdd",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentShellVisibility.xsd"
+    },
+    {
+      "sha256": "2643b5c6a615d988ba8f22d6ced0e4ae99cccdca91b03d52ed0b65bb4af88272",
+      "path": "Schemas/xsd/UI/Mouse/Components/UIComponentVoiceChat.xsd"
+    },
+    {
+      "sha256": "7a8e979525e1e54c4f605fe44b4a8439cbd4dbec02e2a021a01e8f06591a1d41",
+      "path": "Schemas/xsd/UI/Mouse/DragSelectionFeedback.xsd"
+    },
+    {
+      "sha256": "8b1457e51bdff72e82be717f4075d0cc9a175ba4ddd54242f98803c2881aaaed",
+      "path": "Schemas/xsd/UI/Mouse/HUDElementHotKeyGate.xsd"
+    },
+    {
+      "sha256": "8a20dbce1aa9458a5e86e4d64ce5ce9e2d83ca8ecfab67ea2cb2552f75990b73",
+      "path": "Schemas/xsd/UI/Mouse/SimpleFixedButton.xsd"
+    },
+    {
+      "sha256": "5c0eadebd61808e46c0461de78099ad40eae88b9d8358d96618dca9a192d0f36",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/AttackMoveButton.xsd"
+    },
+    {
+      "sha256": "0f4ee9aa896d35854a91e14fbea0e9f68ddc5b1da35d73ad2240ab599925cf7f",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/BuildQueue/Tab.xsd"
+    },
+    {
+      "sha256": "b6b92723184b9f0a3f91292f00638b784d6aacd5699818061b32ac7832be5a04",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/BuildQueue/TypeTab.xsd"
+    },
+    {
+      "sha256": "458366dd0abd67dca6ea15538edf8dfa4520b06cda86243e5199ff6c436e72cd",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/Attack.xsd"
+    },
+    {
+      "sha256": "884667e4300aec65b0291af8f37ed0061375eed6405091f2ebbf328ed0942aa4",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/AttackMove.xsd"
+    },
+    {
+      "sha256": "e3dbe5be8bf2ed4d4238a4289303591046b02a9c526f450ce0c091a367a2e28f",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/CommunicateWithAllies.xsd"
+    },
+    {
+      "sha256": "9363adea9ebf0fb75d4641a07f7aaa2f4c7412818d5c4e3d2415fc6d8f1481c4",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/Dock.xsd"
+    },
+    {
+      "sha256": "a6e95c1fde9e4632144c556d43edd71cb54842e58b1e283812d1c1f73bc8065c",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/Enter.xsd"
+    },
+    {
+      "sha256": "6e1279e4a95e7fb002b3bfd0707c96b8ab808412e1227efe1db7235b6365cfbc",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/ForceAttack.xsd"
+    },
+    {
+      "sha256": "d5ee095692135c019b74fd4c081c5fadc2faae6096f0784ee6ec76492a4ee9e9",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/ForceMove.xsd"
+    },
+    {
+      "sha256": "f2f87a3e5f84afdf4f08f78c40a249943befce388780dfea1d10084dfb9f2012",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/GetCrate.xsd"
+    },
+    {
+      "sha256": "6a8eed5f57f5e2a12d0cc747455aa8fb6fa1ac5e1232c1c1dee47e02ecb89b36",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/Harvest.xsd"
+    },
+    {
+      "sha256": "454acbd86e9af0aab49ead9a13543fe7c462910a1eb42319937eac126526ef59",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/MineOre.xsd"
+    },
+    {
+      "sha256": "d7a74d488a2975d2ab2a6e9bdb5d9756dade31193532af90f53cb19770534dd9",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/Misc.xsd"
+    },
+    {
+      "sha256": "b20bef4d94143953ba1ae6a23b4297127d128893a8db2dc944b04e548ffaf0a8",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/Move.xsd"
+    },
+    {
+      "sha256": "887f62767b53feca6d08395f3fc0f40adb68a3638a2ca68136fc3b8d55505332",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/PlaceAIBeacon.xsd"
+    },
+    {
+      "sha256": "30f3f9354f1cf1d2618e37d6a865b9ae3a7faea53e3bc7dbaa1d3ff1da575708",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/PlaceRallyPoint.xsd"
+    },
+    {
+      "sha256": "650ec49e56e00f670a8a9362bd5c56c1eafea3f6db45e2a4391ffceaf4545445",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/PlaceWall.xsd"
+    },
+    {
+      "sha256": "f30b4bd5dd16c72446a82a9b66c1feb39e44aa61d42b6282398d62c834441a79",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/ReverseMove.xsd"
+    },
+    {
+      "sha256": "d9a13f27b8ee7875c7de794c00d572d97ff72fe576f90799ce52496836d34db6",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/Select.xsd"
+    },
+    {
+      "sha256": "098a05b8a93513d5c9ae8fadb9bcebf4971b1531e7097e38e07e2bffeadd5ef9",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/SellSettings.xsd"
+    },
+    {
+      "sha256": "5a8c1a1b95d6709d897a38f6e3d6e8588c424268bbda11c3229ef118d6f9b006",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/SetRallyPoint.xsd"
+    },
+    {
+      "sha256": "9fca2ffd03fc3c5fdd41dfc71217d129446c516f1efef521fc6c6c93d1a7a09c",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Command/ToggleSelfRepair.xsd"
+    },
+    {
+      "sha256": "7ea8a84d13cccd71d643cb5fe934b453d6a8c10c2f89c89ec23effaedeeceae7",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/CoOpAiButtons/AssaultButton.xsd"
+    },
+    {
+      "sha256": "83f08f0ae0924ac5f411685ff540feba69a9eb83f393b7b8d7121dcb868c4d3e",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/CoOpAiButtons/HelpButton.xsd"
+    },
+    {
+      "sha256": "480f309c17f96d4b9ec91c0b76d76e2a8d2d78d06fbd4d6920033480b26c52b0",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/CoOpAiButtons/HoldObjectButton.xsd"
+    },
+    {
+      "sha256": "d77e2d2f3d74e19b24f3b9699be1cac3a320d477b03ab1c9f3bbeca958a083f5",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/CoOpAiButtons/HoldPositionButton.xsd"
+    },
+    {
+      "sha256": "046dcabcd7443c4a44e2c29e51305380c984614eff1a5a7b68c3328ddc0fe58c",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/CoOpAiButtons/NormalButton.xsd"
+    },
+    {
+      "sha256": "4d9e4dbccbdd8d9f454987bc03e67bb19be0a971283df80905f7f6e066b793f8",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/DeactivateMissionHotSpotsButton.xsd"
+    },
+    {
+      "sha256": "37ac348ab43491e9ba144ed850730f38c190c261054f5e4673afa425b61d575d",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/ExitContainerButton.xsd"
+    },
+    {
+      "sha256": "a1e202bb832a0c4d36cc2aac3b6fb5665165ce55950ef6b4f35022a5892fbf99",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/FastForwardButton.xsd"
+    },
+    {
+      "sha256": "ad05e6b446c2e6f5221a033edb7dfa14a5cd878cc3b72b0403f3d6d2ecc9f122",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/ForceAttackButton.xsd"
+    },
+    {
+      "sha256": "b8f9fc1372c57b27b0399812d364095fdd743211b4e4f5077178dcece7b16166",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/ForceAttackMoveButton.xsd"
+    },
+    {
+      "sha256": "33545105ababeb583b20583bbdf12b5cef5790b06f1d55cd355fdf2eb165a940",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/ForceMoveButton.xsd"
+    },
+    {
+      "sha256": "11238ad4cea3b80d4f2e6fecb08a518e72899387d7f383d9c10e870dd40fadc5",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/GroupSelection.xsd"
+    },
+    {
+      "sha256": "46b1da40feaa962e36445ddcfa77b4124ee2da9eb7ed5fbd5bafa1a24d62d490",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/LookAt.xsd"
+    },
+    {
+      "sha256": "f841ac6b1d15697cdf68ec7ba1cb8f8937141dda117a13499e8dab12ce050b05",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/MainCommandBar/HotKeys.xsd"
+    },
+    {
+      "sha256": "739343d04f13adba71eff3450b62d4dea4fa5268bea53e0e2ef74b5301b3c1bd",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/MiscHotKeys.xsd"
+    },
+    {
+      "sha256": "12b3cab7c92c9f38b4e998fb63a207eee6bd4c281ab3953df613a444401ea1ac",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/OpenAdvancedCommandsButton.xsd"
+    },
+    {
+      "sha256": "519547360fb9a15768484a7a767a978a57a7e1e299bc173339ba82d144b0028a",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/PauseButton.xsd"
+    },
+    {
+      "sha256": "75a2676e0664c7bc3e9500f1ea4d2c5395aa375a9f9b0c3461506884364226d3",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/PlanningModeButton.xsd"
+    },
+    {
+      "sha256": "850c0fd83a46cd34f88c31cd6025b1c2838f6aefb37cf3e57db2e11cf5bda033",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/PlayerPower/HotKeys.xsd"
+    },
+    {
+      "sha256": "18730a6a84c22ab928643a992a1047a60d8bf82bf84be4a9dabd0229cb271b81",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/PlayerTechStoreButton.xsd"
+    },
+    {
+      "sha256": "6c412ec794f154d883057ed8b06a81de07f406983ae9932af4e3980edc9de5e2",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/QuickChatDisplay.xsd"
+    },
+    {
+      "sha256": "5a611d21dcace40c5df20935912988612d8dad3d6fd786e64be2694697881505",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/RadarTelestrator.xsd"
+    },
+    {
+      "sha256": "7b1c1e731cadd9937ab97e0d9c9825f9c69d7bc1c465ab52ae71a2ada31607a3",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/ReverseMoveButton.xsd"
+    },
+    {
+      "sha256": "4f8317d0cbb8f6f6f83b7620eb1b0d625edf970dcb37aac6e3d6544939c02f22",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/SelectionDetails/ButtonHotKeys.xsd"
+    },
+    {
+      "sha256": "8c921e368dd07b099cf3a8fdb1383aa9eb3e667c86653cb2d138113853e34591",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/SelectionRefinement/Tab.xsd"
+    },
+    {
+      "sha256": "6ce7523ac4543ed56219ae03cfb28b23f3f118946a4a3c819b5b7ff7a95a5877",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/SellModeButton.xsd"
+    },
+    {
+      "sha256": "952b9d660021f339f055de87ce13a341c5a784766d6d60452d80157978441c30",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/SetStanceButton.xsd"
+    },
+    {
+      "sha256": "efbf2cad5c003ab1bdacaeb8607144f7e7fbc84de09eaddcb727700014654829",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/StopButton.xsd"
+    },
+    {
+      "sha256": "7ca793a5a4d78aa5f6bcf3c82f3e597183d7b8919066ff130d269e20b5722883",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/Telestrator.xsd"
+    },
+    {
+      "sha256": "f420944d43aa4902d65c89827aa79a7f5369e9eeda5129160c1c921db7161711",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/ThreatMeter.xsd"
+    },
+    {
+      "sha256": "2dfaadaea3d7aadf0bed33f23f1648d3685eb1772649abf446283844ac5e7b3e",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/ToggleRepairModeButton.xsd"
+    },
+    {
+      "sha256": "c69062856883add6afd4952cab2650cae5f6ea355c33794bd979f3b5a5251f82",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/UnitIntroButton.xsd"
+    },
+    {
+      "sha256": "f7a598f149ff55ac3911f4d4993957cf4ba2ab6f1be99d29dce8a2ff097818d9",
+      "path": "Schemas/xsd/UI/Mouse/Tactical/WaypointModeButton.xsd"
+    },
+    {
+      "sha256": "8218c69d7fdf6bb16a641c323f774e6958ead6b27a8d5b425f9535938a5750ec",
+      "path": "Schemas/xsd/UI/Mouse/VoiceChat.xsd"
+    },
+    {
+      "sha256": "58cc91992799f9b6ac7f4deb39dc198eb10f4b1c9b027104a34ad785b4ffa27f",
+      "path": "Schemas/xsd/UI/PlayerTechStoreTemplate.xsd"
+    },
+    {
+      "sha256": "b5c86a67cb068dd3ee3a3c77aeabd5969af690ed8b88c02d628779a059b0a7b3",
+      "path": "Schemas/xsd/UI/PurchasePlayerTechButtonTemplate.xsd"
+    },
+    {
+      "sha256": "c2ff4875ce2fd11e898affc43c607611dcf2d0be9c1c72770c2af04cc4371bdc",
+      "path": "Schemas/xsd/UI/QuickChatMessage.xsd"
+    },
+    {
+      "sha256": "a90086d0069a2dd346905266d5efc24ab2d573a4d21454a57325428fdf0f36f8",
+      "path": "Schemas/xsd/UI/Radar/ObjectsLayer.xsd"
+    },
+    {
+      "sha256": "35ad3c59df8075ed40149072cce7700d57f6292206aa3b515215b360979fc4e8",
+      "path": "Schemas/xsd/UI/RadiusCursor.xsd"
+    },
+    {
+      "sha256": "0a1c9099bc74cee00168130a1c3fdb54645e4e171f19211d01e7d839b854495d",
+      "path": "Schemas/xsd/UI/SubtitleDisplay.xsd"
+    },
+    {
+      "sha256": "6deef8aea4851b0cdaaddf1a5f5ccd9d7864d0639894034954172e65dcf453e8",
+      "path": "Schemas/xsd/UI/TimerDisplay.xsd"
+    },
+    {
+      "sha256": "eda7bc606c66ddf7976765b1da8bbe180cb2d6b6a7aec798f158b20543cfe8ac",
+      "path": "Schemas/xsd/UI/WorldBuilderDecalGrid.xsd"
+    },
+    {
+      "sha256": "140811d3179b144cd7cb57fade2d6b619a79751d2e8aec23ba8c27ff0846e755",
+      "path": "Schemas/xsd/UnitAbilityButtons/AssembleStructureUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "cc5aac29295db69d67de7ff62b24b3ab70730834bc29a87094313202b0e60bfb",
+      "path": "Schemas/xsd/UnitAbilityButtons/BaseSpecialPowerUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "dc029d671bf642b21b531f62f5efca9b7d43f802b8361059d7ca708a0d937f55",
+      "path": "Schemas/xsd/UnitAbilityButtons/BuildUnitUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "93205e1fb2f92986752a7adc3154a0a480fccccbdf4059234e624867d4c9f8bb",
+      "path": "Schemas/xsd/UnitAbilityButtons/BuildWallUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "d815ff3ab3370ec465c22662dd22988e2a122b3ffb4438bfed3b9f1130e64f80",
+      "path": "Schemas/xsd/UnitAbilityButtons/EvacuateUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "a3b7e977e2b4cb862c2ad5a387dd16c5a8f0e91632c03bfb7c5d371e76d40809",
+      "path": "Schemas/xsd/UnitAbilityButtons/MultiplePowersTargetedSpecialPowerUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "ab603313b99b70761c3bada3c5318136284937daeef92e486b5883b04a36c4df",
+      "path": "Schemas/xsd/UnitAbilityButtons/ObjectUpgradeUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "6caf087e628a227fb0652f3710f175531dae1f525e0e9f84a258ba06db5d3ff1",
+      "path": "Schemas/xsd/UnitAbilityButtons/PlayerUpgradeUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "48636a9afbe7e375a33df8cc4357726daed38ec8c658b449c8de7abefd885975",
+      "path": "Schemas/xsd/UnitAbilityButtons/ProduceStructureUnitAbilityButtonBaseTemplateData.xsd"
+    },
+    {
+      "sha256": "c357c927d29cb2b63db2855bf4cb9bf3e0833ea08949a9378cb67747a3976958",
+      "path": "Schemas/xsd/UnitAbilityButtons/SingleStateUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "64e340f1c610f52c380ed8d29f033dc5c48c5b18867419ead9fb8fb4eebe2019",
+      "path": "Schemas/xsd/UnitAbilityButtons/SpecialPowerUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "20543a40e319b21862d49092f18effb896ab8bdafbd075764bd4c6687440468b",
+      "path": "Schemas/xsd/UnitAbilityButtons/TargetedSpecialPowerUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "9d5478e05f75dcc0a20a47df9ba53c36e1123986834e07d1b85879c008b94a6c",
+      "path": "Schemas/xsd/UnitAbilityButtons/ToggleSpecialPowerUnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "463bd53372d0bbdd5091919d10eb32bd19a8aefc69eb9e9f71607ed6fe64db22",
+      "path": "Schemas/xsd/UnitAbilityButtons/UnitAbilityButtonTemplateData.xsd"
+    },
+    {
+      "sha256": "054f32b90d56e93903370b6d6aeeca3f53c58766f1b77d95fa6cdcfa75755d37",
+      "path": "Schemas/xsd/UnitAbilityButtons/UnpackUnitAbilityButtonTemplateData.xsd"
+    }
+  ],
+  "fixtures": [
+    {
+      "sha256": "38438092e75a9e9a852426e75e0b7396a279e6a59d0fec829b3df1edd5bc4b0e",
+      "path": "recovery/tests/CompilerPreparedBackend.cs",
+      "name": "CompilerPreparedBackend"
+    },
+    {
+      "sha256": "fea94e88288212e4297a91f0489fa6ebd5b8339523aa5869ecd102ed79be0cec",
+      "path": "recovery/tests/CompilerXmlBackendBatch.cs",
+      "name": "CompilerXmlBackendBatch"
+    },
+    {
+      "sha256": "fadc16af7e483ab1b3dacf2a9f0f8f0a7bac56c559f9d0f6c593d027366e06b9",
+      "path": "recovery/tests/CompilerCacheContent.cs",
+      "name": "CompilerCacheContent"
+    },
+    {
+      "sha256": "46050fd974a1c44e911255cb0dc56bca1f2bf523a91baf74d5ce38024f060be8",
+      "path": "recovery/tests/CompilerStableSort.cs",
+      "name": "CompilerStableSort"
+    },
+    {
+      "sha256": "9885e7d57ac6aaf7ef962114181d7a5a1cd0e44f7839b383a344a87839b01fdd",
+      "path": "recovery/tests/CompilerCacheBoundary.cs",
+      "name": "CompilerCacheBoundary"
+    },
+    {
+      "sha256": "1396c2b3fcebcdd87d6c5828816f694a462a1752dceecf45336e9ca4ce9dfa11",
+      "path": "recovery/tests/CompilerInputRoots.cs",
+      "name": "CompilerInputRoots"
+    },
+    {
+      "sha256": "ca9ccfbc3e12bfb7c5c1b281be4e09f1fecadda4a37161887c2955f9b63defe0",
+      "path": "recovery/tests/CompilerCorePaths.cs",
+      "name": "CompilerCorePaths"
+    },
+    {
+      "sha256": "aceb9475ea27e8e382424d4708d28cdc4ccb11d11090941b973c0010a2853025",
+      "path": "recovery/tests/CompilerUnicodeSettings.cs",
+      "name": "CompilerUnicodeSettings"
+    },
+    {
+      "sha256": "642eadab133ed8516b431462414cb564506fd0aeae3d8b0f441542bbed4a0f72",
+      "path": "recovery/tests/CompilerCoreLifecycle.cs",
+      "name": "CompilerCoreLifecycle"
+    },
+    {
+      "sha256": "c6f792b608062f465deafd2c245dcc3ffcf4ca55446ea0a0a3396694ba003885",
+      "path": "recovery/tests/CompilerResourceLifecycle.cs",
+      "name": "CompilerResourceLifecycle"
+    },
+    {
+      "sha256": "f5bfc28a3db0815b33bc5fde00d3008361c414adf853ab0014b14e2c36af9f82",
+      "path": "recovery/tests/CompilerStateLifecycle.cs",
+      "name": "CompilerStateLifecycle"
+    },
+    {
+      "sha256": "c23179224cf0bf06ce251f7e5c5b3a7b2b448b5a5ebe2d6616e07d88c6745d40",
+      "path": "recovery/tests/CompilerBackendLifecycle.cs",
+      "name": "CompilerBackendLifecycle"
+    },
+    {
+      "sha256": "39f1c9e27e180ae14c351b252fd8c91af4b6554c7e6d62d5fbceca379bc844fd",
+      "path": "recovery/tests/CompilerApplicationBuild.cs",
+      "name": "CompilerApplicationBuild"
+    }
+  ],
+  "sdkFixtureInputs": [
+    {
+      "sha256": "93d0923c10f1c9eccf6ad5c00a407c28f2001b9d3bc26f8784e1b46deb250257",
+      "path": "Mods/mymod/Data/RecoveryArmorProbe.xml"
+    },
+    {
+      "sha256": "c70ba3231cec9a130fa170d2866836c020659bad2777dfb1d8dc61e914b666cb",
+      "path": "tools/BinaryAssetBuilder.exe.config"
+    }
+  ],
+  "originalTextureSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+  "compiler": {
+    "version": "4.1400.26.42407",
+    "sha256": "cf32cb7e8e5691b962e1b6f92b03d87409dd9e7afbed71c5bf77b8203cc56ee1",
+    "path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\Bin\\Roslyn\\csc.exe",
+    "languageVersion": "7.3",
+    "target": "net48/x86"
+  },
+  "frameworkReferences": [
+    {
+      "sha256": "6b35530467b914b0b195146ca1d1485ddd219afaad6461103f16f54e952f75a9",
+      "name": "mscorlib"
+    },
+    {
+      "sha256": "2fe343569f794f2ca92ee14a41875571a9f21bf92637b8f8ee86306534209cca",
+      "name": "System"
+    },
+    {
+      "sha256": "94a1fc97eb0d36f13acd209bb7207da504c8be10caf7e5096b2c46e671dc6fe2",
+      "name": "System.Core"
+    },
+    {
+      "sha256": "00208e20e3d1d520c233e7ffc10e4e56f9e6b3920bf4a971faee864268c7e5a5",
+      "name": "System.Xml"
+    },
+    {
+      "sha256": "39e64b50e018dd4a3b770dc4f8eb12fb8118061fa73fc77d5e95c33f5b37f0cd",
+      "name": "System.Configuration"
+    },
+    {
+      "sha256": "31812365198b0707ad98005e19e38a3d354b13fb5cdc272d5000bfe4b82a9b97",
+      "name": "System.Data"
+    },
+    {
+      "sha256": "495f926ee9e41da7e3b847c19a0fef9843ed5ed954034bee50e04f702ba62b4e",
+      "name": "System.Web"
+    },
+    {
+      "sha256": "7e86ffd426be8c3872b096f39edb713c366f0a95bec9963fd88bc4320b6ff41b",
+      "name": "System.Configuration.Install"
+    },
+    {
+      "sha256": "7512218c4a6a83de0cdbb8a25240b8b5ee542f93ff9b31acfbf9f7399394450e",
+      "name": "System.Web.Extensions"
+    }
+  ]
+}

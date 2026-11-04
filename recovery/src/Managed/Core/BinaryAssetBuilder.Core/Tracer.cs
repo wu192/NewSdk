@@ -9,19 +9,6 @@ namespace BinaryAssetBuilder.Core;
 
 public class Tracer
 {
-	private class InternalTraceSource : TraceSource
-	{
-		public InternalTraceSource(string name)
-			: base(name)
-		{
-		}
-
-		protected override string[] GetSupportedAttributes()
-		{
-			return new string[1] { "mask" };
-		}
-	}
-
 	private class InternalScopedTrace : IDisposable
 	{
 		private Tracer _Tracer;
@@ -53,7 +40,60 @@ public class Tracer
 
 	private static TraceKind _TraceMask;
 
-	private TraceSource _TraceSource;
+	[ThreadStatic]
+	private static DiagnosticCapture _DiagnosticCapture;
+
+	// Each worker owns its diagnostic list. Delivery stays on the owner thread,
+	// where the build's trace callback and document context are installed.
+	public sealed class DiagnosticCapture : IDisposable
+	{
+		private sealed class Entry
+		{
+			internal string Source, Message;
+			internal TraceEventType Type;
+		}
+
+		private readonly DiagnosticCapture parent;
+		private readonly int threadId;
+		private readonly List<Entry> entries = new List<Entry>();
+		private int replayed;
+		private bool disposed;
+
+		internal DiagnosticCapture()
+		{
+			parent = _DiagnosticCapture;
+			threadId = Thread.CurrentThread.ManagedThreadId;
+			_DiagnosticCapture = this;
+		}
+
+		internal void Add(string source, TraceEventType type, string message)
+		{
+			entries.Add(new Entry { Source = source, Type = type, Message = message });
+		}
+
+		public void Dispose()
+		{
+			if (disposed) return;
+			if (threadId != Thread.CurrentThread.ManagedThreadId || !ReferenceEquals(_DiagnosticCapture, this))
+				throw new InvalidOperationException("Diagnostic captures must be disposed on their creating thread in reverse order.");
+			_DiagnosticCapture = parent;
+			disposed = true;
+		}
+
+		public void Replay()
+		{
+			if (!disposed) throw new InvalidOperationException("Complete the worker diagnostic capture before replaying it.");
+			while (replayed < entries.Count)
+			{
+				Entry entry = entries[replayed++];
+				OnWrite(entry.Source, entry.Type, entry.Message);
+			}
+			entries.Clear();
+			replayed = 0;
+		}
+	}
+
+	public static DiagnosticCapture CaptureDiagnostics() => new DiagnosticCapture();
 
 	private string _Name;
 
@@ -85,18 +125,6 @@ public class Tracer
 
 	private TraceKind Options => _TraceMask;
 
-	private TraceSource TraceSource
-	{
-		get
-		{
-			if (_TraceSource == null)
-			{
-				_TraceSource = new InternalTraceSource(_Name);
-			}
-			return _TraceSource;
-		}
-	}
-
 	static Tracer()
 	{
 		VerbosityLevels = new TraceKind[10]
@@ -119,13 +147,16 @@ public class Tracer
 
 	public static Tracer GetTracer(string name, string description)
 	{
-		Tracer value = null;
-		if (!_Tracers.TryGetValue(name, out value))
+		lock (_Tracers)
 		{
-			value = new Tracer(name, description);
-			_Tracers.Add(name, value);
+			Tracer value;
+			if (!_Tracers.TryGetValue(name, out value))
+			{
+				value = new Tracer(name, description);
+				_Tracers.Add(name, value);
+			}
+			return value;
 		}
-		return value;
 	}
 
 	public static void SetTraceLevel(int level)
@@ -184,6 +215,11 @@ public class Tracer
 
 	private static void OnWrite(string source, TraceEventType type, string message)
 	{
+		if (_DiagnosticCapture != null)
+		{
+			_DiagnosticCapture.Add(source, type, message);
+			return;
+		}
 		if (TraceWrite != null)
 		{
 			TraceWrite(source, type, message);
@@ -195,14 +231,14 @@ public class Tracer
 		// An explicit build scope owns diagnostic delivery even for Tracers
 		// created earlier while the legacy BabEnableTrace switch was enabled.
 		// Keep that legacy branch unchanged when no scope is installed.
-		if (_TraceEnabled && _CurrentScope == null)
+		if (_TraceEnabled && _CurrentScope == null && _DiagnosticCapture == null)
 		{
 			StringBuilder stringBuilder = new StringBuilder(new string(' ', IndentLevel * Trace.IndentSize));
 			stringBuilder.AppendFormat(format, args);
 		}
 		else
 		{
-			OnWrite(TraceSource.Name, type, string.Format(format, args));
+			OnWrite(_Name, type, string.Format(format, args));
 		}
 	}
 

@@ -78,8 +78,8 @@ void EndianModule(U32* input) {
 
 void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data) {
     auto found=input.attributes.find("TypeId");U32 type=found==input.attributes.end()?0:ParseUnsigned(found->second);
-    if(!FindModule(type)) for(auto known:knownModuleTypes) if(known==type) throw std::invalid_argument("Unsupported polymorphic GameObject module TypeId");
     auto choice=FindModule(type);
+    if(!choice) for(auto known:knownModuleTypes) if(known==type) throw std::invalid_argument("Unsupported polymorphic GameObject module TypeId");
     // New queue/building groups dispatch after the common allocation below.
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
     if(choice && choice->kind>=198 && choice->kind<=199) MarshalPowerCreation(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);

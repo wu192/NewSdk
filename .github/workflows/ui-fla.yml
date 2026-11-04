@@ -1,0 +1,116 @@
+name: Direct FLA and AS MOD compiler
+on:
+  push:
+    branches: [feat/fla-direct-mod]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: ui-fla-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  windows:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[ui-fla]')
+    runs-on: windows-2022
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Install pinned validation dependencies
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+      - name: UI component and source conversion tests
+        shell: pwsh
+        run: |
+          dotnet run --project ui/tests/UiCompiler.Tests.csproj -f net472 -c Release
+          if($LASTEXITCODE -ne 0){throw 'UI component tests failed'}
+      - name: App discovery contracts and changed PowerShell syntax
+        shell: pwsh
+        run: |
+          foreach($path in @('BuildManagedFoundation','RestoreUiDependencies','TestCompilerUi','TestCompiler')) {
+            $tokens=$null;$errors=$null
+            $null=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path "recovery/scripts/$path.ps1"),[ref]$tokens,[ref]$errors)
+            if($errors.Count){$errors|Format-List|Out-Host;throw "PowerShell syntax errors: $path"}
+          }
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/TestApp.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/ui-tests/app/$mode"
+          }
+      - name: Build Debug and Release and verify clean five-file products
+        id: product
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/ui-foundation/$mode"
+          }
+          ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/ui-foundation -BuildDirectory recovery/artifacts/ui-product -OutputDirectory recovery/artifacts/ui-tests/product
+      - name: Source FLA and AS through real MOD CLI, cache invalidation and failure retry
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerUi.ps1 -CompilerDirectory recovery/artifacts/ui-product -OutputDirectory recovery/artifacts/ui-tests/fla
+      - name: Existing Core lifecycle and binary APT routes
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/ui-product -OutputDirectory recovery/artifacts/ui-tests/core
+      - name: Existing real CLI, cancellation and output contracts
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerCli.ps1 -CompilerDirectory recovery/artifacts/ui-product -OutputDirectory recovery/artifacts/ui-tests/cli
+      - name: Existing session cache regression
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerSessionCache.ps1 -CompilerDirectory recovery/artifacts/ui-product -OutputDirectory recovery/artifacts/ui-tests/cache
+      - name: Complete original mymod SDK and final package differential
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/ui-product -OutputDirectory recovery/artifacts/ui-tests/sdk
+      - name: Package and verify the five-file runtime ZIPs
+        shell: pwsh
+        run: ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/ui-product -AcceptanceReceipt recovery/artifacts/ui-tests/cli/validation.json -OutputDirectory recovery/artifacts/ui-tests/release
+      - name: Summarize CI evidence
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/ui-tests/**/*.json
+            recovery/artifacts/ui-tests/**/*.log
+            recovery/artifacts/ui-tests/**/*.md
+            recovery/artifacts/ui-tests/**/*.csv
+            recovery/artifacts/ui-tests/**/*.tsv
+            recovery/artifacts/ui-product/*/*.json
+            recovery/artifacts/ui-product/*/*.log
+            recovery/artifacts/ui-foundation/*/*.log
+            recovery/artifacts/ui-foundation/*/*.json
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'ui-fla-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/ui-tests/**/*.json
+            recovery/artifacts/ui-tests/**/*.log
+            recovery/artifacts/ui-tests/**/*.md
+            recovery/artifacts/ui-tests/**/*.csv
+            recovery/artifacts/ui-tests/**/*.tsv
+            recovery/artifacts/ui-product/*/*.json
+            recovery/artifacts/ui-product/*/*.log
+            recovery/artifacts/ui-foundation/*/*.log
+            recovery/artifacts/ui-foundation/*/*.json
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

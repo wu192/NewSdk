@@ -81,16 +81,25 @@ try {
                     if($reuse){$expected=@($reuse.files|Where-Object{$_.path -ceq ($mode+'/bin/'+$file)});Need ($expected.Count -eq 1 -and $expected[0].sha256 -ceq (Hash $source)) 'Historical runtime hash differs'}
                     Copy-Item -LiteralPath $source -Destination $runtime
                 }
-                & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe (Join-Path $runtime 'NewModCompiler.exe') *> (Join-Path $caseOut 'texture-prepare.log')
-                Need ($LASTEXITCODE -eq 0) 'Candidate EXE-bound Texture preparation failed'
+                if($reuse){
+                    & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe (Join-Path $runtime 'NewModCompiler.exe') *> (Join-Path $caseOut 'texture-prepare.log')
+                    Need ($LASTEXITCODE -eq 0) 'Historical EXE-bound Texture preparation failed'
+                }
             }
-            $exe=Join-Path $runtime 'NewModCompiler.exe';$patch=Get-Content (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll.patch.json') -Raw|ConvertFrom-Json
-            Need ($patch.targetExeSha256 -ceq (Hash $exe) -and $patch.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll')) -and $patch.protectedPeAudit.status -ceq 'passed') 'Unicode runtime Texture deployment does not bind actual EXE'
-            Need (@(Get-ChildItem -LiteralPath $runtime -File).Count -eq 5) 'Unexpected production runtime files'
+            $exe=Join-Path $runtime 'NewModCompiler.exe'
+            if($reuse){
+                $textureDeployment=Get-Content (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll.patch.json') -Raw|ConvertFrom-Json
+                Need ($textureDeployment.targetExeSha256 -ceq (Hash $exe) -and $textureDeployment.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll')) -and $textureDeployment.protectedPeAudit.status -ceq 'passed') 'Historical Unicode runtime Texture deployment does not bind its EXE'
+                Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 5) 'Unexpected historical production runtime files'
+            }else{
+                Need ($build.texturePlugin.implementation -ceq 'built-in-source' -and @($build.texturePlugin.externalRuntimeFiles).Count -eq 0) 'Unicode build requires the source texture plugin'
+                Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 3) 'Unexpected production runtime files'
+                $textureDeployment=@{implementation='built-in-source';assemblySha256=(Hash $exe);externalRuntimeFiles=@()}
+            }
             $modBefore=Inventory $mod;$sdkBefore=Inventory $sdk;$runtimeBefore=Inventory $runtime
             $request=@{exe=$exe;cwd=$runtime;arguments=@('build','--sdk-root',$sdk,'--mod',$mod,'--out',$destination,'--package-format','loose','--package-content','apt');stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=(Join-Path $destination 'build.events.jsonl');cancel=$false;timeoutSeconds=$TimeoutSeconds}
             $requestPath=Join-Path $caseOut 'request.json';$controlPath=Join-Path $caseOut 'control.json'
-            $caseState=@{variant=$variant;succeeded=$false;sdkRoot=$sdk;modRoot=$mod;runtimeRoot=$runtime;outputRoot=$destination;exeSha256=(Hash $exe);textureDeployment=$patch;modInputs=$modBefore;sdkInputs=$sdkBefore;runtimeInputs=$runtimeBefore;artifacts=@();inlineTextures=@()};$modeState.cases+=,$caseState
+            $caseState=@{variant=$variant;succeeded=$false;sdkRoot=$sdk;modRoot=$mod;runtimeRoot=$runtime;outputRoot=$destination;exeSha256=(Hash $exe);textureDeployment=$textureDeployment;modInputs=$modBefore;sdkInputs=$sdkBefore;runtimeInputs=$runtimeBefore;artifacts=@();inlineTextures=@()};$modeState.cases+=,$caseState
             try {
                 $request|ConvertTo-Json -Depth 5|Set-Content $requestPath
                 & $control $requestPath $controlPath *> (Join-Path $caseOut 'controller.log')
@@ -103,11 +112,11 @@ try {
                 $started=@($events|Where-Object{$_.eventType -ceq 'BuildStarted'})[0];Need ($started.payload.processId -eq $audit.processId) 'UI build PID differs from actual process'
                 Need (@($events|Where-Object{$_.eventType -ceq 'StreamStarted'}).Count -eq 3 -and @($events|Where-Object{$_.eventType -ceq 'StreamCompleted'}).Count -eq 3) 'UI actual stream event counts differ'
                 $sequence=0;foreach($event in $events){$sequence++;Need ($event.sequence -eq $sequence -and $event.buildId -ceq $report.buildId) 'UI event identity/sequence differs'}
-                $map=@{};$buildPrefix=Join-Path $destination ('.build/'+$report.buildId)
+                $map=@{};$buildPrefix=Join-Path $destination 'published'
                 foreach($artifact in $report.artifacts){
                     $relative=[IO.Path]::GetRelativePath($buildPrefix,$artifact.Path)
-                    Need (!$relative.StartsWith('..') -and ![IO.Path]::IsPathRooted($relative) -and !$map.ContainsKey($relative) -and (Hash $artifact.Path) -ceq $artifact.Sha256 -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'UI artifact containment/identity differs'
-                    $map[$relative]=$artifact.Path;$caseState.artifacts+=,@{relativePath=$relative;path=$artifact.Path;bytes=$artifact.Size;sha256=$artifact.Sha256;archive=(Join-Path $caseOut ('output/.build/'+$report.buildId+'/'+$relative))}
+                    Need (!$relative.StartsWith('..') -and ![IO.Path]::IsPathRooted($relative) -and !$map.ContainsKey($relative) -and (Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size) 'UI artifact containment/identity differs'
+                    $map[$relative]=$artifact.Path;$caseState.artifacts+=,@{relativePath=$relative;path=$artifact.Path;bytes=$artifact.Size;sha256=(Hash $artifact.Path);archive=(Join-Path $caseOut ('output/published/'+$relative))}
                 }
                 $customCount=0;$inlineCount=0
                 foreach($task in $report.plan.Tasks){

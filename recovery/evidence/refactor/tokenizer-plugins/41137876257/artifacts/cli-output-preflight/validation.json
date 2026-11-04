@@ -1,0 +1,20 @@
+{
+  "cases": [
+    "original-texture-inline-dds-zero-custom",
+    "unexpected-texture",
+    "missing-texture",
+    "wrong-route-id",
+    "unexpected-custom-route",
+    "duplicate-expectation",
+    "invalid-qualified-expectation",
+    "big-endian-refused",
+    "table-bounds",
+    "name-offset",
+    "unterminated-name",
+    "wrong-original-type-hash",
+    "missing-inline-dds-refused",
+    "no-texture-zero-custom"
+  ],
+  "succeeded": true,
+  "count": 14
+}

@@ -1,0 +1,431 @@
+{
+  "baselineCommit": "45d485d829170dc4fda3b3ce63b6af2759fc7ba0",
+  "signal": "LCG signed16 normalized PCM",
+  "runtime": "Windows .NET Framework 4.8 / net472 x86 Release",
+  "sampleRate": 48000,
+  "repeats": 3,
+  "allocationMetric": "AppDomain.MonitoringTotalAllocatedMemorySize",
+  "allocationScope": "encoding only; input/compare/explicit GC excluded",
+  "measurements": [
+    {
+      "case": "stereo-30s-ram",
+      "revision": "before",
+      "round": "0",
+      "milliseconds": "1879.795",
+      "allocatedBytes": "88110248",
+      "gen0": "9",
+      "gen1": "1",
+      "gen2": "1"
+    },
+    {
+      "case": "stereo-30s-ram",
+      "revision": "after",
+      "round": "0",
+      "milliseconds": "695.845",
+      "allocatedBytes": "1710184",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-30s-ram",
+      "revision": "after",
+      "round": "1",
+      "milliseconds": "695.746",
+      "allocatedBytes": "1710184",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-30s-ram",
+      "revision": "before",
+      "round": "1",
+      "milliseconds": "1844.287",
+      "allocatedBytes": "88102056",
+      "gen0": "8",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-30s-ram",
+      "revision": "before",
+      "round": "2",
+      "milliseconds": "1825.460",
+      "allocatedBytes": "88110248",
+      "gen0": "9",
+      "gen1": "1",
+      "gen2": "1"
+    },
+    {
+      "case": "stereo-30s-ram",
+      "revision": "after",
+      "round": "2",
+      "milliseconds": "695.203",
+      "allocatedBytes": "1710184",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-ram",
+      "revision": "before",
+      "round": "0",
+      "milliseconds": "46550.799",
+      "allocatedBytes": "352403000",
+      "gen0": "33",
+      "gen1": "3",
+      "gen2": "1"
+    },
+    {
+      "case": "stereo-120s-ram",
+      "revision": "after",
+      "round": "0",
+      "milliseconds": "2788.596",
+      "allocatedBytes": "6840184",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-ram",
+      "revision": "after",
+      "round": "1",
+      "milliseconds": "2782.983",
+      "allocatedBytes": "6840184",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-ram",
+      "revision": "before",
+      "round": "1",
+      "milliseconds": "45759.851",
+      "allocatedBytes": "352394808",
+      "gen0": "32",
+      "gen1": "2",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-ram",
+      "revision": "before",
+      "round": "2",
+      "milliseconds": "46243.162",
+      "allocatedBytes": "352403000",
+      "gen0": "33",
+      "gen1": "3",
+      "gen2": "1"
+    },
+    {
+      "case": "stereo-120s-ram",
+      "revision": "after",
+      "round": "2",
+      "milliseconds": "2787.689",
+      "allocatedBytes": "6840184",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-streamed",
+      "revision": "before",
+      "round": "0",
+      "milliseconds": "2720.180",
+      "allocatedBytes": "217058148",
+      "gen0": "37",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-streamed",
+      "revision": "after",
+      "round": "0",
+      "milliseconds": "2784.604",
+      "allocatedBytes": "6867024",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-streamed",
+      "revision": "after",
+      "round": "1",
+      "milliseconds": "2799.523",
+      "allocatedBytes": "6867024",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-streamed",
+      "revision": "before",
+      "round": "1",
+      "milliseconds": "2741.368",
+      "allocatedBytes": "217058148",
+      "gen0": "37",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-streamed",
+      "revision": "before",
+      "round": "2",
+      "milliseconds": "2725.237",
+      "allocatedBytes": "217058148",
+      "gen0": "37",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-streamed",
+      "revision": "after",
+      "round": "2",
+      "milliseconds": "2781.737",
+      "allocatedBytes": "6867024",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-loop-ram",
+      "revision": "before",
+      "round": "0",
+      "milliseconds": "46311.555",
+      "allocatedBytes": "423307704",
+      "gen0": "33",
+      "gen1": "3",
+      "gen2": "1"
+    },
+    {
+      "case": "stereo-120s-loop-ram",
+      "revision": "after",
+      "round": "0",
+      "milliseconds": "2782.223",
+      "allocatedBytes": "6840344",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-loop-ram",
+      "revision": "after",
+      "round": "1",
+      "milliseconds": "2781.245",
+      "allocatedBytes": "6840344",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-loop-ram",
+      "revision": "before",
+      "round": "1",
+      "milliseconds": "44352.919",
+      "allocatedBytes": "423307704",
+      "gen0": "33",
+      "gen1": "2",
+      "gen2": "1"
+    },
+    {
+      "case": "stereo-120s-loop-ram",
+      "revision": "before",
+      "round": "2",
+      "milliseconds": "44495.803",
+      "allocatedBytes": "423307704",
+      "gen0": "33",
+      "gen1": "3",
+      "gen2": "1"
+    },
+    {
+      "case": "stereo-120s-loop-ram",
+      "revision": "after",
+      "round": "2",
+      "milliseconds": "2782.861",
+      "allocatedBytes": "6840344",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-loop-streamed",
+      "revision": "before",
+      "round": "0",
+      "milliseconds": "2864.132",
+      "allocatedBytes": "286935564",
+      "gen0": "37",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-loop-streamed",
+      "revision": "after",
+      "round": "0",
+      "milliseconds": "2787.486",
+      "allocatedBytes": "6867280",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-loop-streamed",
+      "revision": "after",
+      "round": "1",
+      "milliseconds": "2779.067",
+      "allocatedBytes": "6867280",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-loop-streamed",
+      "revision": "before",
+      "round": "1",
+      "milliseconds": "2867.702",
+      "allocatedBytes": "286935564",
+      "gen0": "37",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-loop-streamed",
+      "revision": "before",
+      "round": "2",
+      "milliseconds": "2863.066",
+      "allocatedBytes": "286935564",
+      "gen0": "37",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-120s-loop-streamed",
+      "revision": "after",
+      "round": "2",
+      "milliseconds": "2785.317",
+      "allocatedBytes": "6867280",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-600s-streamed",
+      "revision": "before",
+      "round": "0",
+      "milliseconds": "13628.992",
+      "allocatedBytes": "1133896032",
+      "gen0": "184",
+      "gen1": "2",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-600s-streamed",
+      "revision": "after",
+      "round": "0",
+      "milliseconds": "13935.740",
+      "allocatedBytes": "34334416",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-600s-streamed",
+      "revision": "after",
+      "round": "1",
+      "milliseconds": "13925.153",
+      "allocatedBytes": "34334416",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-600s-streamed",
+      "revision": "before",
+      "round": "1",
+      "milliseconds": "13621.492",
+      "allocatedBytes": "1133896032",
+      "gen0": "184",
+      "gen1": "2",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-600s-streamed",
+      "revision": "before",
+      "round": "2",
+      "milliseconds": "13653.860",
+      "allocatedBytes": "1133896032",
+      "gen0": "184",
+      "gen1": "2",
+      "gen2": "0"
+    },
+    {
+      "case": "stereo-600s-streamed",
+      "revision": "after",
+      "round": "2",
+      "milliseconds": "13941.877",
+      "allocatedBytes": "34334416",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "six-channel-30s-streamed",
+      "revision": "before",
+      "round": "0",
+      "milliseconds": "2032.441",
+      "allocatedBytes": "164470652",
+      "gen0": "27",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "six-channel-30s-streamed",
+      "revision": "after",
+      "round": "0",
+      "milliseconds": "2084.528",
+      "allocatedBytes": "5150672",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "six-channel-30s-streamed",
+      "revision": "after",
+      "round": "1",
+      "milliseconds": "2086.617",
+      "allocatedBytes": "5150672",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "six-channel-30s-streamed",
+      "revision": "before",
+      "round": "1",
+      "milliseconds": "2031.415",
+      "allocatedBytes": "164470652",
+      "gen0": "27",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "six-channel-30s-streamed",
+      "revision": "before",
+      "round": "2",
+      "milliseconds": "2030.883",
+      "allocatedBytes": "164470652",
+      "gen0": "27",
+      "gen1": "0",
+      "gen2": "0"
+    },
+    {
+      "case": "six-channel-30s-streamed",
+      "revision": "after",
+      "round": "2",
+      "milliseconds": "2086.518",
+      "allocatedBytes": "5150672",
+      "gen0": "0",
+      "gen1": "0",
+      "gen2": "0"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "runId": "40825481917",
+  "conclusion": "failure",
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/40825481917/artifacts/12875539553",
+  "archiveSha256": "419438ac4c2d4feddd6046051822d9cef167f9bcc9e8e5e1b2f853040968c1f7",
+  "profileSha256": "314e4764da92349144d5ac04b6bb09f8c949093f125e05263e86c31522f538b9",
+  "reason": "CLR rejects loading the accepted mixed executable as an ordinary assembly (0x80131019). No production-method timing obtained. Preserve failure; next diagnostic uses a labelled source-equivalent filesystem reproduction without editing the PE."
+}

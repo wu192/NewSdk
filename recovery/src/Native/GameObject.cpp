@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include "GameObjectChildGroups.h"
 #include "ScalarParsing.h"
 #include "DataInitializers.h"
 #include "ResourceMarshaling.h"
@@ -9,6 +10,12 @@
 #include <stdexcept>
 #include <algorithm>
 #include <cmath>
+#include <unordered_map>
+#include <type_traits>
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
 #ifdef _MANAGED
 #pragma managed(push, off)
 #endif
@@ -32,7 +39,13 @@ struct ModuleToken {U32 name,type,offset;const ModuleLayout* nested;unsigned mod
 struct ModuleLayout {const ModuleToken* tokens;unsigned count;};
 struct ModuleChoice {U32 type;const ModuleLayout* tokens;unsigned size,kind;};
 enum class ModuleValue {Float,Percent,Time,String,Reference,NullableReference,Boolean,Enum,Unsigned,Short,NullablePositiveFloat,NullableModelCondition,ModelCondition,AssetId,SignedList,NullableSigned,NullableObjectStatus,ObjectStatus,Duration,StringList,Angle,DeathBits,Signed,NullableFloat,FloatList,ReplaceOptions,NullableTime,NullableBits,NullableWideBits,FrameSpeed,Bits,NullableAssetId,StringHash,NullableStringHash,Byte};
-struct ModuleField {const char* name;unsigned offset;ModuleValue kind;const char* fallback;const AIEnum* values;};
+U32 ExactStringHash(const std::string& text);
+struct ModuleField {
+    const char* name;unsigned offset;ModuleValue kind;const char* fallback;const AIEnum* values;
+    unsigned scalarSize;U32 defaultWord;
+    ModuleField(const char* name,unsigned offset,ModuleValue kind,const char* fallback,const AIEnum* values);
+};
+static_assert(std::is_trivially_destructible<ModuleField>::value,"Decoded metadata must not register CRT exit destructors");
 struct ModuleFieldSet {const ModuleField* fields;unsigned count;};
 struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectFields.h"
@@ -297,6 +310,7 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
     Swap(&list->count);
 }
 
+#include "GameObjectScalarDefaultsRuntime.h"
 #include "GameObjectModuleFieldsRuntime.h"
 #include "GameObjectModuleFamiliesRuntime.h"
 #include "GameObjectModuleDispatchRuntime.h"
@@ -313,32 +327,65 @@ U32 ExactStringHash(const std::string& text) {
     }
     hash^=hash<<3;hash+=hash>>5;hash^=hash<<2;hash+=hash>>15;return (hash<<10)^hash;
 }
+bool RootScalarDefault(GameObjectValue kind) {
+    return kind!=GameObjectValue::String && kind!=GameObjectValue::StringList && kind!=GameObjectValue::Reference;
+}
+void MarshalGameObjectRootField(const GameObjectField& f,const std::string& text,unsigned char* at,Relo::Tracker& data) {
+    U32 word=0;float number=0;
+        switch(f.kind) {
+        case GameObjectValue::DurationDefault: {
+            // Original helper: atof -> float -> scaled float -> ceil -> float
+            // -> conv.u4. The x86 CLR conversion truncates through signed int64;
+            // out-of-int64 values produce the integer-indefinite low word (0).
+            const float value=ParseFloat(text);
+            const float scaled=static_cast<float>(static_cast<double>(0.005f)*static_cast<double>(value));
+            const float rounded=static_cast<float>(std::ceil(static_cast<double>(scaled)));
+            const double wide=static_cast<double>(rounded);
+            word=(wide>=-9223372036854775808.0 && wide<9223372036854775808.0)
+                ?static_cast<U32>(static_cast<std::int64_t>(wide)):0u;
+            break;
+        }
+        case GameObjectValue::Bits: MarshalEnumBitset(text,kindOfEntries,284,149,284,reinterpret_cast<U32*>(at),true);return;
+        case GameObjectValue::AssetId: word=HashAssetId(text);break;
+        case GameObjectValue::Reference: MarshalReference(data,at,text);return;
+        case GameObjectValue::Enum: word=EnumValue(f.name,text);break;
+        case GameObjectValue::String: MarshalString(data,at,text);return;
+        case GameObjectValue::Boolean: *at=ParseBoolean(text)?1:0;return;
+        case GameObjectValue::Byte: *at=static_cast<unsigned char>(ParseUnsigned(text));return;
+        case GameObjectValue::Short: {auto value=static_cast<std::uint16_t>(ParseUnsigned(text));std::memcpy(at,&value,2);return;}
+        case GameObjectValue::Signed: word=static_cast<U32>(ParseSigned(text));break;
+        case GameObjectValue::Unsigned: word=ParseUnsigned(text);break;
+        case GameObjectValue::Float: number=ParseFloat(text);std::memcpy(&word,&number,4);break;
+        case GameObjectValue::Time: number=InitializeTime(text.c_str());std::memcpy(&word,&number,4);break;
+        case GameObjectValue::Angle: number=InitializeAngle(text.c_str());std::memcpy(&word,&number,4);break;
+        default: throw std::logic_error("Unsupported GameObject value");
+        }
+    std::memcpy(at,&word,4);
+}
+struct GameObjectRootDefaults {
+    unsigned char bytes[592]{};
+    GameObjectRootDefaults() {
+        Relo::Tracker unused;
+        for(const auto& f:fields) {
+            if(f.kind==GameObjectValue::DurationDefault) {U32 word=static_cast<U32>(f.defaultValue);std::memcpy(bytes+f.offset,&word,4);}
+            else if(f.fallback && RootScalarDefault(f.kind))MarshalGameObjectRootField(f,std::string(f.fallback),bytes+f.offset,unused);
+        }
+    }
+};
+static_assert(std::is_trivially_destructible<GameObjectRootDefaults>::value,"Root defaults must not own exit-time state");
+const GameObjectRootDefaults rootDefaults;
 }
 const GameObjectField* GameObjectFields() { return fields; }
 unsigned GameObjectFieldCount() { return sizeof(fields)/sizeof(fields[0]); }
-bool GameObjectLeafAttributeSupported(const std::string& name,const std::string& attribute) {
-    for(const auto& leaf:leafLayouts) if(name==leaf.name)
-        for(unsigned i=0;i<leaf.count;++i) if(attribute==leaf.fields[i].name) return true;
-    return false;
-}
-bool GameObjectAIAttributeSupported(const std::string& name,const std::string& attribute) {
-    unsigned index=name=="SkirmishAIInformation"?0:name=="AIContextualPower"?1:name=="SpecialPowerWeapon"?3:2;
-    if(index==1 && attribute=="id") return true;
-    const auto& layout=aiLayouts[index];for(unsigned i=0;i<layout.count;++i) if(attribute==layout.fields[i].name) return true;
-    return false;
-}
+
 #include "GameObjectDrawModelSupport.h"
 #include "GameObjectModuleSupport.h"
-Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attributes,const std::vector<GameObjectChild>& children,bool bigEndian) {
-    for(const auto& a:attributes) {
-        const GameObjectField* match=nullptr;
-        for(const auto& f:fields) if(a.first==f.name) {match=&f;break;}
-        if(!match)
-            throw std::invalid_argument("Unsupported GameObject attribute: "+a.first);
-    }
+Relo::Chunk CompileGameObject(const AttributeMap& attributes,const std::vector<GameObjectChild>& children,bool bigEndian) {
+
     Relo::Tracker data, procedures;
     unsigned char* root=nullptr;
     data.Push(reinterpret_cast<void**>(&root),592,1);
+    std::memcpy(root,rootDefaults.bytes,592);
     // Original Browser Marshal precedes every scalar/string allocation.
     std::vector<std::string> browser;
     auto browserInput=attributes.find("Browser");
@@ -361,44 +408,16 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         data.Pop();
     }
     for(const auto& f:fields) {
-        if(f.kind==GameObjectValue::StringList) continue;
+        if(f.kind==GameObjectValue::StringList)continue;
         auto found=attributes.find(f.name);
-        auto at=root+f.offset;
-        U32 word=0;float number=0;
-        if(f.kind==GameObjectValue::DurationDefault && found==attributes.end()) {
-            word=static_cast<U32>(f.defaultValue);std::memcpy(at,&word,4);continue;
+        if(found==attributes.end()) {
+            if(!f.fallback || RootScalarDefault(f.kind))continue;
+            MarshalGameObjectRootField(f,std::string(f.fallback),root+f.offset,data);
+        } else {
+            // Core/XSD can materialize the same defaults as explicit attributes.
+            if(f.fallback && RootScalarDefault(f.kind) && f.kind!=GameObjectValue::DurationDefault && found->second==f.fallback)continue;
+            MarshalGameObjectRootField(f,found->second,root+f.offset,data);
         }
-        if(found==attributes.end() && !f.fallback) continue;
-        std::string text=found==attributes.end()?f.fallback:found->second;
-        switch(f.kind) {
-        case GameObjectValue::DurationDefault: {
-            // Original helper: atof -> float -> scaled float -> ceil -> float
-            // -> conv.u4. The x86 CLR conversion truncates through signed int64;
-            // out-of-int64 values produce the integer-indefinite low word (0).
-            const float value=ParseFloat(text);
-            const float scaled=static_cast<float>(static_cast<double>(0.005f)*static_cast<double>(value));
-            const float rounded=static_cast<float>(std::ceil(static_cast<double>(scaled)));
-            const double wide=static_cast<double>(rounded);
-            word=(wide>=-9223372036854775808.0 && wide<9223372036854775808.0)
-                ?static_cast<U32>(static_cast<std::int64_t>(wide)):0u;
-            break;
-        }
-        case GameObjectValue::Bits: MarshalEnumBitset(text,kindOfEntries,284,149,284,reinterpret_cast<U32*>(at));continue;
-        case GameObjectValue::AssetId: word=HashAssetId(text);break;
-        case GameObjectValue::Reference: MarshalReference(data,at,text);continue;
-        case GameObjectValue::Enum: word=EnumValue(f.name,text);break;
-        case GameObjectValue::String: MarshalString(data,at,text);continue;
-        case GameObjectValue::Boolean: *at=ParseBoolean(text)?1:0;continue;
-        case GameObjectValue::Byte: *at=static_cast<unsigned char>(ParseUnsigned(text));continue;
-        case GameObjectValue::Short: {auto value=static_cast<std::uint16_t>(ParseUnsigned(text));std::memcpy(at,&value,2);continue;}
-        case GameObjectValue::Signed: word=static_cast<U32>(ParseSigned(text));break;
-        case GameObjectValue::Unsigned: word=ParseUnsigned(text);break;
-        case GameObjectValue::Float: number=ParseFloat(text);std::memcpy(&word,&number,4);break;
-        case GameObjectValue::Time: number=InitializeTime(text.c_str());std::memcpy(&word,&number,4);break;
-        case GameObjectValue::Angle: number=InitializeAngle(text.c_str());std::memcpy(&word,&number,4);break;
-        default: throw std::logic_error("Unsupported GameObject value");
-        }
-        std::memcpy(at,&word,4);
     }
     ReloString* displayNames[2]={nullptr,nullptr};
     // Original allocation order is schema order, independent of XML order.
@@ -587,7 +606,7 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
     };
     for(const auto& child:children) if(child.name=="Geometry") {
         geometry=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(root+492),28,1));
-        auto small=child.attributes.find("IsSmall");geometry[24]=small!=child.attributes.end() && ParseBoolean(small->second)?1:0;
+        auto isSmall=child.attributes.find("IsSmall");geometry[24]=isSmall!=child.attributes.end() && ParseBoolean(isSmall->second)?1:0;
         for(const auto& c:child.children) if(c.name=="RotationAnchorOffset") {auto vector=data.Push(reinterpret_cast<void**>(geometry),8,1);marshalVector(c,vector,2);data.Pop();}
         for(const auto& c:child.children) if(c.name=="PlacementShape") {auto shape=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(geometry+4),48,1));marshalShape(c,shape);data.Pop();}
         geometryShapes=reinterpret_cast<NativeList*>(geometry+8);contactPoints=reinterpret_cast<NativeList*>(geometry+16);
@@ -1025,26 +1044,11 @@ Relo::Chunk CompileGameObject(const std::map<std::string,std::string>& attribute
         for(unsigned at=4;at<576;at+=4) Swap(root+at);
         std::swap(root[576],root[577]);std::swap(root[578],root[579]);
     }
-    auto prefix=procedures.MakeRelocatable(bigEndian,0);
-    procedures.FixupMemberOffsets(data,prefix,bigEndian);
-    auto result=data.MakeRelocatable(bigEndian,static_cast<U32>(prefix.instance.size()));
-    if(bigEndian) for(unsigned at=0;at<prefix.instance.size();at+=12) {Swap(prefix.instance.data()+at);Swap(prefix.instance.data()+at+4);}
-    prefix.instance.insert(prefix.instance.end(),result.instance.begin(),result.instance.end());result.instance=std::move(prefix.instance);
+    auto result=procedures.MakeTokenized(data,bigEndian);
     result.imports.clear();return result;
 }
 }}
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
-
-
-
-
-
-
-
-
-
-
-
 

@@ -7,9 +7,10 @@ internal class HashingWriter : TextWriter
 {
 	private uint m_runningHash;
 
-	private string m_leftoverChars = "";
-
-	private static readonly int HashingSize = 512;
+	private const int HashingSize = 512;
+	private readonly char[] characters = new char[HashingSize];
+	private readonly byte[] asciiBytes = new byte[HashingSize];
+	private int characterCount;
 
 	public override Encoding Encoding => Encoding.Default;
 
@@ -20,48 +21,56 @@ internal class HashingWriter : TextWriter
 
 	public override void Write(char c)
 	{
-		Write(new string(c, 1));
+		characters[characterCount++] = c;
+		if (characterCount == HashingSize) FlushBlock();
 	}
 
 	public override void Write(char[] buffer, int index, int count)
 	{
-		Write(new string(buffer, index, count));
+		while (count > 0)
+		{
+			int copied = System.Math.Min(count, HashingSize - characterCount);
+			System.Array.Copy(buffer, index, characters, characterCount, copied);
+			characterCount += copied; index += copied; count -= copied;
+			if (characterCount == HashingSize) FlushBlock();
+		}
 	}
 
 	public override void Write(string str)
 	{
-		string text = str;
-		if (m_leftoverChars.Length > 0)
+		int index = 0;
+		while (index < str.Length)
 		{
-			text = m_leftoverChars + str;
+			int copied = System.Math.Min(str.Length - index, HashingSize - characterCount);
+			str.CopyTo(index, characters, characterCount, copied);
+			characterCount += copied; index += copied;
+			if (characterCount == HashingSize) FlushBlock();
 		}
-		if (text.Length < HashingSize)
+	}
+
+	private uint HashBlock(int count)
+	{
+		for (int i = 0; i < count; i++)
 		{
-			m_leftoverChars = text;
-			return;
+			char value = characters[i];
+			// Preserve the SDK's ANSI conversion and UTF-16 byte-count behavior
+			// for every non-ASCII block, including split surrogate pairs/DBCS.
+			if (value >= 128) return HashProvider.GetTextHash(m_runningHash, new string(characters, 0, count));
+			asciiBytes[i] = (byte)value;
 		}
-		for (int i = 0; i + HashingSize <= text.Length; i += HashingSize)
-		{
-			string text2 = text.Substring(i, HashingSize);
-			m_runningHash = HashProvider.GetTextHash(m_runningHash, text2);
-		}
-		int num = text.Length % HashingSize;
-		if (num == 0)
-		{
-			m_leftoverChars = "";
-		}
-		else
-		{
-			m_leftoverChars = text.Substring(text.Length - num, num);
-		}
+		return EALA.Hash.FastHash.GetHashCode(m_runningHash, asciiBytes, count);
+	}
+
+	private void FlushBlock()
+	{
+		m_runningHash = HashBlock(HashingSize);
+		characterCount = 0;
 	}
 
 	public uint GetFinalHash()
 	{
-		if (m_leftoverChars.Length > 0)
-		{
-			return HashProvider.GetTextHash(m_runningHash, m_leftoverChars);
-		}
-		return m_runningHash;
+		// Finalization is observational: callers can finalize twice or append
+		// more XML afterwards without changing the original 512-char grouping.
+		return characterCount == 0 ? m_runningHash : HashBlock(characterCount);
 	}
 }

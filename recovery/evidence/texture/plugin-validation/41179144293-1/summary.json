@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "398cc94b0a78d357f18896759de2f5cc8a917c1c",
+  "runId": 41179144293,
+  "conclusion": "failure",
+  "url": "https://github.com/wu162/NewSdk/actions/runs/41179144293",
+  "scope": "Latest production source including the BC1A half-alpha correction; only common RLE generator remained invalid. Source decoder unchanged by the subsequent generator fix.",
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-dotnet@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run ilammy/msvc-dev-cmd@v1",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install pinned mixed PE audit and App protocol dependencies",
+      "conclusion": "success"
+    },
+    {
+      "name": "Preflight original texture identity oracle and common fixture generation",
+      "conclusion": "success"
+    },
+    {
+      "name": "Standalone P2 application contracts in Debug",
+      "conclusion": "success"
+    },
+    {
+      "name": "Standalone P2 application contracts in Release",
+      "conclusion": "success"
+    },
+    {
+      "name": "Validate CLI scripts and output contracts before long Native linking",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build managed Foundation inputs",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build full production combination and verify deployment and route metadata",
+      "conclusion": "success"
+    },
+    {
+      "name": "Targeted real Core, backend and application pipeline in Debug and Release",
+      "conclusion": "success"
+    },
+    {
+      "name": "Full certified backend production cache and jobs matrix",
+      "conclusion": "success"
+    },
+    {
+      "name": "Isolated original BAB baseline for the two targeted backend cases",
+      "conclusion": "success"
+    },
+    {
+      "name": "Validate actual application JSONL and reports against protocol schemas",
+      "conclusion": "success"
+    },
+    {
+      "name": "Built-in Texture original payload differential in Debug and Release",
+      "conclusion": "success"
+    },
+    {
+      "name": "Common texture input and output formats in Debug and Release",
+      "conclusion": "failure"
+    },
+    {
+      "name": "Real production CLI, cold processes and actual CtrlBreak cancellation",
+      "conclusion": "success"
+    },
+    {
+      "name": "Validate real production CLI protocol outputs",
+      "conclusion": "success"
+    },
+    {
+      "name": "Actual build-cache cold hot invalidation and retry matrix",
+      "conclusion": "success"
+    },
+    {
+      "name": "Effective input roots and original BAB output differential",
+      "conclusion": "success"
+    },
+    {
+      "name": "Actual Audio CDATA and W3X build-cache payload replay",
+      "conclusion": "success"
+    },
+    {
+      "name": "Actual session-cache documents intermediate and CDATA reuse matrix",
+      "conclusion": "success"
+    },
+    {
+      "name": "Validate actual session-cache protocol outputs",
+      "conclusion": "success"
+    },
+    {
+      "name": "Production BIG apt maps selection and original MakeBig differential",
+      "conclusion": "success"
+    },
+    {
+      "name": "Validate actual BIG production protocol outputs",
+      "conclusion": "success"
+    },
+    {
+      "name": "Validate actual cache and input-root protocol outputs",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/upload-artifact@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@v4",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "failureFollowup": "272515c3e fixes generated RLE scanline bounds; full replacement validation run 41179953079."
+}

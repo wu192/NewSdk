@@ -92,8 +92,11 @@ def main():
     parser.add_argument('--tools', type=Path, required=True)
     parser.add_argument('--candidate', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--hashfix-resolver-only', action='store_true',
+                        help='Validate the two neutral-repair stages only; retain full raw LoD assertions in the default mode')
     args = parser.parse_args()
     tools, candidate, out = args.tools.resolve(), args.candidate.resolve(), args.output.resolve()
+    selected_stages = ('hashfix', 'resolver') if args.hashfix_resolver_only else ('hashfix', 'resolver', 'lod')
     out.mkdir(parents=True, exist_ok=False)
     originals = {stage: tools / name for stage, name in
                  (('hashfix', 'HashFix.exe'), ('resolver', 'ModAssetResolver.exe'), ('lod', 'LoDStreamBuilder.exe'))}
@@ -117,6 +120,12 @@ def main():
              'originalTools': {stage: {'path': str(path), 'sha256': sha(path)} for stage, path in originals.items()},
              'candidateSha256': sha(candidate),
              'scope': 'Independent component host, original HashFix then ModAssetResolver then LoD raw four/twelve-file differential; no production base BIG acceptance'}
+    state['selectedStages'] = list(selected_stages)
+    if args.hashfix_resolver_only:
+        state['scope'] = ('Independent component host; all ten original HashFix and ModAssetResolver cases, '
+                          'exact raw four-file stage differentials. LoD is not executed or accepted by this receipt: '
+                          'the default combined mode retains its raw assertions and known original tail defect; '
+                          'canonical LoD and real neutral BIG are separate gates.')
     try:
         for name, mod, wb, static, global_, audio, inserted in cases:
             case = out / name; case.mkdir()
@@ -146,7 +155,7 @@ def main():
                         for file in ('ModAssetResolver_TypeHashes.txt', 'ModAssetResolver_InstanceHashes.txt'):
                             shutil.copyfile(tools / file, work / 'tools' / file)
                 reference_before = {kind: snapshot(case / kind / 'BuiltMods') for kind in ('original', 'candidate')}
-                for stage in ('hashfix', 'resolver', 'lod'):
+                for stage in selected_stages:
                     for kind in ('original', 'candidate'):
                         work = case / kind; manifest = work / 'mod.manifest'; built = work / 'BuiltMods'
                         if kind == 'original':
@@ -176,13 +185,13 @@ def main():
                     completed['error'] = str(error)
                 # Dependent later stages of this case are not run after a bad
                 # source. Every next case owns fresh inputs and still executes.
-            row['passed'] = len(row['stages']) == 3 and all(item['passed'] for item in row['stages'])
+            row['passed'] = len(row['stages']) == len(selected_stages) and all(item['passed'] for item in row['stages'])
         def every_stage_passed(stages):
             return len(state['cases']) == len(cases) and all(
                 all(any(item['stage'] == stage and item['passed'] for item in row['stages']) for stage in stages)
                 for row in state['cases'])
         state['hashfixResolverSucceeded'] = every_stage_passed(('hashfix', 'resolver'))
-        state['lodSucceeded'] = every_stage_passed(('lod',))
+        state['lodSucceeded'] = 'lod' in selected_stages and every_stage_passed(('lod',))
         state['succeeded'] = all(row['passed'] for row in state['cases']) and len(state['cases']) == len(cases)
     finally:
         (out / 'validation.json').write_text(json.dumps(state, indent=2) + '\n', encoding='utf-8')

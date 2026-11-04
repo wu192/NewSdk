@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+  "configuration": "Release",
+  "exeSha256": "ea585fe8d46281a79fbc2b3903f7c14c9e1ac2f19e52b2816a964dc8b193e3c9",
+  "foundationSha256": "c7616a4271ffba92b73ff4b63ef421ebc44f96c4104ad576eba2f0f4882ca995",
+  "backendIntegrated": true,
+  "scope": "Unified Native/Bridge, built-in compilers and managed Foundation in one EXE; experimental in-process no-cache CLI backend, with P5/G3/SDK acceptance tracked separately",
+  "archiveEntrySha256": "beeba9d164a0dffccfcc7b2109413a634bbce0c10fefc5cfcf3c6f52c8093e00",
+  "archivePath": "direct-product/Release/build.json",
+  "note": "Review projection; complete source/toolchain inputs remain in the verified original ZIP."
+}

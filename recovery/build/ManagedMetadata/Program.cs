@@ -86,7 +86,7 @@ foreach (var type in module.Types.Where(RecoveredUtilityType)) {
 }
 if(utilityMethods == 0) throw new InvalidOperationException("No Utility contracts were verified");
 Console.WriteLine("PASS Utility exact public/family flags and custom signature contracts: " + utilityMethods);
-var allowed = new HashSet<string>(StringComparer.Ordinal) { "mscorlib", "System", "System.Core", "System.Xml", "System.Configuration", "System.Data", "System.Web", "System.Configuration.Install", "antlr.runtime" };
+var allowed = new HashSet<string>(StringComparer.Ordinal) { "mscorlib", "System", "System.Core", "System.Xml", "System.Configuration", "System.Data", "System.Web", "System.Configuration.Install", "System.Drawing", "netstandard", "antlr.runtime", "LibTessDotNet", "Clipper2Lib", "StbImageSharp" };
 if(linked) allowed.Add("System.Web.Extensions");
 foreach(var reference in module.AssemblyReferences)
     if(!allowed.Contains(reference.Name)) throw new InvalidOperationException("Unexpected runtime AssemblyRef: " + reference.FullName);

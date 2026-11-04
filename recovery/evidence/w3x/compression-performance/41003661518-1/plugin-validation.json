@@ -1,0 +1,40 @@
+{
+  "runAttempt": "1",
+  "runId": "41003661518",
+  "originalSha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1",
+  "scope": "loadable recovered plugin configuration identity/default constructor, both ProcessInstance backends and public handles, original three-buffer differential, standalone captured fixture replay without original W3X compiler; SDK not run",
+  "succeeded": true,
+  "sourceCommit": "4e9c9a279bef892439822310976e87081ca0ce72",
+  "modes": [
+    {
+      "withoutOriginalReplay": true,
+      "animationFixtures": 675,
+      "succeeded": true,
+      "meshFixtures": 666,
+      "pluginSha256": "b29106ea9464564e34347e8562deeb76fc97136188e321e74dbf48c8f6cd184c",
+      "pluginDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\plugin-runs\\41003661518-1\\Od",
+      "mode": "Od",
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+      "processInstanceOriginalDifferential": true,
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c"
+    },
+    {
+      "withoutOriginalReplay": true,
+      "animationFixtures": 675,
+      "succeeded": true,
+      "meshFixtures": 666,
+      "pluginSha256": "bb112edf131b5adf70462bc87b84bc71d38d40b4e3a39518b0f49098568cedfc",
+      "pluginDirectory": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\plugin-runs\\41003661518-1\\O2",
+      "mode": "O2",
+      "animationCaptureSha256": "21fbf5e9f80c206b3442ca0fe1740a6afc67dd585e7dbd658ecc98c4b2e3b9a7",
+      "processInstanceOriginalDifferential": true,
+      "meshCaptureSha256": "417c5b6461947f1556d0c999e6a4b344b06a879447cd09856502af78b9ceb34c"
+    }
+  ],
+  "componentValidation": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\w3x\\native-runs\\41003661518-1\\validation.json",
+  "failures": [],
+  "pluginType": "Recovered.Compiler.W3x.NativePlugin, Recovered.W3x.Plugin",
+  "sdkValidated": false,
+  "processInstanceOriginalDifferential": true,
+  "withoutOriginalReplay": true
+}

@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "runId": "41180859852",
+  "runAttempt": "1",
+  "archiveSha256": "bfa6bd5f6b04e7b5450b3eac7d8b4470b3a23365cc9838f19f50182fb7423267",
+  "files": [
+    {
+      "path": "controller/controller-build.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "controller/build.json",
+      "bytes": 1566,
+      "sha256": "19300b8d365c07a001d7b650791d510b75361e6e62b858cde35ec57db6918136"
+    },
+    {
+      "path": "controller/parent-identity-tests.log",
+      "bytes": 53,
+      "sha256": "f8b67d0afdb4ec8e3194542d39d0bd68b9dc7f2b8b936ca92308eff8c6a94caa"
+    },
+    {
+      "path": "Debug/cli/cold/build-report.json",
+      "bytes": 13850,
+      "sha256": "26349546ed1733c742ef99be33e10b381d6e67c0a73f669eb0683aafc0e62a0b"
+    },
+    {
+      "path": "Debug/cli/cold/build.events.jsonl",
+      "bytes": 22794,
+      "sha256": "da5f7f10d69f3ed8eb7f2fe76b86f6dbf4c08a52a42afe7e2031ccf082e1d0ab"
+    },
+    {
+      "path": "Debug/cli/cold/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/cold/control.json",
+      "bytes": 599,
+      "sha256": "78821838f2dcdfb25255a9a0f32ad45beb4a3eec6eafef08c2ad63b838087959"
+    },
+    {
+      "path": "Debug/cli/cold/request.json",
+      "bytes": 1540,
+      "sha256": "05144204e5925b9b74a5b19607b907ea5d82a739f7abea72b48f5c58285448a2"
+    },
+    {
+      "path": "Debug/cli/cold/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/cold/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/build-report.json",
+      "bytes": 13563,
+      "sha256": "7645b47cf11ac98f297d9345fbc407f9ad78c7c29699e92ba08e458f84cdd0a1"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/build.events.jsonl",
+      "bytes": 19441,
+      "sha256": "c316c4dbe94ed2f9814cd2077e6147d1e46b98bb23cbb38c0da9a9e24617c759"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/control.json",
+      "bytes": 599,
+      "sha256": "58f15e74beef2758bfcc433117d442f5ec9a74b028820b225189706422cfe46a"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/request.json",
+      "bytes": 1559,
+      "sha256": "21ff4bbf20759ae59d6d315f8cf5350ad3bbd9473931bb622e2a25c6cf63d43a"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/missing-image/build.events.jsonl",
+      "bytes": 17653,
+      "sha256": "461851cb6a32be9a082f2ade2a3288dc6de95a629223efab82fc0d72a8b85f5f"
+    },
+    {
+      "path": "Debug/cli/missing-image/control.json",
+      "bytes": 632,
+      "sha256": "3685c9a070c9634c8c7f81cca64bc82b34ac11728cb858af034f1f296c914847"
+    },
+    {
+      "path": "Debug/cli/missing-image/build-report.json",
+      "bytes": 16780,
+      "sha256": "44f25741d1fe557a7c11c56e2f13d0af7c86a2d76c4ba882fc447d6b3e792477"
+    },
+    {
+      "path": "Debug/cli/missing-image/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/missing-image/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/missing-image/stderr.log",
+      "bytes": 2249,
+      "sha256": "92043d93e6739b3772f86efea185468b5b3c09178539fb4de2867fd22a894f76"
+    },
+    {
+      "path": "Debug/cli/missing-image/request.json",
+      "bytes": 1558,
+      "sha256": "2ee8e732395f0f310531ef808da5d52cc8fd1e65d65fceeb3897b224d757f0d5"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/build-report.json",
+      "bytes": 13873,
+      "sha256": "0e2c804dc5acdc00c29f89cdeb4ba6c318e7b998b184ae0e636483722c743638"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/build.events.jsonl",
+      "bytes": 19975,
+      "sha256": "facf7d31b5c8927f1b402a05150abf6d3a0d946150c2f9f8d30776ff31cde4c9"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/control.json",
+      "bytes": 632,
+      "sha256": "d17e3304061b5eef924536f424ade5745d579a41105c5b92c146beddd44ef22c"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/request.json",
+      "bytes": 1566,
+      "sha256": "48d37976949c106e45b9fd98149425c09a8118f170493bd8271244a554866584"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/restored-retry/build-report.json",
+      "bytes": 12554,
+      "sha256": "a542d051d5221fa2e777a71f39885862c287f977e68adbaa60ffebdcb0f510fd"
+    },
+    {
+      "path": "Debug/cli/restored-retry/control.json",
+      "bytes": 632,
+      "sha256": "8f2700ca73d7286b7d4795cf3138c166e53ddef20b75d004f9d94d4c95c6d6ea"
+    },
+    {
+      "path": "Debug/cli/restored-retry/build.events.jsonl",
+      "bytes": 17765,
+      "sha256": "a7b525af17f5ef6a67fb14e954940ba866127b411a462b82b8cf36403e8349c7"
+    },
+    {
+      "path": "Debug/cli/restored-retry/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/restored-retry/request.json",
+      "bytes": 1560,
+      "sha256": "b3a3714404d13f12d880233a1c064428b204c2ca626777a1843d342143e92f15"
+    },
+    {
+      "path": "Debug/cli/restored-retry/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/restored-retry/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/warm/build-report.json",
+      "bytes": 12347,
+      "sha256": "81649107bc2f8edf4d188b0e0720aad71fe0583842976c9b135caac49098db57"
+    },
+    {
+      "path": "Debug/cli/warm/build.events.jsonl",
+      "bytes": 18162,
+      "sha256": "5ec752648aea50aa748e97ba5ea48f8c4f947e92be110d00dd2c94acc6fb8da6"
+    },
+    {
+      "path": "Debug/cli/warm/control.json",
+      "bytes": 632,
+      "sha256": "f15808d8e8bfe3d1af2c6af65a2790f9eba6dcbacb2b421e54117bbd4cd81c57"
+    },
+    {
+      "path": "Debug/cli/warm/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/warm/request.json",
+      "bytes": 1540,
+      "sha256": "84be467c91ba514a12d8e14a8bf990b3063f1906224ac3f5a9c88df0299c8666"
+    },
+    {
+      "path": "Debug/cli/warm/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/warm/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/fixture-build.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/results.json",
+      "bytes": 5957,
+      "sha256": "662d5480f062c68172aecd78c52b643340a98770cd9baf5e977e55a82dbc42a6"
+    },
+    {
+      "path": "Debug/runtime.log",
+      "bytes": 64,
+      "sha256": "692841cc4391182c65af9aa9100d0086f662be0ca011f394fda66bfbfb8095eb"
+    },
+    {
+      "path": "generate.log",
+      "bytes": 45,
+      "sha256": "f171530c8047bfb64c86ef60b11d0d2177cb200108a94d19c1bbb7ec844da862"
+    },
+    {
+      "path": "Release/cli/cold/build-report.json",
+      "bytes": 14168,
+      "sha256": "a4cb92bca45ebbf496a734cc8238ef77a6e73c4f5ce459279eabb1507bb862b2"
+    },
+    {
+      "path": "Release/cli/cold/build.events.jsonl",
+      "bytes": 22862,
+      "sha256": "d1c16815fb94bfbbe5806f40ac20468493ffecd3fbb436507cdaadf5ae5785a9"
+    },
+    {
+      "path": "Release/cli/cold/control.json",
+      "bytes": 601,
+      "sha256": "0b8741e005284da1ce9e91bb68302a5ac63f356fa0f29b485d8276604dad2295"
+    },
+    {
+      "path": "Release/cli/cold/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/cold/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/cold/request.json",
+      "bytes": 1558,
+      "sha256": "57a2aaf65e3079c5971de94e9d6a3354b94cdc20f5261075ee4606b0da145df9"
+    },
+    {
+      "path": "Release/cli/cold/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/build-report.json",
+      "bytes": 13635,
+      "sha256": "50380ab33a1acd561527f1b7478cff63f2cfc542bd32672a3270cf6d55774f19"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/build.events.jsonl",
+      "bytes": 19507,
+      "sha256": "0fbc3b57b3eca189efeec2c8617e433a1070726503bc1da4a0d669a02b53553b"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/control.json",
+      "bytes": 601,
+      "sha256": "14b654097929fd9a683b668e7119f805766b0c570c8e871453eafa31383a2cce"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/request.json",
+      "bytes": 1577,
+      "sha256": "3432da549845f7412650129e91048756dd47a20e8e82394df6e75c97a4164a44"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/missing-image/build-report.json",
+      "bytes": 17017,
+      "sha256": "fe84eee07410190ddb6bcb5ea309063b37c77bb49c765ea73bd55758c524f81e"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/missing-image/build.events.jsonl",
+      "bytes": 17713,
+      "sha256": "1f7ba937a2f0b1c2921cb932c1c4ade21057fbac8da9ca647c9e4908bd42427c"
+    },
+    {
+      "path": "Release/cli/missing-image/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/missing-image/control.json",
+      "bytes": 634,
+      "sha256": "a1fab0922db3dbab3a4b0be160035206ad9152eff3edb24c43c00e63a4ff6d4a"
+    },
+    {
+      "path": "Release/cli/missing-image/request.json",
+      "bytes": 1576,
+      "sha256": "dc942777d9acdec93971ed35e75e5b281d441e470784010f3a1dec599b51d7ff"
+    },
+    {
+      "path": "Release/cli/missing-image/stderr.log",
+      "bytes": 2249,
+      "sha256": "01f9ab6fbf4ed3953910a7a3fbabcfbc10e67dfdd1e13ea9e01330177c0d787c"
+    },
+    {
+      "path": "Release/cli/missing-image/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/build.events.jsonl",
+      "bytes": 20045,
+      "sha256": "ceb07ae4c7eccedce4c3d080aeecb79784eb5cb5c20ad7ec2c5a94fee9aa6a9e"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/build-report.json",
+      "bytes": 14115,
+      "sha256": "08912ee1ae8e4da00e8b55e70767859697e647dc3c4d210fe924eceafb5c4704"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/control.json",
+      "bytes": 634,
+      "sha256": "18aadc7c63c59ec700b8c6a1ed4a7af55e23d32767a5dc8c4e26d30057ca4911"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/request.json",
+      "bytes": 1584,
+      "sha256": "c6df05ec35c2e8c563667d4400954a08cf4b50c5c377354c98fc40775c853664"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/restored-retry/build-report.json",
+      "bytes": 12654,
+      "sha256": "ade909ff7a01d8de128f8204d667c6f458b89d40c9d5230baa2df019cdbf555b"
+    },
+    {
+      "path": "Release/cli/restored-retry/build.events.jsonl",
+      "bytes": 17831,
+      "sha256": "f59d93c8efda9e8971140662e3e556d1c986071b255f28c54a4d304293f775d7"
+    },
+    {
+      "path": "Release/cli/restored-retry/control.json",
+      "bytes": 634,
+      "sha256": "522990b7adbc7bbe68ec430ece9d73ca5bc0c8814d39458b2c23a01d46e3da88"
+    },
+    {
+      "path": "Release/cli/restored-retry/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/restored-retry/request.json",
+      "bytes": 1578,
+      "sha256": "42861ebf93e987b0180bd6fd92b77cfa80d4062592b1fd73ed423419df5c1582"
+    },
+    {
+      "path": "Release/cli/restored-retry/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/restored-retry/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/warm/build.events.jsonl",
+      "bytes": 18228,
+      "sha256": "7eb94f05548bf529c2e91053f1bd10c37d07c49da9e13ff520332df4296eaaf2"
+    },
+    {
+      "path": "Release/cli/warm/control.json",
+      "bytes": 634,
+      "sha256": "5a3b3418ec380d00b1f798b5c3b0eb505a04fbad79a11c0929ecb5204003d06e"
+    },
+    {
+      "path": "Release/cli/warm/build-report.json",
+      "bytes": 12336,
+      "sha256": "480faf532113e259c4880a8fe5d373602a538a2479d0c213ff811498a3bf92b8"
+    },
+    {
+      "path": "Release/cli/warm/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/warm/request.json",
+      "bytes": 1558,
+      "sha256": "f6be0f7de926327d200fce653b638328ad0878302e6f6c617b6bf2e44025d4a3"
+    },
+    {
+      "path": "Release/cli/warm/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/warm/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/fixture-build.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/results.json",
+      "bytes": 5957,
+      "sha256": "662d5480f062c68172aecd78c52b643340a98770cd9baf5e977e55a82dbc42a6"
+    },
+    {
+      "path": "Release/runtime.log",
+      "bytes": 64,
+      "sha256": "692841cc4391182c65af9aa9100d0086f662be0ca011f394fda66bfbfb8095eb"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 64325,
+      "sha256": "72d42e3f1bace2fee473a115f61941c05a9a34818fcb05b32d6d0fe26c48c3b6"
+    }
+  ]
+}

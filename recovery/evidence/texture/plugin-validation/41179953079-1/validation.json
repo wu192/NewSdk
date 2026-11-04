@@ -1,0 +1,123 @@
+{
+  "testSources": [
+    {
+      "sha256": "70ff92658688b4e860285a89bb618ecd5a583e3d5f7ea94469ac1393d3988280",
+      "path": "recovery/tests/TextureCommonFormats.cs"
+    },
+    {
+      "sha256": "3847211ac592133f5f7c2234029bb0f055ec364a2df678792d6ec50ce441bfd0",
+      "path": "recovery/scripts/GenerateTextureFixtures.py"
+    }
+  ],
+  "scope": "Common formats through production plugin objects and real MOD CLI; independent DDS/BC decode, Core schema/file preprocessing, cache invalidation, missing-input retry; no game runtime claim",
+  "error": "System.Management.Automation.RuntimeException: Texture common-format tool failed: C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-7a849cefa71344b0ac6dcf613dd265d7\\Debug\\clean\\NewModCompiler.exe (exit 1)",
+  "sourceCommit": "272515c3ea8a4a316cb8fcc25b329d688d7a9452",
+  "configurations": [],
+  "schemaVersion": 1,
+  "runAttempt": "1",
+  "fixtureInputs": [
+    {
+      "sha256": "3b7ef0c5b535a0de3667389fa9dddec4dcfc272acd3a9916cd8c1f190d89499c",
+      "bytes": 189,
+      "name": "alpha.png"
+    },
+    {
+      "sha256": "016ff404e2b417d3bf33b61372d8afa6f707923fcdf62aebd99b92df1882dd9e",
+      "bytes": 1024,
+      "name": "alpha.rgba"
+    },
+    {
+      "sha256": "44a301e2ab5b843c7b6c503b482fb9dc3d717b5903aa174607c4a7881adf9f1b",
+      "bytes": 113,
+      "name": "binary-alpha.png"
+    },
+    {
+      "sha256": "e0251fd050d1d39a259e2b175d1d1d45c577982351a4cd909a4e7f56e01eb475",
+      "bytes": 1024,
+      "name": "binary-alpha.rgba"
+    },
+    {
+      "sha256": "4cc335839c7dcbb9d0b0d8856ce919a852dfa442e2fe3ddb17d638e1e733edde",
+      "bytes": 20,
+      "name": "broken.png"
+    },
+    {
+      "sha256": "261465d9d0217049aa07e0353136260795205524139916aab253f7200e346657",
+      "bytes": 450,
+      "name": "fixtures.json"
+    },
+    {
+      "sha256": "a80460670368ea0286643488ea13d456bcd4d6496f38eb17124a61ab7aa9abc9",
+      "bytes": 326,
+      "name": "indexed.bmp"
+    },
+    {
+      "sha256": "79033f4eb8ee68102d03c8526ba7266f99bbc7b9f4b464b87ec4a0caef0c840c",
+      "bytes": 312,
+      "name": "indexed.dib"
+    },
+    {
+      "sha256": "928ff450279d05c60e908e518e0a6552a43241b926195c74164f79b2bb4d730e",
+      "bytes": 119,
+      "name": "indexed.png"
+    },
+    {
+      "sha256": "a0407f2e18e205067f62ecb7673294abeb049fcdb98001c9fd260ebd19f9f8af",
+      "bytes": 95,
+      "name": "npot.png"
+    },
+    {
+      "sha256": "f2950affe79b287c094b092d95cc1611f4958931e9846cb316cc1e1bb24ca51a",
+      "bytes": 822,
+      "name": "opaque.bmp"
+    },
+    {
+      "sha256": "6fa30a7929954b27ccef9e4c666f75d7e4fbef910a6cf592cfc3a38201e1097e",
+      "bytes": 808,
+      "name": "opaque.dib"
+    },
+    {
+      "sha256": "df14ce0968f1d0f91f0b0da77dc0f26c07d6f8c357b50d332c88404a5ac6571f",
+      "bytes": 104,
+      "name": "opaque.png"
+    },
+    {
+      "sha256": "06574d8f79d9a246deb2eef55dbbdd2aca70cff986025e11db955e332c94e3d9",
+      "bytes": 1024,
+      "name": "opaque.rgba"
+    },
+    {
+      "sha256": "f26c18dd0db71cbe0df81582afee54d688e9b1e6044a1540144821a714804e08",
+      "bytes": 1042,
+      "name": "opaque.tga"
+    },
+    {
+      "sha256": "ea7443bed051b12d75d7c567f2d0905cd4f53b8d216ec823143f140e07cb6b32",
+      "bytes": 1152,
+      "name": "preserve.dds"
+    },
+    {
+      "sha256": "450212b7533098d8e33042f4aefc02ab7650491213b2a1d5e8d6f2918374e129",
+      "bytes": 1058,
+      "name": "rle.tga"
+    },
+    {
+      "sha256": "1fe07197c342d25d762c8ff0c10f787f4cdaba4c7d9821fb174d8b857e479c73",
+      "bytes": 822,
+      "name": "solid.bmp"
+    },
+    {
+      "sha256": "57b30c21fec6be6cb97ffda5991bcbd294b360c95758b4a238cdba14854daf8f",
+      "bytes": 82,
+      "name": "solid.png"
+    },
+    {
+      "sha256": "d0922103d16565dada908b2221bdb4a18dc0b09e598cd0d387d5267fb2169dbd",
+      "bytes": 1024,
+      "name": "solid.rgba"
+    }
+  ],
+  "runId": "41179953079",
+  "productionCli": [],
+  "status": "failed"
+}

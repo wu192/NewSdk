@@ -24,6 +24,8 @@ class Tracker {
     std::vector<Bookmark> pointers_, references_;
     std::vector<MemberBookmark> members_;
     Bookmark At(const void* location, U32 value) const;
+    void Flatten(Chunk& output,bool bigEndian,U32 absoluteInstanceOffset,U32 destinationOffset,bool recordTables);
+    void FixupMembers(const Tracker& owner,Chunk& output,bool bigEndian,U32 dataStart) const;
     static bool Less(const Bookmark& a, const Bookmark& b);
     static void Sort(std::vector<Bookmark>& values);
     static void Quick(Bookmark* first, Bookmark* last, int depth);
@@ -37,6 +39,9 @@ public:
     void BookmarkMemberOffset(const void* member, void** offset);
     bool ExchangePointers(void* a, void* b);
     Chunk MakeRelocatable(bool bigEndian, U32 absoluteInstanceOffset);
+    // Token rows are twelve bytes. Assemble token/data directly into one final
+    // instance buffer; relocation/import tables still belong to data only.
+    Chunk MakeTokenized(Tracker& data,bool bigEndian);
     void FixupMemberOffsets(const Tracker& owner, Chunk& chunk, bool bigEndian) const;
 };
 }}

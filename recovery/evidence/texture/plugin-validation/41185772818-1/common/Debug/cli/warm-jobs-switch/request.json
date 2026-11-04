@@ -1,0 +1,30 @@
+{
+  "stdout": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture\\common-formats\\41185772818-1\\Debug\\cli\\warm-jobs-switch\\stdout.log",
+  "timeoutSeconds": 90,
+  "cwd": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-ea0610ce20fb425c9ee4b231e468e7df\\Debug\\production\\runtime",
+  "events": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-ea0610ce20fb425c9ee4b231e468e7df\\Debug\\production\\cached\\build.events.jsonl",
+  "arguments": [
+    "build",
+    "--mod",
+    "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-ea0610ce20fb425c9ee4b231e468e7df\\Debug\\production\\MOD 中文纹理",
+    "--sdk-root",
+    "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-ea0610ce20fb425c9ee4b231e468e7df\\Debug\\production\\sdk",
+    "--out",
+    "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-ea0610ce20fb425c9ee4b231e468e7df\\Debug\\production\\cached",
+    "--jobs",
+    "4",
+    "--package-format",
+    "loose",
+    "--package-content",
+    "base",
+    "--performance",
+    "detailed",
+    "--sc=true",
+    "--bc=true",
+    "--iod",
+    "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-ea0610ce20fb425c9ee4b231e468e7df\\Debug\\production\\cached-intermediate"
+  ],
+  "cancel": false,
+  "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-ea0610ce20fb425c9ee4b231e468e7df\\Debug\\production\\runtime\\NewModCompiler.exe",
+  "stderr": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture\\common-formats\\41185772818-1\\Debug\\cli\\warm-jobs-switch\\stderr.log"
+}

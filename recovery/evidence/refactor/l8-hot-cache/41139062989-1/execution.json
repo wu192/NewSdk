@@ -1,0 +1,47 @@
+{
+  "runId": "41139062989",
+  "sourceCommit": "a286062ffcde48c097ecc8db6fb7f598dfdb0137",
+  "binarySourceCommit": "cc10391be67dda57c7efa7fc06256b99e9372d9a",
+  "status": "passed",
+  "artifactId": 13018288776,
+  "archiveSha256": "2b67bef1b3d28131ea9a39f1c3787bdffdea29a0466fe838a2d8065c265cd663",
+  "archiveDigestVerified": true,
+  "formalSamples": 75,
+  "qualifiedFormalSamples": 75,
+  "detailedSamples": 3,
+  "completedCases": [
+    "C00",
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "C10",
+    "C11",
+    "C12"
+  ],
+  "minimumWallMs": 9269.137,
+  "minimumCompilerElapsedMs": 9169,
+  "elapsedSeconds": 1083.5859238325866,
+  "phaseSeconds": {
+    "workload": 68.90239090000023,
+    "calibration": 123.2621956999999,
+    "common_sampling": 825.4935342000001,
+    "common_diagnostics": 39.323971000000256
+  },
+  "workload": {
+    "partitions": 6,
+    "assets": 54653,
+    "documents": 2753,
+    "inputBytes": 311610748,
+    "fingerprint": "d893b3ac0deeabed72b63e655d81cb92cfca41a2ec564bff81b920931ff16cf2"
+  },
+  "calibrationGoalReached": false,
+  "note": "All strict admission/budget/case/repeat gates passed. The advisory 10-14s target was not reached within three rounds; measured hot wall median is about 9.34s. No Full run or cross-VM speed claim.",
+  "windowsJobElapsedSeconds": 1100,
+  "reportNote": "report.md regenerated from original benchmark.json to make the missed advisory target explicit; original report preserved and all CSV cells verified unchanged"
+}

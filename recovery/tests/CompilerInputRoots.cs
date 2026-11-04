@@ -29,7 +29,9 @@ public static class CompilerInputRoots
     }
     static BuildRequest Request(string name)
     {
-        return new BuildRequest { Command = "build", SdkRoot = sdk, ModRoot = mod, OutputRoot = Path.Combine(output, name), Content = new[] { "base" }, PackageFormat = "loose", Arguments = new string[0] };
+        var request = new BuildRequest { Command = "build", SdkRoot = sdk, ModRoot = mod, OutputRoot = Path.Combine(output, name), Content = new[] { "base" }, PackageFormat = "loose", Arguments = new string[0] };
+        foreach (string key in new[] {"sc", "bc"}) request.Options[key] = new EffectiveOption {Value="false", Source="lifecycle-fixture"};
+        return request;
     }
     static void Option(BuildRequest request, string key, string value) { request.Options[key] = new EffectiveOption { Value = value, Source = "input-roots-fixture" }; }
     static BuildRequest Explicit(string name, bool spaced = false)
@@ -42,10 +44,10 @@ public static class CompilerInputRoots
     }
     static StreamContext Context(BuildRequest request, string name)
     {
-        string staging = Path.Combine(request.OutputRoot, name); Directory.CreateDirectory(staging);
         var task = new BuildTask { Id = "base/Mod", Content = "base", InputPath = Path.Combine(mod, "Data", "Mod.xml"), OutputName = "base/Mod", Reason = "InputRootsFixture", Dependencies = new string[0] };
+        string staging = CacheLayout.ForRequest(request).StreamDirectory(task); Directory.CreateDirectory(staging);
         var context = new StreamContext();
-        foreach (var pair in new Dictionary<string, object> { { "BuildId", "input-roots-fixture" }, { "Request", request }, { "Task", task }, { "StagingDirectory", staging } })
+        foreach (var pair in new Dictionary<string, object> { { "BuildId", "input-roots-fixture" }, { "Request", request }, { "Task", task }, { "OutputDirectory", staging } })
             typeof(StreamContext).GetProperty(pair.Key).GetSetMethod(true).Invoke(context, new[] { pair.Value });
         return context;
     }
@@ -171,21 +173,40 @@ public static class CompilerInputRoots
     }
     static void CacheBoundary(Settings sentinel)
     {
-        var request = Explicit("cache-reject"); Option(request, "bc", "true");
+        var request = Explicit("cache-external"); Option(request, "bc", "true");
         using (var backend = new CoreStreamCompiler())
         {
-            bool rejected = false;
-            try { backend.Initialize(request); backend.Compile(Context(request, "stream"), CancellationToken.None); }
-            catch (BuildFailure error)
-            {
-                Require(error.Message.IndexOf("root", StringComparison.OrdinalIgnoreCase) >= 0 || error.Message.IndexOf("inventor", StringComparison.OrdinalIgnoreCase) >= 0,
-                    "External cache roots must fail for their inventory boundary: " + error);
-                rejected = true;
-            }
-            Require(rejected && Object.ReferenceEquals(Settings.Current, sentinel), "Build cache must reject non-inventoried effective roots and restore settings");
+            backend.Initialize(request);
+            Selected(Compile(backend, request, "stream", sentinel), "SelectedFirst", "SelectedMod", "SelectedSecond");
+            Require(Object.ReferenceEquals(Settings.Current, sentinel), "External cached-root compilation leaked settings");
         }
-        Require(Object.ReferenceEquals(Settings.Current, sentinel), "Rejected cache-root backend disposal leaked settings");
-        tests.Add("no-cache-external-roots-supported-build-cache-outside-inventory-rejected-with-settings-restored");
+        tests.Add("original-cache-supports-external-effective-roots-with-real-file-payloads-and-settings-restored");
+    }
+    static void PreflightReuse(Settings sentinel)
+    {
+        var request = Explicit("preflight-reuse");
+        CoreStreamCompiler.PreflightInputRoots(request);
+        Require(Object.ReferenceEquals(Settings.Current, sentinel), "Successful preflight leaked settings");
+        string configuration = Path.Combine(sdk, "tools", "BinaryAssetBuilder.exe.config");
+        using (var held = new FileStream(configuration, FileMode.Open, FileAccess.Read, FileShare.None))
+        using (var backend = new CoreStreamCompiler())
+        {
+            backend.Initialize(request);
+            Selected(Compile(backend, request, "stream", sentinel), "SelectedFirst", "SelectedMod", "SelectedSecond");
+        }
+        // A changed effective boundary cannot reuse the earlier overlap result.
+        request = Explicit("preflight-changed");
+        CoreStreamCompiler.PreflightInputRoots(request);
+        request.ReportPath = Path.Combine(anchor, "first", "data", "report.json");
+        bool rejected = false;
+        using (var backend = new CoreStreamCompiler())
+        {
+            backend.Initialize(request);
+            try { backend.Compile(Context(request, "stream"), CancellationToken.None); }
+            catch (BuildFailure error) { rejected = error.Code == "CORE_INPUT_OUTPUT_OVERLAP"; }
+        }
+        Require(rejected, "Changed diagnostic destination reused stale preflight validation");
+        tests.Add("preflight-configuration-reused-without-reopen-and-changed-request-revalidates-input-output-boundary");
     }
     public static int Main(string[] args)
     {
@@ -199,7 +220,7 @@ public static class CompilerInputRoots
             Bytes(Path.Combine(mod, "Art", "assets", "art.bin"), 41); Bytes(Path.Combine(mod, "Audio", "audio.bin"), 51);
             Write(Path.Combine(mod, "Data", "Mod.xml"), Asset("<Includes><Include type='all' source='data:choice.xml'/></Includes><AptAptData id='ArtPayload' File='art:assets/art.bin'/><AptAptData id='AudioPayload' File='audio:audio.bin'/>"));
             var sentinel = new Settings(); Settings.Current = sentinel;
-            Defaults(sentinel); ExplicitCases(sentinel); RelativeDataRoot(sentinel); FailureRetry(sentinel); PreflightPreservesInputs(sentinel); CacheBoundary(sentinel);
+            Defaults(sentinel); ExplicitCases(sentinel); RelativeDataRoot(sentinel); FailureRetry(sentinel); PreflightPreservesInputs(sentinel); PreflightReuse(sentinel); CacheBoundary(sentinel);
             File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks, tests }));
             Console.WriteLine("PASS InputRoots: " + checks + " assertions"); return 0;
         }

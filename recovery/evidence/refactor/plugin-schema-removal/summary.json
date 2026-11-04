@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "checkedAt": "2026-10-30T19:07:28+08:00",
+  "baseCommit": "5c1843aea5f9b0cdcbe04325b251a8a944ed0fae",
+  "branch": "refactor/remove-plugin-schema-validation",
+  "pullRequest": "https://github.com/wu162/NewSdk/pull/26",
+  "implementationCommit": "e3272ffd087148d31e1363670848a5119f09e4fc",
+  "latestTestCommit": "822007a5e034504eee08d8a9d8ca5a09d67ac934",
+  "productionSourceTrees": {
+    "recovery/src": "1aba65f796f7a7e436c02ec49ec8bff2bde8495b",
+    "SDK": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9",
+    "recovery/build": "f3af80204a3569f5b955ca3eeb2f7445a8277dd7",
+    "recovery/catalog": "12d349a0b7d7425f36f2c60457df74b68c563421"
+  },
+  "changesAfterCoreAcceptance": [
+    ".github/workflows/refactor-xml-product.yml",
+    "recovery/scripts/TestCompilerGameObject.ps1",
+    "recovery/scripts/TestCompilerWeapon.ps1",
+    "recovery/tests/XmldamagefxOracle.cs",
+    "recovery/tests/XmlgamemapOracle.cs",
+    "recovery/tests/XmltacticalhotkeysOracle.cs"
+  ],
+  "productionAndSdkSourceTreesIdentical": true,
+  "localChecks": {
+    "routeAuditRegisteredEntries": 301,
+    "formalRoutes": 289,
+    "unresolved": [],
+    "groupSelectionTestsPassed": 26,
+    "uiConfigGeneratorsReproduceExactOutput": true,
+    "tokenizerFixtureSourceManifest": {
+      "gameobject": 47,
+      "weapon": 9
+    }
+  },
+  "acceptance": [
+    {
+      "scope": "Core, CLI, caches, full mymod, standalone five-file ZIP, Upheaval",
+      "runId": 41037021490,
+      "sourceCommit": "e3272ffd087148d31e1363670848a5119f09e4fc",
+      "workflowConclusion": "success",
+      "artifactId": 12970380524,
+      "archiveSha256": "d76873a2e64ac5e0f744d657d2da9ac2ea368d854a0c019bfdae84cd6c34cb8f",
+      "archiveSha256Recomputed": true
+    },
+    {
+      "scope": "All 63 XML groups in Debug and Release; original DLL byte matrices",
+      "runId": 41037565236,
+      "sourceCommit": "b687824c839c2c85f1dd29ed178c4856c266a379",
+      "workflowConclusion": "failure",
+      "acceptedStepConclusion": "success",
+      "acceptedConfigurations": 126,
+      "subsequentFailure": "GameObject/Weapon fixture manifests omitted the shared schema helper; independently fixed and passed in run 41042830679",
+      "artifactId": 12971846186,
+      "archiveSha256": "b45d4f818a07e2e951a84c62c78a6aa4a0633dc423080cfa8327e5d74fe24157",
+      "archiveSha256Recomputed": true
+    },
+    {
+      "scope": "Complete GameObject and Weapon raw-byte and tokenizer replay, Debug and Release",
+      "runId": 41042830679,
+      "sourceCommit": "822007a5e034504eee08d8a9d8ca5a09d67ac934",
+      "workflowConclusion": "success",
+      "xmlFullMatrices": "Independent accepted run 41037565236; unchanged XML source/tests",
+      "artifactId": 12971493343,
+      "archiveSha256": "c1f1958bb3489dd81d012f749ea3de2d5a2dcfd1cc1b7d8095403a22d24f9bc8",
+      "archiveSha256Recomputed": true
+    }
+  ],
+  "xmlCounts": [
+    {
+      "configuration": "Debug",
+      "groups": 63,
+      "fixtures": 959452,
+      "bufferComparisons": 5532192
+    },
+    {
+      "configuration": "Release",
+      "groups": 63,
+      "fixtures": 959452,
+      "bufferComparisons": 5532192
+    }
+  ],
+  "receiptSha256": {
+    "weapon.validation.json": "ce34b2b01e42be7c402d4490b7d297d7d5e5b4b2e5c33eb3ce92269534bf49fc",
+    "core-debug.boundary.json": "b6705567512c0882682c9b8efa2dffdb06c8a1bc1ff4b940c866da8821117f52",
+    "gameobject.validation.json": "9f92b4752b95f1721f570303d5501cb9f076f7eab6ee3e343a1d0a551d102d43",
+    "core-release.boundary.json": "b6705567512c0882682c9b8efa2dffdb06c8a1bc1ff4b940c866da8821117f52",
+    "xml-matrices.validation.json": "f534bcbecd2b37a62a3ef7bb66bbc2eb5c9000bd3b413e5f02faaa9318b1ae47",
+    "core-lifecycle.validation.json": "4618697d34df99ae1f65d0385a1c912a7a8d65a0f479a68874951661b93fe7f1",
+    "sdk-and-upheaval.summary.json": "c5b19bdb4e1a1179cff8cb52a5f59a6e2b750491d907377745d4749c5f4c701a"
+  }
+}

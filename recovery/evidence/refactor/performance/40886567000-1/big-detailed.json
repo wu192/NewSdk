@@ -1,0 +1,707 @@
+{
+  "schemaVersion": "1.0",
+  "buildId": "72d4d9c9bf6b486d8dde21bdc7563bfd",
+  "status": "succeeded",
+  "exitCode": 0,
+  "requestArguments": [
+    "build",
+    "--sdk-root",
+    "D:\\a\\NewSdk\\NewSdk\\SDK",
+    "--mod",
+    "D:\\a\\_temp\\performance-work\\TimingMod",
+    "--out",
+    "D:\\a\\_temp\\performance-work\\big-detailed",
+    "--package-content",
+    "base",
+    "--package-format",
+    "big",
+    "--include-additional=false",
+    "--performance",
+    "detailed"
+  ],
+  "effectiveOptions": {
+    "atc": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "bc": {
+      "Value": "true",
+      "Source": "sdkConfig"
+    },
+    "csc": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "events": {
+      "Value": "D:\\a\\_temp\\performance-work\\big-detailed\\build.events.jsonl",
+      "Source": "default"
+    },
+    "fix-neutral-assets": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "fsc": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "game-version": {
+      "Value": "1.12",
+      "Source": "default"
+    },
+    "include-additional": {
+      "Value": "false",
+      "Source": "commandLine"
+    },
+    "log": {
+      "Value": "D:\\a\\_temp\\performance-work\\big-detailed\\build.log",
+      "Source": "default"
+    },
+    "mod": {
+      "Value": "D:\\a\\_temp\\performance-work\\TimingMod",
+      "Source": "commandLine"
+    },
+    "mod-version": {
+      "Value": "1.0",
+      "Source": "default"
+    },
+    "out": {
+      "Value": "D:\\a\\_temp\\performance-work\\big-detailed",
+      "Source": "commandLine"
+    },
+    "package-content": {
+      "Value": "base",
+      "Source": "commandLine"
+    },
+    "package-format": {
+      "Value": "big",
+      "Source": "commandLine"
+    },
+    "pc": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "performance": {
+      "Value": "detailed",
+      "Source": "commandLine"
+    },
+    "profile": {
+      "Value": "standard",
+      "Source": "default"
+    },
+    "psc": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "report": {
+      "Value": "D:\\a\\_temp\\performance-work\\big-detailed\\build-report.json",
+      "Source": "default"
+    },
+    "sc": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "sdk-root": {
+      "Value": "D:\\a\\NewSdk\\NewSdk\\SDK",
+      "Source": "commandLine"
+    },
+    "slowclean": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "ss": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "tp": {
+      "Value": "Win32",
+      "Source": "default"
+    }
+  },
+  "selectedContent": [
+    "base"
+  ],
+  "inputRoots": {
+    "dataRoot": "D:\\a\\NewSdk\\NewSdk\\SDK",
+    "schemaPath": "D:\\a\\NewSdk\\NewSdk\\SDK\\Schemas\\xsd\\CnC3Types.xsd",
+    "dataPaths": [
+      "D:\\a\\_temp\\performance-work\\TimingMod\\Data",
+      "D:\\a\\NewSdk\\NewSdk\\SDK",
+      "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods",
+      "D:\\a\\NewSdk\\NewSdk\\SDK\\SAGEXML"
+    ],
+    "artPaths": [
+      "D:\\a\\_temp\\performance-work\\TimingMod\\Art",
+      "D:\\a\\NewSdk\\NewSdk\\SDK\\Art"
+    ],
+    "audioPaths": [
+      "D:\\a\\_temp\\performance-work\\TimingMod\\Audio",
+      "D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+    ],
+    "sources": {
+      "dataRoot": "sdk-root",
+      "dataPaths": "mod-prepend+sdk-config",
+      "artPaths": "mod-prepend+sdk-config",
+      "audioPaths": "mod-prepend+sdk-config"
+    }
+  },
+  "plan": {
+    "Tasks": [
+      {
+        "Id": "base/Mod",
+        "Content": "base",
+        "InputPath": "D:\\a\\_temp\\performance-work\\TimingMod\\Data\\Mod.xml",
+        "OutputName": "base/Mod",
+        "Reason": "ExplicitContentSelection",
+        "Dependencies": []
+      }
+    ],
+    "Skipped": [],
+    "PlanKind": "StreamDiscovery",
+    "DependencyPolicy": "Default is stream discovery only. Core owns include/reference closure. An explicit dependency planner may add stream dependencies, which are validated, deduplicated, and topologically ordered."
+  },
+  "stages": [
+    {
+      "id": "plan",
+      "status": "succeeded",
+      "elapsedMs": 5,
+      "artifactCount": 0
+    },
+    {
+      "id": "compile",
+      "status": "succeeded",
+      "elapsedMs": 396,
+      "artifactCount": 4
+    },
+    {
+      "id": "package",
+      "status": "succeeded",
+      "elapsedMs": 14,
+      "artifactCount": 2
+    },
+    {
+      "id": "publish",
+      "status": "succeeded",
+      "elapsedMs": 11,
+      "artifactCount": 2
+    }
+  ],
+  "diagnostics": [],
+  "diagnosticCounts": {
+    "error": 0,
+    "warning": 0
+  },
+  "loadedProviders": [
+    "NewModCompiler.Core.Win32.LegacySessionCache"
+  ],
+  "externalTools": [],
+  "cache": {
+    "status": "SessionCache",
+    "hits": 0,
+    "misses": 2,
+    "sessionCache": true,
+    "sessionPackageHits": 0,
+    "sessionPackageMisses": 1,
+    "documentReuse": 0,
+    "xmlParse": 2,
+    "instanceCompile": 3,
+    "linkedStreamsRestored": 0,
+    "fileHashReads": 824,
+    "fileHashReuses": 0,
+    "fileHashBytesRead": 1523936,
+    "textureCache": true,
+    "compressedSessionCache": true,
+    "partialSessionCache": true,
+    "freezeSessionCache": false,
+    "alwaysTouchCache": false,
+    "partialSessionsSaved": 0,
+    "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\big-detailed"
+  },
+  "elapsedMs": 449,
+  "artifacts": [
+    {
+      "Path": "D:\\a\\_temp\\performance-work\\big-detailed\\published\\TimingMod_1.0.big",
+      "Kind": "package.big",
+      "Size": 3683,
+      "Sha256": "27e275577f9a0348ee90b72c67877643054c38870ce2da92af30992c6af9d0d1"
+    },
+    {
+      "Path": "D:\\a\\_temp\\performance-work\\big-detailed\\published\\TimingMod_1.0.skudef",
+      "Kind": "package.skudef",
+      "Size": 42,
+      "Sha256": "a5b3fb90ae61c8dd5b9e2111e789322018597a34517efc9091af2b6ded7d60b7"
+    }
+  ],
+  "logPaths": {
+    "events": "D:\\a\\_temp\\performance-work\\big-detailed\\build.events.jsonl",
+    "report": "D:\\a\\_temp\\performance-work\\big-detailed\\build-report.json",
+    "text": "D:\\a\\_temp\\performance-work\\big-detailed\\build.log"
+  },
+  "executionMode": "InProcess",
+  "publicationStatus": "PublishedDirectory",
+  "publicationDirectory": "D:\\a\\_temp\\performance-work\\big-detailed\\published",
+  "publicationUnchanged": false,
+  "performance": {
+    "level": "detailed",
+    "clock": "Stopwatch",
+    "frequency": 10000000,
+    "boundary": "before-report-write",
+    "entries": [
+      {
+        "name": "backend.dispose",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 1.244,
+        "selfMs": 1.244,
+        "maxMs": 1.244
+      },
+      {
+        "name": "backend.initialize",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 33.8904,
+        "selfMs": 33.8904,
+        "maxMs": 33.8904
+      },
+      {
+        "name": "cache.commit",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 1.786,
+        "selfMs": 1.786,
+        "maxMs": 1.786
+      },
+      {
+        "name": "identity.directory",
+        "streamId": null,
+        "count": 2,
+        "totalMs": 0.11120000000000001,
+        "selfMs": 0.11120000000000001,
+        "maxMs": 0.057100000000000005
+      },
+      {
+        "name": "identity.load",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.8682000000000001,
+        "selfMs": 0.8682000000000001,
+        "maxMs": 0.8682000000000001
+      },
+      {
+        "name": "identity.save",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 5.024500000000001,
+        "selfMs": 4.9674000000000005,
+        "maxMs": 5.024500000000001
+      },
+      {
+        "name": "identity.sha256",
+        "streamId": null,
+        "count": 2,
+        "totalMs": 0.1027,
+        "selfMs": 0.1027,
+        "maxMs": 0.0663
+      },
+      {
+        "name": "package.additional-inputs",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.0004,
+        "selfMs": 0.0004,
+        "maxMs": 0.0004
+      },
+      {
+        "name": "package.additional-merge",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.0004,
+        "selfMs": 0.0004,
+        "maxMs": 0.0004
+      },
+      {
+        "name": "package.big",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 6.2908,
+        "selfMs": 6.2908,
+        "maxMs": 6.2908
+      },
+      {
+        "name": "package.hash",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.39390000000000003,
+        "selfMs": 0.2371,
+        "maxMs": 0.39390000000000003
+      },
+      {
+        "name": "package.lod",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 2.8581000000000003,
+        "selfMs": 2.8581000000000003,
+        "maxMs": 2.8581000000000003
+      },
+      {
+        "name": "package.skudef",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.5834,
+        "selfMs": 0.5834,
+        "maxMs": 0.5834
+      },
+      {
+        "name": "publish.commit",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.47050000000000003,
+        "selfMs": 0.47050000000000003,
+        "maxMs": 0.47050000000000003
+      },
+      {
+        "name": "publish.prepare",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 5.2779,
+        "selfMs": 5.2779,
+        "maxMs": 5.2779
+      },
+      {
+        "name": "stage.compile",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 396.7971,
+        "selfMs": 1.5394,
+        "maxMs": 396.7971
+      },
+      {
+        "name": "stage.package",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 13.950000000000001,
+        "selfMs": 3.8230000000000004,
+        "maxMs": 13.950000000000001
+      },
+      {
+        "name": "stage.plan",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 4.9293000000000005,
+        "selfMs": 4.9293000000000005,
+        "maxMs": 4.9293000000000005
+      },
+      {
+        "name": "stage.publish",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 10.8017,
+        "selfMs": 0.028800000000000003,
+        "maxMs": 10.8017
+      },
+      {
+        "name": "staging.cleanup",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.6842,
+        "selfMs": 0.6842,
+        "maxMs": 0.6842
+      },
+      {
+        "name": "artifacts.collect",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 2.1435,
+        "selfMs": 1.8878000000000001,
+        "maxMs": 2.1435
+      },
+      {
+        "name": "cache.linked-stage",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 0.5987,
+        "selfMs": 0.5987,
+        "maxMs": 0.5987
+      },
+      {
+        "name": "cache.load",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 3.6747,
+        "selfMs": 3.6747,
+        "maxMs": 3.6747
+      },
+      {
+        "name": "cache.prepare",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 4.7302,
+        "selfMs": 4.7302,
+        "maxMs": 4.7302
+      },
+      {
+        "name": "cache.save",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 6.9421,
+        "selfMs": 1.7930000000000001,
+        "maxMs": 6.9421
+      },
+      {
+        "name": "cache.serialize",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 3.7375000000000003,
+        "selfMs": 3.7375000000000003,
+        "maxMs": 3.7375000000000003
+      },
+      {
+        "name": "cache.stage",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 1.4116,
+        "selfMs": 1.4116,
+        "maxMs": 1.4116
+      },
+      {
+        "name": "core.asset.commit",
+        "streamId": "base/Mod",
+        "count": 3,
+        "totalMs": 3.5182,
+        "selfMs": 3.5182,
+        "maxMs": 1.6831
+      },
+      {
+        "name": "core.asset.compile",
+        "streamId": "base/Mod",
+        "count": 3,
+        "totalMs": 18.5034,
+        "selfMs": 0.6238,
+        "maxMs": 10.0358
+      },
+      {
+        "name": "core.asset.verify",
+        "streamId": "base/Mod",
+        "count": 3,
+        "totalMs": 0.1081,
+        "selfMs": 0.1081,
+        "maxMs": 0.1042
+      },
+      {
+        "name": "core.assets",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 25.1474,
+        "selfMs": 3.0177,
+        "maxMs": 25.1472
+      },
+      {
+        "name": "core.cleanup",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 0.8062,
+        "selfMs": 0.8062,
+        "maxMs": 0.8062
+      },
+      {
+        "name": "core.compiler.ArmorTemplate",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 9.4938,
+        "selfMs": 9.4938,
+        "maxMs": 9.4938
+      },
+      {
+        "name": "core.compiler.Texture",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 8.3858,
+        "selfMs": 8.3858,
+        "maxMs": 8.1965
+      },
+      {
+        "name": "core.document",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 174.52530000000002,
+        "selfMs": 15.706900000000001,
+        "maxMs": 106.9876
+      },
+      {
+        "name": "core.document.open",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 15.9444,
+        "selfMs": 10.7748,
+        "maxMs": 13.369900000000001
+      },
+      {
+        "name": "core.filehash.read",
+        "streamId": "base/Mod",
+        "count": 3,
+        "totalMs": 2.1087000000000002,
+        "selfMs": 2.1087000000000002,
+        "maxMs": 1.6428
+      },
+      {
+        "name": "core.includes",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 69.1652,
+        "selfMs": 1.6275000000000002,
+        "maxMs": 68.68260000000001
+      },
+      {
+        "name": "core.output.clean",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 0.368,
+        "selfMs": 0.368,
+        "maxMs": 0.368
+      },
+      {
+        "name": "core.output.link",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 1.7082000000000002,
+        "selfMs": 1.7082000000000002,
+        "maxMs": 1.7082000000000002
+      },
+      {
+        "name": "core.output.manifest",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 2.4346,
+        "selfMs": 2.4346,
+        "maxMs": 2.4346
+      },
+      {
+        "name": "core.output.references",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 9.0334,
+        "selfMs": 9.0334,
+        "maxMs": 9.0334
+      },
+      {
+        "name": "core.process",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 110.29440000000001,
+        "selfMs": 3.3068,
+        "maxMs": 110.29440000000001
+      },
+      {
+        "name": "core.providers",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 10.0982,
+        "selfMs": 10.0982,
+        "maxMs": 10.0982
+      },
+      {
+        "name": "core.schema",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 198.5834,
+        "selfMs": 5.0583,
+        "maxMs": 198.5834
+      },
+      {
+        "name": "core.schema.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 21.547900000000002,
+        "selfMs": 21.547900000000002,
+        "maxMs": 21.547900000000002
+      },
+      {
+        "name": "core.schema.metadata",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 25.829,
+        "selfMs": 25.829,
+        "maxMs": 25.829
+      },
+      {
+        "name": "core.schema.read",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 144.8642,
+        "selfMs": 133.377,
+        "maxMs": 144.8642
+      },
+      {
+        "name": "core.settings",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 7.0121,
+        "selfMs": 7.0121,
+        "maxMs": 7.0121
+      },
+      {
+        "name": "core.string-hashes",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 1.7106000000000001,
+        "selfMs": 1.7106000000000001,
+        "maxMs": 1.7106000000000001
+      },
+      {
+        "name": "core.xml.expressions",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 0.23240000000000002,
+        "selfMs": 0.23240000000000002,
+        "maxMs": 0.2323
+      },
+      {
+        "name": "core.xml.overrides",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 1.3793,
+        "selfMs": 1.3793,
+        "maxMs": 1.3792
+      },
+      {
+        "name": "core.xml.parse",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 3.2296,
+        "selfMs": 3.2296,
+        "maxMs": 3.1346000000000003
+      },
+      {
+        "name": "core.xml.validate",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 33.2851,
+        "selfMs": 33.0499,
+        "maxMs": 32.2057
+      },
+      {
+        "name": "identity.directory",
+        "streamId": "base/Mod",
+        "count": 34,
+        "totalMs": 3.3652,
+        "selfMs": 3.3652,
+        "maxMs": 1.284
+      },
+      {
+        "name": "identity.sha256",
+        "streamId": "base/Mod",
+        "count": 819,
+        "totalMs": 9.848600000000001,
+        "selfMs": 9.848600000000001,
+        "maxMs": 0.15910000000000002
+      },
+      {
+        "name": "stream.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 360.4991,
+        "selfMs": 13.905000000000001,
+        "maxMs": 360.4991
+      }
+    ]
+  }
+}

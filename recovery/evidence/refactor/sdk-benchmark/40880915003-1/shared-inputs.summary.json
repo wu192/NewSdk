@@ -1,0 +1,12 @@
+{
+  "archivePath": "shared-inputs.json",
+  "sha256": "301102125242f9c3ecbba94e0e0a69fb430527125304bf001b7b515ad54e5bf6",
+  "sharedInputFingerprint": "3c2ec227ee161c8d699c45aa41073dfeedd64f131f482fbf43bb9779205f6396",
+  "sdkFiles": 14715,
+  "workloadFiles": {
+    "mymod": 7,
+    "upheaval-armor": 12,
+    "texture-16": 2
+  },
+  "scope": "Full inventories and original samples/logs/baseline outputs are retained in the digest-verified GitHub artifact."
+}

@@ -1,0 +1,74 @@
+{
+  "status": "research_only",
+  "productionChanges": false,
+  "environment": {
+    "architecture": "x86_64",
+    "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+    "flags": [
+      "-std=c++17",
+      "-O2"
+    ],
+    "runtime": "Linux native x86_64; not Windows C++/CLI plugin or full MOD performance"
+  },
+  "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299",
+  "notes": [
+    "Enum prototype compares 4143 ModelCondition and 2037 ObjectStatus masks against the unchanged production helper, including all entries, three initial masks, signs, ALL, unknown names and embedded NUL.",
+    "Relocation prototype compares synthetic owner ranges and preserves the output on a failed lookup; build cost is measured separately.",
+    "Attribute prototype uses both complete root field name tables (192 names); 106 names exceed a 15-byte inline string capacity. Counts and times are from the Linux lookup model, not a measured Windows whole-plugin allocation total."
+  ],
+  "medians": {
+    "tokenizer-cost.csv": {
+      "ModelCondition": {
+        "original": 425.611,
+        "view-binary": 24.9165
+      },
+      "ObjectStatus": {
+        "original": 217.004,
+        "view-binary": 22.4375
+      }
+    },
+    "relocation-cost.csv": {
+      "8": {
+        "build-index": 0.001322,
+        "original": 0.004417,
+        "address-index": 0.004988
+      },
+      "32": {
+        "build-index": 0.000852,
+        "original": 0.059348,
+        "address-index": 0.027611
+      },
+      "128": {
+        "build-index": 0.001953,
+        "original": 0.912373,
+        "address-index": 0.14815
+      },
+      "512": {
+        "build-index": 0.004848,
+        "original": 14.54,
+        "address-index": 0.826255
+      },
+      "2048": {
+        "build-index": 0.028512,
+        "original": 230.412,
+        "address-index": 4.30329
+      }
+    },
+    "attribute-cost.csv": {
+      "0": {
+        "original": 46.9575,
+        "transparent": 1.07531
+      },
+      "20": {
+        "original": 117.232,
+        "transparent": 84.1028
+      }
+    }
+  },
+  "inputs": {
+    "recovery/src/Native/Relocation.cpp": "534e49897301881380acc4e34b86de2f954a8e8e7ac2e6c94f9ad1849037aa13",
+    "recovery/src/Native/EnumBitset.cpp": "953ea694f5cd48f6663567b0e5167e90d8fe4fc3792a8db839d5f66c7e4ba631",
+    "recovery/src/Native/GameObjectFields.h": "8839bf4f0efd41e3578b76055cacc508558743add2900fdb1df7f8c04cedfa5a",
+    "recovery/src/Native/WeaponTemplate.cpp": "8ca667084cefe3bc3cd75664ea6e76e6bdaa822fdc032fc5e32160b99b353671"
+  }
+}

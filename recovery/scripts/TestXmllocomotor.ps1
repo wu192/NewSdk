@@ -42,7 +42,7 @@ try {
         & cl /nologo /clr /LD /MD /EHa /std:c++17 "/$mode" /fp:precise "/AI$modeOut" "/Fo$modeOut/" "/Fe$modeOut/Recovered.Xmllocomotor.dll" @sources *> $buildLog
         if ($LASTEXITCODE -ne 0) { Get-Content $buildLog; throw "$mode C++/CLI build failed" }
         $hostLog = Join-Path $evidence "$mode-host-build.txt"
-        & $csc /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$modeOut/Recovered.Xmllocomotor.dll" "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmllocomotorOracle.exe" (Resolve-Path 'recovery/tests/XmllocomotorOracle.cs').Path *> $hostLog
+        & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /platform:x86 /r:System.Core.dll /r:System.Web.Extensions.dll "/r:$modeOut/Recovered.Xmllocomotor.dll" "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmllocomotorOracle.exe" (Resolve-Path 'recovery/tests/XmllocomotorOracle.cs').Path *> $hostLog
         if ($LASTEXITCODE -ne 0) { Get-Content $hostLog; throw "$mode oracle host build failed" }
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$modeOut/XmllocomotorOracle.exe.config"
         $oracleLog = Join-Path $evidence "$mode-oracle.txt"

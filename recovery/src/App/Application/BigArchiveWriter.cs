@@ -32,7 +32,7 @@ namespace NewModCompiler.Application
                 string name=NormalizeName(entry.Name);
                 if(!names.Add(name)) throw new InvalidDataException("Duplicate BIG entry (case insensitive): "+name);
                 if(string.IsNullOrEmpty(entry.SourcePath) || !Path.IsPathRooted(entry.SourcePath)) throw new ArgumentException("A BIG source must be an absolute file path.");
-                string source=Path.GetFullPath(entry.SourcePath);RejectLinks(source);
+                string source=Path.GetFullPath(entry.SourcePath);
                 if(string.Equals(output,source,StringComparison.OrdinalIgnoreCase)) throw new IOException("A BIG archive cannot overwrite its source.");
                 var file=new FileInfo(source);
                 if(!file.Exists) throw new FileNotFoundException("A listed BIG input is missing.",source);
@@ -48,7 +48,7 @@ namespace NewModCompiler.Application
             Atomic(output,cancellation,stream=>{
                 var recovered=new List<NewModCompiler.Packaging.MakeBigRecovery.MakeBigInput>();
                 foreach(var input in inputs) recovered.Add(new NewModCompiler.Packaging.MakeBigRecovery.MakeBigInput {Name=input.Name,SourcePath=input.Path,BookmarkKey=input.Name,Length=input.Length});
-                NewModCompiler.Packaging.MakeBigRecovery.Lumpy.WriteArchive(stream,recovered,cancellation,RejectLinks);
+                NewModCompiler.Packaging.MakeBigRecovery.Lumpy.WriteArchive(stream,recovered,cancellation);
                 if(stream.Position!=total) throw new IOException("BIG archive length differs from its header.");
             });
         }
@@ -81,8 +81,10 @@ namespace NewModCompiler.Application
         static string Output(string path)
         {
             if(string.IsNullOrEmpty(path) || !Path.IsPathRooted(path)) throw new ArgumentException("A BIG/SKUDEF output path must be absolute.");
-            string result=Path.GetFullPath(path);RejectLinks(result);
-            if(File.Exists(result) || Directory.Exists(result)) throw new IOException("BIG/SKUDEF output already exists.");
+            string result=Path.GetFullPath(path);
+            NewModCompiler.Diagnostics.DiagnosticDirectory.CheckDirectory(Path.GetDirectoryName(result));
+            NewModCompiler.Diagnostics.DiagnosticFiles.RejectReparseFile(result);
+            if(Directory.Exists(result)) throw new IOException("BIG/SKUDEF output is a directory.");
             return result;
         }
         static void Atomic(string output,CancellationToken cancellation,Action<FileStream> write)
@@ -91,16 +93,12 @@ namespace NewModCompiler.Application
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             try
             {
-                using(var stream=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None)) { write(stream);stream.Flush(true); }
-                cancellation.ThrowIfCancellationRequested();RejectLinks(output);File.Move(temporary,output);
+                using(var stream=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None)) write(stream);
+                cancellation.ThrowIfCancellationRequested();
+                if (File.Exists(output)) File.Replace(temporary, output, null);
+                else File.Move(temporary, output);
             }
             finally { if(File.Exists(temporary)) File.Delete(temporary); }
-        }
-        static void RejectLinks(string path)
-        {
-            for(var item=new DirectoryInfo(path);item!=null;item=item.Parent)
-                if(item.Exists && (item.Attributes&FileAttributes.ReparsePoint)!=0) throw new IOException("BIG input/output paths cannot use reparse points.");
-            if(File.Exists(path) && (File.GetAttributes(path)&FileAttributes.ReparsePoint)!=0) throw new IOException("BIG input/output files cannot use reparse points.");
         }
     }
 }

@@ -1,0 +1,60 @@
+{
+  "sourceCommit": "b385337e463bddebdb267946d9edb1b3b6ee5f0a",
+  "runId": "41192817627",
+  "artifactId": 13039864076,
+  "modes": {
+    "Debug": {
+      "runtimeFiles": {
+        "NewModCompiler.exe": {
+          "bytes": 7605248,
+          "sha256": "c6b7e6bbac9f37846f7d50be6ab09cd8d74479c88d46b516b33abb041436d4de"
+        },
+        "NewModCompiler.exe.config": {
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        "antlr.runtime.dll": {
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      },
+      "zip": {
+        "name": "NewModCompiler-Win32-Debug.zip",
+        "sha256": "058ef10bf44056be6a8cd2f4f4f2a11335acffa1e3aa36426a4773e2b2a4bbe5",
+        "bytes": 2158459
+      },
+      "buildReceiptAndLinkRecipeMatch": true,
+      "exactThreeFileZipMatchesRuntime": true,
+      "builtInSourceTexture": true,
+      "doctorAndRawOutputMatch": true,
+      "bigDeploymentPassed": true
+    },
+    "Release": {
+      "runtimeFiles": {
+        "NewModCompiler.exe": {
+          "bytes": 4919808,
+          "sha256": "8cc060e45a962604f06ea6ef73fa53c518cb173bd3ab72f3b66f7196b3485157"
+        },
+        "NewModCompiler.exe.config": {
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        "antlr.runtime.dll": {
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      },
+      "zip": {
+        "name": "NewModCompiler-Win32-Release.zip",
+        "sha256": "9970c9ad68cdeb38bd7f2e88c9e50901ba8ffa0778e9d1d6dfc541979caaf726",
+        "bytes": 1625545
+      },
+      "buildReceiptAndLinkRecipeMatch": true,
+      "exactThreeFileZipMatchesRuntime": true,
+      "builtInSourceTexture": true,
+      "doctorAndRawOutputMatch": true,
+      "bigDeploymentPassed": true
+    }
+  },
+  "status": "passed"
+}

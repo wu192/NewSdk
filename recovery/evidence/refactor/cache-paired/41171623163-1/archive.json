@@ -1,0 +1,73 @@
+{
+  "runId": 41171623163,
+  "artifactId": 13031950810,
+  "archiveSha256": "80ae93e5ea86750e8423d99b65896d51508c24f1c821f38614252852ff6a5126",
+  "archiveBytes": 2379324,
+  "downloadedAndRehashed": true,
+  "status": "failed",
+  "measurementSource": "49416d11c8a0902a63d21a6600670436b502bb43",
+  "baselineBinarySource": "75d29895be464d9a560f5f946d612e359bf4b396",
+  "candidateBinarySource": "e2dba3c321504752438b4e940d651bbfcdb58fff",
+  "candidateAcceptanceRun": "41169755141",
+  "armorPartitions": 6,
+  "sampleCount": 21,
+  "samplesByStatus": {
+    "passed": 20,
+    "timed_out": 1
+  },
+  "summary": [
+    {
+      "mode": "default",
+      "phase": "cold",
+      "baseline": {
+        "n": 3,
+        "medianMs": 70805.695,
+        "minMs": 69759.64479999949,
+        "maxMs": 74152.82599999955
+      },
+      "candidate": {
+        "n": 3,
+        "medianMs": 61258.652399999846,
+        "minMs": 60934.01549999999,
+        "maxMs": 62570.48669999949
+      },
+      "reductionPercent": 13.483438867452913
+    },
+    {
+      "mode": "default",
+      "phase": "hot",
+      "baseline": {
+        "n": 6,
+        "medianMs": 10099.479399999836,
+        "minMs": 9888.409000000138,
+        "maxMs": 10706.69319999979
+      },
+      "candidate": {
+        "n": 6,
+        "medianMs": 6593.8522999999805,
+        "minMs": 6500.015199999325,
+        "maxMs": 6789.142700000411
+      },
+      "reductionPercent": 34.71096836931924
+    },
+    {
+      "mode": "none",
+      "phase": "cold",
+      "baseline": {
+        "n": 1,
+        "medianMs": 63917.69639999984,
+        "minMs": 63917.69639999984,
+        "maxMs": 63917.69639999984
+      },
+      "candidate": {
+        "n": 1,
+        "medianMs": 58605.55010000007,
+        "minMs": 58605.55010000007,
+        "maxMs": 58605.55010000007
+      },
+      "reductionPercent": 8.310916380271461
+    }
+  ],
+  "rawReportsArchiveSha256": "d8f3882b68cfa73bac5531a283e86878eb476956d8220ce3d85f03873d44a13d",
+  "rawReportsArchiveScope": "All original JSON reports, inventories, requests and Markdown from the verified Actions ZIP. Full stdout/stderr remain in the original Actions artifact identified above."
+}

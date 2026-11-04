@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "productionMethodDirectlyMeasured": false,
+  "preflightMeasured": false,
+  "algorithmSourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "method": "source-equivalent filesystem microbenchmark, NOT production method invocation",
+  "diagnosticOrder": "Source-equivalent identity first+5warm; enumerate/guard/hash components 5each. First means first call within this standalone helper, not a production method, cold process or disk.",
+  "firstIdentityMs": 328.84540000000004,
+  "identityDigest": "a8c47755fca2f505c2a0cf6999498d501d7e1f8222cc2d4aef270ff421ff5f98",
+  "warmIdentityMs": [
+    61.4453,
+    59.4181,
+    59.532000000000004,
+    59.955200000000005,
+    59.1563
+  ],
+  "identityStable": true,
+  "fileCount": 826,
+  "fileBytes": 6656841,
+  "schemaFileCount": 821,
+  "schemaFileBytes": 1520895,
+  "runtimeFileCount": 4,
+  "runtimeFileBytes": 5133001,
+  "sdkConfigurationFileCount": 1,
+  "enumerateAndOrdinalSortMs": [
+    10.4266,
+    2.2102,
+    2.1919,
+    2.3225000000000002,
+    2.1042
+  ],
+  "guardOnlyMs": [
+    28.735400000000002,
+    28.111900000000002,
+    27.939600000000002,
+    29.0897,
+    27.9433
+  ],
+  "hashOnlyMs": [
+    28.4233,
+    27.9749,
+    27.7695,
+    27.6273,
+    28.1243
+  ],
+  "hashOnlyDigest": "171382ace718f03f0ca563d3e3ed2574900f22db2598275c3f28466f773a337c",
+  "componentsAreAdditive": false,
+  "scope": "Source-equivalent filesystem microbenchmark, NOT production method invocation. No Assembly.Load, reflection or PreflightInputRoots measurement. Runtime parameter substitutes for the production assembly directory; DataRoot=sdk, ss/pc/slowclean=true. Components separately repeat the same file set with equivalent DirectoryInfo ancestor checks. Different scheduling/page-cache/JIT conditions mean component timings must not be added or treated as production or end-to-end compile time. No input/runtime/cache writes.",
+  "binarySourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "sourceRunId": "40814401237",
+  "diagnosticRunId": "40826280008",
+  "diagnosticRunAttempt": "1",
+  "diagnosticSourceCommit": "f7d69ff6f2aeefae1a32642d9854de853a95b82f",
+  "helperSourceSha256": "7f50f0b784d4a702f4faa47896710f00022d2491bd93a2110312b7a469bf2cda",
+  "helperExeSha256": "b940c13576aaa3dd1b75cb3e9d48049712bdf98b619aef8f4049d86149fc7290",
+  "helperExitCode": 0,
+  "timedOut": false,
+  "runtimeDirectory": "D:\\a\\_temp\\cb\\runtime",
+  "sdkRoot": "D:\\a\\NewSdk\\NewSdk\\SDK",
+  "modRoot": "D:\\a\\_temp\\cb\\workloads\\mymod"
+}

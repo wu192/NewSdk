@@ -50,7 +50,7 @@ class XmlaiOracle {
     }
     static void Reject(string label,string text) {
         XmlDocument x=Xml(text);bool rejected=false;
-        try{XmlaiCompiler.CompileXml(x.DocumentElement,Manager(x),false);}catch(NotSupportedException){rejected=true;}
+        try{ PluginSchemaBoundary.Validate(x); XmlaiCompiler.CompileXml(x.DocumentElement,Manager(x),false);}catch(NotSupportedException){rejected=true;}
         if(!rejected)throw new Exception("Expected rejection: "+label);++rejections;
     }
     static uint Hash(string text,bool lower) {

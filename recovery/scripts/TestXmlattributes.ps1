@@ -17,7 +17,7 @@ try {
     foreach ($mode in @('Od','O2')) {
         cl /nologo /clr /LD /MD /EHa "/$mode" /fp:precise /AI"$out" /Fo"$out/" /Fe"$out/Recovered.Xmlattributes.dll" recovery/src/Native/Relocation.cpp recovery/src/Native/ResourceMarshaling.cpp recovery/src/Native/ScalarParsing.cpp recovery/src/Native/EnumBitset.cpp recovery/src/Native/Xmlattributes.cpp recovery/src/Bridge/XmlattributesCompiler.cpp *> "$evidence/$mode-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-build.txt"; throw "$mode C++/CLI build failed" }
-        & $csc /nologo /platform:x86 /r:"$out/Recovered.Xmlattributes.dll" /r:"$out/BinaryAssetBuilder.Core.dll" /out:"$out/XmlattributesOracle.exe" (Resolve-Path 'recovery/tests/XmlattributesOracle.cs') *> "$evidence/$mode-host-build.txt"
+        & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /platform:x86 /r:"$out/Recovered.Xmlattributes.dll" /r:"$out/BinaryAssetBuilder.Core.dll" /out:"$out/XmlattributesOracle.exe" (Resolve-Path 'recovery/tests/XmlattributesOracle.cs') *> "$evidence/$mode-host-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-host-build.txt"; throw "$mode oracle build failed" }
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$out/XmlattributesOracle.exe.config"
         & "$out/XmlattributesOracle.exe" (Resolve-Path 'SDK/tools/BinaryAssetBuilder.XmlCompiler.dll').Path *> "$evidence/$mode-oracle.txt"

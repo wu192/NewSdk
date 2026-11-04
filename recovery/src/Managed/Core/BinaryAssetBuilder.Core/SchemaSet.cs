@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
-using System.Security.Cryptography;
+using EALA.Hash;
 using System.Xml;
 using System.Xml.Schema;
 
@@ -10,6 +10,14 @@ namespace BinaryAssetBuilder.Core;
 
 public class SchemaSet
 {
+	internal enum InstanceValueKind { None, WeakReference, AssetReference, FileReference, Hashable }
+
+	internal sealed class InstanceTypeMetadata
+	{
+		internal InstanceValueKind Kind;
+		internal string TypeIdText;
+	}
+
 	private class SchemaHashTable : SortedDictionary<XmlSchema, uint>
 	{
 	}
@@ -45,12 +53,15 @@ public class SchemaSet
 	private XmlSchemaType _XmlFileReferenceType;
 
 	private IDictionary<XmlSchemaType, bool> _HashableTypes;
+	private Dictionary<XmlSchemaType, InstanceTypeMetadata> _InstanceTypeMetadata;
+	private Dictionary<XmlSchemaAnnotated, string> _ReferenceTypeNames;
 
-	private IDictionary<string, DateTime> _SchemaPaths;
+	private IDictionary<string, string> _SchemaPaths;
 
 	private IDictionary<string, string> _SchemaContentHashes;
 
 	private string _LoadedSchemaPath;
+	private string _ContentIdentity;
 
 	private string _CurrentSchema = "<unknown>";
 
@@ -63,6 +74,21 @@ public class SchemaSet
 	private Set<uint> _CircularCheck = new Set<uint>();
 
 	public XmlSchemaSet Schemas => _Schemas;
+
+	public string ContentIdentity
+	{
+		get
+		{
+			if (_ContentIdentity != null) return _ContentIdentity;
+			using (var bytes = new MemoryStream())
+			using (var writer = new BinaryWriter(bytes))
+			{
+				foreach (var input in _SchemaContentHashes) { writer.Write(input.Key); writer.Write(input.Value); }
+				writer.Flush(); bytes.Position = 0;
+				return _ContentIdentity = FastHash.GetHashCode(bytes.ToArray()).ToString("x8", System.Globalization.CultureInfo.InvariantCulture);
+			}
+		}
+	}
 
 	public XmlSchemaType XmlBaseAssetType => _XmlBaseAssetType;
 
@@ -81,16 +107,44 @@ public class SchemaSet
 		return _HashableTypes.ContainsKey(type);
 	}
 
+	// These facts belong to the compiled schema snapshot, not to an XML node.
+	// Most nodes share a small set of types; classify each inheritance chain once.
+	internal InstanceTypeMetadata GetInstanceTypeMetadata(XmlSchemaType type)
+	{
+		if (_InstanceTypeMetadata.TryGetValue(type, out var metadata)) return metadata;
+		var kind = InstanceValueKind.None;
+		if (XmlSchemaType.IsDerivedFrom(type, _XmlWeakReferenceType, XmlSchemaDerivationMethod.None)) kind = InstanceValueKind.WeakReference;
+		else if (XmlSchemaType.IsDerivedFrom(type, _XmlAssetReferenceType, XmlSchemaDerivationMethod.None)) kind = InstanceValueKind.AssetReference;
+		else if (XmlSchemaType.IsDerivedFrom(type, _XmlFileReferenceType, XmlSchemaDerivationMethod.None)) kind = InstanceValueKind.FileReference;
+		else if (IsHashableType(type)) kind = InstanceValueKind.Hashable;
+		metadata = new InstanceTypeMetadata {
+			Kind = kind,
+			TypeIdText = type.Name == null ? null : HashProvider.GetCaseSensitiveSymbolHash(type.Name).ToString()
+		};
+		_InstanceTypeMetadata.Add(type, metadata);
+		return metadata;
+	}
+
+	internal string GetReferenceTypeName(XmlSchemaAnnotated declaration)
+	{
+		if (_ReferenceTypeNames.TryGetValue(declaration, out var typeName)) return typeName;
+		if (declaration.UnhandledAttributes != null)
+			foreach (XmlAttribute attribute in declaration.UnhandledAttributes)
+				if (attribute.NamespaceURI == "uri:ea.com:eala:asset:schema" && attribute.LocalName == "refType")
+				{ typeName = attribute.Value; break; }
+		// Absence is a schema fact too; do not rescan the same declaration.
+		_ReferenceTypeNames.Add(declaration, typeName);
+		return typeName;
+	}
+
 	private void ReadSchema(string baseDirectory, string schemaFile)
 	{
 		schemaFile = (Path.IsPathRooted(schemaFile) ? Path.GetFullPath(schemaFile) : Path.GetFullPath(Path.Combine(baseDirectory, schemaFile)));
-		CacheInputBoundary.Validate(schemaFile);
 		_CurrentSchema = schemaFile;
 		if (_SchemaPaths.ContainsKey(schemaFile)) return;
 		byte[] contents = File.ReadAllBytes(schemaFile);
-		_SchemaPaths.Add(schemaFile, File.GetLastWriteTime(schemaFile));
-		using (var algorithm = SHA256.Create())
-			_SchemaContentHashes.Add(schemaFile, Convert.ToBase64String(algorithm.ComputeHash(contents)));
+		_SchemaPaths.Add(schemaFile, Settings.Current.FileIdentity?.Invoke(schemaFile).Identity);
+		_SchemaContentHashes.Add(schemaFile, HashSchema(contents));
 		XmlSchema xmlSchema;
 		using (var input = new MemoryStream(contents, false))
 		using (var reader = new StreamReader(input))
@@ -101,6 +155,11 @@ public class SchemaSet
 		}
 		xmlSchema.Includes.Clear();
 		_Schemas.Add(xmlSchema);
+	}
+
+	private static string HashSchema(byte[] contents)
+	{
+		return FastHash.GetHashCode(contents).ToString("x8", System.Globalization.CultureInfo.InvariantCulture);
 	}
 
 	public XmlSchemaType GetXmlType(string typeName)
@@ -309,25 +368,34 @@ public class SchemaSet
 
 	private void LoadSchemas(bool countDependencies)
 	{
+		var previousPaths = _SchemaPaths == null ? new List<string>() : new List<string>(_SchemaPaths.Keys);
 		// A failed load must not make its partially read inputs appear reusable.
 		_LoadedSchemaPath = null;
+		_ContentIdentity = null;
 		_AssetDependencies = null;
 		_CircularCheck = new Set<uint>();
-		_SchemaPaths = new SortedDictionary<string, DateTime>(StringComparer.OrdinalIgnoreCase);
+		_SchemaPaths = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 		_SchemaContentHashes = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 		_Schemas = new XmlSchemaSet();
 		_InheritanceMap = new SortedDictionary<string, StringCollection>();
 		_DependencyTree = new SortedDictionary<uint, DependencyList>();
 		_HashableTypes = new Dictionary<XmlSchemaType, bool>();
+		_InstanceTypeMetadata = new Dictionary<XmlSchemaType, InstanceTypeMetadata>();
+		_ReferenceTypeNames = new Dictionary<XmlSchemaAnnotated, string>();
 		try
 		{
+			previousPaths.Add(Path.GetFullPath(Settings.Current.SchemaPath));
+			Settings.Current.SchemaFileIdentities?.Invoke(previousPaths);
+			using (PerformanceScope.Measure("core.schema.read"))
 			ReadSchema(Directory.GetCurrentDirectory(), Settings.Current.SchemaPath);
+
 		}
 		catch (Exception innerException)
 		{
 			throw new BinaryAssetBuilderException(innerException, ErrorCode.ReadingSchema, "Error encountered in schema '{0}'", _CurrentSchema);
 		}
-		_Schemas.Compile();
+		using (PerformanceScope.Measure("core.schema.compile")) _Schemas.Compile();
+		using var performance = PerformanceScope.Measure("core.schema.metadata");
 		SetupHelperSchemaTypes();
 		IDictionary<string, StringCollection> dictionary = new SortedDictionary<string, StringCollection>();
 		dictionary.Add("BaseAssetType", new StringCollection());
@@ -369,6 +437,10 @@ public class SchemaSet
 		{
 			FlattenInheritanceTree(key, dictionary);
 		}
+		// Reuse the load's directory snapshot; do not enumerate every input a
+		// second time. Standalone hosts may supply only the batch callback.
+		if (Settings.Current.FileIdentity == null && Settings.Current.SchemaFileIdentities != null)
+			_SchemaPaths = Settings.Current.SchemaFileIdentities(_SchemaPaths.Keys);
 		_LoadedSchemaPath = Path.GetFullPath(Settings.Current.SchemaPath);
 	}
 
@@ -405,24 +477,24 @@ public class SchemaSet
 			changed = true;
 		if (!changed)
 		{
-			foreach (KeyValuePair<string, DateTime> schemaPath in _SchemaPaths)
+			var identities = Settings.Current.SchemaFileIdentities?.Invoke(_SchemaPaths.Keys);
+			var refreshed = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+			foreach (var schemaPath in _SchemaPaths)
 			{
-				if (!File.Exists(schemaPath.Key) || File.GetLastWriteTime(schemaPath.Key) != schemaPath.Value)
+				// The host stamp includes file ID, size, write time and change time.
+				// Standalone Core without an identity provider retains content checks.
+				string stamp = identities == null ? null : identities[schemaPath.Key];
+				if (stamp != null && stamp == schemaPath.Value) continue;
+				if (!File.Exists(schemaPath.Key)) { changed = true; break; }
+				string content = HashSchema(File.ReadAllBytes(schemaPath.Key));
+				if (!string.Equals(content, _SchemaContentHashes[schemaPath.Key], StringComparison.Ordinal))
 				{
 					changed = true;
 					break;
 				}
-				using (var algorithm = SHA256.Create())
-				using (var input = File.OpenRead(schemaPath.Key))
-				{
-					string content = Convert.ToBase64String(algorithm.ComputeHash(input));
-					if (!string.Equals(content, _SchemaContentHashes[schemaPath.Key], StringComparison.Ordinal))
-					{
-						changed = true;
-						break;
-					}
-				}
+				refreshed.Add(schemaPath.Key, stamp);
 			}
+			if (!changed) foreach (var input in refreshed) _SchemaPaths[input.Key] = input.Value;
 		}
 		if (changed) LoadSchemas(countDependencies);
 	}

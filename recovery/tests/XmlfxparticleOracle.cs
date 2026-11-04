@@ -203,7 +203,7 @@ partial class XmlfxparticleOracle {
     }
     static void Reject(string text, TargetPlatform platform) {
         XmlDocument d=Parse(text); XmlNamespaceManager n=Namespaces(d);
-        try { FXParticleSystemTemplateCompiler.ProcessInstance(Declaration(d,n),platform); }
+        try { PluginSchemaBoundary.Validate(d);  FXParticleSystemTemplateCompiler.ProcessInstance(Declaration(d,n),platform); }
         catch(NotSupportedException) { ++rejections; return; }
         throw new Exception("Unsupported XML accepted: "+text);
     }

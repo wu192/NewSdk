@@ -1,0 +1,42 @@
+{
+  "runId": 41145352024,
+  "sourceCommit": "d457f99a56c3fb4a1baf94bb84c0466f243a4d95",
+  "archiveSha256": "e85ff9168f881b7b751103eb8f297a702a0efdde710c4c5b4685d97b9e981281",
+  "archiveBytes": 127209348,
+  "downloadedAndRehashed": true,
+  "scope": "Independent complete XML63 and route-smoke success; final GO/Weapon and product acceptance use d60904bc separately",
+  "modes": {
+    "Debug": {
+      "groups": 63,
+      "originalCalls": 959504,
+      "fixtures": 959452,
+      "comparisons": 5532192
+    },
+    "Release": {
+      "groups": 63,
+      "originalCalls": 959504,
+      "fixtures": 959452,
+      "comparisons": 5532192
+    }
+  },
+  "runtime": {
+    "Debug": {
+      "exeSha256": "5dc11c472d1223fc8db271256d0ec94c4415465c04efd31b1d6f78e0316d8b55",
+      "buildSourceCommit": "d457f99a56c3fb4a1baf94bb84c0466f243a4d95"
+    },
+    "Release": {
+      "exeSha256": "2a255db28555c4c934297a7a44af5c2df34c0a2ddb81692554de3f10352d8a0e",
+      "buildSourceCommit": "d457f99a56c3fb4a1baf94bb84c0466f243a4d95"
+    }
+  },
+  "originalReceiptArchiveSha256": "909056d611c62929188decd46b6bef53532a8793e90a5980af2e93c8478991f5",
+  "workflowConclusion": "cancelled",
+  "xmlMatrixStepConclusion": "success",
+  "routeSmokeStepConclusion": "success",
+  "cancellationControllerRunId": 41149921242,
+  "cancellationReason": "Unique XML63 completed successfully; final production replacement 41146357892 already success; remaining duplicate GO/Weapon/Core/SDK checks intentionally stopped, always-upload preserved original evidence.",
+  "reusedScopeOnly": [
+    "shared-xml-smoke",
+    "shared-xml-matrices"
+  ]
+}

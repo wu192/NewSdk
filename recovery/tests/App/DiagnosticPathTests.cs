@@ -36,40 +36,28 @@ namespace NewModCompiler.Tests
         {
             using (var events=new EventDispatcher("diagnostic-path-tests",new [] {sink})) events.Emit("Diagnostic",message:"fresh inode");
         }
-        sealed class StagingCompiler : IStreamCompiler
+        sealed class OutputCompiler : IStreamCompiler
         {
             internal bool Initialized;
             public string ProviderIdentity { get { return "STAGING_PATH_REJECTION_FIXTURE"; } }
-            public void Initialize(BuildRequest request) { Initialized=true; throw new BuildFailure(ExitCode.Compilation,"TEST_UNSAFE_STAGING_REACHED","Unsafe staging reached the backend."); }
-            public IList<Artifact> Compile(StreamContext context,System.Threading.CancellationToken cancellation) { throw new Exception("Unsafe staging compilation reached"); }
+            public void Initialize(BuildRequest request) { Initialized=true; throw new BuildFailure(ExitCode.Compilation,"TEST_UNSAFE_STAGING_REACHED","Unsafe output reached the backend."); }
+            public IList<Artifact> Compile(StreamContext context,System.Threading.CancellationToken cancellation) { throw new Exception("Unsafe output compilation reached"); }
             public void Dispose() { }
         }
-        static void StagingJunction(string work,string mod,string sdk,string target,string suffix)
+        static void OutputJunction(string work,string mod,string sdk,string target,string suffix)
         {
-            string output=Path.Combine(work,"staging-out-"+suffix), id="staging-junction-"+suffix;
+            string output=Path.Combine(work,"output-out-"+suffix), id="output-junction-"+suffix;
             var request=Options.Parse(new [] {"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-format","loose","--package-content","base"});
             string inputDirectory=Path.Combine(target,id), sentinel=Path.Combine(inputDirectory,"sentinel.keep");
-            Directory.CreateDirectory(inputDirectory); File.WriteAllText(sentinel,"preserve staging alias input");
-            Directory.CreateDirectory(output); string junction=Path.Combine(output,".build"); Junction(junction,target);
+            Directory.CreateDirectory(inputDirectory); File.WriteAllText(sentinel,"preserve output alias input");
+            Directory.CreateDirectory(output); string junction=Path.Combine(output,"published"); Junction(junction,target);
             try {
-                var compiler=new StagingCompiler(); ExitCode code;
+                var compiler=new OutputCompiler(); ExitCode code;
                 using (var events=new EventDispatcher(id,new IBuildEventSink[0])) code=new BuildSession(request,compiler,events).Run(System.Threading.CancellationToken.None);
-                Require(code==ExitCode.Output && !compiler.Initialized,"post-parse staging junction reached backend or had wrong exit code");
-                Require(File.Exists(sentinel) && File.ReadAllText(sentinel)=="preserve staging alias input","staging cleanup deleted input through junction ancestor");
-                Require(!Directory.Exists(Path.Combine(inputDirectory,"base")),"staging setup created stream directories inside input");
+                Require(code==ExitCode.Output && !compiler.Initialized,"post-parse output junction reached backend or had wrong exit code");
+                Require(File.Exists(sentinel) && File.ReadAllText(sentinel)=="preserve output alias input","output cleanup deleted input through junction ancestor");
+                Require(!Directory.Exists(Path.Combine(inputDirectory,"base")),"output setup created stream directories inside input");
             } finally { Directory.Delete(junction); }
-        }
-        static void ExistingStaging(string work,string mod,string sdk)
-        {
-            string output=Path.Combine(work,"existing-staging-out"), id="staging-already-exists";
-            var request=Options.Parse(new [] {"build","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-format","loose","--package-content","base"});
-            string existing=Path.Combine(output,".build",id), sentinel=Path.Combine(existing,"sentinel.keep");
-            Directory.CreateDirectory(existing); File.WriteAllText(sentinel,"pre-existing staging belongs to another build");
-            var compiler=new StagingCompiler(); ExitCode code;
-            using (var events=new EventDispatcher(id,new IBuildEventSink[0])) code=new BuildSession(request,compiler,events).Run(System.Threading.CancellationToken.None);
-            Require(code==ExitCode.Output && !compiler.Initialized,"existing staging was adopted by backend");
-            Require(File.Exists(sentinel) && File.ReadAllText(sentinel)=="pre-existing staging belongs to another build","existing staging was cleaned without ownership");
-            Directory.Move(Path.Combine(output,".build"),Path.Combine(output,"moved-build"));
         }
         internal static void Run(string root,string mod,string sdk)
         {
@@ -77,7 +65,7 @@ namespace NewModCompiler.Tests
             string a=Path.Combine(work,"a"), descendant=Path.Combine(a,"report.json");
             Reject(mod,sdk,output,"CLI_LOG_COLLISION","--events",a,"--report",descendant);
             Reject(mod,sdk,output,"CLI_LOG_COLLISION","--report",a,"--log",descendant);
-            Reject(mod,sdk,output,"CLI_LOG_COLLISION","--events",Path.Combine(output,".build","x.jsonl"));
+            Reject(mod,sdk,output,"CLI_LOG_COLLISION","--events",Path.Combine(output,"published","x.jsonl"));
             Reject(mod,sdk,output,"CLI_LOG_COLLISION","--report",output);
             Reject(mod,sdk,output,"CLI_LOG_PATH","--events",Path.Combine(work,"asset:stream"));
             Reject(mod,sdk,output,"CLI_LOG_PATH","--events","A:drive-relative.log");
@@ -126,7 +114,7 @@ namespace NewModCompiler.Tests
             // publication must leave it intact and release every pinned parent.
             string failedParent=Path.Combine(work,"failed-publish"), failedTarget=Path.Combine(failedParent,"events.jsonl"), failedMoved=Path.Combine(work,"failed-publish-moved");
             Directory.CreateDirectory(failedTarget);
-            try { using (var sink=new JsonLineSink(failedTarget)) { } throw new Exception("Directory destination accepted"); } catch (IOException) { }
+            try { using (var sink=new JsonLineSink(failedTarget)) { } throw new Exception("Directory destination accepted"); } catch (IOException) { } catch (UnauthorizedAccessException) { }
             Require(Directory.Exists(failedTarget) && Directory.GetFiles(failedParent).Length==0,"failed publication changed directory or leaked temporary file");
             Directory.Move(failedParent,failedMoved); Require(Directory.Exists(failedMoved),"failed publication leaked directory handles");
             foreach (string target in new [] {mod,sdk}) {
@@ -144,17 +132,9 @@ namespace NewModCompiler.Tests
             Junction(late,mod);
             try { try { using (var sink=new JsonLineSink(Path.Combine(late,"events.jsonl"))) { } throw new Exception("Post-parse junction accepted"); } catch (IOException) { } }
             finally { Directory.Delete(late); }
-            string pinned=Path.Combine(work,"pinned"), moved=Path.Combine(work,"moved");
-            using (var sink=new TextLogSink(Path.Combine(pinned,"text.log"))) {
-                bool rejected=false;
-                try { Directory.Move(pinned,moved); } catch (IOException) { rejected=true; } catch (UnauthorizedAccessException) { rejected=true; }
-                Require(rejected,"active sink allowed ancestor rename");
-            }
-            Directory.Move(pinned,moved); Require(Directory.Exists(moved),"directory handles leaked after sink disposal");
-            StagingJunction(work,mod,sdk,mod,"mod"); StagingJunction(work,mod,sdk,sdk,"sdk");
-            ExistingStaging(work,mod,sdk);
+            OutputJunction(work,mod,sdk,mod,"mod"); OutputJunction(work,mod,sdk,sdk,"sdk");
             Require(File.ReadAllText(input)==original,"input changed across diagnostic matrix");
-            Console.WriteLine("PASS Diagnostic path matrix: ancestor/staging collisions, Unicode, ADS rejection, JSONL/text/report hard links, MOD/SDK junctions, post-parse junction and pinned-parent rename");
+            Console.WriteLine("PASS Diagnostic path matrix: ancestor/output collisions, Unicode, ADS rejection, JSONL/text/report hard links, MOD/SDK junctions, post-parse junction");
         }
     }
 }

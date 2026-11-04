@@ -1,8 +1,10 @@
 #include "AdaptiveDelta.h"
+#include "Timecoded.h"
 #include <cmath>
 #include <cstring>
 #include <limits>
 #include <stdexcept>
+#include <utility>
 
 namespace Recovered { namespace W3x {
 namespace {
@@ -65,6 +67,39 @@ void PutFloat(unsigned char* out,float value,bool big) {
     }
     Put(out,bits,4,big);
 }
+// Search only needs the error. Once its nonnegative partial sum cannot beat
+// the current winner, subsequent samples cannot change the selection. The
+// public frame encoder always executes all sixteen samples and writes state.
+template<bool Encode>
+float Frame(AdaptiveDeltaFrame* dst,const std::array<float,17>& values,
+    float step,float inverse,int bound,float cutoff,
+    float* currentPrevious,bool* excessError,float maxError) {
+    float previous=values[0];
+    float error=0.0f;
+    for (unsigned i=1;i<=16;++i) {
+        const float difference=R4(std::fabs(static_cast<double>(R4(static_cast<double>(values[i])-previous))));
+        const float rounded=R4(std::floor(static_cast<double>(R4(Product(difference,inverse)+0.5))));
+        std::int32_t quantized=ConvI4(rounded);
+        if (static_cast<double>(values[i])<static_cast<double>(previous)) {
+            quantized=NegateI4(quantized);
+            if (quantized < -bound) quantized=-bound;
+        } else if (quantized>=bound) quantized=bound-1;
+        const double reconstructed=Product(static_cast<double>(R4(quantized)),step)+static_cast<double>(previous);
+        const float deviation=R4(std::fabs(static_cast<double>(R4(reconstructed-static_cast<double>(values[i])))));
+        if (Encode) dst->delta[i-1]=LowByte(quantized);
+        previous=R4(reconstructed);
+        error=R4(static_cast<double>(deviation)+static_cast<double>(error));
+        if (!Encode && !(error<cutoff)) return error;
+        if (excessError && static_cast<double>(deviation)>static_cast<double>(maxError)) *excessError=true;
+    }
+    if (currentPrevious) *currentPrevious=previous;
+    return error;
+}
+float Step(unsigned filter,float scale,unsigned bits) {
+    float step=R4(static_cast<double>(Table().values[filter])*static_cast<double>(scale));
+    if (bits==8) step=R4(static_cast<double>(step)*0.0625);
+    return step;
+}
 }
 float AdaptiveDeltaFilter(unsigned filter) {
     if (filter>255) throw std::invalid_argument("Adaptive delta filter out of range");
@@ -76,44 +111,29 @@ float CompressAdaptiveDeltaFrame(AdaptiveDeltaFrame& dst,unsigned filter,
     if (filter>255 || (bits!=4 && bits!=8))
         throw std::invalid_argument("Invalid adaptive delta frame parameters");
     dst.filter=static_cast<std::uint8_t>(filter);
-    const int bound=bits==4?8:128;
-    float previous=values[0];
-    float error=0.0f;
-    float step=R4(static_cast<double>(AdaptiveDeltaFilter(filter))*static_cast<double>(scale));
-    if (bound==128) step=R4(static_cast<double>(step)*0.0625);
-    const float inverse=R4(1.0/static_cast<double>(step));
-    for (unsigned i=1;i<=16;++i) {
-        const float difference=R4(std::fabs(static_cast<double>(R4(static_cast<double>(values[i])-previous))));
-        const float rounded=R4(std::floor(static_cast<double>(R4(Product(difference,inverse)+0.5))));
-        std::int32_t quantized=ConvI4(rounded);
-        if (static_cast<double>(values[i])<static_cast<double>(previous)) {
-            quantized=NegateI4(quantized);
-            if (quantized < -bound) quantized=-bound;
-        } else if (quantized>=bound) quantized=bound-1;
-        const double reconstructed=Product(static_cast<double>(R4(quantized)),step)+static_cast<double>(previous);
-        const float deviation=R4(std::fabs(static_cast<double>(R4(reconstructed-static_cast<double>(values[i])))));
-        dst.delta[i-1]=LowByte(quantized);
-        previous=R4(reconstructed);
-        error=R4(static_cast<double>(deviation)+static_cast<double>(error));
-        if (excessError && static_cast<double>(deviation)>static_cast<double>(maxError)) *excessError=true;
-    }
-    if (currentPrevious) *currentPrevious=previous;
-    return error;
+    const float step=Step(filter,scale,bits);
+    return Frame<true>(&dst,values,step,R4(1.0/static_cast<double>(step)),bits==4?8:128,
+        0.0f,currentPrevious,excessError,maxError);
 }
-bool CompressAdaptiveDelta(std::uint32_t type,std::uint16_t pivot,
-    const std::vector<std::vector<float> >& samples,float maxError,AdaptiveDeltaChannel& output) {
+namespace {
+const std::vector<float>& Values(const std::vector<float>& sample) { return sample; }
+const std::vector<float>& Values(const TimecodedFrame& sample) { return sample.values; }
+template<class Sample>
+bool Compress(std::uint32_t type,std::uint16_t pivot,
+    const std::vector<Sample>& samples,float maxError,AdaptiveDeltaChannel& output) {
     if (samples.size()<2) return false;
-    const std::size_t width=samples[0].size();
+    const std::size_t width=Values(samples[0]).size();
     if (width==0 || width>4) throw std::invalid_argument("Adaptive delta supports one to four components");
     if (samples.size()>static_cast<std::size_t>(std::numeric_limits<std::int32_t>::max()/24)-15u)
         throw std::length_error("Adaptive delta source exceeds original 32-bit vector range");
     float greatest=0.0f;
     for (std::size_t i=0;i<samples.size();++i) {
-        if (samples[i].size()!=width) throw std::invalid_argument("Inconsistent adaptive delta sample widths");
+        const std::vector<float>& values=Values(samples[i]);
+        if (values.size()!=width) throw std::invalid_argument("Inconsistent adaptive delta sample widths");
         for (std::size_t j=0;j<width;++j) {
-            if (!std::isfinite(samples[i][j])) throw std::invalid_argument("Nonfinite adaptive delta sample is unverified");
+            if (!std::isfinite(values[j])) throw std::invalid_argument("Nonfinite adaptive delta sample is unverified");
             if (i) {
-                const float diff=R4(std::fabs(static_cast<double>(R4(static_cast<double>(samples[i][j])-samples[i-1][j]))));
+                const float diff=R4(std::fabs(static_cast<double>(R4(static_cast<double>(values[j])-Values(samples[i-1])[j]))));
                 if (!std::isfinite(diff)) throw std::invalid_argument("Overflowing adaptive delta source difference is unverified");
                 if (diff>greatest) greatest=diff;
             }
@@ -121,10 +141,23 @@ bool CompressAdaptiveDelta(std::uint32_t type,std::uint16_t pivot,
     }
     AdaptiveDeltaChannel candidate;
     candidate.type=type; candidate.pivot=pivot; candidate.scale=R4(static_cast<double>(greatest)/7.0);
-    candidate.initial=samples[0];
+    candidate.initial=Values(samples[0]);
     const std::size_t blocks=(samples.size()+15u)>>4;
+    if (greatest==0.0f) {
+        // Every candidate reconstructs a constant finite channel exactly at
+        // scale zero. Strict ties select filter 0, whose low delta bytes are
+        // all zero even for CLR's integer-indefinite quantization result.
+        if (maxError<0.0f) return false;
+        candidate.bits=4;
+        candidate.frames.assign(blocks*width,AdaptiveDeltaFrame{});
+        output=std::move(candidate);
+        return true;
+    }
+    candidate.frames.reserve(blocks*width);
     for (unsigned bits=4;bits<12;bits+=4) {
         candidate.bits=bits; candidate.frames.clear();
+        std::array<float,256> steps,inverses;
+        unsigned cached=0;
         std::vector<float> previous=candidate.initial;
         bool excess=false;
         for (std::size_t block=0;block<blocks;++block) {
@@ -133,29 +166,46 @@ bool CompressAdaptiveDelta(std::uint32_t type,std::uint16_t pivot,
                 values[0]=previous[component];
                 for (unsigned i=0;i<16;++i) {
                     const std::size_t source=1u+block*16u+i;
-                    values[i+1]=source<samples.size()?samples[source][component]:values[i];
+                    values[i+1]=source<samples.size()?Values(samples[source])[component]:values[i];
                 }
                 float smallest=std::numeric_limits<float>::max();
                 unsigned selected=0;
                 bool found=false;
-                AdaptiveDeltaFrame scratch;
                 for (unsigned filter=0;filter<256;++filter) {
-                    const float error=CompressAdaptiveDeltaFrame(scratch,filter,values,candidate.scale,bits,0,0,0.0f);
+                    if (filter==cached) {
+                        steps[filter]=Step(filter,candidate.scale,bits);
+                        inverses[filter]=R4(1.0/static_cast<double>(steps[filter]));
+                        ++cached;
+                    }
+                    const float error=Frame<false>(0,values,steps[filter],inverses[filter],
+                        bits==4?8:128,smallest,0,0,0.0f);
                     if (static_cast<double>(error)<static_cast<double>(smallest)) {
                         smallest=error; selected=filter; found=true;
+                        if (smallest==0.0f) break;
                     }
                 }
                 // Original passes -1 to CompressFrame if every candidate has
                 // unordered/overflow error. Do not perform that invalid read.
                 if (!found) throw std::runtime_error("Adaptive delta has no finite filter candidate");
                 AdaptiveDeltaFrame encoded;
-                CompressAdaptiveDeltaFrame(encoded,selected,values,candidate.scale,bits,&previous[component],&excess,maxError);
+                encoded.filter=static_cast<std::uint8_t>(selected);
+                Frame<true>(&encoded,values,steps[selected],inverses[selected],bits==4?8:128,
+                    0.0f,&previous[component],&excess,maxError);
                 candidate.frames.push_back(encoded);
             }
         }
-        if (!excess) { output=candidate; return true; }
+        if (!excess) { output=std::move(candidate); return true; }
     }
     return false;
+}
+}
+bool CompressAdaptiveDelta(std::uint32_t type,std::uint16_t pivot,
+    const std::vector<std::vector<float> >& samples,float maxError,AdaptiveDeltaChannel& output) {
+    return Compress(type,pivot,samples,maxError,output);
+}
+bool CompressAdaptiveDeltaFrames(std::uint32_t type,std::uint16_t pivot,
+    const std::vector<TimecodedFrame>& samples,float maxError,AdaptiveDeltaChannel& output) {
+    return Compress(type,pivot,samples,maxError,output);
 }
 std::uint32_t EstimateAdaptiveDeltaSize(const AdaptiveDeltaChannel& channel) {
     ValidateChannel(channel);

@@ -1,0 +1,24 @@
+{
+  "runId": "40823369828",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/40823369828",
+  "conclusion": "success",
+  "artifactId": 12876025513,
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/40823369828/artifacts/12876025513",
+  "archiveSha256": "1d99621681939a5ea55c56635ae8ca67f77dc58794a89c4e7b4f8fafa0d7be8a",
+  "archiveLocallyVerified": true,
+  "binarySourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "benchmarkSourceCommit": "1c7ff21f098e972105c410eb586c4f6c8ba32d29",
+  "files": {
+    "comparison.json": "5343b3208f8388c3c2a6ee5359c24d7077d45674c9c82cce5f8412632b2b29a8",
+    "comparison.md": "12c0eaf59a0e2cdb35dd962f64015fcbf4fb8fa57be076614fa1d6d583bbeb2e",
+    "comparison.csv": "84c525202ddba35f42fc8c32e142a777f888da89ac0107bb281224b26565eaa1",
+    "preparation.json": "c64c4738342d5b20f8ca367ea3a05b96c3ba55c652da06dfe187f865d9d577b8",
+    "original-preparation.json": "7c08c2ca322984f4528a477415fc297176bdc729d9d9ee279688d3ca73bf5901"
+  },
+  "all108OutputsMatchOriginalBaseline": true,
+  "all54PairsByteIdentical": true,
+  "sharedInputsLocallyVerified": true,
+  "newReportsConfirmOrderedRoots": true,
+  "originalNoSessionStringHashesNeverLoaded": true,
+  "baselineMembersPerEnginePerWorkload": 4
+}

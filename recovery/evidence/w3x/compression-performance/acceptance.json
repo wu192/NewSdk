@@ -1,0 +1,15 @@
+{
+  "productionSourceCommit": "4e9c9a279bef892439822310976e87081ca0ce72",
+  "functionalTestSourceCommit": "4e9c9a279bef892439822310976e87081ca0ce72",
+  "functionalRunId": 41003661518,
+  "historicalTestSourceCommit": "12848f8e293d53ef6936f06c4dda99398f350571",
+  "historicalRunId": 41004166786,
+  "reviewedHeadCommit": "300812cd6b2f372cbc6ee72f8bc89058b922f079",
+  "productionAndExistingValidationInputsChangedSinceAcceptance": [],
+  "fullModMeasurementSourceCommit": "300812cd6b2f372cbc6ee72f8bc89058b922f079",
+  "fullModMeasurementRunId": 41004795406,
+  "fullModMeasurementStatus": "success; four complete builds and two raw published-byte comparisons passed",
+  "note": "New standalone historical measurement was separately executed; the old broad W3x* test-union checker reports its added source and is not represented as an unchanged full test tree.",
+  "recovery/srcTreeHash": "c25e298d0796f409a015a7f6f585746145c8ded4",
+  "SDKTreeHash": "1f2d71a20ce8bf7d9343c7a2246c10275abe28f9"
+}

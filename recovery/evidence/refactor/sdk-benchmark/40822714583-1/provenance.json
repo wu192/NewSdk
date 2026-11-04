@@ -1,0 +1,30 @@
+{
+  "runId": "40822714583",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/40822714583",
+  "conclusion": "success",
+  "artifactId": 12875865203,
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/40822714583/artifacts/12875865203",
+  "archiveSha256": "a500481a6716634e61cb4a2f51a594e23ee378e482ced3a4cc0bed22c55bd18d",
+  "archiveLocallyVerified": true,
+  "binarySourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "benchmarkSourceCommit": "0a02fb8a32a44b8b7f8c7126647712af01b425fc",
+  "files": {
+    "comparison.md": "d58d8bdeb4c85db0f86a8df68a90a44b3f91b4a07d0dd391c24dbd830d4ca2f7",
+    "comparison.csv": "b453b5916980d96bdd197bc0d49e9c6c6e41cdedf874cf1ba2e636669b4e7744"
+  },
+  "sharedInputsLocallyVerified": true,
+  "all108OutputsMatchOriginalBaseline": true,
+  "all54PairsByteIdentical": true,
+  "newReportsConfirmExactOrderedRoots": true,
+  "baselineStreamCountPerWorkload": 1,
+  "baselineMembersPerEnginePerWorkload": 4,
+  "scopeNote": "Successful shared-input/raw-byte paired matrix. Initial no-session method retained old StringHashes.xml between rounds; replacement matrix uses fresh session metadata directories when sc:false. Original success and raw results preserved; use replacement for final no-session/cache-mode comparisons.",
+  "archiveFiles": {
+    "comparison.json": "30106b27ad1d931aad20bc75950a380f8e8a2e7af4df80bdba04c6c35a79c2d3",
+    "comparison.md": "d58d8bdeb4c85db0f86a8df68a90a44b3f91b4a07d0dd391c24dbd830d4ca2f7",
+    "comparison.csv": "b453b5916980d96bdd197bc0d49e9c6c6e41cdedf874cf1ba2e636669b4e7744",
+    "shared-inputs.json": "301102125242f9c3ecbba94e0e0a69fb430527125304bf001b7b515ad54e5bf6",
+    "preparation.json": "b7f22a14de41c799ff0730893eba56deb963b91e303bdae6d92ee165b5a72bec",
+    "original-preparation.json": "c38db9a943394ce36bff637e653068b4ecd8bdaf1134c9034568465e8d783cf0"
+  }
+}

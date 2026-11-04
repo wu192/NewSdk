@@ -1,0 +1,419 @@
+{
+  "schemaVersion": "1.0",
+  "status": "passed",
+  "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+  "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+  "artifactId": null,
+  "artifactArchiveSha256": null,
+  "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+  "packages": {
+    "jsonschema": "4.23.0",
+    "rfc3339-validator": "0.1.4",
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1"
+  },
+  "pythonVersion": "3.12.10",
+  "validatorScriptSha256": "d846bbd42d16ff3d9c1cb72dd41500bde087bbfd41984369e4cce80f0953e0b2",
+  "schemaInputs": [
+    {
+      "path": "build-event.schema.json",
+      "sha256": "cf5955e5915b974c2b0440f5bd5b20a5bc61c6172cddd10fd595747aeaa61074"
+    },
+    {
+      "path": "build-report.schema.json",
+      "sha256": "7a82e2dd83519c47bbe8c37d2d6dd94c887f98df3a3c19816e4bd9c5e0b1a726"
+    }
+  ],
+  "matrix": [
+    {
+      "configuration": "Debug",
+      "reports": 23,
+      "eventFiles": 23,
+      "events": 1668
+    },
+    {
+      "configuration": "Release",
+      "reports": 23,
+      "eventFiles": 23,
+      "events": 1668
+    }
+  ],
+  "validatedFiles": [
+    {
+      "path": "Debug/actual-cancel/build-report.json",
+      "sha256": "9486b1c27163ff1b16c0f007417fa4657d04026f38a19c2e4ac1e97749a08b72"
+    },
+    {
+      "path": "Debug/actual-cancel/build.events.jsonl",
+      "sha256": "01ae70953ceaad8d89a7c134e9105ebefdc7f9ea8abf4f544129949813ba8d23"
+    },
+    {
+      "path": "Debug/all-with-additional/build-report.json",
+      "sha256": "9f355a97cb6d9d79cfe03d08eeffc6106c813f3d5f6e7bb9823f50101939cc59"
+    },
+    {
+      "path": "Debug/all-with-additional/build.events.jsonl",
+      "sha256": "07fe2a630a8c9168b4c542a32ce1a5354561ac9185a80551b347da8e73c3148b"
+    },
+    {
+      "path": "Debug/apt-big/build-report.json",
+      "sha256": "a4138014566da51464d65d2f7b867d08a447fe9b26ff1403c74a56bd313c54f4"
+    },
+    {
+      "path": "Debug/apt-big/build.events.jsonl",
+      "sha256": "76349b9da1152dfb876667e022129e3f13dbc2ed5d347dc541ebef6ff8602be9"
+    },
+    {
+      "path": "Debug/apt-loose/build-report.json",
+      "sha256": "793c36abceba83d78d03cb9546e36aef6fb82cdf1e663795a5532a3f2aebc167"
+    },
+    {
+      "path": "Debug/apt-loose/build.events.jsonl",
+      "sha256": "b3462ea97e2f767f85f4738b115e9435cc45238718e81ed93c1d347e745b7f58"
+    },
+    {
+      "path": "Debug/apt-maps-big/build-report.json",
+      "sha256": "33defab860f1005ee4382f7bcda93270a0820b93d2ac02017192a521151a2bec"
+    },
+    {
+      "path": "Debug/apt-maps-big/build.events.jsonl",
+      "sha256": "61cd944ea9aaed3fdfe3a7b90d9765fa0941d13202c5bffe2ddd039c2d056353"
+    },
+    {
+      "path": "Debug/apt-maps-loose/build-report.json",
+      "sha256": "6f52c38b3bf21df2c9591946142b46aaf1b026127382bf5692919021baaa1506"
+    },
+    {
+      "path": "Debug/apt-maps-loose/build.events.jsonl",
+      "sha256": "50d34ce5ceb0d8b66a39f1506089d9f3c71cd185623925099607449b67c5c06b"
+    },
+    {
+      "path": "Debug/base-apt-maps-big/build-report.json",
+      "sha256": "f3e041237e683d1f70775d1ffffb3601e249589d6be6615d5db274fbdf394c96"
+    },
+    {
+      "path": "Debug/base-apt-maps-big/build.events.jsonl",
+      "sha256": "8ca1b4004afb37bbbb12226bc55cbf8a992822ae01c9e9185e5def257194e717"
+    },
+    {
+      "path": "Debug/base-apt-maps-loose/build-report.json",
+      "sha256": "500cb030c3269b209cfe6ada3d0a201851d99b10ec6ba03358fc38e9741e3112"
+    },
+    {
+      "path": "Debug/base-apt-maps-loose/build.events.jsonl",
+      "sha256": "5d843aa759b7721aece9e57fc401270791347838be0175edee97856548ebec0f"
+    },
+    {
+      "path": "Debug/base-big/build-report.json",
+      "sha256": "cbaf9315a3111e3c57130351c4bcc17889b094cebea21e9df08ce81a338da1d0"
+    },
+    {
+      "path": "Debug/base-big/build.events.jsonl",
+      "sha256": "c4c879e599eb0c6f557a65c881393e0553005d47f8b88b046e6d4f9bf451412e"
+    },
+    {
+      "path": "Debug/base-loose/build-report.json",
+      "sha256": "145e2f6816671ad1508b60eca7e1176e5ce48d7f5ea2fbeb583977df61509805"
+    },
+    {
+      "path": "Debug/base-loose/build.events.jsonl",
+      "sha256": "4fd4f825db0903f251bb25bc62b669ec7f83d87ed4f99a4ac10f6b2579c5c772"
+    },
+    {
+      "path": "Debug/base-with-neutral-repair/build-report.json",
+      "sha256": "a0d2a6d0cbde62d94554ff27e3a153ce0f0106e4be4676456d2625f193f1635a"
+    },
+    {
+      "path": "Debug/base-with-neutral-repair/build.events.jsonl",
+      "sha256": "9fd70725f8372a9f853fc76580f1019f3c2cb6c8f2a669df93c06aeed00b16df"
+    },
+    {
+      "path": "Debug/custom-package-identity/build-report.json",
+      "sha256": "69357fb99f51dbc1d6aed7aa4eaeff2019ab12e712d3067bccbff1b197b1a44d"
+    },
+    {
+      "path": "Debug/custom-package-identity/build.events.jsonl",
+      "sha256": "20a53501e394732214d351d95e7f1b41ccecba18aec03f914c678ba28ad4fd2a"
+    },
+    {
+      "path": "Debug/development-defaults/build-report.json",
+      "sha256": "99bb3711d61780b0971c751574d85dc0a215b9948be9fb53d9dc744996fe5b12"
+    },
+    {
+      "path": "Debug/development-defaults/build.events.jsonl",
+      "sha256": "15a7fa8aa6f2d3c3b7a04de53130db1819a22dcec4aef3968eb018818a8ebf7f"
+    },
+    {
+      "path": "Debug/locked-big-fault/build-report.json",
+      "sha256": "3ca0ed818518bb980991aa978936aa6391e831b4b1f31cdfe3f775a8ad96328f"
+    },
+    {
+      "path": "Debug/locked-big-fault/build.events.jsonl",
+      "sha256": "638d495d148246717ec492048cd263546de6254d85bc37d79192cbf26058a518"
+    },
+    {
+      "path": "Debug/maps-big/build-report.json",
+      "sha256": "deb72adf3fd3ab8cd3699833086736918bda4289d8007f44da423030377f2a91"
+    },
+    {
+      "path": "Debug/maps-big/build.events.jsonl",
+      "sha256": "7ac62e8c19873cf93935b696a3c02843daa7d50b69a60935944acd7bced4b468"
+    },
+    {
+      "path": "Debug/maps-loose/build-report.json",
+      "sha256": "d33a2ed5ec328dac83f448baf3d2e9d250dfdadc5ae148c2bb8294db01bf1b9e"
+    },
+    {
+      "path": "Debug/maps-loose/build.events.jsonl",
+      "sha256": "2010eacfb9a663cce6355eaf9653ca74a63179f9af5fa4859350322d81214f5c"
+    },
+    {
+      "path": "Debug/neutral-missing-reference/build-report.json",
+      "sha256": "0eee3cc6680b81cba7fccf96c825a4c5b67a164fd4ac015390194937a50e5a09"
+    },
+    {
+      "path": "Debug/neutral-missing-reference/build.events.jsonl",
+      "sha256": "5343acb73813d027da36421760fc8923afa92663f48a4d1a1050d675442ed9a1"
+    },
+    {
+      "path": "Debug/neutral-retry-after-reference-restored/build-report.json",
+      "sha256": "118bb6101d211d22d1cfd439841c2842e091c9dc1186d2731219d6b91aee4695"
+    },
+    {
+      "path": "Debug/neutral-retry-after-reference-restored/build.events.jsonl",
+      "sha256": "16b6272fcb2d6934044082ef082311c66f4779df576ce2bdf36894763bdb9a36"
+    },
+    {
+      "path": "Debug/rebuild-with-unrelated-output/build-report.json",
+      "sha256": "ccf2b681db99425363454959b509fd6e5f4bd0bfce34a74813736d06544c2fa4"
+    },
+    {
+      "path": "Debug/rebuild-with-unrelated-output/build.events.jsonl",
+      "sha256": "fb740e56d1e6f28f413f25c1fc940dd9dc54de60a6552ee154750e7c96c64134"
+    },
+    {
+      "path": "Debug/retry-after-cancel/build-report.json",
+      "sha256": "2b4c419a84a2f692323b537d1e0e19224660e490dc19e1d61a06bda42b0aa543"
+    },
+    {
+      "path": "Debug/retry-after-cancel/build.events.jsonl",
+      "sha256": "e387cd8fca4730468c6a947c02736dd51e4e5a9189327de7f4818a335b614509"
+    },
+    {
+      "path": "Debug/retry-after-locked-big/build-report.json",
+      "sha256": "f29b191b0773f2d07bf82027cba346fcb182a0dd7dc1d112c1b9a57d13610df5"
+    },
+    {
+      "path": "Debug/retry-after-locked-big/build.events.jsonl",
+      "sha256": "c20033a03c56c94d60d97ac6cd7eedc69c964223bcfb35771ab824d359d7a160"
+    },
+    {
+      "path": "Debug/standard-defaults/build-report.json",
+      "sha256": "942da3acf1750794692d532d48e827b66f230575e434711bee77d7a91567983e"
+    },
+    {
+      "path": "Debug/standard-defaults/build.events.jsonl",
+      "sha256": "c96409ca4238c3cf7e0a23eadcfd7cbc4b8bc2f5ce2540e7fa77035a2ac35b64"
+    },
+    {
+      "path": "Debug/unchanged-locked-output/build-report.json",
+      "sha256": "f5ab9fce02310e4410b0de71d74f079e1ac9e4e919c282b6de3c1466a3a08335"
+    },
+    {
+      "path": "Debug/unchanged-locked-output/build.events.jsonl",
+      "sha256": "f3bd3281c3649cce2b1fd364c02b293b70864b39baae930aec831c7fc2060d3a"
+    },
+    {
+      "path": "Release/actual-cancel/build-report.json",
+      "sha256": "a8fb31a932f090689df8a55223572d47142d465fca4fcbd76dcbbd74bf5858ea"
+    },
+    {
+      "path": "Release/actual-cancel/build.events.jsonl",
+      "sha256": "57dcef43706e10f4275037c2a251c8990e7766c486f9ff35b0abf6fef04d9c6b"
+    },
+    {
+      "path": "Release/all-with-additional/build-report.json",
+      "sha256": "2bb63b5e53f631135c50982ee5f58537beb22fd6e8b81be96ddd8f9e114cb4bf"
+    },
+    {
+      "path": "Release/all-with-additional/build.events.jsonl",
+      "sha256": "bff322d0fcec5ac1cdeeedd59f613238659a4f61d93167869f77fc86626ee570"
+    },
+    {
+      "path": "Release/apt-big/build-report.json",
+      "sha256": "3284753259840db7556c159b75b94eac5b49dccb308c17a1dbf8027eb1611a60"
+    },
+    {
+      "path": "Release/apt-big/build.events.jsonl",
+      "sha256": "cb5ec91efc7ede8986c1c40458393d76bcdcb68496f2f84c482dfb23f59b422f"
+    },
+    {
+      "path": "Release/apt-loose/build-report.json",
+      "sha256": "262101b363df06a31367b01df8223f968063dfdf9e525bf0a751e83186ecd685"
+    },
+    {
+      "path": "Release/apt-loose/build.events.jsonl",
+      "sha256": "811fde1cd62a1bd06a3a2d7beb6dac12c3a31abe4f0bdc786497b6751bdadf63"
+    },
+    {
+      "path": "Release/apt-maps-big/build-report.json",
+      "sha256": "5391dd2ddda250c7db574002939cbe7798bd062d02ec249d1a911634d0f30951"
+    },
+    {
+      "path": "Release/apt-maps-big/build.events.jsonl",
+      "sha256": "43ee28b28a2b7441ee53aef6bef42ef4f840f558f7185a207e8209d23b0eff5f"
+    },
+    {
+      "path": "Release/apt-maps-loose/build-report.json",
+      "sha256": "6d79990ad5310e873a0599c6f3e9600eea515c49332c38320291910667caa906"
+    },
+    {
+      "path": "Release/apt-maps-loose/build.events.jsonl",
+      "sha256": "2350325ae5daefbf8cded5141c304b7a75ed4b9c8c84f5327751088d3006d913"
+    },
+    {
+      "path": "Release/base-apt-maps-big/build-report.json",
+      "sha256": "5dc208ebb88ab9f682bfd25e99a0e3407db77bc2c3f8a497b43f6ead76809e87"
+    },
+    {
+      "path": "Release/base-apt-maps-big/build.events.jsonl",
+      "sha256": "380156725758456df0523d91e63cb2600800173de0a79c7b2a0818f3aeb5d5b6"
+    },
+    {
+      "path": "Release/base-apt-maps-loose/build-report.json",
+      "sha256": "3c7735fd80a72c8ec65899616b166662557ca90430ee7fef2628f8eb49490a02"
+    },
+    {
+      "path": "Release/base-apt-maps-loose/build.events.jsonl",
+      "sha256": "353d7a95fd0b5ef56c11d3bf68bf6633a64c6904b2f09c9301740d31bbf4c712"
+    },
+    {
+      "path": "Release/base-big/build-report.json",
+      "sha256": "7b05b31871b98814fd27d793a9bc6047449992d9abf926745d6b080b6c5e4b04"
+    },
+    {
+      "path": "Release/base-big/build.events.jsonl",
+      "sha256": "acebc28d259b36185e8d2fa90eaaec1bff03cc2a7c966395a1ecd2a4abc5a765"
+    },
+    {
+      "path": "Release/base-loose/build-report.json",
+      "sha256": "fc362ca3801c9ff6900b65feeaf59c25d02079e2cec9970acaff780d05e5f07b"
+    },
+    {
+      "path": "Release/base-loose/build.events.jsonl",
+      "sha256": "8fa413e04f21598804b196c81686653ef03d90cdfdc383b0d7a52e4a3b020919"
+    },
+    {
+      "path": "Release/base-with-neutral-repair/build-report.json",
+      "sha256": "a81348038d8382ef3b91bb450a922c8c679959ae5d3716d25283ab6eebaa1638"
+    },
+    {
+      "path": "Release/base-with-neutral-repair/build.events.jsonl",
+      "sha256": "27a70cde51210b04e268b6ca808a7dd28476737ee12ee4dff0d1ab988f020c78"
+    },
+    {
+      "path": "Release/custom-package-identity/build-report.json",
+      "sha256": "5702d1b72b302bacde16298b302c538543ff13de05997c1762bee26d36967a90"
+    },
+    {
+      "path": "Release/custom-package-identity/build.events.jsonl",
+      "sha256": "f7fa29a21f840189fac6ac55f78235f01f1a8393141b98d52bc76f514fea5de1"
+    },
+    {
+      "path": "Release/development-defaults/build-report.json",
+      "sha256": "eb295f3d24424e252d181b83439fda99bbefa9646f2f10a5c1fdccf8fa62382a"
+    },
+    {
+      "path": "Release/development-defaults/build.events.jsonl",
+      "sha256": "4f3f430118a632007ad639703bd5ce4a1aee6347234369ff23a4d2f2b0a3c630"
+    },
+    {
+      "path": "Release/locked-big-fault/build-report.json",
+      "sha256": "08b8995fec86ddd20e5be8d7097477ccb68d8f035a544f4fb26a0685dc167600"
+    },
+    {
+      "path": "Release/locked-big-fault/build.events.jsonl",
+      "sha256": "9a8285586a9ec42f0a42f3ac639bdbe1169db90ee8a9d886fe7d9a04aca6d940"
+    },
+    {
+      "path": "Release/maps-big/build-report.json",
+      "sha256": "e91fd56335d6636446adeca5f979f50ad998a6c751d8ea63db0eb387bd938971"
+    },
+    {
+      "path": "Release/maps-big/build.events.jsonl",
+      "sha256": "5e5aa7c06a454f8d18b1c503c691cce30507a798b5c314f3083db26bafcfc3bb"
+    },
+    {
+      "path": "Release/maps-loose/build-report.json",
+      "sha256": "952b3e8068ba7a5a6658af9857d4026344aebd6dac67bb4a4eca543099159340"
+    },
+    {
+      "path": "Release/maps-loose/build.events.jsonl",
+      "sha256": "8e9eeadfe0c720bacc1920d3bd86fe66951034783a0dd4a4f3e94c65bd3c64f3"
+    },
+    {
+      "path": "Release/neutral-missing-reference/build-report.json",
+      "sha256": "61423d967e858e9d369666c1d5544a1cae1984de8ba15381d29470e88b18162b"
+    },
+    {
+      "path": "Release/neutral-missing-reference/build.events.jsonl",
+      "sha256": "2f64886a3853b7a0ce1f6a93d120598f4538d1a9d18c0ba5121dcb437a699086"
+    },
+    {
+      "path": "Release/neutral-retry-after-reference-restored/build-report.json",
+      "sha256": "62f8199e0c65461266790bdc5ec2797274ed611399af69239e25d8d4ce6a8a86"
+    },
+    {
+      "path": "Release/neutral-retry-after-reference-restored/build.events.jsonl",
+      "sha256": "d658dae83c3ce7e26d843c5e61b73f528a02dd17fa48d93f265eabca27a8f73c"
+    },
+    {
+      "path": "Release/rebuild-with-unrelated-output/build-report.json",
+      "sha256": "6796d1b01b8b1a9c25f6bf7fcbe8d158f2a9026a752df6dc85d8c8e93bfa0174"
+    },
+    {
+      "path": "Release/rebuild-with-unrelated-output/build.events.jsonl",
+      "sha256": "9f575e392624e35d340250713850fc0a7fa9a2dca260d5f6639f4dae009d168a"
+    },
+    {
+      "path": "Release/retry-after-cancel/build-report.json",
+      "sha256": "04c89fb95e58112a5fa2abb8f10af94d97b31e012cbcc1befe236b93b6630ecf"
+    },
+    {
+      "path": "Release/retry-after-cancel/build.events.jsonl",
+      "sha256": "b766ba6401aade6e38b1e6806afd2a01cab1d57e5bad8b96dc3e57e836680c08"
+    },
+    {
+      "path": "Release/retry-after-locked-big/build-report.json",
+      "sha256": "11fa4a8390be2d0ca2a3cb9eac535b4539cad38e021bbbe75761c1b2b7b95257"
+    },
+    {
+      "path": "Release/retry-after-locked-big/build.events.jsonl",
+      "sha256": "36a33e5a751d876154a93da3090f04fd0ff4cd79a19f773a4c718f160efda4b1"
+    },
+    {
+      "path": "Release/standard-defaults/build-report.json",
+      "sha256": "03131881081d76a12ce3cc40139543db1ddf296f0cf89080c6825f1516525849"
+    },
+    {
+      "path": "Release/standard-defaults/build.events.jsonl",
+      "sha256": "650289c3fb54622f5a73375b7ab8110938f83861b4cf91ac7ac8ae28f0c41cbb"
+    },
+    {
+      "path": "Release/unchanged-locked-output/build-report.json",
+      "sha256": "b32576c69e6673cc0f204903d60aaaf5b57871cd99615bde532951bcb82c865f"
+    },
+    {
+      "path": "Release/unchanged-locked-output/build.events.jsonl",
+      "sha256": "989a2e5776f09b13c77d78a88b7cfa032fbd61243127c11090c139e281e5d43d"
+    }
+  ],
+  "errorCount": 0,
+  "errors": [],
+  "notes": [
+    "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+    "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+  ]
+}

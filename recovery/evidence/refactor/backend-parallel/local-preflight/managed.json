@@ -1,0 +1,74 @@
+{
+  "succeeded": true,
+  "scope": "Linux cheap managed compilation/static preflight only; not Windows native linking/runtime acceptance",
+  "sourceCommit": "3d65527417803119e61eb4a537d2229b00ad7123",
+  "compiler": "SDK8.0.415 Roslyn/csc.dll; .NETFramework.ReferenceAssemblies.net48 1.0.3",
+  "foundationCompiled": true,
+  "standaloneAppCompiled": true,
+  "monolithicNativeValidated": false,
+  "monolithicUnavailableBridgeDiagnostics": 294,
+  "monolithicOtherErrors": 0,
+  "exactReferenceXmlCertificationRegistry": true,
+  "forbiddenActionCacheDependencies": 0,
+  "sourceFiles": [
+    {
+      "path": "recovery/src/App/Application/BackendResourcePolicy.cs",
+      "sha256": "ea67156ae05c02c51197a00d0625e11f676ef08173ee28d29df3956079887c84"
+    },
+    {
+      "path": "recovery/src/App/Application/BuiltinCompilers.cs",
+      "sha256": "67f0b18938dbcae56e1d7b8b0bc4fe3edc910017554caae1be6c4014075895dc"
+    },
+    {
+      "path": "recovery/src/App/Application/CoreStreamCompiler.cs",
+      "sha256": "f8c553554d41f98900654b6ad773503e95e8b8f342d9aaaf2203898971c4eb50"
+    },
+    {
+      "path": "recovery/src/App/Application/Model.cs",
+      "sha256": "c692277f83ff2f573edf97f98949ae12249a1a551eaabd64dc5e3ae6913c0f42"
+    },
+    {
+      "path": "recovery/src/App/Application/ParallelBackendScheduler.cs",
+      "sha256": "21c57e4341947940f89a3364b52b8656eb249b8a0566ea4ed4262d8de0274cde"
+    },
+    {
+      "path": "recovery/src/App/Application/PreparedBackendWork.cs",
+      "sha256": "c9bb8381ea9410edef781c27aaa0b918412c2d655e4bb376b6583c45abb6e265"
+    },
+    {
+      "path": "recovery/src/App/Application/XmlBackendCertification.cs",
+      "sha256": "cd85ee1a8798df28c6bfb2ff6642e185661e33b520c7bea923a9e8ee31b6d4f1"
+    },
+    {
+      "path": "recovery/src/App/Cli/Options.cs",
+      "sha256": "80c82fd46f9489d6da6615e0f2f5a48a41f19ad179c0f128a3ed39a80b5f09b3"
+    },
+    {
+      "path": "recovery/src/App/Diagnostics/BuildPerformance.cs",
+      "sha256": "b4a74708d71e43f79c9076b3d5c746fedf00c5bc2a1d951e14d7d66f0210b600"
+    },
+    {
+      "path": "recovery/src/Managed/Audio/Plugin.cs",
+      "sha256": "5adecfea6927c03f0ef0b7808ba3c90a0ecef2a6778c841e7b330f168246d342"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/AssetDeclarationDocument.cs",
+      "sha256": "2e72c1b0475c61a10f7f28d43e9bec221aab0ab469cd917eb1053081e70b6704"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/DocumentProcessor.cs",
+      "sha256": "7abc351e50350415aa830e92308544c4bc0abc028c4a753f44bba60c694e4eb8"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/IAssetExecution.cs",
+      "sha256": "b0b6df68c6ca3a1e222b5b6c9df098331e839f526d58145ab1f4b36049cd801b"
+    },
+    {
+      "path": "recovery/src/Managed/Core/BinaryAssetBuilder.Core/OutputManager.cs",
+      "sha256": "05fcffa851ea3f7d9dbb358d78d80b9dd653da388b498a6de83b1ee0aa23caf9"
+    }
+  ],
+  "sourceState": "Working-tree files identified below; not a Windows runtime receipt",
+  "foundationModuleSha256": "4de04067948fb7d9b7684029027773acc748d5cb69bc11773d4f61aae6857606",
+  "standaloneAppModuleSha256": "978a7739339913c163ce9e0b10d3fb73c4a7fdea88c068d317423afae58a0f00"
+}

@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "scope": "P4 clean unified production deployment and complete built-in route metadata; integrated backend environment rejection only; not component differential or successful MOD compilation",
+  "sourceCommit": "75d29895be464d9a560f5f946d612e359bf4b396",
+  "runId": "41165126334",
+  "runAttempt": "1",
+  "schemaVersion": 1,
+  "modes": [
+    {
+      "doctorExit": 3,
+      "componentExecution": "test-only host using identical production inputs",
+      "exeSha256": "fded8922e884e43d911bc7b510bb158ee1ea4d7adc8d773f92cf4b71d80cd530",
+      "builtinPluginCount": 7,
+      "runtimeFiles": [
+        "NewModCompiler.exe",
+        "NewModCompiler.exe.config",
+        "antlr.runtime.dll",
+        "BinaryAssetBuilder.TextureCompiler.dll",
+        "BinaryAssetBuilder.TextureCompiler.dll.patch.json"
+      ],
+      "builtinRouteCount": 299,
+      "configuration": "Debug",
+      "fakeSdkRejected": true,
+      "routeMetadataVerified": true,
+      "typeInventoryVerified": true,
+      "exactResourcesVerified": true,
+      "backendIntegrated": true,
+      "componentDifferentialPassed": false,
+      "passed": true,
+      "buildExit": 3,
+      "modCompilationValidated": false,
+      "validationHostSha256": "505fa9533e7d26732e4688259db02131f0940159c07e865acbb9934505465e41",
+      "moduleInputsQuarantined": true,
+      "planExit": 0,
+      "productContainsTests": false
+    },
+    {
+      "doctorExit": 3,
+      "componentExecution": "test-only host using identical production inputs",
+      "exeSha256": "d3893f1d6a8327755f89714bb7b85e322cfb3278d25247cfd80edaa5768b9892",
+      "builtinPluginCount": 7,
+      "runtimeFiles": [
+        "NewModCompiler.exe",
+        "NewModCompiler.exe.config",
+        "antlr.runtime.dll",
+        "BinaryAssetBuilder.TextureCompiler.dll",
+        "BinaryAssetBuilder.TextureCompiler.dll.patch.json"
+      ],
+      "builtinRouteCount": 299,
+      "configuration": "Release",
+      "fakeSdkRejected": true,
+      "routeMetadataVerified": true,
+      "typeInventoryVerified": true,
+      "exactResourcesVerified": true,
+      "backendIntegrated": true,
+      "componentDifferentialPassed": false,
+      "passed": true,
+      "buildExit": 3,
+      "modCompilationValidated": false,
+      "validationHostSha256": "6a9a65df7c4508c83d98116a85105c8a28bac03a662c61c50e961adb96858ada",
+      "moduleInputsQuarantined": true,
+      "planExit": 0,
+      "productContainsTests": false
+    }
+  ]
+}

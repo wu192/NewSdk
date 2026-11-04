@@ -1,0 +1,125 @@
+{
+  "runId": 41138338003,
+  "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299",
+  "archiveSha256": "4962a1239dfe582321c5de47b9999664bdcfe4448d3107d66e350606184560d5",
+  "downloadedAndRehashed": true,
+  "receipts": {
+    "plugin-gameobject": {
+      "status": "passed",
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "plugin-weapon": {
+      "status": "passed",
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "backend-parallel-performance": {
+      "status": "passed",
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "backend-parallel": {
+      "status": true,
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "big": {
+      "status": true,
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "sdk-mymod": {
+      "status": true,
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "session-cache": {
+      "status": true,
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "cache-payloads": {
+      "status": true,
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "input-roots": {
+      "status": true,
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "build-cache": {
+      "status": true,
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "core-lifecycle-deployment": {
+      "status": "passed",
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "core-lifecycle": {
+      "status": "passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate",
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "core-lifecycle-texture": {
+      "status": "passed",
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    },
+    "core-cli": {
+      "status": true,
+      "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299"
+    }
+  },
+  "runtime": {
+    "Debug": {
+      "NewModCompiler.exe": "55bfae370c94c3cae188512e99435cd4898c4b765934f9acb67c449598f4bf96",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "ecc2d8ac63fde6417dedbd646f5e9e01c8f11debe51ffa70c7e1847a3c0d6cf9"
+    },
+    "Release": {
+      "NewModCompiler.exe": "646d67558a7d8c93f120e6dafacf55e6908e3895192c5b93235efc6449984e86",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "3009e34728281f8aa1b186292431de127497103a2c8a4f56ebf92f94e60720d0"
+    }
+  },
+  "packages": {
+    "Debug": {
+      "path": "artifacts/final-release/41138338003-1/NewModCompiler-Win32-Debug.zip",
+      "sha256": "e1d4376aa87664ea5a9b60077cdff54fdded8f4d8d1bec2a36eb1ca19ce77d2e"
+    },
+    "Release": {
+      "path": "artifacts/final-release/41138338003-1/NewModCompiler-Win32-Release.zip",
+      "sha256": "69629bb1ec390438c9638fb61d6b19deed71bd603b66eb57b5c81cce1dd55579"
+    }
+  },
+  "originalReceiptsZip": {
+    "path": "original-receipts.zip",
+    "bytes": 1513093,
+    "sha256": "fa79c32c58b4c976c512ee4c8ae8d25a19d00a88b8500947956ff3934803598c",
+    "members": {
+      "backend-parallel/validation.json": "63398838f1204a5960221f8f4be8aeeada9342e78355e7822af8dc442611eca7",
+      "backend-parallel-performance/measurement.json": "f295e56093937d07fa52a5aace17c9b4016497dc118d55e506abc968ee7b4078",
+      "backend-parallel-performance/measurement.md": "86251873563068f0679cd5125c9e6d273198f482b65123b800a626b398624a6d",
+      "big/validation.json": "2054cfe3d8508123acda64409549cd039119b882a2322f30aaf228bcd11ea8ef",
+      "build-Debug.json": "f689b5cd30bc9a69f03fb59af813377c8310982ccd075ce64e20868c3e636b58",
+      "build-Release.json": "4161aab7bfd37961095ddaa52ffbb9b130fe8dd5ac13bdbedcab7632794de9e8",
+      "build-cache/validation.json": "927ed4f65d5de7d724026e244115403f50a301b3c7ea6df2cc38c832af8bb001",
+      "cache-payloads/validation.json": "a649ca1a14d948d5d75d71519003dffdbd56c772106ef36545690ad45545b8ff",
+      "core-backend-baseline/Debug-validation.json": "0cb4d2e26310e7c66d78b0e466ab7ec9c3ec007fe633bd58a992427b738cad19",
+      "core-backend-baseline/Release-validation.json": "16d92efa36b153717f44c54a60d90867d13626d001ffb35a79a7234d08a3f2f9",
+      "core-cli/validation.json": "657084e3ec245f90f2b24c3cec72a60eb27fa29c9b3296f57d23925f4da3490b",
+      "core-lifecycle/validation.json": "63b8d86193f1da52a50b9d234261f806b54d94475da0be7986241bafea25a8bd",
+      "core-lifecycle-deployment/validation.json": "b8f4ed3d7e74194951aa21c9f55ce36b8bab45df23a03d3de98d54fd222b419a",
+      "core-lifecycle-texture/validation.json": "1f310e1588ad4c1c86db230af0ce85192c44ec3db38ef4112565f291d6238e35",
+      "final-release/NewModCompiler-Win32-Debug.manifest.json": "e72e0a0b68ffb199f3b623aa0b6ac2a586b413cc9208e9ed36517f0b103f2541",
+      "final-release/NewModCompiler-Win32-Release.manifest.json": "50784e6a30e4a7d3941d9afa090d547a7ce31946fab3f0f3b305d1139acb68c7",
+      "final-release/release.json": "6195002ceab602b7f697127ec4acd585ad268b8c500817b91c4d725ecdd8b69f",
+      "input-roots/validation.json": "0200981d7122a73587b6a6d3cad5828c4eaffbb4a618c0f4849c0f61202025bb",
+      "plugin-gameobject/Debug-runtime.log": "063e813ef47e9b7aaa5652a5a90819e30e146309c1ab86ca3db4912e7c4820c2",
+      "plugin-gameobject/Release-runtime.log": "063e813ef47e9b7aaa5652a5a90819e30e146309c1ab86ca3db4912e7c4820c2",
+      "plugin-gameobject/original-runtime.log": "b96ea7b1c6015009206c94f8454ea65bdb396b980e0ff91fd1573ef62a57ab72",
+      "plugin-gameobject/validation.json": "5ade13e64f5c48f162c9ceaf30c1e5e870c6182ff871edf8a5f2827dd3ea1df5",
+      "plugin-weapon/Debug-runtime.log": "b3fecf1a0b4118538dfb441fb4ec7adef791b82983b88e4e12a8bbe473e97b78",
+      "plugin-weapon/Release-runtime.log": "b3fecf1a0b4118538dfb441fb4ec7adef791b82983b88e4e12a8bbe473e97b78",
+      "plugin-weapon/original-runtime.log": "10bc36e642aadcc9bc60c35fc65522a75e9c9f3264b7d467c37a0065b31cde7a",
+      "plugin-weapon/validation.json": "8882f213f049ab0c3c88249930aaaaeaacbd1419b5c5baa7ba48bcab6eb5a997",
+      "sdk-mymod/validation.json": "ee2e0d4389fc46247b06c4e4b7a1fc1a3ac42be131e0a52bc3b486a23304d0cd",
+      "session-cache/validation.json": "6c5b9c5849033b6a11ff0c95468712054ba7a09bec036bfce7b8886d2ac3d40d"
+    }
+  }
+}

@@ -1,0 +1,96 @@
+name: New SDK small medium large MOD timings
+on:
+  push:
+    branches: [recovery/legacy-sdk-cache]
+    paths:
+      - '.github/workflows/compiler-mod-scale.yml'
+      - 'recovery/scripts/MeasureCompilerModScale.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: compiler-mod-scale-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  measure:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[mod-scale]')
+    runs-on: windows-2022
+    timeout-minutes: 30
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Dependencies and script syntax
+        run: |
+          python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt
+          python -m py_compile recovery/scripts/MeasureCompilerModScale.py
+      - name: Build current instrumented Release once
+        shell: pwsh
+        run: ./recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory recovery/artifacts/mod-scale-product
+      - name: Measure all discovered streams and BIG in three sizes, cold plus two hot
+        timeout-minutes: 17
+        shell: pwsh
+        run: |
+          python recovery/scripts/MeasureCompilerModScale.py --repo . --exe recovery/artifacts/mod-scale-product/bin/NewModCompiler.exe --work "$env:RUNNER_TEMP/mod-scale" --output recovery/evidence/refactor/mod-scale --source-commit $env:GITHUB_SHA --timeout 180 --budget 900 --hot-runs 2
+          $result=$LASTEXITCODE
+          if(Test-Path recovery/evidence/refactor/mod-scale/measurement.md){Get-Content recovery/evidence/refactor/mod-scale/measurement.md|Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($result -ne 0){throw 'At least one MOD tier did not complete; partial timings and original failures retained'}
+      - name: Summarize compiler-mod-scale reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/mod-scale/**/*.json
+            recovery/evidence/refactor/mod-scale/**/*.md
+            recovery/evidence/refactor/mod-scale/**/*.csv
+            recovery/evidence/refactor/mod-scale/**/*.tsv
+            recovery/artifacts/mod-scale-product/*.json
+            recovery/artifacts/mod-scale-product/obj/foundation/*.json
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-mod-scale reports"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compiler-mod-scale-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/mod-scale/**/*.json
+            recovery/evidence/refactor/mod-scale/**/*.md
+            recovery/evidence/refactor/mod-scale/**/*.csv
+            recovery/evidence/refactor/mod-scale/**/*.tsv
+            recovery/artifacts/mod-scale-product/*.json
+            recovery/artifacts/mod-scale-product/obj/foundation/*.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-mod-scale failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/mod-scale/**/*.log
+            recovery/evidence/refactor/mod-scale/**/*.jsonl
+            recovery/artifacts/mod-scale-product/*.log
+            recovery/artifacts/mod-scale-product/obj/foundation/*.log
+            recovery/artifacts/mod-scale-product/obj/native/logs/*.log
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-mod-scale failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: compiler-mod-scale-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/mod-scale/**/*.log
+            recovery/evidence/refactor/mod-scale/**/*.jsonl
+            recovery/artifacts/mod-scale-product/*.log
+            recovery/artifacts/mod-scale-product/obj/foundation/*.log
+            recovery/artifacts/mod-scale-product/obj/native/logs/*.log
+          retention-days: 1
+          if-no-files-found: warn

@@ -1,0 +1,1987 @@
+{
+  "schemaVersion": "1.0",
+  "buildId": "d1cfe7b5f1f44e71888141e5884da4a7",
+  "status": "succeeded",
+  "exitCode": 0,
+  "stages": [
+    {
+      "id": "plan",
+      "status": "succeeded",
+      "elapsedMs": 11,
+      "artifactCount": 0
+    },
+    {
+      "id": "compile",
+      "status": "succeeded",
+      "elapsedMs": 74685,
+      "artifactCount": 1311
+    },
+    {
+      "id": "package",
+      "status": "succeeded",
+      "elapsedMs": 326,
+      "artifactCount": 2
+    },
+    {
+      "id": "publish",
+      "status": "succeeded",
+      "elapsedMs": 49,
+      "artifactCount": 2
+    }
+  ],
+  "cache": {
+    "status": "SessionCache",
+    "hits": 0,
+    "misses": 1734,
+    "sessionCache": true,
+    "sessionPackageHits": 0,
+    "sessionPackageMisses": 5,
+    "documentReuse": 0,
+    "xmlParse": 925,
+    "instanceCompile": 3354,
+    "linkedStreamsRestored": 0,
+    "fileHashReads": 4578,
+    "fileHashReuses": 9549,
+    "fileHashBytesRead": 335376178,
+    "textureCache": true,
+    "compressedSessionCache": true,
+    "partialSessionCache": true,
+    "freezeSessionCache": false,
+    "alwaysTouchCache": false,
+    "partialSessionsSaved": 0,
+    "sessionCacheDirectory": "D:\\a\\_temp\\mod-scale\\outputs\\large"
+  },
+  "performance": {
+    "level": "detailed",
+    "clock": "Stopwatch",
+    "frequency": 10000000,
+    "boundary": "before-report-write",
+    "entries": [
+      {
+        "name": "backend.dispose",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 2.0551,
+        "selfMs": 2.0551,
+        "maxMs": 2.0551
+      },
+      {
+        "name": "backend.initialize",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 44.4468,
+        "selfMs": 44.4468,
+        "maxMs": 44.4468
+      },
+      {
+        "name": "cache.commit",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 3.8248,
+        "selfMs": 3.8248,
+        "maxMs": 3.8248
+      },
+      {
+        "name": "identity.directory",
+        "streamId": null,
+        "count": 2,
+        "totalMs": 0.1578,
+        "selfMs": 0.1578,
+        "maxMs": 0.08
+      },
+      {
+        "name": "identity.load",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 1.5291000000000001,
+        "selfMs": 1.5291000000000001,
+        "maxMs": 1.5291000000000001
+      },
+      {
+        "name": "identity.save",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 19.1856,
+        "selfMs": 19.105600000000003,
+        "maxMs": 19.1856
+      },
+      {
+        "name": "identity.sha256",
+        "streamId": null,
+        "count": 2,
+        "totalMs": 105.21910000000001,
+        "selfMs": 105.21910000000001,
+        "maxMs": 105.11840000000001
+      },
+      {
+        "name": "package.additional-inputs",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 2.2741000000000002,
+        "selfMs": 2.2741000000000002,
+        "maxMs": 2.2741000000000002
+      },
+      {
+        "name": "package.additional-merge",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 1.9016000000000002,
+        "selfMs": 1.9016000000000002,
+        "maxMs": 1.9016000000000002
+      },
+      {
+        "name": "package.big",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 150.64770000000001,
+        "selfMs": 150.64770000000001,
+        "maxMs": 150.64770000000001
+      },
+      {
+        "name": "package.hash",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 105.6722,
+        "selfMs": 0.3753,
+        "maxMs": 105.6722
+      },
+      {
+        "name": "package.lod",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 4.272,
+        "selfMs": 4.272,
+        "maxMs": 4.272
+      },
+      {
+        "name": "package.skudef",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.7738,
+        "selfMs": 0.7738,
+        "maxMs": 0.7738
+      },
+      {
+        "name": "publish.commit",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.6326,
+        "selfMs": 0.6326,
+        "maxMs": 0.6326
+      },
+      {
+        "name": "publish.prepare",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 29.2357,
+        "selfMs": 29.2357,
+        "maxMs": 29.2357
+      },
+      {
+        "name": "stage.compile",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 74684.6998,
+        "selfMs": 35.9469,
+        "maxMs": 74684.6998
+      },
+      {
+        "name": "stage.package",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 326.0906,
+        "selfMs": 60.549200000000006,
+        "maxMs": 326.0906
+      },
+      {
+        "name": "stage.plan",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 9.5581,
+        "selfMs": 9.5581,
+        "maxMs": 9.5581
+      },
+      {
+        "name": "stage.publish",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 49.077600000000004,
+        "selfMs": 0.023700000000000002,
+        "maxMs": 49.077600000000004
+      },
+      {
+        "name": "staging.cleanup",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 52.7081,
+        "selfMs": 52.7081,
+        "maxMs": 52.7081
+      },
+      {
+        "name": "artifacts.collect",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 3.5427,
+        "selfMs": 0.3094,
+        "maxMs": 3.5427
+      },
+      {
+        "name": "cache.linked-stage",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 0.1584,
+        "selfMs": 0.1584,
+        "maxMs": 0.1584
+      },
+      {
+        "name": "cache.load",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 125.40180000000001,
+        "selfMs": 125.25160000000001,
+        "maxMs": 125.40180000000001
+      },
+      {
+        "name": "cache.prepare",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 0.1375,
+        "selfMs": 0.1375,
+        "maxMs": 0.1375
+      },
+      {
+        "name": "cache.save",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 96.6066,
+        "selfMs": 0.9213,
+        "maxMs": 96.6066
+      },
+      {
+        "name": "cache.serialize",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 95.27770000000001,
+        "selfMs": 95.27770000000001,
+        "maxMs": 95.27770000000001
+      },
+      {
+        "name": "cache.stage",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 0.4076,
+        "selfMs": 0.4076,
+        "maxMs": 0.4076
+      },
+      {
+        "name": "core.asset.commit",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 47,
+        "totalMs": 13.411800000000001,
+        "selfMs": 13.411800000000001,
+        "maxMs": 2.3301000000000003
+      },
+      {
+        "name": "core.asset.compile",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 47,
+        "totalMs": 166.9967,
+        "selfMs": 1.8552000000000002,
+        "maxMs": 158.76940000000002
+      },
+      {
+        "name": "core.asset.verify",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 47,
+        "totalMs": 0.0181,
+        "selfMs": 0.0181,
+        "maxMs": 0.002
+      },
+      {
+        "name": "core.assets",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 2,
+        "totalMs": 186.4932,
+        "selfMs": 6.0666,
+        "maxMs": 186.493
+      },
+      {
+        "name": "core.cleanup",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 0.0103,
+        "selfMs": 0.0103,
+        "maxMs": 0.0103
+      },
+      {
+        "name": "core.compiler.AptAptData",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 2.7951,
+        "selfMs": 2.7951,
+        "maxMs": 2.7951
+      },
+      {
+        "name": "core.compiler.AptConstData",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 0.366,
+        "selfMs": 0.366,
+        "maxMs": 0.366
+      },
+      {
+        "name": "core.compiler.AptDatData",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 0.3316,
+        "selfMs": 0.3316,
+        "maxMs": 0.3316
+      },
+      {
+        "name": "core.compiler.AptGeometryData",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 43,
+        "totalMs": 2.922,
+        "selfMs": 2.922,
+        "maxMs": 0.3254
+      },
+      {
+        "name": "core.compiler.Texture",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 158.7268,
+        "selfMs": 158.7268,
+        "maxMs": 158.7268
+      },
+      {
+        "name": "core.document",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 2,
+        "totalMs": 413.6007,
+        "selfMs": 0.3859,
+        "maxMs": 210.4966
+      },
+      {
+        "name": "core.document.open",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 2,
+        "totalMs": 1.238,
+        "selfMs": 0.30970000000000003,
+        "maxMs": 0.6745
+      },
+      {
+        "name": "core.filehash.read",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 49,
+        "totalMs": 11.51,
+        "selfMs": 11.51,
+        "maxMs": 3.4007
+      },
+      {
+        "name": "core.includes",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 2,
+        "totalMs": 203.23430000000002,
+        "selfMs": 0.06760000000000001,
+        "maxMs": 203.23180000000002
+      },
+      {
+        "name": "core.output.clean",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 0.30660000000000004,
+        "selfMs": 0.30660000000000004,
+        "maxMs": 0.30660000000000004
+      },
+      {
+        "name": "core.output.link",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 3.5894000000000004,
+        "selfMs": 3.5894000000000004,
+        "maxMs": 3.5894000000000004
+      },
+      {
+        "name": "core.output.manifest",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 0.43720000000000003,
+        "selfMs": 0.43720000000000003,
+        "maxMs": 0.43720000000000003
+      },
+      {
+        "name": "core.output.references",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 0.6954,
+        "selfMs": 0.6954,
+        "maxMs": 0.6954
+      },
+      {
+        "name": "core.process",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 210.5311,
+        "selfMs": 0.0345,
+        "maxMs": 210.5311
+      },
+      {
+        "name": "core.providers",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 1.2790000000000001,
+        "selfMs": 1.2790000000000001,
+        "maxMs": 1.2790000000000001
+      },
+      {
+        "name": "core.settings",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 0.15610000000000002,
+        "selfMs": 0.15610000000000002,
+        "maxMs": 0.15610000000000002
+      },
+      {
+        "name": "core.string-hashes",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 0.0385,
+        "selfMs": 0.0385,
+        "maxMs": 0.0385
+      },
+      {
+        "name": "core.xml.expressions",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 2,
+        "totalMs": 0.017400000000000002,
+        "selfMs": 0.017400000000000002,
+        "maxMs": 0.0172
+      },
+      {
+        "name": "core.xml.overrides",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 2,
+        "totalMs": 0.14100000000000001,
+        "selfMs": 0.14100000000000001,
+        "maxMs": 0.1409
+      },
+      {
+        "name": "core.xml.parse",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 2,
+        "totalMs": 0.34840000000000004,
+        "selfMs": 0.34840000000000004,
+        "maxMs": 0.2064
+      },
+      {
+        "name": "core.xml.validate",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 2,
+        "totalMs": 16.9631,
+        "selfMs": 5.8433,
+        "maxMs": 15.7729
+      },
+      {
+        "name": "identity.directory",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 6,
+        "totalMs": 0.5885,
+        "selfMs": 0.5885,
+        "maxMs": 0.1502
+      },
+      {
+        "name": "identity.sha256",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 4,
+        "totalMs": 3.1465,
+        "selfMs": 3.1465,
+        "maxMs": 3.012
+      },
+      {
+        "name": "stream.compile",
+        "streamId": "apt/TacticalHUDBuildQueuePage",
+        "count": 1,
+        "totalMs": 438.26390000000004,
+        "selfMs": 0.40190000000000003,
+        "maxMs": 438.26390000000004
+      },
+      {
+        "name": "artifacts.collect",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.7042,
+        "selfMs": 0.3111,
+        "maxMs": 0.7042
+      },
+      {
+        "name": "cache.linked-stage",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.0099,
+        "selfMs": 0.0099,
+        "maxMs": 0.0099
+      },
+      {
+        "name": "cache.load",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 121.4731,
+        "selfMs": 121.4731,
+        "maxMs": 121.4731
+      },
+      {
+        "name": "cache.prepare",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.09040000000000001,
+        "selfMs": 0.09040000000000001,
+        "maxMs": 0.09040000000000001
+      },
+      {
+        "name": "cache.save",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 99.4026,
+        "selfMs": 0.9285,
+        "maxMs": 99.4026
+      },
+      {
+        "name": "cache.serialize",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 98.0609,
+        "selfMs": 98.0609,
+        "maxMs": 98.0609
+      },
+      {
+        "name": "cache.stage",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.4132,
+        "selfMs": 0.4132,
+        "maxMs": 0.4132
+      },
+      {
+        "name": "core.asset.commit",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 3,
+        "totalMs": 0.9438000000000001,
+        "selfMs": 0.9438000000000001,
+        "maxMs": 0.4636
+      },
+      {
+        "name": "core.asset.compile",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 3,
+        "totalMs": 0.3539,
+        "selfMs": 0.12000000000000001,
+        "maxMs": 0.14830000000000002
+      },
+      {
+        "name": "core.asset.verify",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 3,
+        "totalMs": 0.0013000000000000002,
+        "selfMs": 0.0013000000000000002,
+        "maxMs": 0.0005
+      },
+      {
+        "name": "core.assets",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 2,
+        "totalMs": 1.3922,
+        "selfMs": 0.0932,
+        "maxMs": 1.3921000000000001
+      },
+      {
+        "name": "core.cleanup",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.0021000000000000003,
+        "selfMs": 0.0021000000000000003,
+        "maxMs": 0.0021000000000000003
+      },
+      {
+        "name": "core.compiler.AptAptData",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.1097,
+        "selfMs": 0.1097,
+        "maxMs": 0.1097
+      },
+      {
+        "name": "core.compiler.AptConstData",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.0651,
+        "selfMs": 0.0651,
+        "maxMs": 0.0651
+      },
+      {
+        "name": "core.compiler.AptDatData",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.0591,
+        "selfMs": 0.0591,
+        "maxMs": 0.0591
+      },
+      {
+        "name": "core.document",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 2,
+        "totalMs": 11.4463,
+        "selfMs": 0.2376,
+        "maxMs": 7.565300000000001
+      },
+      {
+        "name": "core.document.open",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 2,
+        "totalMs": 1.0168000000000001,
+        "selfMs": 0.2026,
+        "maxMs": 0.6003000000000001
+      },
+      {
+        "name": "core.filehash.read",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 5,
+        "totalMs": 1.2872000000000001,
+        "selfMs": 1.2872000000000001,
+        "maxMs": 0.36710000000000004
+      },
+      {
+        "name": "core.includes",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 2,
+        "totalMs": 3.9865000000000004,
+        "selfMs": 0.039400000000000004,
+        "maxMs": 3.9848000000000003
+      },
+      {
+        "name": "core.output.clean",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.1983,
+        "selfMs": 0.1983,
+        "maxMs": 0.1983
+      },
+      {
+        "name": "core.output.link",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 1.4626000000000001,
+        "selfMs": 1.4626000000000001,
+        "maxMs": 1.4626000000000001
+      },
+      {
+        "name": "core.output.manifest",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.2751,
+        "selfMs": 0.2751,
+        "maxMs": 0.2751
+      },
+      {
+        "name": "core.output.references",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.0821,
+        "selfMs": 0.0821,
+        "maxMs": 0.0821
+      },
+      {
+        "name": "core.process",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 7.6227,
+        "selfMs": 0.0574,
+        "maxMs": 7.6227
+      },
+      {
+        "name": "core.providers",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.0499,
+        "selfMs": 0.0499,
+        "maxMs": 0.0499
+      },
+      {
+        "name": "core.settings",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.0211,
+        "selfMs": 0.0211,
+        "maxMs": 0.0211
+      },
+      {
+        "name": "core.string-hashes",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 0.0371,
+        "selfMs": 0.0371,
+        "maxMs": 0.0371
+      },
+      {
+        "name": "core.xml.expressions",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 2,
+        "totalMs": 0.0035,
+        "selfMs": 0.0035,
+        "maxMs": 0.0033
+      },
+      {
+        "name": "core.xml.overrides",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 2,
+        "totalMs": 0.016800000000000002,
+        "selfMs": 0.016800000000000002,
+        "maxMs": 0.0167
+      },
+      {
+        "name": "core.xml.parse",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 2,
+        "totalMs": 0.2245,
+        "selfMs": 0.2245,
+        "maxMs": 0.1257
+      },
+      {
+        "name": "core.xml.validate",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 2,
+        "totalMs": 2.6662000000000003,
+        "selfMs": 1.9687000000000001,
+        "maxMs": 2.0144
+      },
+      {
+        "name": "identity.directory",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 3,
+        "totalMs": 0.2554,
+        "selfMs": 0.2554,
+        "maxMs": 0.1086
+      },
+      {
+        "name": "identity.sha256",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 4,
+        "totalMs": 0.3124,
+        "selfMs": 0.3124,
+        "maxMs": 0.1817
+      },
+      {
+        "name": "stream.compile",
+        "streamId": "apt/TacticalHUDCommandListBox",
+        "count": 1,
+        "totalMs": 229.86030000000002,
+        "selfMs": 0.44720000000000004,
+        "maxMs": 229.86030000000002
+      },
+      {
+        "name": "artifacts.collect",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 1.409,
+        "selfMs": 0.3121,
+        "maxMs": 1.409
+      },
+      {
+        "name": "cache.linked-stage",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.0132,
+        "selfMs": 0.0132,
+        "maxMs": 0.0132
+      },
+      {
+        "name": "cache.load",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 135.72050000000002,
+        "selfMs": 135.72050000000002,
+        "maxMs": 135.72050000000002
+      },
+      {
+        "name": "cache.prepare",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.08650000000000001,
+        "selfMs": 0.08650000000000001,
+        "maxMs": 0.08650000000000001
+      },
+      {
+        "name": "cache.save",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 108.25420000000001,
+        "selfMs": 0.9274,
+        "maxMs": 108.25420000000001
+      },
+      {
+        "name": "cache.serialize",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 106.9133,
+        "selfMs": 106.9133,
+        "maxMs": 106.9133
+      },
+      {
+        "name": "cache.stage",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.41350000000000003,
+        "selfMs": 0.41350000000000003,
+        "maxMs": 0.41350000000000003
+      },
+      {
+        "name": "core.asset.commit",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 50,
+        "totalMs": 12.872,
+        "selfMs": 12.872,
+        "maxMs": 1.1261
+      },
+      {
+        "name": "core.asset.compile",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 50,
+        "totalMs": 43.432900000000004,
+        "selfMs": 1.921,
+        "maxMs": 38.4546
+      },
+      {
+        "name": "core.asset.verify",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 50,
+        "totalMs": 0.0182,
+        "selfMs": 0.0182,
+        "maxMs": 0.0011
+      },
+      {
+        "name": "core.assets",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 2,
+        "totalMs": 57.7531,
+        "selfMs": 1.4300000000000002,
+        "maxMs": 57.752900000000004
+      },
+      {
+        "name": "core.cleanup",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.0024000000000000002,
+        "selfMs": 0.0024000000000000002,
+        "maxMs": 0.0024000000000000002
+      },
+      {
+        "name": "core.compiler.AptAptData",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.12860000000000002,
+        "selfMs": 0.12860000000000002,
+        "maxMs": 0.12860000000000002
+      },
+      {
+        "name": "core.compiler.AptConstData",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.0761,
+        "selfMs": 0.0761,
+        "maxMs": 0.0761
+      },
+      {
+        "name": "core.compiler.AptDatData",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.0614,
+        "selfMs": 0.0614,
+        "maxMs": 0.0614
+      },
+      {
+        "name": "core.compiler.AptGeometryData",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 46,
+        "totalMs": 2.8314,
+        "selfMs": 2.8314,
+        "maxMs": 0.0772
+      },
+      {
+        "name": "core.compiler.Texture",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 38.4144,
+        "selfMs": 38.4144,
+        "maxMs": 38.4144
+      },
+      {
+        "name": "core.document",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 2,
+        "totalMs": 157.57240000000002,
+        "selfMs": 0.34890000000000004,
+        "maxMs": 84.22840000000001
+      },
+      {
+        "name": "core.document.open",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 2,
+        "totalMs": 1.1466,
+        "selfMs": 0.2627,
+        "maxMs": 0.6051000000000001
+      },
+      {
+        "name": "core.filehash.read",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 52,
+        "totalMs": 10.189,
+        "selfMs": 10.189,
+        "maxMs": 0.9425
+      },
+      {
+        "name": "core.includes",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 2,
+        "totalMs": 73.4803,
+        "selfMs": 0.0577,
+        "maxMs": 73.4781
+      },
+      {
+        "name": "core.output.clean",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.3592,
+        "selfMs": 0.3592,
+        "maxMs": 0.3592
+      },
+      {
+        "name": "core.output.link",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 7.0739,
+        "selfMs": 7.0739,
+        "maxMs": 7.0739
+      },
+      {
+        "name": "core.output.manifest",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.6504,
+        "selfMs": 0.6504,
+        "maxMs": 0.6504
+      },
+      {
+        "name": "core.output.references",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.6142000000000001,
+        "selfMs": 0.6142000000000001,
+        "maxMs": 0.6142000000000001
+      },
+      {
+        "name": "core.process",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 84.2839,
+        "selfMs": 0.0555,
+        "maxMs": 84.2839
+      },
+      {
+        "name": "core.providers",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.0329,
+        "selfMs": 0.0329,
+        "maxMs": 0.0329
+      },
+      {
+        "name": "core.settings",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.0213,
+        "selfMs": 0.0213,
+        "maxMs": 0.0213
+      },
+      {
+        "name": "core.string-hashes",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 0.0466,
+        "selfMs": 0.0466,
+        "maxMs": 0.0466
+      },
+      {
+        "name": "core.xml.expressions",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 2,
+        "totalMs": 0.014,
+        "selfMs": 0.014,
+        "maxMs": 0.013900000000000001
+      },
+      {
+        "name": "core.xml.overrides",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 2,
+        "totalMs": 0.1208,
+        "selfMs": 0.1208,
+        "maxMs": 0.1206
+      },
+      {
+        "name": "core.xml.parse",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 2,
+        "totalMs": 0.3024,
+        "selfMs": 0.3024,
+        "maxMs": 0.1799
+      },
+      {
+        "name": "core.xml.validate",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 2,
+        "totalMs": 15.901800000000001,
+        "selfMs": 6.1168000000000005,
+        "maxMs": 14.814900000000002
+      },
+      {
+        "name": "identity.directory",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 5,
+        "totalMs": 0.42260000000000003,
+        "selfMs": 0.42260000000000003,
+        "maxMs": 0.1197
+      },
+      {
+        "name": "identity.sha256",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 4,
+        "totalMs": 1.0396,
+        "selfMs": 1.0396,
+        "maxMs": 0.9043
+      },
+      {
+        "name": "stream.compile",
+        "streamId": "apt/TacticalHUDMainCommandBar",
+        "count": 1,
+        "totalMs": 330.3517,
+        "selfMs": 0.4812,
+        "maxMs": 330.3517
+      },
+      {
+        "name": "artifacts.collect",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 209.3228,
+        "selfMs": 42.3659,
+        "maxMs": 209.3228
+      },
+      {
+        "name": "cache.linked-stage",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 0.8966000000000001,
+        "selfMs": 0.8966000000000001,
+        "maxMs": 0.8966000000000001
+      },
+      {
+        "name": "cache.load",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 6.0358,
+        "selfMs": 6.0358,
+        "maxMs": 6.0358
+      },
+      {
+        "name": "cache.prepare",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 7.7506,
+        "selfMs": 7.7506,
+        "maxMs": 7.7506
+      },
+      {
+        "name": "cache.save",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 510.91990000000004,
+        "selfMs": 263.86670000000004,
+        "maxMs": 510.91990000000004
+      },
+      {
+        "name": "cache.serialize",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 97.8848,
+        "selfMs": 97.8848,
+        "maxMs": 97.8848
+      },
+      {
+        "name": "cache.stage",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 149.16840000000002,
+        "selfMs": 149.16840000000002,
+        "maxMs": 149.16840000000002
+      },
+      {
+        "name": "core.asset.commit",
+        "streamId": "base/Mod",
+        "count": 3247,
+        "totalMs": 2354.2061000000003,
+        "selfMs": 2354.2061000000003,
+        "maxMs": 35.2468
+      },
+      {
+        "name": "core.asset.compile",
+        "streamId": "base/Mod",
+        "count": 3235,
+        "totalMs": 48720.97,
+        "selfMs": 189.6288,
+        "maxMs": 1020.4631
+      },
+      {
+        "name": "core.asset.verify",
+        "streamId": "base/Mod",
+        "count": 3247,
+        "totalMs": 23.625300000000003,
+        "selfMs": 23.625300000000003,
+        "maxMs": 5.6776
+      },
+      {
+        "name": "core.assets",
+        "streamId": "base/Mod",
+        "count": 910,
+        "totalMs": 51400.262,
+        "selfMs": 301.4606,
+        "maxMs": 3921.6235
+      },
+      {
+        "name": "core.cleanup",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 1.0345,
+        "selfMs": 1.0345,
+        "maxMs": 1.0345
+      },
+      {
+        "name": "core.compiler.AIBuildStateDefinition",
+        "streamId": "base/Mod",
+        "count": 18,
+        "totalMs": 25.8454,
+        "selfMs": 25.8454,
+        "maxMs": 16.6202
+      },
+      {
+        "name": "core.compiler.AIPersonalityDefinition",
+        "streamId": "base/Mod",
+        "count": 17,
+        "totalMs": 36.917300000000004,
+        "selfMs": 36.917300000000004,
+        "maxMs": 3.6981
+      },
+      {
+        "name": "core.compiler.AmbientStream",
+        "streamId": "base/Mod",
+        "count": 6,
+        "totalMs": 29.0939,
+        "selfMs": 29.0939,
+        "maxMs": 27.2174
+      },
+      {
+        "name": "core.compiler.ArmorTemplate",
+        "streamId": "base/Mod",
+        "count": 12,
+        "totalMs": 4.0437,
+        "selfMs": 4.0437,
+        "maxMs": 3.2717
+      },
+      {
+        "name": "core.compiler.AttributeModifier",
+        "streamId": "base/Mod",
+        "count": 16,
+        "totalMs": 2.8108,
+        "selfMs": 2.8108,
+        "maxMs": 1.2545000000000002
+      },
+      {
+        "name": "core.compiler.AudioEvent",
+        "streamId": "base/Mod",
+        "count": 304,
+        "totalMs": 34.8407,
+        "selfMs": 34.8407,
+        "maxMs": 1.8239
+      },
+      {
+        "name": "core.compiler.AudioFile",
+        "streamId": "base/Mod",
+        "count": 1289,
+        "totalMs": 17707.1045,
+        "selfMs": 17707.1045,
+        "maxMs": 675.308
+      },
+      {
+        "name": "core.compiler.ButtonSingleStateData",
+        "streamId": "base/Mod",
+        "count": 17,
+        "totalMs": 0.9927,
+        "selfMs": 0.9927,
+        "maxMs": 0.48360000000000003
+      },
+      {
+        "name": "core.compiler.DamageFX",
+        "streamId": "base/Mod",
+        "count": 7,
+        "totalMs": 12.878400000000001,
+        "selfMs": 12.878400000000001,
+        "maxMs": 6.857600000000001
+      },
+      {
+        "name": "core.compiler.ExperienceLevelTemplate",
+        "streamId": "base/Mod",
+        "count": 65,
+        "totalMs": 5.9110000000000005,
+        "selfMs": 5.9110000000000005,
+        "maxMs": 0.24910000000000002
+      },
+      {
+        "name": "core.compiler.FXList",
+        "streamId": "base/Mod",
+        "count": 84,
+        "totalMs": 47.1357,
+        "selfMs": 47.1357,
+        "maxMs": 38.2442
+      },
+      {
+        "name": "core.compiler.FXParticleSystemTemplate",
+        "streamId": "base/Mod",
+        "count": 214,
+        "totalMs": 52.7312,
+        "selfMs": 52.7312,
+        "maxMs": 25.140800000000002
+      },
+      {
+        "name": "core.compiler.GameObject",
+        "streamId": "base/Mod",
+        "count": 121,
+        "totalMs": 366.7491,
+        "selfMs": 366.7491,
+        "maxMs": 22.2026
+      },
+      {
+        "name": "core.compiler.LocomotorTemplate",
+        "streamId": "base/Mod",
+        "count": 12,
+        "totalMs": 18.2333,
+        "selfMs": 18.2333,
+        "maxMs": 6.5322000000000005
+      },
+      {
+        "name": "core.compiler.LogicCommand",
+        "streamId": "base/Mod",
+        "count": 23,
+        "totalMs": 1.8674000000000002,
+        "selfMs": 1.8674000000000002,
+        "maxMs": 0.2549
+      },
+      {
+        "name": "core.compiler.LogicCommandSet",
+        "streamId": "base/Mod",
+        "count": 26,
+        "totalMs": 2.9797000000000002,
+        "selfMs": 2.9797000000000002,
+        "maxMs": 2.3705000000000003
+      },
+      {
+        "name": "core.compiler.MapMetaData",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 6.6061000000000005,
+        "selfMs": 6.6061000000000005,
+        "maxMs": 6.6061000000000005
+      },
+      {
+        "name": "core.compiler.Multisound",
+        "streamId": "base/Mod",
+        "count": 50,
+        "totalMs": 2.5178000000000003,
+        "selfMs": 2.5178000000000003,
+        "maxMs": 0.5404
+      },
+      {
+        "name": "core.compiler.ObjectCreationList",
+        "streamId": "base/Mod",
+        "count": 29,
+        "totalMs": 3.3209,
+        "selfMs": 3.3209,
+        "maxMs": 0.44420000000000004
+      },
+      {
+        "name": "core.compiler.ObjectFilterAsset",
+        "streamId": "base/Mod",
+        "count": 7,
+        "totalMs": 5.1574,
+        "selfMs": 5.1574,
+        "maxMs": 4.5788
+      },
+      {
+        "name": "core.compiler.OnDemandTexture",
+        "streamId": "base/Mod",
+        "count": 2,
+        "totalMs": 12.983500000000001,
+        "selfMs": 12.983500000000001,
+        "maxMs": 10.9787
+      },
+      {
+        "name": "core.compiler.OnDemandTextureImage",
+        "streamId": "base/Mod",
+        "count": 7,
+        "totalMs": 4.188000000000001,
+        "selfMs": 4.188000000000001,
+        "maxMs": 3.98
+      },
+      {
+        "name": "core.compiler.PackedTextureImage",
+        "streamId": "base/Mod",
+        "count": 46,
+        "totalMs": 1.9442000000000002,
+        "selfMs": 1.9442000000000002,
+        "maxMs": 0.3352
+      },
+      {
+        "name": "core.compiler.PlayerTech",
+        "streamId": "base/Mod",
+        "count": 45,
+        "totalMs": 6.2098,
+        "selfMs": 6.2098,
+        "maxMs": 4.9772
+      },
+      {
+        "name": "core.compiler.PlayerTechStoreTemplate",
+        "streamId": "base/Mod",
+        "count": 3,
+        "totalMs": 1.0675000000000001,
+        "selfMs": 1.0675000000000001,
+        "maxMs": 0.8316
+      },
+      {
+        "name": "core.compiler.RadiusCursor",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 9.0306,
+        "selfMs": 9.0306,
+        "maxMs": 9.0306
+      },
+      {
+        "name": "core.compiler.SpecialPowerTemplate",
+        "streamId": "base/Mod",
+        "count": 27,
+        "totalMs": 7.937600000000001,
+        "selfMs": 7.937600000000001,
+        "maxMs": 4.3651
+      },
+      {
+        "name": "core.compiler.Texture",
+        "streamId": "base/Mod",
+        "count": 113,
+        "totalMs": 33.728300000000004,
+        "selfMs": 33.728300000000004,
+        "maxMs": 0.8615
+      },
+      {
+        "name": "core.compiler.UnitAbilityButtonTemplate",
+        "streamId": "base/Mod",
+        "count": 12,
+        "totalMs": 4.480700000000001,
+        "selfMs": 4.480700000000001,
+        "maxMs": 3.6214
+      },
+      {
+        "name": "core.compiler.UnitIntro",
+        "streamId": "base/Mod",
+        "count": 11,
+        "totalMs": 2.7418,
+        "selfMs": 2.7418,
+        "maxMs": 2.5293
+      },
+      {
+        "name": "core.compiler.UnitTypeIcon",
+        "streamId": "base/Mod",
+        "count": 3,
+        "totalMs": 3.5356,
+        "selfMs": 3.5356,
+        "maxMs": 3.4795000000000003
+      },
+      {
+        "name": "core.compiler.UpgradeTemplate",
+        "streamId": "base/Mod",
+        "count": 12,
+        "totalMs": 5.028700000000001,
+        "selfMs": 5.028700000000001,
+        "maxMs": 4.646
+      },
+      {
+        "name": "core.compiler.Video",
+        "streamId": "base/Mod",
+        "count": 11,
+        "totalMs": 2.7589,
+        "selfMs": 2.7589,
+        "maxMs": 2.4616000000000002
+      },
+      {
+        "name": "core.compiler.VideoEventList",
+        "streamId": "base/Mod",
+        "count": 11,
+        "totalMs": 1.5692000000000002,
+        "selfMs": 1.5692000000000002,
+        "maxMs": 1.2792000000000001
+      },
+      {
+        "name": "core.compiler.W3DAnimation",
+        "streamId": "base/Mod",
+        "count": 194,
+        "totalMs": 27112.077100000002,
+        "selfMs": 27112.077100000002,
+        "maxMs": 1020.3403000000001
+      },
+      {
+        "name": "core.compiler.W3DCollisionBox",
+        "streamId": "base/Mod",
+        "count": 34,
+        "totalMs": 1.8107,
+        "selfMs": 1.8107,
+        "maxMs": 0.3977
+      },
+      {
+        "name": "core.compiler.W3DContainer",
+        "streamId": "base/Mod",
+        "count": 73,
+        "totalMs": 8.2981,
+        "selfMs": 8.2981,
+        "maxMs": 4.3121
+      },
+      {
+        "name": "core.compiler.W3DHierarchy",
+        "streamId": "base/Mod",
+        "count": 70,
+        "totalMs": 51.9097,
+        "selfMs": 51.9097,
+        "maxMs": 5.8482
+      },
+      {
+        "name": "core.compiler.W3DMesh",
+        "streamId": "base/Mod",
+        "count": 134,
+        "totalMs": 2813.9327000000003,
+        "selfMs": 2813.9327000000003,
+        "maxMs": 147.8437
+      },
+      {
+        "name": "core.compiler.WeaponTemplate",
+        "streamId": "base/Mod",
+        "count": 108,
+        "totalMs": 78.3715,
+        "selfMs": 78.3715,
+        "maxMs": 20.724
+      },
+      {
+        "name": "core.document",
+        "streamId": "base/Mod",
+        "count": 1129,
+        "totalMs": 331801.51900000003,
+        "selfMs": 77.0389,
+        "maxMs": 72192.8027
+      },
+      {
+        "name": "core.document.open",
+        "streamId": "base/Mod",
+        "count": 1129,
+        "totalMs": 3226.4206000000004,
+        "selfMs": 124.88780000000001,
+        "maxMs": 199.2673
+      },
+      {
+        "name": "core.filehash.read",
+        "streamId": "base/Mod",
+        "count": 2335,
+        "totalMs": 734.0787,
+        "selfMs": 734.0787,
+        "maxMs": 5.664000000000001
+      },
+      {
+        "name": "core.includes",
+        "streamId": "base/Mod",
+        "count": 1129,
+        "totalMs": 259704.90600000002,
+        "selfMs": 91.03800000000001,
+        "maxMs": 71700.1251
+      },
+      {
+        "name": "core.output.clean",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 18.5101,
+        "selfMs": 18.5101,
+        "maxMs": 18.5101
+      },
+      {
+        "name": "core.output.link",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 112.80130000000001,
+        "selfMs": 112.80130000000001,
+        "maxMs": 112.80130000000001
+      },
+      {
+        "name": "core.output.manifest",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 13.688500000000001,
+        "selfMs": 13.688500000000001,
+        "maxMs": 13.688500000000001
+      },
+      {
+        "name": "core.output.references",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 308.91970000000003,
+        "selfMs": 308.91970000000003,
+        "maxMs": 308.91970000000003
+      },
+      {
+        "name": "core.process",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 72196.8673,
+        "selfMs": 4.0646,
+        "maxMs": 72196.8673
+      },
+      {
+        "name": "core.providers",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 12.3185,
+        "selfMs": 12.3185,
+        "maxMs": 12.3185
+      },
+      {
+        "name": "core.schema",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 287.8713,
+        "selfMs": 6.2289,
+        "maxMs": 287.8713
+      },
+      {
+        "name": "core.schema.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 26.9627,
+        "selfMs": 26.9627,
+        "maxMs": 26.9627
+      },
+      {
+        "name": "core.schema.metadata",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 35.8219,
+        "selfMs": 35.8219,
+        "maxMs": 35.8219
+      },
+      {
+        "name": "core.schema.read",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 217.2906,
+        "selfMs": 199.8202,
+        "maxMs": 217.2906
+      },
+      {
+        "name": "core.settings",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 11.4445,
+        "selfMs": 11.4445,
+        "maxMs": 11.4445
+      },
+      {
+        "name": "core.string-hashes",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 2.8148,
+        "selfMs": 2.8148,
+        "maxMs": 2.8148
+      },
+      {
+        "name": "core.xml.expressions",
+        "streamId": "base/Mod",
+        "count": 910,
+        "totalMs": 1010.4359000000001,
+        "selfMs": 1010.4359000000001,
+        "maxMs": 112.2217
+      },
+      {
+        "name": "core.xml.overrides",
+        "streamId": "base/Mod",
+        "count": 910,
+        "totalMs": 2064.4169,
+        "selfMs": 2064.4169,
+        "maxMs": 134.04850000000002
+      },
+      {
+        "name": "core.xml.parse",
+        "streamId": "base/Mod",
+        "count": 910,
+        "totalMs": 2748.1726000000003,
+        "selfMs": 2748.1726000000003,
+        "maxMs": 193.4802
+      },
+      {
+        "name": "core.xml.validate",
+        "streamId": "base/Mod",
+        "count": 910,
+        "totalMs": 13863.999800000001,
+        "selfMs": 13477.3551,
+        "maxMs": 515.984
+      },
+      {
+        "name": "identity.directory",
+        "streamId": "base/Mod",
+        "count": 119,
+        "totalMs": 17.915300000000002,
+        "selfMs": 17.915300000000002,
+        "maxMs": 2.3675
+      },
+      {
+        "name": "identity.sha256",
+        "streamId": "base/Mod",
+        "count": 2110,
+        "totalMs": 179.2764,
+        "selfMs": 179.2764,
+        "maxMs": 43.112700000000004
+      },
+      {
+        "name": "stream.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 73300.2403,
+        "selfMs": 52.9637,
+        "maxMs": 73300.2403
+      },
+      {
+        "name": "artifacts.collect",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.7328,
+        "selfMs": 0.302,
+        "maxMs": 0.7328
+      },
+      {
+        "name": "cache.linked-stage",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.0123,
+        "selfMs": 0.0123,
+        "maxMs": 0.0123
+      },
+      {
+        "name": "cache.load",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 153.2076,
+        "selfMs": 153.074,
+        "maxMs": 153.2076
+      },
+      {
+        "name": "cache.prepare",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.0898,
+        "selfMs": 0.0898,
+        "maxMs": 0.0898
+      },
+      {
+        "name": "cache.save",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 99.7681,
+        "selfMs": 1.0558,
+        "maxMs": 99.7681
+      },
+      {
+        "name": "cache.serialize",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 98.29390000000001,
+        "selfMs": 98.29390000000001,
+        "maxMs": 98.29390000000001
+      },
+      {
+        "name": "cache.stage",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.4184,
+        "selfMs": 0.4184,
+        "maxMs": 0.4184
+      },
+      {
+        "name": "core.asset.commit",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 19,
+        "totalMs": 5.7774,
+        "selfMs": 5.7774,
+        "maxMs": 0.7707
+      },
+      {
+        "name": "core.asset.compile",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 19,
+        "totalMs": 23.7149,
+        "selfMs": 0.7254,
+        "maxMs": 16.4897
+      },
+      {
+        "name": "core.asset.verify",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 19,
+        "totalMs": 0.0063,
+        "selfMs": 0.0063,
+        "maxMs": 0.0006000000000000001
+      },
+      {
+        "name": "core.assets",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 9,
+        "totalMs": 30.1232,
+        "selfMs": 0.6246,
+        "maxMs": 17.168300000000002
+      },
+      {
+        "name": "core.cleanup",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.0019,
+        "selfMs": 0.0019,
+        "maxMs": 0.0019
+      },
+      {
+        "name": "core.compiler.AIPersonalityDefinition",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 9,
+        "totalMs": 1.8539,
+        "selfMs": 1.8539,
+        "maxMs": 0.3256
+      },
+      {
+        "name": "core.compiler.Credits",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 16.4491,
+        "selfMs": 16.4491,
+        "maxMs": 16.4491
+      },
+      {
+        "name": "core.compiler.HealthBarSettings",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 4.2571,
+        "selfMs": 4.2571,
+        "maxMs": 4.2571
+      },
+      {
+        "name": "core.compiler.HealthBarTemplate",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 6,
+        "totalMs": 0.38130000000000003,
+        "selfMs": 0.38130000000000003,
+        "maxMs": 0.3028
+      },
+      {
+        "name": "core.compiler.Video",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.0309,
+        "selfMs": 0.0309,
+        "maxMs": 0.0309
+      },
+      {
+        "name": "core.compiler.VideoEventList",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.0172,
+        "selfMs": 0.0172,
+        "maxMs": 0.0172
+      },
+      {
+        "name": "core.document",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 9,
+        "totalMs": 138.83780000000002,
+        "selfMs": 0.4375,
+        "maxMs": 49.673300000000005
+      },
+      {
+        "name": "core.document.open",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 9,
+        "totalMs": 4.8923000000000005,
+        "selfMs": 0.9334,
+        "maxMs": 1.5212
+      },
+      {
+        "name": "core.filehash.read",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 9,
+        "totalMs": 1.9520000000000002,
+        "selfMs": 1.9520000000000002,
+        "maxMs": 0.3271
+      },
+      {
+        "name": "core.includes",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 9,
+        "totalMs": 89.6196,
+        "selfMs": 0.2743,
+        "maxMs": 45.8367
+      },
+      {
+        "name": "core.output.clean",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.2998,
+        "selfMs": 0.2998,
+        "maxMs": 0.2998
+      },
+      {
+        "name": "core.output.link",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 1.5517,
+        "selfMs": 1.5517,
+        "maxMs": 1.5517
+      },
+      {
+        "name": "core.output.manifest",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.31470000000000004,
+        "selfMs": 0.31470000000000004,
+        "maxMs": 0.31470000000000004
+      },
+      {
+        "name": "core.output.references",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.19340000000000002,
+        "selfMs": 0.19340000000000002,
+        "maxMs": 0.19340000000000002
+      },
+      {
+        "name": "core.process",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 49.706300000000006,
+        "selfMs": 0.033,
+        "maxMs": 49.706300000000006
+      },
+      {
+        "name": "core.providers",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.035300000000000005,
+        "selfMs": 0.035300000000000005,
+        "maxMs": 0.035300000000000005
+      },
+      {
+        "name": "core.settings",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.0217,
+        "selfMs": 0.0217,
+        "maxMs": 0.0217
+      },
+      {
+        "name": "core.string-hashes",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 0.0352,
+        "selfMs": 0.0352,
+        "maxMs": 0.0352
+      },
+      {
+        "name": "core.xml.expressions",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 9,
+        "totalMs": 0.34,
+        "selfMs": 0.34,
+        "maxMs": 0.31420000000000003
+      },
+      {
+        "name": "core.xml.overrides",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 9,
+        "totalMs": 0.5383,
+        "selfMs": 0.5383,
+        "maxMs": 0.44820000000000004
+      },
+      {
+        "name": "core.xml.parse",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 9,
+        "totalMs": 2.0069,
+        "selfMs": 2.0069,
+        "maxMs": 1.1565
+      },
+      {
+        "name": "core.xml.validate",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 9,
+        "totalMs": 10.426400000000001,
+        "selfMs": 10.426400000000001,
+        "maxMs": 4.0317
+      },
+      {
+        "name": "identity.directory",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 6,
+        "totalMs": 0.47840000000000005,
+        "selfMs": 0.47840000000000005,
+        "maxMs": 0.1336
+      },
+      {
+        "name": "identity.sha256",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 4,
+        "totalMs": 0.3677,
+        "selfMs": 0.3677,
+        "maxMs": 0.2316
+      },
+      {
+        "name": "stream.compile",
+        "streamId": "maps/MapMetaData_Global",
+        "count": 1,
+        "totalMs": 304.06080000000003,
+        "selfMs": 0.44980000000000003,
+        "maxMs": 304.06080000000003
+      }
+    ]
+  },
+  "diagnosticCounts": {
+    "error": 0,
+    "warning": 1859
+  },
+  "elapsedMs": 75159,
+  "publicationUnchanged": false,
+  "artifacts": [
+    {
+      "Path": "D:\\a\\_temp\\mod-scale\\outputs\\large\\published\\Upheaval_1.0.big",
+      "Kind": "package.big",
+      "Size": 78752208,
+      "Sha256": "c23e8a7a5df498d76025d719aa3e1c46b2efd2294003d8406756ae3bc0ff7549"
+    },
+    {
+      "Path": "D:\\a\\_temp\\mod-scale\\outputs\\large\\published\\Upheaval_1.0.skudef",
+      "Kind": "package.skudef",
+      "Size": 41,
+      "Sha256": "bda01ab33bc7adaf1b5ac43314031b90a855f44ddf49e2ff21fa6f49a0e07327"
+    }
+  ],
+  "rawReportSha256": "a2dfd16f94d4508a3a6d61c219b30c240fa118290976dcc76acb443752bef466"
+}

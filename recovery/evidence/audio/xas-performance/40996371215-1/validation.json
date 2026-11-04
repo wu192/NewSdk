@@ -1,0 +1,9 @@
+{
+  "runtimeScope": "Windows net472 x86 Release same-process before/after; original byte oracles run separately",
+  "runAttempt": "1",
+  "sourceCommit": "b8e37a2e957f7a2465ad303110b92eec3269df4d",
+  "status": "passed",
+  "baselineCommit": "45d485d829170dc4fda3b3ce63b6af2759fc7ba0",
+  "runId": "40996371215",
+  "sdkValidated": false
+}

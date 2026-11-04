@@ -59,7 +59,7 @@ class XmldamagefxOracle {
         }catch(Exception e){throw new Exception(label+" platform="+(int)p+" xml="+d.OuterXml,e);}
     }
     static AssetBuffer Test(string label,string xml,TargetPlatform p){return TestDoc(label,Parse(xml),p);}
-    static void Reject(string label,string xml){XmlDocument d=Parse(xml);try{XmldamagefxCompiler.CompileXml(d.DocumentElement,Namespaces(d),false);}catch(NotSupportedException){++rejections;return;}throw new Exception("Expected rejection: "+label);}
+    static void Reject(string label,string xml){XmlDocument d=Parse(xml);try{ PluginSchemaBoundary.Validate(d); XmldamagefxCompiler.CompileXml(d.DocumentElement,Namespaces(d),false);}catch(NotSupportedException){++rejections;return;}throw new Exception("Expected rejection: "+label);}
 
     static void OneAttribute(string name,string value,TargetPlatform p) {
         Test("group/"+name+"/"+value,Root("DamageFX","","<FXGroup "+name+"='"+Escape(value)+"'/>"),p);
@@ -139,7 +139,11 @@ class XmldamagefxOracle {
         XmlDocument wrong=Parse(Root("DamageFX","",""));InstanceDeclaration wrongDeclaration=Declaration(wrong);wrongDeclaration.Handle.TypeName="DamageFXSettings";
         bool mismatch=false;try{XmldamagefxCompiler.ProcessInstance(wrongDeclaration,p);}catch(NotSupportedException){mismatch=true;}Check(mismatch,"root/TypeId mismatch rejected");++rejections;
         bool nullInput=false;try{XmldamagefxCompiler.ProcessInstance(null,p);}catch(ArgumentNullException){nullInput=true;}Check(nullInput,"null declaration rejected");++rejections;
-        XmlDocument bare=Parse(Root("DamageFX","",""));bool namespaceBinding=false;try{XmldamagefxCompiler.CompileXml(bare.DocumentElement,new XmlNamespaceManager(bare.NameTable),false);}catch(NotSupportedException){namespaceBinding=true;}Check(namespaceBinding,"namespace binding rejected");++rejections;
+        XmlDocument bare=Parse(Root("DamageFX","",""));var unboundSchemaResult=XmldamagefxCompiler.CompileXml(bare.DocumentElement,new XmlNamespaceManager(bare.NameTable),false);
+        var boundSchemaResult=XmldamagefxCompiler.CompileXml(bare.DocumentElement,Namespaces(bare),false);
+        Check(Convert.ToBase64String(unboundSchemaResult.InstanceData)==Convert.ToBase64String(boundSchemaResult.InstanceData) &&
+            Convert.ToBase64String(unboundSchemaResult.RelocationData)==Convert.ToBase64String(boundSchemaResult.RelocationData) &&
+            Convert.ToBase64String(unboundSchemaResult.ImportsData)==Convert.ToBase64String(boundSchemaResult.ImportsData),"plugin does not repeat Core namespace validation");++layouts;
         Abi(p);
     }
     static int Main(string[] args) {

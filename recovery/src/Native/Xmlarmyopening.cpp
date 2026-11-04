@@ -10,12 +10,7 @@
 namespace Recovered { namespace Native { namespace ArmyOpeningDetail {
 using Relo::U32;using Node=XmlarmyopeningNode;
 void Check(bool ok,const char* s){if(!ok)throw std::invalid_argument(s);}
-bool In(const std::string& n,const char* list){return(std::string("|")+list+"|").find("|"+n+"|")!=std::string::npos;}
-void Validate(const Node& n,const char* attrs,const char* children,bool root=false,bool text=false){
-    Check(text||n.value.find_first_not_of(" \t\r\n")==std::string::npos,"Unexpected army opening text.");
-    for(const auto& a:n.attributes)Check(a.first=="TypeId"||(root&&(a.first=="id"||a.first=="inheritFrom"))||In(a.first,attrs),"Unknown army opening attribute.");
-    for(const auto& c:n.children)Check(In(c.name,children),"Unknown army opening child.");
-}
+
 std::string Value(const Node& n,const char* a,const char* d=""){auto i=n.attributes.find(a);return i==n.attributes.end()?d:i->second;}
 void Swap(void* p){U32 v;std::memcpy(&v,p,4);v=(v<<24)|((v<<8)&0xff0000u)|((v>>8)&0xff00u)|(v>>24);std::memcpy(p,&v,4);}
 U32 Account(const std::string& s){const char* names[]={"DEFENSE","INVESTMENT","PRODUCTION","SLUSH_FUND","SPECIAL_OPERATIONS","TECHNOLOGY"};const U32 values[]={3,0,2,5,1,4};for(unsigned i=0;i<6;++i)if(std::strcmp(s.c_str(),names[i])==0)return values[i];return 3;}
@@ -29,13 +24,13 @@ struct Builder {
 unsigned int XmlarmyopeningTypeId(const std::string& name){if(name=="ArmyDefinition")return 3587539190u;if(name=="SkirmishOpeningMove")return 3971904488u;return 0;}
 Relo::Chunk CompileXmlarmyopening(const XmlarmyopeningNode& n,bool bigEndian){using namespace ArmyOpeningDetail;static_assert(sizeof(void*)==4,"Army opening requires x86.");
     unsigned id=XmlarmyopeningTypeId(n.name);Check(id!=0,"Unsupported army opening root.");Builder b;unsigned char* root=nullptr;b.t.Push(reinterpret_cast<void**>(&root),id==3587539190u?64:20,1);
-    Validate(n,id==3587539190u?"Side|MCVTemplate|GathererTemplate|ExpanderTemplate|EnergyProducer|PrimaryResourceNodeCollector|PrimaryResourceThingToBuild|SecondaryResourceNodeCollector|VehicleRepairFacility|NavalRepairFacility|AircraftRepairFacility|WallPiece":"Side",id==3587539190u?"TechStructure":"Order",true);
+
     if(n.attributes.count("Side"))b.String(root+4,Value(n,"Side"));
     if(id==3587539190u){
         const char* fields[]={"MCVTemplate","GathererTemplate","ExpanderTemplate","EnergyProducer","PrimaryResourceNodeCollector","PrimaryResourceThingToBuild","SecondaryResourceNodeCollector","VehicleRepairFacility","NavalRepairFacility","AircraftRepairFacility","WallPiece"};
         for(unsigned i=0;i<11;++i)if(n.attributes.count(fields[i]))b.Word(root+12+4*i,HashAssetId(Value(n,fields[i])));
-        U32 count=static_cast<U32>(n.children.size());b.Word(root+56,count);if(count){auto items=static_cast<unsigned char*>(b.t.Push(reinterpret_cast<void**>(root+60),4,count));for(U32 i=0;i<count;++i){const auto& c=n.children[i];Validate(c,"","",false,true);b.Word(items+4*i,HashAssetId(c.value));}b.t.Pop();}
-    }else{U32 count=static_cast<U32>(n.children.size());b.Word(root+12,count);if(count){auto items=static_cast<unsigned char*>(b.t.Push(reinterpret_cast<void**>(root+16),20,count));for(U32 i=0;i<count;++i){const auto& c=n.children[i];Validate(c,"Time|Build|Account|Deposit","");auto q=items+20*i;b.Float(q,InitializeTime(Value(c,"Time","0s").c_str()));b.String(q+4,Value(c,"Build"));b.Word(q+12,Account(Value(c,"Account","SLUSH_FUND")));b.Word(q+16,ParseUnsigned(Value(c,"Deposit","0")));}b.t.Pop();}}
+        U32 count=static_cast<U32>(n.children.size());b.Word(root+56,count);if(count){auto items=static_cast<unsigned char*>(b.t.Push(reinterpret_cast<void**>(root+60),4,count));for(U32 i=0;i<count;++i){const auto& c=n.children[i];b.Word(items+4*i,HashAssetId(c.value));}b.t.Pop();}
+    }else{U32 count=static_cast<U32>(n.children.size());b.Word(root+12,count);if(count){auto items=static_cast<unsigned char*>(b.t.Push(reinterpret_cast<void**>(root+16),20,count));for(U32 i=0;i<count;++i){const auto& c=n.children[i];auto q=items+20*i;b.Float(q,InitializeTime(Value(c,"Time","0s").c_str()));b.String(q+4,Value(c,"Build"));b.Word(q+12,Account(Value(c,"Account","SLUSH_FUND")));b.Word(q+16,ParseUnsigned(Value(c,"Deposit","0")));}b.t.Pop();}}
     if(bigEndian)for(void* word:b.words)Swap(word);
     return b.t.MakeRelocatable(bigEndian,0);
 }

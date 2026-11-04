@@ -1,0 +1,37 @@
+[
+  {
+    "path": "Additional/Data/gamestrings.csf",
+    "bytes": 827422,
+    "sha256": "67591bb700b7fc3472083325dcc61d7a187c5448940470d112056859684cbd06"
+  },
+  {
+    "path": "Data/CommandData.xml",
+    "bytes": 1149,
+    "sha256": "69349eae29b8bcf64a047c5f00f6b9bfb6c144bc2c41dced56429932d1e8827e"
+  },
+  {
+    "path": "Data/Mod.xml",
+    "bytes": 814,
+    "sha256": "da23958410bc4b612643c94f6d4fdd16ed91646fd69a3f226f0d5bef77722a59"
+  },
+  {
+    "path": "Data/mytank.xml",
+    "bytes": 16072,
+    "sha256": "be98d44a20da38e0058aac86cb1723b23aafb4536d202090171b81af4e5acb3c"
+  },
+  {
+    "path": "Data/RecoveryArmorProbe.xml",
+    "bytes": 757,
+    "sha256": "93d0923c10f1c9eccf6ad5c00a407c28f2001b9d3bc26f8784e1b46deb250257"
+  },
+  {
+    "path": "Data/RecoveryWeaponNuggetProbe.xml",
+    "bytes": 51051,
+    "sha256": "72a64cedd81a211f5c8879b4bc7d3ddc5624759331d1fc61b2daa5067d9f73b8"
+  },
+  {
+    "path": "Data/【配套教程】【代码篇】RA3DIY---入门教程 初级教程.doc",
+    "bytes": 84992,
+    "sha256": "722db1388ea9fd9434cf5c7bcf24ac2a5cb9b5fbd06bc0c753a7128a4551b505"
+  }
+]

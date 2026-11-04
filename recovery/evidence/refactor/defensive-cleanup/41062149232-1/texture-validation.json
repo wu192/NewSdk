@@ -1,0 +1,935 @@
+{
+  "schemaVersion": 1,
+  "configurations": [
+    {
+      "exeSha256": "4c0321f1955a8124d2b9fb161e232227669fc936a53470d7b55f2577d95e581a",
+      "runtimeDeploymentAuditRemoved": true,
+      "transcriptSha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+      "invalidInputErrors": 3,
+      "singleDispose": true,
+      "configuration": "Debug",
+      "passed": true,
+      "separateOracleProcess": true,
+      "validationHostSha256": "c144b0b423e81bf8a43073bb6a90692259035e6e07da1d037cdd1f57dbbb7603",
+      "componentExecution": "test-only host with identical production objects; host-specific texture redirect",
+      "protectedPeAudit": {
+        "schemaVersion": 1,
+        "mode": "redirect",
+        "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+        "outputSha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+        "checks": {
+          "machine-x86": true,
+          "native-entry-rva": true,
+          "clr-flags-entry": true,
+          "imports": true,
+          "resources": true,
+          "relocations": true,
+          "tls": true,
+          "iat": true,
+          "clr-VTableFixups": true,
+          "clr-ManagedNativeHeader": true,
+          "clr-ExportAddressTableJumps": true,
+          "clr-Resources": true,
+          "metadata-TypeRef": true,
+          "metadata-MemberRef": true,
+          "metadata-TypeSpec": true,
+          "metadata-StandAloneSig": true,
+          "metadata-MethodDef": true,
+          "metadata-Field": true,
+          "TypeRef-scope-tokens": true,
+          "AssemblyRef-count": true,
+          "AssemblyRef-change-allowlist": true,
+          "native-MethodDef-ranges": true
+        },
+        "directories": {
+          "imports": {
+            "originalRva": 747364,
+            "outputRva": 747364,
+            "originalSha256": "221f85bfd1e4582e1423f364c160fea41688631a7f33c5afa6d551478c4bd444",
+            "outputSha256": "221f85bfd1e4582e1423f364c160fea41688631a7f33c5afa6d551478c4bd444"
+          },
+          "resources": {
+            "originalRva": 823296,
+            "outputRva": 823296,
+            "originalSha256": "10db15924211296e2b4d0da4ccaf01c6064d33adc72e28361d61b50c0dae44eb",
+            "outputSha256": "10db15924211296e2b4d0da4ccaf01c6064d33adc72e28361d61b50c0dae44eb"
+          },
+          "relocations": {
+            "originalRva": 827392,
+            "outputRva": 827392,
+            "originalSha256": "2f9e1362b33ab1a20f117aefd13856dbca85268e68e415f078ff43b2b6cac42f",
+            "outputSha256": "2f9e1362b33ab1a20f117aefd13856dbca85268e68e415f078ff43b2b6cac42f"
+          },
+          "tls": {
+            "originalRva": 0,
+            "outputRva": 0,
+            "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "iat": {
+            "originalRva": 618496,
+            "outputRva": 618496,
+            "originalSha256": "4cbd577617120bd10549de55b727788df42f14cb3e36be704a114f5115ca9f10",
+            "outputSha256": "4cbd577617120bd10549de55b727788df42f14cb3e36be704a114f5115ca9f10"
+          }
+        },
+        "assemblyRefChanges": [
+          {
+            "rid": 5,
+            "before": [
+              "BinaryAssetBuilder.Core",
+              1,
+              0,
+              0,
+              0,
+              "",
+              ""
+            ],
+            "after": [
+              "NewModCompiler",
+              0,
+              0,
+              0,
+              0,
+              "",
+              ""
+            ]
+          }
+        ],
+        "nativeRanges": [
+          {
+            "token": "0x60000bf",
+            "rva": 21328,
+            "bytes": 40,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c0",
+            "rva": 7168,
+            "bytes": 16,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c1",
+            "rva": 6848,
+            "bytes": 16,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c2",
+            "rva": 7184,
+            "bytes": 16,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c3",
+            "rva": 6864,
+            "bytes": 8,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c4",
+            "rva": 6464,
+            "bytes": 16,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c5",
+            "rva": 6480,
+            "bytes": 48,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c6",
+            "rva": 6528,
+            "bytes": 20,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c7",
+            "rva": 7200,
+            "bytes": 36,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c8",
+            "rva": 22192,
+            "bytes": 8,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c9",
+            "rva": 6656,
+            "bytes": 88,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ca",
+            "rva": 7792,
+            "bytes": 32,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000cb",
+            "rva": 7824,
+            "bytes": 60,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000cc",
+            "rva": 329936,
+            "bytes": 8320,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000cd",
+            "rva": 321528,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ce",
+            "rva": 612188,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000cf",
+            "rva": 612170,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d0",
+            "rva": 249024,
+            "bytes": 4724,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d1",
+            "rva": 323092,
+            "bytes": 80,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d2",
+            "rva": 323080,
+            "bytes": 12,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d3",
+            "rva": 612152,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d4",
+            "rva": 321344,
+            "bytes": 12,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d5",
+            "rva": 253748,
+            "bytes": 67596,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d6",
+            "rva": 612164,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d7",
+            "rva": 321362,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d8",
+            "rva": 612182,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d9",
+            "rva": 323074,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000da",
+            "rva": 321534,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000db",
+            "rva": 338256,
+            "bytes": 528,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000dc",
+            "rva": 338784,
+            "bytes": 273368,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000dd",
+            "rva": 612176,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000de",
+            "rva": 321356,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000df",
+            "rva": 612158,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e0",
+            "rva": 321368,
+            "bytes": 160,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e1",
+            "rva": 49264,
+            "bytes": 144,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e2",
+            "rva": 49408,
+            "bytes": 144,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e3",
+            "rva": 49552,
+            "bytes": 31474,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e4",
+            "rva": 48832,
+            "bytes": 432,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e5",
+            "rva": 323172,
+            "bytes": 196,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e6",
+            "rva": 321540,
+            "bytes": 1418,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e7",
+            "rva": 322958,
+            "bytes": 116,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e8",
+            "rva": 81026,
+            "bytes": 167998,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e9",
+            "rva": 324701,
+            "bytes": 11,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ea",
+            "rva": 324120,
+            "bytes": 44,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000eb",
+            "rva": 324164,
+            "bytes": 452,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ec",
+            "rva": 328102,
+            "bytes": 1834,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ed",
+            "rva": 612350,
+            "bytes": 3266,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ee",
+            "rva": 612332,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ef",
+            "rva": 612344,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f0",
+            "rva": 612326,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f1",
+            "rva": 612338,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f2",
+            "rva": 612320,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f3",
+            "rva": 612194,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f4",
+            "rva": 612200,
+            "bytes": 120,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f5",
+            "rva": 323368,
+            "bytes": 400,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f6",
+            "rva": 323768,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f7",
+            "rva": 323780,
+            "bytes": 340,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f8",
+            "rva": 323774,
+            "bytes": 6,
+            "unchanged": true
+          }
+        ],
+        "status": "passed",
+        "limitation": "Static audit only; native functions without MethodDef rows are not exhaustively disassembled. Full G2 runtime and integration checks still required."
+      },
+      "hostBoundPatch": true,
+      "successes": 6,
+      "worksWithoutManifest": true
+    },
+    {
+      "exeSha256": "ea585fe8d46281a79fbc2b3903f7c14c9e1ac2f19e52b2816a964dc8b193e3c9",
+      "runtimeDeploymentAuditRemoved": true,
+      "transcriptSha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+      "invalidInputErrors": 3,
+      "singleDispose": true,
+      "configuration": "Release",
+      "passed": true,
+      "separateOracleProcess": true,
+      "validationHostSha256": "c8f498ba2cfd4ef47abbb3bf4f5a42915423711c9283e589ce0962636b40dc60",
+      "componentExecution": "test-only host with identical production objects; host-specific texture redirect",
+      "protectedPeAudit": {
+        "schemaVersion": 1,
+        "mode": "redirect",
+        "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+        "outputSha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+        "checks": {
+          "machine-x86": true,
+          "native-entry-rva": true,
+          "clr-flags-entry": true,
+          "imports": true,
+          "resources": true,
+          "relocations": true,
+          "tls": true,
+          "iat": true,
+          "clr-VTableFixups": true,
+          "clr-ManagedNativeHeader": true,
+          "clr-ExportAddressTableJumps": true,
+          "clr-Resources": true,
+          "metadata-TypeRef": true,
+          "metadata-MemberRef": true,
+          "metadata-TypeSpec": true,
+          "metadata-StandAloneSig": true,
+          "metadata-MethodDef": true,
+          "metadata-Field": true,
+          "TypeRef-scope-tokens": true,
+          "AssemblyRef-count": true,
+          "AssemblyRef-change-allowlist": true,
+          "native-MethodDef-ranges": true
+        },
+        "directories": {
+          "imports": {
+            "originalRva": 747364,
+            "outputRva": 747364,
+            "originalSha256": "221f85bfd1e4582e1423f364c160fea41688631a7f33c5afa6d551478c4bd444",
+            "outputSha256": "221f85bfd1e4582e1423f364c160fea41688631a7f33c5afa6d551478c4bd444"
+          },
+          "resources": {
+            "originalRva": 823296,
+            "outputRva": 823296,
+            "originalSha256": "10db15924211296e2b4d0da4ccaf01c6064d33adc72e28361d61b50c0dae44eb",
+            "outputSha256": "10db15924211296e2b4d0da4ccaf01c6064d33adc72e28361d61b50c0dae44eb"
+          },
+          "relocations": {
+            "originalRva": 827392,
+            "outputRva": 827392,
+            "originalSha256": "2f9e1362b33ab1a20f117aefd13856dbca85268e68e415f078ff43b2b6cac42f",
+            "outputSha256": "2f9e1362b33ab1a20f117aefd13856dbca85268e68e415f078ff43b2b6cac42f"
+          },
+          "tls": {
+            "originalRva": 0,
+            "outputRva": 0,
+            "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "iat": {
+            "originalRva": 618496,
+            "outputRva": 618496,
+            "originalSha256": "4cbd577617120bd10549de55b727788df42f14cb3e36be704a114f5115ca9f10",
+            "outputSha256": "4cbd577617120bd10549de55b727788df42f14cb3e36be704a114f5115ca9f10"
+          }
+        },
+        "assemblyRefChanges": [
+          {
+            "rid": 5,
+            "before": [
+              "BinaryAssetBuilder.Core",
+              1,
+              0,
+              0,
+              0,
+              "",
+              ""
+            ],
+            "after": [
+              "NewModCompiler",
+              0,
+              0,
+              0,
+              0,
+              "",
+              ""
+            ]
+          }
+        ],
+        "nativeRanges": [
+          {
+            "token": "0x60000bf",
+            "rva": 21328,
+            "bytes": 40,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c0",
+            "rva": 7168,
+            "bytes": 16,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c1",
+            "rva": 6848,
+            "bytes": 16,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c2",
+            "rva": 7184,
+            "bytes": 16,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c3",
+            "rva": 6864,
+            "bytes": 8,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c4",
+            "rva": 6464,
+            "bytes": 16,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c5",
+            "rva": 6480,
+            "bytes": 48,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c6",
+            "rva": 6528,
+            "bytes": 20,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c7",
+            "rva": 7200,
+            "bytes": 36,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c8",
+            "rva": 22192,
+            "bytes": 8,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000c9",
+            "rva": 6656,
+            "bytes": 88,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ca",
+            "rva": 7792,
+            "bytes": 32,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000cb",
+            "rva": 7824,
+            "bytes": 60,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000cc",
+            "rva": 329936,
+            "bytes": 8320,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000cd",
+            "rva": 321528,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ce",
+            "rva": 612188,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000cf",
+            "rva": 612170,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d0",
+            "rva": 249024,
+            "bytes": 4724,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d1",
+            "rva": 323092,
+            "bytes": 80,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d2",
+            "rva": 323080,
+            "bytes": 12,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d3",
+            "rva": 612152,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d4",
+            "rva": 321344,
+            "bytes": 12,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d5",
+            "rva": 253748,
+            "bytes": 67596,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d6",
+            "rva": 612164,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d7",
+            "rva": 321362,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d8",
+            "rva": 612182,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000d9",
+            "rva": 323074,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000da",
+            "rva": 321534,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000db",
+            "rva": 338256,
+            "bytes": 528,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000dc",
+            "rva": 338784,
+            "bytes": 273368,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000dd",
+            "rva": 612176,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000de",
+            "rva": 321356,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000df",
+            "rva": 612158,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e0",
+            "rva": 321368,
+            "bytes": 160,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e1",
+            "rva": 49264,
+            "bytes": 144,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e2",
+            "rva": 49408,
+            "bytes": 144,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e3",
+            "rva": 49552,
+            "bytes": 31474,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e4",
+            "rva": 48832,
+            "bytes": 432,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e5",
+            "rva": 323172,
+            "bytes": 196,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e6",
+            "rva": 321540,
+            "bytes": 1418,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e7",
+            "rva": 322958,
+            "bytes": 116,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e8",
+            "rva": 81026,
+            "bytes": 167998,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000e9",
+            "rva": 324701,
+            "bytes": 11,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ea",
+            "rva": 324120,
+            "bytes": 44,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000eb",
+            "rva": 324164,
+            "bytes": 452,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ec",
+            "rva": 328102,
+            "bytes": 1834,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ed",
+            "rva": 612350,
+            "bytes": 3266,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ee",
+            "rva": 612332,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000ef",
+            "rva": 612344,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f0",
+            "rva": 612326,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f1",
+            "rva": 612338,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f2",
+            "rva": 612320,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f3",
+            "rva": 612194,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f4",
+            "rva": 612200,
+            "bytes": 120,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f5",
+            "rva": 323368,
+            "bytes": 400,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f6",
+            "rva": 323768,
+            "bytes": 6,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f7",
+            "rva": 323780,
+            "bytes": 340,
+            "unchanged": true
+          },
+          {
+            "token": "0x60000f8",
+            "rva": 323774,
+            "bytes": 6,
+            "unchanged": true
+          }
+        ],
+        "status": "passed",
+        "limitation": "Static audit only; native functions without MethodDef rows are not exhaustively disassembled. Full G2 runtime and integration checks still required."
+      },
+      "hostBoundPatch": true,
+      "successes": 6,
+      "worksWithoutManifest": true
+    }
+  ],
+  "originalInputs": [
+    {
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+      "path": "SDK/tools/BinaryAssetBuilder.TextureCompiler.dll"
+    },
+    {
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47",
+      "path": "SDK/tools/BinaryAssetBuilder.Core.dll"
+    }
+  ],
+  "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+  "fixtureInputs": [
+    {
+      "sha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4",
+      "name": "fixture.tga"
+    },
+    {
+      "sha256": "3bf8bbd716cf3518868feeb5b3d1237273373fe41d569a68d3a0013b64eabd51",
+      "name": "fixture.tga.wrong-size.tga"
+    }
+  ],
+  "fixtureSha256": "d99df0aa46c0c48fb7edf30dbbcd7807ee4584d7a67a1ab427104fd9f22e58cd",
+  "runId": "41062149232",
+  "runAttempt": "1",
+  "status": "passed",
+  "scope": "G2 C texture payload in test-only host using identical production Native/Bridge/Foundation/Application objects; not production CLI MOD compilation"
+}

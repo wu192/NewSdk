@@ -9,6 +9,7 @@ $manifest=Get-Content "$root/recovery/build/Managed.Foundation.json" -Raw | Conv
 if(!$OutputDirectory){$OutputDirectory="$root/recovery/artifacts/managed-foundation/$Configuration"}
 New-Item -ItemType Directory -Force $OutputDirectory|Out-Null
 $out=(Resolve-Path $OutputDirectory).Path
+$ui=& "$PSScriptRoot/RestoreUiDependencies.ps1"
 $tools="$root/recovery/build/ManagedMetadata/ManagedMetadata.csproj"
 & dotnet build $tools -c Release -p:Platform=AnyCPU --nologo *> "$out/metadata-tool-build.log"
 if($LASTEXITCODE -ne 0){Get-Content "$out/metadata-tool-build.log";throw 'Metadata build tools failed'}
@@ -32,6 +33,8 @@ $opt=if($Configuration -eq 'Release'){'/optimize+'}else{'/optimize-'}
 $arguments=@('/nologo','/codepage:65001','/noconfig','/nostdlib+','/target:module','/platform:anycpu','/langversion:10.0','/unsafe+','/deterministic+', $opt, ('/define:'+$manifest.define), ('/out:"'+$module+'"'))
 $arguments+=@($manifest.frameworkReferences|ForEach-Object {'/reference:"'+(Join-Path $framework ($_+'.dll'))+'"'})
 $arguments+='/reference:"'+(Join-Path $root 'SDK/tools/antlr.runtime.dll')+'"'
+$arguments+='/reference:"'+(Join-Path $framework 'Facades/netstandard.dll')+'"'
+$arguments+=@($ui.references|ForEach-Object {'/reference:"'+$_+'"'})
 $arguments+=@($files|ForEach-Object {'"'+$_.FullName+'"'})
 $rsp=Join-Path $out 'Foundation.rsp'
 [IO.File]::WriteAllLines($rsp,[string[]]$arguments,[Text.UTF8Encoding]::new($false))
@@ -55,6 +58,12 @@ $resources=@($manifest.resources|ForEach-Object {
     if($sha -cne $_.expectedSha256){throw "Resource bytes differ from fixed original SHA-256: $($_.logicalName)"}
     @{path=$path;logicalName=$_.logicalName;sha256=$sha}
 })
+$resources+=@($ui.resources|ForEach-Object {
+    $path=Join-Path $resourceDirectory (Split-Path $_.path -Leaf)
+    Copy-Item -LiteralPath $_.path -Destination $path
+    @{path=$path;logicalName=$_.logicalName;sha256=(Get-FileHash $path -Algorithm SHA256).Hash.ToLowerInvariant()}
+})
+ConvertTo-Json -InputObject $ui.packages -Depth 5|Set-Content "$out/ui-dependencies.json" -Encoding utf8
 ConvertTo-Json -InputObject $resources -Depth 5|Set-Content "$out/resources.json" -Encoding utf8
 $sources=@($files|ForEach-Object {@{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
 @{formatVersion=1;configuration=$Configuration;sourceCommit=(git -C $root rev-parse HEAD).Trim();compiler='Microsoft.Net.Compilers.Toolset/4.0.1';target='net48/Win32';intermediateModulePlatform='AnyCPU';module=(Split-Path $module -Leaf);moduleSha256=(Get-FileHash $module -Algorithm SHA256).Hash.ToLowerInvariant();sourceFiles=$sources;resources=$resources;allowedBusinessReferences=@($manifest.allowedBusinessReferences);singleExeValidated=$false}|ConvertTo-Json -Depth 8|Set-Content "$out/build.json" -Encoding utf8

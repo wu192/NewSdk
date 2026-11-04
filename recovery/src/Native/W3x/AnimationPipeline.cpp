@@ -1,6 +1,7 @@
 #include "AnimationPipeline.h"
 #include <stdexcept>
 #include <limits>
+#include <utility>
 
 namespace Recovered { namespace W3x {
 namespace {
@@ -36,6 +37,7 @@ AnimationPrepared PrepareAnimation(const AnimationInput& input, int platform) {
     result.frameRate = input.frameRate;
     result.bigEndian = platform != 0;
     result.settings = Settings(input, platform);
+    result.channels.reserve(input.channels.size());
     for (const AnimationInputChannel& source : input.channels) {
         AnimationPreparedChannel channel;
         channel.type = source.type;
@@ -62,6 +64,7 @@ AnimationPrepared PrepareAnimation(const AnimationInput& input, int platform) {
         for (std::uint32_t i = 0; i < input.numFrames; ++i) {
             channel.frames[i].index = i;
             channel.frames[i].values = defaults;
+            channel.frames[i].binaryMove = false;
         }
         for (std::size_t i = 0; i < source.frames.size(); ++i) {
             if (source.frames[i].values.size() != defaults.size())
@@ -70,7 +73,7 @@ AnimationPrepared PrepareAnimation(const AnimationInput& input, int platform) {
             frame.values = source.frames[i].values;
             frame.binaryMove = source.frames[i].binaryMove;
         }
-        result.channels.push_back(channel);
+        result.channels.push_back(std::move(channel));
     }
     return result;
 }

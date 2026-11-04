@@ -25,16 +25,58 @@ jobs:
       - name: Extract managed source and native evidence
         shell: pwsh
         run: ./recovery/scripts/Extract.ps1
-      - name: Publish evidence archive
+      - name: Summarize CI evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/BinaryAssetBuilder.Tokenizer/extraction.json
+            recovery/evidence/BinaryAssetBuilder.Tokenizer/summary.json
+            recovery/evidence/BinaryAssetBuilder.Tokenizer/pe.txt
+            recovery/logs/BinaryAssetBuilder.Tokenizer.decompile.txt
+            recovery/evidence/BinaryAssetBuilder.XmlCompiler/extraction.json
+            recovery/evidence/BinaryAssetBuilder.XmlCompiler/summary.json
+            recovery/evidence/BinaryAssetBuilder.XmlCompiler/pe.txt
+            recovery/logs/BinaryAssetBuilder.XmlCompiler.decompile.txt
+            recovery/evidence/EALAModStudio/extraction.json
+            recovery/evidence/EALAModStudio/summary.json
+            recovery/evidence/EALAModStudio/pe.txt
+            recovery/logs/EALAModStudio.decompile.txt
+            recovery/evidence/BinaryAssetBuilder.Core/extraction.json
+            recovery/evidence/BinaryAssetBuilder.Core/summary.json
+            recovery/evidence/BinaryAssetBuilder.Core/pe.txt
+            recovery/logs/BinaryAssetBuilder.Core.decompile.txt
+            recovery/evidence/BinaryAssetBuilder/extraction.json
+            recovery/evidence/BinaryAssetBuilder/summary.json
+            recovery/evidence/BinaryAssetBuilder/pe.txt
+            recovery/logs/BinaryAssetBuilder.decompile.txt
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: compiler-recovery-evidence
+          name: 'compiler-recovery-evidence'
           path: |
-            recovery/evidence
-            recovery/decompiled
-            recovery/logs
-          retention-days: 30
+            recovery/evidence/BinaryAssetBuilder.Tokenizer/extraction.json
+            recovery/evidence/BinaryAssetBuilder.Tokenizer/summary.json
+            recovery/evidence/BinaryAssetBuilder.Tokenizer/pe.txt
+            recovery/logs/BinaryAssetBuilder.Tokenizer.decompile.txt
+            recovery/evidence/BinaryAssetBuilder.XmlCompiler/extraction.json
+            recovery/evidence/BinaryAssetBuilder.XmlCompiler/summary.json
+            recovery/evidence/BinaryAssetBuilder.XmlCompiler/pe.txt
+            recovery/logs/BinaryAssetBuilder.XmlCompiler.decompile.txt
+            recovery/evidence/EALAModStudio/extraction.json
+            recovery/evidence/EALAModStudio/summary.json
+            recovery/evidence/EALAModStudio/pe.txt
+            recovery/logs/EALAModStudio.decompile.txt
+            recovery/evidence/BinaryAssetBuilder.Core/extraction.json
+            recovery/evidence/BinaryAssetBuilder.Core/summary.json
+            recovery/evidence/BinaryAssetBuilder.Core/pe.txt
+            recovery/logs/BinaryAssetBuilder.Core.decompile.txt
+            recovery/evidence/BinaryAssetBuilder/extraction.json
+            recovery/evidence/BinaryAssetBuilder/summary.json
+            recovery/evidence/BinaryAssetBuilder/pe.txt
+            recovery/logs/BinaryAssetBuilder.decompile.txt
+          retention-days: 1
+          if-no-files-found: warn
       - name: Save extracted results to branch
         if: success()
         shell: pwsh

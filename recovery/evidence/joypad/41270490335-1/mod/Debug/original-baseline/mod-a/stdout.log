@@ -1,0 +1,135 @@
+Command Line: D:\a\_temp\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\fixtures\mod\Data\Mod.xml /sp:D:\a\NewSdk\NewSdk\SDK\Schemas\xsd\CnC3Types.xsd /dr:D:\a\NewSdk\NewSdk\SDK /od:D:\a\_temp\b428af689\0\s /iod:D:\a\_temp\b428af689\0\i /scd:D:\a\_temp\b428af689\0\h /bcp:D:\a\_temp\b428af689\0\c /tp:Win32 /sc:false /bc:false /psc:false /fsc:false /csc:false /atc:false /sh:false /pc:true /res:false /gui:false /poe:false /mr:false /oof:false /sf:false /ls:true /ss:true /oix:false /vf:false /osh:false /oar:false /slowclean:true /tl:3 /el:0 /art:D:\a\_temp\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\fixtures\mod\Art;.\Art /audio:D:\a\_temp\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\fixtures\mod\Audio;.\Audio /data:D:\a\_temp\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\fixtures\mod\Data;.;.\Mods;.\SAGEXML 
+Command Line: D:\a\_temp\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\fixtures\mod\Data\Mod.xml /sp:D:\a\NewSdk\NewSdk\SDK\Schemas\xsd\CnC3Types.xsd /dr:D:\a\NewSdk\NewSdk\SDK /od:D:\a\_temp\b428af689\0\s /iod:D:\a\_temp\b428af689\0\i /scd:D:\a\_temp\b428af689\0\h /bcp:D:\a\_temp\b428af689\0\c /tp:Win32 /sc:false /bc:false /psc:false /fsc:false /csc:false /atc:false /sh:false /pc:true /res:false /gui:false /poe:false /mr:false /oof:false /sf:false /ls:true /ss:true /oix:false /vf:false /osh:false /oar:false /slowclean:true /tl:3 /el:0 /art:D:\a\_temp\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\fixtures\mod\Art;.\Art /audio:D:\a\_temp\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\fixtures\mod\Audio;.\Audio /data:D:\a\_temp\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\fixtures\mod\Data;.;.\Mods;.\SAGEXML 
+[00:00:00] BinaryAssetBuilder started
+[00:00:00.2809048] Cached session data not available.
+[00:00:00.2965057] Loading 'file://d:\a\_temp\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\fixtures\mod\data\mod.xml'.
+[00:00:00.3592344] mod.xml: Compiling ButtonSingleStateData:JState [b5ad65f8:0553e242]
+[00:00:00.3748544] mod.xml: Compiling LogicCommand:JCommand [7d464170:21cfc18c]
+[00:00:00.3904816] mod.xml: Compiling SpecialPowerTemplate:JPower [81d85efa:b69a3360]
+[00:00:00.3904816] mod.xml: Compiling RadiusCursor:JRadius [2078a161:df7b1730]
+[00:00:00.3904816] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonActivateHotSpot [6b9474eb:4a4e6487]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonAIStrategicDirective [6b9474eb:d7f44ccf]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonAssembleStructure [6b9474eb:68b91991]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonAutoControlGroup [6b9474eb:58b60daa]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonEnterCommandMode [6b9474eb:fab1907f]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonEvacuate [6b9474eb:efaeadf9]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonMultiplePowersTargetedSpecialPower [6b9474eb:e3f1f3c7]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonObjectUpgrade [6b9474eb:f10f8abb]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonOpenCoopCommunicator [6b9474eb:f34e2d3e]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonOpenControlGroups [6b9474eb:c464f500]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonOpenPlayerPowers [6b9474eb:6ecb6148]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonOpenPlayerTechStore [6b9474eb:adb1cc69]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonOpenStances [6b9474eb:e4a43090]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonOpenUnitAbilities [6b9474eb:10dccca3]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonOpenUnitsMenu [6b9474eb:e59e8917]
+[00:00:00.4060896] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonPlaceReadyStructure [6b9474eb:0bd55faf]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonPlayerControlGroup [6b9474eb:87c1b30b]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonPlayerPower [6b9474eb:d1eb6b58]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonPlayerMultiplePowersTargetedPower [6b9474eb:a30c3b38]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonPlayerMultipleTargetsTargetedPower [6b9474eb:d98e38e8]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonPlayerTargetedPower [6b9474eb:85ef5cb1]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonPlayerUpgrade [6b9474eb:e5fe76da]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonProductionQueueType [6b9474eb:72270860]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonRedAlert [6b9474eb:ffe7fcf5]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonSetStance [6b9474eb:432cb3e6]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonSpecialPower [6b9474eb:f7543827]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonTargetedSpecialPower [6b9474eb:10c341e4]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonToggleSpecialPower [6b9474eb:b2d66313]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarButtonTemplate:JButtonUnpack [6b9474eb:596e4f52]
+[00:00:00.4216986] mod.xml: Compiling JoypadCommandBarTemplate:JBar [732477a0:9134be14]
+[00:00:00.4314238] mod.xml: Compiling UIJoypadCommandBarButtonBuild:JUIJoypadCommandBarButtonBuild [cc13a3da:a11d476d]
+[00:00:00.4319701] mod.xml: Compiling UIJoypadCommandBarSingleUnit:JUIJoypadCommandBarSingleUnit [e88b2522:08361c6d]
+[00:00:00.4319701] mod.xml: Compiling UIJoypadCommandBarControlGroups:JUIJoypadCommandBarControlGroups [d9456c84:10e2051f]
+[00:00:00.4319701] mod.xml: Compiling UIJoypadCommandBarCoopCommunicator:JUIJoypadCommandBarCoopCommunicator [629a93bb:ac4b4787]
+[00:00:00.4319701] mod.xml: Compiling UIJoypadCommandBarHomogenousGroup:JUIJoypadCommandBarHomogenousGroup [5c34a41c:1f40d8cd]
+[00:00:00.4375292] mod.xml: Compiling UIJoypadCommandBarMixedGroup:JUIJoypadCommandBarMixedGroup [4c1d000e:92f2fe75]
+[00:00:00.4375292] mod.xml: Compiling UIJoypadCommandBarPlayerPowers:JUIJoypadCommandBarPlayerPowers [a37b9988:73210ec7]
+[00:00:00.4375292] mod.xml: Compiling UIJoypadCommandBarStances:JUIJoypadCommandBarStances [70868814:80fa8ae6]
+[00:00:00.4375292] mod.xml: Compiling UIJoypadCommandBarTopMenu:JUIJoypadCommandBarTopMenu [81583e8b:d5a6cdf0]
+[00:00:00.4375292] Resolving references: mod
+[00:00:00.4532257] Stable sorting assets
+[00:00:00.4532257] Sorting by schema dependencies
+[00:00:00.4532257] Sorting by asset dependencies
+[00:00:00.4532257] Generating stream: mod
+[00:00:00.4532257] Slow asset clean-up (expected: 43, actual: 43, old: 0, current: 43)
+[00:00:00.4532257] mod Linking binary data
+[00:00:00.4688396] mod Linking import data
+[00:00:00.4688396] mod Linking relocation data
+[00:00:00.4688396] mod Stream complete
+[00:00:00.4688396] BinaryAssetBuilder complete
+[00:00:00.4688396] RadiusCursor:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] UIJoypadCommandBarMixedGroup:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] UIJoypadCommandBarHomogenousGroup:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] UIJoypadCommandBarCoopCommunicator:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] JoypadCommandBarButtonTemplate:
+[00:00:00.4688396]       Instances Processed: 29
+[00:00:00.4688396]       Total Processing Time: 00:00:00.0156080
+[00:00:00.4688396]       Longest Processing Time: 00:00:00.0156080 (JButtonActivateHotSpot)
+[00:00:00.4688396]       Average Processing Time: 0.000538206896551724 seconds
+[00:00:00.4688396] UIJoypadCommandBarStances:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] JoypadCommandBarTemplate:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00.0097252
+[00:00:00.4688396]       Longest Processing Time: 00:00:00.0097252 (JBar)
+[00:00:00.4688396]       Average Processing Time: 0.0097252 seconds
+[00:00:00.4688396] LogicCommand:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] UIJoypadCommandBarTopMenu:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] SpecialPowerTemplate:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] UIJoypadCommandBarPlayerPowers:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] ButtonSingleStateData:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00.0156200
+[00:00:00.4688396]       Longest Processing Time: 00:00:00.0156200 (JState)
+[00:00:00.4688396]       Average Processing Time: 0.01562 seconds
+[00:00:00.4688396] UIJoypadCommandBarButtonBuild:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] UIJoypadCommandBarControlGroups:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] UIJoypadCommandBarSingleUnit:
+[00:00:00.4688396]       Instances Processed: 1
+[00:00:00.4688396]       Total Processing Time: 00:00:00
+[00:00:00.4688396]       Longest Processing Time: 00:00:00 ()
+[00:00:00.4688396]       Average Processing Time: 0 seconds
+[00:00:00.4688396] Total Processing Time for All Types: 00:00:00.0409532

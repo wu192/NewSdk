@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "75d29895be464d9a560f5f946d612e359bf4b396",
+  "runId": "41165126334",
+  "artifactId": "13028968508",
+  "artifactSha256": "e88d0b947f89e6e1cdf98444d675372dc6a7b3ff7803da1e139acecbb5bacf10",
+  "artifactBytes": 60802233,
+  "phases": {
+    "product": {
+      "receipt": "product.json",
+      "sha256": "531840cbe69f09b68e509e2071f16b27892c503d9d45910be16b7a36ccb594af",
+      "passed": true
+    },
+    "ui": {
+      "receipt": "ui.json.gz",
+      "sha256": "512834bca5cd2c5b926c691ec5d2f6e3f791db3ef4b4e078c627ab8a486cc94f",
+      "passed": true,
+      "encoding": "gzip",
+      "compressedSha256": "ba9a62a2bfa17dfc10c25e59f3a26378d163c00d1b5a5458b7cce08a9457988b"
+    },
+    "core": {
+      "receipt": "core.json.gz",
+      "sha256": "939e503ca4d8097ee6b86c99c0f2e8793e08424a9da2abf6c160433570baeb96",
+      "passed": true,
+      "encoding": "gzip",
+      "compressedSha256": "3194f812410f140ab6d19daa3e403971950359ea4562db43f63d65c0d7acb93e"
+    },
+    "cli": {
+      "receipt": "cli.json.gz",
+      "sha256": "b250f72df54c4ce9275a598bf9a65543fbb08a72067b3a05bb17a7c806e71335",
+      "passed": true,
+      "encoding": "gzip",
+      "compressedSha256": "e266ee969a06567402ce877ea4031d86392a58e5eea7dd57f1da187ec11cd12d"
+    },
+    "cache": {
+      "receipt": "cache.json.gz",
+      "sha256": "02eaf90cecc6f1915fcc21a65907bc717b7e050d8cf3a1e0ea8755d461360e69",
+      "passed": true,
+      "encoding": "gzip",
+      "compressedSha256": "e2ac1a6b483504371727d9541618c075500a9c84076dc51e10dc9d8d57c3fb6c"
+    },
+    "sdk": {
+      "receipt": "sdk.json.gz",
+      "sha256": "a3dd2e6ef00cd993ff4b51035aea6229993283aa3a21d44afabd6e672e3b88cf",
+      "passed": true,
+      "encoding": "gzip",
+      "compressedSha256": "6e948c9a73b991f2d474ad913531311127661299a3b2aabf35cc9a7470f64e8a"
+    },
+    "release": {
+      "receipt": "release.json.gz",
+      "sha256": "924af071e5d070b721dd013da5a389cbcdf63e1cf9926daf7f2a98b9d866ee53",
+      "passed": true,
+      "encoding": "gzip",
+      "compressedSha256": "a9f43360269a8a26829735d0f01f055ea6ea4c7cb61eecdcdef45c08188d74e1"
+    }
+  },
+  "modes": {
+    "Debug": {
+      "runtimeFiles": {
+        "BinaryAssetBuilder.TextureCompiler.dll": {
+          "bytes": 917504,
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+        },
+        "BinaryAssetBuilder.TextureCompiler.dll.patch.json": {
+          "bytes": 14326,
+          "sha256": "194772d26bdf1a623822dcad6b5d21675731843a9ec3d15bc6cedd94279648d5"
+        },
+        "NewModCompiler.exe": {
+          "bytes": 7408640,
+          "sha256": "fded8922e884e43d911bc7b510bb158ee1ea4d7adc8d773f92cf4b71d80cd530"
+        },
+        "NewModCompiler.exe.config": {
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        "antlr.runtime.dll": {
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      },
+      "zip": {
+        "name": "NewModCompiler-Win32-Debug.zip",
+        "bytes": 2503285,
+        "sha256": "83430faa18860fe15cd53c10b13d38536c4c7792eac4455dce574209df536d72"
+      }
+    },
+    "Release": {
+      "runtimeFiles": {
+        "BinaryAssetBuilder.TextureCompiler.dll": {
+          "bytes": 917504,
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+        },
+        "BinaryAssetBuilder.TextureCompiler.dll.patch.json": {
+          "bytes": 14326,
+          "sha256": "8101a936dee79718662c93f50a89735eabaa6d5601ea1e0a3da8b3f82c76794d"
+        },
+        "NewModCompiler.exe": {
+          "bytes": 4768256,
+          "sha256": "d3893f1d6a8327755f89714bb7b85e322cfb3278d25247cfd80edaa5768b9892"
+        },
+        "NewModCompiler.exe.config": {
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        "antlr.runtime.dll": {
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      },
+      "zip": {
+        "name": "NewModCompiler-Win32-Release.zip",
+        "bytes": 1981527,
+        "sha256": "2e8060223b33b787b29b669f3152437036caa1bf6c654aad86655b23212534bf"
+      }
+    }
+  },
+  "scope": "Fresh Debug/Release Windows products, real FLA/AS mixed and bare MOD CLI, existing Core/CLI/session cache/mymod SDK regressions and exact runtime ZIPs; no in-game UI playback acceptance",
+  "uiCases": {
+    "Debug": [
+      "cold",
+      "hot",
+      "independent-no-session",
+      "as-same-size-mtime",
+      "as-no-session",
+      "as-added",
+      "added-no-session",
+      "as-deleted",
+      "missing-include",
+      "retry",
+      "generated-identity-collision",
+      "collision-retry",
+      "bare-fla-auto",
+      "bare-fla-hot",
+      "bare-fla-independent-output"
+    ],
+    "Release": [
+      "cold",
+      "hot",
+      "independent-no-session",
+      "as-same-size-mtime",
+      "as-no-session",
+      "as-added",
+      "added-no-session",
+      "as-deleted",
+      "missing-include",
+      "retry",
+      "generated-identity-collision",
+      "collision-retry",
+      "bare-fla-auto",
+      "bare-fla-hot",
+      "bare-fla-independent-output"
+    ]
+  },
+  "succeeded": true
+}

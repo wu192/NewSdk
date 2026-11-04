@@ -1,0 +1,112 @@
+{
+  "sourceCommit": "44b5fd01a03b9428dffc4387e0bcb7d2d2235c38",
+  "runId": "41202545747",
+  "runAttempt": 1,
+  "status": "failed",
+  "artifactId": 13043386282,
+  "archiveSha256": "3cd1dea84bc57b7589fd3944469dffcdef443157ad9a10dd9eb2b2da6493caa1",
+  "githubArtifactDigestMatched": true,
+  "independentFailures": [
+    {
+      "kind": "production-partial-session-lifecycle",
+      "step": "Actual session-cache documents intermediate and CDATA reuse matrix",
+      "case": "Debug/original-partial-retry",
+      "assertion": "Partial retry did not reuse its completed included document",
+      "source": "recovery/scripts/TestCompilerSessionCache.ps1:567",
+      "failureCounts": {
+        "xmlParse": 3,
+        "instanceCompile": 4,
+        "partialSessionsSaved": 1
+      },
+      "retryCounts": {
+        "xmlParse": 3,
+        "instanceCompile": 3,
+        "documentReuse": 0
+      },
+      "plainCounts": {
+        "xmlParse": 3,
+        "instanceCompile": 4
+      },
+      "outputRawComparisonBeforeFailurePassed": true,
+      "owner": "lifecycle"
+    }
+  ],
+  "runtime": {
+    "Debug": {
+      "sourceCommit": "44b5fd01a03b9428dffc4387e0bcb7d2d2235c38",
+      "files": {
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+        "NewModCompiler.exe": "70beca62cf521d815171a3ffdb43620a78c63145b71a2853a429ff2847f48813",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+      },
+      "buildReceiptMatched": true,
+      "foundationAndApplicationLinkRecipeIdentityMatched": true,
+      "linkInputCount": 128,
+      "archivedLinkObjectBytesAvailable": false
+    },
+    "Release": {
+      "sourceCommit": "44b5fd01a03b9428dffc4387e0bcb7d2d2235c38",
+      "files": {
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+        "NewModCompiler.exe": "6b87e587d27a457120282c8766517a5ff4c422a5081959797e7d05debc519a08",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+      },
+      "buildReceiptMatched": true,
+      "foundationAndApplicationLinkRecipeIdentityMatched": true,
+      "linkInputCount": 128,
+      "archivedLinkObjectBytesAvailable": false
+    }
+  },
+  "fixtureResults": {
+    "Debug": {
+      "CompilerApplicationBuild": true,
+      "CompilerBackendLifecycle": true,
+      "CompilerCacheContent": true,
+      "CompilerCoreLifecycle": true,
+      "CompilerCorePaths": true,
+      "CompilerInputRoots": true,
+      "CompilerPreparedBackend": true,
+      "CompilerResourceLifecycle": true,
+      "CompilerStableSort": true,
+      "CompilerStateLifecycle": true,
+      "CompilerUnicodeSettings": true,
+      "CompilerXmlBackendBatch": true
+    },
+    "Release": {
+      "CompilerApplicationBuild": true,
+      "CompilerBackendLifecycle": true,
+      "CompilerCacheContent": true,
+      "CompilerCoreLifecycle": true,
+      "CompilerCorePaths": true,
+      "CompilerInputRoots": true,
+      "CompilerPreparedBackend": true,
+      "CompilerResourceLifecycle": true,
+      "CompilerStableSort": true,
+      "CompilerStateLifecycle": true,
+      "CompilerUnicodeSettings": true,
+      "CompilerXmlBackendBatch": true
+    }
+  },
+  "passedGroups": [
+    "core-lifecycle",
+    "performance",
+    "hot-cache",
+    "backend-parallel",
+    "core-cli",
+    "build-cache",
+    "input-roots",
+    "cache-payloads",
+    "core-lifecycle-texture",
+    "big"
+  ],
+  "newDeferredVersionTestPassed": {
+    "Debug": true,
+    "Release": true
+  },
+  "notReached": [
+    "complete-mymod-original-SDK",
+    "final-three-file-packages",
+    "full-Upheaval-22",
+    "paired-old-new-throughput"
+  ]
+}

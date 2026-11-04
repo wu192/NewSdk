@@ -1,0 +1,1 @@
+﻿case,mode,jobs,hot_beforeN,hot_beforeMedianMs,hot_beforeMinMs,hot_beforeMaxMs,hot_beforeReportElapsedMs,hot_beforeCpuMs,modifiedN,modifiedMedianMs,modifiedMinMs,modifiedMaxMs,modifiedReportElapsedMs,modifiedCpuMs,hot_afterN,hot_afterMedianMs,hot_afterMinMs,hot_afterMaxMs,hot_afterReportElapsedMs,hot_afterCpuMs,firstChangeExtraMs,reheatedChangeMs

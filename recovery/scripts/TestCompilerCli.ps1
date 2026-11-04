@@ -3,6 +3,7 @@
 param([Parameter(Mandatory=$true)][string]$CompilerDirectory,[Parameter(Mandatory=$true)][string]$OutputDirectory,[ValidateRange(15,600)][int]$TimeoutSeconds=180)
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/CompilerCliOutputs.ps1"
+. "$PSScriptRoot/CompilerCacheLayout.ps1"
 $root=(Resolve-Path "$PSScriptRoot/../..").Path
 $CompilerDirectory=(Resolve-Path -LiteralPath $CompilerDirectory).Path
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite CLI acceptance evidence: $OutputDirectory"}
@@ -15,11 +16,15 @@ function Within([string]$Directory,[string]$Path){
     $base=[IO.Path]::GetFullPath($Directory).TrimEnd([char[]]'\/');$full=[IO.Path]::GetFullPath($Path)
     $full.Equals($base,[StringComparison]::OrdinalIgnoreCase) -or $full.StartsWith($base+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)
 }
-function Snapshot([string]$Directory){
-    $map=@{};Get-ChildItem -LiteralPath $Directory -File -Recurse|ForEach-Object{$map[$_.FullName.Substring($Directory.Length)]=Hash $_.FullName};$map
+function Snapshot([string]$Directory,[string[]]$Excluded=@()){
+    $map=@{};Get-ChildItem -LiteralPath $Directory -File -Recurse|ForEach-Object{
+        $file=$_;$excludedFile=$false
+        foreach($partition in $Excluded){if(Within $partition $file.FullName){$excludedFile=$true;break}}
+        if(!$excludedFile){$map[$file.FullName.Substring($Directory.Length)]=Hash $file.FullName}
+    };$map
 }
-function Unchanged([string]$Directory,$Expected){
-    $actual=Snapshot $Directory;Need ($actual.Count -eq $Expected.Count) "Input tree changed: $Directory"
+function Unchanged([string]$Directory,$Expected,[string[]]$Excluded=@()){
+    $actual=Snapshot $Directory $Excluded;Need ($actual.Count -eq $Expected.Count) "Input tree changed: $Directory"
     foreach($key in $Expected.Keys){Need ($actual.ContainsKey($key) -and $actual[$key] -ceq $Expected[$key]) "Input mutated: $Directory$key"}
 }
 function MakeMod([string]$Path,[string]$Probe){
@@ -30,6 +35,7 @@ function MakeMod([string]$Path,[string]$Probe){
     [IO.File]::WriteAllText((Join-Path $Path 'Data/AdditionalMaps/MapMetaData_One.xml'),$Probe.Replace('Default="72.5%"','Default="42.5%"'))
 }
 function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string]$Selection,[int]$Expected,[int]$StreamCount,[bool]$Cancel=$false,[string[]]$Extra=@(),[string]$HoldReadFile=$null,[int]$CustomDataCount=0,[string]$ReuseDestination=$null){
+    if($Mod -and !$script:legacyCacheLayout){$script:allowedCachePartitions.Add((Get-CompilerTestCacheRoot $Sdk $Mod))|Out-Null}
     $caseOut=(New-Item -ItemType Directory -Path (Join-Path $script:modeOut $Name)).FullName
     $destination=if($ReuseDestination){$ReuseDestination}else{Join-Path $script:modeWork ('o'+$script:caseIndex)};$script:caseIndex++
     New-Item -ItemType Directory -Force -Path $destination|Out-Null
@@ -53,13 +59,16 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
         if($Cancel){Need ($audit.signalSent -and $audit.streamStartedObserved -and $audit.processExitCode -eq 6) 'Real CtrlBreak cancellation was not verified'}
         $rows=@();$body=$null
         if(Test-Path -LiteralPath $events){$rows=@(Get-Content -LiteralPath $events|Where-Object{$_}|ForEach-Object{$_|ConvertFrom-Json})}
-        if(Test-Path -LiteralPath $report){$body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json}
+        if(Test-Path -LiteralPath $report){
+            $body=Get-Content -LiteralPath $report -Raw|ConvertFrom-Json
+            foreach($artifact in $body.artifacts){$artifact|Add-Member -NotePropertyName TestSha256 -NotePropertyValue (Hash $artifact.Path)}
+        }
         if($Command -eq 'doctor'){
             Need ((Get-Content (Join-Path $caseOut 'stdout.log') -Raw).Contains('CORE_ENVIRONMENT_OK')) 'Doctor did not verify actual environment'
         } elseif($Name -eq 'log-directory-rejected') {
             Need ($Expected -eq 2 -and (Get-Content (Join-Path $caseOut 'stderr.log') -Raw).Contains('CLI_LOG_PATH')) 'Diagnostic directory must be refused during argument parsing'
             Need ($null -eq $body -and $rows.Count -eq 0) 'Invalid diagnostic path started a build'
-        } elseif($Name -eq 'required-log-fault') {
+        } elseif($Name -eq 'required-events-fault') {
             Need ($audit.readLockHeld -and $audit.readLockPath -ceq $HoldReadFile) 'External controller did not hold the real required-output file against replacement'
             Need ($Expected -eq 7 -and (Get-Content (Join-Path $caseOut 'stderr.log') -Raw).Contains('OUTPUT_FAILED')) 'Required output channel failure must explicitly fail output with exit7'
         } else {
@@ -85,19 +94,18 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
                 Need (@($body.artifacts|Where-Object{$_.Kind -ceq 'custom-data'}).Count -eq $CustomDataCount) 'Reported CustomData count differs'
                 foreach($artifact in $body.artifacts){
                     Need ((Within (ArtifactRoot $destination $body) $artifact.Path) -and (Test-Path -LiteralPath $artifact.Path)) 'Artifact escaped the accepted generation root'
-                    Need ((Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size -and (Hash $artifact.Path) -ceq $artifact.Sha256) 'Artifact identity differs from report'
+                    Need ((Get-Item -LiteralPath $artifact.Path).Length -eq $artifact.Size -and (Hash $artifact.Path) -ceq $artifact.TestSha256) 'Artifact identity differs from report'
                 }
                 if($script:publicationEnabled){
                     Need ($body.publicationStatus -ceq $(if($StreamCount -eq 0){'NotPublished'}else{'PublishedDirectory'}) -and $body.publicationDirectory -ceq (Join-Path $destination 'published')) 'CLI publication receipt differs'
-                    Need (!(Test-Path -LiteralPath (Join-Path $destination ('.build/'+$body.buildId)))) 'Published CLI retained owned staging'
-                    Need (@(Get-ChildItem -LiteralPath $destination -Directory|Where-Object{$_.Name -like '.publish-*' -or $_.Name -like '.previous-*'}).Count -eq 0) 'CLI retained unlocked preparation/backup'
+                    Need (!(Test-Path -LiteralPath (Join-Path $destination '.build'))) 'Direct CLI build created the removed .build root'
                 }else{Need ($body.publicationStatus -ceq 'IsolatedStagingOnly') 'Historical runtime publication contract differs'}
                 Need ($body.executionMode -ceq 'InProcess') 'CLI claimed external execution'
             } elseif($Command -eq 'plan'){
                 Need (@($body.artifacts).Count -eq 0 -and $body.executionMode -ceq 'PlanOnly') 'Plan compiled assets'
             } else {
                 Need (@($body.artifacts).Count -eq 0) 'Failed/cancelled CLI accepted artifacts'
-                Need (!(Test-Path -LiteralPath (Join-Path $destination ('.build/'+$body.buildId)))) 'Failed/cancelled CLI retained this build staging'
+                Need (!(Test-Path -LiteralPath (Join-Path $destination '.build'))) 'Failed/cancelled CLI created the removed .build root'
             }
         }
         $entry.passed=$true;$entry.report=$body;$entry.eventCount=$rows.Count
@@ -123,11 +131,11 @@ function RunCli([string]$Name,[string]$Command,[string]$Mod,[string]$Sdk,[string
 }
 function ArtifactRoot([string]$Destination,$Report){
     if($Report.publicationStatus -ceq 'PublishedDirectory'){return (Join-Path $Destination 'published')}
-    return (Join-Path $Destination ('.build/'+$Report.buildId))
+    return (Join-Path $Destination 'published')
 }
 function TaskOutputs($Case,$Task,[int]$CustomDataCount=0){
     $prefix=Join-Path (ArtifactRoot $Case.destination $Case.report) ($Task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($Task.InputPath))
-    $map=@{};foreach($artifact in $Case.report.artifacts){if(Within $prefix $artifact.Path){$map[$artifact.Path.Substring($prefix.Length)]=$artifact.Sha256}}
+    $map=@{};foreach($artifact in $Case.report.artifacts){if(Within $prefix $artifact.Path){$map[$artifact.Path.Substring($prefix.Length)]=$artifact.TestSha256}}
     Need ($map.Count -eq 4+$CustomDataCount) 'Task output count differs from four streams plus allowed Texture CustomData';$map
 }
 # These fixtures have no runtime/manifest references. Decode the real source
@@ -201,14 +209,24 @@ try {
                 Need ($runtimeIdentity.Count -eq 1 -and $runtimeIdentity[0].sha256 -ceq (Hash (Join-Path $runtime $file))) 'Historical runtime file differs from strict reuse receipt'
             }
         }
-        & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log"
-        Need ($LASTEXITCODE -eq 0) 'Production EXE texture preparation failed'
-        $patchPath=Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll.patch.json';$patch=Get-Content $patchPath -Raw|ConvertFrom-Json
-        Need ($patch.targetExeSha256 -ceq $exeHash -and $patch.protectedPeAudit.status -ceq 'passed' -and $patch.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll'))) 'Texture deployment does not bind the actual production EXE'
-        Need (@(Get-ChildItem $runtime -File).Count -eq 5) 'Unexpected clean production runtime files'
-        $runtimeSnapshot=Snapshot $runtime;Copy-Item $patchPath "$modeOut/texture.patch.json"
-        $script:modeState=@{configuration=$mode;fixtureAssetScope='Known schema-valid Armor probes in base/APT/maps entry paths test orchestration; not new APT/map payload coverage';passed=$false;exeSha256=$exeHash;runtimeInputs=$runtimeSnapshot;textureDeployment=$patch;cases=@();baselineCases=@()};$state.modes+=,$modeState
+        if($reuse){
+            & "$PSScriptRoot/PrepareLegacyTexture.ps1" -TargetExe $exe *> "$modeOut/prepare-texture.log"
+            Need ($LASTEXITCODE -eq 0) 'Historical EXE texture preparation failed'
+            $patchPath=Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll.patch.json';$textureDeployment=Get-Content $patchPath -Raw|ConvertFrom-Json
+            Need ($textureDeployment.targetExeSha256 -ceq $exeHash -and $textureDeployment.protectedPeAudit.status -ceq 'passed' -and $textureDeployment.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll'))) 'Historical Texture deployment does not bind its EXE'
+            Need (@(Get-ChildItem $runtime -File).Count -eq 5) 'Unexpected historical production runtime files'
+            Copy-Item $patchPath "$modeOut/texture.patch.json"
+        }else{
+            $build=Get-Content -LiteralPath (Join-Path $CompilerDirectory "$mode/build.json") -Raw|ConvertFrom-Json
+            Need ($build.exeSha256 -ceq $exeHash -and $build.texturePlugin.implementation -ceq 'built-in-source' -and @($build.texturePlugin.externalRuntimeFiles).Count -eq 0) 'Production source texture build provenance differs'
+            Need (@(Get-ChildItem $runtime -Force).Count -eq 3) 'Unexpected clean production runtime files'
+            $textureDeployment=@{implementation='built-in-source';assemblySha256=$exeHash;externalRuntimeFiles=@()}
+        }
+        $runtimeSnapshot=Snapshot $runtime
+        $script:modeState=@{configuration=$mode;fixtureAssetScope='Known schema-valid Armor probes in base/APT/maps entry paths test orchestration; not new APT/map payload coverage';passed=$false;exeSha256=$exeHash;runtimeInputs=$runtimeSnapshot;textureDeployment=$textureDeployment;cases=@();baselineCases=@()};$state.modes+=,$modeState
         $sdk=(New-Item -ItemType Directory -Path (Join-Path $modeWork 's')).FullName
+        $script:legacyCacheLayout=$reuse
+        $script:allowedCachePartitions=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
         New-Item -ItemType Directory -Path "$sdk/tools","$sdk/Schemas"|Out-Null
         Copy-Item -LiteralPath (Join-Path $sourceSdk 'Schemas/xsd') -Destination "$sdk/Schemas" -Recurse
         Copy-Item -LiteralPath (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config') -Destination "$sdk/tools"
@@ -233,8 +251,9 @@ try {
         [IO.File]::WriteAllText("$emptyMod/Data/Mod.xml",$probe)
         $empty=RunCli 'empty-optional' 'build' $emptyMod $sdk 'apt,maps' 0 0
         Need (@($empty.report.plan.Skipped).Count -eq 2) 'Empty optional groups were not explicitly skipped'
-        $unsupported=RunCli 'compressed-session-cache-rejected' 'build' $mod $sdk 'base' 2 0 $false @('--csc=true')
-        Need (@($unsupported.report.diagnostics|Where-Object{$_.code -ceq 'CORE_OPTION_UNSUPPORTED'}).Count -eq 1) 'Unsupported compressed session cache was not explicitly refused'
+        $compressed=RunCli 'compressed-session-cache' 'build' $mod $sdk 'base' 0 1 $false @('--csc=true')
+        $sessionRoot=if($reuse){$compressed.destination}else{$compressed.report.cache.sessionCacheDirectory}
+        Need ($sessionRoot -and $compressed.report.cache.compressedSessionCache -and (Test-Path -LiteralPath (Join-Path $sessionRoot 'BinaryAssetBuilder.SessionCache.xml.deflate'))) 'Original compressed session cache was not produced'
         $badMod=Join-Path $modeWork '坏 XML MOD';New-Item -ItemType Directory -Path "$badMod/Data"|Out-Null
         [IO.File]::WriteAllText("$badMod/Data/Mod.xml",'<AssetDeclaration>broken')
         $bad=RunCli 'bad-xml' 'build' $badMod $sdk 'base' 4 1
@@ -245,40 +264,40 @@ try {
         # A read handle permits read-only parsing/physical-path inspection, but
         # withholds FILE_SHARE_DELETE so the real sink cannot replace its file.
         $fault=Join-Path $modeWork 'blocked-log.txt';[IO.File]::WriteAllText($fault,'held output')
-        $logFault=RunCli 'required-log-fault' 'build' $mod $sdk 'base' 7 0 $false @('--log',$fault) $fault
-        Need ([IO.File]::ReadAllText($fault) -ceq 'held output') 'Required-log fault truncated or replaced the held file'
+        $logFault=RunCli 'required-events-fault' 'build' $mod $sdk 'base' 7 0 $false @('--events',$fault) $fault
+        Need ([IO.File]::ReadAllText($fault) -ceq 'held output') 'Required event fault truncated or replaced the held file'
+        $optionalLogFault=RunCli 'optional-log-fault' 'build' $mod $sdk 'base' 0 1 $false @('--log',$fault) $fault
+        Need ([IO.File]::ReadAllText($fault) -ceq 'held output') 'Optional-log fault truncated or replaced the held file'
+        EqualTask $combined $optionalLogFault 'base'
         $afterLogFault=RunCli 'retry-after-log-fault' 'build' $mod $sdk 'base' 0 1 $false @('--log',$fault)
         EqualTask $combined $afterLogFault 'base'
-        Need ([IO.File]::ReadAllText($fault).Contains('BuildFinished')) 'Retry did not reuse the released required log path'
+        Need ([IO.File]::ReadAllText($fault).Contains('BuildFinished')) 'Retry did not reuse the released optional log path'
         $cancelled=RunCli 'ctrl-break' 'build' $mod $sdk 'base,apt,maps' 6 1 $true
         Need ($cancelled.report.status -ceq 'cancelled' -and @($cancelled.report.artifacts).Count -eq 0) 'Actual cancellation report accepted output'
         $afterCancel=RunCli 'retry-after-cancel' 'build' $mod $sdk 'base' 0 1
         # Reuse exactly the same destination across actual production processes.
         # Late report/terminal/close failures are separately injected by App contracts.
         if($script:publicationEnabled){
-            $firstPublication=RunCli 'publication-first' 'build' $mod $sdk 'base' 0 1
+            $firstPublication=RunCli 'direct-first' 'build' $mod $sdk 'base' 0 1
             $publicationOut=$firstPublication.destination;$generation=Join-Path $publicationOut 'published'
-            [IO.File]::WriteAllText((Join-Path $generation 'obsolete.bin'),'must not survive replacement')
-            $replacement=RunCli 'publication-replace' 'build' $mod $sdk 'apt' 0 2 -ReuseDestination $publicationOut
-            Need (!(Test-Path -LiteralPath (Join-Path $generation 'obsolete.bin')) -and !(Test-Path -LiteralPath (Join-Path $generation 'base'))) 'Replacement retained old generation files'
-            Need (@(Get-ChildItem -LiteralPath $generation -File -Recurse).Count -eq 8) 'Replacement did not publish the exact artifact allowlist'
+            $unrelated=Join-Path $generation 'unrelated.keep'
+            [IO.File]::WriteAllText($unrelated,'preserve unrelated output')
+            $replacement=RunCli 'direct-next-selection' 'build' $mod $sdk 'apt' 0 2 -ReuseDestination $publicationOut
+            Need ((Test-Path -LiteralPath (Join-Path $generation 'base')) -and [IO.File]::ReadAllText($unrelated) -ceq 'preserve unrelated output') 'Direct build removed unselected output'
+            Need (@($replacement.report.artifacts).Count -eq 8 -and @($replacement.report.artifacts|Where-Object{$_.Path -like '*published*base*'}).Count -eq 0) 'Current selection accepted old stream files'
             EqualTask $combined $replacement 'apt'
-            $generationSnapshot=Snapshot $generation
-            $cancelPublication=RunCli 'publication-cancel-retains' 'build' $mod $sdk 'base,apt,maps' 6 1 $true -ReuseDestination $publicationOut
-            Unchanged $generation $generationSnapshot
+            $cancelPublication=RunCli 'direct-cancel' 'build' $mod $sdk 'base,apt,maps' 6 1 $true -ReuseDestination $publicationOut
+            Need (@($cancelPublication.report.artifacts).Count -eq 0) 'Cancelled build accepted previous output'
             [IO.File]::WriteAllText((Join-Path $badMod 'Data/Mod.xml'),'<AssetDeclaration>broken')
-            $failedPublication=RunCli 'publication-compile-failure-retains' 'build' $badMod $sdk 'base' 4 1 -ReuseDestination $publicationOut
-            Unchanged $generation $generationSnapshot
+            $failedPublication=RunCli 'direct-compile-failure' 'build' $badMod $sdk 'base' 4 1 -ReuseDestination $publicationOut
+            Need (@($failedPublication.report.artifacts).Count -eq 0 -and [IO.File]::ReadAllText($unrelated) -ceq 'preserve unrelated output') 'Failed build accepted old output or removed unrelated files'
             [IO.File]::WriteAllText((Join-Path $badMod 'Data/Mod.xml'),$probe)
             $heldArtifact=@($replacement.report.artifacts)[0].Path
-            $occupiedPublication=RunCli 'publication-occupied-retains' 'build' $mod $sdk 'base' 7 1 -HoldReadFile $heldArtifact -ReuseDestination $publicationOut
-            Need ($occupiedPublication.report.publicationStatus -ceq 'NotPublished') 'Occupied output was accepted as a publication'
-            Need ($occupiedPublication.report.exitCode -eq 7 -and $modeState.cases[-1].control.readLockHeld -and $modeState.cases[-1].control.readLockPath -ceq $heldArtifact) 'Publication fault did not hold an actual prior generation artifact'
-            Unchanged $generation $generationSnapshot
-            $publicationRetry=RunCli 'publication-retry' 'build' $mod $sdk 'base' 0 1 -ReuseDestination $publicationOut
-            Need (@(Get-ChildItem -LiteralPath $generation -File -Recurse).Count -eq 4 -and !(Test-Path -LiteralPath (Join-Path $generation 'apt'))) 'Publication retry mixed old/new selections'
+            $publicationRetry=RunCli 'locked-unselected-output' 'build' $mod $sdk 'base' 0 1 -HoldReadFile $heldArtifact -ReuseDestination $publicationOut
+            Need (@($publicationRetry.report.artifacts).Count -eq 4 -and (Test-Path -LiteralPath (Join-Path $generation 'apt'))) 'Direct retry mixed current and unselected streams'
             EqualTask $combined $publicationRetry 'base'
-            $modeState.publicationAcceptance=@{passed=$true;directory=$generation;first=$firstPublication.name;replacement=$replacement.name;cancel=$cancelPublication.name;compilationFailure=$failedPublication.name;occupied=$occupiedPublication.name;retry=$publicationRetry.name;lateOutputFailures='Separate controlled App lifecycle contracts; no real CLI late failure injection claimed'}
+            $modeState.publicationAcceptance=@{passed=$true;directory=$generation;first=$firstPublication.name;replacement=$replacement.name;cancel=$cancelPublication.name;compilationFailure=$failedPublication.name;retry=$publicationRetry.name;scope='Direct output; current allowlist excludes old selections, unrelated files remain, no whole-MOD rollback'}
+
         }
         foreach($selection in @(@{name='mod-a';task=@($ascii.report.plan.Tasks|Where-Object{$_.Content -ceq 'base'})[0]},@{name='mod-b';task=@($ascii.report.plan.Tasks|Where-Object{$_.Content -ceq 'apt'})[0]})){
             $task=$selection.task;$prefix=Join-Path (ArtifactRoot $ascii.destination $ascii.report) ($task.Content+'/'+[IO.Path]::GetFileNameWithoutExtension($task.InputPath));$outputs=@{}
@@ -378,14 +397,14 @@ try {
             foreach($inputFile in $uiPrepared.sourceInputs){Need ((Hash (Join-Path $root $inputFile.path)) -ceq $inputFile.sha256) 'Real UI preparation source changed'}
             $uiReceipt.inputsUnchanged=$true;$uiReceipt.coldOutputsIdentical=$true;$uiReceipt.originalFourOutputsIdentical=$true;$uiReceipt.originalCustomDataIdentical=$true;$uiReceipt.inlineTexturePayloadVerified=$true;$uiReceipt.succeeded=$true
         } finally {$uiReceipt|ConvertTo-Json -Depth 14|Set-Content "$modeOut/real-ui-validation.json"}
-        Unchanged $mod $modSnapshot;Unchanged $asciiMod $asciiSnapshot;Unchanged $sdk $sdkSnapshot;Unchanged $runtime $runtimeSnapshot
+        Unchanged $mod $modSnapshot;Unchanged $asciiMod $asciiSnapshot;Unchanged $sdk $sdkSnapshot @($script:allowedCachePartitions);Unchanged $runtime $runtimeSnapshot
         $modeState.passed=$true
     }
     Unchanged (Join-Path $sourceSdk 'Schemas/xsd') $schemaSnapshot
     Need ((Hash (Join-Path $sourceSdk 'tools/BinaryAssetBuilder.exe.config')) -ceq $configHash -and (Hash $probeFile) -ceq $probeHash) 'Original SDK inputs changed'
     $state.succeeded=$true;$state.scope='Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/inline Texture DDS comparison; full SDK/cache acceptance remain separate'
-    if($script:publicationEnabled){$state.scope+='; transactional published generation first/replacement, occupied output, compilation failure/cancellation preserving old generation and same-path retry passed; injected late-output rollback remains the separate controlled App lifecycle group'}
-    if($reuse){$state.scope+='; current transactional publication acceptance was not performed; these current tests executed the explicitly recorded historical binarySourceCommit, not a rebuilt current candidate'}
+    if($script:publicationEnabled){$state.scope+='; direct same-path output, selection isolation, unrelated-file preservation, failure/cancellation retry and held unselected-output acceptance passed; injected late-output persistence is checked by controlled App contracts'}
+    if($reuse){$state.scope+='; current direct-output acceptance was not performed; these tests executed the explicitly recorded historical binarySourceCommit, not a rebuilt current candidate'}
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {

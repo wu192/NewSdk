@@ -1,0 +1,226 @@
+name: RA3 EALayer3 V1
+on:
+  push:
+    branches: [feature/ra3-ealayer3]
+    paths: ['recovery/src/**', 'recovery/build/**', 'recovery/scripts/*EaLayer3*', 'recovery/tests/AudioEaLayer3*', '.github/workflows/audio-ealayer3.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  targeted:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/checkout@v4
+        with:
+          repository: jonwil/ealayer3compilerplugin
+          ref: ed407302ae63cd6ba849af586ef765c03ca008b3
+          path: work/ra3-oracle
+          persist-credentials: false
+      - uses: ilammy/msvc-dev-cmd@v1
+        with: {arch: x86}
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - name: Build and encode real AudioFile assets, jobs 1 and 4, independently decode
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioEaLayer3.ps1
+      - name: Compare format and decoded signal with jonwil RA3 plugin
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioEaLayer3Oracle.ps1 -UpstreamDirectory work/ra3-oracle
+      - name: Existing NONE XAS MP3Passthrough and PathMusic byte regressions
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestAudioMetadata.ps1 -OutputDirectory recovery/evidence/audio/ealayer3/metadata
+          ./recovery/scripts/TestAudioPlugin.ps1 -Groups business,pcm,xas,main,loops,aiffloops -IncludeMp3
+      - name: Summarize results and selected upload size
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/ealayer3/**/*.json
+            recovery/evidence/audio/ealayer3/**/*.jsonl
+            recovery/evidence/audio/ealayer3/**/*.log
+            recovery/evidence/audio/ealayer3/**/*difference.txt
+            recovery/evidence/audio/ealayer3/**/*.md
+            recovery/evidence/audio/ealayer3/**/*.csv
+            recovery/evidence/audio/ealayer3/**/*.tsv
+            !recovery/evidence/audio/ealayer3/**/Original-calls.tsv
+            !recovery/evidence/audio/ealayer3/**/Recovered-calls.tsv
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference.txt
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/Original-calls.tsv
+            !recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered-calls.tsv
+            recovery/evidence/audio/ealayer3/Release/bin/BinaryAssetBuilder.AudioCompiler.dll
+            recovery/evidence/audio/ealayer3/Release/bin/NewSdk.EaLayer3.dll
+            recovery/evidence/audio/ealayer3/Release/jobs1/*.runtime
+            recovery/evidence/audio/ealayer3/Release/jobs1/*.relo
+            recovery/evidence/audio/ealayer3/Release/jobs1/*.imp
+            recovery/evidence/audio/ealayer3/Release/jobs1/*.cdata
+            recovery/evidence/audio/ealayer3/validation.json
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
+        run: python recovery/scripts/WriteCiSummary.py --title "EALayer3 component acceptance"
+      # Same-run integration needs both DLLs and complete jobs1 buffers; the plugin receipt preserves the audio-root ZIP layout.
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: ealayer3-${{ github.run_id }}
+          retention-days: 1
+          path: |
+            recovery/evidence/audio/ealayer3/Release/bin/BinaryAssetBuilder.AudioCompiler.dll
+            recovery/evidence/audio/ealayer3/Release/bin/NewSdk.EaLayer3.dll
+            recovery/evidence/audio/ealayer3/Release/jobs1/*.runtime
+            recovery/evidence/audio/ealayer3/Release/jobs1/*.relo
+            recovery/evidence/audio/ealayer3/Release/jobs1/*.imp
+            recovery/evidence/audio/ealayer3/Release/jobs1/*.cdata
+            recovery/evidence/audio/ealayer3/validation.json
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: ealayer3-diagnostics-${{ github.run_id }}
+          retention-days: 1
+          path: |
+            recovery/evidence/audio/ealayer3/**/*.json
+            recovery/evidence/audio/ealayer3/**/*.jsonl
+            recovery/evidence/audio/ealayer3/**/*.log
+            recovery/evidence/audio/ealayer3/**/*difference.txt
+            recovery/evidence/audio/ealayer3/**/*.md
+            recovery/evidence/audio/ealayer3/**/*.csv
+            recovery/evidence/audio/ealayer3/**/*.tsv
+            !recovery/evidence/audio/ealayer3/**/Original-calls.tsv
+            !recovery/evidence/audio/ealayer3/**/Recovered-calls.tsv
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*difference.txt
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/Original-calls.tsv
+            !recovery/evidence/audio/plugin-validation/${{ github.run_id }}-${{ github.run_attempt }}/**/Recovered-calls.tsv
+          if-no-files-found: warn
+  integration:
+    needs: targeted
+    runs-on: windows-2022
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false, fetch-depth: 0}
+      - uses: ilammy/msvc-dev-cmd@v1
+        with: {arch: x86}
+      - uses: actions/setup-dotnet@v4
+        with: {dotnet-version: '8.0.x'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install existing protected-PE and protocol audit dependencies
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: ealayer3-${{ github.run_id }}
+          path: work/targeted
+      - name: Official BAB loads and compiles with new AudioCompiler DLL
+        shell: pwsh
+        run: ./recovery/scripts/TestAudioEaLayer3Sdk.ps1 -AudioBinDirectory work/targeted/ealayer3/Release/bin
+      - name: Normal production Debug and Release builds with statically linked EALayer3
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/ealayer3-product/$mode"
+          }
+      - name: Production CLI jobs, cold/hot cache, changed audio, independent rebuild
+        shell: pwsh
+        run: python recovery/scripts/TestAudioEaLayer3Integration.py --repo . --exe recovery/artifacts/ealayer3-product/Release/bin/NewModCompiler.exe --work "$env:RUNNER_TEMP/ea-cli" --output recovery/evidence/audio/ealayer3-cli
+      - name: One complete mymod integration acceptance against original SDK
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/ealayer3-product -OutputDirectory recovery/evidence/audio/ealayer3-full-sdk
+      - name: Summarize results and selected upload size
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/audio/ealayer3-sdk/**/*.json
+            recovery/evidence/audio/ealayer3-sdk/**/*.jsonl
+            recovery/evidence/audio/ealayer3-sdk/**/*.log
+            recovery/evidence/audio/ealayer3-sdk/**/*difference.txt
+            recovery/evidence/audio/ealayer3-sdk/**/*.md
+            recovery/evidence/audio/ealayer3-sdk/**/*.csv
+            recovery/evidence/audio/ealayer3-sdk/**/*.tsv
+            !recovery/evidence/audio/ealayer3-sdk/**/Original-calls.tsv
+            !recovery/evidence/audio/ealayer3-sdk/**/Recovered-calls.tsv
+            recovery/evidence/audio/ealayer3-cli/**/*.json
+            recovery/evidence/audio/ealayer3-cli/**/*.jsonl
+            recovery/evidence/audio/ealayer3-cli/**/*.log
+            recovery/evidence/audio/ealayer3-cli/**/*difference.txt
+            recovery/evidence/audio/ealayer3-cli/**/*.md
+            recovery/evidence/audio/ealayer3-cli/**/*.csv
+            recovery/evidence/audio/ealayer3-cli/**/*.tsv
+            !recovery/evidence/audio/ealayer3-cli/**/Original-calls.tsv
+            !recovery/evidence/audio/ealayer3-cli/**/Recovered-calls.tsv
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.json
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.jsonl
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.log
+            recovery/evidence/audio/ealayer3-full-sdk/**/*difference.txt
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.md
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.csv
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.tsv
+            !recovery/evidence/audio/ealayer3-full-sdk/**/Original-calls.tsv
+            !recovery/evidence/audio/ealayer3-full-sdk/**/Recovered-calls.tsv
+            recovery/artifacts/ealayer3-product/**/*.json
+            recovery/artifacts/ealayer3-product/**/*.jsonl
+            recovery/artifacts/ealayer3-product/**/*.log
+            recovery/artifacts/ealayer3-product/**/*difference.txt
+            recovery/artifacts/ealayer3-product/**/*.md
+            recovery/artifacts/ealayer3-product/**/*.csv
+            recovery/artifacts/ealayer3-product/**/*.tsv
+            !recovery/artifacts/ealayer3-product/**/Original-calls.tsv
+            !recovery/artifacts/ealayer3-product/**/Recovered-calls.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "EALayer3 SDK integration"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: ealayer3-integration-${{ github.run_id }}
+          retention-days: 1
+          path: |
+            recovery/evidence/audio/ealayer3-sdk/**/*.json
+            recovery/evidence/audio/ealayer3-sdk/**/*.jsonl
+            recovery/evidence/audio/ealayer3-sdk/**/*.log
+            recovery/evidence/audio/ealayer3-sdk/**/*difference.txt
+            recovery/evidence/audio/ealayer3-sdk/**/*.md
+            recovery/evidence/audio/ealayer3-sdk/**/*.csv
+            recovery/evidence/audio/ealayer3-sdk/**/*.tsv
+            !recovery/evidence/audio/ealayer3-sdk/**/Original-calls.tsv
+            !recovery/evidence/audio/ealayer3-sdk/**/Recovered-calls.tsv
+            recovery/evidence/audio/ealayer3-cli/**/*.json
+            recovery/evidence/audio/ealayer3-cli/**/*.jsonl
+            recovery/evidence/audio/ealayer3-cli/**/*.log
+            recovery/evidence/audio/ealayer3-cli/**/*difference.txt
+            recovery/evidence/audio/ealayer3-cli/**/*.md
+            recovery/evidence/audio/ealayer3-cli/**/*.csv
+            recovery/evidence/audio/ealayer3-cli/**/*.tsv
+            !recovery/evidence/audio/ealayer3-cli/**/Original-calls.tsv
+            !recovery/evidence/audio/ealayer3-cli/**/Recovered-calls.tsv
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.json
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.jsonl
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.log
+            recovery/evidence/audio/ealayer3-full-sdk/**/*difference.txt
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.md
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.csv
+            recovery/evidence/audio/ealayer3-full-sdk/**/*.tsv
+            !recovery/evidence/audio/ealayer3-full-sdk/**/Original-calls.tsv
+            !recovery/evidence/audio/ealayer3-full-sdk/**/Recovered-calls.tsv
+            recovery/artifacts/ealayer3-product/**/*.json
+            recovery/artifacts/ealayer3-product/**/*.jsonl
+            recovery/artifacts/ealayer3-product/**/*.log
+            recovery/artifacts/ealayer3-product/**/*difference.txt
+            recovery/artifacts/ealayer3-product/**/*.md
+            recovery/artifacts/ealayer3-product/**/*.csv
+            recovery/artifacts/ealayer3-product/**/*.tsv
+            !recovery/artifacts/ealayer3-product/**/Original-calls.tsv
+            !recovery/artifacts/ealayer3-product/**/Recovered-calls.tsv
+          if-no-files-found: warn

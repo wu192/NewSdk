@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "lowLevelEvidenceScope": "unchanged implementation and tests; historical component toolchain only, product build mode covered by new captured ProcessInstance replay",
+  "scope": "complete captured W3X ProcessInstance matrix replay against product EXE; SDK not run",
+  "pluginReceiptSha256": "6aa8fa2dcd4604ae0efbfc510c747bd85753549156e72738575fbad4cc5571a6",
+  "reusedInputsSha256": "31fd1191df2c168bda3c7b97df904580ce2e27c766a97dc336bf65654b6c588d",
+  "runAttempt": "1",
+  "reusedCaptureRunId": "41003189856",
+  "configurations": [],
+  "status": "failed",
+  "sourceCommit": "894ef186afaa8a2d5dbf377cdfbeeddb9928aa31",
+  "lowLevelNativeMatrixRerun": false,
+  "runId": "41003189856",
+  "componentReceiptSha256": "745dabdbec0cb5b7cd96ff78c66ac9f3c7fb4c2d30d62291dcd52612d3ba872b",
+  "reusedCaptureSourceCommit": "894ef186afaa8a2d5dbf377cdfbeeddb9928aa31",
+  "error": "System.Management.Automation.ItemNotFoundException: Cannot find path 'D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\w3x-compression-product\\Debug\\validation\\build.json' because it does not exist.\r\n   at System.Management.Automation.LocationGlobber.ExpandMshGlobPath(String path, Boolean allowNonexistingPaths, PSDriveInfo drive, ContainerCmdletProvider provider, CmdletProviderContext context)\r\n   at System.Management.Automation.LocationGlobber.ResolveDriveQualifiedPath(String path, CmdletProviderContext context, Boolean allowNonexistingPaths, CmdletProvider& providerInstance)\r\n   at System.Management.Automation.LocationGlobber.GetGlobbedMonadPathsFromMonadPath(String path, Boolean allowNonexistingPaths, CmdletProviderContext context, CmdletProvider& providerInstance)\r\n   at System.Management.Automation.PathIntrinsics.GetResolvedPSPathFromPSPath(String path, CmdletProviderContext context)\r\n   at Microsoft.PowerShell.Commands.ContentCommandBase.ResolvePaths(String[] pathsToResolve, Boolean allowNonexistingPaths, Boolean allowEmptyResult, CmdletProviderContext currentCommandContext)",
+  "reusedCaptureRunAttempt": "1"
+}

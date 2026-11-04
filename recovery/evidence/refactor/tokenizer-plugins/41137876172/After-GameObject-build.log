@@ -1,0 +1,13 @@
+Relocation.cpp
+ScalarParsing.cpp
+DataInitializers.cpp
+ResourceMarshaling.cpp
+EnumBitset.cpp
+ObjectFilter.cpp
+WeaponSlotOrder.cpp
+GameObject.cpp
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObject.cpp(580): error C3530: 'auto' cannot be combined with any other type-specifier
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObject.cpp(580): error C2513: 'char': no variable declared before '='
+D:\a\NewSdk\NewSdk\recovery\src\Native\GameObject.cpp(580): error C2062: type 'char' unexpected
+GameObjectCompiler.cpp
+Generating Code...

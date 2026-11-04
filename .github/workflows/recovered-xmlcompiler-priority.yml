@@ -96,12 +96,33 @@ jobs:
           if ($result.succeeded -ne $true -or $result.sourceCommit -ne $env:GITHUB_SHA -or [string]$result.runId -ne $env:GITHUB_RUN_ID) {
             throw 'Missing or mismatched validation evidence'
           }
+      - name: Summarize results and selected upload size
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/xml-${{ matrix.group }}/**/*.json
+            recovery/evidence/xml-${{ matrix.group }}/**/*.jsonl
+            recovery/evidence/xml-${{ matrix.group }}/**/*.log
+            recovery/evidence/xml-${{ matrix.group }}/**/*.txt
+            recovery/evidence/xml-${{ matrix.group }}/**/*.md
+            recovery/evidence/xml-${{ matrix.group }}/**/*.csv
+            recovery/evidence/xml-${{ matrix.group }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "XML priority validation"
+      # Small reports and oracle text logs are required by the same-run evidence aggregation job.
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: xml-priority-${{ matrix.group }}
-          path: recovery/evidence/xml-${{ matrix.group }}
-          if-no-files-found: error
+          retention-days: 1
+          path: |
+            recovery/evidence/xml-${{ matrix.group }}/**/*.json
+            recovery/evidence/xml-${{ matrix.group }}/**/*.jsonl
+            recovery/evidence/xml-${{ matrix.group }}/**/*.log
+            recovery/evidence/xml-${{ matrix.group }}/**/*.txt
+            recovery/evidence/xml-${{ matrix.group }}/**/*.md
+            recovery/evidence/xml-${{ matrix.group }}/**/*.csv
+            recovery/evidence/xml-${{ matrix.group }}/**/*.tsv
+          if-no-files-found: warn
   link:
     needs: [inventory, differential]
     if: always() && needs.inventory.result == 'success' && needs.inventory.outputs.link_ready == 'true' && (needs.differential.result == 'success' || needs.differential.result == 'skipped')
@@ -117,19 +138,41 @@ jobs:
         env:
           XML_LINK_ROOTS: ${{ needs.inventory.outputs.link_roots }}
         run: ./recovery/scripts/TestXmlPriorityLink.ps1
+      - name: Summarize results and selected upload size
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/xml-priority-link/**/*.json
+            recovery/evidence/xml-priority-link/**/*.jsonl
+            recovery/evidence/xml-priority-link/**/*.log
+            recovery/evidence/xml-priority-link/**/*.txt
+            recovery/evidence/xml-priority-link/**/*.md
+            recovery/evidence/xml-priority-link/**/*.csv
+            recovery/evidence/xml-priority-link/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "XML priority validation"
+      # Small reports and oracle text logs are required by the same-run evidence aggregation job.
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: xml-priority-priority-link
+          retention-days: 1
           path: |
-            recovery/evidence/xml-priority-link
-            !recovery/evidence/xml-priority-link/**/*.dll
-          if-no-files-found: error
+            recovery/evidence/xml-priority-link/**/*.json
+            recovery/evidence/xml-priority-link/**/*.jsonl
+            recovery/evidence/xml-priority-link/**/*.log
+            recovery/evidence/xml-priority-link/**/*.txt
+            recovery/evidence/xml-priority-link/**/*.md
+            recovery/evidence/xml-priority-link/**/*.csv
+            recovery/evidence/xml-priority-link/**/*.tsv
+          if-no-files-found: warn
+      # Seven days for explicit cross-run SDK compiler reuse; contains only the linked compiler DLLs.
       - uses: actions/upload-artifact@v4
         if: success()
         with:
           name: recovered-xmlcompiler-priority-x86
-          path: ${{ runner.temp }}/ra3-recovered-xml-priority-link/**/Recovered.XmlCompilerPriority.dll
+          retention-days: 7
+          path: |
+            ${{ runner.temp }}/ra3-recovered-xml-priority-link/**/Recovered.XmlCompilerPriority.dll
           if-no-files-found: error
   evidence:
     needs: [inventory, differential, link]

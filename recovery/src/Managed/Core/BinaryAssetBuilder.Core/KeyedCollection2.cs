@@ -12,7 +12,9 @@ public abstract class KeyedCollection2<TKey, TItem> : Collection2<TItem>
 
 	private IEqualityComparer<TKey> comparer;
 
-	private SortedDictionary<TKey, TItem> dict;
+	// Enumeration belongs to Collection2.Items. This index is only used for
+	// identity lookups, so maintaining a second sorted tree adds no ordering.
+	private Dictionary<TKey, TItem> dict;
 
 	private int keyCount;
 
@@ -162,7 +164,7 @@ public abstract class KeyedCollection2<TKey, TItem> : Collection2<TItem>
 
 	private void CreateDictionary()
 	{
-		dict = new SortedDictionary<TKey, TItem>();
+		dict = new Dictionary<TKey, TItem>(comparer);
 		foreach (TItem item in base.Items)
 		{
 			TKey keyForItem = GetKeyForItem(item);

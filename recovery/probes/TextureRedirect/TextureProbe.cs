@@ -42,10 +42,10 @@ public static class TextureProbe
             if (exe && owner != Assembly.GetEntryAssembly()) throw new Exception("Core types must belong to the current entry EXE");
             if (exe && owner.GetModules().Length != 1) throw new Exception("EXE-bound Core still depends on build-time modules");
             if (exe)
-                foreach (string name in new[] { "BinaryAssetBuilder.Core", "BinaryAssetBuilder.Utility", "EALA.Hash", "EALA.Metrics" })
+                foreach (string name in new[] { "BinaryAssetBuilder.Core", "BinaryAssetBuilder.Utility", "EALA.Hash", "EALA.Metrics", "BinaryAssetBuilder.TextureCompiler" })
                     if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, name + ".dll"))) throw new Exception("Forbidden compatibility DLL present: " + name);
-#if TEXTURE_ADAPTER_PROBE
-            object instance = NewModCompiler.Compatibility.LegacyTextureAdapter.Load();
+#if TEXTURE_SOURCE_PROBE
+            object instance = new Recovered.Compiler.Texture.Plugin();
 #else
             var pluginAssembly = Assembly.LoadFrom(Path.GetFullPath(args[0]));
             object instance = Activator.CreateInstance(pluginAssembly.GetType("BinaryAssetBuilder.TextureCompiler.Plugin", true));
@@ -92,15 +92,15 @@ public static class TextureProbe
                 }
             }
             finally { ((IDisposable)instance).Dispose(); }
-#if TEXTURE_ADAPTER_PROBE
+#if TEXTURE_SOURCE_PROBE
             ((IDisposable)instance).Dispose(); // single-close contract: a second close is harmless
             bool closed = false;
             try { plugin.GetVersionNumber(); } catch (ObjectDisposedException) { closed = true; }
-            if (!closed) throw new Exception("Texture adapter remains callable after Dispose");
+            if (!closed) throw new Exception("Texture plugin remains callable after Dispose");
 #endif
             string trace = args[2] + ".assemblies.tsv";
             File.WriteAllLines(trace, AppDomain.CurrentDomain.GetAssemblies().OrderBy(a => a.FullName).Select(a => a.FullName + "\t" + (a.IsDynamic ? "dynamic" : a.Location)).ToArray());
-            if (exe && AppDomain.CurrentDomain.GetAssemblies().Any(a => new[] { "BinaryAssetBuilder.Core", "BinaryAssetBuilder.Utility", "EALA.Hash", "EALA.Metrics" }.Contains(a.GetName().Name))) throw new Exception("Old business assembly loaded");
+            if (exe && AppDomain.CurrentDomain.GetAssemblies().Any(a => new[] { "BinaryAssetBuilder.Core", "BinaryAssetBuilder.Utility", "EALA.Hash", "EALA.Metrics", "BinaryAssetBuilder.TextureCompiler" }.Contains(a.GetName().Name))) throw new Exception("Old business assembly loaded");
             using (var process = System.Diagnostics.Process.GetCurrentProcess())
                 File.WriteAllLines(args[2] + ".native.tsv", process.Modules.Cast<System.Diagnostics.ProcessModule>().Select(m => m.ModuleName + "\t" + m.FileName).OrderBy(s => s).ToArray());
             if (successes != 6 || errors != 3) throw new Exception("Incomplete three-route matrix");

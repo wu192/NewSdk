@@ -1,0 +1,64 @@
+name: Real Upheaval W3X channel compression performance
+on:
+  push:
+    branches: [optimize/w3d-animation-compression]
+    paths:
+      - '.github/workflows/w3x-historical-compression.yml'
+      - 'recovery/scripts/BenchmarkW3xHistoricalCompression.py'
+      - 'recovery/tests/W3xHistoricalCompression.cpp'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w3x-historical-compression-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  measure:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Compare all real channels and original selected formats on one VM
+        shell: pwsh
+        run: python recovery/scripts/BenchmarkW3xHistoricalCompression.py --output "recovery/evidence/w3x/historical-compression/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Summarize CI evidence
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'w3x-historical-compression-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/historical-compression/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

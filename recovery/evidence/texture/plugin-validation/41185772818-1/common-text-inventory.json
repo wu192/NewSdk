@@ -1,0 +1,624 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "8fe12ca9b1eea1ab0d67ebc964f5a4ac1b2f462d",
+  "runId": "41185772818",
+  "runAttempt": "1",
+  "archiveSha256": "7f5f711b82e68b273c6ace2eadeb2250389e0984c66ca74462082677a963e9bd",
+  "files": [
+    {
+      "path": "controller/build.json",
+      "bytes": 1566,
+      "sha256": "e61f4a65cf7c0af9be1f7fe13da8fb682a5bc0f7b3b1b419c006dcd67d80a3b2"
+    },
+    {
+      "path": "controller/controller-build.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "controller/parent-identity-tests.log",
+      "bytes": 53,
+      "sha256": "f8b67d0afdb4ec8e3194542d39d0bd68b9dc7f2b8b936ca92308eff8c6a94caa"
+    },
+    {
+      "path": "Debug/cli/cold/build-report.json",
+      "bytes": 14050,
+      "sha256": "b1403cddfb28f8c8242ece5eebee64e23aff53b1e6e86518b3a610c68598f560"
+    },
+    {
+      "path": "Debug/cli/cold/build.events.jsonl",
+      "bytes": 22811,
+      "sha256": "dae8d2cf8d59e176430ad2ec99f8abc5e859e4b64276c71da35530a9ba7b42df"
+    },
+    {
+      "path": "Debug/cli/cold/control.json",
+      "bytes": 599,
+      "sha256": "e2eb1b8efcb46222a870df4763822a04785ed39e1f3b8fd6bb3782e16764f5d6"
+    },
+    {
+      "path": "Debug/cli/cold/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/cold/request.json",
+      "bytes": 1565,
+      "sha256": "ec14efa3b2dbb8669d6f2f03e83a490631f2016c02f2fbade241cd7bde97cffa"
+    },
+    {
+      "path": "Debug/cli/cold/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/cold/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/cold-jobs4/build-report.json",
+      "bytes": 14212,
+      "sha256": "1973ef5d9f8d4849eb384955177d8ac74b3b9b0d64f49fe41ee12e2c598af751"
+    },
+    {
+      "path": "Debug/cli/cold-jobs4/build.events.jsonl",
+      "bytes": 20103,
+      "sha256": "caacddf1e7e025481085ede8026926ed4b917a6a93d55351c8c656c184707b5c"
+    },
+    {
+      "path": "Debug/cli/cold-jobs4/control.json",
+      "bytes": 599,
+      "sha256": "d1bcc12f6ef80082c4bf8d4541182400c47c750c8b09a212683dccace9bb5b4e"
+    },
+    {
+      "path": "Debug/cli/cold-jobs4/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/cold-jobs4/request.json",
+      "bytes": 1589,
+      "sha256": "85753df809c08d9d73c55c124c6b2ac85e1f181be1348bbdb0c30362376d1860"
+    },
+    {
+      "path": "Debug/cli/cold-jobs4/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/cold-jobs4/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/cold-jobsauto/build-report.json",
+      "bytes": 14091,
+      "sha256": "89db688ec3e2229b5461acd27df7d21e620eff824904b6c7fdc070a0f0635956"
+    },
+    {
+      "path": "Debug/cli/cold-jobsauto/build.events.jsonl",
+      "bytes": 20179,
+      "sha256": "08abf1c8add3389a5bc800469f2166208d53a098dcaedc0ac6c26ad60d027081"
+    },
+    {
+      "path": "Debug/cli/cold-jobsauto/control.json",
+      "bytes": 599,
+      "sha256": "8a7bd699c9a3cac508b65d59c8da347553bf2ded4e4cdc69a38ed19d7e35486a"
+    },
+    {
+      "path": "Debug/cli/cold-jobsauto/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/cold-jobsauto/request.json",
+      "bytes": 1607,
+      "sha256": "c66af7e2b88adf9a56ff0082a92f9036a3c85ea0b6f40068d25f1394dd8302a0"
+    },
+    {
+      "path": "Debug/cli/cold-jobsauto/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/build-report.json",
+      "bytes": 13523,
+      "sha256": "cc8eea44da96da50d21cf6aa46fe9883e49de0b8a8c0e382363efa32261b51ca"
+    },
+    {
+      "path": "Debug/cli/cold-jobsauto/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/control.json",
+      "bytes": 596,
+      "sha256": "f56e7f420217732c18b401bd7f88ce7d1f90283fdc77dcafa0aad5066904a346"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/build.events.jsonl",
+      "bytes": 19456,
+      "sha256": "15f6036f42435cb22737c0bf92a3adae075250b440e97bb14997bc035643393c"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/request.json",
+      "bytes": 1584,
+      "sha256": "3f4f9dc51bf7b0d80c3062305b8c66f3052f4593a295b21d01e208799ad40158"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/fresh-no-cache/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/missing-image/build-report.json",
+      "bytes": 17216,
+      "sha256": "9042b49cfb6b1601d13445124d9d9dcd42330b26d4d09e22df68470511ecf0c9"
+    },
+    {
+      "path": "Debug/cli/missing-image/build.events.jsonl",
+      "bytes": 18013,
+      "sha256": "b51373c5dbc6cadc1eb6505eeb3563d29c0bb5e0647d62a6e31bd1c79e93648f"
+    },
+    {
+      "path": "Debug/cli/missing-image/control.json",
+      "bytes": 632,
+      "sha256": "8c809846fdd9430d904b89135f0454ae348bb3989ea93776a4255d35f851a109"
+    },
+    {
+      "path": "Debug/cli/missing-image/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/missing-image/request.json",
+      "bytes": 1583,
+      "sha256": "b518db65a4d02be94fdfdf6be42a76bf5c4e4566e3c25aa1667ffe8eb118c99d"
+    },
+    {
+      "path": "Debug/cli/missing-image/stderr.log",
+      "bytes": 2419,
+      "sha256": "3113f6b73469fb23cdd523b217e142378bbed0163b631d518ac1bbf0d1576be5"
+    },
+    {
+      "path": "Debug/cli/missing-image/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/build-report.json",
+      "bytes": 14051,
+      "sha256": "26c77cd4a76c7026e86e66d068525306ab793a81b45c0f331642213a4e38e929"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/build.events.jsonl",
+      "bytes": 19595,
+      "sha256": "54dd6e5b1ac90d69d72b70c35b136622f7ba61d98ae5b354156ff273a4da3af0"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/control.json",
+      "bytes": 632,
+      "sha256": "f6a905e642731a0511517115698582d2c1a848763e4ddd5e1fef54b35163331b"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/request.json",
+      "bytes": 1591,
+      "sha256": "f1f02b864f0dd95665d6448edf0a470f7e067f68c4cac6796818cfe5240ac66b"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/one-image-mutated/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/restored-retry/build-report.json",
+      "bytes": 12403,
+      "sha256": "eb017c1dbdaa59658d5b4256cd2a91c64f81dea2f1983e35bc0c42b8a14329a3"
+    },
+    {
+      "path": "Debug/cli/restored-retry/build.events.jsonl",
+      "bytes": 17788,
+      "sha256": "1e7d0f15ab5ebbeb39bf4dfacb4aaf290ddc9cf540dc8da65f055584397ab68f"
+    },
+    {
+      "path": "Debug/cli/restored-retry/control.json",
+      "bytes": 630,
+      "sha256": "ba10eb5d2e0dc9de4ef07b44c22cfae9673bcf746131f600a03b19ab986eee6a"
+    },
+    {
+      "path": "Debug/cli/restored-retry/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/restored-retry/request.json",
+      "bytes": 1588,
+      "sha256": "85065935a1608b931021d88ae16b373b3dcd19828d5b3b96050835ca626a730d"
+    },
+    {
+      "path": "Debug/cli/restored-retry/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/restored-retry/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/warm-jobs-switch/build-report.json",
+      "bytes": 12429,
+      "sha256": "e3c156038361c037c37fefb52be2723af4c9a2e9367ca74988943be2fa428e36"
+    },
+    {
+      "path": "Debug/cli/warm-jobs-switch/build.events.jsonl",
+      "bytes": 18178,
+      "sha256": "76064dc8a80197728a1e973dff74b386157bad9ff68f6e43899292e76fa1d9ad"
+    },
+    {
+      "path": "Debug/cli/warm-jobs-switch/control.json",
+      "bytes": 632,
+      "sha256": "255ed5052c95bc5340fea824a06f3c98b6b29b78397076b2f85683ebade0df81"
+    },
+    {
+      "path": "Debug/cli/warm-jobs-switch/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/cli/warm-jobs-switch/request.json",
+      "bytes": 1589,
+      "sha256": "e226bdf2d9e415f170980a33cdd301daf4b4b905bfd59534988655901e0b84de"
+    },
+    {
+      "path": "Debug/cli/warm-jobs-switch/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Debug/cli/warm-jobs-switch/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/fixture-build.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Debug/runtime.log",
+      "bytes": 64,
+      "sha256": "692841cc4391182c65af9aa9100d0086f662be0ca011f394fda66bfbfb8095eb"
+    },
+    {
+      "path": "Debug/results.json",
+      "bytes": 5957,
+      "sha256": "662d5480f062c68172aecd78c52b643340a98770cd9baf5e977e55a82dbc42a6"
+    },
+    {
+      "path": "generate.log",
+      "bytes": 45,
+      "sha256": "f171530c8047bfb64c86ef60b11d0d2177cb200108a94d19c1bbb7ec844da862"
+    },
+    {
+      "path": "Release/cli/cold/build-report.json",
+      "bytes": 14100,
+      "sha256": "1eba502080619d3135e2455b519a7ffb6e4e36dd4044ba55be3e252de8f5aaff"
+    },
+    {
+      "path": "Release/cli/cold/build.events.jsonl",
+      "bytes": 22878,
+      "sha256": "7fc27c0563b7747fbd4750e208c6e1d9c2f48932716b9d6142c7671c16199712"
+    },
+    {
+      "path": "Release/cli/cold/control.json",
+      "bytes": 601,
+      "sha256": "f8a1b9a45715dc3812a42d1921276458d58844031bf2eb404cbd91abab2d9426"
+    },
+    {
+      "path": "Release/cli/cold/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/cold/request.json",
+      "bytes": 1583,
+      "sha256": "e1ca062d47a0724bb78ed8ca3b76a685a8905bee7d11915d05002dca114d684f"
+    },
+    {
+      "path": "Release/cli/cold/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/cold/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/cold-jobs4/build-report.json",
+      "bytes": 14233,
+      "sha256": "a1e023475411e49bf7c6c263c50a56f2bfbc80d4ae4696520c32d5e5edcec264"
+    },
+    {
+      "path": "Release/cli/cold-jobs4/build.events.jsonl",
+      "bytes": 20170,
+      "sha256": "f3d553e184c6653ec294cf1fd0e3609fdda76755ac7b5290e8af46b4ca84c2a9"
+    },
+    {
+      "path": "Release/cli/cold-jobs4/control.json",
+      "bytes": 601,
+      "sha256": "8fbb4bfa26f5da9b0553d5718df207c87c4c664a0a7816c6b59c4ad088cb9a25"
+    },
+    {
+      "path": "Release/cli/cold-jobs4/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/cold-jobs4/request.json",
+      "bytes": 1607,
+      "sha256": "c71d7e104ec1cd2c3cfae51612c80f5684609163df0935478b24c48228000243"
+    },
+    {
+      "path": "Release/cli/cold-jobs4/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/cold-jobs4/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/cold-jobsauto/build.events.jsonl",
+      "bytes": 20247,
+      "sha256": "9c61b0932cde425087ea755d6f7acc9cc2cfac94a8fe10ced395b6baf0376ec7"
+    },
+    {
+      "path": "Release/cli/cold-jobsauto/build-report.json",
+      "bytes": 14170,
+      "sha256": "8e9b6b2d0581a33e9417fa25057e6d583c23ea7240ff44bc4735c631d7990735"
+    },
+    {
+      "path": "Release/cli/cold-jobsauto/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/cold-jobsauto/control.json",
+      "bytes": 601,
+      "sha256": "c87fb8363af723c0b491a25910ea660854c7ca974a6a5d5a0b6ad266bde081c7"
+    },
+    {
+      "path": "Release/cli/cold-jobsauto/request.json",
+      "bytes": 1625,
+      "sha256": "4285e945a40529a97f601258ebe732bd16abfe2cf4c8b44d53dffb83d7e0eadf"
+    },
+    {
+      "path": "Release/cli/cold-jobsauto/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/cold-jobsauto/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/build-report.json",
+      "bytes": 13623,
+      "sha256": "ad9c8acdb096c00157f0f33e46e28c809b63fb49b068811eeba8abd45c68811c"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/build.events.jsonl",
+      "bytes": 19523,
+      "sha256": "67ac8bffdf6baeec2c8f240fd6fded5e08f549665cb7325bbbdf08087ae56b2f"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/control.json",
+      "bytes": 601,
+      "sha256": "728f7772afdc4c3a068bddb9eb8894697730dd63fbad670cab18bc6ae1ee112f"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/request.json",
+      "bytes": 1602,
+      "sha256": "738fc0ae5f9bacbda3a18da0c2cd61424b720556b63ffbbc5a80f087fc2dbaa7"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/fresh-no-cache/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/missing-image/build-report.json",
+      "bytes": 17239,
+      "sha256": "577ae9b1f9a4df5f97a28222d4981c086768746bc1e17ca114865f48c26ef4d2"
+    },
+    {
+      "path": "Release/cli/missing-image/build.events.jsonl",
+      "bytes": 18073,
+      "sha256": "3f58f8e6ae5aaa642e44f4550a51f9abc0eb2a4197c7268c4a7610ad145ec63e"
+    },
+    {
+      "path": "Release/cli/missing-image/control.json",
+      "bytes": 634,
+      "sha256": "846905471f2006baed3c1b92b56c4137cb157b57b78be642a609f83635532004"
+    },
+    {
+      "path": "Release/cli/missing-image/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/missing-image/request.json",
+      "bytes": 1601,
+      "sha256": "208687e3b9ef38617d60b5be40641d84c1f0ce649e84c776c00af3d287922e00"
+    },
+    {
+      "path": "Release/cli/missing-image/stderr.log",
+      "bytes": 2419,
+      "sha256": "573d5defb3b97b256df315c7542d45b270ad443c58f44339420f310195db1206"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/build-report.json",
+      "bytes": 13989,
+      "sha256": "3b0e463b80630773c8c7afd55128ce97151d4028d2429d9cf21d885359d00001"
+    },
+    {
+      "path": "Release/cli/missing-image/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/build.events.jsonl",
+      "bytes": 19665,
+      "sha256": "690b2b53f95e1f19df95b4c7577a5a4407b5f4ed1a9c1120a50eb89a6ed4fd21"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/control.json",
+      "bytes": 634,
+      "sha256": "ba329c2afadb03d711dac7388a19bffbc42292ff07382e55ee2098cebc19141b"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/request.json",
+      "bytes": 1609,
+      "sha256": "56493c01a2180ce4efb03050509421b8be58f6237c95c11288cf96abb0d92676"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/one-image-mutated/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/restored-retry/build.events.jsonl",
+      "bytes": 17855,
+      "sha256": "f2913d9ed700889cd1e4ca3db6d95234755d386c6b0b9ebb88303ef8710f4364"
+    },
+    {
+      "path": "Release/cli/restored-retry/build-report.json",
+      "bytes": 12628,
+      "sha256": "4f2185829b05436113ad9ac0abfa627bf05512bc5ac2625369a746c7d8173bb0"
+    },
+    {
+      "path": "Release/cli/restored-retry/control.json",
+      "bytes": 634,
+      "sha256": "c754d978ad79e559aaad6a6e58af12cfe8d4cc2c5f98348e34929dcc4f0c961a"
+    },
+    {
+      "path": "Release/cli/restored-retry/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/restored-retry/request.json",
+      "bytes": 1606,
+      "sha256": "0c321dd8ad58b7d9fd4dad62c5b35b23fceefac1c0b636f33607f0deb5852a5b"
+    },
+    {
+      "path": "Release/cli/restored-retry/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/restored-retry/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/warm-jobs-switch/build-report.json",
+      "bytes": 12604,
+      "sha256": "d00d5f8fe20b7441237157f7c92b48efb4c3915701471efe383e396ab4b1409c"
+    },
+    {
+      "path": "Release/cli/warm-jobs-switch/build.events.jsonl",
+      "bytes": 18243,
+      "sha256": "edaceb3e13905253f6773ad27f120a00604596961e377ba78f9da2002c7351ad"
+    },
+    {
+      "path": "Release/cli/warm-jobs-switch/control.json",
+      "bytes": 632,
+      "sha256": "4e28426e61e49960d27198cc3dc33342cddc753ded1f6ba81bb44532f1cc7994"
+    },
+    {
+      "path": "Release/cli/warm-jobs-switch/controller.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/cli/warm-jobs-switch/request.json",
+      "bytes": 1607,
+      "sha256": "0dc9024521103d4d5ed425b189d02b13eaef9d6eaa0538891a9ce44952491283"
+    },
+    {
+      "path": "Release/cli/warm-jobs-switch/stderr.log",
+      "bytes": 38,
+      "sha256": "851822b0a0d103a0a1d789e378ed2bd74c7402e1ad4e56f6e144b93d3013fdfe"
+    },
+    {
+      "path": "Release/cli/warm-jobs-switch/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/fixture-build.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Release/results.json",
+      "bytes": 5957,
+      "sha256": "662d5480f062c68172aecd78c52b643340a98770cd9baf5e977e55a82dbc42a6"
+    },
+    {
+      "path": "Release/runtime.log",
+      "bytes": 64,
+      "sha256": "692841cc4391182c65af9aa9100d0086f662be0ca011f394fda66bfbfb8095eb"
+    },
+    {
+      "path": "validation.json",
+      "bytes": 88563,
+      "sha256": "5694af3bd9891783c6f2c5e86512f76a9955d41dc99e0a6a1853ad26a3e8226d"
+    }
+  ]
+}

@@ -72,7 +72,8 @@
             "enum": [
               "default",
               "project",
-              "commandLine"
+              "commandLine",
+              "sdkConfig"
             ]
           }
         }
@@ -124,8 +125,7 @@
         "required": [
           "Path",
           "Kind",
-          "Size",
-          "Sha256"
+          "Size"
         ],
         "properties": {
           "Path": {
@@ -140,10 +140,6 @@
           "Size": {
             "type": "integer",
             "minimum": 0
-          },
-          "Sha256": {
-            "type": "string",
-            "pattern": "^[0-9a-f]{64}$"
           }
         }
       }
@@ -165,11 +161,8 @@
     "publicationStatus": {
       "enum": [
         "NoCompilationRequested",
-        "IsolatedStagingOnly",
         "PublishedDirectory",
-        "NotPublished",
-        "RolledBack",
-        "RollbackFailed"
+        "NotPublished"
       ]
     },
     "publicationDirectory": {
@@ -226,6 +219,110 @@
           ],
           "additionalProperties": {
             "type": "string"
+          }
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "level",
+        "clock",
+        "frequency",
+        "boundary",
+        "entries"
+      ],
+      "properties": {
+        "level": {
+          "enum": [
+            "summary",
+            "detailed"
+          ]
+        },
+        "clock": {
+          "const": "Stopwatch"
+        },
+        "frequency": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "boundary": {
+          "const": "before-report-write"
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "streamId",
+              "count",
+              "totalMs",
+              "selfMs",
+              "maxMs"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "streamId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "totalMs": {
+                "type": "number",
+                "minimum": 0
+              },
+              "selfMs": {
+                "type": "number",
+                "minimum": 0
+              },
+              "maxMs": {
+                "type": "number",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "counters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "streamId",
+              "name",
+              "value",
+              "aggregation"
+            ],
+            "properties": {
+              "streamId": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "value": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "aggregation": {
+                "enum": [
+                  "sum",
+                  "max"
+                ]
+              }
+            },
+            "additionalProperties": false
           }
         }
       }

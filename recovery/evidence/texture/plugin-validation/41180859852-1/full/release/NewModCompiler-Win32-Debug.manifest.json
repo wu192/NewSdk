@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "status": "verified-small-mod-deployment",
+  "platform": "Win32",
+  "runtime": ".NET Framework 4.8",
+  "configuration": "Debug",
+  "binarySourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "packagingSourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "runId": "41180859852",
+  "runAttempt": "1",
+  "acceptance": {
+    "scope": "Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/inline Texture DDS comparison; full SDK/cache acceptance remain separate; direct same-path output, selection isolation, unrelated-file preservation, failure/cancellation retry and held unselected-output acceptance passed; injected late-output persistence is checked by controlled App contracts",
+    "sourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+    "sha256": "eb1c7aeab90dd2478781edd38ae53504a72876bfa853e7deb5dc8335c952c9ab",
+    "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\core-cli\\41180859852-1\\validation.json",
+    "runId": "41180859852",
+    "binarySourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+    "runAttempt": "1"
+  },
+  "toolchain": {
+    "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1",
+    "vcToolsVersion": "14.44.35207",
+    "windowsSdkVersion": "10.0.26100.0\\"
+  },
+  "buildReceiptSha256": "4e2703af9963efa08a1900603505aef685be0c92ab837a6bb5aba53b39041bf6",
+  "linkRecipeSha256": "285c5f8404008165399cd9039385a1202477adee8132c9c5a40d03403dfa6f1f",
+  "files": [
+    {
+      "sha256": "f5963684c81c3168975c608bd0194cd5ef0f2379b48e6e70453b69e9836dff01",
+      "bytes": 7561216,
+      "name": "NewModCompiler.exe"
+    },
+    {
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "bytes": 201,
+      "name": "NewModCompiler.exe.config"
+    },
+    {
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "bytes": 99328,
+      "name": "antlr.runtime.dll"
+    }
+  ],
+  "archive": {
+    "sha256": "67cbf97ff56c431b03ff043433aeb0508ff4b5fd63d806515a1b3677c8b43177",
+    "bytes": 2154011,
+    "name": "NewModCompiler-Win32-Debug.zip"
+  },
+  "texturePlugin": {
+    "externalRuntimeFiles": [],
+    "implementation": "built-in-source"
+  },
+  "dependencies": {
+    "textureImplementation": "built-in-source",
+    "limitations": "Texture is compiled into the EXE; no legacy Texture DLL, VC80 or DirectX runtime is deployed; system runtime libraries are not redistributed",
+    "systemRequirements": [
+      "Windows x86-compatible process",
+      "NET Framework 4.8",
+      "x86 VC runtime matching recorded production VCToolsVersion"
+    ]
+  },
+  "validation": {
+    "schemaProtocolSha256": "390958c5cf2ad10d37bcf9d29285d8bf45898ddc399b304d38bd762d9bfb3ae6",
+    "sourceRuntimeRawOutputEquality": true,
+    "bigDeployment": {
+      "packagedRuntime": true,
+      "succeeded": true,
+      "scope": "Actual production P7 BIG apt/maps selected and combined, exact current loose member bytes and independent original MakeBig format/content oracle, skudef, CDATA, cancellation/failure, atomic single-file replacement and retry without MOD rollback; default base LoD, explicit SDK-then-MOD Additional overlays, and optional neutral actual hash repair with no-insertion original oracle; component insertion evidence remains separate; final distribution and game runtime acceptance excluded",
+      "sourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+      "receiptSha256": "636c974dd5a222a7ce6c0a4682acb16865726bc4567572864c4d5f64ee4481b1"
+    },
+    "scope": "Exact three-file Win32/net48 runtime ZIP deployment, production doctor and small Armor MOD with source-runtime raw output equivalence; not complete P5/G3/SDK or Unicode Texture acceptance; independently extracted exact runtime additionally passed real base/APT/maps BIG builds, original LoD and MakeBig raw member differential, explicit SDK/MOD Additional against original CopyFolders and MakeBig, opt-in neutral hash repair against original HashFix/Resolver/LoD/MakeBig (no-insertion scope), CDATA and rollback/cancellation matrices",
+    "productionDoctor": true
+  }
+}

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Web.Script.Serialization;
 using System.Xml;
@@ -146,6 +147,111 @@ internal static class CompilerCoreLifecycle
         Write("cycle/b.xml", probe); Run(p, a); Clean(p, null, a, b);
         Tests.Add("real-core-circular-include-rejected-then-fixed-same-processor-cache");
     }
+    static void SchemaReceiptCase(BuiltinCompilers plugins)
+    {
+        Configure("schema-receipt"); var p = Processor(plugins);
+        string commands = "<LogicCommandSet xmlns='" + Ns + "' id='Commands'><Cmd>DoIt</Cmd><Cmd>DoIt</Cmd></LogicCommandSet>";
+        string root = Write("schema-receipt/root.xml", Asset("<LogicCommand id='DoIt'/>" + commands));
+        Run(p,root); Clean(p,null,root);
+        AssetDeclarationDocument document; p.Cache.TryGetDocument(root,null,TargetPlatform.Win32,false,out document);
+        Require(document.HasValidatedSchema,"Completed Core validation did not issue its schema receipt");
+        var xml = new XmlDocument(); xml.LoadXml(commands);
+        var ns = new XmlNamespaceManager(xml.NameTable); ns.AddNamespace("ea",Ns);
+        AssetBuffer checkedResult = Recovered.LogicCommandSetCompiler.CompileXml(xml.DocumentElement,ns,false);
+        var instance = new InstanceDeclaration(document) { XmlNode = xml.DocumentElement };
+        AssetBuffer validatedResult = Recovered.LogicCommandSetCompiler.ProcessInstance(instance,TargetPlatform.Win32);
+        Require(checkedResult.InstanceData.SequenceEqual(validatedResult.InstanceData) &&
+            checkedResult.RelocationData.SequenceEqual(validatedResult.RelocationData) && checkedResult.ImportsData.SequenceEqual(validatedResult.ImportsData),
+            "Validated Core dispatch changed LogicCommandSet payload bytes");
+        string bad = Write("schema-receipt/bad.xml",Asset("<LogicCommandSet id='Bad'><Cmd Bogus='1'>DoIt</Cmd></LogicCommandSet>"));
+        int compiled = p.InstanceCompileCount;
+        Failure(p,bad,ErrorCode.SchemaValidation); Clean(p,null,bad);
+        AssetDeclarationDocument rejected; p.Cache.TryGetDocument(bad,null,TargetPlatform.Win32,false,out rejected);
+        Require(!rejected.HasValidatedSchema && p.InstanceCompileCount==compiled,"Invalid XSD input reached a compiler or retained a schema receipt");
+        var invalid = new XmlDocument(); invalid.LoadXml("<LogicCommandSet xmlns='"+Ns+"'><Cmd Bogus='1'>DoIt</Cmd></LogicCommandSet>");
+        AssetBuffer direct = Recovered.LogicCommandSetCompiler.CompileXml(invalid.DocumentElement,ns,false);
+        invalid.DocumentElement.FirstChild.Attributes.RemoveNamedItem("Bogus");
+        AssetBuffer plain = Recovered.LogicCommandSetCompiler.CompileXml(invalid.DocumentElement,ns,false);
+        Require(direct.InstanceData.SequenceEqual(plain.InstanceData) && direct.RelocationData.SequenceEqual(plain.RelocationData) &&
+            direct.ImportsData.SequenceEqual(plain.ImportsData),"Plugin repeated Core schema validation or changed the payload");
+        string afterFailure = Write("schema-receipt/after-failure.xml",Asset("<LogicCommand id='AfterFailure'/>"));
+        Run(p,afterFailure); Clean(p,null,afterFailure);
+        AssetDeclarationDocument recovered; p.Cache.TryGetDocument(afterFailure,null,TargetPlatform.Win32,false,out recovered);
+        Require(recovered.HasValidatedSchema && p.SchemaSet.Schemas.IsCompiled,
+            "A rejected document damaged the processor's shared compiled schema snapshot");
+        Tests.Add("Core-XSD-invalid-input-rejected-before-dispatch-plugin-serializes-without-repeating-schema-validation");
+    }
+    static void SavedSessionMemoryCase(BuiltinCompilers plugins)
+    {
+        var settings = Configure("memory-session"); settings.SessionCache = true;
+        var p = Processor(plugins);
+        var cache = new SessionCache();
+        cache.LoadCacheFrom(null, Path.Combine(settings.SessionCacheDirectory, "session.xml"));
+        cache.InitializeCache(new List<string>(), p.SchemaSet.ContentIdentity); p.Cache = cache;
+        string leaf = Write("memory-session/leaf.xml", probe);
+        string root = Write("memory-session/root.xml", Asset(Include("leaf.xml") + "<Defines><Define name='MEMORY_VALUE' value='17'/></Defines>"));
+        Run(p, root); Clean(p, null, root, leaf); cache.SaveCache(false);
+        var expected = Outputs(settings.OutputDirectory);
+        AssetDeclarationDocument document; cache.TryGetDocument(leaf,null,TargetPlatform.Win32,false,out document);
+        document.SelfInstances[0].CustomDataPath = "previous-stream-only";
+        document.SelfInstances[0].ReferencedInstances.Add(new InstanceHandle("ArmorTemplate", "PreviousStreamOnly"));
+        int compiled = p.InstanceCompileCount;
+        cache.InitializeCache(new List<string>(), p.SchemaSet.ContentIdentity);
+        Run(p, root); Clean(p, null, root, leaf);
+        cache.TryGetDocument(leaf,null,TargetPlatform.Win32,false,out document);
+        Require(document.SelfInstances[0].CustomDataPath != "previous-stream-only" &&
+            !document.SelfInstances[0].ReferencedInstances.Any(value => value.InstanceName == "PreviousStreamOnly"),
+            "Saved in-memory session retained a previous stream's transient asset state");
+        Require(p.InstanceCompileCount == compiled, "Reentering a saved in-memory session recompiled unchanged assets");
+        Equal(expected, Outputs(settings.OutputDirectory));
+        Tests.Add("saved-session-memory-reentry-clears-transient-references-and-cdata-preserves-bytes");
+    }
+    static uint LegacyXmlTextHash(uint seed, string text)
+    {
+        for (int offset=0; offset<text.Length; offset+=512)
+            seed=HashProvider.GetTextHash(seed,text.Substring(offset,Math.Min(512,text.Length-offset)));
+        return seed;
+    }
+    sealed class XmlText : StringWriter
+    {
+        public override Encoding Encoding { get { return Encoding.Default; } }
+    }
+    static void XmlHashBlocksCase()
+    {
+        Type type=typeof(HashProvider).Assembly.GetType("BinaryAssetBuilder.Core.HashingWriter",true);
+        MethodInfo final=type.GetMethod("GetFinalHash");
+        foreach (uint seed in new[] {0u,1u,0xdeadbeefu})
+        foreach (int length in new[] {0,1,511,512,513,1023,1024,1025})
+        foreach (string tail in new[] {"", "\0", "é汉", "\ud83d\ude00"})
+        {
+            string text=new string('x',length)+tail;
+            var writer=(TextWriter)Activator.CreateInstance(type,new object[] {seed});
+            for(int offset=0; offset<text.Length;)
+            {
+                int count=Math.Min(37,text.Length-offset);
+                if(offset%3==0) { writer.Write(text[offset]); count=1; }
+                else if(offset%3==1) writer.Write(text.Substring(offset,count));
+                else writer.Write(text.ToCharArray(),offset,count);
+                offset+=count;
+            }
+            uint expected=LegacyXmlTextHash(seed,text);
+            Require((uint)final.Invoke(writer,null)==expected && (uint)final.Invoke(writer,null)==expected,
+                "XML hash changed ANSI/NUL/512-character block or repeated-finalization behavior");
+            writer.Write("append");
+            Require((uint)final.Invoke(writer,null)==LegacyXmlTextHash(seed,text+"append"),
+                "XML hash finalization consumed the pending block");
+            writer.Dispose();
+        }
+        foreach(string text in new[] {new string('a',511)+"汉字",new string('b',511)+"\ud83d\ude00",new string('c',1025)+"é"})
+        {
+            var xml=new XmlDocument();var node=xml.CreateElement("HashCase");node.SetAttribute("text",text);node.InnerText=text;
+            var serialized=new XmlText();using(var writer=XmlWriter.Create(serialized)) node.WriteTo(writer);
+            XmlNode hashNode=node;
+            Require(HashProvider.GetXmlHash(0x12345678u,ref hashNode)==LegacyXmlTextHash(0x12345678u,serialized.ToString()),
+                "XML hash differs from legacy XML serialization and ANSI block hashing");
+        }
+        Tests.Add("legacy-XML-hash-seeds-ANSI-NUL-512-boundaries-fragmented-writes-finalize-append");
+    }
     sealed class SaveFaultCache : SessionCache
     {
         public bool Failed;
@@ -170,6 +276,60 @@ internal static class CompilerCoreLifecycle
         var fresh = new SessionCache(); fresh.InitializeCache(new List<string>()); p.Cache = fresh;
         Run(p, input); Clean(p, null, input);
         Tests.Add("real-cache-save-fault-propagates-cleans-frames-then-same-processor-fresh-cache-success");
+    }
+    sealed class VersionSaveCache : SessionCache
+    {
+        internal readonly List<AssetDeclarationDocument> Saved = new List<AssetDeclarationDocument>();
+        public override void SaveDocumentToCache(string path, string configuration, TargetPlatform platform, AssetDeclarationDocument document)
+        {
+            Saved.Add(document); base.SaveDocumentToCache(path, configuration, platform, document);
+        }
+    }
+    static void DeferredVersionCacheCase(BuiltinCompilers plugins)
+    {
+        Configure("deferred-version"); var p = Processor(plugins);
+        var cache = new VersionSaveCache(); cache.InitializeCache(new List<string>()); p.Cache = cache;
+        string input = Write("deferred-version/root.xml", probe); Run(p, input);
+        AssetDeclarationDocument previous;
+        Require(cache.TryGetDocument(input, null, TargetPlatform.Win32, false, out previous) && previous != null,
+            "Completed document missing before deferred version fixture");
+        XmlDocument retained = previous.XmlDocument;
+        Require(retained != null, "Deferred fixture must hold a real completed document DOM");
+        var versions = (IDictionary)Field(p, "_ExecutionDocuments"); object version = versions[previous];
+        Type versionType = version.GetType();
+        Action<string,object> setVersion = (name,value) => versionType.GetField(name, BindingFlags.Instance|BindingFlags.NonPublic|BindingFlags.Public).SetValue(version,value);
+        var outputs = (IDictionary)versionType.GetField("Outputs", BindingFlags.Instance|BindingFlags.NonPublic).GetValue(version);
+        object completed = versionType.GetField("CompletedOutputs", BindingFlags.Instance|BindingFlags.NonPublic).GetValue(version);
+        var addCompleted = completed.GetType().GetMethod("Add");
+        var firstOutput = new OutputManager(p, null, Path.Combine(work,"deferred-version/one/stream"), Path.Combine(work,"deferred-version/one/intermediate"), null,null,null);
+        var secondOutput = new OutputManager(p, null, Path.Combine(work,"deferred-version/two/stream"), Path.Combine(work,"deferred-version/two/intermediate"), null,null,null);
+        var first = new AssetExecutionDocument(); var second = new AssetExecutionDocument();
+        Action<AssetExecutionDocument,string,object> setScope = (scope,name,value) => typeof(AssetExecutionDocument).GetProperty(name).SetValue(scope,value,null);
+        foreach(var scope in new[]{first,second})
+        {
+            setScope(scope,"Document",previous);setScope(scope,"IsClosed",true);
+            setScope(scope,"PendingAssetWorks",1);setScope(scope,"ReadOnlyInputReferences",1);
+        }
+        outputs.Add(firstOutput,first);outputs.Add(secondOutput,second);
+        setVersion("Finalized",false);setVersion("ResetRequested",true);
+        setScope(first,"PendingAssetWorks",0);setScope(first,"ReadOnlyInputReferences",0);setScope(first,"IsCompleted",true);
+        addCompleted.Invoke(completed,new object[]{first});
+        MethodInfo finish=typeof(DocumentProcessor).GetMethod("TryCompleteDocumentVersion",Private);
+        finish.Invoke(p,new[]{(object)previous,version});
+        Require(Object.ReferenceEquals(previous.XmlDocument,retained) && second.ReadOnlyInputReferences==1,
+            "One completed output must not reset a document still borrowed by another output");
+        FileHashItem hash;cache.TryGetFile(input,null,TargetPlatform.Win32,out hash);
+        var replacement=new AssetDeclarationDocument(p,hash,input,null);
+        Require(cache.ReplaceDocumentForExecution(input,null,TargetPlatform.Win32,previous,replacement),
+            "Owner could not register a distinct mutable document version");
+        cache.Saved.Clear();cache.SaveDocumentToCache(input,null,TargetPlatform.Win32,replacement);
+        setScope(second,"PendingAssetWorks",0);setScope(second,"ReadOnlyInputReferences",0);setScope(second,"IsCompleted",true);
+        addCompleted.Invoke(completed,new object[]{second});finish.Invoke(p,new[]{(object)previous,version});
+        AssetDeclarationDocument current;cache.TryGetDocument(input,null,TargetPlatform.Win32,false,out current);
+        Require(Object.ReferenceEquals(current,replacement) && cache.Saved.Count==1 && Object.ReferenceEquals(cache.Saved[0],replacement),
+            "Late completion of an old version overwrote the replacement SessionCache entry");
+        Require(previous.XmlDocument==null,"Old DOM must release after all output users have completed");
+        Tests.Add("two-output-document-retention-old-version-late-completion-preserves-current-cache-identity");
     }
     sealed class CompletionMetricFault : IMetricsListener
     {
@@ -432,14 +592,14 @@ internal static class CompilerCoreLifecycle
             if (args.Length != 5 || IntPtr.Size != 4) throw new Exception("Expected work result sourceCommit runId sdk (x86)");
             work = Path.GetFullPath(args[0]); sdk = Path.GetFullPath(args[4]); Directory.CreateDirectory(work);
             probe = File.ReadAllText(Path.Combine(sdk, "Mods/mymod/Data/RecoveryArmorProbe.xml"));
-            UnicodePathCase();
+            UnicodePathCase(); XmlHashBlocksCase();
             Require(typeof(DocumentProcessor).Assembly == typeof(BuiltinCompilers).Assembly, "Core is outside product assembly");
             // Configuration precedes built-in initialization, just as a real build requires.
             Configure("initialize");
             using (var plugins = BuiltinCompilers.Create(TargetPlatform.Win32))
             {
                 RetryCase(plugins, "include", false); RetryCase(plugins, "inheritance", true);
-                CycleCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins);
+                CycleCase(plugins); SchemaReceiptCase(plugins); SavedSessionMemoryCase(plugins); ProjectCase(plugins); SaveFailureCase(plugins); DeferredVersionCacheCase(plugins);
                 MetricsFailureCase(plugins, true, false); MetricsFailureCase(plugins, false, true);
                 MetricsFailureCase(plugins, true, true); ProcessorStateCase(plugins);
             }

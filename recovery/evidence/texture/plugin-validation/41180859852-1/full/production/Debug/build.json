@@ -1,0 +1,3576 @@
+{
+  "applicationSha256": "428e1b543992d42b97fbbfe2ad42d8efd31c0280ee152c889e7dc30c6e81dacf",
+  "exeSha256": "f5963684c81c3168975c608bd0194cd5ef0f2379b48e6e70453b69e9836dff01",
+  "containsProbeOrTestSources": false,
+  "nativeBuild": {
+    "status": "objects built; unified link and behavior validation required",
+    "manifestSha256": "8989eadeb271fe619e06e615b84477bd7a5794fe3d4a066173056d881c688b6f",
+    "sources": [
+      {
+        "sha256": "c10bdad4680944e1efd10e76ae9da15b0eb69117270cbf196f200875e56c228c",
+        "path": "recovery/src/Native/Relocation.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Relocation.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "f9f31a6537e601936097e5a6b4b8f764a412f5d08f3b3b6ad77bb25a75b9fe79",
+        "path": "recovery/src/Native/ScalarParsing.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_ScalarParsing.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "0628632c12f14fd1f37cb31219b7cac706ca179f381b474d6738443f7a895a60",
+        "path": "recovery/src/Native/DataInitializers.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_DataInitializers.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "2946042bfb72f73310edd642900fe36f7491faa1029d7988ea3a261a2fc7ac4c",
+        "path": "recovery/src/Native/ResourceMarshaling.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_ResourceMarshaling.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "5bebff8a5a5a4296e3d06e0d8294d80f7978a9ba74c202a9d62b4c4ea9291184",
+        "path": "recovery/src/Native/EnumBitset.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_EnumBitset.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "a5f2f66fd46ff911996629de8458eafd3f73f6fb479716decca0549b6901c21f",
+        "path": "recovery/src/Native/ObjectFilter.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_ObjectFilter.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "7f7865240bd713a96dfede6c146e44b3744a52e01182354633394ce0852a1f6d",
+        "path": "recovery/src/Native/ArmorTemplate.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_ArmorTemplate.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "9c2048303764884a22cfb7bdc62df838fb8d1418961531412889927a4fe312d5",
+        "path": "recovery/src/Native/WeaponNugget.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_WeaponNugget.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "7247b22db10b2a66c74c60ebc219170856111fa5e7b231b2ae28121d54ea23f4",
+        "path": "recovery/src/Native/WeaponTemplate.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_WeaponTemplate.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "a9ae3d7be8717072c3a7512e8cf6778801174c2141f66d3a851e1566651f67e5",
+        "path": "recovery/src/Native/WeaponSlotOrder.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_WeaponSlotOrder.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "ef791e5a8d0e31fd150e0f4cbefa4785933b7eaab0059b2cc4cea3589a25b1db",
+        "path": "recovery/src/Native/GameObject.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_GameObject.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "c7007033eaec93be6bf662a3d4a8e613530191fa8b5bb759b678134e2ee6af96",
+        "path": "recovery/src/Native/Xmlabilitybuttons.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlabilitybuttons.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "305f5adfa4a4efb19746b3ab095a03d09501525232bfa3a976e9cfb5125b9ee0",
+        "path": "recovery/src/Native/Xmlai.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlai.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "ab6d98e9aedc2a8e9a770cd00266890f5a2fd7ff1b48fe78023435b2053d8810",
+        "path": "recovery/src/Native/Xmlaptdata.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlaptdata.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "8836cfc299daa3ce808db44ccf4172fc5d879dd33427f002f4c9892717ab8398",
+        "path": "recovery/src/Native/Xmlarmyopening.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlarmyopening.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "c97d1cd6ca319937d8c3d4e6e396817c9cd7b49556c4152f00d9ed7d3bf46ccd",
+        "path": "recovery/src/Native/Xmlassetindexes.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlassetindexes.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "0862341ac4346d06e45a3026dc024474fe3ed7a6f8b31440b377f84c7363f3a4",
+        "path": "recovery/src/Native/Xmlattributes.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlattributes.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "44bf60c1bbf39482e13469131ac15d0975a6c946042291ba5233c3774b6ccdce",
+        "path": "recovery/src/Native/Xmlaudio.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlaudio.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "1c2826f5034a418e8af591fca96b4de9f106e67d2e12e9561ed1e5ef1d83848b",
+        "path": "recovery/src/Native/Xmlbuildeconomy.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlbuildeconomy.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "7e153c2c5f7733a549fd7adc408a9aee4658b4f0b963e2629cd03f2983b1e483",
+        "path": "recovery/src/Native/Xmlcampaign.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlcampaign.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "4a9e76ce27e519b788ac320b2dba45f32cb24f3b75d851aafe74e4337b423672",
+        "path": "recovery/src/Native/Xmlchatcolors.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlchatcolors.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "6b79f4376084558d4987bf58a2058c308c68bb515220075b5b49e35408a7471c",
+        "path": "recovery/src/Native/Xmlcommandset.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlcommandset.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "55fea55731ef1cd6a70f689bfe4244482e1cab0ae052740c30a7a1b8badabc10",
+        "path": "recovery/src/Native/Xmlconditions.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlconditions.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "d86ca6dbd52fa3ffffe7be7e8c8956e67ec275859f7145c73f22f05b8a3542c6",
+        "path": "recovery/src/Native/Xmlconnections.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlconnections.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "45c2d2eb12800136022da35835dfe96a41b99d4db44f03c0213b42fb1bea121e",
+        "path": "recovery/src/Native/Xmlconquercards.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlconquercards.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "31be4407a9c49251ad46a7123eade9d17bac483b7058eaa0f245603bff0596e1",
+        "path": "recovery/src/Native/Xmlcontent.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlcontent.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "b7c4df34e189dc3c25e0916067447001eea5f1cfd3456ea864141a102741f50a",
+        "path": "recovery/src/Native/Xmlcrowd.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlcrowd.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "bd5b0db5edb8a06f5c61b433b080b898f3ef0fbd49086844f12a71e5c1fecf9e",
+        "path": "recovery/src/Native/Xmldamagefx.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmldamagefx.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "45863cfa76b126f05aaaf7872a5444d6d8368a2128a57485797007954fd5de42",
+        "path": "recovery/src/Native/Xmldynamics.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmldynamics.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "be86b94a3dce715e864b8aa53463ae0daf2d0dfe9a2b39c8433506bf30450f4a",
+        "path": "recovery/src/Native/Xmleffects.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmleffects.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "fa66a63c76c5bbe72977094a2aa86fe829f8bff65af5fe38b4ad87d10ba56556",
+        "path": "recovery/src/Native/XmleffectsEnums.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_XmleffectsEnums.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "476fdbbfe3bd3169f5e567607e1e08d190f402905f46ae7cda9e2956350deecb",
+        "path": "recovery/src/Native/XmleffectsNuggets.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_XmleffectsNuggets.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "12c91d70697fe1a89e4ce89357db08b29602ad74cfe629b199ac9f6c2843b9e6",
+        "path": "recovery/src/Native/Xmlemotions.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlemotions.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "8ffcefdf834e9945ee693cccefab0a6f4f94b6c15a4655f64ab5a0b36824f848",
+        "path": "recovery/src/Native/Xmlenvironment.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlenvironment.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "f6b1baec1f3c161e86ff7b1a7510562efb61200248c2aa41d3fd31c355097e8d",
+        "path": "recovery/src/Native/Xmlevaachievement.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlevaachievement.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "d310faf835e23bd0461601d36f779fce0ad320493bed69526d1cf0c3ec4c7f0c",
+        "path": "recovery/src/Native/Xmlforcefeedback.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlforcefeedback.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "67c152a1688faa7a54209ad4610914ffa26aa229fc5f3a17aeb14f7d7a909e96",
+        "path": "recovery/src/Native/Xmlfxparticle.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlfxparticle.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "3bceb25ca9e53e51726ece2f10d5cae23ed5eed78da7903e35390da0ed3c2073",
+        "path": "recovery/src/Native/Xmlgamemap.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlgamemap.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "a3b158c4f41ceceacc54b9309354d1776eca2be84e83a2a5f82ca8dc4c77eb58",
+        "path": "recovery/src/Native/Xmlgamescripts.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlgamescripts.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "9eaa482f3bd98b2cc246fa1355bf95fdc23c6c36fe3af606d3b5d2cc3df58400",
+        "path": "recovery/src/Native/Xmlhealthbars.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlhealthbars.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "1e57f8efc0e8d64de040d56f4ece8f1edd28257c925295132488168809797dc0",
+        "path": "recovery/src/Native/Xmlhotkeymaps.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlhotkeymaps.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "aaa1e0d73efc1fbe1bfd6539c1b1efa06810367dddfb9badca97bbc9154d3165",
+        "path": "recovery/src/Native/Xmllocalization.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmllocalization.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "a61177aaa756b6c932a7db66fc26bcc23d38b29e29c69fbed861820d6b047713",
+        "path": "recovery/src/Native/Xmllocomotor.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmllocomotor.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "7b890b13fd94799b1be7ae22e745b52005fee19ba8e2d2d57547b4c27a55ea98",
+        "path": "recovery/src/Native/Xmlmapmetadata.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlmapmetadata.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "b282b0509f5edeee821dfb4ba1f2a2f5f74c3bd833ae22e4e99f2a3b682d6c2b",
+        "path": "recovery/src/Native/Xmlmaterialrules.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlmaterialrules.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "eb6305d74c85bfb9d54ed01c02a0bb1bd7fc0a8bdd7fdadd174a712ef181d136",
+        "path": "recovery/src/Native/Xmlmouse.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlmouse.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "f998a8fdc91f87bc304afbfaf4d1a724c44bd14e00f44269c443a22e585780c3",
+        "path": "recovery/src/Native/Xmlmoviearchive.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlmoviearchive.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "c976c107d1c6d1d20d1bd70d6896d106742adbbe27bda28a3b44bde5cf156566",
+        "path": "recovery/src/Native/Xmlmusicscript.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlmusicscript.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "35e732deffb2bf093e5cdc071dc3d199a34e325311db4965efb254e13c2f5b4b",
+        "path": "recovery/src/Native/Xmlobjectsets.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlobjectsets.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "0d3af268464f863b5e09666b1fd509374a0218645e1034aa6b621d995337ee57",
+        "path": "recovery/src/Native/Xmlpathmusic.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlpathmusic.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "815525e71056b8b6551e5a5952ffb6a7980b102f9a4d3b3f451bd35c4b3202d7",
+        "path": "recovery/src/Native/Xmlplayers.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlplayers.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "8dd5ef98db43768fc1e35af9c3a6b39da4fb41b4cfa1e6107b1e4b4b7618a22d",
+        "path": "recovery/src/Native/Xmlpowers.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlpowers.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "d92a1715c789ac851307e6d5f4e4bc02e6248cd0e42f88be16311e4dbd9d5f04",
+        "path": "recovery/src/Native/Xmlprogression.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlprogression.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "50baaa46adf6641a723cc893c135000cf34d381b95ec3fa309902cef08d7914f",
+        "path": "recovery/src/Native/XmlprogressionFont.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_XmlprogressionFont.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "91e88a8e930fe56b2e4511ebf3c8bf8d0ad0418499fa4c5fdfa611110a017abd",
+        "path": "recovery/src/Native/XmlprogressionUi.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_XmlprogressionUi.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "3f2d2378d8de463af1e67e9827eb95b2b2bc8b2cea7bd52cf64c86bda2c9a2fc",
+        "path": "recovery/src/Native/Xmlprojectilepath.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlprojectilepath.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "da23f7cbc3e5a80e14d93540204c95a20782898bf2bf54ca27626403b84f0f8f",
+        "path": "recovery/src/Native/Xmlradar.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlradar.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "c5251947a94de43984fc296076e2f8b855f04cb4ee1c8262539d12af5cdfdc36",
+        "path": "recovery/src/Native/Xmlredalert.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlredalert.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "2c851dca0c3bfdbc2ac8d1f2a7e908391063dff21bbc171e3c330debf5c553dd",
+        "path": "recovery/src/Native/Xmlrenderassets.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlrenderassets.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "45deae2d35a420fe6d69196c92cac13bf8c9b9b8a735548ab081424a2e361e1a",
+        "path": "recovery/src/Native/Xmlrenderdevice.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlrenderdevice.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "08fbf669bdd89a51cc738a2de2d25ed759bf8279044c8e49a1eb3b5e4ca7c5f1",
+        "path": "recovery/src/Native/Xmlruntimeopaque.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlruntimeopaque.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "93300b1d80aef51358147fdf183c2c6f9a1526d3ea09e481a3100ac1d0453e9b",
+        "path": "recovery/src/Native/Xmlsinglesound.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlsinglesound.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "0d74a9ca9424d48cb17020f570f6af5c88e5acea8394fcc32c390b2da541a9db",
+        "path": "recovery/src/Native/Xmlsoundmaps.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlsoundmaps.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "22ba68a0f804546c07876e768457a8ad3c2ee2b7c15aa960432d21d63ab705ac",
+        "path": "recovery/src/Native/Xmlsystemsettings.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlsystemsettings.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "ec748dbd7df8d7967a97df9daaed733d841c221aebbd4a13ed2416b4afc15693",
+        "path": "recovery/src/Native/Xmltacticalhotkeys.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmltacticalhotkeys.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "19c3c606e89f50b274db3574aa0dde1723a6e3e4882c9988ed16df84c8aa91cd",
+        "path": "recovery/src/Native/Xmltargeting.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmltargeting.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "da4236614a41c6793f732ae4a3c0714ac25bdffaa26ccfd8743e72c7ef0632cc",
+        "path": "recovery/src/Native/Xmlterrain.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlterrain.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "b955fcc8c70f087b75e2f30d3957257f487e52a1888dbdd439cebfb8b692576b",
+        "path": "recovery/src/Native/Xmltesttextures.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmltesttextures.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "08b501c445e5c3a08b87e08e7f46fa11a09733ec0b8d4a3f40d7dd0d8e447f00",
+        "path": "recovery/src/Native/Xmluichat.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluichat.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "44a4e46dc80c31a35089f4493ae2fc28e1c0eb1f789c6a9567fdb4dd5faa6f19",
+        "path": "recovery/src/Native/Xmluiconfig.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluiconfig.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "fb2a09a1726db7d2d265c7e38d14692bd4fa53cf65e83082d2f4902218434f58",
+        "path": "recovery/src/Native/Xmluidecals.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluidecals.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "6b50f0b18e97fbdbd2aeb1adf1347771ccb0ec335ae043da5e2ac8922de33f17",
+        "path": "recovery/src/Native/Xmluiimages.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluiimages.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "76d9b00851b757dcaeecc13388e93e4713d0528a50ada56008d443b0dbd2c97b",
+        "path": "recovery/src/Native/Xmluisettings.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluisettings.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "56988ac19af8dc165a8a9a6f3bb6163bd1ddf5e6570be3a60f18e5cb6685bf52",
+        "path": "recovery/src/Native/Xmluitactical.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluitactical.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "aedc172f8896dfe5291657d0f35a20014015d2bce5f9e79b4cbc118250bd81a8",
+        "path": "recovery/src/Native/Xmlunitoverlay.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlunitoverlay.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "621936c9691d0430344d32f10c7dc4702930e8bab79c60fb5ae7d0e6ba353288",
+        "path": "recovery/src/Native/Xmlvisibility.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlvisibility.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "de3c2d3640e29dd6cc6f1b80eaf0a194cc58b45c15a44feda3a31684b5a86192",
+        "path": "recovery/src/Native/Xmlvisualsystems.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlvisualsystems.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "72389d063a61a3ab295b5cd6cd9055ac6d80331920aee6b0ffad3c7abe3e9567",
+        "path": "recovery/src/Native/Xmlw3d.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlw3d.obj",
+        "kind": "nativeSources"
+      },
+      {
+        "sha256": "187150f3c14bcd011d98037d0646a90b109ab1ef24791ff1af6baeb319cca6b3",
+        "path": "recovery/src/Native/W3x/AdaptiveDelta.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_AdaptiveDelta.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "59709e074b8ff487f59ab5ac1060b6c677aaaff672ed81a3515afdc71af0415c",
+        "path": "recovery/src/Native/W3x/AnimationCompiler.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_AnimationCompiler.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "26bee920641837466334e3ed056d9c533c10c36fce3ee06f29430d61129be383",
+        "path": "recovery/src/Native/W3x/AnimationPipeline.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_AnimationPipeline.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "07179a08f5d4d9ff0623140b8ad3c13d09a36b432dfc59b74df99db90f54a9bd",
+        "path": "recovery/src/Native/W3x/MeshAsset.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_MeshAsset.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "7c95d0f46046f1f808890bf86e69d33165435d1993a7de623cce2c0df31eb408",
+        "path": "recovery/src/Native/W3x/MeshBuilder.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_MeshBuilder.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "4a43d15c0f8ecc903c64fa4c839d5b333000b7e12b4c2437b04d5e2a0a2714bf",
+        "path": "recovery/src/Native/W3x/MeshConverters.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_MeshConverters.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "644179f47fcca9761f8e3b2a289cef14c019c6f3667a13b382abebc46bf092d3",
+        "path": "recovery/src/Native/W3x/MeshSerialization.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_MeshSerialization.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "dbe2c5dd442541243be831c3763a44cdeba3371e396c3aad7c622d3c9514cb7f",
+        "path": "recovery/src/Native/W3x/Shader.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_Shader.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "5a1007165e64ee792533a24a9517eca5be7be0801870ea6e671350a4a9e83eb7",
+        "path": "recovery/src/Native/W3x/Timecoded.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_Timecoded.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "03a19b7ba293be267978188ce287504a17121671b0f1dcab69ea5306ec1852a0",
+        "path": "recovery/src/Native/Audio/EaLayer3/bitreserve.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_bitreserve.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "f1eeae4b567213e720ba8a2db07b019a69a8a423cc914ede4e39a65be6e80610",
+        "path": "recovery/src/Native/Audio/EaLayer3/ealayer3core.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_ealayer3core.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "be09d19698171a04a3ff83ee2cb73e281a15bf02ecf69be68564a7bd08c404fe",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/VbrTag.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_VbrTag.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "d01c251fad130b23162de6f06501bbf250f9e5c8367fbabe1ff92e222be59d7b",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/bitstream.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_bitstream.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "c61fc339f712ef37b6496f16f4e6e31a4730a055978bdc2ef1f371296273db11",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/encoder.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_encoder.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "472769e89bc898e24ad29d031868bfdf946d2518323817b85a0783d804ba669c",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/fft.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_fft.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "dc51f1081b1b79c2c4281d79f1a411368ce3b2fb39393f7bec2a27d158579b88",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/gain_analysis.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_gain_analysis.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "ca975e3d6d7f680535da87ff42978d07db8e1c476a45da73531531a9d6d83fbd",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/id3tag.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_id3tag.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "82b770414e2f3388396c9e777898559177a4458bb4b19744b6a80e5c47726c19",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/lame.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_lame.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "e44ec0933da912a154524edf2d3f2b19148db547d56fc6870d404ec0e19d7d2a",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/newmdct.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_newmdct.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "c793c2cafca21ba6b1fd6ff19268090f90cca0b1d164e6fa6955c7d304a9c48d",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/presets.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_presets.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "265740834f1c28d2e694df7fcf12b0b57eca142788d6a34898fb4297576d6531",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/psymodel.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_psymodel.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "0f4f34f9d73189c8246cfa78f80a6076dd13c7b0a9a1bb39b86356460d061a19",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/quantize.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_quantize.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "2080c198b8576cddf132fcdde2a977f72c5d6c358ab989fc7f2c8030c0c21b5b",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/quantize_pvt.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_quantize_pvt.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "ac4227495368347e8c3a0dfe76266c0ad10e419abe9f4704a7119d92e0bbfba1",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/reservoir.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_reservoir.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "b961f276d614c6e536d5a53f5fba2b9ef7ea4bb578b3a16cc64caee68ac60334",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/set_get.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_set_get.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "583e7aa9fca50cda784b2cc27c8a02e7bb8afdbff78cc1aa6036abbe4595d4b4",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/tables.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_tables.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "39645c3a86880223aff0734796a7dd262cfaa1bbe847b5d42986c987a8001077",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/takehiro.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_takehiro.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "cd689cecd8ea02797a40e6be204030b69632e9d2fab5ac5c4bf77b13cff36e77",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/util.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_util.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "cb974c9c8d4e1ef7085a74b43a2fee7f0e647499b69b53167b1172045b3ed5b8",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/vbrquantize.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_vbrquantize.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "1a885ad00b309d27dd6629d13a461c0fee510447e61dba7b790dea936d2d4e7b",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/version.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_version.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "e4c71ec08350ad44429007c665e0a82ad75380df4c03e0ccff5422fe56f84fac",
+        "path": "recovery/src/Native/Audio/EaLayer3/mp3toea.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mp3toea.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "ac9c2c357383fd54324ac19a6e91647658cac2512c7aa9575e589d9fd5b0175e",
+        "path": "recovery/src/Native/Audio/EaLayer3/mpeg.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpeg.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "3d8d2520385413d148121f16daae61b359949c597df8b5e4b384824771bca574",
+        "path": "recovery/src/Native/Audio/EaLayer3/mpeghufftables.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpeghufftables.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "da2daed8ec30af9581b08d81ace37de914a81ee133f6aea105f9cca12a607ba3",
+        "path": "recovery/src/Native/Audio/EaLayer3/mpegl3base.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpegl3base.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "104bebd4c2c22f258a086e33ff25f97877ce42a59c3a59d36669e57c5c4e5065",
+        "path": "recovery/src/Native/Audio/EaLayer3/mpegpoly_c.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpegpoly_c.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "bba5d1754928cc1aa5cf5f64bb0c4b752203932a37b331e086f21afc7b09eb58",
+        "path": "recovery/src/Native/Audio/EaLayer3Encoder.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3Encoder.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "25afc67b88e64d7b5835693dce60998d85454925767641058a2a24c29515c212",
+        "path": "recovery/src/Native/Audio/EaLayer3/scalesamples.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_scalesamples.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
+        "path": "recovery/src/Native/Texture/PublicS3/s3_quant.cpp",
+        "generatedSha256": null,
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Texture_PublicS3_s3_quant.obj",
+        "kind": "unmanagedSources"
+      },
+      {
+        "sha256": "8487e79072e4d169da768735cc1a1fd274ae62e37a4a8b7b709198086e2aaaf9",
+        "path": "recovery/src/Bridge/ArmorCompiler.cpp",
+        "generatedSha256": "bede30836995d0793a591b17241cf8c30e315c5224a73995e36a59af9ee52e22",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "aec9222947fe137f4bb856764158bf81efc496ca6b692846bf636b5efe7f23c1",
+        "path": "recovery/src/Bridge/GameObjectCompiler.cpp",
+        "generatedSha256": "f677e391c5e6b9997ea66ab972a7cd19e0008ca6fd64efac627511681aa18dcb",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "8259793751258841eba08b953d261529952ace18fa236b98366c960a2fa87620",
+        "path": "recovery/src/Bridge/WeaponCompiler.cpp",
+        "generatedSha256": "5d2079e991ff0a26975114f80a0966bafe9ae3ca62eecb56e22811c90df08b65",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "5eaf1012cc8bbf0fbbbbf04bbd8a1c94e5430edece8b19e853cb1d5bdd8446c8",
+        "path": "recovery/src/Bridge/XmlabilitybuttonsCompiler.cpp",
+        "generatedSha256": "c4720f3a70e525882efadaaeed27bb6ff4f2a2452ba95e26baee942b4e237586",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "9c6e0e0e1e3eab4ec8c6fa390e53ef3bc00bac9cb870c24a87b3519acd587106",
+        "path": "recovery/src/Bridge/XmlaiCompiler.cpp",
+        "generatedSha256": "06f7098a4dde0be0c98853b7d0460f0d8a1e5f3445d494c717fc6eb5f5fea3d2",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "91e9f5f801158d4e29abacd2a976c6adf511763fdd1f26cc382dd8004905c548",
+        "path": "recovery/src/Bridge/XmlaptdataCompiler.cpp",
+        "generatedSha256": "b54183f53efde507e6c21b804914067b56b66e8ebd54dcfc9d4cc6bc0197bd4f",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "96963130498a94876b7c305eb876b07c1cc29e090beb71c3c81ea2d75193bb40",
+        "path": "recovery/src/Bridge/XmlarmyopeningCompiler.cpp",
+        "generatedSha256": "fbb11e4e8c42e894767face3500b74492529335d1a3db27a4bbb1b55263fed12",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "82e91c5562dded785ee9a364a8972fc0e95032bd834c0251733f5ec42c7a770a",
+        "path": "recovery/src/Bridge/XmlassetindexesCompiler.cpp",
+        "generatedSha256": "8938aeff84d189adac5f35dd9129e0f3329002e4e34a7a8a87cf378fb9cbb21a",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "baf5f8fefd5e2f0162f5ad913bcc68d8e3889a5910040f0ae66943039a5650b2",
+        "path": "recovery/src/Bridge/XmlattributesCompiler.cpp",
+        "generatedSha256": "8c475e75868c5fe77b7866664d9ed34df85e8a72d3ee461f2ef743842c33f599",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "1f63ad2cb13933f8ddb02ed66fd486a9df2361e215b722b0239f46b4aa8e1771",
+        "path": "recovery/src/Bridge/XmlaudioCompiler.cpp",
+        "generatedSha256": "39fae93cbf016640b072c3832532e25edadd8d3c1b40a9905999e8d0ad8c5fdc",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "b85735e751386394a1949da83e2b653f74e26a25dff8cdf078d1ecd6456984e0",
+        "path": "recovery/src/Bridge/XmlbuildeconomyCompiler.cpp",
+        "generatedSha256": "a2bf86a7cec575dbb597abb915cd0ba2881db7ce16db8733bc13fa9d76052a30",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "fc44bc9224787c1c287978c08aec29a0167acb819856a51f4f502506eddf4327",
+        "path": "recovery/src/Bridge/XmlcampaignCompiler.cpp",
+        "generatedSha256": "ee5403de018e52b43294d92082b3d8487046916ecb89c412751bd09ffde7d51d",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "b556b6eb70fe9abf20d1f62f219e1e7aa0245140a566c9e985492126994fd85e",
+        "path": "recovery/src/Bridge/XmlchatcolorsCompiler.cpp",
+        "generatedSha256": "1d7a37809401cadf8058ebfbe5b246cfb3fcef94d6e621a0f9da1272fdacc70a",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "8d3ce65158f0b55328db4c52dc7ec77dea11ac54deec8ae0d23d180c88cecfe4",
+        "path": "recovery/src/Bridge/XmlcommandsetCompiler.cpp",
+        "generatedSha256": "27e1f162038579a98cf72cbc2f2b11440f3385c6edaecbd754056508540413c2",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "c820f1b068eec3ae832473650007e76e2b0260c234964fad63e0a76500080382",
+        "path": "recovery/src/Bridge/XmlconditionsCompiler.cpp",
+        "generatedSha256": "2a1b81e4db1bf94aa4a000da0d47d5c4a837a2a239b06156c503f4f7526496b7",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "9922e579fe74ef926ed32fea70435eb98a5a876e558622a46803182f0dd17429",
+        "path": "recovery/src/Bridge/XmlconnectionsCompiler.cpp",
+        "generatedSha256": "f16521a0fb58a8203380b24bebc58af2697573d9967175ade9f85a401ecdb2cb",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "45c161b4868b147b52d5ef3d4d36bc822f783d3bcad9668a7455acbf9fa9a728",
+        "path": "recovery/src/Bridge/XmlconquercardsCompiler.cpp",
+        "generatedSha256": "9f5be2644cfac9d5d42a7f2444672988ac2cb19e6f9a0627aa64a9926e17cbb8",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "8642ae2b4b72f1ac9d0201cf07496743f0218ce6cbd4e7f609903668b3299c60",
+        "path": "recovery/src/Bridge/XmlcontentCompiler.cpp",
+        "generatedSha256": "9ab2463c649bb756f1f1cf16be9f339ac23a79fc744492c434ca0bf9a40162e7",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "5c6de5332bbc425a1badcbf72d404a93d442176135a305ccbcdd39b97781f2e4",
+        "path": "recovery/src/Bridge/XmlcrowdCompiler.cpp",
+        "generatedSha256": "d6b1cf8db740010c4b9a65b93a5a4330f1dd5b28441dea6e445d935ae7dcb1f8",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "7c605a99240e99fb08de95124207b0abf05c698b094c98a4bc99e9cc16a7ca7b",
+        "path": "recovery/src/Bridge/XmldamagefxCompiler.cpp",
+        "generatedSha256": "7959f9fc0ac19edf070273eb133eb788fd7eccd9f95a83f138ec8ffa39798132",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "a5afd80a5c27cbd82a546857254549f040aa9789d400709a181bdcb287522ed2",
+        "path": "recovery/src/Bridge/XmldynamicsCompiler.cpp",
+        "generatedSha256": "a554cff5794cbeec3237da78bd9bcdda334589e137b7ffbc50dcca1396785dd6",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "5ed20e92015286636d9a1677df90c78ae962c0ed841f7de2ce4e42c6c814e085",
+        "path": "recovery/src/Bridge/XmleffectsCompiler.cpp",
+        "generatedSha256": "4f8eaa2a06ac2711c5b505c35daafa475e9603ad8047f52a62abdd3ffa32fb6b",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "21857c31d5bb8f767f6f58bee50f7822bf9f4e991dbba6333a9ef06bb1fbe9fe",
+        "path": "recovery/src/Bridge/XmlemotionsCompiler.cpp",
+        "generatedSha256": "b9835921d4a49e2f544192b1fef6f9170e42d31980e1ba88c65d7fb55abac45b",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "ac1382e17534ebab383f093c9df8b9f23ddc2ab7b234feed99df4698d7a62f89",
+        "path": "recovery/src/Bridge/XmlenvironmentCompiler.cpp",
+        "generatedSha256": "bb0f5552f3b808477b37e3e0938c05a2eac59f0faced15d8ca62675a5e6dc800",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "9baeccbd114e21a2a934b9094926226307c06de7561ea47777a90b95bb5eed69",
+        "path": "recovery/src/Bridge/XmlevaachievementCompiler.cpp",
+        "generatedSha256": "16cc039a125d71ff9bdd3d4feddde7d1a7990164f04b86d36b8652cbbde2aad6",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "711189c64e6fcf98d79dcb692a7af637365c02e0c2205609a306edcb75403aaa",
+        "path": "recovery/src/Bridge/XmlforcefeedbackCompiler.cpp",
+        "generatedSha256": "e6d7257660bb510be065123804e1361c7f7b0bde62fc663e1a2aa3f87dffdbbf",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "d2a1f370a83b683de080d6858989d5da5daf346c6613a484a9455beca39ab28d",
+        "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp",
+        "generatedSha256": "02f9ad8bdb870f9bbcd88dab1a84d7967c48dd9af0a935438afbc6d08d0305ae",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "1a209b884d79689b57db1fa17b2ae241057f0c7dd1983267f8667bdcbac9d08c",
+        "path": "recovery/src/Bridge/XmlgamemapCompiler.cpp",
+        "generatedSha256": "c477093e3711ead91b4da803096052afafd1036db8f4690d994c4010f7149f37",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "1f29c283ab296d1e1b842c46524aff3043eb8eb906ad41bf408e4282a6e26c39",
+        "path": "recovery/src/Bridge/XmlgamescriptsCompiler.cpp",
+        "generatedSha256": "b0ad975f54473b50c37906484af0d0816c9756d0b957ec12fb4302d1930f8a7b",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "56cef8e4e12d62e5174b45d35e9f98a94c6f07d9c0e3672b3895f9a8ad16df41",
+        "path": "recovery/src/Bridge/XmlhealthbarsCompiler.cpp",
+        "generatedSha256": "d6a770e38655fa6b1ab040a41a0b99591273bb698bf5e034f6e1422287cb19a7",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "325baaaa3e85c6e57ecef932e2b05b27b19a96afcb3040bef8cef2d062447fa2",
+        "path": "recovery/src/Bridge/XmlhotkeymapsCompiler.cpp",
+        "generatedSha256": "918739195d41d160116a502897d9417a945ba711d42336a3da5d30ae32f631c0",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "eea7b4f74fb1355ee05e27c7a6f7401d17aac9f7fa2d6b5c5cf69a64ada45559",
+        "path": "recovery/src/Bridge/XmllocalizationCompiler.cpp",
+        "generatedSha256": "b3a2b2fbec1ba2d9fbf95e1afe4a6a1ee0bd9c68db34160e7364be53a494e249",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "3b38644f04b91fc6d729d1bbec98a1c6c1d92b4fb210b9ceb7e748ab12feb80e",
+        "path": "recovery/src/Bridge/XmllocomotorCompiler.cpp",
+        "generatedSha256": "3099a972a0fc1faa5415e57df26259c3c4c591707b076dfd3eb9990fa4a4069a",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "74d7670400d6f2a149629e7b7e2056ed57e308addd1621161c7d6d356307f51e",
+        "path": "recovery/src/Bridge/XmlmapmetadataCompiler.cpp",
+        "generatedSha256": "b69ac6ddd1644b2d0dec75c2a0ad8d7bd50a591b09e6bd5692d4ebf4777fe421",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "f55bab2f6c1c645397b4b68fd91a04f7cb9f642864ff92ed531c2b5b9a07597e",
+        "path": "recovery/src/Bridge/XmlmaterialrulesCompiler.cpp",
+        "generatedSha256": "c92e10d9b21aac117490e49a8bb0a4e8e39cc82a350fb501c6f79ec846b569b6",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "1e445cfe5c673e5ae65324d5f1f2c00d0f979560e6a2d976c39af6c5b0b65c4f",
+        "path": "recovery/src/Bridge/XmlmouseCompiler.cpp",
+        "generatedSha256": "0e76ac6302302f81d0a57318d45b03df0405291ec953b1b5118eaf1f771bbf1e",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "eceedb19a577e2b520bda3008ad44130c4c302350148287672ea952a971d5ecc",
+        "path": "recovery/src/Bridge/XmlmoviearchiveCompiler.cpp",
+        "generatedSha256": "385efb0bec4ff02c8f0dd14feb85b6dca8572c970e6382299b298bcead23c90d",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "2c43b6f770b89e2df641d8129506f4d7cdda15625e89d97933cebbe7d8307903",
+        "path": "recovery/src/Bridge/XmlmusicscriptCompiler.cpp",
+        "generatedSha256": "66b9e7ba1d51ffb2c320a678e4f4dc54ea6ce0124b5c89f6bb19db22a3b2e1f8",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "f370c372ac0cc30f98966494735da503850f91ba4416fab466890591f1979d1f",
+        "path": "recovery/src/Bridge/XmlobjectsetsCompiler.cpp",
+        "generatedSha256": "0d2f0fc53017974de0fde277f4c841cfeb667740e4478a6c8c34defefd1692fc",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "459634b28beb7aea699145c9222dc65c3309d8171c43412ab1ce2d17fce6f64e",
+        "path": "recovery/src/Bridge/XmlpathmusicCompiler.cpp",
+        "generatedSha256": "9522329b459977fb40db613e6a1c3462d11f2d38f4c5347421286d84ebd461e7",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "fc23c045c8b991854bbff31e3dba16cd5eb54dec77d031c31fa286a15dd7b78d",
+        "path": "recovery/src/Bridge/XmlplayersCompiler.cpp",
+        "generatedSha256": "e7b07470c0c41710e57696335930458528e2e2ce8cd294b64b5b5555515af48c",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "6b79e052280ba254fa251e694b9fe11339a4d5c7cf53e38506ee3bf6281d1e01",
+        "path": "recovery/src/Bridge/XmlpowersCompiler.cpp",
+        "generatedSha256": "0945cff265d6dd64fe3ee1145aef8f697d5af5d87134cd6d40a17280717aed8b",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "7623c1e5848be93d2236fc1084eab3c76c2d45460dae2b320cf3c064fe6f601a",
+        "path": "recovery/src/Bridge/XmlprogressionCompiler.cpp",
+        "generatedSha256": "728c5de898b48f913d50219b7de6f36338e6eb03d42155a37f874cd345cfe67e",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "86f261b3434c94adad03d44a8b8a147a77628ce7c668f7b6a0fe4c4028923565",
+        "path": "recovery/src/Bridge/XmlprojectilepathCompiler.cpp",
+        "generatedSha256": "92dc84fbd1539b55edb554e1e6eb18226786e45c584af3957835faf50703dc6e",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "b94169399a64043a82718283dd5a40e28245523cbf14a80c4002809068b879b4",
+        "path": "recovery/src/Bridge/XmlradarCompiler.cpp",
+        "generatedSha256": "d540eb7134a60c4f737a857e7dcab7914c586459130d31adb8df1f81261d0dd3",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "2b3c3e22488c37e37666d7bc07eac455de3d7b093b18ca210e72ccc9942f73ca",
+        "path": "recovery/src/Bridge/XmlredalertCompiler.cpp",
+        "generatedSha256": "76d61105b0429e1e4926200d20ebb3a93a65d22fcd0e122e0b6c0c68fb0904e3",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "114d860a723dab65583c3631f6282436a62726c85c45dd029be5b20e89a7ff94",
+        "path": "recovery/src/Bridge/XmlrenderassetsCompiler.cpp",
+        "generatedSha256": "84805797e272c0a33029670889ca4f24ec56d4c522b57bc651d983a38a40abe7",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "d7157aa4fb27c102d9779b9b1d49f04566bad87260f9b229607c7f58de8f5b0b",
+        "path": "recovery/src/Bridge/XmlrenderdeviceCompiler.cpp",
+        "generatedSha256": "449eb98c99e534158116ba904a73df35eca891800a2b9e8ee8b682e3c6700212",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "e996b23b514943a1a8ff25e9d47a78acd00470997d70a19e7911781126d51224",
+        "path": "recovery/src/Bridge/XmlruntimeopaqueCompiler.cpp",
+        "generatedSha256": "27e2dcede1bd12fc033fd6dfe9d408ad21119631fff485e2eb61d08c468e2e6d",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "a3cdbac714a4676bfeebee5e80c745df86c58fb3d3232d56c20aa0f1dea09120",
+        "path": "recovery/src/Bridge/XmlsinglesoundCompiler.cpp",
+        "generatedSha256": "a4a40c26e2d08d0d7d1423ec9845e30e55d9354b4df3466a695a07b1de6ca941",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "6721b2a4b550bb1b4b81b2df66b62523b660214c3c9cd722610d59790e84cd61",
+        "path": "recovery/src/Bridge/XmlsoundmapsCompiler.cpp",
+        "generatedSha256": "169a61954893185014bc029f6216f5a1045f1652d337e833f46f5ef9e05126f0",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "eb36a8e374e55a413a982a3b0676489a61d55b884ac95492e2fd8863229dfa0f",
+        "path": "recovery/src/Bridge/XmlsystemsettingsCompiler.cpp",
+        "generatedSha256": "c3129144ec26d5ad767a72b3136ceba659d4e99c020caf2e47216ec115dfdee2",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "7c4db70e32644026d775d871116a44514367618764d97a9ed1341791cd279cb5",
+        "path": "recovery/src/Bridge/XmltacticalhotkeysCompiler.cpp",
+        "generatedSha256": "11aca3764a813fb74e586f04f760fa62d7659b3dd34c5ef9f56a5b6d5b6f7449",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "e61d4bfaeed616c111406b00a0422b1d5af53c255398626c7c801947f8aff22f",
+        "path": "recovery/src/Bridge/XmltargetingCompiler.cpp",
+        "generatedSha256": "3c7fe4dc6aaf6a2be10b9de151bd74ecfc2f21babc3606840e6bcf4ce32aaf36",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "1e337643f63181c1aaf8c1afad77abf13af9012e98fa5942657e8966aafe125a",
+        "path": "recovery/src/Bridge/XmlterrainCompiler.cpp",
+        "generatedSha256": "1db9305cf408674a779eb4f22f1c026724b2fde505e7376808000d20f4ee1c53",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "eb6e313dffcedb07ff040e177821124091de0f25f2390aec8c6f0241ecb7194c",
+        "path": "recovery/src/Bridge/XmltesttexturesCompiler.cpp",
+        "generatedSha256": "b762b010accaee0ff523b593a6ae4de3e44138f4e87f66f2ea4a8efcca06e551",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "8c0a17cf698a05cce26474fe2c27fb1203e19562e5c378c6df50ae3429e2ff2c",
+        "path": "recovery/src/Bridge/XmluichatCompiler.cpp",
+        "generatedSha256": "982a0b86ea6feb2df2df1bd514f59708d71a5f18d42da5e4bc4ad3d4977ef2b7",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "0915bbe7e0f17dbd7ecd8981a3906a82599398c9c3c541e9780951446fe9175c",
+        "path": "recovery/src/Bridge/XmluiconfigCompiler.cpp",
+        "generatedSha256": "8206055aa72aabdf5ca54c201c3ed4c6a125e10b5ad335af11d58faab21dca51",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "fed83892caec800589714cb265d8bd200445de8bfbd4d4b7bbdeb850e210f2e7",
+        "path": "recovery/src/Bridge/XmluidecalsCompiler.cpp",
+        "generatedSha256": "a2472594012cd338fbe0e162912dfadba33646f1028ca99bf1836e2920c049e1",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "9a895975365e421ea1faa59af0454379da520d2219671d0dd8056eeb2507c7da",
+        "path": "recovery/src/Bridge/XmluiimagesCompiler.cpp",
+        "generatedSha256": "346834bcc8cbb7a47a8bc17840a5ef9ff94def067ebf7946994a5cefc70a819a",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "99305539ef7651dbf800fb35e5c9bdc712bebd5f55fb66d38de3c1a1f5c7fe38",
+        "path": "recovery/src/Bridge/XmluisettingsCompiler.cpp",
+        "generatedSha256": "d7fc7cf50d4b7bd0ce705e1ca4dbfa564e8557fd3a7435feb4c30b82011425da",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "0661dbb1548356b99854177eb7bda2f3df7976eb18d78c04aa97cc7d06bd8ff1",
+        "path": "recovery/src/Bridge/XmluitacticalCompiler.cpp",
+        "generatedSha256": "cb47b51c1ca4874270749e3d177eecfc922ca6d705fee83c00a44b3e445cce99",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "cfb871fda2e058cccc663aca4dae5fde5f13a0e5b60dbc9ef288ce7c9460f461",
+        "path": "recovery/src/Bridge/XmlunitoverlayCompiler.cpp",
+        "generatedSha256": "19fc11bb239bb7f3020639479e2cd1e1cf85acc502af5ac5aa2490b0cb619e63",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "8fc1215ccf24a9ae3e811855fe57ce4b339d481c27f3721586921e0b730db346",
+        "path": "recovery/src/Bridge/XmlvisibilityCompiler.cpp",
+        "generatedSha256": "058ac230138228a6e2daea90d3701b64780f460211308e08138307e4f6642188",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "421fa592c5c81f2cb8a49aed178f4307e55c43bde4be59194357c18d92b24e2b",
+        "path": "recovery/src/Bridge/XmlvisualsystemsCompiler.cpp",
+        "generatedSha256": "b09c9322d2f387d9fa128e9ca169088bc53b42b7cf79b312430a523b3a326bd3",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "86ca6c5fb6b6d0c4700d951b6937078814512182dd6f7633eb69b922d3b08780",
+        "path": "recovery/src/Bridge/Xmlw3dCompiler.cpp",
+        "generatedSha256": "0549c5b77d04e1b759ca49d127665069e5cb87315aa76f4ae86ec63599e3913c",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "b208da3f8e620369b8af056d6937d1ad39a86078b268e8125a709e6ceed68cdb",
+        "path": "recovery/src/Bridge/W3x/AnimationCompiler.cpp",
+        "generatedSha256": "7d9f981d395b259b34742d172fe9ba0e14adebeb7c6a0c5594e3879cabed09f7",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "97f606dff31d09ed603186b8902859d4f251215b90488ecf7fcdf45359b9c985",
+        "path": "recovery/src/Bridge/W3x/MeshCompiler.cpp",
+        "generatedSha256": "9b1a835b6a9bbeae8004b967f433cb0b22051b59e57fc7aa87c52de7b026ab6a",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      },
+      {
+        "sha256": "cf41b2d31c5178c58414120b565d124a0854545d53a672ad55ff66b6e3c2d097",
+        "path": "recovery/src/Bridge/TextureCompiler.cpp",
+        "generatedSha256": "9e35e3bd08e9ca2cf187ebe7beaa49258d8103f6f44876b956448235e694dc5a",
+        "object": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj",
+        "kind": "bridgeSources"
+      }
+    ],
+    "runtimeBackendLibraries": [],
+    "bridgeObjects": [
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj"
+    ],
+    "applicationSources": [
+      "recovery/src/Plugin/ArmorPlugin.cs",
+      "recovery/src/Plugin/GameObjectPlugin.cs",
+      "recovery/src/Plugin/WeaponPlugin.cs",
+      "recovery/src/Plugin/XmlPriorityPlugin.cs",
+      "recovery/src/Plugin/W3x/Plugin.cs",
+      "recovery/src/Plugin/W3x/NativePlugin.cs",
+      "recovery/src/Managed/W3x/W3xCatalog.cs",
+      "recovery/src/Managed/W3x/IW3xAssetCompiler.cs",
+      "recovery/src/Plugin/Texture/Plugin.Atlas.cs",
+      "recovery/src/Plugin/Texture/Plugin.Dds.cs",
+      "recovery/src/Plugin/Texture/Plugin.Images.cs",
+      "recovery/src/Plugin/Texture/Plugin.Metadata.cs",
+      "recovery/src/Plugin/Texture/TextureAtlasDdsEncoder.cs",
+      "recovery/src/Plugin/Texture/TextureBlockCompression.cs",
+      "recovery/src/Plugin/Texture/TextureBmpDecoder.cs",
+      "recovery/src/Plugin/Texture/TextureCatalog.cs",
+      "recovery/src/Plugin/Texture/TextureDdsEncoder.cs",
+      "recovery/src/Plugin/Texture/TextureDibDecoder.cs",
+      "recovery/src/Plugin/Texture/TextureDxtBlockEncoder.cs",
+      "recovery/src/Plugin/Texture/TextureDxtSampleBlockEncoder.cs",
+      "recovery/src/Plugin/Texture/TextureImageLoader.cs",
+      "recovery/src/Plugin/Texture/TextureImageRules.cs",
+      "recovery/src/Plugin/Texture/TextureNpotRgba8Resampler.cs",
+      "recovery/src/Plugin/Texture/TextureNpotStorageResampler.cs",
+      "recovery/src/Plugin/Texture/TexturePacker.cs",
+      "recovery/src/Plugin/Texture/TexturePngDecoder.cs",
+      "recovery/src/Plugin/Texture/TextureRawDdsEncoder.cs",
+      "recovery/src/Plugin/Texture/TextureTgaAdditionalFormats.cs",
+      "recovery/src/Plugin/Texture/TextureTgaDecoder.cs",
+      "recovery/src/Plugin/Texture/TextureTgaMetadata.cs",
+      "recovery/src/Plugin/Texture/TextureTriangleMipEncoder.cs",
+      "recovery/src/Plugin/Texture/TextureVolume.cs",
+      "recovery/src/Plugin/Texture/TextureVolumeMipEncoder.cs",
+      "recovery/src/Plugin/Texture/TextureVolumeRawDdsEncoder.cs",
+      "recovery/src/Plugin/Texture/TextureIndexedBmpDecoder.cs"
+    ],
+    "bridgeTranslationUnit": {
+      "sha256": "1b365aba2ebd19e96e3b425e77433fd0e044e9b6e33fefcb04885802a3a602f8",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\generated\\CompilerBridges.cpp",
+      "sourceCount": 69
+    },
+    "dependencies": [
+      {
+        "sha256": "8487e79072e4d169da768735cc1a1fd274ae62e37a4a8b7b709198086e2aaaf9",
+        "path": "recovery/src/Bridge/ArmorCompiler.cpp"
+      },
+      {
+        "sha256": "aec9222947fe137f4bb856764158bf81efc496ca6b692846bf636b5efe7f23c1",
+        "path": "recovery/src/Bridge/GameObjectCompiler.cpp"
+      },
+      {
+        "sha256": "cf41b2d31c5178c58414120b565d124a0854545d53a672ad55ff66b6e3c2d097",
+        "path": "recovery/src/Bridge/TextureCompiler.cpp"
+      },
+      {
+        "sha256": "b208da3f8e620369b8af056d6937d1ad39a86078b268e8125a709e6ceed68cdb",
+        "path": "recovery/src/Bridge/W3x/AnimationCompiler.cpp"
+      },
+      {
+        "sha256": "97f606dff31d09ed603186b8902859d4f251215b90488ecf7fcdf45359b9c985",
+        "path": "recovery/src/Bridge/W3x/MeshCompiler.cpp"
+      },
+      {
+        "sha256": "8259793751258841eba08b953d261529952ace18fa236b98366c960a2fa87620",
+        "path": "recovery/src/Bridge/WeaponCompiler.cpp"
+      },
+      {
+        "sha256": "5eaf1012cc8bbf0fbbbbf04bbd8a1c94e5430edece8b19e853cb1d5bdd8446c8",
+        "path": "recovery/src/Bridge/XmlabilitybuttonsCompiler.cpp"
+      },
+      {
+        "sha256": "9c6e0e0e1e3eab4ec8c6fa390e53ef3bc00bac9cb870c24a87b3519acd587106",
+        "path": "recovery/src/Bridge/XmlaiCompiler.cpp"
+      },
+      {
+        "sha256": "91e9f5f801158d4e29abacd2a976c6adf511763fdd1f26cc382dd8004905c548",
+        "path": "recovery/src/Bridge/XmlaptdataCompiler.cpp"
+      },
+      {
+        "sha256": "96963130498a94876b7c305eb876b07c1cc29e090beb71c3c81ea2d75193bb40",
+        "path": "recovery/src/Bridge/XmlarmyopeningCompiler.cpp"
+      },
+      {
+        "sha256": "82e91c5562dded785ee9a364a8972fc0e95032bd834c0251733f5ec42c7a770a",
+        "path": "recovery/src/Bridge/XmlassetindexesCompiler.cpp"
+      },
+      {
+        "sha256": "baf5f8fefd5e2f0162f5ad913bcc68d8e3889a5910040f0ae66943039a5650b2",
+        "path": "recovery/src/Bridge/XmlattributesCompiler.cpp"
+      },
+      {
+        "sha256": "1f63ad2cb13933f8ddb02ed66fd486a9df2361e215b722b0239f46b4aa8e1771",
+        "path": "recovery/src/Bridge/XmlaudioCompiler.cpp"
+      },
+      {
+        "sha256": "b85735e751386394a1949da83e2b653f74e26a25dff8cdf078d1ecd6456984e0",
+        "path": "recovery/src/Bridge/XmlbuildeconomyCompiler.cpp"
+      },
+      {
+        "sha256": "fc44bc9224787c1c287978c08aec29a0167acb819856a51f4f502506eddf4327",
+        "path": "recovery/src/Bridge/XmlcampaignCompiler.cpp"
+      },
+      {
+        "sha256": "b556b6eb70fe9abf20d1f62f219e1e7aa0245140a566c9e985492126994fd85e",
+        "path": "recovery/src/Bridge/XmlchatcolorsCompiler.cpp"
+      },
+      {
+        "sha256": "8d3ce65158f0b55328db4c52dc7ec77dea11ac54deec8ae0d23d180c88cecfe4",
+        "path": "recovery/src/Bridge/XmlcommandsetCompiler.cpp"
+      },
+      {
+        "sha256": "c820f1b068eec3ae832473650007e76e2b0260c234964fad63e0a76500080382",
+        "path": "recovery/src/Bridge/XmlconditionsCompiler.cpp"
+      },
+      {
+        "sha256": "9922e579fe74ef926ed32fea70435eb98a5a876e558622a46803182f0dd17429",
+        "path": "recovery/src/Bridge/XmlconnectionsCompiler.cpp"
+      },
+      {
+        "sha256": "45c161b4868b147b52d5ef3d4d36bc822f783d3bcad9668a7455acbf9fa9a728",
+        "path": "recovery/src/Bridge/XmlconquercardsCompiler.cpp"
+      },
+      {
+        "sha256": "8642ae2b4b72f1ac9d0201cf07496743f0218ce6cbd4e7f609903668b3299c60",
+        "path": "recovery/src/Bridge/XmlcontentCompiler.cpp"
+      },
+      {
+        "sha256": "5c6de5332bbc425a1badcbf72d404a93d442176135a305ccbcdd39b97781f2e4",
+        "path": "recovery/src/Bridge/XmlcrowdCompiler.cpp"
+      },
+      {
+        "sha256": "7c605a99240e99fb08de95124207b0abf05c698b094c98a4bc99e9cc16a7ca7b",
+        "path": "recovery/src/Bridge/XmldamagefxCompiler.cpp"
+      },
+      {
+        "sha256": "a5afd80a5c27cbd82a546857254549f040aa9789d400709a181bdcb287522ed2",
+        "path": "recovery/src/Bridge/XmldynamicsCompiler.cpp"
+      },
+      {
+        "sha256": "5ed20e92015286636d9a1677df90c78ae962c0ed841f7de2ce4e42c6c814e085",
+        "path": "recovery/src/Bridge/XmleffectsCompiler.cpp"
+      },
+      {
+        "sha256": "21857c31d5bb8f767f6f58bee50f7822bf9f4e991dbba6333a9ef06bb1fbe9fe",
+        "path": "recovery/src/Bridge/XmlemotionsCompiler.cpp"
+      },
+      {
+        "sha256": "ac1382e17534ebab383f093c9df8b9f23ddc2ab7b234feed99df4698d7a62f89",
+        "path": "recovery/src/Bridge/XmlenvironmentCompiler.cpp"
+      },
+      {
+        "sha256": "9baeccbd114e21a2a934b9094926226307c06de7561ea47777a90b95bb5eed69",
+        "path": "recovery/src/Bridge/XmlevaachievementCompiler.cpp"
+      },
+      {
+        "sha256": "711189c64e6fcf98d79dcb692a7af637365c02e0c2205609a306edcb75403aaa",
+        "path": "recovery/src/Bridge/XmlforcefeedbackCompiler.cpp"
+      },
+      {
+        "sha256": "d2a1f370a83b683de080d6858989d5da5daf346c6613a484a9455beca39ab28d",
+        "path": "recovery/src/Bridge/XmlfxparticleCompiler.cpp"
+      },
+      {
+        "sha256": "d2f1db7562c45d578e41e983190308cedcdcbb9d14ccc2c51ca44e591f0295da",
+        "path": "recovery/src/Bridge/XmlfxparticleModuleCases.inc"
+      },
+      {
+        "sha256": "7b37c88dcc10d2a2498f6d07d4f30cd9b7a299d02799305f65b8396a1eb29810",
+        "path": "recovery/src/Bridge/XmlfxparticleModuleHelpers.inc"
+      },
+      {
+        "sha256": "1a209b884d79689b57db1fa17b2ae241057f0c7dd1983267f8667bdcbac9d08c",
+        "path": "recovery/src/Bridge/XmlgamemapCompiler.cpp"
+      },
+      {
+        "sha256": "1f29c283ab296d1e1b842c46524aff3043eb8eb906ad41bf408e4282a6e26c39",
+        "path": "recovery/src/Bridge/XmlgamescriptsCompiler.cpp"
+      },
+      {
+        "sha256": "56cef8e4e12d62e5174b45d35e9f98a94c6f07d9c0e3672b3895f9a8ad16df41",
+        "path": "recovery/src/Bridge/XmlhealthbarsCompiler.cpp"
+      },
+      {
+        "sha256": "325baaaa3e85c6e57ecef932e2b05b27b19a96afcb3040bef8cef2d062447fa2",
+        "path": "recovery/src/Bridge/XmlhotkeymapsCompiler.cpp"
+      },
+      {
+        "sha256": "eea7b4f74fb1355ee05e27c7a6f7401d17aac9f7fa2d6b5c5cf69a64ada45559",
+        "path": "recovery/src/Bridge/XmllocalizationCompiler.cpp"
+      },
+      {
+        "sha256": "3b38644f04b91fc6d729d1bbec98a1c6c1d92b4fb210b9ceb7e748ab12feb80e",
+        "path": "recovery/src/Bridge/XmllocomotorCompiler.cpp"
+      },
+      {
+        "sha256": "74d7670400d6f2a149629e7b7e2056ed57e308addd1621161c7d6d356307f51e",
+        "path": "recovery/src/Bridge/XmlmapmetadataCompiler.cpp"
+      },
+      {
+        "sha256": "f55bab2f6c1c645397b4b68fd91a04f7cb9f642864ff92ed531c2b5b9a07597e",
+        "path": "recovery/src/Bridge/XmlmaterialrulesCompiler.cpp"
+      },
+      {
+        "sha256": "1e445cfe5c673e5ae65324d5f1f2c00d0f979560e6a2d976c39af6c5b0b65c4f",
+        "path": "recovery/src/Bridge/XmlmouseCompiler.cpp"
+      },
+      {
+        "sha256": "eceedb19a577e2b520bda3008ad44130c4c302350148287672ea952a971d5ecc",
+        "path": "recovery/src/Bridge/XmlmoviearchiveCompiler.cpp"
+      },
+      {
+        "sha256": "2c43b6f770b89e2df641d8129506f4d7cdda15625e89d97933cebbe7d8307903",
+        "path": "recovery/src/Bridge/XmlmusicscriptCompiler.cpp"
+      },
+      {
+        "sha256": "8fe082a209af33994defe36cdd0294b64fb3eef75069fd3228b2d56b5a34865f",
+        "path": "recovery/src/Bridge/XmlNodeAdapter.h"
+      },
+      {
+        "sha256": "f370c372ac0cc30f98966494735da503850f91ba4416fab466890591f1979d1f",
+        "path": "recovery/src/Bridge/XmlobjectsetsCompiler.cpp"
+      },
+      {
+        "sha256": "459634b28beb7aea699145c9222dc65c3309d8171c43412ab1ce2d17fce6f64e",
+        "path": "recovery/src/Bridge/XmlpathmusicCompiler.cpp"
+      },
+      {
+        "sha256": "fc23c045c8b991854bbff31e3dba16cd5eb54dec77d031c31fa286a15dd7b78d",
+        "path": "recovery/src/Bridge/XmlplayersCompiler.cpp"
+      },
+      {
+        "sha256": "6b79e052280ba254fa251e694b9fe11339a4d5c7cf53e38506ee3bf6281d1e01",
+        "path": "recovery/src/Bridge/XmlpowersCompiler.cpp"
+      },
+      {
+        "sha256": "7623c1e5848be93d2236fc1084eab3c76c2d45460dae2b320cf3c064fe6f601a",
+        "path": "recovery/src/Bridge/XmlprogressionCompiler.cpp"
+      },
+      {
+        "sha256": "86f261b3434c94adad03d44a8b8a147a77628ce7c668f7b6a0fe4c4028923565",
+        "path": "recovery/src/Bridge/XmlprojectilepathCompiler.cpp"
+      },
+      {
+        "sha256": "b94169399a64043a82718283dd5a40e28245523cbf14a80c4002809068b879b4",
+        "path": "recovery/src/Bridge/XmlradarCompiler.cpp"
+      },
+      {
+        "sha256": "2b3c3e22488c37e37666d7bc07eac455de3d7b093b18ca210e72ccc9942f73ca",
+        "path": "recovery/src/Bridge/XmlredalertCompiler.cpp"
+      },
+      {
+        "sha256": "114d860a723dab65583c3631f6282436a62726c85c45dd029be5b20e89a7ff94",
+        "path": "recovery/src/Bridge/XmlrenderassetsCompiler.cpp"
+      },
+      {
+        "sha256": "d7157aa4fb27c102d9779b9b1d49f04566bad87260f9b229607c7f58de8f5b0b",
+        "path": "recovery/src/Bridge/XmlrenderdeviceCompiler.cpp"
+      },
+      {
+        "sha256": "e996b23b514943a1a8ff25e9d47a78acd00470997d70a19e7911781126d51224",
+        "path": "recovery/src/Bridge/XmlruntimeopaqueCompiler.cpp"
+      },
+      {
+        "sha256": "a3cdbac714a4676bfeebee5e80c745df86c58fb3d3232d56c20aa0f1dea09120",
+        "path": "recovery/src/Bridge/XmlsinglesoundCompiler.cpp"
+      },
+      {
+        "sha256": "6721b2a4b550bb1b4b81b2df66b62523b660214c3c9cd722610d59790e84cd61",
+        "path": "recovery/src/Bridge/XmlsoundmapsCompiler.cpp"
+      },
+      {
+        "sha256": "eb36a8e374e55a413a982a3b0676489a61d55b884ac95492e2fd8863229dfa0f",
+        "path": "recovery/src/Bridge/XmlsystemsettingsCompiler.cpp"
+      },
+      {
+        "sha256": "7c4db70e32644026d775d871116a44514367618764d97a9ed1341791cd279cb5",
+        "path": "recovery/src/Bridge/XmltacticalhotkeysCompiler.cpp"
+      },
+      {
+        "sha256": "e61d4bfaeed616c111406b00a0422b1d5af53c255398626c7c801947f8aff22f",
+        "path": "recovery/src/Bridge/XmltargetingCompiler.cpp"
+      },
+      {
+        "sha256": "1e337643f63181c1aaf8c1afad77abf13af9012e98fa5942657e8966aafe125a",
+        "path": "recovery/src/Bridge/XmlterrainCompiler.cpp"
+      },
+      {
+        "sha256": "eb6e313dffcedb07ff040e177821124091de0f25f2390aec8c6f0241ecb7194c",
+        "path": "recovery/src/Bridge/XmltesttexturesCompiler.cpp"
+      },
+      {
+        "sha256": "8c0a17cf698a05cce26474fe2c27fb1203e19562e5c378c6df50ae3429e2ff2c",
+        "path": "recovery/src/Bridge/XmluichatCompiler.cpp"
+      },
+      {
+        "sha256": "0915bbe7e0f17dbd7ecd8981a3906a82599398c9c3c541e9780951446fe9175c",
+        "path": "recovery/src/Bridge/XmluiconfigCompiler.cpp"
+      },
+      {
+        "sha256": "fed83892caec800589714cb265d8bd200445de8bfbd4d4b7bbdeb850e210f2e7",
+        "path": "recovery/src/Bridge/XmluidecalsCompiler.cpp"
+      },
+      {
+        "sha256": "9a895975365e421ea1faa59af0454379da520d2219671d0dd8056eeb2507c7da",
+        "path": "recovery/src/Bridge/XmluiimagesCompiler.cpp"
+      },
+      {
+        "sha256": "99305539ef7651dbf800fb35e5c9bdc712bebd5f55fb66d38de3c1a1f5c7fe38",
+        "path": "recovery/src/Bridge/XmluisettingsCompiler.cpp"
+      },
+      {
+        "sha256": "0661dbb1548356b99854177eb7bda2f3df7976eb18d78c04aa97cc7d06bd8ff1",
+        "path": "recovery/src/Bridge/XmluitacticalCompiler.cpp"
+      },
+      {
+        "sha256": "cfb871fda2e058cccc663aca4dae5fde5f13a0e5b60dbc9ef288ce7c9460f461",
+        "path": "recovery/src/Bridge/XmlunitoverlayCompiler.cpp"
+      },
+      {
+        "sha256": "8fc1215ccf24a9ae3e811855fe57ce4b339d481c27f3721586921e0b730db346",
+        "path": "recovery/src/Bridge/XmlvisibilityCompiler.cpp"
+      },
+      {
+        "sha256": "421fa592c5c81f2cb8a49aed178f4307e55c43bde4be59194357c18d92b24e2b",
+        "path": "recovery/src/Bridge/XmlvisualsystemsCompiler.cpp"
+      },
+      {
+        "sha256": "86ca6c5fb6b6d0c4700d951b6937078814512182dd6f7633eb69b922d3b08780",
+        "path": "recovery/src/Bridge/Xmlw3dCompiler.cpp"
+      },
+      {
+        "sha256": "7f7865240bd713a96dfede6c146e44b3744a52e01182354633394ce0852a1f6d",
+        "path": "recovery/src/Native/ArmorTemplate.cpp"
+      },
+      {
+        "sha256": "eb7addd32451e6adbf942fc42be47e63f0a7453721789a9859dc3efa2afee443",
+        "path": "recovery/src/Native/ArmorTemplate.h"
+      },
+      {
+        "sha256": "28297b38053e33b563e788089bec2bdde5c292eb2d1aabb4611e01dfb373d592",
+        "path": "recovery/src/Native/AttributeMap.h"
+      },
+      {
+        "sha256": "546eb0ee68bb18789a4d4974d1fda806f6433f90dcc3b8a35c3d1aa1a3acb8d1",
+        "path": "recovery/src/Native/Audio/EaLayer3/base.h"
+      },
+      {
+        "sha256": "03a19b7ba293be267978188ce287504a17121671b0f1dcab69ea5306ec1852a0",
+        "path": "recovery/src/Native/Audio/EaLayer3/bitreserve.cpp"
+      },
+      {
+        "sha256": "f1eeae4b567213e720ba8a2db07b019a69a8a423cc914ede4e39a65be6e80610",
+        "path": "recovery/src/Native/Audio/EaLayer3/ealayer3core.cpp"
+      },
+      {
+        "sha256": "2c6705adb98f1b57ac65e5f060a27e6ad60748516cbab17bc5b9f23a323a3e0a",
+        "path": "recovery/src/Native/Audio/EaLayer3/ibase.h"
+      },
+      {
+        "sha256": "d01c251fad130b23162de6f06501bbf250f9e5c8367fbabe1ff92e222be59d7b",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/bitstream.cpp"
+      },
+      {
+        "sha256": "dec4afd0c0b1cd94e377402218c2161620b102fbf326a3c1fd2c2d7d1a38dbf0",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/bitstream.h"
+      },
+      {
+        "sha256": "689006cb8dd243d18d764d17dbd1726368c1f68e4f5502c9f08223eca078bb7d",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/configMS.h"
+      },
+      {
+        "sha256": "c61fc339f712ef37b6496f16f4e6e31a4730a055978bdc2ef1f371296273db11",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/encoder.cpp"
+      },
+      {
+        "sha256": "cbed64231c3a21f355505cbf0bd0fee8e8f12d207a66fc5c358b2fe67b747a3d",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/encoder.h"
+      },
+      {
+        "sha256": "472769e89bc898e24ad29d031868bfdf946d2518323817b85a0783d804ba669c",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/fft.cpp"
+      },
+      {
+        "sha256": "392c9e28fec4b0021f5d10f0ab7ef5dbd1a443f1de5696ebfcbbf34a9dd50058",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/fft.h"
+      },
+      {
+        "sha256": "dc51f1081b1b79c2c4281d79f1a411368ce3b2fb39393f7bec2a27d158579b88",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/gain_analysis.cpp"
+      },
+      {
+        "sha256": "3133de393bb9e0e2e55327a9177f2b1b51551edd2bc55a553ca9ac554a69c36b",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/gain_analysis.h"
+      },
+      {
+        "sha256": "ca975e3d6d7f680535da87ff42978d07db8e1c476a45da73531531a9d6d83fbd",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/id3tag.cpp"
+      },
+      {
+        "sha256": "52a5b38523bec9c026535c638b33a884cb24ab358fa39bcace069310e80198d5",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/id3tag.h"
+      },
+      {
+        "sha256": "7a15bf71daf0d4c7fcfdea385dc1b68a08a471969a4f3f682933988395002c73",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/l3side.h"
+      },
+      {
+        "sha256": "b6288a78070836eac328e4dc65aa11d6dbfad2ba02670ebdaf2ee092911ed881",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/lame_global_flags.h"
+      },
+      {
+        "sha256": "ee08bcca3afa743b4949e718c16fc5adac818a5eec9c85f4f7c1c1e68d88cad1",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/lame-analysis.h"
+      },
+      {
+        "sha256": "82b770414e2f3388396c9e777898559177a4458bb4b19744b6a80e5c47726c19",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/lame.cpp"
+      },
+      {
+        "sha256": "9ca1a9b6c8089a497a3f2426b08b77614cd686ed9d77fae22675cf5d5e45260d",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/lame.h"
+      },
+      {
+        "sha256": "17aa0f9736364c5bf99f575d776223a80f67fdecdd63abb9b9fd6594b1aeb2d0",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/machine.h"
+      },
+      {
+        "sha256": "e44ec0933da912a154524edf2d3f2b19148db547d56fc6870d404ec0e19d7d2a",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/newmdct.cpp"
+      },
+      {
+        "sha256": "a625b3f3136af3a9a11f94376c28ab0fb50cdbb33668e3972c6b6c86637598fe",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/newmdct.h"
+      },
+      {
+        "sha256": "c793c2cafca21ba6b1fd6ff19268090f90cca0b1d164e6fa6955c7d304a9c48d",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/presets.cpp"
+      },
+      {
+        "sha256": "265740834f1c28d2e694df7fcf12b0b57eca142788d6a34898fb4297576d6531",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/psymodel.cpp"
+      },
+      {
+        "sha256": "676be40fd5126899017d1b8289d086389d93f7c1eecb87a540be56f4144b9b4f",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/psymodel.h"
+      },
+      {
+        "sha256": "2080c198b8576cddf132fcdde2a977f72c5d6c358ab989fc7f2c8030c0c21b5b",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/quantize_pvt.cpp"
+      },
+      {
+        "sha256": "ada713b3577fe79bb42ec88e7063a2f46375dbe9e4f3a4d81a3bd226792e0106",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/quantize_pvt.h"
+      },
+      {
+        "sha256": "0f4f34f9d73189c8246cfa78f80a6076dd13c7b0a9a1bb39b86356460d061a19",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/quantize.cpp"
+      },
+      {
+        "sha256": "e49756cee9b5ad3b9e4413b2e0d3ee2ce311a85863072a239b1b4bff8671da2e",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/quantize.h"
+      },
+      {
+        "sha256": "ac4227495368347e8c3a0dfe76266c0ad10e419abe9f4704a7119d92e0bbfba1",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/reservoir.cpp"
+      },
+      {
+        "sha256": "ca0834a772109239ef4961254ca652322539ae2bfa809dc1b730ac3be59ee645",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/reservoir.h"
+      },
+      {
+        "sha256": "b961f276d614c6e536d5a53f5fba2b9ef7ea4bb578b3a16cc64caee68ac60334",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/set_get.cpp"
+      },
+      {
+        "sha256": "53d891d465cda67a330421b3c78c71fa6a0115f5a65720495c68688a49e87273",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/set_get.h"
+      },
+      {
+        "sha256": "583e7aa9fca50cda784b2cc27c8a02e7bb8afdbff78cc1aa6036abbe4595d4b4",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/tables.cpp"
+      },
+      {
+        "sha256": "eb2a241311b25aaae46f205f7bc558317af4b150efee379c7bf2d0db9003fbe0",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/tables.h"
+      },
+      {
+        "sha256": "39645c3a86880223aff0734796a7dd262cfaa1bbe847b5d42986c987a8001077",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/takehiro.cpp"
+      },
+      {
+        "sha256": "cd689cecd8ea02797a40e6be204030b69632e9d2fab5ac5c4bf77b13cff36e77",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/util.cpp"
+      },
+      {
+        "sha256": "3392293f735f4f10da1a4772961ec2bb59703a9ca0c6ef5f8717572dbb5c3a6a",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/util.h"
+      },
+      {
+        "sha256": "cb974c9c8d4e1ef7085a74b43a2fee7f0e647499b69b53167b1172045b3ed5b8",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/vbrquantize.cpp"
+      },
+      {
+        "sha256": "4c54ebb7f0d2e42fec91f3597483b60ac5589b3999af42d454c1b0af7d241159",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/vbrquantize.h"
+      },
+      {
+        "sha256": "be09d19698171a04a3ff83ee2cb73e281a15bf02ecf69be68564a7bd08c404fe",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/VbrTag.cpp"
+      },
+      {
+        "sha256": "baa0c6c14d9a0472a7b930a9c87b26ca733aaf47ec8260ef54d9c527a9535ff1",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/VbrTag.h"
+      },
+      {
+        "sha256": "1a885ad00b309d27dd6629d13a461c0fee510447e61dba7b790dea936d2d4e7b",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/version.cpp"
+      },
+      {
+        "sha256": "5f6443a2036c14e927e392d7b2ccb8cd7ab467c24c16739066931a32eacd1ca0",
+        "path": "recovery/src/Native/Audio/EaLayer3/lame396/version.h"
+      },
+      {
+        "sha256": "e4c71ec08350ad44429007c665e0a82ad75380df4c03e0ccff5422fe56f84fac",
+        "path": "recovery/src/Native/Audio/EaLayer3/mp3toea.cpp"
+      },
+      {
+        "sha256": "cfddc88369d32850691dbd15d51308ed05935d6bb817d3c9c67f648d9704e560",
+        "path": "recovery/src/Native/Audio/EaLayer3/mp3toea.h"
+      },
+      {
+        "sha256": "ac9c2c357383fd54324ac19a6e91647658cac2512c7aa9575e589d9fd5b0175e",
+        "path": "recovery/src/Native/Audio/EaLayer3/mpeg.cpp"
+      },
+      {
+        "sha256": "cb8f3c2c469318c0a7fe5980876912036b351ac6fc89a4d5c6c5043856954a47",
+        "path": "recovery/src/Native/Audio/EaLayer3/mpegcommon.h"
+      },
+      {
+        "sha256": "3d8d2520385413d148121f16daae61b359949c597df8b5e4b384824771bca574",
+        "path": "recovery/src/Native/Audio/EaLayer3/mpeghufftables.cpp"
+      },
+      {
+        "sha256": "da2daed8ec30af9581b08d81ace37de914a81ee133f6aea105f9cca12a607ba3",
+        "path": "recovery/src/Native/Audio/EaLayer3/mpegl3base.cpp"
+      },
+      {
+        "sha256": "104bebd4c2c22f258a086e33ff25f97877ce42a59c3a59d36669e57c5c4e5065",
+        "path": "recovery/src/Native/Audio/EaLayer3/mpegpoly_c.cpp"
+      },
+      {
+        "sha256": "25afc67b88e64d7b5835693dce60998d85454925767641058a2a24c29515c212",
+        "path": "recovery/src/Native/Audio/EaLayer3/scalesamples.cpp"
+      },
+      {
+        "sha256": "32a102ce417620898a676ec27a64915a4615a250ddc4c10c7f3826d2dc151c01",
+        "path": "recovery/src/Native/Audio/EaLayer3/scalesamples.h"
+      },
+      {
+        "sha256": "b2042dacbfdb398b2a4739f2d7b7e2badb65c8e5177841a6fcc24d6108444913",
+        "path": "recovery/src/Native/Audio/EaLayer3/system.h"
+      },
+      {
+        "sha256": "bba5d1754928cc1aa5cf5f64bb0c4b752203932a37b331e086f21afc7b09eb58",
+        "path": "recovery/src/Native/Audio/EaLayer3Encoder.cpp"
+      },
+      {
+        "sha256": "0628632c12f14fd1f37cb31219b7cac706ca179f381b474d6738443f7a895a60",
+        "path": "recovery/src/Native/DataInitializers.cpp"
+      },
+      {
+        "sha256": "1cb8e5d81935354f7aabda76cc2b51f2b76bbfb845ae0f989bf64662caa42ede",
+        "path": "recovery/src/Native/DataInitializers.h"
+      },
+      {
+        "sha256": "5bebff8a5a5a4296e3d06e0d8294d80f7978a9ba74c202a9d62b4c4ea9291184",
+        "path": "recovery/src/Native/EnumBitset.cpp"
+      },
+      {
+        "sha256": "5935f292502e966c914f3d834f1a88edfd97c8b5c65b79d45eb0b08d91a9ef78",
+        "path": "recovery/src/Native/EnumBitset.h"
+      },
+      {
+        "sha256": "ef791e5a8d0e31fd150e0f4cbefa4785933b7eaab0059b2cc4cea3589a25b1db",
+        "path": "recovery/src/Native/GameObject.cpp"
+      },
+      {
+        "sha256": "6cf6c62c92e77f52d98a75cb8b5b82b574c1afc8a7951a258186042abb7db23e",
+        "path": "recovery/src/Native/GameObject.h"
+      },
+      {
+        "sha256": "e6c7e8aefe7c68dd0c2b3110af0f9f4c0738bae6f2cfdffad4ace62a7e452666",
+        "path": "recovery/src/Native/GameObjectAbilityFinish.h"
+      },
+      {
+        "sha256": "24f764cb92a2e4b8d322011b116b7595d8120835c31b7a228482d05ca43f6d14",
+        "path": "recovery/src/Native/GameObjectAbilityFinishRuntime.h"
+      },
+      {
+        "sha256": "0c7b28e77245af4d96eab9fff9898b2d1d8d8dedbb7d27641ea0386989ac52df",
+        "path": "recovery/src/Native/GameObjectAbilityMovement.h"
+      },
+      {
+        "sha256": "13babb011cc1df6f6a80c420bd6e9a3b35219a259988806c091f33e667ecf6e3",
+        "path": "recovery/src/Native/GameObjectAbilityMovementRuntime.h"
+      },
+      {
+        "sha256": "3e7fca0c3d27aa6b2583fab42915fa8bc28b344801414a4ed94bbf8a6435066c",
+        "path": "recovery/src/Native/GameObjectAbilityResource.h"
+      },
+      {
+        "sha256": "8c704c1733120a44a7e01e73c6d46e2cbd40d827a45427280fa3a429b2e5a727",
+        "path": "recovery/src/Native/GameObjectAbilityResourceRuntime.h"
+      },
+      {
+        "sha256": "3e15a4f0e8314680b101f416bcb50742107f2b9bdf40ae217e4a2f5d7716e801",
+        "path": "recovery/src/Native/GameObjectAbilityRouting.h"
+      },
+      {
+        "sha256": "4f9796515729d15f93779141655a732df1d1239d2a37ef5dd1a2fd9f5acab3f9",
+        "path": "recovery/src/Native/GameObjectAbilityRoutingRuntime.h"
+      },
+      {
+        "sha256": "b669c6b488e9dabec21216a74bc63873cbb7b80fb46031682d93b7a9d5cfd2b9",
+        "path": "recovery/src/Native/GameObjectAbilityState.h"
+      },
+      {
+        "sha256": "6f05fd2871d9435530d3f8b40ac0279278bee8acd40673e51dbf2d05aed09df4",
+        "path": "recovery/src/Native/GameObjectAbilityStateRuntime.h"
+      },
+      {
+        "sha256": "62b219b902a9faea55ea33da32e4f7a851ad903a92fb89aa0e0a30e02b9df503",
+        "path": "recovery/src/Native/GameObjectAbilityToggle.h"
+      },
+      {
+        "sha256": "a5755fceac87f1bf8674792593bf3146d0efe9d848fdc9bcdf226ca9681a96ec",
+        "path": "recovery/src/Native/GameObjectAbilityToggleRuntime.h"
+      },
+      {
+        "sha256": "04e87e77ada4308f85bfe5b8965d25248fc78eef171d25000d32ecf09abc21f4",
+        "path": "recovery/src/Native/GameObjectAbilityWeapon.h"
+      },
+      {
+        "sha256": "e7505b9efb170d060d4eef6deb21bc821a6265a032bbbc145d2dd3e5f81cf940",
+        "path": "recovery/src/Native/GameObjectAbilityWeaponRuntime.h"
+      },
+      {
+        "sha256": "8f10d4441b4e60d4edf321f7ffef986405d9c876d7ceadb39d4176c27d5539d4",
+        "path": "recovery/src/Native/GameObjectAIUpdate.h"
+      },
+      {
+        "sha256": "095d15a7c2fef21c86514e0534216590c3d377ec2a6b36f3632b6d475dcdfbf4",
+        "path": "recovery/src/Native/GameObjectArea.h"
+      },
+      {
+        "sha256": "4f86ea6620e8768b668ace519ecda8c86a9401f698739a7a073672e4d1221be7",
+        "path": "recovery/src/Native/GameObjectAreaRuntime.h"
+      },
+      {
+        "sha256": "0ccd9f54f44fd4119858a09f3e610cee84431e1fd4fc47d894d7c02f2dd222d6",
+        "path": "recovery/src/Native/GameObjectAssist.h"
+      },
+      {
+        "sha256": "1cec3dd0f5a9296f11a5d8176a58a29b17d8b1c73fc113b308bc63251894aaa8",
+        "path": "recovery/src/Native/GameObjectAttach.h"
+      },
+      {
+        "sha256": "5d1f97c818a4eaa5583cb6c86f761bc0e220ead5f4945287270665220b61acb6",
+        "path": "recovery/src/Native/GameObjectAttachRuntime.h"
+      },
+      {
+        "sha256": "bc8635c2b7e9da774602d732390a8b43837475581a0ac359c2c68a85873c88db",
+        "path": "recovery/src/Native/GameObjectBeamState.h"
+      },
+      {
+        "sha256": "70a8d9f6d9fbbe7d2a9c77c90a22d98a8f1a6575923c300f674784bcb7ee9a58",
+        "path": "recovery/src/Native/GameObjectBuildingStructure.h"
+      },
+      {
+        "sha256": "c01bf1fb28da91a54187f1168b8749b0982ce6817711c78aeb2fa2897c8e7822",
+        "path": "recovery/src/Native/GameObjectChildGroups.h"
+      },
+      {
+        "sha256": "41ce612410d5d31f5a664adf155ee8cf8a69cb006ab91e9b33068dd124f07ac0",
+        "path": "recovery/src/Native/GameObjectCombatResponse.h"
+      },
+      {
+        "sha256": "3ec8c0e7d9a1146d04d4416bb1c6807467b2f199ad948d2ed102c3d8cc615307",
+        "path": "recovery/src/Native/GameObjectCombatResponseRuntime.h"
+      },
+      {
+        "sha256": "523891323a10af8d35a69115704d35daec8e14b4b9ed2e3f42d2b5c901924651",
+        "path": "recovery/src/Native/GameObjectContainCore.h"
+      },
+      {
+        "sha256": "da2adb2bba67de8b188f8826cc1faebcbe84b078a60a4a5a25f8b2f5e77a1ed6",
+        "path": "recovery/src/Native/GameObjectContainCoreRuntime.h"
+      },
+      {
+        "sha256": "da540fa6521fb0c15c93e59b99d33ed4c28e788b63545a90b65d216ab2d6b8aa",
+        "path": "recovery/src/Native/GameObjectContainRemaining.h"
+      },
+      {
+        "sha256": "b16a0dd506f080ccd969d949fdfec4ba59dbc5fdb6eb4ca4b8e696d1e185a4ad",
+        "path": "recovery/src/Native/GameObjectContainRemainingRuntime.h"
+      },
+      {
+        "sha256": "0225aaf018cf32a11373c376492c7c6c3bc35d5d6f5dced86de516a426abc9b8",
+        "path": "recovery/src/Native/GameObjectCrate.h"
+      },
+      {
+        "sha256": "03a3daba27371a2d241461ee7a1c3e41f804efabc6eba9944c48c46b53bb7475",
+        "path": "recovery/src/Native/GameObjectCreate.h"
+      },
+      {
+        "sha256": "787a1032b74b62808e9f4f8d996855a5040827b62a8eef83c999c4e1983cf89e",
+        "path": "recovery/src/Native/GameObjectDie.h"
+      },
+      {
+        "sha256": "0ae7cd5daba574681fdafedb4f61c436c6ac43303a227123abf2b879dc2aa754",
+        "path": "recovery/src/Native/GameObjectDrawAnimation.h"
+      },
+      {
+        "sha256": "fd0af7d9938782c3399e00cd65146c413a4b2b2c2afebffcca7d91eae21f894d",
+        "path": "recovery/src/Native/GameObjectDrawAnimationRuntime.h"
+      },
+      {
+        "sha256": "ce96e9603eea8b4d34494c64b4c360e6292c4ff60cf59bb4f1569fc73f18bb7a",
+        "path": "recovery/src/Native/GameObjectDrawBeam.h"
+      },
+      {
+        "sha256": "8cfe449a6695e470449935e2a6f9686e4973a2a78935b4f415a4c2f1ee9babd8",
+        "path": "recovery/src/Native/GameObjectDrawBeamRuntime.h"
+      },
+      {
+        "sha256": "bc55b0cfe34dee02f80ef4184f0986bb80437982403df7f7d5333b322b3eebc7",
+        "path": "recovery/src/Native/GameObjectDrawDynamics.h"
+      },
+      {
+        "sha256": "ac429abbda315d51ec6cc8c62a3e3b505904e11035e41cf79e972a13004f8454",
+        "path": "recovery/src/Native/GameObjectDrawDynamicsRuntime.h"
+      },
+      {
+        "sha256": "80d3f7d49ef362ebd83824f8551db6e4a3b6b9eabdb94feee9becbd658093f08",
+        "path": "recovery/src/Native/GameObjectDrawModel.h"
+      },
+      {
+        "sha256": "5afd120c06f37662731c8ed3376c9a4e928ce447e82a787fe3a56718a8b2b983",
+        "path": "recovery/src/Native/GameObjectDrawModelConditions.h"
+      },
+      {
+        "sha256": "d00c1dc9b7d0d83774d721ba823181b09456f0b71cd2941e48ef8dede2a86b3a",
+        "path": "recovery/src/Native/GameObjectDrawModelConditionsRuntime.h"
+      },
+      {
+        "sha256": "f338020442856575888849f9bcebb539efcb331f667580bab6b59d141163791e",
+        "path": "recovery/src/Native/GameObjectDrawModelRuntime.h"
+      },
+      {
+        "sha256": "9e5622e20fa35be9cee282757e3679e9938c223de91b6d1a365a40c176825ede",
+        "path": "recovery/src/Native/GameObjectDrawModelSupport.h"
+      },
+      {
+        "sha256": "c053eb54a355f13f0e3a4e6a8d38b844f27f6da2935ebbb19f6d43ae6875901a",
+        "path": "recovery/src/Native/GameObjectEconomy.h"
+      },
+      {
+        "sha256": "6d2a6ec9c739dd6a96983e7742b880477e706022808825163099922991dff7ba",
+        "path": "recovery/src/Native/GameObjectEconomyPower.h"
+      },
+      {
+        "sha256": "795c4f881d4dbbbbded3d1b215e7ba4572ca2846462c63ad7e33b406b78fcd0e",
+        "path": "recovery/src/Native/GameObjectEconomyPowerEnums.h"
+      },
+      {
+        "sha256": "506f1b282c6ad21feeed243892d9528478ad59b21a3d29649af12e31c85002fb",
+        "path": "recovery/src/Native/GameObjectEconomyPowerRuntime.h"
+      },
+      {
+        "sha256": "d985470368a6bdb8efbbb2baba602e0fdd73c8b2bc6866c6d5a8d653b208a939",
+        "path": "recovery/src/Native/GameObjectFields.h"
+      },
+      {
+        "sha256": "41fee8500d80247ace59974a122d32981da762498d7020fefceda21a4d5942f4",
+        "path": "recovery/src/Native/GameObjectFlight.h"
+      },
+      {
+        "sha256": "b6a090054b0978e6496084b4cbbeda37da5f22df3f9a8953a8d711eb19b46c74",
+        "path": "recovery/src/Native/GameObjectHealing.h"
+      },
+      {
+        "sha256": "d8e3e9d6703c9fb7fcae1b4ba4ff58a802b09b6d199cc0c150c4fcc361692720",
+        "path": "recovery/src/Native/GameObjectLifecycle.h"
+      },
+      {
+        "sha256": "f60201a9aefdb686e8c52f9f6da22ed2d654c167b9182eac9aae62c57e422349",
+        "path": "recovery/src/Native/GameObjectModelCondition.h"
+      },
+      {
+        "sha256": "b954b624a00e82a34cb9b07dcc5521cb6f577e5fbd1362c7e19f84f4a84bad5c",
+        "path": "recovery/src/Native/GameObjectModelConditionEnums.h"
+      },
+      {
+        "sha256": "98b71bb18cd4f95cfd15eed699a90c4be014c9b88883dd2e50a398fdc544386c",
+        "path": "recovery/src/Native/GameObjectModuleDispatchRuntime.h"
+      },
+      {
+        "sha256": "f66ec3ceb4873a190defe1956188ac67722bdc9dbde15bc9ec148d840500adc0",
+        "path": "recovery/src/Native/GameObjectModuleFamiliesRuntime.h"
+      },
+      {
+        "sha256": "1e230e787815901a48f0bd9f469b9d2fa123177c054b4398864de6b9a5be6087",
+        "path": "recovery/src/Native/GameObjectModuleFieldsRuntime.h"
+      },
+      {
+        "sha256": "4000cb2a2f961f9992124e9c64e8bdc5c205c6769040f790c445cff1834a1ca1",
+        "path": "recovery/src/Native/GameObjectModuleSupport.h"
+      },
+      {
+        "sha256": "6d8778aa5cf79d8ce28b4e91893b60c7bebc4e57cb33844c28558e6ac51ab537",
+        "path": "recovery/src/Native/GameObjectMotion.h"
+      },
+      {
+        "sha256": "edeb187f071b269417bb6d4f470bc7e5df5eb6bccafa1c969f93480c84236606",
+        "path": "recovery/src/Native/GameObjectMotionCleanup.h"
+      },
+      {
+        "sha256": "b10916d28e33a909d970c99c2344766f132314c90c461cb5bfbbe380158790d8",
+        "path": "recovery/src/Native/GameObjectMotionCleanupRuntime.h"
+      },
+      {
+        "sha256": "2733b302b32ef32e9283e99e6d9296c5195cfc42e22e0fe20d22999de6457b28",
+        "path": "recovery/src/Native/GameObjectObjectControl.h"
+      },
+      {
+        "sha256": "d75376af78ac454ffdef118503a3fef83f2b654b24cf2866f93e4146ae68ab57",
+        "path": "recovery/src/Native/GameObjectObjectControlRuntime.h"
+      },
+      {
+        "sha256": "202a1ac846cf1dd97c49d373b7c6906d77689a16ec3c6b0485b51ed92bd03d90",
+        "path": "recovery/src/Native/GameObjectPowerCreation.h"
+      },
+      {
+        "sha256": "8b38075616efe87e205cbd1eb4151df48c4df025f928c4499d8c0523fe458b99",
+        "path": "recovery/src/Native/GameObjectPowerCreationRuntime.h"
+      },
+      {
+        "sha256": "9b693ab1f1236e8860f1b9ef6bef0cdf67089cbca8dd9e7a252b245e135f009f",
+        "path": "recovery/src/Native/GameObjectPowerRouting.h"
+      },
+      {
+        "sha256": "e862003ae8504fed74a3df32642a6fcce20514900d1824a5c76eac61a63bdee1",
+        "path": "recovery/src/Native/GameObjectPowerRoutingRuntime.h"
+      },
+      {
+        "sha256": "8736a0c7856c3e98c4db5127e795daf88c9c1877cd24ca95eb460590e01cd4a7",
+        "path": "recovery/src/Native/GameObjectProduction.h"
+      },
+      {
+        "sha256": "cec530f550f2f2500b9cfbd1362c9c4cc7a2fb6e97b846b533a79445ef6e62cd",
+        "path": "recovery/src/Native/GameObjectQueueParking.h"
+      },
+      {
+        "sha256": "a036b4ae0c1311a68ed7527ee5ceee1779b0ee587b6421f688b7a67eaca11aaa",
+        "path": "recovery/src/Native/GameObjectReactive.h"
+      },
+      {
+        "sha256": "5479b2d114abb82381cedffa1f3f3757d10e15f418b9d0c1c25131a484aa6e15",
+        "path": "recovery/src/Native/GameObjectResourceAllies.h"
+      },
+      {
+        "sha256": "795971e640fb627ec1a35a11b6792c1136104d17d3a6f9292694d51b7b254d4a",
+        "path": "recovery/src/Native/GameObjectResourceAlliesRuntime.h"
+      },
+      {
+        "sha256": "f5026f8e740516da45b965968eb6331cd2df8acadb06db76df57f03e8fc4e55d",
+        "path": "recovery/src/Native/GameObjectScalarDefaultsRuntime.h"
+      },
+      {
+        "sha256": "c0f62fe0156b23c3a0b3880faa2da9435c7eacc1c74966f9aa3db07189c3622e",
+        "path": "recovery/src/Native/GameObjectSlaved.h"
+      },
+      {
+        "sha256": "e30aed6f435a71655810230327429e35e30ff484db13f332e3f312fbf960ff29",
+        "path": "recovery/src/Native/GameObjectSlaveWatcher.h"
+      },
+      {
+        "sha256": "569ad0ddab7fe8712ae4839db26f035b56dc6532490d84d1fa3a723b78f627a0",
+        "path": "recovery/src/Native/GameObjectSlowDeath.h"
+      },
+      {
+        "sha256": "c533c3791940cd3dd72c3dc15b8a0cdc7fa3c795bf96e9dfd9e417a7afb03c86",
+        "path": "recovery/src/Native/GameObjectSlowDeathRuntime.h"
+      },
+      {
+        "sha256": "aee63a6d84b964ec8390dc2f39a4f0fcbf56997c344400bf40227b837832a5fc",
+        "path": "recovery/src/Native/GameObjectSoundSelectors.h"
+      },
+      {
+        "sha256": "7b2ac619b12d36a60f7ed7124af511671cab9b89b5cddbb7d4ededcef4f0b1e1",
+        "path": "recovery/src/Native/GameObjectSpawnEnums.h"
+      },
+      {
+        "sha256": "9118cf189358a939e27856fe5d10aec3e7dfdb40eaad360d4a1243baa4a874c8",
+        "path": "recovery/src/Native/GameObjectSpawnUpdate.h"
+      },
+      {
+        "sha256": "eed30bd8f8644b03fe00b86c188aa8dc3f607c7a29a5080f66ec8e3a3d189ae6",
+        "path": "recovery/src/Native/GameObjectSpecialAbility.h"
+      },
+      {
+        "sha256": "e0d3e761ca91c257574d5c9a0d94c371ba6724651437d9d0350d2675a6f56a23",
+        "path": "recovery/src/Native/GameObjectSpecialAbilityRuntime.h"
+      },
+      {
+        "sha256": "7d23fa85c5899c1d5676d854e005f8192287ba2bcbfe5b65ded18960102fe68b",
+        "path": "recovery/src/Native/GameObjectSpecialPowerBase.h"
+      },
+      {
+        "sha256": "46c6daeff6e43a68b517ffb72246c2546b45a648fa4f8b075c58e3ab5262e811",
+        "path": "recovery/src/Native/GameObjectSpecialPowerBaseRuntime.h"
+      },
+      {
+        "sha256": "4900c048e025d8dddef11db688b742226987450092e17bb06d7018533a81890b",
+        "path": "recovery/src/Native/GameObjectSpecialPowerDerived.h"
+      },
+      {
+        "sha256": "f07e594dbd866e36fc958c2874c1d1ce8d752525a715d7c2257d3848e54264f3",
+        "path": "recovery/src/Native/GameObjectSpecialPowerDerivedRuntime.h"
+      },
+      {
+        "sha256": "df8ea94609888857fbd3344d105233cdaa5bf3acb78564abd46d4d7123d67120",
+        "path": "recovery/src/Native/GameObjectStateEvent.h"
+      },
+      {
+        "sha256": "0d21f0048b2e96f34c327dcc65b5bb435c6229d8700f9342b625ee1c327310f1",
+        "path": "recovery/src/Native/GameObjectStatusEffects.h"
+      },
+      {
+        "sha256": "1143db68ba20d1200e74adf91984fe63ba67568771d7a2b0b1259cc2d8284c3e",
+        "path": "recovery/src/Native/GameObjectStatusEffectsRuntime.h"
+      },
+      {
+        "sha256": "830a901593a42e60abdaf0892915822aae71e94b5dc0dbbe21b1ff1f5d9f0aad",
+        "path": "recovery/src/Native/GameObjectStealthVision.h"
+      },
+      {
+        "sha256": "6baa86eae977ce1f35da52768cf9195b0e5e6776bb6ef928c30afc135034d176",
+        "path": "recovery/src/Native/GameObjectStealthVisionRuntime.h"
+      },
+      {
+        "sha256": "abb4744a532bf957c4f531b293cb11981970c915e81098d6fed62a821ffdf8bf",
+        "path": "recovery/src/Native/GameObjectStructureWall.h"
+      },
+      {
+        "sha256": "81b9baf7f007f97ecbde969a1f4419b74c97c1882682777f4578e644d9237a93",
+        "path": "recovery/src/Native/GameObjectStructureWallRuntime.h"
+      },
+      {
+        "sha256": "79ed32325e03d85c82b1ec09bb28a20570e85d0c5c8c341b138cf66f88bbcb8e",
+        "path": "recovery/src/Native/GameObjectSupport.h"
+      },
+      {
+        "sha256": "802d9f691d77e03a8eee7edd30cbaa5c0483115edc7c5bcc545efd3b0b13a8f2",
+        "path": "recovery/src/Native/GameObjectSupportRuntime.h"
+      },
+      {
+        "sha256": "b214133f18bd695dbd838ec381e107fd2a249dc5c7b21ccc4dc3ca0d6e3d8050",
+        "path": "recovery/src/Native/GameObjectTechReceiver.h"
+      },
+      {
+        "sha256": "6962a8d50ca6ef566636992f0015abb87309124f2241617c431e749b1900566a",
+        "path": "recovery/src/Native/GameObjectTiberium.h"
+      },
+      {
+        "sha256": "7a60d91e8e2e6247afb4e2f279a120508fc0aa4379dcabafc5872c889246de45",
+        "path": "recovery/src/Native/GameObjectTiberiumRuntime.h"
+      },
+      {
+        "sha256": "fffc70092eeb3554e18befb374101d2a9d5327a5f105103ee89aa2e9e775599d",
+        "path": "recovery/src/Native/GameObjectUpgrade.h"
+      },
+      {
+        "sha256": "cba9c46b52cc6c07dff38b148a09a56da5cf7346956240c2b6f3f99dbebc1292",
+        "path": "recovery/src/Native/GameObjectUpgradeRemaining.h"
+      },
+      {
+        "sha256": "3923c2597082f0c7d4a7efcffdf0e075eccc7431534934e526f2d77bc7ed1a32",
+        "path": "recovery/src/Native/GameObjectUtility.h"
+      },
+      {
+        "sha256": "d02bb883215576098038e9842fa9b21fd5e6aea6c3592480e48d1abdd7bb79b6",
+        "path": "recovery/src/Native/GameObjectVision.h"
+      },
+      {
+        "sha256": "34fa380a3fb35435b0a06f534bb68dda49a49123fe9d40b1c76bfe19dddc0379",
+        "path": "recovery/src/Native/GameObjectWallEnclose.h"
+      },
+      {
+        "sha256": "0cb9d2b9ecdc1b2276c8b972b468a2f14eb857182fc6abdeafb63749ca5a56ac",
+        "path": "recovery/src/Native/GameObjectWallEncloseRuntime.h"
+      },
+      {
+        "sha256": "a5b70a605d98fd563c95058a3872a856df4e71a8ad966bd7b228fd19dac8324f",
+        "path": "recovery/src/Native/GameObjectWeaponBehavior.h"
+      },
+      {
+        "sha256": "0d7fea6353b67332e53a206592c2d79e67c33e37cc9ead95b8a66a6e89802edf",
+        "path": "recovery/src/Native/GameObjectWeaponSet.h"
+      },
+      {
+        "sha256": "a5f2f66fd46ff911996629de8458eafd3f73f6fb479716decca0549b6901c21f",
+        "path": "recovery/src/Native/ObjectFilter.cpp"
+      },
+      {
+        "sha256": "7dfe46315727904c6016f3a18049f00f477ad0004d25c7c3fcff626bf0721766",
+        "path": "recovery/src/Native/ObjectFilter.h"
+      },
+      {
+        "sha256": "c10bdad4680944e1efd10e76ae9da15b0eb69117270cbf196f200875e56c228c",
+        "path": "recovery/src/Native/Relocation.cpp"
+      },
+      {
+        "sha256": "516ff044108bee415aa1bc81b7b0b47c517e1874262e47ff6d20f90e2a752f94",
+        "path": "recovery/src/Native/Relocation.h"
+      },
+      {
+        "sha256": "2946042bfb72f73310edd642900fe36f7491faa1029d7988ea3a261a2fc7ac4c",
+        "path": "recovery/src/Native/ResourceMarshaling.cpp"
+      },
+      {
+        "sha256": "7598b8274a7fd396177fa8043114379c678839d2119145fa98552e65b08180e7",
+        "path": "recovery/src/Native/ResourceMarshaling.h"
+      },
+      {
+        "sha256": "f9f31a6537e601936097e5a6b4b8f764a412f5d08f3b3b6ad77bb25a75b9fe79",
+        "path": "recovery/src/Native/ScalarParsing.cpp"
+      },
+      {
+        "sha256": "8b3ef29ba89d432434684278fd797fa0a4003da46ee9f967def3ff9e6b9fb3ca",
+        "path": "recovery/src/Native/ScalarParsing.h"
+      },
+      {
+        "sha256": "04915b4cb6b5af4182697a5479ec9ca388b1e445762937135089d1c866e11a0b",
+        "path": "recovery/src/Native/Texture/PublicS3/LegacyGray3.inl"
+      },
+      {
+        "sha256": "404d173c95c2beb07625b256a544b7a1febb2590b52b667c021921121eb6e227",
+        "path": "recovery/src/Native/Texture/PublicS3/LegacyGray4.inl"
+      },
+      {
+        "sha256": "9bb3c07a310ade0c9bb4ab70603a557893d9b6887b972d83df8ffcfedbbdfb7e",
+        "path": "recovery/src/Native/Texture/PublicS3/s3_quant.cpp"
+      },
+      {
+        "sha256": "c689e5f851d84f1d0f8cbd601abe322283a27b2f0002f33e8f7b5d077dfa70ae",
+        "path": "recovery/src/Native/Texture/PublicS3/S3_quant.h"
+      },
+      {
+        "sha256": "187150f3c14bcd011d98037d0646a90b109ab1ef24791ff1af6baeb319cca6b3",
+        "path": "recovery/src/Native/W3x/AdaptiveDelta.cpp"
+      },
+      {
+        "sha256": "200582ad1ac46c0f212ed14ac0963d2d10fe05af737197937265c909b5e26cef",
+        "path": "recovery/src/Native/W3x/AdaptiveDelta.h"
+      },
+      {
+        "sha256": "59709e074b8ff487f59ab5ac1060b6c677aaaff672ed81a3515afdc71af0415c",
+        "path": "recovery/src/Native/W3x/AnimationCompiler.cpp"
+      },
+      {
+        "sha256": "26bee920641837466334e3ed056d9c533c10c36fce3ee06f29430d61129be383",
+        "path": "recovery/src/Native/W3x/AnimationPipeline.cpp"
+      },
+      {
+        "sha256": "c4df72989bcb3f0d2774a707c628607fd1bc662f0e12e4e17819b1e8ead37f1b",
+        "path": "recovery/src/Native/W3x/AnimationPipeline.h"
+      },
+      {
+        "sha256": "07179a08f5d4d9ff0623140b8ad3c13d09a36b432dfc59b74df99db90f54a9bd",
+        "path": "recovery/src/Native/W3x/MeshAsset.cpp"
+      },
+      {
+        "sha256": "9268c207709c7634537a5e926cfe192f68316d655f9235881810ebed15b70c9b",
+        "path": "recovery/src/Native/W3x/MeshAsset.h"
+      },
+      {
+        "sha256": "7c95d0f46046f1f808890bf86e69d33165435d1993a7de623cce2c0df31eb408",
+        "path": "recovery/src/Native/W3x/MeshBuilder.cpp"
+      },
+      {
+        "sha256": "2d168ef65dfd00816d0c9a9a523aaed679de74404a36ff486686dc0971de93f2",
+        "path": "recovery/src/Native/W3x/MeshBuilder.h"
+      },
+      {
+        "sha256": "4a43d15c0f8ecc903c64fa4c839d5b333000b7e12b4c2437b04d5e2a0a2714bf",
+        "path": "recovery/src/Native/W3x/MeshConverters.cpp"
+      },
+      {
+        "sha256": "de4e2965773cf6d313f583bb2c2a5ccedbbcb2be62f3a4eb67f96bdf065c072c",
+        "path": "recovery/src/Native/W3x/MeshConverters.h"
+      },
+      {
+        "sha256": "644179f47fcca9761f8e3b2a289cef14c019c6f3667a13b382abebc46bf092d3",
+        "path": "recovery/src/Native/W3x/MeshSerialization.cpp"
+      },
+      {
+        "sha256": "47456d08641ba5fd8d3f15be2c75d143a1e5943a0253fc9d825674a993749aed",
+        "path": "recovery/src/Native/W3x/MeshSerialization.h"
+      },
+      {
+        "sha256": "dbe2c5dd442541243be831c3763a44cdeba3371e396c3aad7c622d3c9514cb7f",
+        "path": "recovery/src/Native/W3x/Shader.cpp"
+      },
+      {
+        "sha256": "8804438b1a78f9f567e09bd872aa041b98bc967412aa1d3fbfc88e508e047050",
+        "path": "recovery/src/Native/W3x/Shader.h"
+      },
+      {
+        "sha256": "5a1007165e64ee792533a24a9517eca5be7be0801870ea6e671350a4a9e83eb7",
+        "path": "recovery/src/Native/W3x/Timecoded.cpp"
+      },
+      {
+        "sha256": "3e1aa193d631990a66cd99bc328b9abb4166fd2280cf8828dbc6a6f55cd03521",
+        "path": "recovery/src/Native/W3x/Timecoded.h"
+      },
+      {
+        "sha256": "9c2048303764884a22cfb7bdc62df838fb8d1418961531412889927a4fe312d5",
+        "path": "recovery/src/Native/WeaponNugget.cpp"
+      },
+      {
+        "sha256": "5afb0013414e173c6c22b85702e24a6ceae648fe5f357b8838029075640c5625",
+        "path": "recovery/src/Native/WeaponNugget.h"
+      },
+      {
+        "sha256": "a9ae3d7be8717072c3a7512e8cf6778801174c2141f66d3a851e1566651f67e5",
+        "path": "recovery/src/Native/WeaponSlotOrder.cpp"
+      },
+      {
+        "sha256": "081651d982bb63a7e12aea3d79fa1e515ce05ee29361f9ae6c4b53476593c051",
+        "path": "recovery/src/Native/WeaponSlotOrder.h"
+      },
+      {
+        "sha256": "7247b22db10b2a66c74c60ebc219170856111fa5e7b231b2ae28121d54ea23f4",
+        "path": "recovery/src/Native/WeaponTemplate.cpp"
+      },
+      {
+        "sha256": "e097f3c588124bba6617b2d16e4f348c54ed239237ededbe0671849acdeb0622",
+        "path": "recovery/src/Native/WeaponTemplate.h"
+      },
+      {
+        "sha256": "c7007033eaec93be6bf662a3d4a8e613530191fa8b5bb759b678134e2ee6af96",
+        "path": "recovery/src/Native/Xmlabilitybuttons.cpp"
+      },
+      {
+        "sha256": "1ee2960ab59dbe9c135435de786405a6aa54ba3e2be1e3cc51fb55c5543e994d",
+        "path": "recovery/src/Native/Xmlabilitybuttons.h"
+      },
+      {
+        "sha256": "888d5c5a1558027f540e50b42a4dd005fc58ecf1da58a275c1411e4788afdbac",
+        "path": "recovery/src/Native/XmlabilitybuttonsLayouts.inc"
+      },
+      {
+        "sha256": "305f5adfa4a4efb19746b3ab095a03d09501525232bfa3a976e9cfb5125b9ee0",
+        "path": "recovery/src/Native/Xmlai.cpp"
+      },
+      {
+        "sha256": "fc4122717325b7cc4fed40f1f984ff691823e33ccd042592220ccbb7b483b26e",
+        "path": "recovery/src/Native/Xmlai.h"
+      },
+      {
+        "sha256": "c6e5f9a849260cdf85f5abe1485d350aaf449d34b1728bbfc60cb4e86e53a98e",
+        "path": "recovery/src/Native/XmlaiLayouts.inc"
+      },
+      {
+        "sha256": "dd0253c8e2fbf5ef79d3e7344b1f2b124b43c04607e25646db580864ec70fcf6",
+        "path": "recovery/src/Native/XmlaiPersonality.inc"
+      },
+      {
+        "sha256": "c909c78a8ee620ec0a4ff7fd2206cd82855bf9ab85d95b88865fd59c40e5fe4e",
+        "path": "recovery/src/Native/XmlaiPersonalityEnums.inc"
+      },
+      {
+        "sha256": "ab6d98e9aedc2a8e9a770cd00266890f5a2fd7ff1b48fe78023435b2053d8810",
+        "path": "recovery/src/Native/Xmlaptdata.cpp"
+      },
+      {
+        "sha256": "20570ad0c02f037062cb1dec26dd7d8fa702bb9d1d80df250fecd52da1fb3ee9",
+        "path": "recovery/src/Native/Xmlaptdata.h"
+      },
+      {
+        "sha256": "8836cfc299daa3ce808db44ccf4172fc5d879dd33427f002f4c9892717ab8398",
+        "path": "recovery/src/Native/Xmlarmyopening.cpp"
+      },
+      {
+        "sha256": "fe85473a5ad724189e9124410ebbbf7fc43892e0b2aed586638f00ff572dffe6",
+        "path": "recovery/src/Native/Xmlarmyopening.h"
+      },
+      {
+        "sha256": "c97d1cd6ca319937d8c3d4e6e396817c9cd7b49556c4152f00d9ed7d3bf46ccd",
+        "path": "recovery/src/Native/Xmlassetindexes.cpp"
+      },
+      {
+        "sha256": "e652a94d8a51aa98482e246529bedd81c81457272ea28125b0d68a091331d7d5",
+        "path": "recovery/src/Native/Xmlassetindexes.h"
+      },
+      {
+        "sha256": "0862341ac4346d06e45a3026dc024474fe3ed7a6f8b31440b377f84c7363f3a4",
+        "path": "recovery/src/Native/Xmlattributes.cpp"
+      },
+      {
+        "sha256": "162440f974fa8a159dcd77dc3ef39fc271753f7893743b1db1781ca37564d114",
+        "path": "recovery/src/Native/Xmlattributes.h"
+      },
+      {
+        "sha256": "2d0a37d3ab089df181c7f1e2f3a20660602906695b8610844d494979b6a26cea",
+        "path": "recovery/src/Native/XmlattributesEnums.h"
+      },
+      {
+        "sha256": "44bf60c1bbf39482e13469131ac15d0975a6c946042291ba5233c3774b6ccdce",
+        "path": "recovery/src/Native/Xmlaudio.cpp"
+      },
+      {
+        "sha256": "c8da931699def6cb4dfda2270e45ef357d1697a3e367df8d694e8715a49cf312",
+        "path": "recovery/src/Native/Xmlaudio.h"
+      },
+      {
+        "sha256": "b01bd49d91941029bc0299da1319c0ba3310187f36998abc66fe6ea03d531abe",
+        "path": "recovery/src/Native/XmlaudioEnums.inc"
+      },
+      {
+        "sha256": "28cbb7df46b6ec29a817172dbeba21f2326d0e8d899ae43532f6eb12ed231be9",
+        "path": "recovery/src/Native/XmlaudioFields.inc"
+      },
+      {
+        "sha256": "1c2826f5034a418e8af591fca96b4de9f106e67d2e12e9561ed1e5ef1d83848b",
+        "path": "recovery/src/Native/Xmlbuildeconomy.cpp"
+      },
+      {
+        "sha256": "a5492e5880f4f02f82c58db0ff8189cea71bbf7afbf728d14de9ce9d554ace4b",
+        "path": "recovery/src/Native/Xmlbuildeconomy.h"
+      },
+      {
+        "sha256": "7e153c2c5f7733a549fd7adc408a9aee4658b4f0b963e2629cd03f2983b1e483",
+        "path": "recovery/src/Native/Xmlcampaign.cpp"
+      },
+      {
+        "sha256": "553d320ebb53979f0c6e22e76f819a87aaed2b4ffa567b77444e6b9ffe3c7370",
+        "path": "recovery/src/Native/Xmlcampaign.h"
+      },
+      {
+        "sha256": "4a9e76ce27e519b788ac320b2dba45f32cb24f3b75d851aafe74e4337b423672",
+        "path": "recovery/src/Native/Xmlchatcolors.cpp"
+      },
+      {
+        "sha256": "700f9df752211ac69fda23e10f32e8a757a232ad7734b6e91fe2d5b8b87dc9ac",
+        "path": "recovery/src/Native/Xmlchatcolors.h"
+      },
+      {
+        "sha256": "6b79f4376084558d4987bf58a2058c308c68bb515220075b5b49e35408a7471c",
+        "path": "recovery/src/Native/Xmlcommandset.cpp"
+      },
+      {
+        "sha256": "e628c06cccebd6364271315f9f2cef2f033a8030e6e801dab8475bc86ea7b54e",
+        "path": "recovery/src/Native/Xmlcommandset.h"
+      },
+      {
+        "sha256": "55fea55731ef1cd6a70f689bfe4244482e1cab0ae052740c30a7a1b8badabc10",
+        "path": "recovery/src/Native/Xmlconditions.cpp"
+      },
+      {
+        "sha256": "3a10a4e9a947b83c5f60500edbd77892245ce45d770d64962b1e8bdf53337b96",
+        "path": "recovery/src/Native/Xmlconditions.h"
+      },
+      {
+        "sha256": "77a46148562227cd551456f7edb2da8c045aebf03a7c99c0aa525942dc6a2edb",
+        "path": "recovery/src/Native/XmlconditionsEnums.inc"
+      },
+      {
+        "sha256": "d86ca6dbd52fa3ffffe7be7e8c8956e67ec275859f7145c73f22f05b8a3542c6",
+        "path": "recovery/src/Native/Xmlconnections.cpp"
+      },
+      {
+        "sha256": "fb8075b380e7b74ff055920a79edc2a3effea46c05d2e3c2db3be6ec4371e816",
+        "path": "recovery/src/Native/Xmlconnections.h"
+      },
+      {
+        "sha256": "45c2d2eb12800136022da35835dfe96a41b99d4db44f03c0213b42fb1bea121e",
+        "path": "recovery/src/Native/Xmlconquercards.cpp"
+      },
+      {
+        "sha256": "24e2e7a911d9a6991ca50317d01e784cf36109498b2714bdf43f5ac0db0dea6d",
+        "path": "recovery/src/Native/Xmlconquercards.h"
+      },
+      {
+        "sha256": "31be4407a9c49251ad46a7123eade9d17bac483b7058eaa0f245603bff0596e1",
+        "path": "recovery/src/Native/Xmlcontent.cpp"
+      },
+      {
+        "sha256": "b52e0211970b3a984c7c5f406caa887f64ca6b93eafbaf90452a5f8d2cfc6a6d",
+        "path": "recovery/src/Native/Xmlcontent.h"
+      },
+      {
+        "sha256": "b7c4df34e189dc3c25e0916067447001eea5f1cfd3456ea864141a102741f50a",
+        "path": "recovery/src/Native/Xmlcrowd.cpp"
+      },
+      {
+        "sha256": "b0c35aedbdd9e1f400ce7b42295476731a5bfb0680b1a75229aa6fef28fdb42a",
+        "path": "recovery/src/Native/Xmlcrowd.h"
+      },
+      {
+        "sha256": "bd5b0db5edb8a06f5c61b433b080b898f3ef0fbd49086844f12a71e5c1fecf9e",
+        "path": "recovery/src/Native/Xmldamagefx.cpp"
+      },
+      {
+        "sha256": "3e7c50829fcabca3e2647fc6d95c84d2315a3f52273da8e8e8124d33bdfa9984",
+        "path": "recovery/src/Native/Xmldamagefx.h"
+      },
+      {
+        "sha256": "2c92956bc4b10def7a2c27e7e228dc2b8116ca45dc2bae60d3a112375066ccf7",
+        "path": "recovery/src/Native/XmldamagefxEnums.inc"
+      },
+      {
+        "sha256": "45863cfa76b126f05aaaf7872a5444d6d8368a2128a57485797007954fd5de42",
+        "path": "recovery/src/Native/Xmldynamics.cpp"
+      },
+      {
+        "sha256": "a4aa390462d9ab663d5ab136952a1f95d5f58cda2bdeb3d9f1f96743373af0eb",
+        "path": "recovery/src/Native/Xmldynamics.h"
+      },
+      {
+        "sha256": "be86b94a3dce715e864b8aa53463ae0daf2d0dfe9a2b39c8433506bf30450f4a",
+        "path": "recovery/src/Native/Xmleffects.cpp"
+      },
+      {
+        "sha256": "3e9f751e51acd3194ecec9913434c9a53f1b091b35c4afd15722942dd7a15af2",
+        "path": "recovery/src/Native/Xmleffects.h"
+      },
+      {
+        "sha256": "fa66a63c76c5bbe72977094a2aa86fe829f8bff65af5fe38b4ad87d10ba56556",
+        "path": "recovery/src/Native/XmleffectsEnums.cpp"
+      },
+      {
+        "sha256": "cde3d72d2400d4884e2d3d28ef09cbab0157ca37ad3b4d8c82a18fc11ea374a6",
+        "path": "recovery/src/Native/XmleffectsEnums.h"
+      },
+      {
+        "sha256": "476fdbbfe3bd3169f5e567607e1e08d190f402905f46ae7cda9e2956350deecb",
+        "path": "recovery/src/Native/XmleffectsNuggets.cpp"
+      },
+      {
+        "sha256": "12c91d70697fe1a89e4ce89357db08b29602ad74cfe629b199ac9f6c2843b9e6",
+        "path": "recovery/src/Native/Xmlemotions.cpp"
+      },
+      {
+        "sha256": "6d8f11dd69b1c4de5514817b904b32939432ba88fc4f769c4fbbf0032a563837",
+        "path": "recovery/src/Native/Xmlemotions.h"
+      },
+      {
+        "sha256": "822b8080683bbbf98c7f9c096b5aed46585d289a7544d217ab2f2abc1a761fc5",
+        "path": "recovery/src/Native/XmlemotionsEnums.inc"
+      },
+      {
+        "sha256": "8ffcefdf834e9945ee693cccefab0a6f4f94b6c15a4655f64ab5a0b36824f848",
+        "path": "recovery/src/Native/Xmlenvironment.cpp"
+      },
+      {
+        "sha256": "99431460fcdcc7d26fbfad456d7970578716747b1f974fc1bb444be635ab5cd8",
+        "path": "recovery/src/Native/Xmlenvironment.h"
+      },
+      {
+        "sha256": "ba09e28ad9cf2f384f87b2a3caeaea779bdc4ba6c235977e06aa091fc8829d3b",
+        "path": "recovery/src/Native/XmlenvironmentEnums.inc"
+      },
+      {
+        "sha256": "e0d2b3bd23ed31a18fe78285aa89f7903bf1f3cb245f199bb2e2974fe27a54dd",
+        "path": "recovery/src/Native/XmlenvironmentLayouts.inc"
+      },
+      {
+        "sha256": "f6b1baec1f3c161e86ff7b1a7510562efb61200248c2aa41d3fd31c355097e8d",
+        "path": "recovery/src/Native/Xmlevaachievement.cpp"
+      },
+      {
+        "sha256": "8fd9db4177fecc11152e628f555203a995b63081649f0adbdfbd5f06ac2d5a79",
+        "path": "recovery/src/Native/Xmlevaachievement.h"
+      },
+      {
+        "sha256": "d310faf835e23bd0461601d36f779fce0ad320493bed69526d1cf0c3ec4c7f0c",
+        "path": "recovery/src/Native/Xmlforcefeedback.cpp"
+      },
+      {
+        "sha256": "2401a707b440549c79aa557135e1f85e0df84b9803b2e10022b3ccb1960c2b0c",
+        "path": "recovery/src/Native/Xmlforcefeedback.h"
+      },
+      {
+        "sha256": "67c152a1688faa7a54209ad4610914ffa26aa229fc5f3a17aeb14f7d7a909e96",
+        "path": "recovery/src/Native/Xmlfxparticle.cpp"
+      },
+      {
+        "sha256": "3377218447d78e4e76a79af3e9de3c5fd4828730eed59116dbfe36f56633bec2",
+        "path": "recovery/src/Native/Xmlfxparticle.h"
+      },
+      {
+        "sha256": "35db6fd7b1542af7c6e0a936f3449e488a94d8718e441b3ab9a4bc936dd4c7f2",
+        "path": "recovery/src/Native/XmlfxparticleEnums.h"
+      },
+      {
+        "sha256": "b84820480f419fa46828bc4c660df39566fc0d5ced96e806ca4c28b23639bb0c",
+        "path": "recovery/src/Native/XmlfxparticleModuleLists.inc"
+      },
+      {
+        "sha256": "3bceb25ca9e53e51726ece2f10d5cae23ed5eed78da7903e35390da0ed3c2073",
+        "path": "recovery/src/Native/Xmlgamemap.cpp"
+      },
+      {
+        "sha256": "f7b664385e007523f61298c5ffeb439619bd26390539454b65842670c6d8484d",
+        "path": "recovery/src/Native/Xmlgamemap.h"
+      },
+      {
+        "sha256": "a3b158c4f41ceceacc54b9309354d1776eca2be84e83a2a5f82ca8dc4c77eb58",
+        "path": "recovery/src/Native/Xmlgamescripts.cpp"
+      },
+      {
+        "sha256": "dc3a6d26e539fc2e75c58c1a64a01621745426a088db1b8facedd9f14ebd6466",
+        "path": "recovery/src/Native/Xmlgamescripts.h"
+      },
+      {
+        "sha256": "9eaa482f3bd98b2cc246fa1355bf95fdc23c6c36fe3af606d3b5d2cc3df58400",
+        "path": "recovery/src/Native/Xmlhealthbars.cpp"
+      },
+      {
+        "sha256": "ea0eca93d29cfd83bf7bcc6619ccf68b922f94b61574e517a5c4e82d3141eb66",
+        "path": "recovery/src/Native/Xmlhealthbars.h"
+      },
+      {
+        "sha256": "1e57f8efc0e8d64de040d56f4ece8f1edd28257c925295132488168809797dc0",
+        "path": "recovery/src/Native/Xmlhotkeymaps.cpp"
+      },
+      {
+        "sha256": "75a8f1cefc8c8da9705d43d64ee4184084b808410eb170c0e895f3f1eac37d49",
+        "path": "recovery/src/Native/Xmlhotkeymaps.h"
+      },
+      {
+        "sha256": "aaa1e0d73efc1fbe1bfd6539c1b1efa06810367dddfb9badca97bbc9154d3165",
+        "path": "recovery/src/Native/Xmllocalization.cpp"
+      },
+      {
+        "sha256": "9fd68f5e8fc3e7f640972fbdc50149a95395ae09607607ecf329ea3062a80a10",
+        "path": "recovery/src/Native/Xmllocalization.h"
+      },
+      {
+        "sha256": "a61177aaa756b6c932a7db66fc26bcc23d38b29e29c69fbed861820d6b047713",
+        "path": "recovery/src/Native/Xmllocomotor.cpp"
+      },
+      {
+        "sha256": "fc5fa8d08d18872166a60f1206f8667e073874801285a14ecc289fc24e6b9713",
+        "path": "recovery/src/Native/Xmllocomotor.h"
+      },
+      {
+        "sha256": "ce172fa8532b0aff7f0e013ad7b34dc2f3b87716318978b488d221b01a0461cd",
+        "path": "recovery/src/Native/XmllocomotorFields.inc"
+      },
+      {
+        "sha256": "7b890b13fd94799b1be7ae22e745b52005fee19ba8e2d2d57547b4c27a55ea98",
+        "path": "recovery/src/Native/Xmlmapmetadata.cpp"
+      },
+      {
+        "sha256": "6ab7e28be335e5a8047471fd6ff38f78262b26c65d9293940dcc4fc87d7f62f7",
+        "path": "recovery/src/Native/Xmlmapmetadata.h"
+      },
+      {
+        "sha256": "b282b0509f5edeee821dfb4ba1f2a2f5f74c3bd833ae22e4e99f2a3b682d6c2b",
+        "path": "recovery/src/Native/Xmlmaterialrules.cpp"
+      },
+      {
+        "sha256": "cfd95f97652ff03a21627d7d511cd68136e3cb483358321890724f6d89be225a",
+        "path": "recovery/src/Native/Xmlmaterialrules.h"
+      },
+      {
+        "sha256": "eb6305d74c85bfb9d54ed01c02a0bb1bd7fc0a8bdd7fdadd174a712ef181d136",
+        "path": "recovery/src/Native/Xmlmouse.cpp"
+      },
+      {
+        "sha256": "c7e09f347785904ea2d957702444027029d60914a57ba027f77f9a675824bf61",
+        "path": "recovery/src/Native/Xmlmouse.h"
+      },
+      {
+        "sha256": "f998a8fdc91f87bc304afbfaf4d1a724c44bd14e00f44269c443a22e585780c3",
+        "path": "recovery/src/Native/Xmlmoviearchive.cpp"
+      },
+      {
+        "sha256": "49c4b031d439a57862a4aa19c07eb6ad37c82aef13b2e83c54a84730470d89d9",
+        "path": "recovery/src/Native/Xmlmoviearchive.h"
+      },
+      {
+        "sha256": "c976c107d1c6d1d20d1bd70d6896d106742adbbe27bda28a3b44bde5cf156566",
+        "path": "recovery/src/Native/Xmlmusicscript.cpp"
+      },
+      {
+        "sha256": "a0cd0c60e2509f4f92f5136a9f103b2cf8b836022a23f90472dccad554d60882",
+        "path": "recovery/src/Native/Xmlmusicscript.h"
+      },
+      {
+        "sha256": "9715bbdfb60df9485c4bd7e90c442b9c372826d50704b98f2de37b53ff9bdc00",
+        "path": "recovery/src/Native/XmlmusicscriptEnums.inc"
+      },
+      {
+        "sha256": "9cd76116b2b710b1fd2653b45e320284b60acd7bebd24fd84bad61c35170c56a",
+        "path": "recovery/src/Native/XmlmusicscriptFields.inc"
+      },
+      {
+        "sha256": "35e732deffb2bf093e5cdc071dc3d199a34e325311db4965efb254e13c2f5b4b",
+        "path": "recovery/src/Native/Xmlobjectsets.cpp"
+      },
+      {
+        "sha256": "f8f294c1a0583531e71f51713b0a9a5c89a9b9de826871f2520d4039d076dbad",
+        "path": "recovery/src/Native/Xmlobjectsets.h"
+      },
+      {
+        "sha256": "0d3af268464f863b5e09666b1fd509374a0218645e1034aa6b621d995337ee57",
+        "path": "recovery/src/Native/Xmlpathmusic.cpp"
+      },
+      {
+        "sha256": "a540dd6c0e08e778f6fb7d905103c3e56c7bb9fd49ae3a0f00c92b4510aec81c",
+        "path": "recovery/src/Native/Xmlpathmusic.h"
+      },
+      {
+        "sha256": "815525e71056b8b6551e5a5952ffb6a7980b102f9a4d3b3f451bd35c4b3202d7",
+        "path": "recovery/src/Native/Xmlplayers.cpp"
+      },
+      {
+        "sha256": "645b77339a08b5ed182afab736459e1afdfdeedc83631c90a1a343ec55b4131a",
+        "path": "recovery/src/Native/Xmlplayers.h"
+      },
+      {
+        "sha256": "0445b0cc767f93d31cc2a939a4b2db0641ac5d5c21812df6c5bb2fce52e934ed",
+        "path": "recovery/src/Native/XmlplayersEnums.inc"
+      },
+      {
+        "sha256": "cc5bc2e2b3c5110b984708276bdeb473e4e8cc0dc78b7508700cb5cdebd89951",
+        "path": "recovery/src/Native/XmlplayersFormations.inc"
+      },
+      {
+        "sha256": "e3e7acd7edef94751fa127e3cd65528a3bdf84afadfa3884e10d9748fded7b08",
+        "path": "recovery/src/Native/XmlplayersLayouts.inc"
+      },
+      {
+        "sha256": "52a777b1da7decdb274fc5324a350ed41af2b030ff5fadc8ea119c0f33532e44",
+        "path": "recovery/src/Native/XmlplayersSkirmish.inc"
+      },
+      {
+        "sha256": "8dd5ef98db43768fc1e35af9c3a6b39da4fb41b4cfa1e6107b1e4b4b7618a22d",
+        "path": "recovery/src/Native/Xmlpowers.cpp"
+      },
+      {
+        "sha256": "83842aa2f47acdfd342b66f0d8b66897340d730c6f65a0d4e5d5ad28ac499569",
+        "path": "recovery/src/Native/Xmlpowers.h"
+      },
+      {
+        "sha256": "3f1d00a473bed1968c9bf1c8f8eaf640be34b59998a23568c56cdab50307ab3f",
+        "path": "recovery/src/Native/XmlpowersEnums.h"
+      },
+      {
+        "sha256": "d92a1715c789ac851307e6d5f4e4bc02e6248cd0e42f88be16311e4dbd9d5f04",
+        "path": "recovery/src/Native/Xmlprogression.cpp"
+      },
+      {
+        "sha256": "c9f76121f399bdee629e507f9d463367c5e44d538d301cec7992bdc701da4f9d",
+        "path": "recovery/src/Native/Xmlprogression.h"
+      },
+      {
+        "sha256": "3447c79014d49319d587709093ccd4e1b5e23245e1a1b553928fbfc46554ac36",
+        "path": "recovery/src/Native/XmlprogressionEnums.h"
+      },
+      {
+        "sha256": "50baaa46adf6641a723cc893c135000cf34d381b95ec3fa309902cef08d7914f",
+        "path": "recovery/src/Native/XmlprogressionFont.cpp"
+      },
+      {
+        "sha256": "91e88a8e930fe56b2e4511ebf3c8bf8d0ad0418499fa4c5fdfa611110a017abd",
+        "path": "recovery/src/Native/XmlprogressionUi.cpp"
+      },
+      {
+        "sha256": "3f2d2378d8de463af1e67e9827eb95b2b2bc8b2cea7bd52cf64c86bda2c9a2fc",
+        "path": "recovery/src/Native/Xmlprojectilepath.cpp"
+      },
+      {
+        "sha256": "875b77cf053457b4a119ebbfba47080fcb581bb2a516c19f29297ba5ce7311fc",
+        "path": "recovery/src/Native/Xmlprojectilepath.h"
+      },
+      {
+        "sha256": "da23f7cbc3e5a80e14d93540204c95a20782898bf2bf54ca27626403b84f0f8f",
+        "path": "recovery/src/Native/Xmlradar.cpp"
+      },
+      {
+        "sha256": "630e147a08c1530fbd5cdfcd8d4e20c6e4f203450333d1f13d48213349afc663",
+        "path": "recovery/src/Native/Xmlradar.h"
+      },
+      {
+        "sha256": "c5251947a94de43984fc296076e2f8b855f04cb4ee1c8262539d12af5cdfdc36",
+        "path": "recovery/src/Native/Xmlredalert.cpp"
+      },
+      {
+        "sha256": "cea954e62c752e7d11c0c91e2c9e9bfdef836022ee19351e2f1729b36c764383",
+        "path": "recovery/src/Native/Xmlredalert.h"
+      },
+      {
+        "sha256": "2c851dca0c3bfdbc2ac8d1f2a7e908391063dff21bbc171e3c330debf5c553dd",
+        "path": "recovery/src/Native/Xmlrenderassets.cpp"
+      },
+      {
+        "sha256": "a778465ae1f24b34d91835a2296a7d639f3aa9b06ed513dda245486dca085da4",
+        "path": "recovery/src/Native/Xmlrenderassets.h"
+      },
+      {
+        "sha256": "45deae2d35a420fe6d69196c92cac13bf8c9b9b8a735548ab081424a2e361e1a",
+        "path": "recovery/src/Native/Xmlrenderdevice.cpp"
+      },
+      {
+        "sha256": "3f0366c23e126fe32ab93e7b2fd853e43bebeed9ca0a886f407a16c4d5879051",
+        "path": "recovery/src/Native/Xmlrenderdevice.h"
+      },
+      {
+        "sha256": "e5311d3732045cb393f1008c6cf595fd079357af40f24144e56cf78338326c5f",
+        "path": "recovery/src/Native/XmlrenderdeviceEnums.inc"
+      },
+      {
+        "sha256": "08fbf669bdd89a51cc738a2de2d25ed759bf8279044c8e49a1eb3b5e4ca7c5f1",
+        "path": "recovery/src/Native/Xmlruntimeopaque.cpp"
+      },
+      {
+        "sha256": "f4f41f5955912fa0ffa384979296bf053cba78ce679b47ac0f67d7ece6ab95af",
+        "path": "recovery/src/Native/Xmlruntimeopaque.h"
+      },
+      {
+        "sha256": "93300b1d80aef51358147fdf183c2c6f9a1526d3ea09e481a3100ac1d0453e9b",
+        "path": "recovery/src/Native/Xmlsinglesound.cpp"
+      },
+      {
+        "sha256": "27092f0b2b89b1c881b7ac47828efce7ac809e23f85cfc4071b011dc39a0159b",
+        "path": "recovery/src/Native/Xmlsinglesound.h"
+      },
+      {
+        "sha256": "44842ebef2b4d94a50a9bc91766a4c48e4579e311a12698908360e48676ae8c4",
+        "path": "recovery/src/Native/XmlsinglesoundEnums.inc"
+      },
+      {
+        "sha256": "33a24932ce4257ba5d690ef01bfdcc368c4812f51dcdc2c282852855dd0ee6cd",
+        "path": "recovery/src/Native/XmlsinglesoundFields.inc"
+      },
+      {
+        "sha256": "0d74a9ca9424d48cb17020f570f6af5c88e5acea8394fcc32c390b2da541a9db",
+        "path": "recovery/src/Native/Xmlsoundmaps.cpp"
+      },
+      {
+        "sha256": "1cfc42173401b4a602c9a3be6e130dffe627b8ac20b23c90d1d9c0fb47f95dec",
+        "path": "recovery/src/Native/Xmlsoundmaps.h"
+      },
+      {
+        "sha256": "a49c8a6dd9d6061c34c516bbf09a6924897916d1873be0df757877b37e243a6a",
+        "path": "recovery/src/Native/XmlsoundmapsFields.inc"
+      },
+      {
+        "sha256": "22ba68a0f804546c07876e768457a8ad3c2ee2b7c15aa960432d21d63ab705ac",
+        "path": "recovery/src/Native/Xmlsystemsettings.cpp"
+      },
+      {
+        "sha256": "df05d456619ed91f4fa12761f49a14757093f7543abe9421c99d3c1565a47d4f",
+        "path": "recovery/src/Native/Xmlsystemsettings.h"
+      },
+      {
+        "sha256": "cecf6b95db94191b8dbe0450948ed1cf14ade69379e287a437bce3cc68ac540e",
+        "path": "recovery/src/Native/XmlsystemsettingsEnums.inc"
+      },
+      {
+        "sha256": "c65ff855bbd30cad4f159950a2efd52674c405b9f5b6089b856e676515982003",
+        "path": "recovery/src/Native/XmlsystemsettingsPathFields.inc"
+      },
+      {
+        "sha256": "ec748dbd7df8d7967a97df9daaed733d841c221aebbd4a13ed2416b4afc15693",
+        "path": "recovery/src/Native/Xmltacticalhotkeys.cpp"
+      },
+      {
+        "sha256": "982f4a310d8e8ed32d40a4884735efa1cf4931a674224f422703f5e54ae4cf17",
+        "path": "recovery/src/Native/Xmltacticalhotkeys.h"
+      },
+      {
+        "sha256": "b64844a940c4913989071e574d19539c12e292f0411ad79fac9e9dd9c8917af6",
+        "path": "recovery/src/Native/XmltacticalhotkeysFields.inc"
+      },
+      {
+        "sha256": "19c3c606e89f50b274db3574aa0dde1723a6e3e4882c9988ed16df84c8aa91cd",
+        "path": "recovery/src/Native/Xmltargeting.cpp"
+      },
+      {
+        "sha256": "570369aa2861eba039b908b4530b1d565809dd4875d11b5c0b8f35d195bf09be",
+        "path": "recovery/src/Native/Xmltargeting.h"
+      },
+      {
+        "sha256": "da4236614a41c6793f732ae4a3c0714ac25bdffaa26ccfd8743e72c7ef0632cc",
+        "path": "recovery/src/Native/Xmlterrain.cpp"
+      },
+      {
+        "sha256": "ffaf750d0163989c57d49c1e23b321139725d0bfc71865d56c33ec9572a540d3",
+        "path": "recovery/src/Native/Xmlterrain.h"
+      },
+      {
+        "sha256": "b955fcc8c70f087b75e2f30d3957257f487e52a1888dbdd439cebfb8b692576b",
+        "path": "recovery/src/Native/Xmltesttextures.cpp"
+      },
+      {
+        "sha256": "991a166347fa131eb073766b06e30475cce065c2bece1d1b19d37d8daeda1886",
+        "path": "recovery/src/Native/Xmltesttextures.h"
+      },
+      {
+        "sha256": "08b501c445e5c3a08b87e08e7f46fa11a09733ec0b8d4a3f40d7dd0d8e447f00",
+        "path": "recovery/src/Native/Xmluichat.cpp"
+      },
+      {
+        "sha256": "bb5981f2cff4ac93085bc3ecf55d85f301896ca301f32d84369155309f81e0cb",
+        "path": "recovery/src/Native/Xmluichat.h"
+      },
+      {
+        "sha256": "8ac552b7de2d6c23583e3fd0a17734ab441226d7c18fd17e8167634d8577af1f",
+        "path": "recovery/src/Native/XmluichatEnums.inc"
+      },
+      {
+        "sha256": "44a4e46dc80c31a35089f4493ae2fc28e1c0eb1f789c6a9567fdb4dd5faa6f19",
+        "path": "recovery/src/Native/Xmluiconfig.cpp"
+      },
+      {
+        "sha256": "4bc578c7179f5f8ade27e6a10e389554a97024c9adb3cc4515d0655f3a00aad9",
+        "path": "recovery/src/Native/Xmluiconfig.h"
+      },
+      {
+        "sha256": "528ac6f25324f7a03234e32ab62daf663b5d67210aac799ce4a02b9fe6eb72f0",
+        "path": "recovery/src/Native/XmluiconfigComponents.inc"
+      },
+      {
+        "sha256": "4e5d3adc7251872a8426b7a5713e459ac24d3eb2c5e33391f12e1b4198ba8a06",
+        "path": "recovery/src/Native/XmluiconfigNested.inc"
+      },
+      {
+        "sha256": "fb2a09a1726db7d2d265c7e38d14692bd4fa53cf65e83082d2f4902218434f58",
+        "path": "recovery/src/Native/Xmluidecals.cpp"
+      },
+      {
+        "sha256": "2f67e0895152a402690590c01cfedc9f0ac98a63b71ac7e47a8dcbfc3033bbbc",
+        "path": "recovery/src/Native/Xmluidecals.h"
+      },
+      {
+        "sha256": "6b50f0b18e97fbdbd2aeb1adf1347771ccb0ec335ae043da5e2ac8922de33f17",
+        "path": "recovery/src/Native/Xmluiimages.cpp"
+      },
+      {
+        "sha256": "82223d3f0176b4af875238faa20dd035a79a581e242ee87c64836ec15b310414",
+        "path": "recovery/src/Native/Xmluiimages.h"
+      },
+      {
+        "sha256": "76d9b00851b757dcaeecc13388e93e4713d0528a50ada56008d443b0dbd2c97b",
+        "path": "recovery/src/Native/Xmluisettings.cpp"
+      },
+      {
+        "sha256": "b4713614efe35214d4f937a1f3f70cf774d6dd060199502af62d3a1145cf2232",
+        "path": "recovery/src/Native/Xmluisettings.h"
+      },
+      {
+        "sha256": "b1ca359ef90ebbb70984aa68841308934f53691b6472eacb84552fe97320d73f",
+        "path": "recovery/src/Native/XmluisettingsLayouts.inc"
+      },
+      {
+        "sha256": "56988ac19af8dc165a8a9a6f3bb6163bd1ddf5e6570be3a60f18e5cb6685bf52",
+        "path": "recovery/src/Native/Xmluitactical.cpp"
+      },
+      {
+        "sha256": "8a97185b3d805ef9e9fa71a1ed4741db40a13eaa6a0d5cd11e021281e01971a0",
+        "path": "recovery/src/Native/Xmluitactical.h"
+      },
+      {
+        "sha256": "7f228e77264e5173cc0788e048fa3f9b5b931fbde66e418a7aac17ebeb2c6f77",
+        "path": "recovery/src/Native/XmluitacticalLayouts.inc"
+      },
+      {
+        "sha256": "aedc172f8896dfe5291657d0f35a20014015d2bce5f9e79b4cbc118250bd81a8",
+        "path": "recovery/src/Native/Xmlunitoverlay.cpp"
+      },
+      {
+        "sha256": "c0cde9d1eddfed0737000ea2db026c0c0440c7ef31fafbc925b8560a47888fd4",
+        "path": "recovery/src/Native/Xmlunitoverlay.h"
+      },
+      {
+        "sha256": "621936c9691d0430344d32f10c7dc4702930e8bab79c60fb5ae7d0e6ba353288",
+        "path": "recovery/src/Native/Xmlvisibility.cpp"
+      },
+      {
+        "sha256": "2430a81d35990beafc9f903fc891e260a6bc9bd1ecf5fe4cdf0d1a708a3f8f0c",
+        "path": "recovery/src/Native/Xmlvisibility.h"
+      },
+      {
+        "sha256": "de3c2d3640e29dd6cc6f1b80eaf0a194cc58b45c15a44feda3a31684b5a86192",
+        "path": "recovery/src/Native/Xmlvisualsystems.cpp"
+      },
+      {
+        "sha256": "0aec9eda4b17024f914c872c2c48bf09e0229f901e0b3a244e1834183e0dfc4c",
+        "path": "recovery/src/Native/Xmlvisualsystems.h"
+      },
+      {
+        "sha256": "72389d063a61a3ab295b5cd6cd9055ac6d80331920aee6b0ffad3c7abe3e9567",
+        "path": "recovery/src/Native/Xmlw3d.cpp"
+      },
+      {
+        "sha256": "289e443935ea538d1567708bc9a150273c6c037e3a34e0b362d9c4c5e821ced2",
+        "path": "recovery/src/Native/Xmlw3d.h"
+      }
+    ],
+    "objects": [
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Relocation.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_ScalarParsing.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_DataInitializers.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_ResourceMarshaling.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_EnumBitset.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_ObjectFilter.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_ArmorTemplate.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_WeaponNugget.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_WeaponTemplate.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_WeaponSlotOrder.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_GameObject.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlabilitybuttons.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlai.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlaptdata.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlarmyopening.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlassetindexes.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlattributes.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlaudio.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlbuildeconomy.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlcampaign.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlchatcolors.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlcommandset.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlconditions.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlconnections.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlconquercards.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlcontent.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlcrowd.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmldamagefx.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmldynamics.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmleffects.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_XmleffectsEnums.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_XmleffectsNuggets.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlemotions.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlenvironment.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlevaachievement.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlforcefeedback.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlfxparticle.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlgamemap.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlgamescripts.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlhealthbars.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlhotkeymaps.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmllocalization.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmllocomotor.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlmapmetadata.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlmaterialrules.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlmouse.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlmoviearchive.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlmusicscript.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlobjectsets.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlpathmusic.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlplayers.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlpowers.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlprogression.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_XmlprogressionFont.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_XmlprogressionUi.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlprojectilepath.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlradar.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlredalert.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlrenderassets.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlrenderdevice.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlruntimeopaque.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlsinglesound.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlsoundmaps.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlsystemsettings.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmltacticalhotkeys.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmltargeting.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlterrain.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmltesttextures.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluichat.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluiconfig.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluidecals.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluiimages.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluisettings.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmluitactical.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlunitoverlay.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlvisibility.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlvisualsystems.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Xmlw3d.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_AdaptiveDelta.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_AnimationCompiler.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_AnimationPipeline.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_MeshAsset.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_MeshBuilder.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_MeshConverters.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_MeshSerialization.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_Shader.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_W3x_Timecoded.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_bitreserve.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_ealayer3core.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_VbrTag.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_bitstream.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_encoder.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_fft.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_gain_analysis.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_id3tag.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_lame.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_newmdct.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_presets.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_psymodel.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_quantize.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_quantize_pvt.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_reservoir.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_set_get.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_tables.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_takehiro.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_util.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_vbrquantize.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_version.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mp3toea.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpeg.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpeghufftables.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpegl3base.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpegpoly_c.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3Encoder.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_scalesamples.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\recovery_src_Native_Texture_PublicS3_s3_quant.obj",
+      "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-product\\Debug\\obj\\native\\objects\\CompilerBridges.obj"
+    ],
+    "foundationSha256": "a36df14d922e01365e776505aaba22e03f6c1de60d8b5e1e4f64f1c6ff86979c",
+    "configuration": "Debug",
+    "schemaVersion": 1
+  },
+  "foundationSha256": "a36df14d922e01365e776505aaba22e03f6c1de60d8b5e1e4f64f1c6ff86979c",
+  "configuration": "Debug",
+  "runtimeFiles": [
+    "NewModCompiler.exe",
+    "NewModCompiler.exe.config",
+    "antlr.runtime.dll"
+  ],
+  "intermediateModules": "AnyCPU",
+  "texturePlugin": {
+    "externalRuntimeFiles": [],
+    "implementation": "built-in-source"
+  },
+  "status": "built; clean deployment and runtime validation required",
+  "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1",
+  "resources": [
+    {
+      "logicalName": "BinaryAssetBuilderProject.xsd",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Debug\\resources\\BinaryAssetBuilderProject.xsd",
+      "sha256": "3ffe9a0f876bc76deaf28d2e0302f32d63b0c842d719f3d9c428dc961b7616c1"
+    },
+    {
+      "logicalName": "Mvp.Xml.Common.SR.resources",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Debug\\resources\\Mvp.Xml.Common.SR.resources",
+      "sha256": "65bc06e64351f384b3f8658d273a36d7dcb2af167e458adc0f9579bb2cf0a1cb"
+    },
+    {
+      "logicalName": "Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Debug\\resources\\Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources",
+      "sha256": "a3237a994521c1904b0367691fdafc8b4b309371b845157bd149f27b53849d76"
+    },
+    {
+      "logicalName": "Mvp.Xml.XPointer.SR.resources",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Debug\\resources\\Mvp.Xml.XPointer.SR.resources",
+      "sha256": "fb2b9ea0745131e0ba26b9c7967a4f74885427d73dbeb6ad68114c8a3bacb1de"
+    },
+    {
+      "logicalName": "Mvp.Xml.XInclude.SR.resources",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Debug\\resources\\Mvp.Xml.XInclude.SR.resources",
+      "sha256": "0ef800084cbdf48a5a0b2de121f52737410aaa1356a6325fae779a8b56a77f6c"
+    },
+    {
+      "logicalName": "BinaryAssetBuilder.UiCompiler.Dependencies.LibTessDotNet.dll",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Debug\\resources\\LibTessDotNet.dll",
+      "sha256": "6f2a8b10515fe328e1c9a28b23660958d8a3eea0ca436042516ff5e0a2ec5921"
+    },
+    {
+      "logicalName": "BinaryAssetBuilder.UiCompiler.Dependencies.Clipper2Lib.dll",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Debug\\resources\\Clipper2Lib.dll",
+      "sha256": "48c351243cdaedc28fc726ae0e4d8fdb39207556fb8caf1a6e4d0bdfe77159f4"
+    },
+    {
+      "logicalName": "BinaryAssetBuilder.UiCompiler.Dependencies.StbImageSharp.dll",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\core-lifecycle-foundation\\Debug\\resources\\StbImageSharp.dll",
+      "sha256": "387e42762fafcac4f82cbc2bf2b418f4ada338ea444734b1d444c6a6e2d1cb6e"
+    }
+  ],
+  "modCompilationSupported": false,
+  "schemaVersion": 2,
+  "sources": [
+    {
+      "sha256": "3269de89afbaf5c4de008f63be2ce63f36f1e502e7c1ff177270ffcd34fd0514",
+      "path": "recovery/src/App/Application/AdditionalFiles.cs"
+    },
+    {
+      "sha256": "8689c8d883229572d13bbd2c829dd390c16f19cb75f57ab67ca74b74d69e16b0",
+      "path": "recovery/src/App/Application/BackendResourcePolicy.cs"
+    },
+    {
+      "sha256": "e7e762757ebb4fcffab50a89f04d40930142781dd55f42e79910c93fa1fa36dd",
+      "path": "recovery/src/App/Application/BasePostProcessor.cs"
+    },
+    {
+      "sha256": "527dbc8241c6d72950d57d20dc291f6c03c989a770130bb8c8eb470eb51f850c",
+      "path": "recovery/src/App/Application/BigArchiveWriter.cs"
+    },
+    {
+      "sha256": "066330094bede0a6862dc93d755c04b56aaf862dbdebfbf6bf79651f9bcba6fc",
+      "path": "recovery/src/App/Application/BigPackage.cs"
+    },
+    {
+      "sha256": "1aa38f26d43211f22d923383e3fb83f345199e2507e57e261d8bc4da6f8e3c69",
+      "path": "recovery/src/App/Application/BuildSession.cs"
+    },
+    {
+      "sha256": "946abaff7f8fe0c5e3111ea0f77c26013695917e6da464b4f709a678bbc81bca",
+      "path": "recovery/src/App/Application/BuiltinCompilers.cs"
+    },
+    {
+      "sha256": "644808efc649c5db856d857dd7a549704cc90da7eb9386d01dd768ba54f55e40",
+      "path": "recovery/src/App/Application/BuiltinXmlRoutes.cs"
+    },
+    {
+      "sha256": "d3eb68d8a61ec266c61c0977c3e7bbe0d03309fec9d9ea10af41ddc7bd27d425",
+      "path": "recovery/src/App/Application/CacheLock.cs"
+    },
+    {
+      "sha256": "d18520d8b192fc124c8e6d533c1f4d20d8d5407eb9c4db666f164b7da85fa29c",
+      "path": "recovery/src/App/Application/CoreStreamCompiler.cs"
+    },
+    {
+      "sha256": "898ed0aa7ca07eede7e6b8abebc83be50b625905fa43f63f2cd3e8532a3b497f",
+      "path": "recovery/src/App/Application/FileHashCache.cs"
+    },
+    {
+      "sha256": "767f7c30d7658e7f3dc77dd4c4b2b7017d46f3223c5845508b68752138b8482e",
+      "path": "recovery/src/App/Application/FileIdentity.cs"
+    },
+    {
+      "sha256": "f0cf7d8aa3748bc6b02bcf33199bb434492bd1585c89b7b60f13f69209f5e7ed",
+      "path": "recovery/src/App/Application/FileTransfer.cs"
+    },
+    {
+      "sha256": "5f4001ac1ca10f18b987ce097170c1077db830429cc56c3b39eb71bdee0ace84",
+      "path": "recovery/src/App/Application/HashFix.cs"
+    },
+    {
+      "sha256": "e2e3b404ccc1380995b88bee2502a0dea9d44e077bb1e269012e56308c54dfb4",
+      "path": "recovery/src/App/Application/LegacyCacheStore.cs"
+    },
+    {
+      "sha256": "30fecef01bc84f1e0b850678721e9124e1cb7b1bf4c5e0d62ebec511abbde445",
+      "path": "recovery/src/App/Application/LoDStreamBuilder.cs"
+    },
+    {
+      "sha256": "9b0495850ed78a8dfd6237db3a3b09a198e0e789095bd1710ed6d47d48cb8e6c",
+      "path": "recovery/src/App/Application/MakeBig.cs"
+    },
+    {
+      "sha256": "fef3608f2b08679527a5d3cd5d7076aeee1ffeae90f7f9c8a2c768379011fad6",
+      "path": "recovery/src/App/Application/ModAssetResolver.cs"
+    },
+    {
+      "sha256": "1a7af750d5bb6a849ca978fb3cd3f5ceb6f8fbfb3a59417599bcf315b7c0973a",
+      "path": "recovery/src/App/Application/Model.cs"
+    },
+    {
+      "sha256": "7b74a03380c153b29410917b61c59330e141a6497f9474af82fb8c01a8ac3e53",
+      "path": "recovery/src/App/Application/PackageIdentity.cs"
+    },
+    {
+      "sha256": "9cd1e80eb0a128258afb7334f36a01c271fb8d950ac911ec0c95942b726ddc0a",
+      "path": "recovery/src/App/Application/ParallelBackendScheduler.cs"
+    },
+    {
+      "sha256": "508c77585bb24eb359d4f2a852dee224a57bdbb0ee7e9bf63d1ab66a292608a0",
+      "path": "recovery/src/App/Application/Planner.cs"
+    },
+    {
+      "sha256": "81decb68e47076d269970545b0e1a4bd17220edd6291f03761dd26ea4c5221d3",
+      "path": "recovery/src/App/Application/PreparedBackendWork.cs"
+    },
+    {
+      "sha256": "b47ec640b96133494c24b1c00da5491b307fe9cb7fbf9d3d921c95e56c566da2",
+      "path": "recovery/src/App/Application/UiAptPlugin.cs"
+    },
+    {
+      "sha256": "9e25c6854b885b1a1bc99cfb4e78cc3e085b574e1207b2cfcb4034366d2ee5dc",
+      "path": "recovery/src/App/Application/XmlBackendCertification.cs"
+    },
+    {
+      "sha256": "447261f6c100cc14892cd9cca5b4bf7e20df87015fc58c72c1e0e8835ced403a",
+      "path": "recovery/src/App/Cli/Options.cs"
+    },
+    {
+      "sha256": "c6cc023db023f641791331ca5eafa2307785380a0d4728ecaa6d4cbdaa2e37e2",
+      "path": "recovery/src/App/Cli/Program.cs"
+    },
+    {
+      "sha256": "390bc2cd485d47058e296706b4cf8f0111db0d53fdf332d0cf8bde7e905d628b",
+      "path": "recovery/src/App/Diagnostics/BuildPerformance.cs"
+    },
+    {
+      "sha256": "50c626daa82269a7bb1793b2c897ce323ed206e8617b3785edc7264b156acba9",
+      "path": "recovery/src/App/Diagnostics/Events.cs"
+    },
+    {
+      "sha256": "7973551f9d562e5448760d9e392009e616147c6bcb63f61f6e742ff86cff51d3",
+      "path": "recovery/src/Plugin/ArmorPlugin.cs"
+    },
+    {
+      "sha256": "8e35306756818c81e336653fb022dd529a809e5f7d3ba078d61a3a3fa816cdc2",
+      "path": "recovery/src/Plugin/GameObjectPlugin.cs"
+    },
+    {
+      "sha256": "36e13347427ea078668a35b44faaa8bc5d3db010c70a26bb7cb7efbb9d485bd3",
+      "path": "recovery/src/Plugin/WeaponPlugin.cs"
+    },
+    {
+      "sha256": "7cb47c9ec50a40e11e1d3a534174ee07e81a36a0d9dda9e8baef93cb9196fdd2",
+      "path": "recovery/src/Plugin/XmlPriorityPlugin.cs"
+    },
+    {
+      "sha256": "0c5ac3c3ddc1c6c464a7b3601b5a8fe0b41c2779867ced9d527c637daab82639",
+      "path": "recovery/src/Plugin/W3x/Plugin.cs"
+    },
+    {
+      "sha256": "2d982c3cba7b0e8dafd7c4e90d23161157daec4bf6c6719fc2bb59c5e7c309cd",
+      "path": "recovery/src/Plugin/W3x/NativePlugin.cs"
+    },
+    {
+      "sha256": "b6e3bb8d38628a143311792694a8e4dbb7097a2ae52d3e3b7be8cf8798092ce6",
+      "path": "recovery/src/Managed/W3x/W3xCatalog.cs"
+    },
+    {
+      "sha256": "5e82235e3926ca7d3357d13fd7c59e6a05792b45b6caf2379547f7e6665492ed",
+      "path": "recovery/src/Managed/W3x/IW3xAssetCompiler.cs"
+    },
+    {
+      "sha256": "a1c411f5e49d4de1e7a4e73abc37dbe9d5c582bfc493b7addd0c715314a22a1e",
+      "path": "recovery/src/Plugin/Texture/Plugin.Atlas.cs"
+    },
+    {
+      "sha256": "3a1514d209c874712e8b2e5adf489273ce78ca6c8d7c02dbba3af796dee4a20c",
+      "path": "recovery/src/Plugin/Texture/Plugin.Dds.cs"
+    },
+    {
+      "sha256": "5209e51c069b3381f3296f4efc21b27ab6d9eccdcfd74cdccc953250a20f1a92",
+      "path": "recovery/src/Plugin/Texture/Plugin.Images.cs"
+    },
+    {
+      "sha256": "0610df154fe6b880b0677543d3d246601575389e8b8fdb512c92905bb9b2563b",
+      "path": "recovery/src/Plugin/Texture/Plugin.Metadata.cs"
+    },
+    {
+      "sha256": "a5e114f6386be05170e94f50b76ce46df879054fabb1c720c17ebd1c8944921e",
+      "path": "recovery/src/Plugin/Texture/TextureAtlasDdsEncoder.cs"
+    },
+    {
+      "sha256": "90915d5d3e8f5946a3dd36e08bba2380138ba4e1b894e125777d8d25095b0b70",
+      "path": "recovery/src/Plugin/Texture/TextureBlockCompression.cs"
+    },
+    {
+      "sha256": "0c11da81063c78cd7df38fedcca3e8e82f0c9cac2f1138f99f0b52d6bdf125ec",
+      "path": "recovery/src/Plugin/Texture/TextureBmpDecoder.cs"
+    },
+    {
+      "sha256": "289edf9105eb5628e9cd774069f6f0d5ec829c6ec9956e51b089944545947851",
+      "path": "recovery/src/Plugin/Texture/TextureCatalog.cs"
+    },
+    {
+      "sha256": "ffa551b28c728b8db7081105d4526b52a05f449b3a98120679b09c82a2b3b78f",
+      "path": "recovery/src/Plugin/Texture/TextureDdsEncoder.cs"
+    },
+    {
+      "sha256": "82114dbb0f27525e8da93530889ee9e1edb7821fa16ab012f90efff4bd1e7699",
+      "path": "recovery/src/Plugin/Texture/TextureDibDecoder.cs"
+    },
+    {
+      "sha256": "d5fb84eb6d10f4967044808483c90d757750664a6512f253012f36a922a6ad1d",
+      "path": "recovery/src/Plugin/Texture/TextureDxtBlockEncoder.cs"
+    },
+    {
+      "sha256": "42d1776849129e5d0842b46d21283b5326d2a90befacc67e60fd5ab00e37cdd4",
+      "path": "recovery/src/Plugin/Texture/TextureDxtSampleBlockEncoder.cs"
+    },
+    {
+      "sha256": "8408b845d99a505873c13ce7e6444c659615d345b8c3b0cc57baab4172da69da",
+      "path": "recovery/src/Plugin/Texture/TextureImageLoader.cs"
+    },
+    {
+      "sha256": "0d28ee8379ed1db82c8cabc45781ee84013c7810e0fb82e717705cd9c7371261",
+      "path": "recovery/src/Plugin/Texture/TextureImageRules.cs"
+    },
+    {
+      "sha256": "38a8a228adc2307e36ed1ae4e86478ba01c780af9e0f98f5568b0eadb04a29d2",
+      "path": "recovery/src/Plugin/Texture/TextureNpotRgba8Resampler.cs"
+    },
+    {
+      "sha256": "a49f21e786ff757deab4fb0eb0dcb218de8c0d208db2f3d8c81ace1b80f625af",
+      "path": "recovery/src/Plugin/Texture/TextureNpotStorageResampler.cs"
+    },
+    {
+      "sha256": "2f26818102a898347338664f37c464570dbecfc94fbef1850158bab083c0efd1",
+      "path": "recovery/src/Plugin/Texture/TexturePacker.cs"
+    },
+    {
+      "sha256": "482e59aa6f0be7a889f4a4da2dab36f2107bd8d08858ad0b32685e8a43773204",
+      "path": "recovery/src/Plugin/Texture/TexturePngDecoder.cs"
+    },
+    {
+      "sha256": "f61c996058ba8e8f885661e92e38eaab83818c842a114ef72be0507e846df506",
+      "path": "recovery/src/Plugin/Texture/TextureRawDdsEncoder.cs"
+    },
+    {
+      "sha256": "554452273078040390f8db5a808cd27d003e256c6a9d002ee6df883afae31e00",
+      "path": "recovery/src/Plugin/Texture/TextureTgaAdditionalFormats.cs"
+    },
+    {
+      "sha256": "5c8ab8c52bd0e1f4db1000e931d49506a4c2afd8cc53a1b73e872f6905de0cf7",
+      "path": "recovery/src/Plugin/Texture/TextureTgaDecoder.cs"
+    },
+    {
+      "sha256": "542edb6540de7c7ab9b147df141f580546c98654d107a66c36269790583dc6bc",
+      "path": "recovery/src/Plugin/Texture/TextureTgaMetadata.cs"
+    },
+    {
+      "sha256": "192760ba5faa062c0f3686a78914ce9a057666588d099fa2b40ec05d4a5a8d90",
+      "path": "recovery/src/Plugin/Texture/TextureTriangleMipEncoder.cs"
+    },
+    {
+      "sha256": "bb1926e461291da8f5c7cb6c2ad7ce92207a860a74d956430d72e0fd5d9dd9b1",
+      "path": "recovery/src/Plugin/Texture/TextureVolume.cs"
+    },
+    {
+      "sha256": "60a76847a0081e6c3793aa6114abe02b9a9618adce3fe707de68a103e820c109",
+      "path": "recovery/src/Plugin/Texture/TextureVolumeMipEncoder.cs"
+    },
+    {
+      "sha256": "197a971cbb22b3fa6987a5f04419c53bfda0301c375c6fadab531455cb1b7b70",
+      "path": "recovery/src/Plugin/Texture/TextureVolumeRawDdsEncoder.cs"
+    },
+    {
+      "sha256": "38acde4f778f4d3f3336c1e8d1cd2474d301dc1d7e3f3d0ae89ed5f765a638b1",
+      "path": "recovery/src/Plugin/Texture/TextureIndexedBmpDecoder.cs"
+    }
+  ],
+  "hostingSource": {
+    "sha256": "e5265339c7b98edfe590c7e09193368c422a2ad74f3e70e769133561953213c8",
+    "path": "recovery/src/Hosting/CompilerEntry.cpp"
+  },
+  "scope": "Unified Native/Bridge, built-in compilers and managed Foundation in one EXE; experimental in-process no-cache CLI backend, with P5/G3/SDK acceptance tracked separately",
+  "vcToolsVersion": "14.44.35207",
+  "entryPoint": "NewModCompiler.Hosting.CompilerEntry.Main",
+  "sourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "backendIntegrated": true,
+  "runtime": "net48/Win32",
+  "windowsSdkVersion": "10.0.26100.0\\",
+  "modCompilationAcceptance": "Not established by a build receipt; require actual CLI and P5/G3/SDK evidence"
+}

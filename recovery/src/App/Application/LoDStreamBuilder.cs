@@ -10,9 +10,12 @@ namespace NewModCompiler.Application
     public static class LoDStreamBuilder
     {
         public static string[] Create(string manifest, CancellationToken cancellation)
+        { return Create(manifest, cancellation, null); }
+        internal static string[] Create(string manifest, CancellationToken cancellation, string outputDirectory)
         {
             manifest=Path.GetFullPath(manifest);
-            string stem=Path.Combine(Path.GetDirectoryName(manifest),Path.GetFileNameWithoutExtension(manifest));
+            string stem=Path.Combine(outputDirectory ?? Path.GetDirectoryName(manifest),Path.GetFileNameWithoutExtension(manifest));
+            if (outputDirectory != null) Directory.CreateDirectory(outputDirectory);
             string leaf=Path.GetFileName(manifest);
             if(!string.Equals(Path.GetExtension(manifest),".manifest",StringComparison.OrdinalIgnoreCase) ||
                leaf.IndexOfAny(new[]{'\\','/',':','\0'})>=0 || Array.Exists(leaf.ToCharArray(),c=>c<32 || c>126))

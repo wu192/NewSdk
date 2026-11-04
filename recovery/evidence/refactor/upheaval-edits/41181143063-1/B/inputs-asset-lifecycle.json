@@ -1,0 +1,26 @@
+{
+  "scenario": "asset-lifecycle",
+  "description": "Rename 20 referenced native Weapons; delete/create explicitly all-included eight-asset files",
+  "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+  "sourceTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+  "scope": "Complete pinned original Upheaval; no trimmed inputs or Armor expansion",
+  "setup": [
+    {
+      "kind": "supplementary-real-weapon-clones",
+      "path": "Data/HotEditLifecycleBefore.xml",
+      "nativeTemplate": "PlayerPowerPointDefenseDronesWeapon",
+      "declarations": 8,
+      "includeRoot": "Data/Mod.xml",
+      "includeType": "all",
+      "reason": "Eight explicitly supplementary declarations in a separate publicly all-included file permit real file/asset delete/add; no native inputs are replaced or trimmed."
+    }
+  ],
+  "expectedPublicationChanged": true,
+  "input": {
+    "fingerprint": "60ce7192d9e82ed8ee53a224810b606bd4c619b339490e01e3399690bc9a6350",
+    "documents": 955,
+    "assets": 3860,
+    "inputBytes": 300908785,
+    "inputFiles": 2724
+  }
+}

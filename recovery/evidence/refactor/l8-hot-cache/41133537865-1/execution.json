@@ -1,0 +1,20 @@
+{
+  "runId": "41133537865",
+  "sourceCommit": "e667ea7091bd0ed136f4a3e9c4a03667125b0049",
+  "status": "budget_exhausted",
+  "artifactId": 13016551763,
+  "archiveSha256": "06ca1f5d3a80db9c255ea2f7ffce36af31e5da2b60557a6e114a3b787f8cb9ab",
+  "archiveDigestVerified": true,
+  "formalSamples": 41,
+  "qualifiedFormalSamples": 40,
+  "completedCases": [
+    "C00",
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06"
+  ],
+  "limits": "18-minute sampling phase exhausted, total remained under 35 minutes; not a passing Common"
+}

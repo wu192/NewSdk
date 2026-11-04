@@ -4,6 +4,7 @@
 #include <vector>
 
 namespace Recovered { namespace W3x {
+struct TimecodedFrame;
 // Recovered value model, not the VC8 EASTL object ABI. Source: W3X original
 // method tokens 0x06000011-0x06000015, extraction 40162934653-1.
 struct AdaptiveDeltaFrame {
@@ -32,6 +33,10 @@ struct AdaptiveDeltaEncoded {
 // maxError uses original IEEE comparisons, including NaN and +/-infinity.
 bool CompressAdaptiveDelta(std::uint32_t type, std::uint16_t pivot,
     const std::vector<std::vector<float> >& samples, float maxError,
+    AdaptiveDeltaChannel& output);
+// Production animation input can be read directly without copying each vector.
+bool CompressAdaptiveDeltaFrames(std::uint32_t type, std::uint16_t pivot,
+    const std::vector<TimecodedFrame>& samples, float maxError,
     AdaptiveDeltaChannel& output);
 // The original estimate deliberately differs from WriteOut payload length.
 std::uint32_t EstimateAdaptiveDeltaSize(const AdaptiveDeltaChannel& channel);

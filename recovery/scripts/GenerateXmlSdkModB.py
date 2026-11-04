@@ -39,6 +39,10 @@ gather(X/'CnC3Types.xsd')
 ROOTCHOICE=ELEMENTS['AssetDeclaration'].find('.//'+XS+'choice')
 GLOBALS={node.get('name'):node.get('type') for node in ROOTCHOICE if node.tag==XS+'element'}
 CAT=json.loads((ROOT/'recovery/catalog/XmlComponentOnlyTypes.json').read_text());GROUP_NAMES=sorted(CAT['groups'])[24:];ROOT_NAMES=[name for group in GROUP_NAMES for name in CAT['groups'][group]]
+# Keep the historical component snapshot intact; later Joypad roots have their
+# own catalog and join this profile only when a future full SDK matrix is run.
+JOYPAD=json.loads((ROOT/'recovery/catalog/XmljoypadTypes.json').read_text())
+GROUP_NAMES.append('joypad');ROOT_NAMES.extend(row['name'] for row in JOYPAD['roots'])
 SOURCE_IDS={name:'RecoveryXmlB_'+name+'_Defaults' for name in ROOT_NAMES if name in GLOBALS and TYPES.get(GLOBALS[name]) is not None and TYPES[GLOBALS[name]].get('abstract')!='true'}
 OMITTED_REFS=[];REACHED_TYPES=set();REACHED_ELEMENTS=set();WROTE_REFS=[];BOUNDARY=False
 def local(name):return (name or '').split(':')[-1].strip()

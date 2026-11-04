@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "sourceCommit": "91b040d271b7a3cc25d32f0f923c018c740edf4a",
+  "binarySourceCommit": "91b040d271b7a3cc25d32f0f923c018c740edf4a",
+  "runId": 41010073140,
+  "runAttempt": 1,
+  "artifactId": 12957004213,
+  "artifactSha256": "9f8b1ad1bba8c3f330475586496722773714fa99143d75adf136ae464493680c",
+  "archiveDownloadedAndHashed": true,
+  "reportSchemasValidated": 69,
+  "runtimeFilesVerified": 5,
+  "hotCacheSamples": 56,
+  "hotCacheElapsedSeconds": 42.85097910000002,
+  "timingSamples": 14,
+  "timingElapsedSeconds": 9.983569699999975,
+  "allExpandedSamplesComparedRawBytes": true,
+  "scope": "Rebuilt Release product, App contracts, original 14 timing/BAB/packaging/failure cases, 56 expanded cache samples; no new Debug/full-MOD/game-runtime acceptance"
+}

@@ -1,0 +1,23 @@
+{
+  "runId": "41270490335",
+  "scope": "Small self-contained Joypad MOD only: all11 independent roots and all29 schema Data choices; original BAB four-stream bytes; no performance or full external MOD",
+  "baselineCases": [
+    {
+      "name": "mod-a",
+      "scope": "All 11 Joypad roots and 29 schema Data choices with four support assets; exact original tool four streams",
+      "stagingDirectory": "D:\\a\\_temp\\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\\Release-output\\published\\base\\Mod\\streams",
+      "modRoot": "D:\\a\\_temp\\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\\fixtures\\mod",
+      "sdkRoot": "D:\\a\\NewSdk\\NewSdk\\SDK",
+      "originalToolsRoot": "D:\\a\\NewSdk\\NewSdk\\SDK\\tools",
+      "inputPath": "D:\\a\\_temp\\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\\fixtures\\mod\\Data\\Mod.xml",
+      "outputs": {
+        "relo": "D:\\a\\_temp\\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\\Release-output\\published\\base\\Mod\\streams\\mod.relo",
+        "bin": "D:\\a\\_temp\\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\\Release-output\\published\\base\\Mod\\streams\\mod.bin",
+        "imp": "D:\\a\\_temp\\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\\Release-output\\published\\base\\Mod\\streams\\mod.imp",
+        "manifest": "D:\\a\\_temp\\joypad-mod-c2d87dfb76934cc79e86b18e2e49ba51\\Release-output\\published\\base\\Mod\\streams\\mod.manifest"
+      }
+    }
+  ],
+  "succeeded": true,
+  "sourceCommit": "1f0cea03083f2219e43fa35f3dd44df73158310e"
+}

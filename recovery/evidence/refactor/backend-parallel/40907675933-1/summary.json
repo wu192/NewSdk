@@ -1,0 +1,95 @@
+{
+  "sourceCommit": "eb35dc6bd4a14740cf9edaf3d1eb646b74ed33e6",
+  "runId": 40907675933,
+  "runAttempt": 1,
+  "conclusion": "failure",
+  "artifactId": 12913991796,
+  "archiveSha256": "b440d5f8e2cb40151190b044f0c6edba58ea587298859555c8f4da92721638e3",
+  "archiveDigestRecomputed": true,
+  "scope": "Partial independent successful groups; not whole migration acceptance; newer production fixes require new runtime evidence",
+  "componentFailures": [
+    "Debug/Release CompilerPreparedBackend: newly added empty mesh lacked vertex stream",
+    "Debug/Release CompilerCacheContent: pre-existing reflection call omitted optional FileHashCache performance argument"
+  ],
+  "productionMixedCasesPassed": 52,
+  "xmlCertification": [
+    {
+      "configuration": "Debug",
+      "checks": 17096,
+      "matrices": [
+        {
+          "platform": 0,
+          "certifiedRoutes": 284,
+          "successfulMinimalInputs": 284,
+          "rejectedMinimalInputs": 0,
+          "workerCount": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "platform": 1,
+          "certifiedRoutes": 284,
+          "successfulMinimalInputs": 284,
+          "rejectedMinimalInputs": 0,
+          "workerCount": 4,
+          "maximumConcurrency": 3
+        },
+        {
+          "platform": 2,
+          "certifiedRoutes": 284,
+          "successfulMinimalInputs": 284,
+          "rejectedMinimalInputs": 0,
+          "workerCount": 4,
+          "maximumConcurrency": 3
+        },
+        {
+          "platform": 99,
+          "certifiedRoutes": 284,
+          "successfulMinimalInputs": 284,
+          "rejectedMinimalInputs": 0,
+          "workerCount": 4,
+          "maximumConcurrency": 3
+        }
+      ],
+      "rawResultSha256": "a899391091601755bdc4080438de62a862afe8e91528b5fea91d16cb09644135"
+    },
+    {
+      "configuration": "Release",
+      "checks": 17096,
+      "matrices": [
+        {
+          "platform": 0,
+          "certifiedRoutes": 284,
+          "successfulMinimalInputs": 284,
+          "rejectedMinimalInputs": 0,
+          "workerCount": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "platform": 1,
+          "certifiedRoutes": 284,
+          "successfulMinimalInputs": 284,
+          "rejectedMinimalInputs": 0,
+          "workerCount": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "platform": 2,
+          "certifiedRoutes": 284,
+          "successfulMinimalInputs": 284,
+          "rejectedMinimalInputs": 0,
+          "workerCount": 4,
+          "maximumConcurrency": 4
+        },
+        {
+          "platform": 99,
+          "certifiedRoutes": 284,
+          "successfulMinimalInputs": 284,
+          "rejectedMinimalInputs": 0,
+          "workerCount": 4,
+          "maximumConcurrency": 4
+        }
+      ],
+      "rawResultSha256": "bf3eec1737bb70fca6704ff601dc699483bfd5dc0a050a5b4318f0c900f67a28"
+    }
+  ]
+}

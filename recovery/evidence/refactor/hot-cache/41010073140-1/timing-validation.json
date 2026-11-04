@@ -1,0 +1,586 @@
+{
+  "status": "passed",
+  "samples": [
+    {
+      "label": "off-cold",
+      "wallMs": 1506.0366999999815,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 2,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 3,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 822,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1520211,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\loose-off"
+      }
+    },
+    {
+      "label": "summary-cold",
+      "wallMs": 709.3009000000166,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 2,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 3,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 822,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1520211,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "auto",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 3,
+          "backendCallsByType": {
+            "ArmorTemplate": 1,
+            "Texture": 2
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 1.5887,
+          "workerWaitMs": 12.2729,
+          "workerComputeMs": 26.440800000000003,
+          "ownerCommitMs": 6.5205,
+          "fallbackByReason": {
+            "uncertified-plugin": 2
+          },
+          "sampledPeakPrivateBytes": 103079936,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\loose-summary"
+      }
+    },
+    {
+      "label": "detailed-cold",
+      "wallMs": 694.2471999999498,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 2,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 3,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 822,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1520211,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "auto",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 3,
+          "backendCallsByType": {
+            "ArmorTemplate": 1,
+            "Texture": 2
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 1.6032000000000002,
+          "workerWaitMs": 13.2653,
+          "workerComputeMs": 27.0633,
+          "ownerCommitMs": 6.985200000000001,
+          "fallbackByReason": {
+            "uncertified-plugin": 2
+          },
+          "sampledPeakPrivateBytes": 102961152,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 6851668302,
+              "endTicks": 6851804026,
+              "threadId": 6
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 6851873968,
+              "endTicks": 6852005875,
+              "threadId": 1
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 6852030981,
+              "endTicks": 6852033983,
+              "threadId": 1
+            }
+          ],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\loose-detailed"
+      }
+    },
+    {
+      "label": "detailed-hot1",
+      "wallMs": 586.6396000000123,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1637,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "auto",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\loose-detailed"
+      }
+    },
+    {
+      "label": "summary-hot1",
+      "wallMs": 581.35070000003,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1637,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "auto",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\loose-summary"
+      }
+    },
+    {
+      "label": "off-hot1",
+      "wallMs": 574.4184999999788,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1637,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\loose-off"
+      }
+    },
+    {
+      "label": "off-hot2",
+      "wallMs": 573.6530000000357,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1637,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\loose-off"
+      }
+    },
+    {
+      "label": "summary-hot2",
+      "wallMs": 586.8556000000353,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1637,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "auto",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\loose-summary"
+      }
+    },
+    {
+      "label": "detailed-hot2",
+      "wallMs": 584.6126999999797,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 2,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1637,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "auto",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\loose-detailed"
+      }
+    },
+    {
+      "label": "original",
+      "wallMs": 770.4830000000129,
+      "exitCode": 0
+    },
+    {
+      "label": "big-off",
+      "wallMs": 680.8496999999534,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 2,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 3,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 824,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1523936,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\big-off"
+      }
+    },
+    {
+      "label": "big-summary",
+      "wallMs": 691.1355999999387,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 2,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 3,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 824,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1523936,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "auto",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 3,
+          "backendCallsByType": {
+            "ArmorTemplate": 1,
+            "Texture": 2
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 1.5694000000000001,
+          "workerWaitMs": 11.935500000000001,
+          "workerComputeMs": 23.1251,
+          "ownerCommitMs": 6.0273,
+          "fallbackByReason": {
+            "uncertified-plugin": 2
+          },
+          "sampledPeakPrivateBytes": 102985728,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\big-summary"
+      }
+    },
+    {
+      "label": "big-detailed",
+      "wallMs": 685.4695999999194,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 2,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 2,
+        "instanceCompile": 3,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 824,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1523936,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "auto",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 3,
+          "backendCallsByType": {
+            "ArmorTemplate": 1,
+            "Texture": 2
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 1.5979,
+          "workerWaitMs": 12.126700000000001,
+          "workerComputeMs": 23.3554,
+          "ownerCommitMs": 6.040500000000001,
+          "fallbackByReason": {
+            "uncertified-plugin": 2
+          },
+          "sampledPeakPrivateBytes": 102940672,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 6915410032,
+              "endTicks": 6915535440,
+              "threadId": 6
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 6915597913,
+              "endTicks": 6915703864,
+              "threadId": 1
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 6915724139,
+              "endTicks": 6915726334,
+              "threadId": 1
+            }
+          ],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\performance-work\\big-detailed"
+      }
+    },
+    {
+      "label": "invalid-xml",
+      "wallMs": 553.7600999999768,
+      "exitCode": 4
+    }
+  ],
+  "limits": {
+    "totalSeconds": 60,
+    "perProcessSeconds": 10
+  },
+  "scope": "Synthetic two-Texture/one-Armor base stream; off/summary/detailed, cold+2 hot, BIG, invalid XML; no full MOD claim",
+  "sourceCommit": "91b040d271b7a3cc25d32f0f923c018c740edf4a",
+  "exeSha256": "cde25cd9ee6fc6d9ebe96a03abb2bc3a28a45053b5fa6acba2ab7ac4510ce188",
+  "inputFiles": {
+    "data/mod.xml": "318c85e41fb386cafa794f4f491711346b36eee484f985e960999640b6567f2e",
+    "data/probe.tga": "191b9aa876579def910069584a94867f35ea0ed4e960bbf8bc2621a01a415f09",
+    "data/probe.xml": "4f756cd70071f65b00d4f24bf57e3db76d8477307b55a368a88570c7549d1bc8"
+  },
+  "originalBytesEqual": true,
+  "profilingBytesEqual": true,
+  "streamFiles": {
+    "mod.bin": {
+      "bytes": 2460,
+      "sha256": "5406f3da45ec488c298bddc7ed7ba04cfc5642923b9cb933bd43be2d42b8c40f"
+    },
+    "mod.imp": {
+      "bytes": 4,
+      "sha256": "1f8439a9efda9ba30cce395d6efa12890a2f911dcdc157b175b60641975f8384"
+    },
+    "mod.manifest": {
+      "bytes": 279,
+      "sha256": "843c7bc9d6f22a54f158f159a7ebe368e4a76c853a08c5c8cb00b1162db564d4"
+    },
+    "mod.relo": {
+      "bytes": 20,
+      "sha256": "6c5391557428f64909fd5e05c9d3ac6371aa95f7f8f6bbbdc207697033019354"
+    }
+  },
+  "elapsedSeconds": 9.983569699999975
+}

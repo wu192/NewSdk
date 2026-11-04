@@ -1,0 +1,130 @@
+{
+  "status": "cold-complete-hot-failed-no-paired-comparison",
+  "runId": 41255726294,
+  "runAttempt": 1,
+  "measurementSource": "f68a5b70b8ede774bfe480aa194de9763ab2d6c8",
+  "binarySourceCommit": "8050f22de81539c65aeca3903e9b48f53a572068",
+  "sourceRunId": "41244132060",
+  "archiveArtifactId": 13063327035,
+  "archiveSha256": "96316a948e3792053af4bc0f85d70895e3a63d9f00e98c3597c6357ee489e547",
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/41255726294/artifacts/13063327035",
+  "input": "Same supported94 variant; 1 base +13 APT +1 global entry; original archive retained; all source adjustment hashes match the local SDK Mods copy.",
+  "sourceAdjustments": "source-adjustments.json",
+  "cold": {
+    "engine": "new",
+    "phase": "cold",
+    "status": "passed",
+    "wallMs": 344284.6541,
+    "cpuMs": 595906.25,
+    "peakWorkingSetBytes": 964583424,
+    "partWallMs": {
+      "base": 322304,
+      "apt": 10973,
+      "maps": 10131
+    },
+    "sharedOverheadMs": 876.6540999999852,
+    "cacheBytes": 1787791936,
+    "cache": {
+      "status": "SessionCache",
+      "hits": 0,
+      "misses": 8248,
+      "sessionCache": true,
+      "sessionPackageHits": 0,
+      "sessionPackageMisses": 15,
+      "documentReuse": 0,
+      "xmlParse": 6354,
+      "instanceCompile": 22103,
+      "linkedStreamsRestored": 0,
+      "fileHashReads": 12158,
+      "fileHashReuses": 152503,
+      "fileHashBytesRead": 2754717797,
+      "textureCache": true,
+      "compressedSessionCache": true,
+      "partialSessionCache": true,
+      "freezeSessionCache": false,
+      "alwaysTouchCache": false,
+      "partialSessionsSaved": 0,
+      "parallel": null,
+      "sessionCacheDirectory": "D:\\a\\_temp\\new-world-supported-preflight\\builds\\The New World\\both-deflate-0\\new\\session"
+    }
+  },
+  "coldOutputFiles": 4057,
+  "coldOutputInventorySha256": "ef439ec8163c1840fe0977f1decafb6c51f65a97bac5c3fcbb2d221ec76b44ae",
+  "coldStreamIds": [
+    "base/Mod",
+    "apt/chapterSelectComponent",
+    "apt/feg_m_mainMenu3D",
+    "apt/fem_m_onlineMultiplayer",
+    "apt/fem_m_postgameRoundup",
+    "apt/fe_shared_mainMenuLib",
+    "apt/igm_PlayerTechStoreDialog",
+    "apt/ig_missionMap",
+    "apt/TacticalHUDBuildQueuePage",
+    "apt/TacticalHUDCommandListBox",
+    "apt/TacticalHUDMainCommandBar",
+    "apt/TacticalHUDPlayerPowersBar",
+    "apt/TacticalHUDRadar",
+    "apt/TacticalHUDSelectionDetails",
+    "maps/MapMetaData_Mod"
+  ],
+  "warmFailure": {
+    "phase": "hot",
+    "exitCode": 4,
+    "cache": {
+      "status": "SessionCache",
+      "hits": 0,
+      "misses": 0,
+      "sessionCache": true,
+      "sessionPackageHits": 1,
+      "sessionPackageMisses": 0,
+      "documentReuse": 2726,
+      "xmlParse": 1,
+      "instanceCompile": 0,
+      "linkedStreamsRestored": 0,
+      "fileHashReads": 0,
+      "fileHashReuses": 12973,
+      "fileHashBytesRead": 0,
+      "textureCache": true,
+      "compressedSessionCache": true,
+      "partialSessionCache": true,
+      "freezeSessionCache": false,
+      "alwaysTouchCache": false,
+      "partialSessionsSaved": 1,
+      "parallel": null,
+      "sessionCacheDirectory": "D:\\a\\_temp\\new-world-supported-preflight\\builds\\The New World\\both-deflate-0\\new\\session"
+    },
+    "diagnostics": [
+      {
+        "code": "CORE_COMPILE_FAILED",
+        "message": "BinaryAssetBuilder.BinaryAssetBuilderException: Instance GameObject:AlliedLegionnaireInfantry [942fff2d:ea8f676b] attempts to inherit from instance GameObject:BaseInfantry [942fff2d:2a17fd93] but source XML is missing.\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.OverrideInstance(InstanceDeclaration instance)\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.OverrideInstance(InstanceDeclaration instance)\r\n   at BinaryAssetBuilder.Core.AssetDeclarationDocument.ProcessOverrides()\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentContents(AssetDeclarationDocument& document, OutputManager outputManager, ProcessOptions op, Boolean generateOutput)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessIncludedDocuments(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean usePrecompiled)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)\r\n   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocument(String fileName, Boolean generateOutput, Boolean __outputStringHashes, Boolean& success)\r\n   at NewModCompiler.Application.CoreStreamCompiler.Compile(StreamContext context, CancellationToken cancellation)",
+        "level": "error",
+        "streamId": "base/Mod",
+        "stageId": "compile"
+      }
+    ],
+    "reloadingReason": "inheritFrom source changed",
+    "sameCommandAndRoots": true,
+    "sourceXmlExistsLocally": true,
+    "sourceXmlCompiledSuccessfullyInCold": true
+  },
+  "limits": [
+    "New-only preflight; original compiler not started. No same-machine speed ratio from this run.",
+    "Warm-cache failure is not an unsupported base asset declaration; do not remove valid infantry data to disguise it.",
+    "The 344.285-second cold result belongs to this VM and cannot be paired with the earlier original result from another VM.",
+    "No production source or runtime changed. Keep failure evidence; next run selects full cold-only paired measurement."
+  ],
+  "textExports": [
+    {
+      "path": "source-adjustments.json",
+      "originalSha256": "2426c7bd5d5f42b009731b331238ce75740bcb886dc4fc92d307afb62e0f4b35",
+      "repositoryExportSha256": "2c68c47c939ffa3c9965fa0609e37d758f1bf04b76b542a74ad3099070ec7f6c",
+      "change": "CRLF to LF only; raw original remains in the digest-verified artifact"
+    },
+    {
+      "path": "hot-failure.events.jsonl",
+      "originalSha256": "7cd2a5cfe89cb7265126228991ddad1a42c309e36a2705b35778694322bb252d",
+      "repositoryExportSha256": "2fb130550326375c5208f3aeb9fe2879361cfacf14f53928c054414ea925cfd3",
+      "change": "CRLF to LF only; raw original remains in the digest-verified artifact"
+    }
+  ]
+}

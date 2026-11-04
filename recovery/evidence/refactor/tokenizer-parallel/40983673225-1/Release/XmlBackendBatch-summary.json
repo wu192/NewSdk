@@ -1,0 +1,69 @@
+{
+  "succeeded": true,
+  "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+  "runId": "40983673225",
+  "sourcePathInArchive": "evidence/refactor/core-lifecycle/40983673225-1/Release/CompilerXmlBackendBatch/result.json",
+  "sourceReceiptSha256": "2263f89c3b401d43154d846dacad925b09bf1ffd4d3f9735675b7ad642b6f862",
+  "matrices": [
+    {
+      "platform": 0,
+      "certifiedRoutes": 284,
+      "successfulMinimalInputs": 284,
+      "rejectedMinimalInputs": 0,
+      "workerCount": 4,
+      "maximumConcurrency": 4,
+      "retainedOwners": [
+        "AptAptData",
+        "AptConstData",
+        "AptDatData",
+        "AptGeometryData",
+        "TestTexture"
+      ]
+    },
+    {
+      "platform": 1,
+      "certifiedRoutes": 284,
+      "successfulMinimalInputs": 284,
+      "rejectedMinimalInputs": 0,
+      "workerCount": 4,
+      "maximumConcurrency": 4,
+      "retainedOwners": [
+        "AptAptData",
+        "AptConstData",
+        "AptDatData",
+        "AptGeometryData",
+        "TestTexture"
+      ]
+    },
+    {
+      "platform": 2,
+      "certifiedRoutes": 284,
+      "successfulMinimalInputs": 284,
+      "rejectedMinimalInputs": 0,
+      "workerCount": 4,
+      "maximumConcurrency": 4,
+      "retainedOwners": [
+        "AptAptData",
+        "AptConstData",
+        "AptDatData",
+        "AptGeometryData",
+        "TestTexture"
+      ]
+    },
+    {
+      "platform": 99,
+      "certifiedRoutes": 284,
+      "successfulMinimalInputs": 284,
+      "rejectedMinimalInputs": 0,
+      "workerCount": 4,
+      "maximumConcurrency": 4,
+      "retainedOwners": [
+        "AptAptData",
+        "AptConstData",
+        "AptDatData",
+        "AptGeometryData",
+        "TestTexture"
+      ]
+    }
+  ]
+}

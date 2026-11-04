@@ -1,0 +1,79 @@
+{
+  "overallRunStatus": "failed",
+  "formalDefaultThroughput": {
+    "status": "all planned samples completed",
+    "coldSamplesPerImplementation": 3,
+    "hotSamplesPerImplementation": 6,
+    "passedSamples": 18,
+    "allRawPublishedIdentical": true
+  },
+  "supplementalNoCache": {
+    "passedSamples": 2,
+    "samplesPerImplementation": 1
+  },
+  "detailedAttribution": {
+    "status": "incomplete",
+    "baselineColdTimedOutWithRemainingBudgetSeconds": 43.123584,
+    "candidateDetailedNotRun": true
+  },
+  "error": "Command '['D:\\\\a\\\\NewSdk\\\\NewSdk\\\\work\\\\cache-paired-baseline\\\\ui-product\\\\Release\\\\bin\\\\NewModCompiler.exe', 'build', '--sdk-root', 'D:\\\\a\\\\NewSdk\\\\NewSdk\\\\SDK', '--mod', 'D:\\\\a\\\\_temp\\\\cache-paired\\\\historical\\\\SDK\\\\Mods\\\\Upheaval', '--out', 'D:\\\\a\\\\_temp\\\\cache-paired\\\\outputs\\\\detailed-baseline', '--jobs', '4', '--performance', 'detailed']' timed out after 43.12358399999994 seconds",
+  "budgetSeconds": 720,
+  "elapsedSeconds": 720.0267215000003,
+  "finalInputInventoryCheckCompleted": false,
+  "readOnlyWorkloadContract": true,
+  "sourceCommit": "49416d11c8a0902a63d21a6600670436b502bb43",
+  "candidateSource": "e2dba3c321504752438b4e940d651bbfcdb58fff",
+  "summary": [
+    {
+      "mode": "default",
+      "phase": "cold",
+      "baseline": {
+        "n": 3,
+        "medianMs": 70805.695,
+        "minMs": 69759.64479999949,
+        "maxMs": 74152.82599999955
+      },
+      "candidate": {
+        "n": 3,
+        "medianMs": 61258.652399999846,
+        "minMs": 60934.01549999999,
+        "maxMs": 62570.48669999949
+      },
+      "reductionPercent": 13.483438867452913
+    },
+    {
+      "mode": "default",
+      "phase": "hot",
+      "baseline": {
+        "n": 6,
+        "medianMs": 10099.479399999836,
+        "minMs": 9888.409000000138,
+        "maxMs": 10706.69319999979
+      },
+      "candidate": {
+        "n": 6,
+        "medianMs": 6593.8522999999805,
+        "minMs": 6500.015199999325,
+        "maxMs": 6789.142700000411
+      },
+      "reductionPercent": 34.71096836931924
+    },
+    {
+      "mode": "none",
+      "phase": "cold",
+      "baseline": {
+        "n": 1,
+        "medianMs": 63917.69639999984,
+        "minMs": 63917.69639999984,
+        "maxMs": 63917.69639999984
+      },
+      "candidate": {
+        "n": 1,
+        "medianMs": 58605.55010000007,
+        "minMs": 58605.55010000007,
+        "maxMs": 58605.55010000007
+      },
+      "reductionPercent": 8.310916380271461
+    }
+  ]
+}

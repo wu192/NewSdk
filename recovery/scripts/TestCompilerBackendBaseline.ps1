@@ -4,7 +4,10 @@ param(
     [Parameter(Mandatory=$true)][string]$FixtureResult,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
     [ValidateRange(15,600)][int]$TimeoutSeconds=180,
-    [ValidateRange(1,3)][int]$ExpectedCaseCount=2
+    [ValidateRange(1,3)][int]$ExpectedCaseCount=2,
+    [string]$CacheExportDirectory,
+    [switch]$CompressedCacheExport,
+    [string]$FixtureRunId
 )
 $ErrorActionPreference='Stop'
 . "$PSScriptRoot/CompilerCliOutputs.ps1"
@@ -32,7 +35,26 @@ function Contains([string]$Directory,[string]$Path){
 function CompareBytes([string]$Original,[string]$Backend){
     $left=[IO.File]::ReadAllBytes($Original);$right=[IO.File]::ReadAllBytes($Backend)
     if($left.Length -ne $right.Length){throw "Independent original/backend output size differs: $Original vs $Backend"}
+    if([Linq.Enumerable]::SequenceEqual[byte]($left,$right)){return}
     for($i=0;$i -lt $left.Length;$i++){if($left[$i] -ne $right[$i]){throw "Independent original/backend bytes differ at $i : $Original vs $Backend"}}
+}
+function GetOriginalTextureCustomOutputs([string]$Manifest,$Information){
+    $bytes=[IO.File]::ReadAllBytes($Manifest)
+    if($bytes.Length -lt 96 -or $bytes[0] -ne 0 -or $bytes[1] -ne 1 -or $bytes[2] -ne 6 -or $bytes[3] -ne 0 -or [BitConverter]::ToUInt32($bytes,12) -ne 1){throw 'Original Texture oracle requires one exact linked Win32 v6 asset'}
+    $nameSize=[BitConverter]::ToUInt32($bytes,40);$nameStart=96L+[BitConverter]::ToUInt32($bytes,32)+[BitConverter]::ToUInt32($bytes,36)
+    if($nameStart+$nameSize+[BitConverter]::ToUInt32($bytes,44) -ne $bytes.Length){throw 'Original Texture oracle manifest tables differ'}
+    $offset=[BitConverter]::ToUInt32($bytes,72);if($offset -ge $nameSize){throw 'Original Texture name offset escaped table'}
+    $start=$nameStart+$offset;$end=$start;while($end -lt $nameStart+$nameSize -and $bytes[$end] -ne 0){$end++}
+    if($end -eq $nameStart+$nameSize){throw 'Original Texture name is unterminated'}
+    $name=[Text.Encoding]::ASCII.GetString($bytes,[int]$start,[int]($end-$start))
+    $type=[BitConverter]::ToUInt32($bytes,48);$instance=[BitConverter]::ToUInt32($bytes,52);$typeHash=[BitConverter]::ToUInt32($bytes,56);$instanceHash=[BitConverter]::ToUInt32($bytes,60)
+    if($name -cne ($Information.TypeName+':SessionTexture') -or $type -ne [uint32]$Information.TypeId -or $typeHash -ne [uint32]$Information.TypeHash){throw 'Texture manifest does not match independently probed original type metadata'}
+    if(!$Information.HasCustomData){return @()}
+    $file=('{0:x8}.{1:x8}.{2:x8}.{3:x8}.cdata' -f $type,$typeHash,$instance,$instanceHash)
+    $relative=[IO.Path]::GetFileNameWithoutExtension($Manifest)+'/cdata/'+$file
+    $path=Join-Path ([IO.Path]::GetDirectoryName($Manifest)) $relative
+    if(!(Test-Path -LiteralPath $path -PathType Leaf)){throw 'Original Texture manifest-bound complete CDATA is missing'}
+    return @(@{qualifiedName=$name;typeId=$type;relativePath=$relative;path=$path})
 }
 function InvokeOriginal([string]$Exe,[string[]]$Arguments,[string]$WorkingDirectory,[string]$LogRoot){
     $start=[Diagnostics.ProcessStartInfo]::new()
@@ -90,7 +112,13 @@ try {
     $source=(& git -C $root rev-parse HEAD).Trim()
     if($LASTEXITCODE -ne 0){throw 'Cannot determine current source commit'}
     $fixture=Get-Content -LiteralPath $FixtureResult -Raw|ConvertFrom-Json
-    if(!$fixture.succeeded -or $fixture.sourceCommit -cne $source -or $fixture.runId -cne $state.runId){throw 'Backend fixture success/source/run identity mismatch'}
+    $expectedFixtureRun=if($FixtureRunId){$FixtureRunId}else{$state.runId}
+    if(!$fixture.succeeded -or $fixture.sourceCommit -cne $source -or $fixture.runId -cne $expectedFixtureRun){throw 'Backend fixture success/source/run identity mismatch'}
+    $state.fixtureRunId=$expectedFixtureRun
+    if($fixture.transportedFromRunId){
+        if($fixture.transportedFromRunId -cne $expectedFixtureRun -or $fixture.originalResultSha256 -cnotmatch '^[0-9a-f]{64}$'){throw 'Transported fixture original identity differs'}
+        $state.originalFixtureSha256=$fixture.originalResultSha256
+    }
     if(@($fixture.baselineCases).Count -ne $ExpectedCaseCount){throw "Expected $ExpectedCaseCount successful selected fixture stream oracle cases"}
     $state.sourceCommit=$source
     $state.fixtureScope=$fixture.scope;$state.expectedCaseCount=$ExpectedCaseCount
@@ -129,6 +157,11 @@ try {
         $caseState.temporaryRoot=$caseTemp
         $oracle=(New-Item -ItemType Directory -Path (Join-Path $caseTemp 't')).FullName
         $streams=Join-Path $caseTemp 's';$intermediate=Join-Path $caseTemp 'i';$hashes=Join-Path $caseTemp 'h';$cache=Join-Path $caseTemp 'c'
+        if($CacheExportDirectory){
+            $export=Join-Path ([IO.Path]::GetFullPath($CacheExportDirectory)) $case.name
+            if(Test-Path -LiteralPath $export){throw 'Refusing to overwrite original SDK cache export'}
+            $intermediate=Join-Path $export 'intermediate';$hashes=Join-Path $export 'session';$cache=Join-Path $export 'cache'
+        }
         try {
             Copy-Item -Path (Join-Path $tools '*') -Destination $oracle -Recurse
             $exe=Join-Path $oracle 'BinaryAssetBuilder.exe';$configPath="$exe.config"
@@ -182,22 +215,39 @@ try {
                 '/tp:Win32','/sc:false','/bc:false','/psc:false','/fsc:false','/csc:false','/atc:false','/sh:false','/pc:true',
                 '/res:false','/gui:false','/poe:false','/mr:false','/oof:false','/sf:false','/ls:true','/ss:true','/oix:false','/vf:false',
                 '/osh:false','/oar:false','/slowclean:true','/tl:3','/el:0',"/art:$art","/audio:$audio","/data:$data")
+            if($CacheExportDirectory){
+                $arguments=@($arguments|ForEach-Object{
+                    if($_ -eq '/sc:false'){'/sc:true'}elseif($_ -eq '/bc:false'){'/bc:true'}elseif($_ -eq '/psc:false'){'/psc:true'}elseif($_ -eq '/csc:false' -and $CompressedCacheExport){'/csc:true'}else{$_}
+                })
+                $caseState.originalCacheExport=@{directory=$export;session=$hashes;assets=$cache;intermediate=$intermediate;compressed=[bool]$CompressedCacheExport}
+            }
             $caseState.arguments=$arguments;$caseState.workingDirectory=$sdk
             @{exe=$exe;arguments=$arguments;workingDirectory=$sdk}|ConvertTo-Json -Depth 4|Set-Content (Join-Path $caseOut 'invocation.json')
             $caseState.originalExeSha256=Hash $exe;$caseState.originalConfigSha256=Hash (Join-Path $tools 'BinaryAssetBuilder.exe.config')
             $caseState.effectiveConfigSha256=Hash $configPath
             $caseState.runtimeInputs=@(Inventory $oracle)
-            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$dataRoot;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=$false;buildCache=$false;precompiled=$true;resident=$false;linked=$true;stableSort=$true;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in plugin routes retained'}
+            $caseState.effectiveSettings=@{schema=$schema;dataRoot=$dataRoot;defaultDataPaths=$data;defaultArtPaths=$art;defaultAudioPaths=$audio;targetPlatform='Win32';sessionCache=[bool]$CacheExportDirectory;buildCache=[bool]$CacheExportDirectory;partialSessionCache=[bool]$CacheExportDirectory;compressedSessionCache=([bool]$CacheExportDirectory -and [bool]$CompressedCacheExport);precompiled=$true;resident=$false;linked=$true;stableSort=$true;outputStringHashes=$false;outputAssetReport=$false;scope='Same normalized Core settings for this selected fixture stream; original built-in plugin routes, codec, layout and metadata retained'}
             $caseState.process=InvokeOriginal $exe $arguments $sdk $caseOut
             $actual=@(Get-ChildItem -LiteralPath $streams -File -Recurse)
             $expectedTextures=@($case.expectedTextures|Where-Object{$null -ne $_})
             $custom=@()
             $originalManifests=@($actual|Where-Object{$_.Extension -ceq '.manifest'})
             if($originalManifests.Count -ne 1){throw 'Expected one unambiguous original manifest'}
-            $caseState.originalInlineTextures=@(Test-CompilerInlineTexturePayload $originalManifests[0].FullName $expectedTextures)
-            $caseState.backendInlineTextures=@(Test-CompilerInlineTexturePayload ([string]$case.outputs.manifest) $expectedTextures)
-            $custom=@(Get-CompilerCustomDataOutputs $originalManifests[0].FullName $expectedTextures)
-            $backendCustom=@(Get-CompilerCustomDataOutputs ([string]$case.outputs.manifest) $expectedTextures)
+            if($case.originalTextureInformation){
+                $caseState.originalTextureInformation=$case.originalTextureInformation
+                $caseState.originalInlineTextures=@();$caseState.backendInlineTextures=@()
+                $custom=@(GetOriginalTextureCustomOutputs $originalManifests[0].FullName $case.originalTextureInformation)
+                $backendCustom=@(GetOriginalTextureCustomOutputs ([string]$case.outputs.manifest) $case.originalTextureInformation)
+                if($case.originalTextureInformation.TypeName -ceq 'Texture'){
+                    $caseState.originalInlineTextures=@(Test-CompilerInlineTexturePayload $originalManifests[0].FullName @('Texture:SessionTexture'))
+                    $caseState.backendInlineTextures=@(Test-CompilerInlineTexturePayload ([string]$case.outputs.manifest) @('Texture:SessionTexture'))
+                }
+            }else{
+                $caseState.originalInlineTextures=@(Test-CompilerInlineTexturePayload $originalManifests[0].FullName $expectedTextures)
+                $caseState.backendInlineTextures=@(Test-CompilerInlineTexturePayload ([string]$case.outputs.manifest) $expectedTextures)
+                $custom=@(Get-CompilerCustomDataOutputs $originalManifests[0].FullName $expectedTextures)
+                $backendCustom=@(Get-CompilerCustomDataOutputs ([string]$case.outputs.manifest) $expectedTextures)
+            }
             $allowed=[Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
             foreach($item in $custom){if(!$allowed.Add([IO.Path]::GetFullPath($item.path))){throw 'Duplicate CustomData allowlist path'}}
             foreach($file in $actual){if($file.Extension -cnotin @('.manifest','.bin','.imp','.relo') -and !$allowed.Contains($file.FullName)){throw "Original BAB unexpected output: $($file.FullName)"}}
@@ -231,6 +281,15 @@ try {
                 $caseState.customOutputs+=,$pair
                 CompareBytes $originalArchive $backendArchive
                 $pair.byteIdentical=$true
+            }
+            if($CacheExportDirectory){
+                foreach($file in @(Get-ChildItem -LiteralPath $streams -File -Filter '*.cdata' -Recurse)){
+                    $relative=$file.FullName.Substring($streams.Length).TrimStart([char[]]'\/')
+                    $target=Join-Path $hashes $relative;New-Item -ItemType Directory -Force -Path ([IO.Path]::GetDirectoryName($target))|Out-Null;Copy-Item -LiteralPath $file.FullName -Destination $target
+                }
+                if(!(Test-Path -LiteralPath (Join-Path $hashes ('BinaryAssetBuilder.SessionCache.xml'+$(if($CompressedCacheExport){'.deflate'}else{''}))))){throw 'Original BAB did not write the requested cache export'}
+                $caseState.exportedCacheFiles=@(Inventory $export)
+                Copy-Item -LiteralPath $export -Destination (Join-Path $caseOut 'original-cache-export') -Recurse
             }
             $caseState.passed=$true
         } finally {

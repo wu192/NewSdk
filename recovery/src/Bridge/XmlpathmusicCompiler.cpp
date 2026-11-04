@@ -9,11 +9,11 @@ namespace Recovered {
 ref class XmlpathmusicBridge abstract sealed {
  static Native::XmlpathmusicNode Read(XmlNode^ node) {
   Native::XmlpathmusicNode input;
-  if(node->NamespaceURI!="uri:ea.com:eala:asset")throw gcnew NotSupportedException("Foreign Xmlpathmusic namespace.");
+
   input.name=marshal_as<std::string>(node->LocalName);
   if(node->Attributes!=nullptr)for each(XmlAttribute^ a in node->Attributes){
    if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/")continue;
-   if(a->NamespaceURI->Length!=0)throw gcnew NotSupportedException("Qualified Xmlpathmusic attribute.");
+
    input.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
   }
   for each(XmlNode^ child in node->ChildNodes){

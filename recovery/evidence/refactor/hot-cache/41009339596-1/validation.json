@@ -1,0 +1,6000 @@
+{
+  "status": "failed",
+  "samples": [
+    {
+      "label": "00-small-control-uncached",
+      "scenario": "small-control",
+      "tier": "small",
+      "mode": "none",
+      "phase": "uncached",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\small",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\small-control",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\00-small-control-uncached"
+      ],
+      "wallMs": 648.5416999998961,
+      "exitCode": 0,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 5,
+        "instanceCompile": 32,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 824,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1524658,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 4,
+      "outputBytes": 6632
+    },
+    {
+      "label": "01-medium-control-uncached",
+      "scenario": "medium-control",
+      "tier": "medium",
+      "mode": "none",
+      "phase": "uncached",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-control",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\01-medium-control-uncached"
+      ],
+      "wallMs": 889.972299999954,
+      "exitCode": 0,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "02-large-control-uncached",
+      "scenario": "large-control",
+      "tier": "large",
+      "mode": "none",
+      "phase": "uncached",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\large",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\large-control",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\02-large-control-uncached"
+      ],
+      "wallMs": 1621.7963000000282,
+      "exitCode": 0,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 129,
+        "instanceCompile": 2048,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 948,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 2051074,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 4,
+      "outputBytes": 418236
+    },
+    {
+      "label": "03-medium-big-control-uncached",
+      "scenario": "medium-big-control",
+      "tier": "medium",
+      "mode": "none",
+      "phase": "uncached",
+      "jobs": "4",
+      "format": "big",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-big-control",
+        "--package-content",
+        "base",
+        "--package-format",
+        "big",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\03-medium-big-control-uncached"
+      ],
+      "wallMs": 893.9523999999892,
+      "exitCode": 0,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 861,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 2061556,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 2,
+      "outputBytes": 262552
+    },
+    {
+      "label": "04-small-default-cold",
+      "scenario": "small-default",
+      "tier": "small",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\small",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\small-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 622.7026999999907,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 5,
+        "instanceCompile": 32,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 824,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1524658,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\small-default"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 4,
+      "outputBytes": 6632
+    },
+    {
+      "label": "05-medium-default-cold",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 903.3110999999963,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 12,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "06-large-default-cold",
+      "scenario": "large-default",
+      "tier": "large",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\large",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\large-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 1618.0311999999049,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 129,
+        "instanceCompile": 2048,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 948,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 2051074,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\large-default"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 4,
+      "outputBytes": 418236
+    },
+    {
+      "label": "07-medium-asset-cold",
+      "scenario": "medium-asset",
+      "tier": "medium",
+      "mode": "asset",
+      "phase": "cold",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\07-medium-asset-cold"
+      ],
+      "wallMs": 886.6819999999507,
+      "exitCode": 0,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 0,
+        "misses": 12,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "08-medium-session-xml-cold",
+      "scenario": "medium-session-xml",
+      "tier": "medium",
+      "mode": "session-xml",
+      "phase": "cold",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=true",
+        "--csc=false"
+      ],
+      "wallMs": 897.7231000000074,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-xml"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "09-medium-session-deflate-cold",
+      "scenario": "medium-session-deflate",
+      "tier": "medium",
+      "mode": "session-deflate",
+      "phase": "cold",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 908.5741999999755,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-deflate"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "10-medium-both-xml-cold",
+      "scenario": "medium-both-xml",
+      "tier": "medium",
+      "mode": "both-xml",
+      "phase": "cold",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=false"
+      ],
+      "wallMs": 893.5401999999613,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 12,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-both-xml"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "11-medium-jobs1-cold",
+      "scenario": "medium-jobs1",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "jobs": "1",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobs1",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "1",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 938.6617000000115,
+      "exitCode": 0,
+      "counters": {
+        "cache.asset.keyMiss": 12,
+        "cache.document.new": 36,
+        "cache.session.notFound": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 12,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "1",
+          "effectiveJobs": 1,
+          "minimumEffectiveJobs": 1,
+          "backendCalls": 271,
+          "backendCallsByType": {
+            "ArmorTemplate": 258,
+            "W3DHierarchy": 1,
+            "W3DAnimation": 2,
+            "Texture": 8,
+            "AudioFile": 2
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 82.14240000000001,
+          "ownerCommitMs": 95.24810000000001,
+          "fallbackByReason": {
+            "resource-capacity": 271
+          },
+          "sampledPeakPrivateBytes": 111181824,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobs1"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "12-medium-jobsauto-cold",
+      "scenario": "medium-jobsauto",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "jobs": "auto",
+      "format": "loose",
+      "performance": "detailed",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobsauto",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "auto",
+        "--performance",
+        "detailed",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 923.8950000000159,
+      "exitCode": 0,
+      "counters": {
+        "cache.asset.keyMiss": 12,
+        "cache.document.new": 36,
+        "cache.session.notFound": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 12,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "auto",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 271,
+          "backendCallsByType": {
+            "ArmorTemplate": 258,
+            "W3DHierarchy": 1,
+            "W3DAnimation": 2,
+            "Texture": 8,
+            "AudioFile": 2
+          },
+          "maxBackendConcurrency": 4,
+          "prepareMs": 16.1313,
+          "workerWaitMs": 24.648500000000002,
+          "workerComputeMs": 161.54760000000002,
+          "ownerCommitMs": 82.6534,
+          "fallbackByReason": {
+            "uncertified-plugin": 8
+          },
+          "sampledPeakPrivateBytes": 112386048,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5669817433,
+              "endTicks": 5669950878,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5669815866,
+              "endTicks": 5669950889,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5669814228,
+              "endTicks": 5669950897,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5669808518,
+              "endTicks": 5669950912,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5669999949,
+              "endTicks": 5670000335,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670003684,
+              "endTicks": 5670003978,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670006290,
+              "endTicks": 5670006594,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670008875,
+              "endTicks": 5670009088,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670057755,
+              "endTicks": 5670058064,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670061129,
+              "endTicks": 5670061327,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670064644,
+              "endTicks": 5670064812,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670096226,
+              "endTicks": 5670096429,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670099690,
+              "endTicks": 5670099884,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670102876,
+              "endTicks": 5670103071,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670105536,
+              "endTicks": 5670105729,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670108250,
+              "endTicks": 5670108410,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670127963,
+              "endTicks": 5670128257,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670130675,
+              "endTicks": 5670130882,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670139099,
+              "endTicks": 5670139389,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670141953,
+              "endTicks": 5670142145,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670144663,
+              "endTicks": 5670144805,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670147976,
+              "endTicks": 5670148152,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670152217,
+              "endTicks": 5670152381,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670155334,
+              "endTicks": 5670155506,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670170867,
+              "endTicks": 5670171099,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670173660,
+              "endTicks": 5670173915,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670176288,
+              "endTicks": 5670176514,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670180890,
+              "endTicks": 5670181157,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670183478,
+              "endTicks": 5670183663,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670186127,
+              "endTicks": 5670186334,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670188751,
+              "endTicks": 5670188934,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670191388,
+              "endTicks": 5670191592,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670205510,
+              "endTicks": 5670205705,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670208310,
+              "endTicks": 5670208519,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670210923,
+              "endTicks": 5670211116,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670213628,
+              "endTicks": 5670213834,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670216243,
+              "endTicks": 5670216424,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670218897,
+              "endTicks": 5670219108,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670221849,
+              "endTicks": 5670222029,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670224651,
+              "endTicks": 5670224864,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670238893,
+              "endTicks": 5670239082,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670241602,
+              "endTicks": 5670241810,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670244275,
+              "endTicks": 5670244458,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670246961,
+              "endTicks": 5670247162,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670251155,
+              "endTicks": 5670251353,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670253826,
+              "endTicks": 5670254035,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670256451,
+              "endTicks": 5670256635,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670259095,
+              "endTicks": 5670259300,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670273220,
+              "endTicks": 5670273413,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670277234,
+              "endTicks": 5670277487,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670279940,
+              "endTicks": 5670280147,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670282679,
+              "endTicks": 5670282900,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670285301,
+              "endTicks": 5670285484,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670287967,
+              "endTicks": 5670288188,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670290624,
+              "endTicks": 5670290811,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670293263,
+              "endTicks": 5670293467,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670310487,
+              "endTicks": 5670310777,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670313259,
+              "endTicks": 5670313489,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670315934,
+              "endTicks": 5670316119,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670318739,
+              "endTicks": 5670318945,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670321398,
+              "endTicks": 5670321579,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670324102,
+              "endTicks": 5670324308,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670326748,
+              "endTicks": 5670326934,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670329550,
+              "endTicks": 5670329750,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670345073,
+              "endTicks": 5670345270,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670347867,
+              "endTicks": 5670348075,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670350630,
+              "endTicks": 5670350915,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670353467,
+              "endTicks": 5670353680,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670356166,
+              "endTicks": 5670356349,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670358887,
+              "endTicks": 5670359096,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670362365,
+              "endTicks": 5670362548,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670365485,
+              "endTicks": 5670365835,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670382547,
+              "endTicks": 5670382748,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670385542,
+              "endTicks": 5670385797,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670388321,
+              "endTicks": 5670388543,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670391129,
+              "endTicks": 5670391376,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670393819,
+              "endTicks": 5670393999,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670396584,
+              "endTicks": 5670396796,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670511153,
+              "endTicks": 5670511464,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670514901,
+              "endTicks": 5670515222,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670531007,
+              "endTicks": 5670531213,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670533903,
+              "endTicks": 5670534178,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670536618,
+              "endTicks": 5670536846,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670539361,
+              "endTicks": 5670539622,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670542003,
+              "endTicks": 5670542224,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670547974,
+              "endTicks": 5670548201,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670550655,
+              "endTicks": 5670550843,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670553331,
+              "endTicks": 5670553544,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670567387,
+              "endTicks": 5670567581,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670570115,
+              "endTicks": 5670570320,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670572876,
+              "endTicks": 5670573064,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670575654,
+              "endTicks": 5670575865,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670578313,
+              "endTicks": 5670578498,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670580984,
+              "endTicks": 5670581196,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670585275,
+              "endTicks": 5670585479,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670588817,
+              "endTicks": 5670589055,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670602874,
+              "endTicks": 5670603069,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670605709,
+              "endTicks": 5670605923,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670608400,
+              "endTicks": 5670608591,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670611147,
+              "endTicks": 5670611360,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670613863,
+              "endTicks": 5670614046,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670616793,
+              "endTicks": 5670616999,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670639909,
+              "endTicks": 5670640155,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670643168,
+              "endTicks": 5670643422,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670657779,
+              "endTicks": 5670657980,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670660912,
+              "endTicks": 5670661121,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670663595,
+              "endTicks": 5670663781,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670666408,
+              "endTicks": 5670666615,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670669083,
+              "endTicks": 5670669271,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670671702,
+              "endTicks": 5670671906,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670674354,
+              "endTicks": 5670674550,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670677139,
+              "endTicks": 5670677379,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670691472,
+              "endTicks": 5670691676,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670694276,
+              "endTicks": 5670694539,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670696980,
+              "endTicks": 5670697204,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670699737,
+              "endTicks": 5670699988,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670702421,
+              "endTicks": 5670702645,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670705038,
+              "endTicks": 5670705244,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670708313,
+              "endTicks": 5670708492,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670710970,
+              "endTicks": 5670711176,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670735413,
+              "endTicks": 5670735608,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670738151,
+              "endTicks": 5670738360,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670740866,
+              "endTicks": 5670741051,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670744255,
+              "endTicks": 5670744464,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670747937,
+              "endTicks": 5670748196,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670750616,
+              "endTicks": 5670750836,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670753290,
+              "endTicks": 5670753475,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670756118,
+              "endTicks": 5670756324,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670770029,
+              "endTicks": 5670770227,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670772918,
+              "endTicks": 5670773124,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670775617,
+              "endTicks": 5670775804,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670778365,
+              "endTicks": 5670778572,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670781066,
+              "endTicks": 5670781248,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670783755,
+              "endTicks": 5670784016,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670786421,
+              "endTicks": 5670786602,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670789092,
+              "endTicks": 5670789301,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670802937,
+              "endTicks": 5670803131,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670807579,
+              "endTicks": 5670807804,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670810325,
+              "endTicks": 5670810511,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670813151,
+              "endTicks": 5670813365,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670815897,
+              "endTicks": 5670816092,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670818549,
+              "endTicks": 5670818750,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670821227,
+              "endTicks": 5670821421,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670824077,
+              "endTicks": 5670824293,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670838172,
+              "endTicks": 5670838367,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670840944,
+              "endTicks": 5670841163,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670843654,
+              "endTicks": 5670843840,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670846419,
+              "endTicks": 5670846632,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670849096,
+              "endTicks": 5670849274,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670851837,
+              "endTicks": 5670852038,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670854498,
+              "endTicks": 5670854679,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670857267,
+              "endTicks": 5670857468,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670871077,
+              "endTicks": 5670871269,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670873846,
+              "endTicks": 5670874047,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670876595,
+              "endTicks": 5670876812,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670879378,
+              "endTicks": 5670879629,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670882030,
+              "endTicks": 5670882253,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670884678,
+              "endTicks": 5670884877,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670887392,
+              "endTicks": 5670887575,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670890088,
+              "endTicks": 5670890292,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670938912,
+              "endTicks": 5670939262,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670942069,
+              "endTicks": 5670942302,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670945311,
+              "endTicks": 5670945602,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670950693,
+              "endTicks": 5670950972,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670953938,
+              "endTicks": 5670954161,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670957072,
+              "endTicks": 5670957250,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670961228,
+              "endTicks": 5670961511,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670964464,
+              "endTicks": 5670964642,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670980744,
+              "endTicks": 5670980941,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670984167,
+              "endTicks": 5670984344,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670987610,
+              "endTicks": 5670987948,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670991289,
+              "endTicks": 5670991579,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670994625,
+              "endTicks": 5670994899,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5670998344,
+              "endTicks": 5670998623,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671001684,
+              "endTicks": 5671001959,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671005401,
+              "endTicks": 5671005684,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671020627,
+              "endTicks": 5671020855,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671023855,
+              "endTicks": 5671024140,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671027090,
+              "endTicks": 5671027283,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671030349,
+              "endTicks": 5671030532,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671050300,
+              "endTicks": 5671050592,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671054221,
+              "endTicks": 5671054460,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671058255,
+              "endTicks": 5671058492,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671062065,
+              "endTicks": 5671062289,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671229061,
+              "endTicks": 5671229368,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671231939,
+              "endTicks": 5671232151,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671234735,
+              "endTicks": 5671234932,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671237588,
+              "endTicks": 5671237834,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671240440,
+              "endTicks": 5671240634,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671243183,
+              "endTicks": 5671243394,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671249509,
+              "endTicks": 5671249713,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671252319,
+              "endTicks": 5671252535,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671266429,
+              "endTicks": 5671266634,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671269223,
+              "endTicks": 5671269442,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671272019,
+              "endTicks": 5671272204,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671274929,
+              "endTicks": 5671275134,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671277669,
+              "endTicks": 5671277856,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671280514,
+              "endTicks": 5671280722,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671283265,
+              "endTicks": 5671283452,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671285981,
+              "endTicks": 5671286192,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671300111,
+              "endTicks": 5671300313,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671303055,
+              "endTicks": 5671303275,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671305833,
+              "endTicks": 5671306015,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671308701,
+              "endTicks": 5671308926,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671311450,
+              "endTicks": 5671311637,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671314185,
+              "endTicks": 5671314394,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671316871,
+              "endTicks": 5671317050,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671319603,
+              "endTicks": 5671319809,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671333818,
+              "endTicks": 5671334017,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671336713,
+              "endTicks": 5671336968,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671339512,
+              "endTicks": 5671339737,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671342412,
+              "endTicks": 5671342665,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671345113,
+              "endTicks": 5671345335,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671347770,
+              "endTicks": 5671347991,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671351211,
+              "endTicks": 5671351403,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671353942,
+              "endTicks": 5671354150,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671367946,
+              "endTicks": 5671368141,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671371739,
+              "endTicks": 5671371971,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671374672,
+              "endTicks": 5671374859,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671377543,
+              "endTicks": 5671377755,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671380406,
+              "endTicks": 5671380590,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671383112,
+              "endTicks": 5671383321,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671385966,
+              "endTicks": 5671386150,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671388713,
+              "endTicks": 5671388922,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671402939,
+              "endTicks": 5671403132,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671405930,
+              "endTicks": 5671406190,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671408717,
+              "endTicks": 5671408937,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671411561,
+              "endTicks": 5671411810,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671414330,
+              "endTicks": 5671414552,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671417017,
+              "endTicks": 5671417227,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671419740,
+              "endTicks": 5671419924,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671422501,
+              "endTicks": 5671422705,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671436786,
+              "endTicks": 5671436980,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671439629,
+              "endTicks": 5671439839,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671442434,
+              "endTicks": 5671442620,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671445404,
+              "endTicks": 5671445611,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671448318,
+              "endTicks": 5671448507,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671451116,
+              "endTicks": 5671451328,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671453876,
+              "endTicks": 5671454075,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671456698,
+              "endTicks": 5671456979,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671472607,
+              "endTicks": 5671472804,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671475478,
+              "endTicks": 5671475737,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671478278,
+              "endTicks": 5671478498,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671481582,
+              "endTicks": 5671481831,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671484337,
+              "endTicks": 5671484617,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671487108,
+              "endTicks": 5671487376,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671489890,
+              "endTicks": 5671490125,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671492694,
+              "endTicks": 5671492900,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671646132,
+              "endTicks": 5671646551,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671648995,
+              "endTicks": 5671649268,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671651851,
+              "endTicks": 5671652062,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671654813,
+              "endTicks": 5671655039,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671658222,
+              "endTicks": 5671658421,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671660988,
+              "endTicks": 5671661214,
+              "threadId": 7
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671663781,
+              "endTicks": 5671663968,
+              "threadId": 8
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671666578,
+              "endTicks": 5671666790,
+              "threadId": 6
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5671880675,
+              "endTicks": 5671880982,
+              "threadId": 6
+            },
+            {
+              "typeName": "W3DAnimation",
+              "startTicks": 5671799308,
+              "endTicks": 5671961321,
+              "threadId": 7
+            },
+            {
+              "typeName": "W3DAnimation",
+              "startTicks": 5671805707,
+              "endTicks": 5671967414,
+              "threadId": 8
+            },
+            {
+              "typeName": "W3DHierarchy",
+              "startTicks": 5671789308,
+              "endTicks": 5672067575,
+              "threadId": 9
+            },
+            {
+              "typeName": "ArmorTemplate",
+              "startTicks": 5672071031,
+              "endTicks": 5672071295,
+              "threadId": 7
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 5672501663,
+              "endTicks": 5672617716,
+              "threadId": 1
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 5672635881,
+              "endTicks": 5672649695,
+              "threadId": 1
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 5672657633,
+              "endTicks": 5672671173,
+              "threadId": 1
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 5672680946,
+              "endTicks": 5672694296,
+              "threadId": 1
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 5672702052,
+              "endTicks": 5672715533,
+              "threadId": 1
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 5672723340,
+              "endTicks": 5672736701,
+              "threadId": 1
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 5672744420,
+              "endTicks": 5672757819,
+              "threadId": 1
+            },
+            {
+              "typeName": "Texture",
+              "startTicks": 5672765521,
+              "endTicks": 5672778926,
+              "threadId": 1
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 5672813452,
+              "endTicks": 5672911666,
+              "threadId": 6
+            },
+            {
+              "typeName": "AudioFile",
+              "startTicks": 5672811168,
+              "endTicks": 5672913029,
+              "threadId": 8
+            }
+          ],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobsauto"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "13-medium-big-cold",
+      "scenario": "medium-big",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "cold",
+      "jobs": "4",
+      "format": "big",
+      "performance": "summary",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-big",
+        "--package-content",
+        "base",
+        "--package-format",
+        "big",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 926.2132000000065,
+      "exitCode": 0,
+      "counters": {
+        "cache.asset.keyMiss": 12,
+        "cache.document.new": 36,
+        "cache.session.notFound": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 12,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 861,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 2061556,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 271,
+          "backendCallsByType": {
+            "ArmorTemplate": 258,
+            "W3DHierarchy": 1,
+            "W3DAnimation": 2,
+            "Texture": 8,
+            "AudioFile": 2
+          },
+          "maxBackendConcurrency": 4,
+          "prepareMs": 4.8859,
+          "workerWaitMs": 26.2104,
+          "workerComputeMs": 162.6458,
+          "ownerCommitMs": 77.9105,
+          "fallbackByReason": {
+            "uncertified-plugin": 8
+          },
+          "sampledPeakPrivateBytes": 112443392,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-big"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 2,
+      "outputBytes": 262552
+    },
+    {
+      "label": "14-medium-big-hot1",
+      "scenario": "medium-big",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot1",
+      "jobs": "4",
+      "format": "big",
+      "performance": "summary",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-big",
+        "--package-content",
+        "base",
+        "--package-format",
+        "big",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 653.6714000000075,
+      "exitCode": 0,
+      "counters": {
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 4,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 295352,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-big"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 2,
+      "outputBytes": 262552
+    },
+    {
+      "label": "15-medium-jobsauto-hot1",
+      "scenario": "medium-jobsauto",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot1",
+      "jobs": "auto",
+      "format": "loose",
+      "performance": "detailed",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobsauto",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "auto",
+        "--performance",
+        "detailed",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 613.7946000000056,
+      "exitCode": 0,
+      "counters": {
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 32800,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "auto",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobsauto"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "16-medium-jobs1-hot1",
+      "scenario": "medium-jobs1",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot1",
+      "jobs": "1",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobs1",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "1",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 608.481099999949,
+      "exitCode": 0,
+      "counters": {
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 32800,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "1",
+          "effectiveJobs": 1,
+          "minimumEffectiveJobs": 1,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobs1"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "17-medium-both-xml-hot1",
+      "scenario": "medium-both-xml",
+      "tier": "medium",
+      "mode": "both-xml",
+      "phase": "hot1",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=false"
+      ],
+      "wallMs": 591.6151999999784,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 32800,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-both-xml"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "18-medium-session-deflate-hot1",
+      "scenario": "medium-session-deflate",
+      "tier": "medium",
+      "mode": "session-deflate",
+      "phase": "hot1",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 598.0050000000574,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 32800,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-deflate"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "19-medium-session-xml-hot1",
+      "scenario": "medium-session-xml",
+      "tier": "medium",
+      "mode": "session-xml",
+      "phase": "hot1",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=true",
+        "--csc=false"
+      ],
+      "wallMs": 601.6084999999975,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 32800,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-xml"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "20-medium-asset-hot1",
+      "scenario": "medium-asset",
+      "tier": "medium",
+      "mode": "asset",
+      "phase": "hot1",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\20-medium-asset-hot1"
+      ],
+      "wallMs": 817.6994000000377,
+      "exitCode": 0,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 12,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 259,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 32800,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "21-large-default-hot1",
+      "scenario": "large-default",
+      "tier": "large",
+      "mode": "both-deflate",
+      "phase": "hot1",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\large",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\large-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 659.5114000000422,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 129,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1763,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\large-default"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 4,
+      "outputBytes": 418236
+    },
+    {
+      "label": "22-medium-default-hot1",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot1",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 611.1848999998983,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 32800,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "23-small-default-hot1",
+      "scenario": "small-default",
+      "tier": "small",
+      "mode": "both-deflate",
+      "phase": "hot1",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\small",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\small-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 533.7612000000718,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 5,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1639,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\small-default"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 4,
+      "outputBytes": 6632
+    },
+    {
+      "label": "24-small-default-hot2",
+      "scenario": "small-default",
+      "tier": "small",
+      "mode": "both-deflate",
+      "phase": "hot2",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\small",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\small-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 529.1252999999188,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 5,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1639,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\small-default"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 4,
+      "outputBytes": 6632
+    },
+    {
+      "label": "25-medium-default-hot2",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot2",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 603.845700000079,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1674,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "26-large-default-hot2",
+      "scenario": "large-default",
+      "tier": "large",
+      "mode": "both-deflate",
+      "phase": "hot2",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\large",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\large-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 650.846300000012,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 129,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1763,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\large-default"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 4,
+      "outputBytes": 418236
+    },
+    {
+      "label": "27-medium-asset-hot2",
+      "scenario": "medium-asset",
+      "tier": "medium",
+      "mode": "asset",
+      "phase": "hot2",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-asset",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\27-medium-asset-hot2"
+      ],
+      "wallMs": 822.5916000000097,
+      "exitCode": 0,
+      "cache": {
+        "status": "BuildAssetCache",
+        "hits": 12,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 259,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 32800,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "28-medium-session-xml-hot2",
+      "scenario": "medium-session-xml",
+      "tier": "medium",
+      "mode": "session-xml",
+      "phase": "hot2",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=true",
+        "--csc=false"
+      ],
+      "wallMs": 589.6778999999697,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1674,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-xml"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "29-medium-session-deflate-hot2",
+      "scenario": "medium-session-deflate",
+      "tier": "medium",
+      "mode": "session-deflate",
+      "phase": "hot2",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-deflate",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 597.8452000000516,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1674,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-session-deflate"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "30-medium-both-xml-hot2",
+      "scenario": "medium-both-xml",
+      "tier": "medium",
+      "mode": "both-xml",
+      "phase": "hot2",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-both-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=true",
+        "--sc=true",
+        "--csc=false"
+      ],
+      "wallMs": 592.7635999998984,
+      "exitCode": 0,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1674,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-both-xml"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "31-medium-jobs1-hot2",
+      "scenario": "medium-jobs1",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot2",
+      "jobs": "1",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobs1",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "1",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 599.439899999993,
+      "exitCode": 0,
+      "counters": {
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1674,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "1",
+          "effectiveJobs": 1,
+          "minimumEffectiveJobs": 1,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobs1"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "32-medium-jobsauto-hot2",
+      "scenario": "medium-jobsauto",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot2",
+      "jobs": "auto",
+      "format": "loose",
+      "performance": "detailed",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobsauto",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "auto",
+        "--performance",
+        "detailed",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 593.5463999999229,
+      "exitCode": 0,
+      "counters": {
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1674,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "auto",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": [],
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-jobsauto"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "33-medium-big-hot2",
+      "scenario": "medium-big",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot2",
+      "jobs": "4",
+      "format": "big",
+      "performance": "summary",
+      "generation": "original",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-big",
+        "--package-content",
+        "base",
+        "--package-format",
+        "big",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 635.3708999999981,
+      "exitCode": 0,
+      "counters": {
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1674,
+        "fileHashBytesRead": 262552,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-big"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 2,
+      "outputBytes": 262552
+    },
+    {
+      "label": "34-control-xml-uncached",
+      "scenario": "control-xml",
+      "tier": "medium",
+      "mode": "none",
+      "phase": "uncached",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "xml",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\control-xml",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\34-control-xml-uncached"
+      ],
+      "wallMs": 877.288300000032,
+      "exitCode": 0,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "35-medium-default-modified",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "modified",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "xml",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 700.2670000000535,
+      "exitCode": 0,
+      "counters": {
+        "cache.invalidation.contentChanged": 1,
+        "cache.invalidation.documents": 1,
+        "cache.invalidation.reloads": 1,
+        "cache.invalidation.selfInstances": 8,
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.affectedDocuments": 1,
+        "dependency.include.affectedVisits": 1,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 35,
+        "xmlParse": 1,
+        "instanceCompile": 1,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 5,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 187884,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 1,
+          "backendCallsByType": {
+            "ArmorTemplate": 1
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 1.5976000000000001,
+          "workerWaitMs": 12.182,
+          "workerComputeMs": 12.557,
+          "ownerCommitMs": 5.9653,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 103313408,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "36-medium-default-hot-after-xml",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot-after-xml",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "xml",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 600.213100000019,
+      "exitCode": 0,
+      "counters": {
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1674,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "37-control-texture-uncached",
+      "scenario": "control-texture",
+      "tier": "medium",
+      "mode": "none",
+      "phase": "uncached",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "texture",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\control-texture",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\37-control-texture-uncached"
+      ],
+      "wallMs": 888.975500000015,
+      "exitCode": 0,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "38-medium-default-modified",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "modified",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "texture",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 702.3301000000401,
+      "exitCode": 0,
+      "counters": {
+        "cache.asset.keyMiss": 8,
+        "cache.invalidation.dependentFileChanged": 1,
+        "cache.invalidation.documents": 1,
+        "cache.invalidation.reloads": 1,
+        "cache.invalidation.selfInstances": 10,
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 21,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1,
+        "dependency.propagation.documents": 1,
+        "dependency.propagation.reloads": 1,
+        "dependency.propagation.selfInstances": 10
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 8,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 35,
+        "xmlParse": 1,
+        "instanceCompile": 8,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 5,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 203817,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 8,
+          "backendCallsByType": {
+            "Texture": 8
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 21.1375,
+          "ownerCommitMs": 8.6755,
+          "fallbackByReason": {
+            "uncertified-plugin": 8
+          },
+          "sampledPeakPrivateBytes": 103399424,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "39-medium-default-hot-after-texture",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot-after-texture",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "texture",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 608.7021999999251,
+      "exitCode": 0,
+      "counters": {
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1674,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "40-control-audio-uncached",
+      "scenario": "control-audio",
+      "tier": "medium",
+      "mode": "none",
+      "phase": "uncached",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "audio",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\control-audio",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\40-control-audio-uncached"
+      ],
+      "wallMs": 883.7801999999328,
+      "exitCode": 0,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "41-medium-default-modified",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "modified",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "audio",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 692.9152999999815,
+      "exitCode": 0,
+      "counters": {
+        "cache.asset.keyMiss": 2,
+        "cache.invalidation.dependentFileChanged": 1,
+        "cache.invalidation.documents": 1,
+        "cache.invalidation.reloads": 1,
+        "cache.invalidation.selfInstances": 10,
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 21,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1,
+        "dependency.propagation.documents": 1,
+        "dependency.propagation.reloads": 1,
+        "dependency.propagation.selfInstances": 10
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 2,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 35,
+        "xmlParse": 1,
+        "instanceCompile": 2,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 7,
+        "fileHashReuses": 1668,
+        "fileHashBytesRead": 236643,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 2,
+          "backendCallsByType": {
+            "AudioFile": 2
+          },
+          "maxBackendConcurrency": 2,
+          "prepareMs": 2.5676,
+          "workerWaitMs": 9.7471,
+          "workerComputeMs": 19.834300000000002,
+          "ownerCommitMs": 6.1477,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 103403520,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "42-medium-default-hot-after-audio",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot-after-audio",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "audio",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 603.5504000000174,
+      "exitCode": 0,
+      "counters": {
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 32800,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "43-control-animation-uncached",
+      "scenario": "control-animation",
+      "tier": "medium",
+      "mode": "none",
+      "phase": "uncached",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "animation",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\control-animation",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\43-control-animation-uncached"
+      ],
+      "wallMs": 867.0174000000088,
+      "exitCode": 0,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "44-medium-default-modified",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "modified",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "animation",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 694.23740000002,
+      "exitCode": 0,
+      "counters": {
+        "cache.asset.keyMiss": 1,
+        "cache.invalidation.contentChanged": 1,
+        "cache.invalidation.documents": 1,
+        "cache.invalidation.reloads": 1,
+        "cache.invalidation.selfInstances": 3,
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.affectedDocuments": 1,
+        "dependency.include.affectedVisits": 1,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 1,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 35,
+        "xmlParse": 1,
+        "instanceCompile": 1,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 5,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 199103,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 1,
+          "backendCallsByType": {
+            "W3DAnimation": 1
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 2.0521000000000003,
+          "workerWaitMs": 14.6205,
+          "workerComputeMs": 16.989,
+          "ownerCommitMs": 4.9043,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 103440384,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "45-medium-default-hot-after-animation",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "hot-after-animation",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "animation",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 601.2471999999889,
+      "exitCode": 0,
+      "counters": {
+        "dependency.define.checks": 1,
+        "dependency.file.checks": 11,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.inheritance.checks": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 36,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 0,
+        "fileHashReuses": 1674,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 0,
+          "backendCallsByType": {},
+          "maxBackendConcurrency": 0,
+          "prepareMs": 0,
+          "workerWaitMs": 0,
+          "workerComputeMs": 0,
+          "ownerCommitMs": 0,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 0,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": true,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "46-control-inheritance-uncached",
+      "scenario": "control-inheritance",
+      "tier": "medium",
+      "mode": "none",
+      "phase": "uncached",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "off",
+      "generation": "inheritance",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\control-inheritance",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "off",
+        "--bc=false",
+        "--sc=false",
+        "--csc=false",
+        "--iod",
+        "D:\\a\\_temp\\hot-cache-work\\fresh-intermediate\\46-control-inheritance-uncached"
+      ],
+      "wallMs": 875.6328999999141,
+      "exitCode": 0,
+      "cache": {
+        "status": "Disabled",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": false,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 0,
+        "documentReuse": 0,
+        "xmlParse": 36,
+        "instanceCompile": 271,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 859,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 1799004,
+        "textureCache": false,
+        "compressedSessionCache": false,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": null,
+        "sessionCacheDirectory": null
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    },
+    {
+      "label": "47-medium-default-modified",
+      "scenario": "medium-default",
+      "tier": "medium",
+      "mode": "both-deflate",
+      "phase": "modified",
+      "jobs": "4",
+      "format": "loose",
+      "performance": "summary",
+      "generation": "inheritance",
+      "status": "passed",
+      "command": [
+        "D:\\a\\_temp\\hot-cache-work\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+        "--out",
+        "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "--include-additional=false",
+        "--jobs",
+        "4",
+        "--performance",
+        "summary",
+        "--bc=true",
+        "--sc=true",
+        "--csc=true"
+      ],
+      "wallMs": 694.1713999999592,
+      "exitCode": 0,
+      "counters": {
+        "cache.invalidation.contentChanged": 1,
+        "cache.invalidation.dependentFileChanged": 1,
+        "cache.invalidation.documents": 2,
+        "cache.invalidation.reloads": 2,
+        "cache.invalidation.selfInstances": 2,
+        "dependency.file.checks": 12,
+        "dependency.include.affectedDocuments": 2,
+        "dependency.include.affectedVisits": 2,
+        "dependency.include.maxDepth": 2,
+        "dependency.include.visits": 35,
+        "dependency.propagation.documents": 1,
+        "dependency.propagation.reloads": 1,
+        "dependency.propagation.selfInstances": 1
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 34,
+        "xmlParse": 2,
+        "instanceCompile": 2,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 5,
+        "fileHashReuses": 1672,
+        "fileHashBytesRead": 187588,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "parallel": {
+          "protocol": "NewModCompiler.ParallelBackend.v1",
+          "requestedJobs": "4",
+          "effectiveJobs": 4,
+          "minimumEffectiveJobs": 4,
+          "backendCalls": 2,
+          "backendCallsByType": {
+            "ArmorTemplate": 2
+          },
+          "maxBackendConcurrency": 1,
+          "prepareMs": 1.5942,
+          "workerWaitMs": 0.00030000000000000003,
+          "workerComputeMs": 14.209700000000002,
+          "ownerCommitMs": 3.7609000000000004,
+          "fallbackByReason": {},
+          "sampledPeakPrivateBytes": 103395328,
+          "resourceQuerySucceeded": true,
+          "backendIntervals": null,
+          "intervalSampleLimit": 512,
+          "clockFrequency": 10000000
+        },
+        "sessionCacheDirectory": "D:\\a\\_temp\\hot-cache-work\\builds\\medium-default"
+      },
+      "publicationUnchanged": false,
+      "rawBytesEqual": true,
+      "outputFiles": 6,
+      "outputBytes": 220215
+    }
+  ],
+  "mutations": [
+    {
+      "path": "D:\\a\\_temp\\hot-cache-work\\mods\\medium\\Data\\armor-000.xml",
+      "bytes": 469,
+      "mtimeNs": 1793338781905805800,
+      "beforeSha256": "ac2229d8985373303a2c799d7b9f932ad7a7f00ff4e6d9835244bf83d94138a1",
+      "afterSha256": "683bc88693240122c927ccd4e3f57fb0698559e26d4a24d45a252c9be036bbde"
+    },
+    {
+      "path": "D:\\a\\_temp\\hot-cache-work\\mods\\medium\\Data\\probe.tga",
+      "bytes": 16402,
+      "mtimeNs": 1793338781937057400,
+      "beforeSha256": "7582cd8faa21e3c58383e861ac430b18aed445107911cdd947e64d68a7847fd5",
+      "afterSha256": "791473be5f520a75ae105062bf437618d013a714bac21a337cb6c3158a30fb7f"
+    },
+    {
+      "path": "D:\\a\\_temp\\hot-cache-work\\mods\\medium\\Data\\probe.wav",
+      "bytes": 16428,
+      "mtimeNs": 1793338781937057400,
+      "beforeSha256": "4a1b11ff3d151548af5d0e5d728c757f3cded25430f9cc29e7369eb7b10f792a",
+      "afterSha256": "b272bd699fca75cbd33686d0bec303001bd0083912157728f7df8856aa17f809"
+    },
+    {
+      "path": "D:\\a\\_temp\\hot-cache-work\\mods\\medium\\Data\\native.xml",
+      "bytes": 11688,
+      "mtimeNs": 1793338781937057400,
+      "beforeSha256": "5ddc33ed0deb5a0bae7d73ff41f5e3e9999c723bafa009825778d6b3e7f973e5",
+      "afterSha256": "0d59520447bfd248451ebece7e2034ff9c9024e90cf97a35070590238ed69897"
+    },
+    {
+      "path": "D:\\a\\_temp\\hot-cache-work\\mods\\medium\\Data\\base.xml",
+      "bytes": 173,
+      "mtimeNs": 1793338781952681600,
+      "beforeSha256": "4e8dcd9d635db8cf1192680bf3fd2708b55d5033a2d69a2893716d5404d38748",
+      "afterSha256": "f91d2afed5a2e64f884d09a6671c84fe12c1be80dabb713d3c25a9a70706073e"
+    }
+  ],
+  "binarySourceCommit": "90e817107eeb90d50846c5c5e82f52854a83a845",
+  "testSourceCommit": "90e817107eeb90d50846c5c5e82f52854a83a845",
+  "runId": "41009339596",
+  "runAttempt": "1",
+  "limits": {
+    "totalSeconds": 120,
+    "perProcessSeconds": 15
+  },
+  "scope": "Release bounded representative matrix; not a full MOD, original DLL differential or game-runtime acceptance",
+  "runtimeFiles": {
+    "antlr.runtime.dll": {
+      "bytes": 99328,
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    "BinaryAssetBuilder.TextureCompiler.dll": {
+      "bytes": 917504,
+      "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+    },
+    "BinaryAssetBuilder.TextureCompiler.dll.patch.json": {
+      "bytes": 14326,
+      "sha256": "d1da77bfb29c6d8162d101ed676a27fa7d730f28c777880338fad852e3b0c9a6"
+    },
+    "NewModCompiler.exe": {
+      "bytes": 4207616,
+      "sha256": "cbffbe7389c403fd34923d2a995f4de243ead758898ec160ad18da4f4c09381a"
+    },
+    "NewModCompiler.exe.config": {
+      "bytes": 201,
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    }
+  },
+  "workloads": {
+    "small": {
+      "modRoot": "D:\\a\\_temp\\hot-cache-work\\mods\\small",
+      "armorAssets": 32,
+      "armorDocuments": 4,
+      "scope": "Synthetic Armor scale fixture; not a full MOD"
+    },
+    "medium": {
+      "modRoot": "D:\\a\\_temp\\hot-cache-work\\mods\\medium",
+      "armorAssets": 256,
+      "armorDocuments": 32,
+      "scope": "Synthetic Armor + Texture/PCM Audio CDATA + existing W3X fixture subset; not a full MOD",
+      "textureAssets": 8,
+      "textureSize": 64,
+      "audioAssets": 2,
+      "audioFrames": 4096,
+      "dependencyArmorAssets": 2,
+      "animationAssets": 2,
+      "hierarchyAssets": 1
+    },
+    "large": {
+      "modRoot": "D:\\a\\_temp\\hot-cache-work\\mods\\large",
+      "armorAssets": 2048,
+      "armorDocuments": 128,
+      "scope": "Synthetic Armor scale fixture; not a full MOD"
+    }
+  },
+  "initialInputs": {
+    "small": {
+      "Data/armor-000.xml": {
+        "bytes": 469,
+        "sha256": "ca804c24c061d4fa530e37b9c2f0458d5329584827a73105bfbb0afa6d317f5a"
+      },
+      "Data/armor-001.xml": {
+        "bytes": 469,
+        "sha256": "7560b69b04e9991b8b092087f93e4fa096ebd5525d0fc8d1845e5396c6dedd9c"
+      },
+      "Data/armor-002.xml": {
+        "bytes": 469,
+        "sha256": "3306d45faaf14b6fe9e5a295680ffd64bdc136f7d52b82baa75653ffc9016b6a"
+      },
+      "Data/armor-003.xml": {
+        "bytes": 469,
+        "sha256": "edf875523c8195b69f32e461d80898eae3cf0f24500cc699f657f1df6433e71c"
+      },
+      "Data/Mod.xml": {
+        "bytes": 266,
+        "sha256": "f38cacb198c0d77e563d0c618153388e9007a3d09ed313dc7bf929ab3c1b5869"
+      }
+    },
+    "medium": {
+      "Data/armor-000.xml": {
+        "bytes": 469,
+        "sha256": "ac2229d8985373303a2c799d7b9f932ad7a7f00ff4e6d9835244bf83d94138a1"
+      },
+      "Data/armor-001.xml": {
+        "bytes": 469,
+        "sha256": "f4e43361e817e6ba9d838315c35e2a63ff388a7beee2f88199192af6d1cea621"
+      },
+      "Data/armor-002.xml": {
+        "bytes": 469,
+        "sha256": "eb43754308ab74f19659cf895cc6715a4b680ee18123e5bc6736473ea2a63178"
+      },
+      "Data/armor-003.xml": {
+        "bytes": 469,
+        "sha256": "46a4ed4109c87dff12ae2ec5221da2d1b845ecfdb357f5a7b22a9543aedd07b4"
+      },
+      "Data/armor-004.xml": {
+        "bytes": 469,
+        "sha256": "392fde6a48cc795e14e95635df7c30b4d634d2602dc4f9d2e6be5c26c9241d52"
+      },
+      "Data/armor-005.xml": {
+        "bytes": 469,
+        "sha256": "f4e67770f2933eb7887bb4c70276414e3417127bc9dfdf9dd9d70594b06ecadc"
+      },
+      "Data/armor-006.xml": {
+        "bytes": 469,
+        "sha256": "830e528fa952aaf055b9c32266a8377f6182b5019d4ee5f436fbda507d0354b3"
+      },
+      "Data/armor-007.xml": {
+        "bytes": 469,
+        "sha256": "eec4940840da4cb91625662fb8ae84326760b65fbe430c113b92d428730002b5"
+      },
+      "Data/armor-008.xml": {
+        "bytes": 469,
+        "sha256": "613f1e984bf960c8a0463bf8dcff5f09201adddf7ca990f303a5127334c135a2"
+      },
+      "Data/armor-009.xml": {
+        "bytes": 469,
+        "sha256": "f959bfbf1a19de150cb04c36644abef75d77c7e2b103b05b3028c2d3e385d6f4"
+      },
+      "Data/armor-010.xml": {
+        "bytes": 469,
+        "sha256": "1106f7ce9630605e23f799338c2e75c1ca0b3c2b5d387778519483b2c151e209"
+      },
+      "Data/armor-011.xml": {
+        "bytes": 469,
+        "sha256": "b34c7dd488f948d6ec54d4a3adcf329ba991d2fdf49cff9314f520e1ea2fd1c1"
+      },
+      "Data/armor-012.xml": {
+        "bytes": 469,
+        "sha256": "76475d8b6065b178cccce841efcbd0365c53c39a7c2b69118570e56310be74f6"
+      },
+      "Data/armor-013.xml": {
+        "bytes": 469,
+        "sha256": "bc68718f019dfc9f344338e4956d4f96ac0babd7d892a2a329f661f2c3c1180a"
+      },
+      "Data/armor-014.xml": {
+        "bytes": 469,
+        "sha256": "a6b30681a934ebafffa8dbdb3e9fe74f11cc83cb9a6fbc0ba4f4199b6729bdf4"
+      },
+      "Data/armor-015.xml": {
+        "bytes": 469,
+        "sha256": "3301855bfc738519fbea4d8df4998ab84f378122b066e64462b8806b4c4c2ed0"
+      },
+      "Data/armor-016.xml": {
+        "bytes": 469,
+        "sha256": "3cc714d7d0541bce8e3bfa774072bdb049a7d46f4887712e9f630ea5e3bfbadf"
+      },
+      "Data/armor-017.xml": {
+        "bytes": 469,
+        "sha256": "31393aba61d0363557193cac05579aec7b187f3736c4a4889e319da7c6eb7051"
+      },
+      "Data/armor-018.xml": {
+        "bytes": 469,
+        "sha256": "da4a2e00491fb929df029ef5b590629197d060ea0439db616c5ac5dde57fbf7a"
+      },
+      "Data/armor-019.xml": {
+        "bytes": 469,
+        "sha256": "d1c747df9f229b00b3f19473f145ea7bf7a48d490762c342ea8d885872c18f9f"
+      },
+      "Data/armor-020.xml": {
+        "bytes": 469,
+        "sha256": "04e703051e68db4643dec680ea53639ef9ae0ecb9b94efbd6a0cbc5216effb43"
+      },
+      "Data/armor-021.xml": {
+        "bytes": 469,
+        "sha256": "4d3bc2d13d077751677640256fea8295e16b897aad5aa7740bc326ec7308c41c"
+      },
+      "Data/armor-022.xml": {
+        "bytes": 469,
+        "sha256": "c5c6a6668ee2688fd0d64299e740a69c5aff4927ae8ba7e6229023c9c88903ad"
+      },
+      "Data/armor-023.xml": {
+        "bytes": 469,
+        "sha256": "fda6774c3fe89e4136fa75c29005bbf8bef05c33d7c69dcb882051166538bf59"
+      },
+      "Data/armor-024.xml": {
+        "bytes": 469,
+        "sha256": "253d21c8cb99e6f011737f753187d665e9603ff565ea70cd5c9e0f04e1bed8a2"
+      },
+      "Data/armor-025.xml": {
+        "bytes": 469,
+        "sha256": "d5e4a5f9ebda55a17c79e37157744d36c693dcc76fe20197d880ffc612dd3a5c"
+      },
+      "Data/armor-026.xml": {
+        "bytes": 469,
+        "sha256": "b6b696d08d05ab664a8d6c97d14f7bf7b2fdab20c50feda2c85a3bcd7ac733b6"
+      },
+      "Data/armor-027.xml": {
+        "bytes": 469,
+        "sha256": "e2f1d4c62622cd6ff254f75c5ab00b86aaa689d2ed8f160fbe11dd19d787e54b"
+      },
+      "Data/armor-028.xml": {
+        "bytes": 469,
+        "sha256": "adb91803cba185d888b62e531b4a715b5c62bfe3f54005bea38aa347403ac5ca"
+      },
+      "Data/armor-029.xml": {
+        "bytes": 469,
+        "sha256": "a352b76f6420b45eb811e8abcaf5cb2dc1bd9b19513e076510366c4c6325856b"
+      },
+      "Data/armor-030.xml": {
+        "bytes": 469,
+        "sha256": "216e77746c3caeb285250c6f0f534d217bb514a0943a3a2db59d894110927f5d"
+      },
+      "Data/armor-031.xml": {
+        "bytes": 469,
+        "sha256": "d9942dc64a3e6ab795524fa876c1432b21e8bbad4b82f6386270dc7a32f7f681"
+      },
+      "Data/base.xml": {
+        "bytes": 173,
+        "sha256": "4e8dcd9d635db8cf1192680bf3fd2708b55d5033a2d69a2893716d5404d38748"
+      },
+      "Data/derived.xml": {
+        "bytes": 215,
+        "sha256": "ad0b4f3da942af7d451871beb1b60fbe037ffc56c0d47538dc24b428cb474cc1"
+      },
+      "Data/Mod.xml": {
+        "bytes": 2991,
+        "sha256": "c707f3e73404d64519c1a54ba8ae078fb1193ca4b86f05e232bc5b1a71d2c9f4"
+      },
+      "Data/native.xml": {
+        "bytes": 11688,
+        "sha256": "5ddc33ed0deb5a0bae7d73ff41f5e3e9999c723bafa009825778d6b3e7f973e5"
+      },
+      "Data/probe.tga": {
+        "bytes": 16402,
+        "sha256": "7582cd8faa21e3c58383e861ac430b18aed445107911cdd947e64d68a7847fd5"
+      },
+      "Data/probe.wav": {
+        "bytes": 16428,
+        "sha256": "4a1b11ff3d151548af5d0e5d728c757f3cded25430f9cc29e7369eb7b10f792a"
+      }
+    },
+    "large": {
+      "Data/armor-000.xml": {
+        "bytes": 869,
+        "sha256": "21b355f2d59c47ba32b7741e638615bb99ef2358dc37d66455fd2eb4fdea1ffe"
+      },
+      "Data/armor-001.xml": {
+        "bytes": 869,
+        "sha256": "8926cd9f577f70ff28738ddba131fc5d0d5e76b041ff42dc6d73b591ccde54b8"
+      },
+      "Data/armor-002.xml": {
+        "bytes": 869,
+        "sha256": "93af8cd9723bfee634b5250edacf707ee85e0a7f671d2dfcfbe78a0a4363c534"
+      },
+      "Data/armor-003.xml": {
+        "bytes": 869,
+        "sha256": "a103d1806b58298f06c28ddf9bc0c0b46e813d4768f52cd6e7f20f2f56a2e67d"
+      },
+      "Data/armor-004.xml": {
+        "bytes": 869,
+        "sha256": "2a2d3db95af28e5ec80f95b9e493576055ab813c4608bf2ec4a234b153d33c11"
+      },
+      "Data/armor-005.xml": {
+        "bytes": 869,
+        "sha256": "8f20342d338414a3e429c99de6a58c7059312b76b67c88946c22c0a74338333d"
+      },
+      "Data/armor-006.xml": {
+        "bytes": 869,
+        "sha256": "d98c0b1403bc8df26370bb22e6e2070298f348ed04f34812c4ceba9b3dd252e2"
+      },
+      "Data/armor-007.xml": {
+        "bytes": 869,
+        "sha256": "d896524bc039fa5f24d716c342ec84cf5698bd1a6102f7303705daba36824919"
+      },
+      "Data/armor-008.xml": {
+        "bytes": 869,
+        "sha256": "456d8e6f11d444132bd599ae58f330b10e7ec33bc9b885924bd1f6068c1934f6"
+      },
+      "Data/armor-009.xml": {
+        "bytes": 869,
+        "sha256": "352bae324ebf2c4dae9d5549a641f498c70a6995c6d330d807dda838dcd0ad0b"
+      },
+      "Data/armor-010.xml": {
+        "bytes": 869,
+        "sha256": "9ef2d818db7d0b0cae525760ef9b85379eefe73d39891d2a3d4f3690440d2b62"
+      },
+      "Data/armor-011.xml": {
+        "bytes": 869,
+        "sha256": "d00f9b51f8676b9307978f5a6bf7950477119cb21451f7eb083bbd5b929f7467"
+      },
+      "Data/armor-012.xml": {
+        "bytes": 869,
+        "sha256": "1f7f26af9ba62d1fbaf9ea7b380ace616348582d6f03772830132f20c9b10c49"
+      },
+      "Data/armor-013.xml": {
+        "bytes": 869,
+        "sha256": "a57ebd2f5c557d38d5ca9eb17a22bb17bd381242291b484edb466aa928c6b663"
+      },
+      "Data/armor-014.xml": {
+        "bytes": 869,
+        "sha256": "1e42e5fd53507bf329998982396b07be4c35efb6c7e08544a93bf7b4e92ef9bf"
+      },
+      "Data/armor-015.xml": {
+        "bytes": 869,
+        "sha256": "76f8ae030bda61a4b1a20b4c054c3fd47d9f3ed7a12f7c705ffae5528e256405"
+      },
+      "Data/armor-016.xml": {
+        "bytes": 869,
+        "sha256": "48fd6f70db4e92f0cb33b6de0b9278a5144b91c957b48065ed8a5cc23eb67b87"
+      },
+      "Data/armor-017.xml": {
+        "bytes": 869,
+        "sha256": "7e023a050cd1e96f7266741a5846347a66a2979810dde5dbd616a4ce9619139e"
+      },
+      "Data/armor-018.xml": {
+        "bytes": 869,
+        "sha256": "456879da089826768e2a8f543916c2950bae12e7400f1d7dfb4c9bbf6db4aefa"
+      },
+      "Data/armor-019.xml": {
+        "bytes": 869,
+        "sha256": "73c81c355103d5cf0462a82ab61f1336942292cfbfd30084ab69c694ce6bfed7"
+      },
+      "Data/armor-020.xml": {
+        "bytes": 869,
+        "sha256": "17b2373c22500b6321120d0f1dd0ae27ebb4f0c490ff0611c3ed89b68af04e7f"
+      },
+      "Data/armor-021.xml": {
+        "bytes": 869,
+        "sha256": "5add79339dae1324e64492fe303a0d5205473692d2763374ee5547f3cd585ea3"
+      },
+      "Data/armor-022.xml": {
+        "bytes": 869,
+        "sha256": "8fb7394a14127454d4cf1b42b32316731899b24e7484506dc423f3f91f81403d"
+      },
+      "Data/armor-023.xml": {
+        "bytes": 869,
+        "sha256": "ad95f9dde0c88868c4bbccdbcabc333f658586fac3495e2c8a1bfe8469e0b008"
+      },
+      "Data/armor-024.xml": {
+        "bytes": 869,
+        "sha256": "0d83b9a306ad84611076b1d094c9ca6859a9ca4b241a2ce3adcb84051e6d1277"
+      },
+      "Data/armor-025.xml": {
+        "bytes": 869,
+        "sha256": "6cf5f45341b0404b1b3ba943d7c7f632348e88c91ce1e0d70d289050aadaa0c0"
+      },
+      "Data/armor-026.xml": {
+        "bytes": 869,
+        "sha256": "e89a985a6ae402b56e0571f7eb097ecb50a24ea61c93d2a3eebb3311c1c8cd0d"
+      },
+      "Data/armor-027.xml": {
+        "bytes": 869,
+        "sha256": "7baad73b83d0140cb1eb94e19f7b2220506ee9e98916461b98c35d91819ee0d5"
+      },
+      "Data/armor-028.xml": {
+        "bytes": 869,
+        "sha256": "fb95e9dfc190385df4f6a8ca9f55c5839c48240c16a43767117df60f18ce42ad"
+      },
+      "Data/armor-029.xml": {
+        "bytes": 869,
+        "sha256": "8065925a9155a4974ba2e47a0167247392891ac5d37783be4c28dd25c4ed7bb7"
+      },
+      "Data/armor-030.xml": {
+        "bytes": 869,
+        "sha256": "1621935d2d9810b1ec3b8c9063323f597baebcc727b4fa46509b5f8421d4d3a7"
+      },
+      "Data/armor-031.xml": {
+        "bytes": 869,
+        "sha256": "7236fef38bc6d920c2d9905567e9fde08e9d3750931a8428af06d009061cff9b"
+      },
+      "Data/armor-032.xml": {
+        "bytes": 869,
+        "sha256": "ca32de692ff7609db45fc3109dbc8b7c479d4752886094b664f03785dcfbcea5"
+      },
+      "Data/armor-033.xml": {
+        "bytes": 869,
+        "sha256": "1f6fcd88f91c7c96a1af4b4c8455513b3771ebc549a2bd3954542d0420c389bc"
+      },
+      "Data/armor-034.xml": {
+        "bytes": 869,
+        "sha256": "5718825c645eaec1bf4e2bdb800311915fdee7839cc4974b00bda0b5ac02ce75"
+      },
+      "Data/armor-035.xml": {
+        "bytes": 869,
+        "sha256": "c895ce0a6006560859e9704722e7fbaaed803fb42855e0701effa512b1ac3eba"
+      },
+      "Data/armor-036.xml": {
+        "bytes": 869,
+        "sha256": "2e207daaca84462a61f7e92fc0ac98b2f022dedd5dcacc5dd6d32254a613bf00"
+      },
+      "Data/armor-037.xml": {
+        "bytes": 869,
+        "sha256": "7e74d14764e4daaa17f92119e50099196cc28f6483ccbee7862485279f2601f2"
+      },
+      "Data/armor-038.xml": {
+        "bytes": 869,
+        "sha256": "0f2ea48c0df444c8fd1c2c955d2215baeeb1a863eb979222231838c3ef8a5107"
+      },
+      "Data/armor-039.xml": {
+        "bytes": 869,
+        "sha256": "bd41b8b033bd726972eabbf1aad1d24b10184cc6d14057eadb4ace409fb04826"
+      },
+      "Data/armor-040.xml": {
+        "bytes": 869,
+        "sha256": "8c56b56de471124cb729d196c5e1a51891a219df6f76dd9ad282857c5e844359"
+      },
+      "Data/armor-041.xml": {
+        "bytes": 869,
+        "sha256": "17343603182588b3f8826c9a900ba1a071c895614525cf205e5f519efd7d34a7"
+      },
+      "Data/armor-042.xml": {
+        "bytes": 869,
+        "sha256": "383f9a42e79dcfb552bfde54a3c00f4395728420330bfd195436e4951f0b8ffd"
+      },
+      "Data/armor-043.xml": {
+        "bytes": 869,
+        "sha256": "6076bee499dab9266592f598550f34e76f9cce9b1ae52197e005c939498a894f"
+      },
+      "Data/armor-044.xml": {
+        "bytes": 869,
+        "sha256": "e59706a5f0ac036007770bd4e534ea3be03eb91bcab5a58560468ca55b4dc5e5"
+      },
+      "Data/armor-045.xml": {
+        "bytes": 869,
+        "sha256": "8e7e5e578934e200bdfbbeef0c9dce6675e79038a049b93f0006446090f344db"
+      },
+      "Data/armor-046.xml": {
+        "bytes": 869,
+        "sha256": "1b131d395521eec4c5fa62d2cd28e829b733516aebeeade2c53d544a981f41ed"
+      },
+      "Data/armor-047.xml": {
+        "bytes": 869,
+        "sha256": "8a0debfd6ca572cd21eaee55369c75b538d16f5af0e694a9015d0d778c8b3f7f"
+      },
+      "Data/armor-048.xml": {
+        "bytes": 869,
+        "sha256": "1acb2d8db26b968ddc80b6aa1e53413cefe1e8b58bd89652371dde724785ac5c"
+      },
+      "Data/armor-049.xml": {
+        "bytes": 869,
+        "sha256": "d03866e60e95a49b0733fe18acbc7cef765febc9480492390f51dc0419fd8ba2"
+      },
+      "Data/armor-050.xml": {
+        "bytes": 869,
+        "sha256": "5252c4f0686a37248f9c13eaa7e43382cd473221dc85e1abf3bd345cc481c70c"
+      },
+      "Data/armor-051.xml": {
+        "bytes": 869,
+        "sha256": "db1a81e81e97cb36ab70831e15b29f4912c83bfe3eb87fe7a4bdc5a61a4f47d7"
+      },
+      "Data/armor-052.xml": {
+        "bytes": 869,
+        "sha256": "4a2237d62b546bdc07d081e7db259e363679ec2f0d1ce549b677eeed62a22cb5"
+      },
+      "Data/armor-053.xml": {
+        "bytes": 869,
+        "sha256": "e5c0e504a50f2834328761770182ffb39d9c9ab89d79202a5895ad92a69c02ba"
+      },
+      "Data/armor-054.xml": {
+        "bytes": 869,
+        "sha256": "86064073c0a08cb105291516e68c33fb4541b9ef64097b66dcbba9b16a2eab65"
+      },
+      "Data/armor-055.xml": {
+        "bytes": 869,
+        "sha256": "da74166e932e7c9c5b16a8538c2c2b00a11e9d4db9224e52f3c147afb64ce3e8"
+      },
+      "Data/armor-056.xml": {
+        "bytes": 869,
+        "sha256": "de2e75f5ec63913e13b9cd799e54534aa8625de54346d7c295ce519687438fde"
+      },
+      "Data/armor-057.xml": {
+        "bytes": 869,
+        "sha256": "3ea8039ca60f974b6d857f0e536547dca6fc151b7d323e3d8a61762badc5e1a8"
+      },
+      "Data/armor-058.xml": {
+        "bytes": 869,
+        "sha256": "97f428c09261994990ad2448dd65aaf29bb0f6fd97418ad4dba657d31caca104"
+      },
+      "Data/armor-059.xml": {
+        "bytes": 869,
+        "sha256": "0f2f805fb76289027a08a88107d4d9dc13886408f514365353e9b505754c7beb"
+      },
+      "Data/armor-060.xml": {
+        "bytes": 869,
+        "sha256": "c497879298a4154171e9f8777942353879fc364e94576f5ca71b38e8497a418c"
+      },
+      "Data/armor-061.xml": {
+        "bytes": 869,
+        "sha256": "563a933b540792dbaf56fc3b89dd78dc4f76c0ee29096ee396b3fc04188c5611"
+      },
+      "Data/armor-062.xml": {
+        "bytes": 869,
+        "sha256": "bcc17601c0728c6708b49cd2d2c118d7945718b25f72be49217f70bcd304dbcc"
+      },
+      "Data/armor-063.xml": {
+        "bytes": 869,
+        "sha256": "d67f9e3d71506229eda28f2c021cdbe7978d02b6c3146283468f1fcad7e6c3a5"
+      },
+      "Data/armor-064.xml": {
+        "bytes": 869,
+        "sha256": "57edcf152b746be030dedf8a40f2c5e55b8bb9d737c102c60de3c00f8d49c434"
+      },
+      "Data/armor-065.xml": {
+        "bytes": 869,
+        "sha256": "24033e7d0f5fc5a2b0c6c7cedcbcac919411d266914784b984d63c86b9616046"
+      },
+      "Data/armor-066.xml": {
+        "bytes": 869,
+        "sha256": "e409fd5935bb516df2627bbb88b7417ea7c2f814cfe5ab53d184c1b76f0cc3fb"
+      },
+      "Data/armor-067.xml": {
+        "bytes": 869,
+        "sha256": "efe5a3378a17eac92ca0106f3e026312dbb82a9870729278a71b05b390d90f54"
+      },
+      "Data/armor-068.xml": {
+        "bytes": 869,
+        "sha256": "9f1e6dea5b2343e20b596aed2625e716c2715c0c62b09c5980261db6a7314e92"
+      },
+      "Data/armor-069.xml": {
+        "bytes": 869,
+        "sha256": "6bb4f5d2474a0ed2c1d1cec940d0791f4e7e40d888546787e3e7820133ccb016"
+      },
+      "Data/armor-070.xml": {
+        "bytes": 869,
+        "sha256": "b71b0c571e5e56a0501b0c7e847be4efc39c6dcd1617b53da6e4070ecbc33b0f"
+      },
+      "Data/armor-071.xml": {
+        "bytes": 869,
+        "sha256": "9d07feffefba354c95c15d9d44f4718bb6ae31e0481bb3d8eb5062b3a586d46a"
+      },
+      "Data/armor-072.xml": {
+        "bytes": 869,
+        "sha256": "d043eacac7de93adba49b82da010d22012c0e0473e8c6f20fec3464af81f52f5"
+      },
+      "Data/armor-073.xml": {
+        "bytes": 869,
+        "sha256": "0e341227f771da61aef70fd0fa4bb7647c1b73d16591fe09e88c1498b32825b0"
+      },
+      "Data/armor-074.xml": {
+        "bytes": 869,
+        "sha256": "479389c6a7b33a821455d94cce83d1aa129aff2ac0072c594e01dd7af22b46a1"
+      },
+      "Data/armor-075.xml": {
+        "bytes": 869,
+        "sha256": "83a225846a3c9fd4057fa7f97bf7d5add43eb55085b2ce3a5c49ef000e9496e1"
+      },
+      "Data/armor-076.xml": {
+        "bytes": 869,
+        "sha256": "c1ae49f289025c01363cf4f0ba0c5f46bc090158bf10114a83231a1c259415b6"
+      },
+      "Data/armor-077.xml": {
+        "bytes": 869,
+        "sha256": "cae7963d31362b07478694f11737718555ab5d6e5cc4c4bd965e456e5119a6f1"
+      },
+      "Data/armor-078.xml": {
+        "bytes": 869,
+        "sha256": "43caa76f33e89f47deba949bdc615fb00267c1e3fa8f43f9a9ea39b5910bafe2"
+      },
+      "Data/armor-079.xml": {
+        "bytes": 869,
+        "sha256": "849d765e96cb7e0a8012ca5ed918371674ba388168f0ea7e4d369984510b34c8"
+      },
+      "Data/armor-080.xml": {
+        "bytes": 869,
+        "sha256": "1cea6a2bb0a80e858a198858acdfa84c06570082d1af11b84da226a9a4179253"
+      },
+      "Data/armor-081.xml": {
+        "bytes": 869,
+        "sha256": "af72fefe4edc984374c98fd52f202bf79abfadfa37b5c60af016e47a883c94df"
+      },
+      "Data/armor-082.xml": {
+        "bytes": 869,
+        "sha256": "2cc533b63dd0c32d04de6552fe4eb3b0df693690763db3f8d085a66869cefa34"
+      },
+      "Data/armor-083.xml": {
+        "bytes": 869,
+        "sha256": "59a0c3e6cee7ebf50613ef7471f9258dfae768f2e4c8dcd0dd841565248027af"
+      },
+      "Data/armor-084.xml": {
+        "bytes": 869,
+        "sha256": "24e6588adf5fc7124d8f6f8017fd133338df11e5dfa81cce1038c0e97a38076b"
+      },
+      "Data/armor-085.xml": {
+        "bytes": 869,
+        "sha256": "fb90f446cf0e89754ff1205d1f6eae721fea1dea62d7d40ec13d020c60e9bb8e"
+      },
+      "Data/armor-086.xml": {
+        "bytes": 869,
+        "sha256": "714b6219103f36b7d5098dee331cda9e74cd99e4520e94ed7ef218a67ef95068"
+      },
+      "Data/armor-087.xml": {
+        "bytes": 869,
+        "sha256": "3c5583aacddabc4ba7bb7389aabfa1517f52641608f2145f1f384c5e01ac960d"
+      },
+      "Data/armor-088.xml": {
+        "bytes": 869,
+        "sha256": "bfed97020eea1e0d381b182ed71d05c557e9d480d8cbbe2d8aa020bc93130038"
+      },
+      "Data/armor-089.xml": {
+        "bytes": 869,
+        "sha256": "a7180b6c20e398de3d95edb2470334a664572d145b0d645ce032c356efe1e637"
+      },
+      "Data/armor-090.xml": {
+        "bytes": 869,
+        "sha256": "acc81688669cd02ee2fefb74241da4aac10d950a4127e02fff2262e60d10ab4f"
+      },
+      "Data/armor-091.xml": {
+        "bytes": 869,
+        "sha256": "69ae66da02a751a526af3c4b9d8799d57f1e30351eedc0cc78fba8322add2b92"
+      },
+      "Data/armor-092.xml": {
+        "bytes": 869,
+        "sha256": "38d9afa6839479a27acee31352eec53ece15b34f30fb842b83f91f3c3c991ea1"
+      },
+      "Data/armor-093.xml": {
+        "bytes": 869,
+        "sha256": "7c97147908b004b4c97259f1df4b613ee468b29adbe4885165b2bc44c01d88e8"
+      },
+      "Data/armor-094.xml": {
+        "bytes": 869,
+        "sha256": "64751a5d8c16ccf7373637ba32fb924ef6973331c59047e1418f450a7d1a5a31"
+      },
+      "Data/armor-095.xml": {
+        "bytes": 869,
+        "sha256": "6938e15b6851c4b98fed5a4cd5f9c5421b53355ead61a5b0c2ef1e0bb6f8380c"
+      },
+      "Data/armor-096.xml": {
+        "bytes": 869,
+        "sha256": "df0c21a08a1a46aca013355951ac915e57b75c3edde3a57cbd0a4c6748906ebf"
+      },
+      "Data/armor-097.xml": {
+        "bytes": 869,
+        "sha256": "8e95e9b8c779ce1bceed0a972cd1bb5656ca717cc701d2c2e42d4b7c1f1b6988"
+      },
+      "Data/armor-098.xml": {
+        "bytes": 869,
+        "sha256": "877372cd5efa28e72d08be8b51c3ad173de5aaec7adb7ee4505a35f57396a236"
+      },
+      "Data/armor-099.xml": {
+        "bytes": 869,
+        "sha256": "a1b9a48464d9b2ad21c790bac3bde0b5bccc8931622499e9d141ea1d43c9de84"
+      },
+      "Data/armor-100.xml": {
+        "bytes": 869,
+        "sha256": "b74fc3bfb49fb4408dcf70f6f5956e92e3c15ac3682e66f14256efb79461753a"
+      },
+      "Data/armor-101.xml": {
+        "bytes": 869,
+        "sha256": "cca718587cf8bcc3233154d960210cdb3251d79a9f25e0e55c669f9409738486"
+      },
+      "Data/armor-102.xml": {
+        "bytes": 869,
+        "sha256": "596fd77da18474888383882daea7edcfc2de8317af7bcb3c1c3be6d9cd36c2e3"
+      },
+      "Data/armor-103.xml": {
+        "bytes": 869,
+        "sha256": "c895a9cbe7d8b3b46036c0f0eeeafb8439185adcb9fa8602a2e144c0660e3057"
+      },
+      "Data/armor-104.xml": {
+        "bytes": 869,
+        "sha256": "e7dce81b1dbc877927e0a050f92c372cb82f2d2d5972da5bb82353c125c67683"
+      },
+      "Data/armor-105.xml": {
+        "bytes": 869,
+        "sha256": "d62159b6133523b29b3e1f826a9124d0120d7e942d030f00108131856b26464a"
+      },
+      "Data/armor-106.xml": {
+        "bytes": 869,
+        "sha256": "23c34cd551ce6ffa05b751446aba14586b71a9b382ab75b264f7bd51aaae71d1"
+      },
+      "Data/armor-107.xml": {
+        "bytes": 869,
+        "sha256": "b8916c70a529cbc666b36a8d7ba17afb0be8e1fc76d5971ed8cccb6d9d4fc6fd"
+      },
+      "Data/armor-108.xml": {
+        "bytes": 869,
+        "sha256": "df379d3321b28f3ade7d1d856a5d667d93e901fd3e91150b385cf431475d539f"
+      },
+      "Data/armor-109.xml": {
+        "bytes": 869,
+        "sha256": "f48d923de7211ab250a27975fd55ee07cceb195500446865d43ec9910e46a415"
+      },
+      "Data/armor-110.xml": {
+        "bytes": 869,
+        "sha256": "9ca3bdec948b6a8bdaaf4d45d57f7e9036ebfb17e7fa22f88df5695da0dab3c5"
+      },
+      "Data/armor-111.xml": {
+        "bytes": 869,
+        "sha256": "3c686d016a7a4d4c2ce5a4526c243d2fe25fb1d7f8b9763692219c89dd58e29e"
+      },
+      "Data/armor-112.xml": {
+        "bytes": 869,
+        "sha256": "0fedd774957760a22161537837526494da40a4323787f204d0f59e42dc096a0f"
+      },
+      "Data/armor-113.xml": {
+        "bytes": 869,
+        "sha256": "416b505fe0d323cc10af4c56e2ed4257f5d0083b4aa97f1f129674b01cdd8351"
+      },
+      "Data/armor-114.xml": {
+        "bytes": 869,
+        "sha256": "a496499325a7363b7114718736b75ef944a2bb086bd3383190ab6420cb76e3f7"
+      },
+      "Data/armor-115.xml": {
+        "bytes": 869,
+        "sha256": "e91ca117ec8f2361eade115a9a842932bb275291c8c6894b6d0f1284b5bdcc51"
+      },
+      "Data/armor-116.xml": {
+        "bytes": 869,
+        "sha256": "967a7e5f66ce538be0136ccee6c0999ed12ec7d914e0bf9f253dac60f4bc619b"
+      },
+      "Data/armor-117.xml": {
+        "bytes": 869,
+        "sha256": "f32ec44845a05be536129261410a64cf91b13f89de1dfcf53aa61409683e59ec"
+      },
+      "Data/armor-118.xml": {
+        "bytes": 869,
+        "sha256": "2f0253e36eb8024437f44fec72b1463571f6eb0d5a9e11e41c6829046824ff38"
+      },
+      "Data/armor-119.xml": {
+        "bytes": 869,
+        "sha256": "6bbf34e7bb7ac61388c46de8269408bb37a28f2fe0e2a0e301dfa2b7a0ad3f03"
+      },
+      "Data/armor-120.xml": {
+        "bytes": 869,
+        "sha256": "352ef0fec75d8042af59ce8384f068788b110332dd36dc47a053787fd440d6a8"
+      },
+      "Data/armor-121.xml": {
+        "bytes": 869,
+        "sha256": "ea3586e16077a27328d4ecaa65b7f50856eea145078846244fae6ce283e2b2a2"
+      },
+      "Data/armor-122.xml": {
+        "bytes": 869,
+        "sha256": "74f56a2a60b8b22a167cb13f4532b4433317e60c3d572bead4c8424d376234fa"
+      },
+      "Data/armor-123.xml": {
+        "bytes": 869,
+        "sha256": "b02db293bba4861193743b2d3930f3d33032c025db04396f194f331ca3210f2b"
+      },
+      "Data/armor-124.xml": {
+        "bytes": 869,
+        "sha256": "f02daf5790740d3554b2728f936b47e3f0b597ab57a32be2cd90a09120129db4"
+      },
+      "Data/armor-125.xml": {
+        "bytes": 869,
+        "sha256": "be06dcbe5381d4e7a43b507c4af16a5d74a6ff367b075c19863de8c32138f87d"
+      },
+      "Data/armor-126.xml": {
+        "bytes": 869,
+        "sha256": "76d15637cc3f5ac5fbd79c862601bea8814745d470587d7748193abe41df8d3a"
+      },
+      "Data/armor-127.xml": {
+        "bytes": 869,
+        "sha256": "b10fe9f6239fd0b0c324f5bd440831e4ea569887cea59af5a926ac09b75e68f6"
+      },
+      "Data/Mod.xml": {
+        "bytes": 5722,
+        "sha256": "e3418123e8ee2501d200db1405c515e152629397f64effe11adb971fee5f3f29"
+      }
+    }
+  },
+  "setupSeconds": 0.0852085999999872,
+  "error": "AssertionError: Missing dependency-driven reload reason: inheritance",
+  "elapsedSeconds": 37.21060990000001
+}

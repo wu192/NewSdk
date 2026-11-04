@@ -1,3 +1,5 @@
+> 当前路径与交付方式见 [集中缓存说明](docs/SUPERCOMPILER_CACHE.md)：BIG 从 SDK 分区读取流，Additional 直接读取输入，打包工作文件仅位于本 BuildId 的缓存临时目录。本页的旧 staging、SHA 快照及发布事务描述仅属历史阶段。
+
 # P7：内建 BIG/SKUDEF
 
 状态：APT/maps 的三字节版本标记修正与五文件发行包已通过两配置验收。当前新候选已接入默认 base LoD、显式 Additional、可选中立资产修复和从原 C# MakeBig 恢复的代码，生产构建、Core/CLI及全部缓存独立通过；固定同一生产五文件的P7/ZIP定向验收已在Debug/Release全部通过。新范围为默认base/apt/maps、显式Additional及中立修复零插入链，不泛称完整游戏后处理。P5/P6 既有验收保持独立。

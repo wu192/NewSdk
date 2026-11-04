@@ -6,15 +6,23 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.ExceptionServices;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Xml;
 using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 using EALA.Metrics;
+using NewModCompiler.Diagnostics;
 
 namespace NewModCompiler.Application
 {
+    // A CLI preflight belongs to one effective request. Reuse its parsed SDK
+    // settings and physical-root validation after diagnostic sinks have opened.
+    internal sealed class CoreInputPreparation
+    {
+        internal string Signature;
+        internal Settings Configuration, Inputs;
+        internal object Report;
+    }
     // Experimental in-process backend. CLI enablement and SDK/G3 acceptance are
     // separate gates; this type never launches BAB, a worker, or another EXE.
     public sealed class CoreStreamCompiler : IStreamCompiler, IBuildCacheCompiler, IInputRootsCompiler
@@ -22,26 +30,35 @@ namespace NewModCompiler.Application
         static readonly object LeaseGate = new object();
         static CoreStreamCompiler leaseOwner;
         readonly TraceWriteHandler traceWriter;
+        readonly BuildProgressState progress;
         BuildRequest request;
         string sdkRoot, modRoot, outputRoot, configurationXml;
+        Settings configurationSettings;
+        CoreInputPreparation inputPreparation;
         int threadId, traceLevel = 3;
-        bool initialized, initializing, disposed, compiling, buildCacheEnabled, sessionCacheEnabled, cacheCommitted, cacheCompleted;
+        bool initialized, initializing, disposed, compiling, buildCacheEnabled, sessionCacheEnabled;
         bool stableSortEnabled = true, usePrecompiled = true, forceSlowCleanup = true;
+        ParallelBackendMetrics parallelMetrics;
+        bool compressedSessionCache = true, partialSessionCache = true, freezeSessionCache, alwaysTouchCache;
+        int partialSessionsSaved;
+        LegacyCacheStore legacyStore;
+        CacheLayout cacheLayout;
+        CacheLock ownedCacheLock;
+        SessionCache savedSessionCache;
         int buildCacheHits, buildCacheMisses, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile;
-        readonly List<BuildAssetCache> assetCaches = new List<BuildAssetCache>();
-        readonly List<SessionPackage> sessionPackages = new List<SessionPackage>();
         public object InputRootsReport { get; private set; }
         BuiltinCompilers compilers;
+        SchemaSet schemas;
         VerifierPluginRegistry verifiers;
         PluginDescriptor[] verifierDescriptors;
-        public CoreStreamCompiler(TraceWriteHandler traceWriter = null) { this.traceWriter = traceWriter; }
-        public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.SessionPackage" : buildCacheEnabled ? "NewModCompiler.Core.Experimental.Win32.BuildAssetCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
-        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionPackage" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, textureCache = false }; } }
+        public CoreStreamCompiler(TraceWriteHandler traceWriter = null, BuildProgressState progress = null) { this.traceWriter = traceWriter; this.progress = progress; }
+        void ProgressPhase(string id) { if (progress != null) progress.SetPhase(id); }
+        public string ProviderIdentity { get { return sessionCacheEnabled ? "NewModCompiler.Core.Win32.LegacySessionCache" : buildCacheEnabled ? "NewModCompiler.Core.Win32.LegacyBuildCache" : "NewModCompiler.Core.Experimental.Win32.NoCache"; } }
+        public object CacheReport { get { return new { status = sessionCacheEnabled ? "SessionCache" : buildCacheEnabled ? "BuildAssetCache" : "Disabled", hits = buildCacheHits, misses = buildCacheMisses, sessionCache = sessionCacheEnabled, sessionPackageHits, sessionPackageMisses, documentReuse, xmlParse, instanceCompile, linkedStreamsRestored = linkedStreamsRestored, fileHashReads = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reads, fileHashReuses = request == null || request.FileIdentities == null ? 0 : request.FileIdentities.Reuses, fileHashBytesRead = request == null || request.FileIdentities == null ? 0L : request.FileIdentities.BytesRead, textureCache = buildCacheEnabled || sessionCacheEnabled, compressedSessionCache, partialSessionCache, freezeSessionCache, alwaysTouchCache, partialSessionsSaved, parallel = parallelMetrics == null ? null : parallelMetrics.Snapshot(request), sessionCacheDirectory = legacyStore == null ? null : legacyStore.SessionRoot }; } }
+        int linkedStreamsRestored;
 
         public void Initialize(BuildRequest request)
         {
-            if (disposed) throw new ObjectDisposedException("CoreStreamCompiler");
-            if (initialized) throw new InvalidOperationException("The backend is already initialized.");
             if (request == null) throw new ArgumentNullException("request");
             lock (LeaseGate)
             {
@@ -54,6 +71,7 @@ namespace NewModCompiler.Application
             }
             try
             {
+                ProgressPhase("initialize");
                 ValidateOptions(request);
                 sdkRoot = Path.GetFullPath(request.SdkRoot);
                 modRoot = Path.GetFullPath(request.ModRoot);
@@ -62,14 +80,29 @@ namespace NewModCompiler.Application
                     throw new BuildFailure(ExitCode.Environment, "CORE_INPUT_ROOT_MISSING", "The SDK and MOD directories must exist.");
                 if (Paths.Contains(sdkRoot, outputRoot) || Paths.Contains(outputRoot, sdkRoot) || Paths.Contains(modRoot, outputRoot) || Paths.Contains(outputRoot, modRoot))
                     throw new BuildFailure(ExitCode.Arguments, "CORE_OUTPUT_OVERLAP", "Core output must be separate from SDK and MOD inputs.");
-                LoadSdkConfiguration();
-                ReadSettings(); // Validate the real serialized contract before accepting the session.
+                cacheLayout = CacheLayout.ForRequest(request);
+                // BuildSession owns this lock through packaging/export. Standalone
+                // Core hosts acquire the same partition lock for their lifetime.
+                if (request.BuildCacheLock == null) ownedCacheLock = CacheLock.Acquire(cacheLayout.CacheRoot);
+                inputPreparation = request.InputPreparation;
+                if (inputPreparation != null && inputPreparation.Signature == InputSignature(request))
+                    configurationSettings = inputPreparation.Configuration;
+                else { inputPreparation = null; LoadSdkConfiguration(); }
+                Settings configured = ReadSettings();
+                EffectiveOption configuredCache;
+                if (!request.Options.TryGetValue("bc", out configuredCache) || configuredCache.Source == "default" || configuredCache.Source == "sdkConfig")
+                {
+                    buildCacheEnabled = configured.BuildCache;
+                    request.Options["bc"] = new EffectiveOption { Value = buildCacheEnabled ? "true" : "false", Source = "sdkConfig" };
+                }
+                if (request.FileIdentities == null) request.FileIdentities = new FileHashCache(request.Performance);
                 this.request = request;
                 lock (LeaseGate) { initialized = true; initializing = false; }
             }
             catch (Exception error)
             {
-                lock (LeaseGate) { initializing = false; ReleaseLease(); }
+                try { if (ownedCacheLock != null) { ownedCacheLock.Dispose(); ownedCacheLock = null; } }
+                finally { lock (LeaseGate) { initializing = false; ReleaseLease(); } }
                 if (error is BuildFailure || error is OperationCanceledException) throw;
                 throw Failure(ExitCode.Environment, "CORE_INITIALIZE_FAILED", error);
             }
@@ -77,7 +110,6 @@ namespace NewModCompiler.Application
 
         void LoadSdkConfiguration()
         {
-            if (!Directory.Exists(sdkRoot)) throw new BuildFailure(ExitCode.Environment, "CORE_SDK_MISSING", "The SDK directory does not exist.");
             string path = Path.Combine(sdkRoot, "tools", "BinaryAssetBuilder.exe.config");
             if (!File.Exists(path)) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_MISSING", "The SDK BinaryAssetBuilder configuration is missing: " + path);
             var configuration = new XmlDocument { XmlResolver = null };
@@ -85,8 +117,6 @@ namespace NewModCompiler.Application
             XmlNode section = configuration.SelectSingleNode("/configuration/assetbuilder");
             if (section == null) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_MISSING", "The SDK configuration has no assetbuilder section.");
             configurationXml = section.OuterXml;
-            if (!File.Exists(Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd")))
-                throw new BuildFailure(ExitCode.Environment, "CORE_SCHEMA_MISSING", "The SDK CnC3Types schema is missing.");
         }
 
         // Read-only environment initialization, not a synthetic MOD build. The
@@ -131,11 +161,10 @@ namespace NewModCompiler.Application
                 settings.SessionCacheDirectory = namespaceOnly;
                 hashes = HashProvider.BeginStringHashScope(namespaceOnly);
                 MetricManager.Enabled = false;
-                VerifyAntlrRuntime();
                 new SchemaSet(settings.StableSort);
                 ExpressionEvaluatorWrapper.LoadAssembly();
                 XIncludingReaderWrapper.LoadAssembly();
-                probe.EnsureProviders(); // Includes the pinned, EXE-bound texture adapter and verifier.
+                probe.EnsureProviders(); // Includes the built-in texture compiler and verifier.
             }
             catch (Exception error)
             {
@@ -152,55 +181,43 @@ namespace NewModCompiler.Application
             if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
         }
 
-        static void VerifyAntlrRuntime()
-        {
-            Assembly runtime = typeof(antlr.LLkParser).Assembly;
-            string expected = Path.Combine(Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location), "antlr.runtime.dll");
-            if (runtime.GetName().Name != "antlr.runtime" || !string.Equals(Path.GetFullPath(runtime.Location),Path.GetFullPath(expected),StringComparison.OrdinalIgnoreCase))
-                throw new InvalidDataException("ANTLR must load from the current compiler directory.");
-            using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(runtime.Location))
-                if (BitConverter.ToString(algorithm.ComputeHash(input)).Replace("-", "").ToLowerInvariant() != "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a")
-                    throw new InvalidDataException("ANTLR runtime differs from the pinned compiler input.");
-        }
-
         void ValidateOptions(BuildRequest candidate)
         {
-            traceLevel = 3; buildCacheEnabled = sessionCacheEnabled = false;
+            NewModCompiler.Cli.Options.ValidateCapabilities(candidate);
+            traceLevel = 3; buildCacheEnabled = sessionCacheEnabled = true;
+            compressedSessionCache = partialSessionCache = true; freezeSessionCache = alwaysTouchCache = false;
             stableSortEnabled = usePrecompiled = forceSlowCleanup = true;
             BigPackage.ValidateRequest(candidate);
-            if(candidate.Command=="build" && candidate.FixNeutralAssets) BasePostProcessor.ValidateReferences(candidate.SdkRoot);
-            var ordinary = new HashSet<string>(new[] { "profile", "mod", "sdk-root", "out", "events", "report", "log", "package-content", "package-format", "mod-version", "game-version", "skudef-name", "include-additional", "fix-neutral-assets", "dr", "data", "art", "audio" }, StringComparer.OrdinalIgnoreCase);
-            var disabled = new HashSet<string>(new[] { "csc", "psc", "fsc", "atc", "oof", "vf", "oar", "osh", "oix", "mr" }, StringComparer.OrdinalIgnoreCase);
+            if(candidate.Command=="build" && candidate.FixNeutralAssets) BasePostProcessor.ValidateReferences(candidate);
             foreach (var option in candidate.Options)
             {
-                if (option.Value == null) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", "A Core option has no effective value: " + option.Key);
                 string key = option.Key, value = option.Value.Value;
-                if (key == "package-format" && !string.Equals(value, "loose", StringComparison.OrdinalIgnoreCase) && !string.Equals(value,"big",StringComparison.OrdinalIgnoreCase))
-                    throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Package format must be loose or big; BIG supports base/apt/maps.");
-                if (ordinary.Contains(key)) continue;
-                if (key == "bc" && (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) || string.Equals(value, "false", StringComparison.OrdinalIgnoreCase))) { buildCacheEnabled = string.Equals(value, "true", StringComparison.OrdinalIgnoreCase); continue; }
-                if (key == "sc" && (string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) || string.Equals(value, "false", StringComparison.OrdinalIgnoreCase))) { sessionCacheEnabled = string.Equals(value, "true", StringComparison.OrdinalIgnoreCase); continue; }
+                if (key == "bc") { buildCacheEnabled = bool.Parse(value); continue; }
+                if (key == "sc") { sessionCacheEnabled = bool.Parse(value); continue; }
+                if (key == "csc" || key == "psc" || key == "fsc" || key == "atc")
+                {
+                    bool enabled = bool.Parse(value);
+                    if (key == "csc") compressedSessionCache = enabled;
+                    else if (key == "psc") partialSessionCache = enabled;
+                    else if (key == "fsc") freezeSessionCache = enabled;
+                    else alwaysTouchCache = enabled;
+                    continue;
+                }
                 if (key == "ss" || key == "pc" || key == "slowclean")
                 {
-                    bool enabled;
-                    if (!bool.TryParse(value, out enabled)) throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_INVALID", key + " expects true or false.");
+                    bool enabled = bool.Parse(value);
                     if (key == "ss") stableSortEnabled = enabled;
                     else if (key == "pc") usePrecompiled = enabled;
                     else forceSlowCleanup = enabled;
                     continue;
                 }
-                if (disabled.Contains(key) && string.Equals(value, "false", StringComparison.OrdinalIgnoreCase)) continue;
-                if (key == "tp" && string.Equals(value, "Win32", StringComparison.OrdinalIgnoreCase)) continue;
-                if (key == "ls" && string.Equals(value, "true", StringComparison.OrdinalIgnoreCase)) continue;
-                if (key == "el" && value == "0") continue;
-                int level;
-                if (key == "tl" && int.TryParse(value, out level) && level >= 0 && level <= 9) { traceLevel = level; continue; }
-                throw new BuildFailure(ExitCode.Arguments, "CORE_OPTION_UNSUPPORTED", "Experimental Core backend does not support option " + key + "=" + value + ". Compressed/partial/frozen session cache, precompiled, alternate output, reporting, configuration overrides and postprocessing options are not enabled.");
+                if (key == "tl") traceLevel = int.Parse(value, System.Globalization.CultureInfo.InvariantCulture);
             }
         }
 
         Settings ReadSettings()
         {
+            if (configurationSettings != null) return (Settings)configurationSettings.Clone();
             var xml = new XmlDocument { XmlResolver = null }; xml.LoadXml(configurationXml);
             var settings = new SerializedSectionHandler().Create(null, null, xml.DocumentElement) as Settings;
             if (settings == null) throw new BuildFailure(ExitCode.Environment, "CORE_CONFIG_INVALID", "SDK assetbuilder settings could not be read.");
@@ -208,31 +225,36 @@ namespace NewModCompiler.Application
             // must never reach PluginRegistry or Type.GetType.
             settings.Plugins = new PluginDescriptor[0];
             settings.VerifierPlugins = new PluginDescriptor[0];
-            return settings;
+            configurationSettings = settings;
+            return (Settings)settings.Clone();
         }
 
-        Settings StreamSettings(StreamContext context, string staging)
+        Settings StreamSettings(StreamContext context, string output)
         {
             Settings settings = ReadSettings();
-            settings.InputPath = Path.GetFullPath(context.Task.InputPath);
+            settings.InputPath = StreamInputPath(context);
             settings.SchemaPath = Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd");
             settings.DataRoot = RootOption("dr", sdkRoot);
-            settings.OutputDirectory = Path.Combine(staging, "streams");
-            settings.IntermediateOutputDirectory = Path.Combine(staging, "intermediate");
-            settings.SessionCacheDirectory = Path.Combine(staging, "hashes");
-            settings.BuildCacheDirectory = Path.Combine(staging, "cache");
+            settings.OutputDirectory = Path.Combine(output, "streams");
+            settings.IntermediateOutputDirectory = cacheLayout.Intermediate;
+            settings.SessionCacheDirectory = cacheLayout.Session;
+            // SDK buildCacheRoot is configuration input, never a writable override
+            // of the current SDK/MOD partition. CLI overrides were bounded once.
+            settings.BuildCacheDirectory = cacheLayout.BuildCache;
             settings.DefaultDataPaths = RootOption("data", () => Prepend(Path.Combine(modRoot, "Data"), settings.DefaultDataPaths));
             settings.DefaultArtPaths = RootOption("art", () => Prepend(Path.Combine(modRoot, "Art"), settings.DefaultArtPaths));
             settings.DefaultAudioPaths = RootOption("audio", () => Prepend(Path.Combine(modRoot, "Audio"), settings.DefaultAudioPaths));
             settings.BuildConfigurationName = null;
             settings.BuildConfigurations = new BuildConfiguration[0];
             settings.TargetPlatform = TargetPlatform.Win32;
-            // Every stream owns a new SessionCache and a private restored package.
-            // BuildSession confirms both caches only after required output succeeds.
+            // Use BAB's persistent cache layout directly; it is independent of MOD output.
             settings.SessionCache = sessionCacheEnabled;
-            settings.PartialSessionCache = settings.FreezeSessionCache = settings.CompressedSessionCache = false;
+            settings.PartialSessionCache = partialSessionCache;
+            settings.FreezeSessionCache = freezeSessionCache;
+            settings.CompressedSessionCache = compressedSessionCache;
             settings.BuildCache = buildCacheEnabled;
-            settings.AlwaysTouchCache = settings.StreamHints = false;
+            settings.AlwaysTouchCache = alwaysTouchCache;
+            settings.StreamHints = false;
             // SDK/defaultscript.cs steps 3/4/5 enable these independently of caching.
             // In particular /pc changes whether referenced streams emit output.
             settings.StableSort = stableSortEnabled;
@@ -244,9 +266,75 @@ namespace NewModCompiler.Application
             settings.CustomPostfix = ""; settings.StreamPostfix = ""; settings.BasePatchStream = null;
             settings.TraceLevel = traceLevel; settings.ErrorLevel = 0;
             Settings.Current = settings;
-            SettingsLoader.PostProcessSettings(Path.Combine(sdkRoot, "tools"));
-            ValidateInputSettings(settings);
+            string signature = InputSignature(request);
+            if (inputPreparation == null || inputPreparation.Signature != signature)
+                inputPreparation = new CoreInputPreparation { Signature = signature, Configuration = configurationSettings };
+            if (inputPreparation.Inputs == null)
+            {
+                SettingsLoader.PostProcessSettings(Path.Combine(sdkRoot, "tools"));
+                ValidateInputSettings(settings);
+                inputPreparation.Inputs = (Settings)settings.Clone();
+                inputPreparation.Report = InputRootsReport;
+            }
+            else
+            {
+                Settings inputs = inputPreparation.Inputs;
+                settings.DataRoot = inputs.DataRoot;
+                settings.DataPaths = inputs.DataPaths; settings.ArtPaths = inputs.ArtPaths; settings.AudioPaths = inputs.AudioPaths;
+                settings.ProcessedMonitorPaths = inputs.ProcessedMonitorPaths;
+                settings.Postfix = inputs.Postfix;
+                settings.BigEndian = inputs.BigEndian;
+                InputRootsReport = inputPreparation.Report;
+            }
+            if (string.Equals(Path.GetExtension(context.Task.InputPath), ".fla", StringComparison.OrdinalIgnoreCase))
+            {
+                // Keep a stable DATA:movie.xml source name in the manifest.
+                // The wrapper now lives inside the SDK. Its exact DATA root must
+                // precede SDK roots so no cache partition enters source identity.
+                // Only this FLA stream changes priority; shared inputs stay intact.
+                settings.DataPaths = new[] { Path.GetDirectoryName(settings.InputPath) }.Concat(settings.DataPaths).ToArray();
+            }
             return settings;
+        }
+
+        string StreamInputPath(StreamContext context)
+        {
+            string source = Path.GetFullPath(context.Task.InputPath);
+            if (!string.Equals(Path.GetExtension(source), ".fla", StringComparison.OrdinalIgnoreCase)) return source;
+            // A stable synthetic declaration lets the normal Core document and
+            // file-dependency caches own a bare FLA exactly like a hand-written
+            // AptAptData entry. Source projects are never changed by the host.
+            string directory = Path.Combine(cacheLayout.Generated, "fla");
+            cacheLayout.PrepareDirectory(directory);
+            string path = Path.Combine(directory, Path.GetFileNameWithoutExtension(source) + ".xml");
+            var document = new XmlDocument();
+            XmlElement root = document.CreateElement("AssetDeclaration", "uri:ea.com:eala:asset");
+            document.AppendChild(root);
+            XmlElement movie = document.CreateElement("AptAptData", root.NamespaceURI);
+            movie.SetAttribute("id", Path.GetFileNameWithoutExtension(source) + "_apt");
+            movie.SetAttribute("File", source);
+            root.AppendChild(movie);
+            string xml = document.OuterXml;
+            NewModCompiler.Diagnostics.DiagnosticFiles.RejectReparseFile(path);
+            if (!File.Exists(path) || !string.Equals(File.ReadAllText(path), xml, StringComparison.Ordinal)) File.WriteAllText(path, xml);
+            return path;
+        }
+        static string InputSignature(BuildRequest candidate)
+        {
+            using (var text = new StringWriter())
+            {
+                // Length prefixes retain empty values and option boundaries.
+                Action<string> add = value => { value = value ?? ""; text.Write(value.Length); text.Write(':'); text.Write(value); };
+                add(Directory.GetCurrentDirectory()); add(candidate.SdkRoot); add(candidate.ModRoot);
+                add(candidate.OutputRoot); add(candidate.EventsPath); add(candidate.ReportPath); add(candidate.LogPath);
+                foreach (string name in new[] { "dr", "data", "art", "audio" })
+                {
+                    EffectiveOption option;
+                    add(name); add(candidate.Options.TryGetValue(name, out option) && option != null ? option.Value : null);
+                    add(option == null ? null : option.Source);
+                }
+                return text.ToString();
+            }
         }
         string RootOption(string name, string fallback) { return RootOption(name, () => fallback); }
         string RootOption(string name, Func<string> fallback)
@@ -275,30 +363,25 @@ namespace NewModCompiler.Application
             // compiler output, including diagnostics, can replace its contents.
             var roots = new List<string> { settings.DataRoot };
             roots.AddRange(data); roots.AddRange(art); roots.AddRange(audio);
+            var resolved = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            Func<string, string> resolve = path => {
+                string full = Path.GetFullPath(path), physical;
+                if (!resolved.TryGetValue(full, out physical)) resolved.Add(full, physical = ResolveInputRoot(full));
+                return physical;
+            };
+            var outputs = new List<string>();
+            foreach (string target in new[] { request.OutputRoot, request.EventsPath, request.ReportPath, request.LogPath })
+                if (!string.IsNullOrEmpty(target))
+                    outputs.Add(Directory.Exists(target) ? resolve(target) : Path.Combine(resolve(Path.GetDirectoryName(target)), Path.GetFileName(target)));
             foreach (string root in roots)
             {
                 if (root == "*") continue;
-                string input = ResolveInputRoot(root);
-                foreach (string target in new[] { request.OutputRoot, request.EventsPath, request.ReportPath, request.LogPath })
+                string input = resolve(root);
+                foreach (string output in outputs)
                 {
-                    if (string.IsNullOrEmpty(target)) continue;
-                    // Required log files can already have an active writer here.
-                    // Resolve their directory identity without reopening that file.
-                    string output = Directory.Exists(target) ? ResolveInputRoot(target) :
-                        Path.Combine(ResolveInputRoot(Path.GetDirectoryName(target)), Path.GetFileName(target));
                     if (Paths.Contains(input, output) || Paths.Contains(output, input))
                         throw new BuildFailure(ExitCode.Arguments, "CORE_INPUT_OUTPUT_OVERLAP", "Effective input root overlaps output or diagnostics: " + root);
                 }
-            }
-            if (buildCacheEnabled || sessionCacheEnabled)
-            {
-                string runtime = Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location);
-                try
-                {
-                    using (CacheInputBoundary.Begin(sdkRoot, modRoot, runtime))
-                        foreach (string root in roots) if (root != "*") CacheInputBoundary.Validate(root);
-                }
-                catch (IOException error) { throw new BuildFailure(ExitCode.Arguments, "CORE_CACHE_INPUT_ROOT_UNSUPPORTED", error.Message); }
             }
         }
         static string ResolveInputRoot(string root)
@@ -328,11 +411,14 @@ namespace NewModCompiler.Application
                 var probe = new CoreStreamCompiler(); probe.request = candidate;
                 probe.sdkRoot = Path.GetFullPath(candidate.SdkRoot); probe.modRoot = Path.GetFullPath(candidate.ModRoot);
                 probe.outputRoot = Path.GetFullPath(candidate.OutputRoot);
+                probe.cacheLayout = CacheLayout.ForRequest(candidate);
                 // Preflight protects input bytes before output sinks open. Cache
                 // coverage rejection belongs to the backend/report lifecycle.
                 probe.buildCacheEnabled = false;
                 probe.LoadSdkConfiguration();
-                probe.StreamSettings(new StreamContext { Task = new BuildTask { InputPath = Path.Combine(probe.modRoot, "Data", "mod.xml") } }, Path.Combine(probe.outputRoot, ".input-preflight"));
+                var task = new BuildTask { Content = "base", InputPath = Path.Combine(probe.modRoot, "Data", "mod.xml") };
+                probe.StreamSettings(new StreamContext { Task = task }, probe.cacheLayout.StreamDirectory(task));
+                candidate.InputPreparation = probe.inputPreparation;
             }
             catch (BuildFailure) { throw; }
             catch (Exception error) { throw Failure(ExitCode.Arguments, "CORE_INPUT_ROOT_INVALID", error); }
@@ -351,7 +437,7 @@ namespace NewModCompiler.Application
             {
                 if (compilers == null)
                 {
-                    BuiltinCompilers candidate = BuiltinCompilers.CreateWithTexture(TargetPlatform.Win32);
+                    BuiltinCompilers candidate = request == null ? BuiltinCompilers.CreateWithTexture(TargetPlatform.Win32) : BuiltinCompilers.CreateLazyWithTexture(TargetPlatform.Win32);
                     try
                     {
                         // The old SDK XML handler was #all, so Core reads its global
@@ -391,7 +477,6 @@ namespace NewModCompiler.Application
             readonly IAssetBuilderPlugin rejection, metadata;
             public DefaultMetadataPlugin(IAssetBuilderPlugin rejection, IAssetBuilderPlugin metadata)
             {
-                if (!(metadata is Recovered.XmlPriority.Plugin)) throw new InvalidOperationException("The default metadata provider must be the built-in XML compiler.");
                 this.rejection = rejection; this.metadata = metadata;
             }
             // BuiltinCompilers owns initialization and disposal of the actual
@@ -411,73 +496,98 @@ namespace NewModCompiler.Application
             if (context == null || context.Task == null || !Object.ReferenceEquals(context.Request, request))
                 throw new BuildFailure(ExitCode.Arguments, "CORE_CONTEXT_INVALID", "Stream context must belong to the initialized request.");
             cancellation.ThrowIfCancellationRequested();
-            if (string.IsNullOrEmpty(context.StagingDirectory) || !Path.IsPathRooted(context.StagingDirectory))
-                throw new BuildFailure(ExitCode.Arguments, "CORE_STAGING_INVALID", "The stream workspace must be an absolute directory.");
-            string staging = Path.GetFullPath(context.StagingDirectory);
-            if (!Paths.Contains(outputRoot, staging) || Paths.Contains(staging, outputRoot) || Paths.Contains(sdkRoot, staging) || Paths.Contains(modRoot, staging))
-                throw new BuildFailure(ExitCode.Output, "CORE_STAGING_INVALID", "The stream workspace must be beneath the isolated output root.");
-            RejectReparseAncestors(staging);
-            if (Directory.Exists(staging) && Directory.EnumerateFileSystemEntries(staging).Any())
-                throw new BuildFailure(ExitCode.Output, "CORE_STAGING_NOT_EMPTY", "The stream workspace must be new or empty.");
-            if (string.IsNullOrEmpty(context.Task.InputPath) || !Path.IsPathRooted(context.Task.InputPath) || !Paths.Contains(modRoot, context.Task.InputPath) || !File.Exists(context.Task.InputPath) || !string.Equals(Path.GetExtension(context.Task.InputPath), ".xml", StringComparison.OrdinalIgnoreCase))
-                throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "The experimental backend requires an existing XML stream entry.");
+            if (string.IsNullOrEmpty(context.OutputDirectory) || !Path.IsPathRooted(context.OutputDirectory))
+                throw new BuildFailure(ExitCode.Arguments, "CORE_OUTPUT_INVALID", "The stream workspace must be an absolute directory.");
+            string output = Path.GetFullPath(context.OutputDirectory);
+            cacheLayout.ValidateStreamDirectory(context.Task, output);
+            if (string.IsNullOrEmpty(context.Task.InputPath) || !Path.IsPathRooted(context.Task.InputPath) || !Paths.Contains(modRoot, context.Task.InputPath) || !File.Exists(context.Task.InputPath) ||
+                !(string.Equals(Path.GetExtension(context.Task.InputPath), ".xml", StringComparison.OrdinalIgnoreCase) || context.Task.Content == "apt" && string.Equals(Path.GetExtension(context.Task.InputPath), ".fla", StringComparison.OrdinalIgnoreCase)))
+                throw new BuildFailure(ExitCode.Arguments, "CORE_STREAM_INPUT_INVALID", "Core requires an existing XML stream entry or APT FLA source.");
             Settings previousSettings = Settings.Current;
             bool previousMetrics = MetricManager.Enabled;
-            IDisposable hashes = null, tracing = null, report = null, processorState = null, inputBoundary = null;
+            IDisposable hashes = null, tracing = null, report = null, processorState = null;
             Exception failure = null;
             IList<Artifact> artifacts = null;
             DocumentProcessor processor = null;
+            ParallelBackendScheduler execution = null;
+            SessionCache cache = null; Settings streamSettings = null; bool processingStarted = false, sessionSaved = false;
+            var currentFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var startedStreams = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             compiling = true;
             try
             {
-                Directory.CreateDirectory(staging);
+                ProgressPhase("initialize");
+                cacheLayout.PrepareDirectory(output);
+                cacheLayout.PrepareDirectory(cacheLayout.Session);
+                cacheLayout.PrepareDirectory(cacheLayout.BuildCache);
+                cacheLayout.PrepareDirectory(cacheLayout.Intermediate);
                 tracing = Tracer.BeginScope(traceWriter, traceLevel);
                 MetricManager.Enabled = false; // No listeners or legacy telemetry are installed.
-                Settings settings = StreamSettings(context, staging);
+                Settings settings;
+                using (request.Performance.Measure("core.settings")) settings = streamSettings = StreamSettings(context, output);
+                settings.MeasurePerformance = request.Performance.Detailed ? (Func<string, IDisposable>)(name => request.Performance.Measure(name, true)) : null;
+                settings.RecordPerformanceCounter = request.Performance.Enabled ? (Action<string, long, bool>)request.Performance.RecordCounter : null;
+                settings.FileIdentity = request.FileIdentities.CoreIdentity;
+                settings.FileHashRead = request.FileIdentities.RecordRead;
+                settings.SchemaFileIdentities = request.FileIdentities.SchemaIdentities;
+                settings.StreamOutputStarted = stem => startedStreams.Add(stem);
+                settings.StreamOutputCompleted = (stem, reused) => {
+                    foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" }) currentFiles.Add(stem + extension);
+                    if (reused) linkedStreamsRestored++;
+                };
+                settings.CustomDataOutput = path => currentFiles.Add(path);
                 processorState = DocumentProcessor.BeginStateScope();
                 report = AssetReport.BeginScope();
-                EnsureProviders();
-                // The mixed texture implementation cannot yet prove that every
-                // D3DX payload read uses Core's FileReference closure. Preserve
-                // its compilation behavior, but never authorize a texture hit.
-                if (buildCacheEnabled)
-                    foreach (string name in new[] { "Texture", "OnDemandTexture", "TerrainTextureAtlas" })
-                        compilers.Registry.GetExtendedTypeInformation(InstanceHandle.GetTypeId(name)).UseBuildCache = false;
-                string runtime = Path.GetDirectoryName(typeof(CoreStreamCompiler).Assembly.Location);
-                BuildPlan cachePlan = null; CacheInputSnapshot cacheInputs = null;
-                string processContract = null; BuildAssetCache assetCache = null; SessionPackage sessionPackage = null;
+                using (request.Performance.Measure("core.providers")) EnsureProviders();
                 bool packageRestored = false;
-                if (buildCacheEnabled || sessionCacheEnabled)
-                {
-                    inputBoundary = CacheInputBoundary.Begin(sdkRoot, modRoot, runtime);
-                    cachePlan = new BuildPlan { PlanKind = "CoreCacheStream.v2", Tasks = new[] { context.Task } };
-                    cacheInputs = CacheInputSnapshot.Capture(request, cachePlan, runtime, cancellation);
-                    processContract = CacheProcessContract();
-                    if (buildCacheEnabled)
-                    {
-                        assetCache = new BuildAssetCache(outputRoot, CacheNamespace(cacheInputs.Fingerprint, processContract));
-                        assetCaches.Add(assetCache);
-                        assetCache.PrepareStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
-                    }
-                    if (sessionCacheEnabled)
-                    {
-                        sessionPackage = new SessionPackage(outputRoot, CacheNamespace(cacheInputs.Fingerprint, processContract));
-                        sessionPackages.Add(sessionPackage);
-                        packageRestored = sessionPackage.PrepareStream(context.Task.Id, staging, cancellation);
-                    }
-                }
-                var schemas = new SchemaSet(settings.StableSort);
-                hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
-                var cache = new SessionCache();
+                if (schemas == null)
+                    using (request.Performance.Measure("core.schema")) schemas = new SchemaSet(settings.StableSort);
+                // All streams in this request share the same schema snapshot.
+                // A new backend/request loads a fresh closure; explicit Core
+                // ReloadIfChanged remains available to mutable standalone hosts.
+                ProgressPhase("cache-load");
+                using (request.Performance.Measure("cache.prepare"))
                 if (sessionCacheEnabled)
                 {
-                    string sessionPath = Path.Combine(settings.SessionCacheDirectory, "session.xml");
+                    if (legacyStore == null) legacyStore = new LegacyCacheStore(settings.SessionCacheDirectory);
+                    packageRestored = legacyStore.CanLoad();
+                    if (!packageRestored) request.Performance.RecordCounter(legacyStore.PrepareMissReason);
+                    if (packageRestored)
+                        settings.FindCustomData = path => legacyStore.RestoreData(path.Substring(settings.OutputDirectory.Length + 1), path, cancellation);
+
+                }
+                using (request.Performance.Measure("core.string-hashes")) hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
+                using (request.Performance.Measure("cache.load")) {
+                if (sessionCacheEnabled)
+                {
+                    string sessionPath = Path.Combine(settings.SessionCacheDirectory, LegacyCacheStore.SessionName);
                     try
                     {
-                        cache.LoadCache(sessionPath);
-                        cache.InitializeCache(new List<string>());
+                        // The session lock and path belong to this request. After
+                        // a successful stream, reuse exactly the saved BAB state
+                        // instead of reparsing the same full session for each APT
+                        // and metadata stream. InitializeCache still resets every
+                        // document and checks file/schema/processor invalidation.
+                        if (packageRestored && savedSessionCache != null)
+                        {
+                            cache = savedSessionCache;
+                            request.Performance.RecordCounter("cache.session.memoryReuse");
+                        }
+                        else
+                        {
+                            cache = new SessionCache();
+                            cache.LoadCacheFrom(packageRestored ? legacyStore.SessionPath : null, sessionPath);
+                        }
+                        cache.InitializeCache(new List<string>(), schemas.ContentIdentity);
                         if (packageRestored && !cache.HasCachedState)
                             throw new InvalidDataException("The restored session has an incompatible format.");
+                        if (packageRestored)
+                        {
+                            AssetDeclarationDocument previousDocument;
+                            cache.TryGetDocument(settings.InputPath, null, settings.TargetPlatform, false, out previousDocument);
+                            packageRestored = previousDocument != null;
+                            if (!packageRestored) request.Performance.RecordCounter("cache.session.documentMissing");
+                        }
                     }
                     catch (OperationCanceledException) { throw; }
                     catch (Exception)
@@ -485,141 +595,121 @@ namespace NewModCompiler.Application
                         // Preserve conditional recovery while avoiding exception-
                         // filter IL in the mixed C++/CLI link input.
                         if (!packageRestored) throw;
+                        request.Performance.RecordCounter("cache.session.invalidState");
+                        savedSessionCache = null;
                         // Treat malformed serialized state as one cold miss. No
                         // intermediate/cdata bytes from the bad package survive.
                         // Loading older document data can register strings before
                         // a later malformed node fails. Recreate that scope too.
-                        sessionPackage.InvalidateStream(context.Task.Id);
                         hashes.Dispose(); hashes = null;
-                        foreach (string directory in new[] {settings.SessionCacheDirectory, settings.IntermediateOutputDirectory, settings.OutputDirectory})
-                            if (Directory.Exists(directory)) Directory.Delete(directory, true);
                         hashes = HashProvider.BeginStringHashScope(settings.SessionCacheDirectory);
                         packageRestored = false;
+                        settings.FindCustomData = null;
                         cache = new SessionCache();
-                        cache.LoadCache(sessionPath);
-                        cache.InitializeCache(new List<string>());
+                        cache.LoadCacheFrom(packageRestored ? legacyStore.SessionPath : null, sessionPath);
+                        cache.InitializeCache(new List<string>(), schemas.ContentIdentity);
                     }
                     if (packageRestored) sessionPackageHits++; else sessionPackageMisses++;
                 }
-                else cache.InitializeCache(new List<string>());
+                else { request.Performance.RecordCounter("cache.session.disabled"); cache = new SessionCache(); cache.InitializeCache(new List<string>(), schemas.ContentIdentity); }
+                }
+                cache.AssetCompilersVersion = compilers.Registry.AssetBuilderPluginsVersion;
                 processor = new DocumentProcessor(settings, compilers.Registry, verifiers) { Cache = cache, SchemaSet = schemas };
-                bool success;
-                processor.ProcessDocument(settings.InputPath, true, false, out success);
+                if (progress != null) processor.Progress = progress.RecordWork;
+                if (parallelMetrics == null) parallelMetrics = new ParallelBackendMetrics(request.Performance);
+                execution = new ParallelBackendScheduler(processor, output, request.JobsAuto ? Math.Max(1, Environment.ProcessorCount) : request.RequestedJobs, parallelMetrics, request.Performance, cancellation);
+                processor.AssetExecution = execution;
+                ProgressPhase("process");
+                bool success; processingStarted = true;
+                using (request.Performance.Measure("core.process"))
+                    processor.ProcessDocument(settings.InputPath, true, false, out success);
+                execution.Flush();
                 if (!success) throw new BuildFailure(ExitCode.Compilation, "CORE_COMPILE_FAILED", "Core did not complete the stream.");
-                if (sessionCacheEnabled)
-                {
-                    var rejected = new HashSet<uint>(new[] { "Texture", "OnDemandTexture", "TerrainTextureAtlas" }.Select(InstanceHandle.GetTypeId));
-                    if (processor.ProcessedTypeIds.Any(rejected.Contains))
-                        throw new BuildFailure(ExitCode.Arguments, "CORE_SESSION_TEXTURE_UNSUPPORTED", "Session cache cannot reuse mixed Texture, OnDemandTexture or TerrainTextureAtlas assets; use /sc:false.");
-                }
-                cancellation.ThrowIfCancellationRequested(); // Cancellation is cooperative at complete stream boundaries.
-                artifacts = CollectArtifacts(settings.OutputDirectory);
                 cancellation.ThrowIfCancellationRequested();
-                if (buildCacheEnabled || sessionCacheEnabled)
+                if (sessionCacheEnabled && !freezeSessionCache)
                 {
-                    if (!cacheInputs.MatchesCurrent(request, cachePlan, runtime, cancellation) || !string.Equals(processContract, CacheProcessContract(), StringComparison.Ordinal))
-                        throw new BuildFailure(ExitCode.Compilation, "CORE_CACHE_INPUT_CHANGED", "Build-cache inputs or process resolution contract changed during compilation.");
-                    if (sessionCacheEnabled)
-                    {
-                        cache.SaveCache(false);
-                        sessionPackage.StageStream(context.Task.Id, staging, cancellation);
-                    }
-                    if (buildCacheEnabled)
-                    {
-                        assetCache.StageStream(context.Task.Id, settings.BuildCacheDirectory, cancellation);
-                        buildCacheHits += processor.BuildCacheHits; buildCacheMisses += processor.BuildCacheMisses;
-                    }
+                    SaveLegacySession(cache, settings, currentFiles, cancellation); sessionSaved = true;
                 }
+                using (request.Performance.Measure("artifacts.collect"))
+                    artifacts = currentFiles.OrderBy(path => path, StringComparer.Ordinal).Select(path => new Artifact {
+                        Path = path, Kind = path.EndsWith(".cdata", StringComparison.OrdinalIgnoreCase) ? "custom-data" : "stream" + Path.GetExtension(path),
+                        Size = new FileInfo(path).Length }).ToList();
+                if (artifacts.Count == 0) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_MISSING", "Core produced no stream output.");
+                cancellation.ThrowIfCancellationRequested();
             }
             catch (Exception error)
             {
+                savedSessionCache = null;
                 failure = error is BuildFailure || error is OperationCanceledException ? error :
                     Failure(ExitCode.Compilation, "CORE_COMPILE_FAILED", error);
+                bool savePartial = processingStarted && !sessionSaved && sessionCacheEnabled && partialSessionCache && !freezeSessionCache;
+                if (savePartial && execution != null)
+                {
+                    // An owner XML error can follow an independent included
+                    // document whose accepted workers are still committing.
+                    // Confirm successful closed documents before saving their
+                    // partial session; no output stream is published here.
+                    try { execution.CompleteAcceptedWorkOnFailure(); }
+                    catch (Exception completionError) { AddCleanupFailure(ref failure, completionError, ExitCode.Compilation, "CORE_PARTIAL_BACKEND_COMPLETE_FAILED"); }
+                }
+                try { if (execution != null) execution.Dispose(); }
+                catch (Exception joinError) { AddCleanupFailure(ref failure, joinError, ExitCode.Compilation, "CORE_BACKEND_JOIN_FAILED"); }
+                if (savePartial)
+                {
+                    try { SaveLegacySession(cache, streamSettings, currentFiles, CancellationToken.None); partialSessionsSaved++; }
+                    catch (Exception saveError) { AddCleanupFailure(ref failure, saveError, ExitCode.Output, "CORE_PARTIAL_CACHE_SAVE_FAILED"); }
+                }
             }
             finally
             {
                 if (processor != null)
                 {
+                    buildCacheHits += processor.BuildCacheHits; buildCacheMisses += processor.BuildCacheMisses;
                     documentReuse += processor.DocumentReuseCount;
                     xmlParse += processor.XmlParseCount;
                     instanceCompile += processor.InstanceCompileCount;
                 }
+                using (request.Performance.Measure("core.cleanup")) {
                 var cleanup = new List<Exception>();
+                try { if (execution != null) execution.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (report != null) report.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (hashes != null) hashes.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (processorState != null) processorState.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 try { if (tracing != null) tracing.Dispose(); } catch (Exception error) { cleanup.Add(error); }
-                try { if (inputBoundary != null) inputBoundary.Dispose(); } catch (Exception error) { cleanup.Add(error); }
                 Settings.Current = previousSettings;
                 MetricManager.Enabled = previousMetrics;
                 compiling = false;
                 foreach (Exception error in cleanup) AddCleanupFailure(ref failure, error, ExitCode.Internal, "CORE_CLEANUP_FAILED");
                 if (failure != null)
                 {
-                    try { if (Directory.Exists(staging)) Directory.Delete(staging, true); }
-                    catch (Exception error) { AddCleanupFailure(ref failure, error, ExitCode.Output, "CORE_STAGING_CLEANUP_FAILED"); }
+                    // A failed stream must never authorize a later four-file hit.
+                    // Keep intermediate assets and useful partial BAB cache work.
+                    foreach (string stem in startedStreams)
+                        foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" })
+                            try { File.Delete(stem + extension); }
+                            catch (Exception error) { AddCleanupFailure(ref failure, error, ExitCode.Output, "CORE_OUTPUT_CLEANUP_FAILED"); }
+                }
                 }
             }
-            if (failure != null) ExceptionDispatchInfo.Capture(failure).Throw();
+            if (failure != null) { savedSessionCache = null; ExceptionDispatchInfo.Capture(failure).Throw(); }
+            // Frozen sessions retain their on-disk snapshot. Failed/partial
+            // streams never authorize the next stream's in-memory reuse.
+            savedSessionCache = sessionSaved ? cache : null;
             return artifacts;
         }
 
-        // BuildSession owns these reversible writes after provider disposal.
-        public void CommitCache()
+        void SaveLegacySession(SessionCache cache, Settings settings, IEnumerable<string> currentFiles, CancellationToken cancellation)
         {
-            if (cacheCompleted || cacheCommitted) return;
-            try { foreach (BuildAssetCache cache in assetCaches) cache.Commit(); foreach (SessionPackage package in sessionPackages) package.Commit(); cacheCommitted = true; }
-            catch (Exception error)
+            ProgressPhase("cache-save");
+            using (request.Performance.Measure("cache.save"))
             {
-                Exception failure = error;
-                try { RollbackCache(); } catch (Exception cleanup) { AddCleanupFailure(ref failure, cleanup, ExitCode.Output, "CORE_CACHE_ROLLBACK_FAILED"); }
-                ExceptionDispatchInfo.Capture(failure).Throw(); throw;
+            if (!cache.HasChanges && cache.LoadedCompressed == compressedSessionCache) return;
+            legacyStore.SaveData(settings.OutputDirectory, currentFiles.Where(path => path.EndsWith(".cdata", StringComparison.OrdinalIgnoreCase)), cancellation);
+            using (request.Performance.Measure("cache.serialize")) cache.SaveCache(compressedSessionCache);
+            legacyStore.Saved(compressedSessionCache);
+            cache.AcceptSavedChanges(compressedSessionCache);
             }
         }
-        public void RollbackCache()
-        {
-            if (cacheCompleted) return;
-            var failures = new List<Exception>(); var retained = new List<BuildAssetCache>();
-            foreach (BuildAssetCache cache in assetCaches)
-                try { cache.Dispose(); } catch (Exception error) { failures.Add(error); retained.Add(cache); }
-            assetCaches.Clear(); assetCaches.AddRange(retained);
-            var retainedPackages = new List<SessionPackage>();
-            foreach (SessionPackage package in sessionPackages)
-                try { package.Dispose(); } catch (Exception error) { failures.Add(error); retainedPackages.Add(package); }
-            sessionPackages.Clear(); sessionPackages.AddRange(retainedPackages); cacheCommitted = false;
-            if (failures.Count != 0) throw new AggregateException("Build asset cache rollback failed.", failures);
-        }
-        public void CompleteCache()
-        {
-            if (cacheCompleted || !cacheCommitted) return;
-            foreach (BuildAssetCache cache in assetCaches) cache.Complete();
-            foreach (SessionPackage package in sessionPackages) package.Complete();
-            assetCaches.Clear(); sessionPackages.Clear(); cacheCompleted = true;
-        }
-        static string CacheProcessContract()
-        {
-            using (var bytes = new MemoryStream())
-            using (var writer = new BinaryWriter(bytes, System.Text.Encoding.UTF8))
-            {
-                writer.Write("NewModCompiler.BuildCache.Process.v1");
-                writer.Write(Environment.Version.ToString()); writer.Write(Environment.OSVersion.ToString());
-                writer.Write(Environment.CurrentDirectory);
-                writer.Write(System.Globalization.CultureInfo.CurrentCulture.Name);
-                writer.Write(System.Globalization.CultureInfo.CurrentUICulture.Name);
-                var variables = Environment.GetEnvironmentVariables();
-                var keys = variables.Keys.Cast<string>().OrderBy(x => x, StringComparer.Ordinal).ToArray();
-                writer.Write(keys.Length);
-                // Environment values are hashed only, never persisted or reported.
-                foreach (string key in keys) { writer.Write(key); writer.Write((string)variables[key]); }
-                writer.Flush(); bytes.Position = 0;
-                using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
-            }
-        }
-        static string CacheNamespace(string inputs, string process)
-        {
-            using (var hash = SHA256.Create()) return BitConverter.ToString(hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes("NewModCompiler.BuildAssets.Namespace.v1\n" + inputs + "\n" + process))).Replace("-", "").ToLowerInvariant();
-        }
-
         static BuildFailure Failure(ExitCode exitCode, string code, Exception error)
         {
             var failure = new BuildFailure(exitCode, code, error.ToString());
@@ -634,79 +724,6 @@ namespace NewModCompiler.Application
             var failures = primary.Data["CoreCleanupExceptions"] as List<Exception>;
             if (failures == null) { failures = new List<Exception>(); primary.Data["CoreCleanupExceptions"] = failures; }
             failures.Add(secondary);
-        }
-
-        static void RejectReparseAncestors(string path)
-        {
-            for (var directory = new DirectoryInfo(path); directory != null; directory = directory.Parent)
-                if (directory.Exists && (directory.Attributes & FileAttributes.ReparsePoint) != 0)
-                    throw new BuildFailure(ExitCode.Output, "CORE_STAGING_REPARSE", "The stream workspace cannot use reparse points.");
-        }
-        static IEnumerable<string> SafeFiles(string directory)
-        {
-            // Check the root as well as discovered children. A caller-supplied
-            // junction must never turn an otherwise relative traversal into a
-            // scan of files outside this stream's output directory.
-            FileAttributes rootAttributes = File.GetAttributes(directory);
-            if ((rootAttributes & FileAttributes.ReparsePoint) != 0)
-                throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_REPARSE", "Core output contains a reparse point.");
-            if ((rootAttributes & FileAttributes.Directory) == 0)
-                throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_INVALID", "Core output must be a directory.");
-            foreach (string entry in Directory.GetFileSystemEntries(directory).OrderBy(x => x, StringComparer.Ordinal))
-            {
-                FileAttributes attributes = File.GetAttributes(entry);
-                if ((attributes & FileAttributes.ReparsePoint) != 0) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_REPARSE", "Core output contains a reparse point.");
-                if ((attributes & FileAttributes.Directory) != 0) { foreach (string file in SafeFiles(entry)) yield return file; }
-                else yield return entry;
-            }
-        }
-        static IList<Artifact> CollectArtifacts(string output)
-        {
-            output = Path.GetFullPath(output);
-            var files = SafeFiles(output).ToArray();
-            var result = new List<Artifact>();
-            string[] manifests = files.Where(x => x.EndsWith(".manifest", StringComparison.OrdinalIgnoreCase)).ToArray();
-            if (manifests.Length == 0) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_MISSING", "Core produced no stream manifest.");
-            var accepted = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            var customDirectories = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (string manifest in manifests)
-            {
-                string stem = manifest.Substring(0, manifest.Length - ".manifest".Length);
-                customDirectories.Add(Path.Combine(stem, "cdata"));
-                foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" })
-                {
-                    string file = stem + extension;
-                    if (!File.Exists(file)) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_INCOMPLETE", "Core output is missing " + file);
-                    accepted.Add(file);
-                }
-            }
-            foreach (string file in files)
-            {
-                // Stream directories may themselves be named cdata. Classify
-                // their four files by the exact stream paths first; a directory
-                // component alone says nothing about the artifact's role.
-                bool stream = accepted.Contains(file);
-                bool custom = !stream && customDirectories.Contains(Path.GetDirectoryName(file)) && IsCustomDataFileName(Path.GetFileName(file));
-                if (!stream && !custom) throw new BuildFailure(ExitCode.Output, "CORE_OUTPUT_UNEXPECTED", "Unexpected file in completed stream output: " + file);
-                string sha;
-                using (var algorithm = SHA256.Create()) using (var input = File.OpenRead(file)) sha = BitConverter.ToString(algorithm.ComputeHash(input)).Replace("-", "").ToLowerInvariant();
-                result.Add(new Artifact { Path = Path.GetFullPath(file), Kind = custom ? "custom-data" : "stream" + Path.GetExtension(file), Size = new FileInfo(file).Length, Sha256 = sha });
-            }
-            return result;
-        }
-
-        static bool IsCustomDataFileName(string name)
-        {
-            // BinaryAsset/InstanceHandle.FileBase writes four 32-bit fields in
-            // this exact layout. This is a path/layout check, not a second
-            // manifest parser or proof that the payload matches its asset.
-            if (name.Length != 41 || !name.EndsWith(".cdata", StringComparison.OrdinalIgnoreCase)) return false;
-            for (int index = 0; index < 35; index++)
-            {
-                if (index == 8 || index == 17 || index == 26) { if (name[index] != '.') return false; }
-                else if (!((name[index] >= '0' && name[index] <= '9') || (name[index] >= 'a' && name[index] <= 'f') || (name[index] >= 'A' && name[index] <= 'F'))) return false;
-            }
-            return true;
         }
 
         void CheckOwner()
@@ -731,7 +748,15 @@ namespace NewModCompiler.Application
                 disposed = true;
             }
             try { DisposeProviders(); }
-            finally { ReleaseLease(); }
+            finally {
+                try {
+                    savedSessionCache = null;
+                    if (legacyStore != null) legacyStore.Dispose();
+                } finally {
+                    try { if (ownedCacheLock != null) { ownedCacheLock.Dispose(); ownedCacheLock = null; } }
+                    finally { ReleaseLease(); }
+                }
+            }
         }
         void DisposeProviders()
         {

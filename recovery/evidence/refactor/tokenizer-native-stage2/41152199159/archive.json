@@ -1,0 +1,85 @@
+{
+  "runId": 41152199159,
+  "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e",
+  "archiveSha256": "2ba381a049201eacf2de5ba6668e9f6061d81ccdf1eb878bda3af8d8d593138b",
+  "downloadedAndRehashed": true,
+  "receipts": {
+    "backend-parallel-performance": {
+      "status": "passed",
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    },
+    "backend-parallel": {
+      "status": true,
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    },
+    "big": {
+      "status": true,
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    },
+    "sdk-mymod": {
+      "status": true,
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    },
+    "session-cache": {
+      "status": true,
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    },
+    "cache-payloads": {
+      "status": true,
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    },
+    "input-roots": {
+      "status": true,
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    },
+    "build-cache": {
+      "status": true,
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    },
+    "core-lifecycle-deployment": {
+      "status": "passed",
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    },
+    "core-lifecycle": {
+      "status": "passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate",
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    },
+    "core-lifecycle-texture": {
+      "status": "passed",
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    },
+    "core-cli": {
+      "status": true,
+      "sourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e"
+    }
+  },
+  "runtime": {
+    "Debug": {
+      "NewModCompiler.exe": "a828072edaa861a734b5f8c91f89280379436b72f29b3876200e4c651133fc4b",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "de8981141219c3d641ce0e4bf156d3b1a32c6608769984e769e1515e657ba913"
+    },
+    "Release": {
+      "NewModCompiler.exe": "8b3ba88e9092f6850cbbc7101df499226a37f33a4011b01c8861e2f966f29f44",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "8100e0b32ab0a2cbe6f14997e43cd4379b2de8e44c095161783b729235fc5d56"
+    }
+  },
+  "packages": {
+    "Debug": {
+      "path": "artifacts/final-release/41152199159-1/NewModCompiler-Win32-Debug.zip",
+      "sha256": "259b5b0697f1dafd8fdaeb8f0ee7022c1dcc80f5907980a3bbe83f22b2ac8a50"
+    },
+    "Release": {
+      "path": "artifacts/final-release/41152199159-1/NewModCompiler-Win32-Release.zip",
+      "sha256": "53be3244fd41213a6e102f1e9078b6d2502d222c37369330ae80b67413453869"
+    }
+  },
+  "archiveBytes": 164598490,
+  "receiptArchiveSha256": "9269c28c9e5d9344721f0ebd656ad761d2335d0545e1a610881e163170d26cdf",
+  "receiptArchiveMembers": 20
+}

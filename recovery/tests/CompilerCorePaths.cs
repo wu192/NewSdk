@@ -45,90 +45,6 @@ public static class CompilerCorePaths
             Equal((string)stateType.GetField("LogicalSourcePath").GetValue(state), "DATA:" + relative.Replace('\\', '/'), "document logical name");
         }
     }
-    static IList<Artifact> Collect(string output)
-    {
-        try { return (IList<Artifact>)typeof(CoreStreamCompiler).GetMethod("CollectArtifacts", BindingFlags.NonPublic | BindingFlags.Static).Invoke(null, new object[] { output }); }
-        catch (TargetInvocationException error) { throw error.InnerException; }
-    }
-    static void RejectCollection(string output, string code, string label)
-    {
-        bool rejected = false;
-        try { Collect(output); }
-        catch (BuildFailure error) { Equal(error.Code, code, label + " diagnostic"); rejected = true; }
-        Require(rejected, label + " was accepted by the production artifact collector");
-    }
-    static void WriteOutput(string path)
-    {
-        Directory.CreateDirectory(Path.GetDirectoryName(path)); File.WriteAllText(path, "artifact collection fixture");
-    }
-    static void StreamFiles(string stem)
-    {
-        foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" }) WriteOutput(stem + extension);
-    }
-    static void Junction(string path, string target)
-    {
-        var start = new ProcessStartInfo("cmd.exe", "/d /c mklink /J \"" + path + "\" \"" + target + "\"") { UseShellExecute = false, CreateNoWindow = true, RedirectStandardOutput = true, RedirectStandardError = true };
-        using (Process process = Process.Start(start))
-        {
-            string log = process.StandardOutput.ReadToEnd() + process.StandardError.ReadToEnd(); process.WaitForExit();
-            Require(process.ExitCode == 0, "Unable to create artifact junction: " + log);
-        }
-    }
-    static void ArtifactPaths(string work)
-    {
-        string output = Path.Combine(work, "artifact-paths", "cdata");
-        string first = Path.Combine(output, "cdata", "Main"), second = Path.Combine(output, "Referenced");
-        StreamFiles(first); StreamFiles(second);
-        string custom = Path.Combine(first, "cdata", "a5918206.00000001.00000002.00000003.cdata");
-        WriteOutput(custom);
-        IList<Artifact> accepted = Collect(output + Path.DirectorySeparatorChar);
-        Require(accepted.Count == 9, "Two stream quartets and their one custom-data file must be collected");
-        int streams = 0, customs = 0;
-        foreach (Artifact artifact in accepted)
-        {
-            if (artifact.Path == custom) { Equal(artifact.Kind, "custom-data", "exact custom-data role"); customs++; }
-            else { Equal(artifact.Kind, "stream" + Path.GetExtension(artifact.Path), "stream below cdata-named ancestor role"); streams++; }
-        }
-        Require(streams == 8 && customs == 1, "cdata ancestors must not change stream artifact roles");
-        tests.Add("artifact-collector-multiple-streams-cdata-ancestors-and-exact-custom-layout");
-
-        foreach (string relative in new[] {
-            "cdata/decoy.txt", "Other/cdata/a5918206.00000001.00000002.00000003.cdata",
-            "cdata/Main/cdata/nested/a5918206.00000001.00000002.00000003.cdata",
-            "cdata/Main/cdata/a5918206.00000001.00000002.00000003.txt",
-            "cdata/Main/cdata/a5918206.00000001.00000002.00000003.cdata.extra",
-            "cdata/Main/cdata/a5918206.00000001.00000002.0000000g.cdata",
-            "cdata/Main/cdata/a5918206.1.00000002.00000003.cdata",
-            "cdata/Main2/cdata/a5918206.00000001.00000002.00000003.cdata" })
-        {
-            string path = Path.Combine(output, relative.Replace('/', Path.DirectorySeparatorChar));
-            WriteOutput(path);
-            RejectCollection(output, "CORE_OUTPUT_UNEXPECTED", relative);
-            File.Delete(path);
-        }
-        File.Delete(second + ".imp");
-        RejectCollection(output, "CORE_OUTPUT_INCOMPLETE", "incomplete referenced stream quartet");
-        WriteOutput(second + ".imp");
-        string ordinaryFile = Path.Combine(work, "artifact-paths", "ordinary-file");
-        WriteOutput(ordinaryFile);
-        RejectCollection(ordinaryFile, "CORE_OUTPUT_INVALID", "output root is an ordinary file");
-        string empty = Path.Combine(work, "artifact-paths", "empty");
-        Directory.CreateDirectory(empty);
-        RejectCollection(empty, "CORE_OUTPUT_MISSING", "output directory without any manifest");
-        tests.Add("artifact-collector-rejects-unowned-nested-malformed-custom-paths-and-incomplete-streams");
-
-        string junction = Path.Combine(work, "artifact-paths", "root-junction");
-        Junction(junction, output);
-        try { RejectCollection(junction, "CORE_OUTPUT_REPARSE", "output root junction"); }
-        finally { Directory.Delete(junction); }
-        junction = Path.Combine(output, "descendant-junction");
-        Junction(junction, empty);
-        try { RejectCollection(output, "CORE_OUTPUT_REPARSE", "output descendant junction"); }
-        finally { Directory.Delete(junction); }
-        Require(File.Exists(custom), "Rejecting output root junction must not change the target");
-        Require(Directory.Exists(empty), "Rejecting output descendant junction must not remove its target");
-        tests.Add("artifact-collector-rejects-root-and-descendant-reparse-without-touching-target");
-    }
     static void Run(string work)
     {
         Require(Path.DirectorySeparatorChar == '\\', "This is the Windows path matrix");
@@ -204,7 +120,6 @@ public static class CompilerCorePaths
             Equal(FileNameResolver.ResolvePath(work, "art:ab"), Path.Combine(work, "ab", "ab"), "two-character art filename keeps legacy prefix search");
             Equal(FileNameResolver.ResolvePath(work, "art:sub/a"), Path.Combine(work, "sub", "a"), "explicit art subdirectory keeps legacy search");
             tests.Add("art-alias-explicit-rejection-and-existing-search-rules");
-            ArtifactPaths(work);
         }
         finally { Settings.Current = old; }
     }

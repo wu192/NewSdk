@@ -42,7 +42,7 @@ $sourceCommit = if ($env:GITHUB_SHA) { $env:GITHUB_SHA } else { (& git rev-parse
 $runId = if ($env:GITHUB_RUN_ID) { $env:GITHUB_RUN_ID } else { 'local-' + [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ') }
 $summary = [ordered]@{
  succeeded=$false;sourceCommit=$sourceCommit;runId=$runId;status='started'
- scope='289 recovered XmlCompiler entries; schema-valid real MODs under SDK/Mods; EALAModStudio defaultscript base-data BAB flow only'
+ scope='300 recovered XmlCompiler entries; schema-valid real MODs under SDK/Mods; EALAModStudio defaultscript base-data BAB flow only'
  sdkMode='/O2';sdkPlatform=0;requestedProfiles=@($Profiles);profiles=@();reusedProfiles=@();files=@();originalDllUnchanged=$false
  fullMymodGate=$false;profileCount=$Profiles.Count;studioStages=@(1,2,5);realSdkBuilds=0
 }
@@ -161,7 +161,7 @@ try {
     & $csc /nologo /target:library /platform:x86 "/r:$build/BinaryAssetBuilder.Core.dll" "/r:$build/Recovered.XmlCompilerPriority.dll" "/out:$build/Recovered.XmlPriority.Plugin.dll" (Resolve-Path 'recovery/src/Plugin/XmlPriorityPlugin.cs').Path *> "$report/plugin-build.txt"
     if ($LASTEXITCODE -ne 0) { Get-Content "$report/plugin-build.txt";throw 'SDK plugin build failed' }
     & "$build/XmlPrioritySdkOracle.exe" metadata "$build/BinaryAssetBuilder.XmlCompiler.dll" "$build/Recovered.XmlPriority.Plugin.dll" "$report/metadata.json" *> "$report/metadata.txt"
-    if ($LASTEXITCODE -ne 0) { Get-Content "$report/metadata.txt";throw 'Original/recovered 289-entry metadata differs' }
+    if ($LASTEXITCODE -ne 0) { Get-Content "$report/metadata.txt";throw 'Original/recovered 300-entry metadata differs' }
     $summary['compilerSha256']=(Get-FileHash "$build/Recovered.XmlCompilerPriority.dll" -Algorithm SHA256).Hash
     $summary['pluginSha256']=(Get-FileHash "$build/Recovered.XmlPriority.Plugin.dll" -Algorithm SHA256).Hash
     $compat=Join-Path $work 'reuse-isolated-tools';New-Item -ItemType Directory -Force $compat|Out-Null

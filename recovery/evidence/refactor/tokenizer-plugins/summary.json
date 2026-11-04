@@ -1,0 +1,66 @@
+{
+  "baselineCommit": "8f854606ac20ce372045e3661b38e58e4e933ca2",
+  "component": {
+    "status": "passed",
+    "sourceCommit": "25aedf8b8ebfcde211e735c7f8113850bd68770d",
+    "runId": 41138099602,
+    "artifactId": 13017665755,
+    "archiveSha256": "db1585e822b8383b4bbd33acb4639660bcd5eb51adf2cf7a1c7453ffc028edc8",
+    "hostExitCode": 0,
+    "downloadedAndRehashed": true
+  },
+  "product": {
+    "status": "passed",
+    "sourceCommit": "9f9d176761ff28cee993c27ba61b864041a26299",
+    "runId": 41138338003,
+    "artifactId": 13017409513,
+    "archiveSha256": "4962a1239dfe582321c5de47b9999664bdcfe4448d3107d66e350606184560d5",
+    "downloadedAndRehashed": true,
+    "runtimeFilesChecked": 10,
+    "packageZipsChecked": 2,
+    "coreOriginalReceiptCount": 17,
+    "upheavalSamples": 22,
+    "upheavalErrors": 0,
+    "upheavalWarnings": 1859
+  },
+  "fullModComparison": {
+    "status": "passed",
+    "runId": 41141062587,
+    "testSourceCommit": "18ae3f0240c712e6a3ecba539e08dec64bc70a5e",
+    "baselineBinarySource": "8f854606ac20ce372045e3661b38e58e4e933ca2",
+    "optimizedBinarySource": "9f9d176761ff28cee993c27ba61b864041a26299",
+    "artifactId": 13018779240,
+    "archiveSha256": "4b791d6905ad808611896cef5586e85c4e1492f6c398a0fda9e66c3b72ce5e3f",
+    "downloadedAndRehashed": true,
+    "equalPublishedPairs": [
+      0,
+      1,
+      2
+    ],
+    "baselineMedianMs": 22185.117499999935,
+    "optimizedMedianMs": 21638.12280000002,
+    "elapsedReductionPercent": 2.465592981420617,
+    "caution": "Three same-VM pairs, no warmup or controlled OS page cache. Pair three was slower after optimization. Not a general speed guarantee."
+  },
+  "failedRuns": [
+    41137058730,
+    41137277732,
+    41137544777,
+    41137876172,
+    41137876257,
+    41136790449
+  ],
+  "research": {
+    "status": "research_only",
+    "productionChanges": false,
+    "document": "../../../docs/TOKENIZER_PLUGIN_NEXT_OPTIMIZATIONS.md",
+    "environment": "Linux x86_64 GCC14.2 O2 algorithm probes; not Windows/full-plugin or MOD performance"
+  },
+  "failedFullProductArchive": {
+    "runId": 41136790449,
+    "artifactId": 13018561093,
+    "metadataDigest": "sha256:9969e958c5611da083c2a2f66cb1e49409108d85b8db4a1387a808ddb22e38fd",
+    "downloadedAndRehashed": false,
+    "scope": "Historical failed run retained on GitHub; no acceptance reused."
+  }
+}

@@ -17,7 +17,7 @@ $oldTranscript=$env:XML_PRODUCT_TRANSCRIPT
 $oldPath=$env:PATH
 $state=@{
     schemaVersion=1;sourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT
-    scope='Actual production EXE 289 XML routes: complete existing joint default/completion smoke; NOT 63 per-group full differential/layout/rejection matrices or SDK acceptance'
+    scope='Actual production EXE 300 XML routes: complete existing joint default/completion smoke; NOT 64 per-group full differential/layout/rejection matrices or SDK acceptance'
     fullGroupMatricesPassed=$false;sdkValidated=$false;status='started';modes=@()
 }
 function Invoke-XmlSmoke([string]$Executable,[string[]]$Arguments,[string]$Directory,[string]$Log) {
@@ -28,13 +28,13 @@ function Invoke-XmlSmoke([string]$Executable,[string[]]$Arguments,[string]$Direc
 }
 function Check-XmlSmoke([string]$ResultPath,[string]$Transcript,[bool]$Production) {
     $result=Get-Content $ResultPath -Raw|ConvertFrom-Json
-    $metadata=if($Production){289}else{0}
-    if(!$result.succeeded -or $result.fullMetadataRoutes -ne $metadata -or $result.types -ne 289 -or $result.testedTypes -ne 289 -or
-        $result.fixtures -ne 1156 -or $result.comparisons -ne 3468 -or $result.completionFixtures -ne 208 -or $result.completionComparisons -ne 624 -or
+    $metadata=if($Production){300}else{0}
+    if(!$result.succeeded -or $result.fullMetadataRoutes -ne $metadata -or $result.types -ne 300 -or $result.testedTypes -ne 300 -or
+        $result.fixtures -ne 1200 -or $result.comparisons -ne 3600 -or $result.completionFixtures -ne 208 -or $result.completionComparisons -ne 624 -or
         ($result.platforms -join ',') -cne '0,1,2,99' -or $result.sourceCommit -cne $state.sourceCommit -or $result.runId -cne $state.runId){throw 'Incomplete or mismatched XML smoke report'}
-    if(@($result.typeCoverage.PSObject.Properties).Count -ne 289 -or @($result.typeCoverage.PSObject.Properties|Where-Object{$_.Value -ne 4}).Count -ne 0){throw 'Incomplete XML per-route platform coverage'}
+    if(@($result.typeCoverage.PSObject.Properties).Count -ne 300 -or @($result.typeCoverage.PSObject.Properties|Where-Object{$_.Value -ne 4}).Count -ne 0){throw 'Incomplete XML per-route platform coverage'}
     $rows=@(Get-Content $Transcript)
-    if($rows.Count -ne 1364 -or @($rows|Where-Object{($_ -split "\t").Count -ne 5}).Count -ne 0){throw 'Incomplete XML fixture transcript'}
+    if($rows.Count -ne 1408 -or @($rows|Where-Object{($_ -split "\t").Count -ne 5}).Count -ne 0){throw 'Incomplete XML fixture transcript'}
 }
 Push-Location $root
 try {
@@ -79,7 +79,7 @@ try {
         Check-XmlSmoke "$modeOut/result.json" $env:XML_PRODUCT_TRANSCRIPT $true
         if((Get-FileHash $env:XML_PRODUCT_TRANSCRIPT -Algorithm SHA256).Hash -cne $baseline){throw "$mode XML original/product complete transcript mismatch"}
         Complete-CompilerValidationRun $validationRun
-        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;configuration=$mode;passed=$true;routes=289;platforms=@(0,1,2,99);defaultFixtures=1156;completionFixtures=208;bufferComparisons=4092;transcriptSha256=$baseline.ToLowerInvariant();exeSha256=$validationRun.productExeSha256}
+        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;configuration=$mode;passed=$true;routes=300;platforms=@(0,1,2,99);defaultFixtures=1200;completionFixtures=208;bufferComparisons=4224;transcriptSha256=$baseline.ToLowerInvariant();exeSha256=$validationRun.productExeSha256}
     }
     $state.status='passed joint route smoke only; full per-group matrices and SDK acceptance remain separate'
 } catch {$state.status='failed';$state.error=$_.Exception.Message;throw}

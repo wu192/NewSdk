@@ -126,6 +126,13 @@ public class InstanceDeclaration : IXmlSerializable
 			Document = document;
 		}
 
+		public CurrentState CreateBackendView()
+		{
+			var view = (CurrentState)MemberwiseClone();
+			view.Document = Document.CreateBackendView();
+			return view;
+		}
+
 		public void FromLast(LastState last)
 		{
 			Handle = last.Handle;
@@ -327,6 +334,15 @@ public class InstanceDeclaration : IXmlSerializable
 		Initialize(document);
 	}
 
+	// Only certified read-only backends may borrow this finalized input. A shallow
+	// state view isolates the CDATA pathname and snapshots document metadata; XML,
+	// handles and reference collections remain retained by the document version.
+	// Bypass XmlNode's semantic setter (which removes inheritFrom and rehashes IDs).
+	public InstanceDeclaration CreateBackendView()
+	{
+		return new InstanceDeclaration { _Current = _Current.CreateBackendView() };
+	}
+
 	public void Initialize(AssetDeclarationDocument document)
 	{
 		if (_Current == null)
@@ -342,6 +358,10 @@ public class InstanceDeclaration : IXmlSerializable
 			}
 		}
 	}
+
+	// Reenter a saved session through the same lazy initialization used after
+	// ReadXml. Per-stream XML, resolved references and CDATA paths are transient.
+	internal void ResetState() { _Current = null; }
 
 	public void InitializePrecompiled(Asset asset)
 	{

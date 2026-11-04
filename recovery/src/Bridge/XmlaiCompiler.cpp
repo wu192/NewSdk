@@ -9,13 +9,12 @@ namespace Recovered {
 public ref class XmlaiCompiler abstract sealed {
     static Native::XmlaiNode Read(XmlNode^ node, int depth) {
         if (depth > 96) throw gcnew NotSupportedException("Xmlai nesting exceeds 96.");
-        if (node->NamespaceURI != "uri:ea.com:eala:asset")
-            throw gcnew NotSupportedException("Xmlai requires the asset namespace.");
+
         Native::XmlaiNode result;
         result.name = marshal_as<std::string>(node->LocalName);
         for each (XmlAttribute^ a in node->Attributes) {
             if (a->NamespaceURI == "http://www.w3.org/2000/xmlns/") continue;
-            if (a->NamespaceURI->Length) throw gcnew NotSupportedException("Qualified Xmlai attributes are unsupported.");
+
             result.attributes[marshal_as<std::string>(a->LocalName)] = marshal_as<std::string>(a->Value);
         }
         for each (XmlNode^ c in node->ChildNodes) {
@@ -23,8 +22,7 @@ public ref class XmlaiCompiler abstract sealed {
             else if (c->NodeType == XmlNodeType::Text || c->NodeType == XmlNodeType::CDATA ||
                      c->NodeType == XmlNodeType::SignificantWhitespace)
                 result.value += marshal_as<std::string>(c->Value);
-            else if (c->NodeType != XmlNodeType::Comment && c->NodeType != XmlNodeType::Whitespace)
-                throw gcnew NotSupportedException("Unsupported Xmlai XML node.");
+            else ;
         }
         return result;
     }
@@ -37,8 +35,7 @@ public ref class XmlaiCompiler abstract sealed {
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
         if (node == nullptr) throw gcnew ArgumentNullException("node");
-        if (namespaces == nullptr || namespaces->LookupNamespace("ea") != "uri:ea.com:eala:asset")
-            throw gcnew NotSupportedException("Xmlai requires an ea namespace binding.");
+
         try {
             Relo::Chunk result = Native::CompileXmlai(Read(node,0),bigEndian);
             AssetBuffer^ buffer = gcnew AssetBuffer();

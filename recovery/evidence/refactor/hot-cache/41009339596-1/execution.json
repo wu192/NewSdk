@@ -1,0 +1,16 @@
+{
+  "runId": 41009339596,
+  "runAttempt": 1,
+  "sourceCommit": "90e817107eeb90d50846c5c5e82f52854a83a845",
+  "artifactId": 12957305949,
+  "artifactSha256": "d1e81a71fc3d37c01a5ce7aba31c6bedc4368fbde47ee87a49bf768c32cf90c3",
+  "archiveDownloadedAndHashed": true,
+  "status": "failed",
+  "independentScopesPassed": [
+    "App contracts",
+    "current Release build",
+    "14 timing/original BAB/packaging/failure samples"
+  ],
+  "hotCacheSamplesPassed": 48,
+  "reason": "Test incorrectly required inheritanceChanged when instance Include bytes were already invalidated by the earlier dependentFileChanged branch. Output bytes and two-document propagation passed."
+}

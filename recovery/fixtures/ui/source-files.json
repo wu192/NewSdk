@@ -1,0 +1,117 @@
+{
+  "provenance": "User-provided CoronaUI-master.zip and CoronaUI-master (1).zip attachments, 2026-10-31. Source FLA/AS only; SWF and artwork editing files are excluded.",
+  "files": [
+    {
+      "path": "CoronaUIMain/CoronaUIMain.as",
+      "sha256": "1d56e61d5127be3a6d80e94baedbff7e0c5b80e861852b87b20ce9b160d671e7"
+    },
+    {
+      "path": "CoronaUIMain/CoronaGameSettingsNewPanel.as",
+      "sha256": "0bfdf85f699d962b4bf3144d397a6bf4ab04296b413822efef17b3485ef151ff"
+    },
+    {
+      "path": "CoronaUIMain/MainMenuOverlayLoader.as",
+      "sha256": "e700becd1e1864423aebef69a99dd9a5f091794ee5b8384a64460d7b323ff088"
+    },
+    {
+      "path": "CoronaUIMain/CoronaNewCampaign.as",
+      "sha256": "9aafaa18ac7465595f690a747e37b37c8dfa03f189b14d5bf82a6bbe52f7943c"
+    },
+    {
+      "path": "CoronaUIMain/CoronaUIMain.fla",
+      "sha256": "a68a43b588fa4474bef5185440e1009fbe05237ac6accc8a98f3ccfd1b89a172"
+    },
+    {
+      "path": "EnhancerApt/enhancerApt.fla",
+      "sha256": "e1a88827aaba7f83bba071a243469197b3a94759a22b9740d7abacb106b6d277"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/MapUiMotion.as",
+      "sha256": "c80625b05d80f8cc15e3f43a5ea5fbcbbf0b0aeb9441f1bacdf3257de7370ee2"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/GameObject.as",
+      "sha256": "e39d84bd1ea670e18596c696f4109711c830f252c98deb41b0d243f1780b85c0"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/MapUiOptions.as",
+      "sha256": "0fc0cdac9bbcac9e289c66b777bb8d8882f88439b60779a366d25f1e8b9fecbb"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/UnitTopBtn.as",
+      "sha256": "bb0ef60d3c4fa90a2c24bd2efd5cbac0998d09d77dfdaad78555286d55de48ec"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/MapUiStylePainter.as",
+      "sha256": "12155939afe447bdf3626ac55809cb5a81f7a5c14407610cfdd8da18f159b6b3"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/BtnChoiceDialogManager.as",
+      "sha256": "a35287dfa9c2e3746479acd2bda003658c6eff61a4a30e798f3cbaa643fb9655"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/MapUiLayers.as",
+      "sha256": "b153c42d474797cbfd04beac0bcb3a4bcd34082cb6c9a3fd4036184982e94d02"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/CenterTopBtnsManager.as",
+      "sha256": "8b2a2cf66a468b56b697580d3b0057b50b1e1b8e26df03c0ce312e1410ff2edd"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/UnitTopTextManager.as",
+      "sha256": "0247ef3b60df201da8d6ece2cc74160f4e1df47a3fa5abc4f185b4c2ba2dfbfe"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/MapUiTheme.as",
+      "sha256": "aface7201c24ee27c924f7d36fe86498ed0d39b8b29b8af31b80432835e696c3"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/CommonBtn.as",
+      "sha256": "049873f86c402e06730ccf3b653d884dc323e21b8916caa0eb874f1fd3547d2f"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/ScoreBoardManager.as",
+      "sha256": "c9b5c66d70c03914b6322cf73bddc7e6c9d40cb84645784a29365c6b80f6ffcf"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/MapUiManager.as",
+      "sha256": "8d110958f9a56d90a4380f006ced4a80cbdc620e0ffd73470033e45b2a0cdfef"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/Main.as",
+      "sha256": "9d4259fe29c2ef2ea2a56c1a4780485f94fca7a6d838f9379792a32086a5f3ec"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/Bind.as",
+      "sha256": "019730b802cafe2bbcdf68f68bdf46c46ecc3f4c22ec5bf65dd61e8b7095275f"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/DepthSorter.as",
+      "sha256": "2b380588feefd609fafb71075a60e83832fe7707cc7f718129ed54d80f75552d"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/CustomButtonManager.as",
+      "sha256": "c5e284b2d9f3f7d88eb4dbc8f4d413962c22c918e0867b9dc305bc136edf70d7"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/World.as",
+      "sha256": "de552fe17984340b586a04e2065d17f6e0bb8b1959b28a558aae8133467cbc7e"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/Component.as",
+      "sha256": "f66ca1deab7a5c64d4a8ffa276537d87641e043259cd3f28de2683ec4250cbf8"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/PublicBoardManager.as",
+      "sha256": "34530fad03575a9473820e2a6ee1313c8b43f3f62b177de6a33c50e58d8db291"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/LongTextDialogManger.as",
+      "sha256": "b32259c13b586df61dc62831d27b92881c2392cf45e8f1ca73143f014119609c"
+    },
+    {
+      "path": "EnhancerApt/EnhancerApt/MapUiControlPainter.as",
+      "sha256": "baa2e46d44ef17f79a8abde7d0cdc9d1361228b3940e9ce8539e0b3737c5d7ad"
+    }
+  ]
+}

@@ -12,6 +12,8 @@ namespace BinaryAssetBuilder.AudioCompiler
         public const uint PathMusicEventTypeId = 2590317961u;
         public const uint PathMusicTrackTypeId = 2802565590u;
         public const uint AllTypesHash = 1424942948u;
+        public const uint LegacyAudioFileProcessingHash = 2414318214u;
+        public const uint EaLayer3ProcessingHash = 2414318215u;
 
         internal static void RequireWin32(TargetPlatform platform)
         {
@@ -22,7 +24,14 @@ namespace BinaryAssetBuilder.AudioCompiler
         public static uint Version(TargetPlatform platform)
         {
             RequireWin32(platform);
-            return 548405252u;
+#if NEWSdk_MONOLITHIC
+            // Sessions from the former type-wide hash cannot identify which
+            // stored AudioFiles used EALayer3. Reload them once before accepting
+            // either of the two per-instance hashes below.
+            return 548405254u;
+#else
+            return 548405253u;
+#endif
         }
 
         public static ExtendedTypeInformation PathMusicInformation(uint typeId, TargetPlatform platform)
@@ -63,7 +72,12 @@ namespace BinaryAssetBuilder.AudioCompiler
                     info.TypeName = "AudioFile";
                     info.TypeHash = 1405623879u;
                     info.HasCustomData = true;
-                    info.ProcessingHash = 2414318214u;
+#if NEWSdk_MONOLITHIC
+                    info.ProcessingHash = LegacyAudioFileProcessingHash;
+#else
+                    // Original BAB has no per-instance processing-hash hook.
+                    info.ProcessingHash = EaLayer3ProcessingHash;
+#endif
                     break;
                 case Mp3PassthroughTypeId:
                     info.TypeName = "AudioFileMP3Passthrough";
@@ -91,3 +105,4 @@ namespace BinaryAssetBuilder.AudioCompiler
         }
     }
 }
+

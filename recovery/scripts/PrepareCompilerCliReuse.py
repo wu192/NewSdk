@@ -47,6 +47,9 @@ ALLOWED = {
     'recovery/scripts/TestCompilerBackendBaseline.ps1',
     'recovery/scripts/TestCompilerCli.ps1',
     'recovery/scripts/CompilerCliOutputs.ps1',
+    # Read-only cache-location oracles used by validation/benchmark scripts.
+    'recovery/scripts/CompilerCacheLayout.ps1',
+    'recovery/scripts/CompilerCachePaths.py',
     'recovery/scripts/TestCompilerCliOutputs.ps1',
     'recovery/scripts/BuildCompilerCliControl.ps1',
     'recovery/scripts/PrepareCompilerCliBusiness.py',

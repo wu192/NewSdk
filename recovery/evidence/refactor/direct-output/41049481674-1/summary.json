@@ -1,0 +1,175 @@
+{
+  "status": "passed",
+  "binarySourceCommit": "784920357d1a268360a082cd3e51b42a5fa69356",
+  "testSourceCommit": "784920357d1a268360a082cd3e51b42a5fa69356",
+  "runId": "41049481674",
+  "runAttempt": "1",
+  "artifactId": "12974183951",
+  "artifactSha256": "17e5206c73fbda28173d3a377554120293573d1b5534893003793ebc8b7cf6c4",
+  "artifactDownloadedAndVerified": true,
+  "binaries": {
+    "Debug": {
+      "exeSha256": "6ce0fcc782997c561b1c20b91d7339f3abb394593d6213a72a5873af65163113",
+      "machine": "I386",
+      "textureBindingVerified": true,
+      "containsTests": false
+    },
+    "Release": {
+      "exeSha256": "fb1a239a6dbc27236258e40516fc70f896301b84ead39ee4b15e64d8d0c7c380",
+      "machine": "I386",
+      "textureBindingVerified": true,
+      "containsTests": false
+    }
+  },
+  "groups": {
+    "lifecycle": {
+      "passed": true,
+      "configurations": 2,
+      "protocolErrors": 0
+    },
+    "cli": {
+      "passed": true,
+      "configurations": 2,
+      "protocolErrors": 0
+    },
+    "session": {
+      "passed": true,
+      "configurations": 2,
+      "protocolErrors": 0
+    },
+    "assets": {
+      "passed": true,
+      "configurations": 2,
+      "protocolErrors": 0
+    },
+    "payloads": {
+      "passed": true,
+      "configurations": 2,
+      "protocolErrors": 0
+    },
+    "big": {
+      "passed": true,
+      "configurations": 2,
+      "protocolErrors": 0,
+      "originalComparisonsPerMode": [
+        13,
+        13
+      ]
+    },
+    "sdk": {
+      "passed": true,
+      "configurations": 2,
+      "protocolErrors": 0
+    },
+    "hot": {
+      "passed": true,
+      "samples": 56,
+      "mutations": [
+        "XML",
+        "Texture",
+        "PCM Audio",
+        "Animation",
+        "Inheritance",
+        "Defines"
+      ],
+      "elapsedSeconds": 42.16084849999993,
+      "rawBytesEqual": true
+    }
+  },
+  "rawRecordArchives": {
+    "debug-build.json": {
+      "archive": "debug-build.json.gz",
+      "rawSha256": "44a63007d5ffac1ec420de740e03fc26a98c4923e7a14a7c5ad7e5f3a8764981",
+      "archiveSha256": "ab11002a8732495ebd06485e44ab91ffbc74f64e9151848a86bf8e5ab83ba758"
+    },
+    "release-build.json": {
+      "archive": "release-build.json.gz",
+      "rawSha256": "3978239ecb6adca175d78fd9b14bd4653543220ff0ed4da1f863c34613f931a4",
+      "archiveSha256": "3e731e4b283e6d004a32f7b2f345bf8ea8b933696b3ee4025b4c75229ea289dd"
+    },
+    "lifecycle.validation.json": {
+      "archive": "lifecycle.validation.json.gz",
+      "rawSha256": "f4e26c4f09da54484d6fab1b7140a1386caf602c7fe797fbf624c139bd6612f5",
+      "archiveSha256": "1c394ea853228b3a1ddcecbcd1a4bb7c6d667430ada3d16d1bdd2147be8af0f5"
+    },
+    "lifecycle-protocol.json": {
+      "archive": "lifecycle-protocol.json.gz",
+      "rawSha256": "f39601257a7d554ce88aa926ca29fba1a41c9e063d5235d360e38f9d1b40e3e7",
+      "archiveSha256": "6aead333665b832bcc22c22b4918cbc659b73e02e80e61e178679bdeac36738a"
+    },
+    "cli.validation.json": {
+      "archive": "cli.validation.json.gz",
+      "rawSha256": "79b9a793a3e2006d2208691f3ae330a7f22c94e9b5dd3f10957a3fd507866ec6",
+      "archiveSha256": "2b03a69aac87311814b8566210a6b03d1c65510e73dc1c72e28015c25529ba21"
+    },
+    "cli-protocol.json": {
+      "archive": "cli-protocol.json.gz",
+      "rawSha256": "de5a5314f66377afd3a57d64c62c89e4b1d90a2f7ddeaccd40f49ecdfc314dc6",
+      "archiveSha256": "d2b0e1d7acde5066fc28c0ae0925167531b980122c8bf1d81b883803a10b53a4"
+    },
+    "session.validation.json": {
+      "archive": "session.validation.json.gz",
+      "rawSha256": "ccf2d849b78de6ab99728345461f388a35b3aa1a3dcf3435803922a7cf2eba3f",
+      "archiveSha256": "d555f688338716009b2e435a2a6240b700a0ec4aecc89a5689349b1a8294691a"
+    },
+    "session-protocol.json": {
+      "archive": "session-protocol.json.gz",
+      "rawSha256": "5bd0164cdf8aff1756681d731ae7e03ad3514637626cb3555202ba2ecb397cef",
+      "archiveSha256": "fe548146658eb2faa5eac271895091288032773ea58f2407c915aa366ef860f6"
+    },
+    "assets.validation.json": {
+      "archive": "assets.validation.json.gz",
+      "rawSha256": "a41bb30d5f8b34731a28111269814d66bc7bddb9a257e7ef723d8ca98c153da3",
+      "archiveSha256": "4beaef6f9cee7605c6fbdcf3c7aa88663de5a77c31ab49b3c8bf46bfb63f67b2"
+    },
+    "assets-protocol.json": {
+      "archive": "assets-protocol.json.gz",
+      "rawSha256": "960f2058d18978cf3110205b464045a0b9675f088697d1736987629d79e33913",
+      "archiveSha256": "a19032dc40b5d253509da03af0185bfe81d59b7ec481efca254db59ce3b89c91"
+    },
+    "payloads.validation.json": {
+      "archive": "payloads.validation.json.gz",
+      "rawSha256": "5b028118d587d23dbcf290508d5a44d1197bf6185214e855c8b16d59aca6cc0c",
+      "archiveSha256": "e3caadf05f7b2efdbb2fa66c65b6cc01b80e68d5ca1c88e94fef2ed83c39ce51"
+    },
+    "payloads-protocol.json": {
+      "archive": "payloads-protocol.json.gz",
+      "rawSha256": "91433a11b2a4947897843431bb4036240d502963a13233cf6c6b8cca4146730f",
+      "archiveSha256": "47e0de225d51a84f6594db626d4c09e955c95725e374aa1e5c51ec36f9af0574"
+    },
+    "big.validation.json": {
+      "archive": "big.validation.json.gz",
+      "rawSha256": "d98fd20e7b57e43a4dc3176c5629cfecd9f5f7e8ebb55b0f078dedd24aea4e18",
+      "archiveSha256": "e9b9fa52f1c1eab05617ed690f7389b4e271c60afca85edcca0a8bec9603ca75"
+    },
+    "big-protocol.json": {
+      "archive": "big-protocol.json.gz",
+      "rawSha256": "cf2296d968bb727c10c5001614f3594c7d95d53e87cd11c1eb06dabce41cbea4",
+      "archiveSha256": "b1460bdcf85d52f7d60b3bae4f2711746e8d42df4487fa4a880b13fc2dec590b"
+    },
+    "sdk.validation.json": {
+      "archive": "sdk.validation.json.gz",
+      "rawSha256": "b456d69ad92470812965e8f09e1d499090cfb898951910f81fcf58b3259b50d6",
+      "archiveSha256": "68c24d65da1a22d332289fd70ad6071fea46903cbc1981ebd7249ec988844261"
+    },
+    "sdk-protocol.json": {
+      "archive": "sdk-protocol.json.gz",
+      "rawSha256": "c5be76f89d75dfdbb7fd1eed4101772b8decbda474326869cd25b96bf36326c6",
+      "archiveSha256": "013cc8b0c29a3845588fadcc84f557af3b1ae064c55246aa4e787241ba488630"
+    },
+    "hot.validation.json": {
+      "archive": "hot.validation.json.gz",
+      "rawSha256": "9a905233d8dcd91b4d694d0e4df3d18a586bbbf76967dd3725a4903face142dd",
+      "archiveSha256": "97dec1dcc0402033cec593b447d45cd9810f57a601e24498c23fd450a6a0aacf"
+    }
+  },
+  "performance": {
+    "binarySourceCommit": "f6c3c009ac67775b273ec0f1ac45c68fd613da7c",
+    "baselineCommit": "5c1843aea5f9b0cdcbe04325b251a8a944ed0fae",
+    "runId": "41046820725",
+    "pairedRawBytesEqual": true,
+    "samples": 36,
+    "note": "Reuse the completed same-VM measurement before final dead metadata helper removal; do not label it as a new final-binary timing."
+  },
+  "scope": "Win32 Debug/Release directed compiler/cache/packaging and full unchanged mymod original SDK bytes; no new game runtime or Release publication."
+}

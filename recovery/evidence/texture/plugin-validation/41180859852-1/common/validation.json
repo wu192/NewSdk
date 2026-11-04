@@ -1,0 +1,1553 @@
+{
+  "failures": [],
+  "fixtureInputs": [
+    {
+      "bytes": 189,
+      "sha256": "3b7ef0c5b535a0de3667389fa9dddec4dcfc272acd3a9916cd8c1f190d89499c",
+      "name": "alpha.png"
+    },
+    {
+      "bytes": 1024,
+      "sha256": "016ff404e2b417d3bf33b61372d8afa6f707923fcdf62aebd99b92df1882dd9e",
+      "name": "alpha.rgba"
+    },
+    {
+      "bytes": 113,
+      "sha256": "44a301e2ab5b843c7b6c503b482fb9dc3d717b5903aa174607c4a7881adf9f1b",
+      "name": "binary-alpha.png"
+    },
+    {
+      "bytes": 1024,
+      "sha256": "e0251fd050d1d39a259e2b175d1d1d45c577982351a4cd909a4e7f56e01eb475",
+      "name": "binary-alpha.rgba"
+    },
+    {
+      "bytes": 20,
+      "sha256": "4cc335839c7dcbb9d0b0d8856ce919a852dfa442e2fe3ddb17d638e1e733edde",
+      "name": "broken.png"
+    },
+    {
+      "bytes": 450,
+      "sha256": "261465d9d0217049aa07e0353136260795205524139916aab253f7200e346657",
+      "name": "fixtures.json"
+    },
+    {
+      "bytes": 326,
+      "sha256": "a80460670368ea0286643488ea13d456bcd4d6496f38eb17124a61ab7aa9abc9",
+      "name": "indexed.bmp"
+    },
+    {
+      "bytes": 312,
+      "sha256": "79033f4eb8ee68102d03c8526ba7266f99bbc7b9f4b464b87ec4a0caef0c840c",
+      "name": "indexed.dib"
+    },
+    {
+      "bytes": 119,
+      "sha256": "928ff450279d05c60e908e518e0a6552a43241b926195c74164f79b2bb4d730e",
+      "name": "indexed.png"
+    },
+    {
+      "bytes": 95,
+      "sha256": "a0407f2e18e205067f62ecb7673294abeb049fcdb98001c9fd260ebd19f9f8af",
+      "name": "npot.png"
+    },
+    {
+      "bytes": 822,
+      "sha256": "f2950affe79b287c094b092d95cc1611f4958931e9846cb316cc1e1bb24ca51a",
+      "name": "opaque.bmp"
+    },
+    {
+      "bytes": 808,
+      "sha256": "6fa30a7929954b27ccef9e4c666f75d7e4fbef910a6cf592cfc3a38201e1097e",
+      "name": "opaque.dib"
+    },
+    {
+      "bytes": 104,
+      "sha256": "df14ce0968f1d0f91f0b0da77dc0f26c07d6f8c357b50d332c88404a5ac6571f",
+      "name": "opaque.png"
+    },
+    {
+      "bytes": 1024,
+      "sha256": "06574d8f79d9a246deb2eef55dbbdd2aca70cff986025e11db955e332c94e3d9",
+      "name": "opaque.rgba"
+    },
+    {
+      "bytes": 1042,
+      "sha256": "f26c18dd0db71cbe0df81582afee54d688e9b1e6044a1540144821a714804e08",
+      "name": "opaque.tga"
+    },
+    {
+      "bytes": 1152,
+      "sha256": "ea7443bed051b12d75d7c567f2d0905cd4f53b8d216ec823143f140e07cb6b32",
+      "name": "preserve.dds"
+    },
+    {
+      "bytes": 1058,
+      "sha256": "450212b7533098d8e33042f4aefc02ab7650491213b2a1d5e8d6f2918374e129",
+      "name": "rle.tga"
+    },
+    {
+      "bytes": 822,
+      "sha256": "1fe07197c342d25d762c8ff0c10f787f4cdaba4c7d9821fb174d8b857e479c73",
+      "name": "solid.bmp"
+    },
+    {
+      "bytes": 82,
+      "sha256": "57b30c21fec6be6cb97ffda5991bcbd294b360c95758b4a238cdba14854daf8f",
+      "name": "solid.png"
+    },
+    {
+      "bytes": 1024,
+      "sha256": "d0922103d16565dada908b2221bdb4a18dc0b09e598cd0d387d5267fb2169dbd",
+      "name": "solid.rgba"
+    }
+  ],
+  "schemaVersion": 1,
+  "status": "passed",
+  "configurations": [
+    {
+      "failures": [],
+      "caseCount": 31,
+      "legacyTextureDllPresent": false,
+      "sameProductionObjects": true,
+      "configuration": "Debug",
+      "passed": true,
+      "resultSha256": "662d5480f062c68172aecd78c52b643340a98770cd9baf5e977e55a82dbc42a6",
+      "validationHostSha256": "8a21104e0a98ed0176b24fdb68e3cb9e62581bd652243777f083d26ff484eaf6",
+      "processExit": 0,
+      "assertions": 532,
+      "exeSha256": "f5963684c81c3168975c608bd0194cd5ef0f2379b48e6e70453b69e9836dff01"
+    },
+    {
+      "failures": [],
+      "caseCount": 31,
+      "legacyTextureDllPresent": false,
+      "sameProductionObjects": true,
+      "configuration": "Release",
+      "passed": true,
+      "resultSha256": "662d5480f062c68172aecd78c52b643340a98770cd9baf5e977e55a82dbc42a6",
+      "validationHostSha256": "3373a6c8a1e55971f270f0b34ee4b6380cf4ed42cf1229930623878525e6bd97",
+      "processExit": 0,
+      "assertions": 532,
+      "exeSha256": "801d5732fbff8ffd3bf5110db5208a971619b891775a11845819c79e987c6873"
+    }
+  ],
+  "testSources": [
+    {
+      "path": "recovery/tests/TextureCommonFormats.cs",
+      "sha256": "369bd512427509e1bdd64f4b219e66965bdb77d8555812e13fd9286f8b2cabe4"
+    },
+    {
+      "path": "recovery/scripts/GenerateTextureFixtures.py",
+      "sha256": "3847211ac592133f5f7c2234029bb0f055ec364a2df678792d6ec50ce441bfd0"
+    }
+  ],
+  "runAttempt": "1",
+  "productionCli": [
+    {
+      "failureRetryPassed": true,
+      "schemaDefaultsExercised": true,
+      "onlyDependentTextureRecompiled": true,
+      "configuration": "Debug",
+      "passed": true,
+      "cases": [
+        {
+          "outputSha256": {
+            "base\\Mod\\streams\\mod.manifest": "152c4864000c16b118c5f133548237f777f48afa1edcc8146a030db4da67686d",
+            "base\\Mod\\streams\\mod.bin": "86387396505ac5fd3814c1cefca71cff16a4566ec9a8e1c9d3252616e47b6887",
+            "base\\Mod\\streams\\mod.imp": "966338d15b334b6c924691af0ac53bfdde0f7b59ef01df7e18b9f6e4bae89b43",
+            "base\\Mod\\streams\\mod.relo": "be730d36199a79ce6977902a96c7bc9330c290ad7e80d6566662d324df6ab464",
+            "base\\Mod\\streams\\mod\\cdata\\9312b9ac.f8488ede.8c45a099.108a4b8e.cdata": "7741155c01ec1aa5b4c687b0b86afb91e78080e20c5dd0787a4e1f878cb2f22e"
+          },
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=true",
+            "--bc=true",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached-intermediate"
+          ],
+          "name": "cold",
+          "passed": true,
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 7,
+            "sessionCache": true,
+            "sessionPackageHits": 0,
+            "sessionPackageMisses": 1,
+            "documentReuse": 0,
+            "xmlParse": 1,
+            "instanceCompile": 7,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 8,
+            "fileHashReuses": 815,
+            "fileHashBytesRead": 4609,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 7,
+              "backendCallsByType": {
+                "Texture": 6,
+                "OnDemandTexture": 1
+              },
+              "maxBackendConcurrency": 1,
+              "prepareMs": 1.2165000000000001,
+              "workerWaitMs": 0,
+              "workerComputeMs": 24.8545,
+              "ownerCommitMs": 16.0101,
+              "fallbackByReason": {
+                "uncertified-plugin": 7
+              },
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12152264894,
+                  "endTicks": 12152365402,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12152439668,
+                  "endTicks": 12152469264,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12152482953,
+                  "endTicks": 12152525468,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12152549568,
+                  "endTicks": 12152608141,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12152621910,
+                  "endTicks": 12152628939,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12152639678,
+                  "endTicks": 12152642556,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "OnDemandTexture",
+                  "startTicks": 12152696409,
+                  "endTicks": 12152703855,
+                  "threadId": 1
+                }
+              ],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached"
+          },
+          "buildId": "811e2992f4eb43f48ba6bffa9b95d4e8",
+          "expectedExit": 0,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 4700,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [],
+            "freshEventsRequired": false,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057267092903,
+            "processId": 3988,
+            "processGroupId": 3988,
+            "creationFlags": 516,
+            "processExitCode": 0,
+            "elapsedMs": 489,
+            "auditPolls": 31,
+            "descendants": []
+          }
+        },
+        {
+          "outputSha256": {
+            "base\\Mod\\streams\\mod.manifest": "152c4864000c16b118c5f133548237f777f48afa1edcc8146a030db4da67686d",
+            "base\\Mod\\streams\\mod.bin": "86387396505ac5fd3814c1cefca71cff16a4566ec9a8e1c9d3252616e47b6887",
+            "base\\Mod\\streams\\mod.imp": "966338d15b334b6c924691af0ac53bfdde0f7b59ef01df7e18b9f6e4bae89b43",
+            "base\\Mod\\streams\\mod.relo": "be730d36199a79ce6977902a96c7bc9330c290ad7e80d6566662d324df6ab464",
+            "base\\Mod\\streams\\mod\\cdata\\9312b9ac.f8488ede.8c45a099.108a4b8e.cdata": "7741155c01ec1aa5b4c687b0b86afb91e78080e20c5dd0787a4e1f878cb2f22e"
+          },
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=true",
+            "--bc=true",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached-intermediate"
+          ],
+          "name": "warm",
+          "passed": true,
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 1,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 823,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 0,
+              "backendCallsByType": {},
+              "maxBackendConcurrency": 0,
+              "prepareMs": 0,
+              "workerWaitMs": 0,
+              "workerComputeMs": 0,
+              "ownerCommitMs": 0,
+              "fallbackByReason": {},
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached"
+          },
+          "buildId": "2d4ec87db02f4472a23c08725fc87672",
+          "expectedExit": 0,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 4664,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [
+              "811e2992f4eb43f48ba6bffa9b95d4e8"
+            ],
+            "freshEventsRequired": true,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057272793419,
+            "processId": 5640,
+            "processGroupId": 5640,
+            "creationFlags": 516,
+            "processExitCode": 0,
+            "elapsedMs": 390,
+            "auditPolls": 24,
+            "descendants": []
+          }
+        },
+        {
+          "outputSha256": {
+            "base\\Mod\\streams\\mod.manifest": "54a20e059c7b94f5511ef663356a143f825acadf17d540b7c516d606be0d117d",
+            "base\\Mod\\streams\\mod.bin": "f0781bccac1e56414cbe067eeb2838d24e71156bd0bf1d05018958124dabb2b5",
+            "base\\Mod\\streams\\mod.imp": "220a2b17182b9cfe4c2e105e1772122ad547ab1ace5fe10bb37a7e9b10e5ef81",
+            "base\\Mod\\streams\\mod.relo": "c70e63d826c1d9bbed0b664b495c281403c8d305b5d61bd508ee5c23b0007685",
+            "base\\Mod\\streams\\mod\\cdata\\9312b9ac.f8488ede.8c45a099.108a4b8e.cdata": "7741155c01ec1aa5b4c687b0b86afb91e78080e20c5dd0787a4e1f878cb2f22e"
+          },
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=true",
+            "--bc=true",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached-intermediate"
+          ],
+          "name": "one-image-mutated",
+          "passed": true,
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 1,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 0,
+            "xmlParse": 1,
+            "instanceCompile": 1,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 1,
+            "fileHashReuses": 822,
+            "fileHashBytesRead": 1042,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 1,
+              "backendCallsByType": {
+                "Texture": 1
+              },
+              "maxBackendConcurrency": 1,
+              "prepareMs": 1.7558,
+              "workerWaitMs": 0,
+              "workerComputeMs": 8.384400000000001,
+              "ownerCommitMs": 5.2323,
+              "fallbackByReason": {
+                "uncertified-plugin": 1
+              },
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12162177936,
+                  "endTicks": 12162261780,
+                  "threadId": 1
+                }
+              ],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached"
+          },
+          "buildId": "986b5d2db7b74889ac650e0c01bc806b",
+          "expectedExit": 0,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 7076,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [
+              "2d4ec87db02f4472a23c08725fc87672"
+            ],
+            "freshEventsRequired": true,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057277299983,
+            "processId": 4836,
+            "processGroupId": 4836,
+            "creationFlags": 516,
+            "processExitCode": 0,
+            "elapsedMs": 424,
+            "auditPolls": 27,
+            "descendants": []
+          }
+        },
+        {
+          "outputSha256": {
+            "base\\Mod\\streams\\mod.manifest": "54a20e059c7b94f5511ef663356a143f825acadf17d540b7c516d606be0d117d",
+            "base\\Mod\\streams\\mod.bin": "f0781bccac1e56414cbe067eeb2838d24e71156bd0bf1d05018958124dabb2b5",
+            "base\\Mod\\streams\\mod.imp": "220a2b17182b9cfe4c2e105e1772122ad547ab1ace5fe10bb37a7e9b10e5ef81",
+            "base\\Mod\\streams\\mod.relo": "c70e63d826c1d9bbed0b664b495c281403c8d305b5d61bd508ee5c23b0007685",
+            "base\\Mod\\streams\\mod\\cdata\\9312b9ac.f8488ede.8c45a099.108a4b8e.cdata": "7741155c01ec1aa5b4c687b0b86afb91e78080e20c5dd0787a4e1f878cb2f22e"
+          },
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\fresh",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=false",
+            "--bc=false",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\fresh-intermediate"
+          ],
+          "name": "fresh-no-cache",
+          "passed": true,
+          "cache": {
+            "status": "Disabled",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": false,
+            "sessionPackageHits": 0,
+            "sessionPackageMisses": 0,
+            "documentReuse": 0,
+            "xmlParse": 1,
+            "instanceCompile": 7,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 8,
+            "fileHashReuses": 815,
+            "fileHashBytesRead": 4609,
+            "textureCache": false,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 7,
+              "backendCallsByType": {
+                "Texture": 6,
+                "OnDemandTexture": 1
+              },
+              "maxBackendConcurrency": 1,
+              "prepareMs": 1.2037,
+              "workerWaitMs": 0,
+              "workerComputeMs": 25.855700000000002,
+              "ownerCommitMs": 9.6347,
+              "fallbackByReason": {
+                "uncertified-plugin": 7
+              },
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12166637548,
+                  "endTicks": 12166743860,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12166786984,
+                  "endTicks": 12166820126,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12166829253,
+                  "endTicks": 12166871040,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12166892122,
+                  "endTicks": 12166948185,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12166956197,
+                  "endTicks": 12166966866,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12166988968,
+                  "endTicks": 12166991917,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "OnDemandTexture",
+                  "startTicks": 12167003796,
+                  "endTicks": 12167011431,
+                  "threadId": 1
+                }
+              ],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": null
+          },
+          "buildId": "ca7569b5b4f945a294210ba995da434f",
+          "expectedExit": 0,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 1980,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [],
+            "freshEventsRequired": false,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057282046378,
+            "processId": 5264,
+            "processGroupId": 5264,
+            "creationFlags": 516,
+            "processExitCode": 0,
+            "elapsedMs": 420,
+            "auditPolls": 26,
+            "descendants": []
+          }
+        },
+        {
+          "outputSha256": {},
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=true",
+            "--bc=true",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached-intermediate"
+          ],
+          "name": "missing-image",
+          "passed": true,
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 0,
+            "xmlParse": 1,
+            "instanceCompile": 1,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 0,
+            "fileHashReuses": 822,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 1,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 1,
+              "backendCallsByType": {
+                "Texture": 1
+              },
+              "maxBackendConcurrency": 1,
+              "prepareMs": 1.2614,
+              "workerWaitMs": 0,
+              "workerComputeMs": 1.2149,
+              "ownerCommitMs": 0,
+              "fallbackByReason": {
+                "uncertified-plugin": 1
+              },
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12171723164,
+                  "endTicks": 12171735313,
+                  "threadId": 1
+                }
+              ],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached"
+          },
+          "buildId": "3e08701635a943fe9d59844b5f5c262b",
+          "expectedExit": 4,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 6852,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [
+              "986b5d2db7b74889ac650e0c01bc806b"
+            ],
+            "freshEventsRequired": true,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057286906890,
+            "processId": 6840,
+            "processGroupId": 6840,
+            "creationFlags": 516,
+            "processExitCode": 4,
+            "elapsedMs": 403,
+            "auditPolls": 25,
+            "descendants": []
+          }
+        },
+        {
+          "outputSha256": {
+            "base\\Mod\\streams\\mod.manifest": "54a20e059c7b94f5511ef663356a143f825acadf17d540b7c516d606be0d117d",
+            "base\\Mod\\streams\\mod.bin": "f0781bccac1e56414cbe067eeb2838d24e71156bd0bf1d05018958124dabb2b5",
+            "base\\Mod\\streams\\mod.imp": "220a2b17182b9cfe4c2e105e1772122ad547ab1ace5fe10bb37a7e9b10e5ef81",
+            "base\\Mod\\streams\\mod.relo": "c70e63d826c1d9bbed0b664b495c281403c8d305b5d61bd508ee5c23b0007685",
+            "base\\Mod\\streams\\mod\\cdata\\9312b9ac.f8488ede.8c45a099.108a4b8e.cdata": "7741155c01ec1aa5b4c687b0b86afb91e78080e20c5dd0787a4e1f878cb2f22e"
+          },
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=true",
+            "--bc=true",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached-intermediate"
+          ],
+          "name": "restored-retry",
+          "passed": true,
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 1,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 1,
+            "fileHashReuses": 822,
+            "fileHashBytesRead": 1042,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 0,
+              "backendCallsByType": {},
+              "maxBackendConcurrency": 0,
+              "prepareMs": 0,
+              "workerWaitMs": 0,
+              "workerComputeMs": 0,
+              "ownerCommitMs": 0,
+              "fallbackByReason": {},
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\cached"
+          },
+          "buildId": "90ddc15e20d24b489173dab819b99cfe",
+          "expectedExit": 0,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 7984,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [
+              "3e08701635a943fe9d59844b5f5c262b"
+            ],
+            "freshEventsRequired": true,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Debug\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057291391285,
+            "processId": 5200,
+            "processGroupId": 5200,
+            "creationFlags": 516,
+            "processExitCode": 0,
+            "elapsedMs": 379,
+            "auditPolls": 24,
+            "descendants": []
+          }
+        }
+      ],
+      "nonAsciiModPath": true,
+      "exeSha256": "f5963684c81c3168975c608bd0194cd5ef0f2379b48e6e70453b69e9836dff01"
+    },
+    {
+      "failureRetryPassed": true,
+      "schemaDefaultsExercised": true,
+      "onlyDependentTextureRecompiled": true,
+      "configuration": "Release",
+      "passed": true,
+      "cases": [
+        {
+          "outputSha256": {
+            "base\\Mod\\streams\\mod.manifest": "152c4864000c16b118c5f133548237f777f48afa1edcc8146a030db4da67686d",
+            "base\\Mod\\streams\\mod.bin": "86387396505ac5fd3814c1cefca71cff16a4566ec9a8e1c9d3252616e47b6887",
+            "base\\Mod\\streams\\mod.imp": "966338d15b334b6c924691af0ac53bfdde0f7b59ef01df7e18b9f6e4bae89b43",
+            "base\\Mod\\streams\\mod.relo": "be730d36199a79ce6977902a96c7bc9330c290ad7e80d6566662d324df6ab464",
+            "base\\Mod\\streams\\mod\\cdata\\9312b9ac.f8488ede.8c45a099.108a4b8e.cdata": "7741155c01ec1aa5b4c687b0b86afb91e78080e20c5dd0787a4e1f878cb2f22e"
+          },
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=true",
+            "--bc=true",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached-intermediate"
+          ],
+          "name": "cold",
+          "passed": true,
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 7,
+            "sessionCache": true,
+            "sessionPackageHits": 0,
+            "sessionPackageMisses": 1,
+            "documentReuse": 0,
+            "xmlParse": 1,
+            "instanceCompile": 7,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 8,
+            "fileHashReuses": 815,
+            "fileHashBytesRead": 4609,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 7,
+              "backendCallsByType": {
+                "Texture": 6,
+                "OnDemandTexture": 1
+              },
+              "maxBackendConcurrency": 1,
+              "prepareMs": 2.0743,
+              "workerWaitMs": 0,
+              "workerComputeMs": 24.0423,
+              "ownerCommitMs": 20.2526,
+              "fallbackByReason": {
+                "uncertified-plugin": 7
+              },
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12190059764,
+                  "endTicks": 12190162969,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12190242332,
+                  "endTicks": 12190270734,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12190299726,
+                  "endTicks": 12190336806,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12190362292,
+                  "endTicks": 12190417887,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12190431241,
+                  "endTicks": 12190437911,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12190449568,
+                  "endTicks": 12190452193,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "OnDemandTexture",
+                  "startTicks": 12190471252,
+                  "endTicks": 12190478098,
+                  "threadId": 1
+                }
+              ],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached"
+          },
+          "buildId": "a1df22282335446a9a199a159c264704",
+          "expectedExit": 0,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 2064,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [],
+            "freshEventsRequired": false,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057305514649,
+            "processId": 7664,
+            "processGroupId": 7664,
+            "creationFlags": 516,
+            "processExitCode": 0,
+            "elapsedMs": 433,
+            "auditPolls": 27,
+            "descendants": []
+          }
+        },
+        {
+          "outputSha256": {
+            "base\\Mod\\streams\\mod.manifest": "152c4864000c16b118c5f133548237f777f48afa1edcc8146a030db4da67686d",
+            "base\\Mod\\streams\\mod.bin": "86387396505ac5fd3814c1cefca71cff16a4566ec9a8e1c9d3252616e47b6887",
+            "base\\Mod\\streams\\mod.imp": "966338d15b334b6c924691af0ac53bfdde0f7b59ef01df7e18b9f6e4bae89b43",
+            "base\\Mod\\streams\\mod.relo": "be730d36199a79ce6977902a96c7bc9330c290ad7e80d6566662d324df6ab464",
+            "base\\Mod\\streams\\mod\\cdata\\9312b9ac.f8488ede.8c45a099.108a4b8e.cdata": "7741155c01ec1aa5b4c687b0b86afb91e78080e20c5dd0787a4e1f878cb2f22e"
+          },
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=true",
+            "--bc=true",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached-intermediate"
+          ],
+          "name": "warm",
+          "passed": true,
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 1,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 1,
+            "fileHashReads": 0,
+            "fileHashReuses": 823,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 0,
+              "backendCallsByType": {},
+              "maxBackendConcurrency": 0,
+              "prepareMs": 0,
+              "workerWaitMs": 0,
+              "workerComputeMs": 0,
+              "ownerCommitMs": 0,
+              "fallbackByReason": {},
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached"
+          },
+          "buildId": "8bdec84550b54e0dbbe59206aecf6ec1",
+          "expectedExit": 0,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 1232,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [
+              "a1df22282335446a9a199a159c264704"
+            ],
+            "freshEventsRequired": true,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057310435847,
+            "processId": 6676,
+            "processGroupId": 6676,
+            "creationFlags": 516,
+            "processExitCode": 0,
+            "elapsedMs": 334,
+            "auditPolls": 21,
+            "descendants": []
+          }
+        },
+        {
+          "outputSha256": {
+            "base\\Mod\\streams\\mod.manifest": "54a20e059c7b94f5511ef663356a143f825acadf17d540b7c516d606be0d117d",
+            "base\\Mod\\streams\\mod.bin": "f0781bccac1e56414cbe067eeb2838d24e71156bd0bf1d05018958124dabb2b5",
+            "base\\Mod\\streams\\mod.imp": "220a2b17182b9cfe4c2e105e1772122ad547ab1ace5fe10bb37a7e9b10e5ef81",
+            "base\\Mod\\streams\\mod.relo": "c70e63d826c1d9bbed0b664b495c281403c8d305b5d61bd508ee5c23b0007685",
+            "base\\Mod\\streams\\mod\\cdata\\9312b9ac.f8488ede.8c45a099.108a4b8e.cdata": "7741155c01ec1aa5b4c687b0b86afb91e78080e20c5dd0787a4e1f878cb2f22e"
+          },
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=true",
+            "--bc=true",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached-intermediate"
+          ],
+          "name": "one-image-mutated",
+          "passed": true,
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 1,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 0,
+            "xmlParse": 1,
+            "instanceCompile": 1,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 1,
+            "fileHashReuses": 822,
+            "fileHashBytesRead": 1042,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 1,
+              "backendCallsByType": {
+                "Texture": 1
+              },
+              "maxBackendConcurrency": 1,
+              "prepareMs": 1.959,
+              "workerWaitMs": 0,
+              "workerComputeMs": 4.8871,
+              "ownerCommitMs": 2.9693,
+              "fallbackByReason": {
+                "uncertified-plugin": 1
+              },
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12198625425,
+                  "endTicks": 12198674296,
+                  "threadId": 1
+                }
+              ],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached"
+          },
+          "buildId": "edad0aef34194cf1b026031ec8b652ba",
+          "expectedExit": 0,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 2680,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [
+              "8bdec84550b54e0dbbe59206aecf6ec1"
+            ],
+            "freshEventsRequired": true,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057314220660,
+            "processId": 1488,
+            "processGroupId": 1488,
+            "creationFlags": 516,
+            "processExitCode": 0,
+            "elapsedMs": 377,
+            "auditPolls": 24,
+            "descendants": []
+          }
+        },
+        {
+          "outputSha256": {
+            "base\\Mod\\streams\\mod.manifest": "54a20e059c7b94f5511ef663356a143f825acadf17d540b7c516d606be0d117d",
+            "base\\Mod\\streams\\mod.bin": "f0781bccac1e56414cbe067eeb2838d24e71156bd0bf1d05018958124dabb2b5",
+            "base\\Mod\\streams\\mod.imp": "220a2b17182b9cfe4c2e105e1772122ad547ab1ace5fe10bb37a7e9b10e5ef81",
+            "base\\Mod\\streams\\mod.relo": "c70e63d826c1d9bbed0b664b495c281403c8d305b5d61bd508ee5c23b0007685",
+            "base\\Mod\\streams\\mod\\cdata\\9312b9ac.f8488ede.8c45a099.108a4b8e.cdata": "7741155c01ec1aa5b4c687b0b86afb91e78080e20c5dd0787a4e1f878cb2f22e"
+          },
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\fresh",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=false",
+            "--bc=false",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\fresh-intermediate"
+          ],
+          "name": "fresh-no-cache",
+          "passed": true,
+          "cache": {
+            "status": "Disabled",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": false,
+            "sessionPackageHits": 0,
+            "sessionPackageMisses": 0,
+            "documentReuse": 0,
+            "xmlParse": 1,
+            "instanceCompile": 7,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 8,
+            "fileHashReuses": 815,
+            "fileHashBytesRead": 4609,
+            "textureCache": false,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 7,
+              "backendCallsByType": {
+                "Texture": 6,
+                "OnDemandTexture": 1
+              },
+              "maxBackendConcurrency": 1,
+              "prepareMs": 2.0411,
+              "workerWaitMs": 0,
+              "workerComputeMs": 21.7213,
+              "ownerCommitMs": 8.1472,
+              "fallbackByReason": {
+                "uncertified-plugin": 7
+              },
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12202806586,
+                  "endTicks": 12202894531,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12202930825,
+                  "endTicks": 12202959363,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12202966926,
+                  "endTicks": 12203002720,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12203022383,
+                  "endTicks": 12203072097,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12203077797,
+                  "endTicks": 12203083536,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12203088095,
+                  "endTicks": 12203090548,
+                  "threadId": 1
+                },
+                {
+                  "typeName": "OnDemandTexture",
+                  "startTicks": 12203101573,
+                  "endTicks": 12203108603,
+                  "threadId": 1
+                }
+              ],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": null
+          },
+          "buildId": "bdc35ab5915341af9f1e382c38ae52bd",
+          "expectedExit": 0,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 8176,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [],
+            "freshEventsRequired": false,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057318420860,
+            "processId": 3756,
+            "processGroupId": 3756,
+            "creationFlags": 516,
+            "processExitCode": 0,
+            "elapsedMs": 395,
+            "auditPolls": 25,
+            "descendants": []
+          }
+        },
+        {
+          "outputSha256": {},
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=true",
+            "--bc=true",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached-intermediate"
+          ],
+          "name": "missing-image",
+          "passed": true,
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 0,
+            "xmlParse": 1,
+            "instanceCompile": 1,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 0,
+            "fileHashReuses": 822,
+            "fileHashBytesRead": 0,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 1,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 1,
+              "backendCallsByType": {
+                "Texture": 1
+              },
+              "maxBackendConcurrency": 1,
+              "prepareMs": 2.0271,
+              "workerWaitMs": 0,
+              "workerComputeMs": 1.0259,
+              "ownerCommitMs": 0,
+              "fallbackByReason": {
+                "uncertified-plugin": 1
+              },
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [
+                {
+                  "typeName": "Texture",
+                  "startTicks": 12207028998,
+                  "endTicks": 12207039257,
+                  "threadId": 1
+                }
+              ],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached"
+          },
+          "buildId": "3d8c6161767849e18455b93f717370fa",
+          "expectedExit": 4,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 2648,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [
+              "edad0aef34194cf1b026031ec8b652ba"
+            ],
+            "freshEventsRequired": true,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057322802745,
+            "processId": 2468,
+            "processGroupId": 2468,
+            "creationFlags": 516,
+            "processExitCode": 4,
+            "elapsedMs": 332,
+            "auditPolls": 21,
+            "descendants": []
+          }
+        },
+        {
+          "outputSha256": {
+            "base\\Mod\\streams\\mod.manifest": "54a20e059c7b94f5511ef663356a143f825acadf17d540b7c516d606be0d117d",
+            "base\\Mod\\streams\\mod.bin": "f0781bccac1e56414cbe067eeb2838d24e71156bd0bf1d05018958124dabb2b5",
+            "base\\Mod\\streams\\mod.imp": "220a2b17182b9cfe4c2e105e1772122ad547ab1ace5fe10bb37a7e9b10e5ef81",
+            "base\\Mod\\streams\\mod.relo": "c70e63d826c1d9bbed0b664b495c281403c8d305b5d61bd508ee5c23b0007685",
+            "base\\Mod\\streams\\mod\\cdata\\9312b9ac.f8488ede.8c45a099.108a4b8e.cdata": "7741155c01ec1aa5b4c687b0b86afb91e78080e20c5dd0787a4e1f878cb2f22e"
+          },
+          "arguments": [
+            "build",
+            "--mod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\MOD 中文纹理",
+            "--sdk-root",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\sdk",
+            "--out",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached",
+            "--package-format",
+            "loose",
+            "--package-content",
+            "base",
+            "--performance",
+            "detailed",
+            "--sc=true",
+            "--bc=true",
+            "--iod",
+            "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached-intermediate"
+          ],
+          "name": "restored-retry",
+          "passed": true,
+          "cache": {
+            "status": "SessionCache",
+            "hits": 0,
+            "misses": 0,
+            "sessionCache": true,
+            "sessionPackageHits": 1,
+            "sessionPackageMisses": 0,
+            "documentReuse": 1,
+            "xmlParse": 0,
+            "instanceCompile": 0,
+            "linkedStreamsRestored": 0,
+            "fileHashReads": 1,
+            "fileHashReuses": 822,
+            "fileHashBytesRead": 1042,
+            "textureCache": true,
+            "compressedSessionCache": true,
+            "partialSessionCache": true,
+            "freezeSessionCache": false,
+            "alwaysTouchCache": false,
+            "partialSessionsSaved": 0,
+            "parallel": {
+              "protocol": "NewModCompiler.ParallelBackend.v1",
+              "requestedJobs": "auto",
+              "effectiveJobs": 4,
+              "minimumEffectiveJobs": 4,
+              "backendCalls": 0,
+              "backendCallsByType": {},
+              "maxBackendConcurrency": 0,
+              "prepareMs": 0,
+              "workerWaitMs": 0,
+              "workerComputeMs": 0,
+              "ownerCommitMs": 0,
+              "fallbackByReason": {},
+              "sampledPeakPrivateBytes": 0,
+              "resourceQuerySucceeded": true,
+              "backendIntervals": [],
+              "intervalSampleLimit": 512,
+              "clockFrequency": 10000000
+            },
+            "sessionCacheDirectory": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached"
+          },
+          "buildId": "b444b3d1310d462da4e0426a67cd6668",
+          "expectedExit": 0,
+          "controller": {
+            "succeeded": true,
+            "controllerPid": 6192,
+            "singleProcessJobLimit": 1,
+            "signalRequested": false,
+            "signalSent": false,
+            "streamStartedObserved": false,
+            "previousBuildIds": [
+              "3d8c6161767849e18455b93f717370fa"
+            ],
+            "freshEventsRequired": true,
+            "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\runtime\\NewModCompiler.exe",
+            "consoleInitiallyAttached": true,
+            "allocatedConsole": false,
+            "singleProcessJobEnforced": true,
+            "processCreatedFileTime": 134379057326547935,
+            "processId": 1836,
+            "processGroupId": 1836,
+            "creationFlags": 516,
+            "processExitCode": 0,
+            "elapsedMs": 333,
+            "auditPolls": 21,
+            "descendants": []
+          }
+        }
+      ],
+      "nonAsciiModPath": true,
+      "exeSha256": "801d5732fbff8ffd3bf5110db5208a971619b891775a11845819c79e987c6873"
+    }
+  ],
+  "sourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "scope": "Common formats through production plugin objects and real MOD CLI; independent DDS/BC decode, Core schema/file preprocessing, cache invalidation, missing-input retry; no game runtime claim",
+  "runId": "41180859852"
+}

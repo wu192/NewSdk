@@ -1,0 +1,531 @@
+{
+  "runId": 41169755141,
+  "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff",
+  "artifactId": 13031570000,
+  "archiveSha256": "9bed3788315194157a2ee039e0aa53a0a987b53e78457aa3307d65f6f7c72144",
+  "archiveBytes": 165945137,
+  "downloadedAndRehashed": true,
+  "runtime": {
+    "Debug": {
+      "NewModCompiler.exe": "7a4c34d790493f433728d30b06fa56e5506843f3937ab4cfa281613a6d4928be",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "010b654083907e492c978246e8178e4f78b61e98f6edca5cebf38a6dd4b405bc"
+    },
+    "Release": {
+      "NewModCompiler.exe": "5ad10b77e75a45f860e37c5e19eb30f2296fe6a0b79c7ece2bf634cf1f3a8b43",
+      "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "b233da311f085399d88ea1ec7b52315247559dfd1e7bb48713320356c9340b06"
+    }
+  },
+  "packages": {
+    "Debug": {
+      "path": "artifacts/final-release/41169755141-1/NewModCompiler-Win32-Debug.zip",
+      "sha256": "50554ec08b467c0f49b793330dd8082d929e9baa664c97bb726390998f1206ba"
+    },
+    "Release": {
+      "path": "artifacts/final-release/41169755141-1/NewModCompiler-Win32-Release.zip",
+      "sha256": "05057b0e3efc08f6d6179923c0dda74e188b16b84c0a7533de7c6a98de66563b"
+    }
+  },
+  "receipts": {
+    "evidence/refactor/backend-parallel-performance/41169755141-1/measurement.json": {
+      "status": "passed",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/ui-integration/41169755141-1/summary.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/backend-parallel/41169755141-1/validation.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/additional-original-copy-makebig/additional-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/base-apt-maps-loose/original-lod-1c5038fcbd4347fb9935f855884b7eec/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/base-apt-maps-loose/original-lod-699852d18445446e989580385c711e1d/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/base-apt-maps-loose/original-lod-a508d170a74a46cb8dd381077a699c0e/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/base-apt-maps-loose/original-lod-c2442ede06734959a4db74dab5319740/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/base-apt-maps-loose/original-lod-c39d5831650049cf90ac682b4b0bf6d8/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/base-apt-maps-loose/original-lod-dc4f445e5953462386b0e5e62ddb6a2d/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/base-apt-maps-loose/original-lod-f7bbb6defae84bddbfd40359a07b4427/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/base-loose/original-lod-155b969782bc43c98fc7134f8d0b590f/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/neutral-original-hashfix-resolver-lod-makebig/neutral-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/neutral-retry-original-makebig/neutral-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Debug/standard-defaults-original-copy-makebig/additional-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/additional-original-copy-makebig/additional-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/base-apt-maps-loose/original-lod-06d6126db686496ebf79119ebb91b581/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/base-apt-maps-loose/original-lod-070ff2862da641e2a1f801572c8778c3/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/base-apt-maps-loose/original-lod-19a3ea38c925478c8c1421916fba39d5/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/base-apt-maps-loose/original-lod-8dbfa83046854b79b9c99cb4319aac7c/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/base-apt-maps-loose/original-lod-aa994faec5434a108076d7890123f8b8/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/base-apt-maps-loose/original-lod-c6e617f98bfa4caa849c74298685613c/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/base-apt-maps-loose/original-lod-ef29ffb53f2e49579f9942eda5343840/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/base-loose/original-lod-f7e0aeac567c49a9be63480946562a25/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/neutral-original-hashfix-resolver-lod-makebig/neutral-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/neutral-retry-original-makebig/neutral-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/Release/standard-defaults-original-copy-makebig/additional-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "artifacts/final-release/41169755141-1/evidence/big-deployment/validation.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/big/41169755141-1/Debug/additional-original-copy-makebig/additional-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Debug/base-apt-maps-loose/original-lod-0673321c6b224dc2b7045116fbf9682e/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Debug/base-apt-maps-loose/original-lod-08bd405f06a640c1bf9d667be6afa8fc/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Debug/base-apt-maps-loose/original-lod-40d2f629edf44ef08ca8b36d29441ae0/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Debug/base-apt-maps-loose/original-lod-4f3f708505e7427aaa98d4f933748875/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Debug/base-apt-maps-loose/original-lod-6168a1454c04450ba42f5000d33f532d/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Debug/base-apt-maps-loose/original-lod-77324e1378ef47c7b98b256e827b27e1/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Debug/base-apt-maps-loose/original-lod-f0731b3583b343a28d35f3b2d04ffb9c/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Debug/base-loose/original-lod-3311b6b683f84b219af22d12feea18b4/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Debug/neutral-original-hashfix-resolver-lod-makebig/neutral-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Debug/neutral-retry-original-makebig/neutral-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Debug/standard-defaults-original-copy-makebig/additional-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/additional-original-copy-makebig/additional-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/base-apt-maps-loose/original-lod-00cf1a30bdcc4f76a524da9f9ec8aced/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/base-apt-maps-loose/original-lod-2212de9a3d704aeb8f71ffa6003902ac/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/base-apt-maps-loose/original-lod-41ff6a5521644d928ace07fbf1642f1f/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/base-apt-maps-loose/original-lod-74f661e4f68545aa99c1ab7ecc367285/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/base-apt-maps-loose/original-lod-74ffe5e57cdd4dea80aa06a8c471e4d1/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/base-apt-maps-loose/original-lod-8944a313c2b84b0a96edc930ae149d57/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/base-apt-maps-loose/original-lod-a2dd5a6138574bc28778c3ed59cf402d/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/base-loose/original-lod-2de812ca47934d19b4028afaccec9307/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/neutral-original-hashfix-resolver-lod-makebig/neutral-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/neutral-retry-original-makebig/neutral-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/Release/standard-defaults-original-copy-makebig/additional-original/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/big/41169755141-1/validation.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/sdk-mymod/41169755141-1/Debug/big/original-additional/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/sdk-mymod/41169755141-1/Debug/big/original-lod/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/sdk-mymod/41169755141-1/Release/big/original-additional/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/sdk-mymod/41169755141-1/Release/big/original-lod/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/sdk-mymod/41169755141-1/validation.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Debug/OnDemandTexture-original-mutated/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Debug/original-cache-export/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Debug/original-initial/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Debug/original-mutated/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Debug/original-w3x/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Debug/TerrainTextureAtlas-original-mutated/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Debug/Texture-original-mutated/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Release/OnDemandTexture-original-mutated/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Release/original-cache-export/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Release/original-initial/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Release/original-mutated/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Release/original-w3x/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Release/TerrainTextureAtlas-original-mutated/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/Release/Texture-original-mutated/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/session-cache/41169755141-1/validation.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/cache-payloads/41169755141-1/validation.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/input-roots/41169755141-1/Debug/original-default-roots/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/input-roots/41169755141-1/Debug/original-first-roots/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/input-roots/41169755141-1/Debug/original-reversed-roots/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/input-roots/41169755141-1/Release/original-default-roots/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/input-roots/41169755141-1/Release/original-first-roots/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/input-roots/41169755141-1/Release/original-reversed-roots/validation.json": {
+      "status": "passed 1 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/input-roots/41169755141-1/validation.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/build-cache/41169755141-1/Debug/original-initial/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/build-cache/41169755141-1/Debug/original-mutated/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/build-cache/41169755141-1/Release/original-initial/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/build-cache/41169755141-1/Release/original-mutated/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/build-cache/41169755141-1/validation.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle-deployment/41169755141-1/validation.json": {
+      "status": "passed",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerApplicationBuild/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerBackendLifecycle/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerCacheContent/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerCoreLifecycle/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerCorePaths/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerInputRoots/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerPreparedBackend/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerResourceLifecycle/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerStableSort/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerStateLifecycle/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerUnicodeSettings/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Debug/CompilerXmlBackendBatch/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerApplicationBuild/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerBackendLifecycle/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerCacheContent/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerCoreLifecycle/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerCorePaths/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerInputRoots/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerPreparedBackend/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerResourceLifecycle/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerStableSort/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerStateLifecycle/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerUnicodeSettings/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/Release/CompilerXmlBackendBatch/result.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle/41169755141-1/validation.json": {
+      "status": "passed targeted Core/backend/application/resource fixtures in Debug and Release; production CLI, APT business coverage, cold-process equivalence, SDK and G3 acceptance remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-lifecycle-texture/41169755141-1/validation.json": {
+      "status": "passed",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-backend-baseline/41169755141-1/Debug/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-backend-baseline/41169755141-1/Release/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-cli/41169755141-1/Debug/business-original-baseline/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-cli/41169755141-1/Debug/original-baseline/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-cli/41169755141-1/Debug/real-ui-original-baseline/validation.json": {
+      "status": "passed 3 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-cli/41169755141-1/output-oracle-contracts/validation.json": {
+      "status": true,
+      "sourceCommit": null
+    },
+    "evidence/refactor/core-cli/41169755141-1/Release/business-original-baseline/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-cli/41169755141-1/Release/original-baseline/validation.json": {
+      "status": "passed 2 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-cli/41169755141-1/Release/real-ui-original-baseline/validation.json": {
+      "status": "passed 3 original BAB independent-process selected fixture baselines; all four stream files and exact allowed Texture CustomData byte-identical in each case; full SDK/G3/production CLI remain separate",
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    },
+    "evidence/refactor/core-cli/41169755141-1/validation.json": {
+      "status": true,
+      "sourceCommit": "e2dba3c321504752438b4e940d651bbfcdb58fff"
+    }
+  },
+  "receiptArchiveSha256": "de492f6a4d4d47add419191fbbb02bdc9628245ab4f72cf041600730dbd02470",
+  "receiptArchiveScope": "Top-level production receipts; all 123 component/oracle receipts remain in the verified original Actions archive.",
+  "receiptArchiveMembers": 14
+}

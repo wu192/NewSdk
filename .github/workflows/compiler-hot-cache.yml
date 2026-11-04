@@ -1,0 +1,220 @@
+name: L8 hot cache performance
+on:
+  push:
+    branches: [benchmark/l8-hot-cache, recovery/legacy-sdk-cache, compiler-main]
+    paths: &paths
+      - '.github/workflows/compiler-hot-cache.yml'
+      - 'recovery/scripts/BenchmarkHotCache.py'
+      - 'recovery/scripts/HotCache*.py'
+      - 'recovery/scripts/PrepareHotCacheRuntime.py'
+      - 'recovery/scripts/VerifyHotCacheApproval.py'
+      - 'recovery/tests/test_hot_cache_*.py'
+  pull_request:
+    paths: *paths
+  workflow_dispatch:
+    inputs:
+      group:
+        description: 'Common 35 minutes; Full includes Common, 60 minutes'
+        type: choice
+        options: [common, full]
+        default: common
+        required: true
+      full_approved:
+        description: 'Explicitly approve a separate Full run (also requires protected Environment review)'
+        type: boolean
+        default: false
+      initial_partitions:
+        description: 'Starting reachable expansion partitions; actual hot calibration decides the size'
+        type: string
+        default: '1'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: l8-hot-cache-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: false
+jobs:
+  preflight:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-2022]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 3
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Controller, fixture and reporting checks (no compiler benchmark)
+        run: python -m unittest discover -s recovery/tests -p 'test_hot_cache_*.py' -v
+  full-approval:
+    if: github.event_name == 'workflow_dispatch' && inputs.group == 'full'
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: recovery/scripts
+      - name: Require explicit selection and an existing protected Environment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FULL_EXPLICIT_APPROVAL: ${{ inputs.full_approved }}
+        run: python recovery/scripts/VerifyHotCacheApproval.py
+  common:
+    if: github.event_name == 'workflow_dispatch' && inputs.group == 'common'
+    needs: preflight
+    runs-on: windows-2022
+    timeout-minutes: 35
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      GH_TOKEN: ${{ github.token }}
+      INITIAL_PARTITIONS: ${{ inputs.initial_partitions }}
+    steps:
+      - name: Start whole-job budget before checkout and runtime setup
+        shell: pwsh
+        run: '"HOT_CACHE_JOB_START=$([DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()/1000.0)" | Add-Content $env:GITHUB_ENV'
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+            /recovery/evidence/refactor/audiofile-parallel/41068958541-1/summary.json
+      - name: Stage accepted unchanged Release
+        timeout-minutes: 2
+        shell: pwsh
+        run: |
+          python recovery/scripts/PrepareHotCacheRuntime.py --repo . --output "$env:RUNNER_TEMP/l8-runtime"
+          if($LASTEXITCODE -ne 0){throw 'Accepted runtime preparation failed'}
+      - name: Common calibration and all C00-C12 samples
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/refactor/l8-hot-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/BenchmarkHotCache.py --repo . --preparation "$env:RUNNER_TEMP/l8-runtime/preparation.json" --work "$env:RUNNER_TEMP/l8-work" --output $out --group common --job-start-unix $env:HOT_CACHE_JOB_START --initial-partitions $env:INITIAL_PARTITIONS
+          $result=$LASTEXITCODE
+          if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8|Add-Content $env:GITHUB_STEP_SUMMARY}
+          if(Test-Path $out){Copy-Item "$env:RUNNER_TEMP/l8-runtime/preparation.json" "$out/preparation.json"}
+          if($result -ne 0){throw 'Common incomplete; partial timings retained without relaxing the >8s gate'}
+      - name: Summarize compiler-hot-cache reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-hot-cache reports"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: l8-hot-cache-common-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-hot-cache failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-hot-cache failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: l8-hot-cache-common-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+          retention-days: 1
+          if-no-files-found: warn
+
+  full:
+    if: github.event_name == 'workflow_dispatch' && inputs.group == 'full' && inputs.full_approved
+    needs: [preflight, full-approval]
+    environment: hot-cache-full
+    runs-on: windows-2022
+    timeout-minutes: 60
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      GH_TOKEN: ${{ github.token }}
+      HOT_CACHE_FULL_APPROVED: 'true'
+      INITIAL_PARTITIONS: ${{ inputs.initial_partitions }}
+    steps:
+      - name: Start whole-job budget before checkout and runtime setup
+        shell: pwsh
+        run: '"HOT_CACHE_JOB_START=$([DateTimeOffset]::UtcNow.ToUnixTimeMilliseconds()/1000.0)" | Add-Content $env:GITHUB_ENV'
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+            /recovery/evidence/refactor/audiofile-parallel/41068958541-1/summary.json
+      - name: Stage accepted unchanged Release
+        timeout-minutes: 2
+        shell: pwsh
+        run: |
+          python recovery/scripts/PrepareHotCacheRuntime.py --repo . --output "$env:RUNNER_TEMP/l8-runtime"
+          if($LASTEXITCODE -ne 0){throw 'Accepted runtime preparation failed'}
+      - name: Full including complete Common in one 60-minute job
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/refactor/l8-hot-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/BenchmarkHotCache.py --repo . --preparation "$env:RUNNER_TEMP/l8-runtime/preparation.json" --work "$env:RUNNER_TEMP/l8-work" --output $out --group full --job-start-unix $env:HOT_CACHE_JOB_START --initial-partitions $env:INITIAL_PARTITIONS
+          $result=$LASTEXITCODE
+          if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8|Add-Content $env:GITHUB_STEP_SUMMARY}
+          if(Test-Path $out){Copy-Item "$env:RUNNER_TEMP/l8-runtime/preparation.json" "$out/preparation.json"}
+          if($result -ne 0){throw 'Full incomplete; partial timings retained without extending its budget'}
+      - name: Summarize compiler-hot-cache reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-hot-cache reports"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: l8-hot-cache-full-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-hot-cache failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-hot-cache failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: l8-hot-cache-full-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/l8-hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+          retention-days: 1
+          if-no-files-found: warn

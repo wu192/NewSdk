@@ -1,0 +1,120 @@
+name: Original SDK and current full MOD compilation benchmark
+on:
+  push:
+    branches: [benchmark/original-sdk-current]
+    paths:
+      - '.github/workflows/original-mod-performance.yml'
+      - 'recovery/scripts/MeasureCompilerOriginalMod.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: original-mod-performance-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  measure:
+    runs-on: windows-2022
+    timeout-minutes: 22
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Verify accepted current production run
+        shell: pwsh
+        run: |
+          $run=gh api repos/wu162/NewSdk/actions/runs/41244132060 | ConvertFrom-Json
+          if($LASTEXITCODE -ne 0 -or $run.status -ne 'completed' -or $run.conclusion -ne 'success' -or $run.head_sha -cne '8050f22de81539c65aeca3903e9b48f53a572068' -or $run.run_attempt -ne 1){throw 'Current accepted production source/run differs'}
+          python -m py_compile recovery/scripts/MeasureCompilerOriginalMod.py
+          if($LASTEXITCODE -ne 0){throw 'Measurement script syntax failed'}
+      - uses: actions/download-artifact@v4
+        with:
+          name: refactor-core-lifecycle-41244132060-1
+          run-id: 41244132060
+          github-token: ${{ github.token }}
+          path: work/original-mod-accepted
+      - uses: actions/download-artifact@v4
+        with:
+          name: refactor-core-lifecycle-41204304969-1
+          run-id: 41204304969
+          github-token: ${{ github.token }}
+          path: work/audio-identity-previous
+      - name: Preserve mixed audio and prior-session migration receipts with accepted Release
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestAudioEaLayer3Integration.py --repo . --exe work/original-mod-accepted/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe --previous-exe work/audio-identity-previous/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe --work "$env:RUNNER_TEMP/audio-identity-receipt" --output "recovery/evidence/refactor/audio-identity/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if($LASTEXITCODE -ne 0){throw 'Accepted mixed audio migration failed'}
+      - name: Paired mymod and complete Upheaval base compilation
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/refactor/original-mod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/original-mod-accepted/artifacts/core-lifecycle-product/Release --work "$env:RUNNER_TEMP/original-mod" --output $out --pairs 3
+          $result=$LASTEXITCODE
+          if($result -ne 0){throw 'Benchmark did not fully pass; raw evidence retained'}
+      - name: Summarize compact benchmark reports and upload size
+        if: always()
+        shell: pwsh
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/measurement.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/report.md
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/accepted-build.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/preparation.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/original-preparation.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/request.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/process.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/build-report.json
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/build-report.json
+        run: python recovery/scripts/WriteCiSummary.py --title 'Original SDK benchmark reports'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: original-mod-performance-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/measurement.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/report.md
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/accepted-build.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/preparation.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/original-preparation.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/request.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/process.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/build-report.json
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/build-report.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize failure diagnostic upload size
+        if: failure()
+        shell: pwsh
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/build.events.jsonl
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+        run: python recovery/scripts/WriteCiSummary.py --title 'Original SDK benchmark failure diagnostics'
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: original-mod-failure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/build.events.jsonl
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+          retention-days: 1
+          if-no-files-found: warn

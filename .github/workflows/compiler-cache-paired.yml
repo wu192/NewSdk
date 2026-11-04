@@ -1,0 +1,192 @@
+name: Paired compiler cold and hot cache performance
+on:
+  workflow_call:
+    inputs:
+      candidate_run_id:
+        required: true
+        type: string
+      candidate_source:
+        required: true
+        type: string
+      measurement_mode:
+        required: false
+        type: string
+        default: throughput
+      scenario_group:
+        required: false
+        type: string
+        default: single
+      armor_partitions:
+        required: false
+        type: string
+        default: '0'
+  workflow_dispatch:
+    inputs:
+      candidate_run_id:
+        description: Successful Core lifecycle run containing the candidate Release
+        required: true
+        type: string
+      candidate_source:
+        description: Full candidate production source commit SHA from that run
+        required: true
+        type: string
+      measurement_mode:
+        description: 'Cold/hot throughput, bounded synthetic edits, or complete Upheaval large edits'
+        required: false
+        type: choice
+        options: [throughput, incremental, upheaval-edits]
+        default: throughput
+      scenario_group:
+        description: 'Complete Upheaval edit group (the registered benchmark entry runs both groups)'
+        required: false
+        type: choice
+        options: [single, A, B]
+        default: single
+      armor_partitions:
+        description: Additional reachable Armor partitions (0 is untouched full Upheaval; 6 adds 49152 assets)
+        required: true
+        type: choice
+        options: ['0', '1', '2', '4', '6', '8']
+        default: '0'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: compiler-cache-paired-${{ github.ref }}-${{ inputs.candidate_run_id }}-${{ inputs.armor_partitions }}-${{ inputs.measurement_mode }}-${{ inputs.scenario_group }}
+  cancel-in-progress: false
+jobs:
+  measure:
+    runs-on: windows-2022
+    timeout-minutes: ${{ inputs.measurement_mode == 'upheaval-edits' && 45 || (inputs.measurement_mode == 'incremental' && 8 || 15) }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PYTHONDONTWRITEBYTECODE: '1'
+      CANDIDATE_RUN: ${{ inputs.candidate_run_id }}
+      CANDIDATE_SOURCE: ${{ inputs.candidate_source }}
+      ARMOR_PARTITIONS: ${{ inputs.armor_partitions }}
+      MEASUREMENT_MODE: ${{ inputs.measurement_mode }}
+      SCENARIO_GROUP: ${{ inputs.scenario_group }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Complete Upheaval edit fixture preflight
+        if: inputs.measurement_mode == 'upheaval-edits'
+        shell: pwsh
+        run: |
+          if($env:SCENARIO_GROUP -notin @('A','B')){throw 'Select Upheaval edit group A or B via the registered benchmark entry'}
+          python -m pip install -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+          if($LASTEXITCODE -ne 0){throw 'Pinned edit validation dependencies failed'}
+          python -m unittest discover -s recovery/tests -p 'test_upheaval_edit_workload.py' -v
+          if($LASTEXITCODE -ne 0){throw 'Complete Upheaval edit fixture preflight failed'}
+      - name: Verify candidate acceptance and select its current successful artifact
+        id: candidate
+        shell: pwsh
+        run: |
+          if($env:CANDIDATE_RUN -notmatch '^\d+$' -or $env:CANDIDATE_SOURCE -notmatch '^[0-9a-f]{40}$'){throw 'Invalid run ID or full source SHA'}
+          $run=gh api "repos/wu162/NewSdk/actions/runs/$env:CANDIDATE_RUN" | ConvertFrom-Json
+          if($LASTEXITCODE -ne 0){throw 'Cannot read candidate run'}
+          if($run.status -ne 'completed' -or $run.conclusion -ne 'success'){throw 'Candidate acceptance run did not succeed'}
+          if($run.path -eq '.github/workflows/refactor-core-lifecycle.yml'){
+            if($run.head_sha -cne $env:CANDIDATE_SOURCE){throw 'Core lifecycle binary source differs'}
+            $artifact="refactor-core-lifecycle-$env:CANDIDATE_RUN-$($run.run_attempt)"
+          }elseif($run.path -eq '.github/workflows/compiler-hot-edit-validation.yml'){
+            git merge-base --is-ancestor $env:CANDIDATE_SOURCE $run.head_sha
+            if($LASTEXITCODE -ne 0){throw 'Repair validation source is not a descendant of the binary source'}
+            $changed=git diff --name-only $env:CANDIDATE_SOURCE $run.head_sha -- SDK recovery/src recovery/build recovery/probes ui 'recovery/scripts/Build*' recovery/scripts/PrepareLegacyTexture.ps1 recovery/scripts/RestoreUiDependencies.ps1 recovery/tests/CompilerValidationEntry.cpp
+            if($LASTEXITCODE -ne 0 -or $changed){throw 'Repair validation source changed production inputs'}
+            $artifact="compiler-hot-edit-validation-$env:CANDIDATE_RUN-$($run.run_attempt)"
+            "repair=true"|Add-Content $env:GITHUB_OUTPUT
+          }else{throw 'Unsupported candidate acceptance workflow'}
+          "artifact=$artifact"|Add-Content $env:GITHUB_OUTPUT
+          "attempt=$($run.run_attempt)"|Add-Content $env:GITHUB_OUTPUT
+          "validationSource=$($run.head_sha)"|Add-Content $env:GITHUB_OUTPUT
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ inputs.measurement_mode != 'throughput' && 'refactor-core-lifecycle-41169755141-1' || 'refactor-core-lifecycle-41192817627-1' }}
+          run-id: ${{ inputs.measurement_mode != 'throughput' && '41169755141' || '41192817627' }}
+          github-token: ${{ github.token }}
+          path: work/cache-paired-baseline
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.candidate.outputs.artifact }}
+          run-id: ${{ inputs.candidate_run_id }}
+          github-token: ${{ github.token }}
+          path: work/cache-paired-candidate
+      - name: Verify explicit repair acceptance and unchanged candidate runtime
+        if: steps.candidate.outputs.repair == 'true'
+        env:
+          REPAIR_ATTEMPT: ${{ steps.candidate.outputs.attempt }}
+          VALIDATION_SOURCE: ${{ steps.candidate.outputs.validationSource }}
+        shell: pwsh
+        run: |
+          $base='work/cache-paired-candidate'
+          $path="$base/evidence/refactor/hot-edit-repair/$env:CANDIDATE_RUN-$env:REPAIR_ATTEMPT/repair.json"
+          $repair=Get-Content $path -Raw|ConvertFrom-Json
+          if($repair.status -ne 'passed' -or $repair.binarySourceCommit -cne $env:CANDIDATE_SOURCE -or $repair.testSourceCommit -cne $env:VALIDATION_SOURCE -or !$repair.productionClosureUnchanged){throw 'Repair acceptance source or production closure differs'}
+          if($repair.originalRunId -notmatch '^\d+$' -or $repair.originalArtifact.id -le 0 -or $repair.originalArtifact.workflow_run.head_sha -cne $env:CANDIDATE_SOURCE){throw 'Original production artifact provenance differs'}
+          foreach($gate in @('repaired-core','performance','original-backend-Debug','original-backend-Release','original-core-protocol','complete-mymod','five-file-packages','complete-Upheaval')){
+            if(!$repair.completedGates.$gate){throw "Repair did not finish required gate: $gate"}
+            $member=$repair.completedGates.$gate.path -replace '^recovery/',''
+            if((Get-FileHash "$base/$member" -Algorithm SHA256).Hash.ToLowerInvariant() -cne $repair.completedGates.$gate.sha256){throw "Repair gate receipt differs: $gate"}
+          }
+          foreach($file in $repair.runtimeFiles.Release.PSObject.Properties){
+            if((Get-FileHash "$base/artifacts/core-lifecycle-product/Release/bin/$($file.Name)" -Algorithm SHA256).Hash.ToLowerInvariant() -cne $file.Value){throw 'Candidate runtime differs from accepted repair identity'}
+          }
+      - name: Paired throughput or representative warm-cache edit diagnostics
+        timeout-minutes: ${{ inputs.measurement_mode == 'upheaval-edits' && 40 || (inputs.measurement_mode == 'incremental' && 5 || 13) }}
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/refactor/cache-paired/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          if($env:MEASUREMENT_MODE -eq 'upheaval-edits'){
+            $out="recovery/evidence/refactor/upheaval-edits/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT-$env:SCENARIO_GROUP"
+            python recovery/scripts/MeasureCompilerUpheavalEdits.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --pairs 3 --scenario-group $env:SCENARIO_GROUP --work "$env:RUNNER_TEMP/upheaval-edits-$env:SCENARIO_GROUP" --output $out --budget 2100 --timeout 240
+          }elseif($env:MEASUREMENT_MODE -eq 'incremental'){
+            python recovery/scripts/MeasureCompilerIncrementalPaired.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --pairs 3 --work "$env:RUNNER_TEMP/cache-incremental" --output $out --budget 240 --timeout 30
+          }elseif($env:MEASUREMENT_MODE -eq 'throughput'){
+          python recovery/scripts/MeasureCompilerCachePaired.py --baseline-build work/cache-paired-baseline/artifacts/core-lifecycle-product/Release --candidate-build work/cache-paired-candidate/artifacts/core-lifecycle-product/Release --candidate-source $env:CANDIDATE_SOURCE --candidate-run-id $env:CANDIDATE_RUN --armor-partitions $env:ARMOR_PARTITIONS --work "$env:RUNNER_TEMP/cache-paired" --output $out --budget 720 --timeout 180
+          }else{throw 'Unsupported paired measurement mode'}
+          $result=$LASTEXITCODE
+          if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($result -ne 0){throw 'Paired cache measurement failed; partial evidence retained'}
+      - name: Summarize compiler-cache-paired reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.json', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.json', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.md', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.md', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.csv', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.csv', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.tsv', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.tsv', github.run_id, github.run_attempt) }}
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-cache-paired reports"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ${{ inputs.measurement_mode == 'upheaval-edits' && format('compiler-upheaval-edits-{0}-{1}-{2}', github.run_id, github.run_attempt, inputs.scenario_group) || format('compiler-cache-paired-{0}-{1}', github.run_id, github.run_attempt) }}
+          path: |
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.json', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.json', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.md', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.md', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.csv', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.csv', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.tsv', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.tsv', github.run_id, github.run_attempt) }}
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-cache-paired failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.log', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.log', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.jsonl', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.jsonl', github.run_id, github.run_attempt) }}
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-cache-paired failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: ${{ inputs.measurement_mode == 'upheaval-edits' && format('compiler-upheaval-edits-{0}-{1}-{2}', github.run_id, github.run_attempt, inputs.scenario_group) || format('compiler-cache-paired-{0}-{1}', github.run_id, github.run_attempt) }}-diagnostics
+          path: |
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.log', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.log', github.run_id, github.run_attempt) }}
+            ${{ inputs.measurement_mode == 'upheaval-edits' && format('recovery/evidence/refactor/upheaval-edits/{0}-{1}-{2}/**/*.jsonl', github.run_id, github.run_attempt, inputs.scenario_group) || format('recovery/evidence/refactor/cache-paired/{0}-{1}/**/*.jsonl', github.run_id, github.run_attempt) }}
+          retention-days: 1
+          if-no-files-found: warn

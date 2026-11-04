@@ -1,0 +1,8 @@
+{
+  "sourceCommit": "e83b06ca9fd464f1dae926a29603454b489ee273",
+  "status": "failed",
+  "baselineCommit": "8f854606ac20ce372045e3661b38e58e4e933ca2",
+  "runId": "41137876172",
+  "scope": "Isolated original and before/after C++/CLI plugin components, Release /O2 x86. Four synthetic prepared-XML fixtures; both byte orders compared; five alternating Win32 measurement pairs. XML parsing, Core preparation, caches and full MOD compilation excluded. managedAllocatedBytes excludes native heap allocations.",
+  "error": "System.Management.Automation.RuntimeException: Component build failed: After GameObject"
+}

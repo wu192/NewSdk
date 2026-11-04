@@ -9,11 +9,11 @@ namespace Recovered {
 ref class XmlpowersBridge abstract sealed {
  static Native::XmlpowersNode Read(XmlNode^ node) {
   Native::XmlpowersNode input;
-  if(node->NamespaceURI!="uri:ea.com:eala:asset")throw gcnew NotSupportedException("Foreign Xmlpowers namespace.");
+
   input.name=marshal_as<std::string>(node->LocalName);
   if(node->Attributes!=nullptr)for each(XmlAttribute^ a in node->Attributes){
    if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/")continue;
-   if(a->NamespaceURI->Length!=0)throw gcnew NotSupportedException("Qualified Xmlpowers attribute.");
+
    // XmlCompiler OCL uses typed lists rather than this metadata for dispatch.
    // BAB injects TypeId on all named-schema elements, including filters and references.
    if(a->LocalName=="TypeId")continue;

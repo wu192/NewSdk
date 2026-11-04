@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Derive isolated XML route-smoke hosts without changing fixture definitions.
 
-This adapts the existing 289-route default/completion smoke, NOT the complete
+This adapts the existing 300-route default/completion smoke, NOT the complete
 per-group XML differential/layout/rejection matrices or SDK acceptance.
 """
 import argparse
@@ -22,8 +22,8 @@ def replace_once(old, new):
     source = source.replace(old, new)
 
 roots = re.findall(r'new Root\("([^"]+)",\s*(\d+)u,\s*(?:true|false)\)', source)
-if len(roots) != 289 or len({name for name, _ in roots}) != 289:
-    raise ValueError("Expected exactly 289 distinct XML routes")
+if len(roots) != 300 or len({name for name, _ in roots}) != 300:
+    raise ValueError("Expected exactly 300 distinct XML routes")
 args.manifest.write_text("".join(name + "\t" + value + "\n" for name, value in roots), encoding="ascii")
 
 replace_once('    static string current = "metadata preflight";', '''    static string current = "metadata preflight";
@@ -88,6 +88,6 @@ replace_once('''        text.Append(",\\"fullMetadataRoutes\\":").Append(Methods
         text.Append(",\\"fullMetadataRoutes\\":").Append(Methods.Count);
 #endif''')
 args.output.write_text(source, encoding="utf-8")
-print("Prepared 289-route XML smoke binding; complete per-group matrices remain separate")
+print("Prepared 300-route XML smoke binding; complete per-group matrices remain separate")
 
 

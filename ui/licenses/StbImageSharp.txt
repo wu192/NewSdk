@@ -1,0 +1,9 @@
+StbImageSharp 2.30.15
+https://github.com/StbSharp/StbImageSharp
+
+The upstream README licenses StbImageSharp as "Public Domain or MIT".
+This distribution uses the public-domain option.
+Source: https://github.com/StbSharp/StbImageSharp/blob/master/README.md#license
+
+StbImageSharpTeam's C# port derives from stb_image.h by Sean Barrett and
+contributors: https://github.com/nothings/stb . It does not wrap a native DLL.

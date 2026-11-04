@@ -1,0 +1,1499 @@
+{
+  "schemaVersion": 1,
+  "runId": "40890949858",
+  "runAttempt": 1,
+  "conclusion": "success",
+  "binarySourceCommit": "629951986c1776a5fda5ad4a68bbc7b7da3a688d",
+  "testSourceCommit": "629951986c1776a5fda5ad4a68bbc7b7da3a688d",
+  "exeSha256": "2056b36a27df21f5db7751078f57ec949aaf57b74ef63fcb19b80c5ce0a7839b",
+  "archiveArtifactId": 12904872673,
+  "archiveBytes": 2665964,
+  "archiveSha256": "ef49835649e3a6dfc220b2f73db9325e07139106093485903f4279cb4d3c4663",
+  "archiveSha256LocallyVerified": true,
+  "measurementSeconds": 87.62797179999995,
+  "limits": {
+    "perProcessSeconds": 180,
+    "measurementBudgetSeconds": 900,
+    "hotRuns": 2
+  },
+  "samples": [
+    {
+      "label": "small-cold-0",
+      "tier": "small",
+      "phase": "cold",
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\mod-scale-product\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\mod-scale\\small-mymod",
+        "--out",
+        "D:\\a\\_temp\\mod-scale\\outputs\\small",
+        "--performance",
+        "detailed"
+      ],
+      "timeoutSeconds": 180,
+      "wallMs": 2459.4012999999677,
+      "exitCode": 0,
+      "cpuMs": 1031.25,
+      "peakWorkingSetBytes": 53690368,
+      "phases": {
+        "stage.plan": 19.282,
+        "stage.compile": 1384.9954,
+        "backend.initialize": 217.17680000000001,
+        "core.providers": 26.054000000000002,
+        "core.schema": 577.1003000000001,
+        "core.schema.read": 425.7654,
+        "core.schema.compile": 70.50670000000001,
+        "core.schema.metadata": 46.374100000000006,
+        "cache.prepare": 6.226,
+        "cache.load": 6.651400000000001,
+        "core.process": 449.67580000000004,
+        "core.xml.parse": 46.210300000000004,
+        "core.xml.validate": 47.2954,
+        "core.asset.compile": 132.44140000000002,
+        "core.asset.commit": 16.5299,
+        "cache.save": 10.8124,
+        "artifacts.collect": 2.8914,
+        "stage.package": 65.4829,
+        "package.big": 26.259400000000003,
+        "package.lod": 9.8157,
+        "package.additional-inputs": 8.4404,
+        "package.additional-merge": 13.158900000000001,
+        "package.hash": 1.9409,
+        "stage.publish": 15.1593,
+        "publish.prepare": 8.371400000000001,
+        "cache.commit": 2.8626
+      },
+      "compilers": {
+        "core.compiler.ArmorTemplate": {
+          "count": 3,
+          "totalMs": 3.8993
+        },
+        "core.compiler.GameObject": {
+          "count": 3,
+          "totalMs": 48.7916
+        },
+        "core.compiler.LogicCommand": {
+          "count": 1,
+          "totalMs": 29.7279
+        },
+        "core.compiler.LogicCommandSet": {
+          "count": 2,
+          "totalMs": 3.8366000000000002
+        },
+        "core.compiler.WeaponTemplate": {
+          "count": 38,
+          "totalMs": 43.243500000000004
+        }
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 834,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 2878648,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\_temp\\mod-scale\\outputs\\small"
+      },
+      "reportElapsedMs": 2001,
+      "streamCount": 1,
+      "publishedBytes": 1056818,
+      "outputIdentical": true
+    },
+    {
+      "label": "medium-cold-0",
+      "tier": "medium",
+      "phase": "cold",
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\mod-scale-product\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\mod-scale\\medium-upheaval-textures",
+        "--out",
+        "D:\\a\\_temp\\mod-scale\\outputs\\medium",
+        "--performance",
+        "detailed"
+      ],
+      "timeoutSeconds": 180,
+      "wallMs": 1166.3112999999612,
+      "exitCode": 0,
+      "cpuMs": 1046.875,
+      "peakWorkingSetBytes": 80039936,
+      "phases": {
+        "stage.plan": 8.561300000000001,
+        "stage.compile": 936.7597000000001,
+        "backend.initialize": 43.621500000000005,
+        "core.providers": 13.3396,
+        "core.schema": 289.9105,
+        "core.schema.read": 204.64370000000002,
+        "core.schema.compile": 37.3592,
+        "core.schema.metadata": 37.5626,
+        "cache.prepare": 6.836,
+        "cache.load": 4.6131,
+        "core.process": 511.1186,
+        "core.xml.parse": 5.9375,
+        "core.xml.validate": 269.53520000000003,
+        "core.asset.compile": 52.3811,
+        "core.asset.commit": 93.7245,
+        "cache.save": 12.1773,
+        "artifacts.collect": 22.096,
+        "stage.package": 56.9697,
+        "package.big": 16.966900000000003,
+        "package.lod": 3.5194,
+        "package.additional-inputs": 1.9132,
+        "package.additional-merge": 1.6798000000000002,
+        "package.hash": 27.079700000000003,
+        "stage.publish": 26.8241,
+        "publish.prepare": 19.4865,
+        "cache.commit": 2.2315
+      },
+      "compilers": {
+        "core.compiler.Texture": {
+          "count": 96,
+          "totalMs": 36.550200000000004
+        }
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 96,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 1,
+        "documentReuse": 0,
+        "xmlParse": 18,
+        "instanceCompile": 96,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 935,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 46551083,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\_temp\\mod-scale\\outputs\\medium"
+      },
+      "reportElapsedMs": 1060,
+      "streamCount": 1,
+      "publishedBytes": 15019782,
+      "outputIdentical": true
+    },
+    {
+      "label": "large-cold-0",
+      "tier": "large",
+      "phase": "cold",
+      "round": 0,
+      "status": "passed",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\mod-scale-product\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\mod-scale\\historical\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\mod-scale\\outputs\\large",
+        "--performance",
+        "detailed"
+      ],
+      "timeoutSeconds": 180,
+      "wallMs": 75285.51219999997,
+      "exitCode": 0,
+      "cpuMs": 74906.25,
+      "peakWorkingSetBytes": 225583104,
+      "phases": {
+        "stage.plan": 9.5581,
+        "stage.compile": 74684.6998,
+        "backend.initialize": 44.4468,
+        "core.providers": 13.7156,
+        "core.schema": 287.8713,
+        "core.schema.read": 217.2906,
+        "core.schema.compile": 26.9627,
+        "core.schema.metadata": 35.8219,
+        "cache.prepare": 8.1548,
+        "cache.load": 541.8388,
+        "core.process": 72549.0113,
+        "core.xml.parse": 2751.0548000000003,
+        "core.xml.validate": 13909.957300000002,
+        "core.asset.compile": 48955.4684,
+        "core.asset.commit": 2387.2111000000004,
+        "cache.save": 914.9514,
+        "artifacts.collect": 215.7115,
+        "stage.package": 326.0906,
+        "package.big": 150.64770000000001,
+        "package.lod": 4.272,
+        "package.additional-inputs": 2.2741000000000002,
+        "package.additional-merge": 1.9016000000000002,
+        "package.hash": 105.6722,
+        "stage.publish": 49.077600000000004,
+        "publish.prepare": 29.2357,
+        "cache.commit": 3.8248
+      },
+      "compilers": {
+        "core.compiler.AptAptData": {
+          "count": 3,
+          "totalMs": 3.0334000000000003
+        },
+        "core.compiler.AptConstData": {
+          "count": 3,
+          "totalMs": 0.5072
+        },
+        "core.compiler.AptDatData": {
+          "count": 3,
+          "totalMs": 0.4521
+        },
+        "core.compiler.AptGeometryData": {
+          "count": 89,
+          "totalMs": 5.7534
+        },
+        "core.compiler.Texture": {
+          "count": 115,
+          "totalMs": 230.86950000000002
+        },
+        "core.compiler.AIBuildStateDefinition": {
+          "count": 18,
+          "totalMs": 25.8454
+        },
+        "core.compiler.AIPersonalityDefinition": {
+          "count": 26,
+          "totalMs": 38.77120000000001
+        },
+        "core.compiler.AmbientStream": {
+          "count": 6,
+          "totalMs": 29.0939
+        },
+        "core.compiler.ArmorTemplate": {
+          "count": 12,
+          "totalMs": 4.0437
+        },
+        "core.compiler.AttributeModifier": {
+          "count": 16,
+          "totalMs": 2.8108
+        },
+        "core.compiler.AudioEvent": {
+          "count": 304,
+          "totalMs": 34.8407
+        },
+        "core.compiler.AudioFile": {
+          "count": 1289,
+          "totalMs": 17707.1045
+        },
+        "core.compiler.ButtonSingleStateData": {
+          "count": 17,
+          "totalMs": 0.9927
+        },
+        "core.compiler.DamageFX": {
+          "count": 7,
+          "totalMs": 12.878400000000001
+        },
+        "core.compiler.ExperienceLevelTemplate": {
+          "count": 65,
+          "totalMs": 5.9110000000000005
+        },
+        "core.compiler.FXList": {
+          "count": 84,
+          "totalMs": 47.1357
+        },
+        "core.compiler.FXParticleSystemTemplate": {
+          "count": 214,
+          "totalMs": 52.7312
+        },
+        "core.compiler.GameObject": {
+          "count": 121,
+          "totalMs": 366.7491
+        },
+        "core.compiler.LocomotorTemplate": {
+          "count": 12,
+          "totalMs": 18.2333
+        },
+        "core.compiler.LogicCommand": {
+          "count": 23,
+          "totalMs": 1.8674000000000002
+        },
+        "core.compiler.LogicCommandSet": {
+          "count": 26,
+          "totalMs": 2.9797000000000002
+        },
+        "core.compiler.MapMetaData": {
+          "count": 1,
+          "totalMs": 6.6061000000000005
+        },
+        "core.compiler.Multisound": {
+          "count": 50,
+          "totalMs": 2.5178000000000003
+        },
+        "core.compiler.ObjectCreationList": {
+          "count": 29,
+          "totalMs": 3.3209
+        },
+        "core.compiler.ObjectFilterAsset": {
+          "count": 7,
+          "totalMs": 5.1574
+        },
+        "core.compiler.OnDemandTexture": {
+          "count": 2,
+          "totalMs": 12.983500000000001
+        },
+        "core.compiler.OnDemandTextureImage": {
+          "count": 7,
+          "totalMs": 4.188000000000001
+        },
+        "core.compiler.PackedTextureImage": {
+          "count": 46,
+          "totalMs": 1.9442000000000002
+        },
+        "core.compiler.PlayerTech": {
+          "count": 45,
+          "totalMs": 6.2098
+        },
+        "core.compiler.PlayerTechStoreTemplate": {
+          "count": 3,
+          "totalMs": 1.0675000000000001
+        },
+        "core.compiler.RadiusCursor": {
+          "count": 1,
+          "totalMs": 9.0306
+        },
+        "core.compiler.SpecialPowerTemplate": {
+          "count": 27,
+          "totalMs": 7.937600000000001
+        },
+        "core.compiler.UnitAbilityButtonTemplate": {
+          "count": 12,
+          "totalMs": 4.480700000000001
+        },
+        "core.compiler.UnitIntro": {
+          "count": 11,
+          "totalMs": 2.7418
+        },
+        "core.compiler.UnitTypeIcon": {
+          "count": 3,
+          "totalMs": 3.5356
+        },
+        "core.compiler.UpgradeTemplate": {
+          "count": 12,
+          "totalMs": 5.028700000000001
+        },
+        "core.compiler.Video": {
+          "count": 12,
+          "totalMs": 2.7898
+        },
+        "core.compiler.VideoEventList": {
+          "count": 12,
+          "totalMs": 1.5864000000000003
+        },
+        "core.compiler.W3DAnimation": {
+          "count": 194,
+          "totalMs": 27112.077100000002
+        },
+        "core.compiler.W3DCollisionBox": {
+          "count": 34,
+          "totalMs": 1.8107
+        },
+        "core.compiler.W3DContainer": {
+          "count": 73,
+          "totalMs": 8.2981
+        },
+        "core.compiler.W3DHierarchy": {
+          "count": 70,
+          "totalMs": 51.9097
+        },
+        "core.compiler.W3DMesh": {
+          "count": 134,
+          "totalMs": 2813.9327000000003
+        },
+        "core.compiler.WeaponTemplate": {
+          "count": 108,
+          "totalMs": 78.3715
+        },
+        "core.compiler.Credits": {
+          "count": 1,
+          "totalMs": 16.4491
+        },
+        "core.compiler.HealthBarSettings": {
+          "count": 1,
+          "totalMs": 4.2571
+        },
+        "core.compiler.HealthBarTemplate": {
+          "count": 6,
+          "totalMs": 0.38130000000000003
+        }
+      },
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 1734,
+        "sessionCache": true,
+        "sessionPackageHits": 0,
+        "sessionPackageMisses": 5,
+        "documentReuse": 0,
+        "xmlParse": 925,
+        "instanceCompile": 3354,
+        "linkedStreamsRestored": 0,
+        "fileHashReads": 4578,
+        "fileHashReuses": 9549,
+        "fileHashBytesRead": 335376178,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\_temp\\mod-scale\\outputs\\large"
+      },
+      "reportElapsedMs": 75159,
+      "streamCount": 5,
+      "publishedBytes": 78752249,
+      "outputIdentical": true
+    },
+    {
+      "label": "large-hot-1",
+      "tier": "large",
+      "phase": "hot",
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\mod-scale-product\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\mod-scale\\historical\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\mod-scale\\outputs\\large",
+        "--performance",
+        "detailed"
+      ],
+      "timeoutSeconds": 180,
+      "wallMs": 2933.6145999999417,
+      "exitCode": 0,
+      "cpuMs": 2781.25,
+      "peakWorkingSetBytes": 92581888,
+      "phases": {
+        "stage.plan": 6.9409,
+        "stage.compile": 2417.7484,
+        "backend.initialize": 43.8313,
+        "core.providers": 13.5638,
+        "core.schema": 242.1438,
+        "core.schema.read": 188.805,
+        "core.schema.compile": 27.076600000000003,
+        "core.schema.metadata": 18.6054,
+        "cache.prepare": 6.0536,
+        "cache.load": 798.9736,
+        "core.process": 1116.375,
+        "core.xml.parse": 0,
+        "core.xml.validate": 0,
+        "core.asset.compile": 0,
+        "core.asset.commit": 330.4243,
+        "cache.save": 0.0021000000000000003,
+        "artifacts.collect": 2.0074,
+        "stage.package": 331.9678,
+        "package.big": 148.9017,
+        "package.lod": 4.3159,
+        "package.additional-inputs": 2.1599,
+        "package.additional-merge": 1.9322000000000001,
+        "package.hash": 105.8452,
+        "stage.publish": 27.2741,
+        "publish.prepare": 6.133100000000001,
+        "cache.commit": 1.8775000000000002
+      },
+      "compilers": {},
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 5,
+        "sessionPackageMisses": 0,
+        "documentReuse": 925,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 5,
+        "fileHashReads": 1293,
+        "fileHashReuses": 13900,
+        "fileHashBytesRead": 120159481,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\_temp\\mod-scale\\outputs\\large"
+      },
+      "reportElapsedMs": 2819,
+      "streamCount": 5,
+      "publishedBytes": 78752249,
+      "outputIdentical": true
+    },
+    {
+      "label": "medium-hot-1",
+      "tier": "medium",
+      "phase": "hot",
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\mod-scale-product\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\mod-scale\\medium-upheaval-textures",
+        "--out",
+        "D:\\a\\_temp\\mod-scale\\outputs\\medium",
+        "--performance",
+        "detailed"
+      ],
+      "timeoutSeconds": 180,
+      "wallMs": 654.5741999999564,
+      "exitCode": 0,
+      "cpuMs": 656.25,
+      "peakWorkingSetBytes": 52789248,
+      "phases": {
+        "stage.plan": 6.3757,
+        "stage.compile": 442.4529,
+        "backend.initialize": 46.9242,
+        "core.providers": 12.8986,
+        "core.schema": 231.38410000000002,
+        "core.schema.read": 174.6782,
+        "core.schema.compile": 30.419800000000002,
+        "core.schema.metadata": 18.5244,
+        "cache.prepare": 5.6801,
+        "cache.load": 16.5566,
+        "core.process": 87.9582,
+        "core.xml.parse": 0,
+        "core.xml.validate": 0,
+        "core.asset.compile": 0,
+        "core.asset.commit": 0.8498,
+        "cache.save": 0.0015,
+        "artifacts.collect": 1.7842,
+        "stage.package": 50.733200000000004,
+        "package.big": 17.5802,
+        "package.lod": 3.6548000000000003,
+        "package.additional-inputs": 1.9081000000000001,
+        "package.additional-merge": 1.6656,
+        "package.hash": 20.4163,
+        "stage.publish": 24.8508,
+        "publish.prepare": 5.8712,
+        "cache.commit": 1.7781
+      },
+      "compilers": {},
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 18,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1748,
+        "fileHashBytesRead": 15019782,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\_temp\\mod-scale\\outputs\\medium"
+      },
+      "reportElapsedMs": 555,
+      "streamCount": 1,
+      "publishedBytes": 15019782,
+      "outputIdentical": true
+    },
+    {
+      "label": "small-hot-1",
+      "tier": "small",
+      "phase": "hot",
+      "round": 1,
+      "status": "passed",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\mod-scale-product\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\mod-scale\\small-mymod",
+        "--out",
+        "D:\\a\\_temp\\mod-scale\\outputs\\small",
+        "--performance",
+        "detailed"
+      ],
+      "timeoutSeconds": 180,
+      "wallMs": 584.2473999999811,
+      "exitCode": 0,
+      "cpuMs": 578.125,
+      "peakWorkingSetBytes": 50536448,
+      "phases": {
+        "stage.plan": 6.743200000000001,
+        "stage.compile": 406.574,
+        "backend.initialize": 46.201,
+        "core.providers": 12.4785,
+        "core.schema": 222.49280000000002,
+        "core.schema.read": 167.3312,
+        "core.schema.compile": 29.0395,
+        "core.schema.metadata": 18.3842,
+        "cache.prepare": 5.638800000000001,
+        "cache.load": 15.177700000000002,
+        "core.process": 64.93900000000001,
+        "core.xml.parse": 0,
+        "core.xml.validate": 0,
+        "core.asset.compile": 0,
+        "core.asset.commit": 0.8384,
+        "cache.save": 0.0013000000000000002,
+        "artifacts.collect": 1.8092000000000001,
+        "stage.package": 27.0838,
+        "package.big": 8.6173,
+        "package.lod": 3.579,
+        "package.additional-inputs": 3.5021,
+        "package.additional-merge": 3.8306,
+        "package.hash": 1.8099,
+        "stage.publish": 12.8567,
+        "publish.prepare": 5.7535,
+        "cache.commit": 1.5946
+      },
+      "compilers": {},
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1647,
+        "fileHashBytesRead": 1056818,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\_temp\\mod-scale\\outputs\\small"
+      },
+      "reportElapsedMs": 481,
+      "streamCount": 1,
+      "publishedBytes": 1056818,
+      "outputIdentical": true
+    },
+    {
+      "label": "small-hot-2",
+      "tier": "small",
+      "phase": "hot",
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\mod-scale-product\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\mod-scale\\small-mymod",
+        "--out",
+        "D:\\a\\_temp\\mod-scale\\outputs\\small",
+        "--performance",
+        "detailed"
+      ],
+      "timeoutSeconds": 180,
+      "wallMs": 590.0340000000597,
+      "exitCode": 0,
+      "cpuMs": 593.75,
+      "peakWorkingSetBytes": 50565120,
+      "phases": {
+        "stage.plan": 6.4548000000000005,
+        "stage.compile": 407.1342,
+        "backend.initialize": 45.9859,
+        "core.providers": 12.0919,
+        "core.schema": 224.5865,
+        "core.schema.read": 169.0319,
+        "core.schema.compile": 29.651500000000002,
+        "core.schema.metadata": 18.3092,
+        "cache.prepare": 5.5769,
+        "cache.load": 15.4548,
+        "core.process": 64.17490000000001,
+        "core.xml.parse": 0,
+        "core.xml.validate": 0,
+        "core.asset.compile": 0,
+        "core.asset.commit": 0.8436,
+        "cache.save": 0.0012000000000000001,
+        "artifacts.collect": 1.8108000000000002,
+        "stage.package": 26.6172,
+        "package.big": 8.5713,
+        "package.lod": 3.596,
+        "package.additional-inputs": 3.6085000000000003,
+        "package.additional-merge": 3.0617,
+        "package.hash": 1.8152000000000001,
+        "stage.publish": 12.8887,
+        "publish.prepare": 5.733700000000001,
+        "cache.commit": 1.8116
+      },
+      "compilers": {},
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 11,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1647,
+        "fileHashBytesRead": 1056818,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\_temp\\mod-scale\\outputs\\small"
+      },
+      "reportElapsedMs": 483,
+      "streamCount": 1,
+      "publishedBytes": 1056818,
+      "outputIdentical": true
+    },
+    {
+      "label": "medium-hot-2",
+      "tier": "medium",
+      "phase": "hot",
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\mod-scale-product\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\mod-scale\\medium-upheaval-textures",
+        "--out",
+        "D:\\a\\_temp\\mod-scale\\outputs\\medium",
+        "--performance",
+        "detailed"
+      ],
+      "timeoutSeconds": 180,
+      "wallMs": 650.6894999999986,
+      "exitCode": 0,
+      "cpuMs": 671.875,
+      "peakWorkingSetBytes": 52727808,
+      "phases": {
+        "stage.plan": 6.437,
+        "stage.compile": 439.9592,
+        "backend.initialize": 45.940200000000004,
+        "core.providers": 12.4078,
+        "core.schema": 228.07150000000001,
+        "core.schema.read": 171.3159,
+        "core.schema.compile": 30.7265,
+        "core.schema.metadata": 18.3639,
+        "cache.prepare": 6.1367,
+        "cache.load": 16.125500000000002,
+        "core.process": 91.1205,
+        "core.xml.parse": 0,
+        "core.xml.validate": 0,
+        "core.asset.compile": 0,
+        "core.asset.commit": 0.8602000000000001,
+        "cache.save": 0.0014,
+        "artifacts.collect": 1.8068000000000002,
+        "stage.package": 51.4583,
+        "package.big": 17.5454,
+        "package.lod": 3.6762,
+        "package.additional-inputs": 1.9187,
+        "package.additional-merge": 1.9167,
+        "package.hash": 20.422900000000002,
+        "stage.publish": 24.213900000000002,
+        "publish.prepare": 5.7782,
+        "cache.commit": 1.6436000000000002
+      },
+      "compilers": {},
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 1,
+        "sessionPackageMisses": 0,
+        "documentReuse": 18,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 1,
+        "fileHashReads": 2,
+        "fileHashReuses": 1748,
+        "fileHashBytesRead": 15019782,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\_temp\\mod-scale\\outputs\\medium"
+      },
+      "reportElapsedMs": 553,
+      "streamCount": 1,
+      "publishedBytes": 15019782,
+      "outputIdentical": true
+    },
+    {
+      "label": "large-hot-2",
+      "tier": "large",
+      "phase": "hot",
+      "round": 2,
+      "status": "passed",
+      "command": [
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\mod-scale-product\\bin\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\mod-scale\\historical\\SDK\\Mods\\Upheaval",
+        "--out",
+        "D:\\a\\_temp\\mod-scale\\outputs\\large",
+        "--performance",
+        "detailed"
+      ],
+      "timeoutSeconds": 180,
+      "wallMs": 2793.5132000000067,
+      "exitCode": 0,
+      "cpuMs": 2734.375,
+      "peakWorkingSetBytes": 85065728,
+      "phases": {
+        "stage.plan": 6.809900000000001,
+        "stage.compile": 2276.2003,
+        "backend.initialize": 48.8769,
+        "core.providers": 14.071200000000001,
+        "core.schema": 235.8993,
+        "core.schema.read": 182.68890000000002,
+        "core.schema.compile": 26.9567,
+        "core.schema.metadata": 18.5131,
+        "cache.prepare": 6.040400000000001,
+        "cache.load": 747.9603,
+        "core.process": 1084.1052,
+        "core.xml.parse": 0,
+        "core.xml.validate": 0,
+        "core.asset.compile": 0,
+        "core.asset.commit": 331.9607,
+        "cache.save": 0.0016,
+        "artifacts.collect": 2.0691,
+        "stage.package": 333.8304,
+        "package.big": 146.5816,
+        "package.lod": 4.1771,
+        "package.additional-inputs": 2.2833,
+        "package.additional-merge": 1.6719000000000002,
+        "package.hash": 106.1978,
+        "stage.publish": 26.9493,
+        "publish.prepare": 6.088100000000001,
+        "cache.commit": 1.6916
+      },
+      "compilers": {},
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 5,
+        "sessionPackageMisses": 0,
+        "documentReuse": 925,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 5,
+        "fileHashReads": 1280,
+        "fileHashReuses": 13913,
+        "fileHashBytesRead": 112299913,
+        "textureCache": true,
+        "compressedSessionCache": true,
+        "partialSessionCache": true,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\_temp\\mod-scale\\outputs\\large"
+      },
+      "reportElapsedMs": 2679,
+      "streamCount": 5,
+      "publishedBytes": 78752249,
+      "outputIdentical": true
+    }
+  ],
+  "summary": [
+    {
+      "tier": "small",
+      "phase": "cold",
+      "n": 1,
+      "wallMs": 2459.4012999999677,
+      "cpuMs": 1031.25,
+      "peakWorkingSetBytes": 53690368,
+      "publishedBytes": 1056818,
+      "phases": {
+        "stage.plan": 19.282,
+        "stage.compile": 1384.9954,
+        "backend.initialize": 217.17680000000001,
+        "core.providers": 26.054000000000002,
+        "core.schema": 577.1003000000001,
+        "core.schema.read": 425.7654,
+        "core.schema.compile": 70.50670000000001,
+        "core.schema.metadata": 46.374100000000006,
+        "cache.prepare": 6.226,
+        "cache.load": 6.651400000000001,
+        "core.process": 449.67580000000004,
+        "core.xml.parse": 46.210300000000004,
+        "core.xml.validate": 47.2954,
+        "core.asset.compile": 132.44140000000002,
+        "core.asset.commit": 16.5299,
+        "cache.save": 10.8124,
+        "artifacts.collect": 2.8914,
+        "stage.package": 65.4829,
+        "package.big": 26.259400000000003,
+        "package.lod": 9.8157,
+        "package.additional-inputs": 8.4404,
+        "package.additional-merge": 13.158900000000001,
+        "package.hash": 1.9409,
+        "stage.publish": 15.1593,
+        "publish.prepare": 8.371400000000001,
+        "cache.commit": 2.8626
+      },
+      "cache": {
+        "xmlParse": 11,
+        "instanceCompile": 47,
+        "fileHashReads": 834,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 2878648
+      },
+      "topCompilers": [
+        {
+          "name": "core.compiler.GameObject",
+          "totalMs": 48.7916,
+          "count": 3
+        },
+        {
+          "name": "core.compiler.WeaponTemplate",
+          "totalMs": 43.243500000000004,
+          "count": 38
+        },
+        {
+          "name": "core.compiler.LogicCommand",
+          "totalMs": 29.7279,
+          "count": 1
+        },
+        {
+          "name": "core.compiler.ArmorTemplate",
+          "totalMs": 3.8993,
+          "count": 3
+        },
+        {
+          "name": "core.compiler.LogicCommandSet",
+          "totalMs": 3.8366000000000002,
+          "count": 2
+        }
+      ]
+    },
+    {
+      "tier": "small",
+      "phase": "hot",
+      "n": 2,
+      "wallMs": 587.1407000000204,
+      "cpuMs": 585.9375,
+      "peakWorkingSetBytes": 50550784.0,
+      "publishedBytes": 1056818.0,
+      "phases": {
+        "stage.plan": 6.599,
+        "stage.compile": 406.8541,
+        "backend.initialize": 46.093450000000004,
+        "core.providers": 12.2852,
+        "core.schema": 223.53965,
+        "core.schema.read": 168.18155000000002,
+        "core.schema.compile": 29.3455,
+        "core.schema.metadata": 18.3467,
+        "cache.prepare": 5.607850000000001,
+        "cache.load": 15.31625,
+        "core.process": 64.55695,
+        "core.xml.parse": 0.0,
+        "core.xml.validate": 0.0,
+        "core.asset.compile": 0.0,
+        "core.asset.commit": 0.841,
+        "cache.save": 0.0012500000000000002,
+        "artifacts.collect": 1.81,
+        "stage.package": 26.8505,
+        "package.big": 8.5943,
+        "package.lod": 3.5875000000000004,
+        "package.additional-inputs": 3.5553,
+        "package.additional-merge": 3.4461500000000003,
+        "package.hash": 1.81255,
+        "stage.publish": 12.8727,
+        "publish.prepare": 5.743600000000001,
+        "cache.commit": 1.7031
+      },
+      "cache": {
+        "xmlParse": 0.0,
+        "instanceCompile": 0.0,
+        "fileHashReads": 2.0,
+        "fileHashReuses": 1647.0,
+        "fileHashBytesRead": 1056818.0
+      },
+      "topCompilers": []
+    },
+    {
+      "tier": "medium",
+      "phase": "cold",
+      "n": 1,
+      "wallMs": 1166.3112999999612,
+      "cpuMs": 1046.875,
+      "peakWorkingSetBytes": 80039936,
+      "publishedBytes": 15019782,
+      "phases": {
+        "stage.plan": 8.561300000000001,
+        "stage.compile": 936.7597000000001,
+        "backend.initialize": 43.621500000000005,
+        "core.providers": 13.3396,
+        "core.schema": 289.9105,
+        "core.schema.read": 204.64370000000002,
+        "core.schema.compile": 37.3592,
+        "core.schema.metadata": 37.5626,
+        "cache.prepare": 6.836,
+        "cache.load": 4.6131,
+        "core.process": 511.1186,
+        "core.xml.parse": 5.9375,
+        "core.xml.validate": 269.53520000000003,
+        "core.asset.compile": 52.3811,
+        "core.asset.commit": 93.7245,
+        "cache.save": 12.1773,
+        "artifacts.collect": 22.096,
+        "stage.package": 56.9697,
+        "package.big": 16.966900000000003,
+        "package.lod": 3.5194,
+        "package.additional-inputs": 1.9132,
+        "package.additional-merge": 1.6798000000000002,
+        "package.hash": 27.079700000000003,
+        "stage.publish": 26.8241,
+        "publish.prepare": 19.4865,
+        "cache.commit": 2.2315
+      },
+      "cache": {
+        "xmlParse": 18,
+        "instanceCompile": 96,
+        "fileHashReads": 935,
+        "fileHashReuses": 0,
+        "fileHashBytesRead": 46551083
+      },
+      "topCompilers": [
+        {
+          "name": "core.compiler.Texture",
+          "totalMs": 36.550200000000004,
+          "count": 96
+        }
+      ]
+    },
+    {
+      "tier": "medium",
+      "phase": "hot",
+      "n": 2,
+      "wallMs": 652.6318499999775,
+      "cpuMs": 664.0625,
+      "peakWorkingSetBytes": 52758528.0,
+      "publishedBytes": 15019782.0,
+      "phases": {
+        "stage.plan": 6.40635,
+        "stage.compile": 441.20605,
+        "backend.initialize": 46.4322,
+        "core.providers": 12.6532,
+        "core.schema": 229.7278,
+        "core.schema.read": 172.99705,
+        "core.schema.compile": 30.573150000000002,
+        "core.schema.metadata": 18.44415,
+        "cache.prepare": 5.9084,
+        "cache.load": 16.341050000000003,
+        "core.process": 89.53935000000001,
+        "core.xml.parse": 0.0,
+        "core.xml.validate": 0.0,
+        "core.asset.compile": 0.0,
+        "core.asset.commit": 0.855,
+        "cache.save": 0.00145,
+        "artifacts.collect": 1.7955,
+        "stage.package": 51.09575,
+        "package.big": 17.562800000000003,
+        "package.lod": 3.6655,
+        "package.additional-inputs": 1.9134000000000002,
+        "package.additional-merge": 1.79115,
+        "package.hash": 20.419600000000003,
+        "stage.publish": 24.53235,
+        "publish.prepare": 5.8247,
+        "cache.commit": 1.7108500000000002
+      },
+      "cache": {
+        "xmlParse": 0.0,
+        "instanceCompile": 0.0,
+        "fileHashReads": 2.0,
+        "fileHashReuses": 1748.0,
+        "fileHashBytesRead": 15019782.0
+      },
+      "topCompilers": []
+    },
+    {
+      "tier": "large",
+      "phase": "cold",
+      "n": 1,
+      "wallMs": 75285.51219999997,
+      "cpuMs": 74906.25,
+      "peakWorkingSetBytes": 225583104,
+      "publishedBytes": 78752249,
+      "phases": {
+        "stage.plan": 9.5581,
+        "stage.compile": 74684.6998,
+        "backend.initialize": 44.4468,
+        "core.providers": 13.7156,
+        "core.schema": 287.8713,
+        "core.schema.read": 217.2906,
+        "core.schema.compile": 26.9627,
+        "core.schema.metadata": 35.8219,
+        "cache.prepare": 8.1548,
+        "cache.load": 541.8388,
+        "core.process": 72549.0113,
+        "core.xml.parse": 2751.0548000000003,
+        "core.xml.validate": 13909.957300000002,
+        "core.asset.compile": 48955.4684,
+        "core.asset.commit": 2387.2111000000004,
+        "cache.save": 914.9514,
+        "artifacts.collect": 215.7115,
+        "stage.package": 326.0906,
+        "package.big": 150.64770000000001,
+        "package.lod": 4.272,
+        "package.additional-inputs": 2.2741000000000002,
+        "package.additional-merge": 1.9016000000000002,
+        "package.hash": 105.6722,
+        "stage.publish": 49.077600000000004,
+        "publish.prepare": 29.2357,
+        "cache.commit": 3.8248
+      },
+      "cache": {
+        "xmlParse": 925,
+        "instanceCompile": 3354,
+        "fileHashReads": 4578,
+        "fileHashReuses": 9549,
+        "fileHashBytesRead": 335376178
+      },
+      "topCompilers": [
+        {
+          "name": "core.compiler.W3DAnimation",
+          "totalMs": 27112.077100000002,
+          "count": 194
+        },
+        {
+          "name": "core.compiler.AudioFile",
+          "totalMs": 17707.1045,
+          "count": 1289
+        },
+        {
+          "name": "core.compiler.W3DMesh",
+          "totalMs": 2813.9327000000003,
+          "count": 134
+        },
+        {
+          "name": "core.compiler.GameObject",
+          "totalMs": 366.7491,
+          "count": 121
+        },
+        {
+          "name": "core.compiler.Texture",
+          "totalMs": 230.86950000000002,
+          "count": 115
+        },
+        {
+          "name": "core.compiler.WeaponTemplate",
+          "totalMs": 78.3715,
+          "count": 108
+        },
+        {
+          "name": "core.compiler.FXParticleSystemTemplate",
+          "totalMs": 52.7312,
+          "count": 214
+        },
+        {
+          "name": "core.compiler.W3DHierarchy",
+          "totalMs": 51.9097,
+          "count": 70
+        },
+        {
+          "name": "core.compiler.FXList",
+          "totalMs": 47.1357,
+          "count": 84
+        },
+        {
+          "name": "core.compiler.AIPersonalityDefinition",
+          "totalMs": 38.77120000000001,
+          "count": 26
+        }
+      ]
+    },
+    {
+      "tier": "large",
+      "phase": "hot",
+      "n": 2,
+      "wallMs": 2863.563899999974,
+      "cpuMs": 2757.8125,
+      "peakWorkingSetBytes": 88823808.0,
+      "publishedBytes": 78752249.0,
+      "phases": {
+        "stage.plan": 6.875400000000001,
+        "stage.compile": 2346.97435,
+        "backend.initialize": 46.3541,
+        "core.providers": 13.8175,
+        "core.schema": 239.02155,
+        "core.schema.read": 185.74695000000003,
+        "core.schema.compile": 27.016650000000002,
+        "core.schema.metadata": 18.55925,
+        "cache.prepare": 6.047000000000001,
+        "cache.load": 773.46695,
+        "core.process": 1100.2401,
+        "core.xml.parse": 0.0,
+        "core.xml.validate": 0.0,
+        "core.asset.compile": 0.0,
+        "core.asset.commit": 331.1925,
+        "cache.save": 0.00185,
+        "artifacts.collect": 2.03825,
+        "stage.package": 332.8991,
+        "package.big": 147.74165,
+        "package.lod": 4.2465,
+        "package.additional-inputs": 2.2216,
+        "package.additional-merge": 1.8020500000000002,
+        "package.hash": 106.0215,
+        "stage.publish": 27.1117,
+        "publish.prepare": 6.110600000000001,
+        "cache.commit": 1.78455
+      },
+      "cache": {
+        "xmlParse": 0.0,
+        "instanceCompile": 0.0,
+        "fileHashReads": 1286.5,
+        "fileHashReuses": 13906.5,
+        "fileHashBytesRead": 116229697.0
+      },
+      "topCompilers": []
+    }
+  ],
+  "workloads": [
+    {
+      "tier": "small",
+      "name": "mymod",
+      "modRoot": "D:\\a\\_temp\\mod-scale\\small-mymod",
+      "fullModInputCopy": true,
+      "scope": "Complete current mymod input; all auto-discovered content, BIG+SKUDEF and Additional.",
+      "dimensions": {
+        "files": 7,
+        "bytes": 982257,
+        "xmlAndW3xFiles": 5,
+        "declaredAssetsInInputFiles": 45
+      },
+      "inputFingerprint": "a84702fc9f178cf3aa9fb32ae96cecfd4dfdf6154ad2869284eac93c0651da72",
+      "sourceCommit": "629951986c1776a5fda5ad4a68bbc7b7da3a688d",
+      "sourceTree": null
+    },
+    {
+      "tier": "medium",
+      "name": "upheaval-textures-96",
+      "modRoot": "D:\\a\\_temp\\mod-scale\\medium-upheaval-textures",
+      "fullModInputCopy": false,
+      "scope": "Generated include entry and unchanged Texture elements from historical Upheaval; 96 unique Texture identities and their local real ART files. Texture workload only, not an independent full medium MOD.",
+      "dimensions": {
+        "files": 114,
+        "bytes": 15011536,
+        "xmlAndW3xFiles": 18,
+        "declaredAssetsInInputFiles": 96
+      },
+      "inputFingerprint": "e5c46705e3aef2deb4f126de65137f983f746fbd1eb604ae1a4a8bf89d3d3124",
+      "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+      "sourceTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0"
+    },
+    {
+      "tier": "large",
+      "name": "upheaval-full",
+      "modRoot": "D:\\a\\_temp\\mod-scale\\historical\\SDK\\Mods\\Upheaval",
+      "fullModInputCopy": true,
+      "scope": "Complete untouched historical Upheaval, all auto-discovered base/APT/maps, BIG+SKUDEF and Additional. Success is established only by this run, not older component/SDK evidence.",
+      "dimensions": {
+        "files": 2723,
+        "bytes": 300900885,
+        "xmlAndW3xFiles": 955,
+        "declaredAssetsInInputFiles": 3852
+      },
+      "inputFingerprint": "c41fdfd1d72f340351fba7b2828e92c33a0d63ff562ddc8b9962d2be002497f7",
+      "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+      "sourceTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0"
+    }
+  ],
+  "profileObservations": [
+    {
+      "label": "small-cold-0",
+      "diagnosticCounts": {
+        "error": 0,
+        "warning": 82
+      },
+      "publicationUnchanged": false,
+      "rawReportSha256": "d40f291bf685fb0d6bc90967ccc6758e1e01715fb7bff21f42237a7d988c0210",
+      "hashScopeMs": {
+        "core.filehash.read": 5.4674000000000005,
+        "identity.sha256": 16.1218,
+        "identity.directory": 6.4383
+      },
+      "outputReferenceMs": 28.4933
+    },
+    {
+      "label": "medium-cold-0",
+      "diagnosticCounts": {
+        "error": 0,
+        "warning": 0
+      },
+      "publicationUnchanged": false,
+      "rawReportSha256": "9e0e87100ca0d7d72580d46a9c960a271fcee7632db86ea9ab3c618ec4a9940d",
+      "hashScopeMs": {
+        "core.filehash.read": 47.4471,
+        "identity.sha256": 60.591800000000006,
+        "identity.directory": 5.886
+      },
+      "outputReferenceMs": 8.183300000000001
+    },
+    {
+      "label": "large-cold-0",
+      "diagnosticCounts": {
+        "error": 0,
+        "warning": 1859
+      },
+      "publicationUnchanged": false,
+      "rawReportSha256": "a2dfd16f94d4508a3a6d61c219b30c240fa118290976dcc76acb443752bef466",
+      "hashScopeMs": {
+        "core.filehash.read": 759.0169000000001,
+        "identity.sha256": 289.3617,
+        "identity.directory": 19.818
+      },
+      "outputReferenceMs": 310.50480000000005
+    },
+    {
+      "label": "large-hot-1",
+      "diagnosticCounts": {
+        "error": 0,
+        "warning": 1859
+      },
+      "publicationUnchanged": true,
+      "rawReportSha256": "e8391c63ab0827dc8fe5d08f03bd3c23d645f127ea4bb8f68b48a4fb41e9fadb",
+      "hashScopeMs": {
+        "core.filehash.read": 0,
+        "identity.sha256": 234.07240000000002,
+        "identity.directory": 17.6207
+      },
+      "outputReferenceMs": 307.3763
+    },
+    {
+      "label": "medium-hot-1",
+      "diagnosticCounts": {
+        "error": 0,
+        "warning": 0
+      },
+      "publicationUnchanged": true,
+      "rawReportSha256": "9bf72607b26c513ed2089ab975a5effd39a98fca1d671325286d8310b5e9515d",
+      "hashScopeMs": {
+        "core.filehash.read": 0,
+        "identity.sha256": 19.995,
+        "identity.directory": 4.620100000000001
+      },
+      "outputReferenceMs": 7.9626
+    },
+    {
+      "label": "small-hot-1",
+      "diagnosticCounts": {
+        "error": 0,
+        "warning": 82
+      },
+      "publicationUnchanged": true,
+      "rawReportSha256": "e35682ddff0c2c0430105769e6e5c7dc5a898d9259bfc5ce9ac2d75f68f62b8c",
+      "hashScopeMs": {
+        "core.filehash.read": 0,
+        "identity.sha256": 1.4299000000000002,
+        "identity.directory": 4.2857
+      },
+      "outputReferenceMs": 12.393600000000001
+    },
+    {
+      "label": "small-hot-2",
+      "diagnosticCounts": {
+        "error": 0,
+        "warning": 82
+      },
+      "publicationUnchanged": true,
+      "rawReportSha256": "d3311bd2ca687e49b949eaadbb6b6bfbfb5e6b8f9c29087f5125dcb1e0a60f13",
+      "hashScopeMs": {
+        "core.filehash.read": 0,
+        "identity.sha256": 1.4423000000000001,
+        "identity.directory": 4.276300000000001
+      },
+      "outputReferenceMs": 12.255500000000001
+    },
+    {
+      "label": "medium-hot-2",
+      "diagnosticCounts": {
+        "error": 0,
+        "warning": 0
+      },
+      "publicationUnchanged": true,
+      "rawReportSha256": "b91ccbc8c136df64a9246968da20c4be50af8dcf03c0572672d112dcd3eeea09",
+      "hashScopeMs": {
+        "core.filehash.read": 0,
+        "identity.sha256": 20.0227,
+        "identity.directory": 4.5552
+      },
+      "outputReferenceMs": 8.0561
+    },
+    {
+      "label": "large-hot-2",
+      "diagnosticCounts": {
+        "error": 0,
+        "warning": 1859
+      },
+      "publicationUnchanged": true,
+      "rawReportSha256": "3c6c50c8e77dd3f5e3b4c9a4a7fd685f44918b1d1770e7b64b0c2efff8682188",
+      "hashScopeMs": {
+        "core.filehash.read": 0,
+        "identity.sha256": 231.46210000000002,
+        "identity.directory": 13.318100000000001
+      },
+      "outputReferenceMs": 304.1524
+    }
+  ],
+  "scopeNotes": [
+    "Release, detailed profiling, default caches, all auto-discovered content and normal BIG/SKUDEF/Additional packaging.",
+    "Cold means empty compiler/output caches. Every hot run is a fresh process with compiler caches retained; OS page cache uncontrolled.",
+    "One cold and two hot samples on one VM. Small was the first measured process; these are not pure size-scaling/significance estimates.",
+    "Medium is a generated subset of 96 unique real Upheaval Texture identities, not an independent complete medium MOD.",
+    "Small has 82 warnings and large has 1859 warnings (zero errors), including missing precompiled base manifests/unknown references under existing defaults; no game-runtime acceptance.",
+    "Raw inventories, reports/events, build receipts and runtime binaries remain in the digest-verified Actions archive. Profile extracts retain raw report hashes.",
+    "Core source-file hash scope is zero when hot. FileHashReads also includes output/CDATAs/package hashing; it is not a source recompile counter.",
+    "Nested totalMs overlap. Snapshot ends before report write/final cleanup; wallMs measures the full process."
+  ]
+}

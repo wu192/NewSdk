@@ -1,4 +1,5 @@
 #pragma once
+#include "AttributeMap.h"
 #include "ObjectFilter.h"
 #include <map>
 #include <string>
@@ -9,17 +10,17 @@ struct NuggetScalarInput {
     ObjectFilterInput filter;
     std::vector<std::string> requiredUpgrades;
 };
-struct VeteranProjectileInput { std::map<std::string, std::string> attributes; };
+struct VeteranProjectileInput { AttributeMap attributes; };
 struct WeaponNuggetInput {
     std::uint32_t typeId = 0;
     bool hasAttackOffset = false, hasBarrel = false;
-    std::map<std::string, std::string> attackOffset;
+    AttributeMap attackOffset;
     std::string barrel;
     std::vector<VeteranProjectileInput> veterans;
-    std::map<std::string, std::string> attributes;
+    AttributeMap attributes;
     bool hasKillFilter = false, hasColor = false;
     ObjectFilterInput killFilter;
-    std::map<std::string, std::string> color;
+    AttributeMap color;
     bool hasSpawnTemplate = false, hasTargetFilter = false, hasDamageFilter = false;
     std::string spawnTemplate;
     ObjectFilterInput targetFilter, damageFilter;

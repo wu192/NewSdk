@@ -1,0 +1,51 @@
+{
+  "runId": 41146357838,
+  "sourceCommit": "d60904bcb4fcdc6b02ff78db6b66410568543f57",
+  "sha256": "7a900c28949488ac53751a4c18bed0fbac809d3de448957f260c65f87fcb0500",
+  "bytes": 4627,
+  "downloadedAndRehashed": true,
+  "medians": [
+    {
+      "before": 126.417,
+      "after": 47.993,
+      "fixture": "gameobject-default",
+      "percentReduction": 62.03596035343348
+    },
+    {
+      "before": 208.754,
+      "after": 154.011,
+      "fixture": "gameobject-nested-draws",
+      "percentReduction": 26.223689126914927
+    },
+    {
+      "before": 120.259,
+      "after": 102.623,
+      "fixture": "gameobject-wide-state",
+      "percentReduction": 14.665014676656218
+    },
+    {
+      "before": 116.272,
+      "after": 34.185,
+      "fixture": "weapon-default",
+      "percentReduction": 70.5991124260355
+    },
+    {
+      "before": 314.551,
+      "after": 134.105,
+      "fixture": "weapon-nuggets",
+      "percentReduction": 57.366214063856106
+    },
+    {
+      "before": 233.129,
+      "after": 174.53,
+      "fixture": "gameobject-schema-defaults",
+      "percentReduction": 25.135868982408883
+    },
+    {
+      "before": 226.733,
+      "after": 165.626,
+      "fixture": "weapon-schema-defaults",
+      "percentReduction": 26.95108343293654
+    }
+  ]
+}

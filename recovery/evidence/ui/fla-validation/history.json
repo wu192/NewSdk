@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "runs": [
+    {
+      "runId": "41163820917",
+      "sourceCommit": "314390f8405179fc33aa19d633575451bd2ae612",
+      "conclusion": "failure",
+      "artifactId": "13028346170",
+      "artifactSha256": "d53389a3981894a6ac78492971563f134560ddbad8e93305af01b4ae9c54ee20",
+      "downloadedArchiveVerified": true,
+      "rawUiReceipt": "failed-41163820917.json",
+      "independentPhases": {
+        "product": true,
+        "core": true,
+        "cli": true,
+        "cache": true,
+        "sdk": true
+      },
+      "reason": "Enhancer fakeEABtn editor-only button frame scripts were rejected; fixed in c35c2df6 using original Flash publish semantics."
+    },
+    {
+      "runId": "41164063787",
+      "sourceCommit": "c35c2df6d3a17d664336f9ed2568d151f6ed6c6a",
+      "conclusion": "failure",
+      "artifactId": "13029066400",
+      "artifactSha256": "30c523521642672a37eb2fbbc375e7d40b9671419351b52e078cf5711f09e88b",
+      "downloadedArchiveVerified": true,
+      "rawUiReceipt": "failed-41164063787.json",
+      "independentPhases": {
+        "product": true,
+        "core": true,
+        "cli": true,
+        "cache": true,
+        "sdk": true
+      },
+      "reason": "Conversion, hot reuse and AS invalidation passed. New test incorrectly required old stream preservation on failure; corrected to the existing failed-stream cleanup/retry contract in 75d29895."
+    },
+    {
+      "runId": "41164357355",
+      "sourceCommit": "1c96d0cee22a0a027ca0bf483d89275449d8a245",
+      "conclusion": "failure",
+      "reason": "Same incorrect failure-preservation test expectation; not reused as final acceptance."
+    }
+  ]
+}

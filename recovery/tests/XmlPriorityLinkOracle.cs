@@ -314,6 +314,17 @@ class XmlPriorityLinkOracle
         new Root("GameScriptList", 3737094024u, false),
         new Root("GameMap", 3575309793u, false),
         new Root("UIConfigList", 3072160547u, false),
+        new Root("UIJoypadCommandBarMixedGroup", 1276968974u, false),
+        new Root("UIJoypadCommandBarHomogenousGroup", 1546953756u, false),
+        new Root("UIJoypadCommandBarCoopCommunicator", 1654297531u, false),
+        new Root("JoypadCommandBarButtonTemplate", 1804891371u, false),
+        new Root("UIJoypadCommandBarStances", 1887864852u, false),
+        new Root("JoypadCommandBarTemplate", 1931769760u, false),
+        new Root("UIJoypadCommandBarTopMenu", 2170044043u, false),
+        new Root("UIJoypadCommandBarPlayerPowers", 2742786440u, false),
+        new Root("UIJoypadCommandBarButtonBuild", 3423839194u, false),
+        new Root("UIJoypadCommandBarControlGroups", 3645205636u, false),
+        new Root("UIJoypadCommandBarSingleUnit", 3901433122u, false),
     };
     static readonly int[] Platforms = new int[] { 0, 1, 2, 99 };
     static readonly Dictionary<string, MethodInfo> Methods = new Dictionary<string, MethodInfo>();
@@ -452,7 +463,7 @@ class XmlPriorityLinkOracle
             if (pair.Length != 2) throw new Exception("Invalid expected-root-types manifest row");
             supplied.Add(pair[0], UInt32.Parse(pair[1], CultureInfo.InvariantCulture));
         }
-        if (Roots.Length != 289 || supplied.Count != 289) throw new Exception("Exactly 289 recovered entries are required");
+        if (Roots.Length != 300 || supplied.Count != 300) throw new Exception("Exactly 300 recovered entries are required");
         foreach (Root root in Roots) {
             uint value;
             if (!supplied.TryGetValue(root.Name, out value) || value != root.TypeId)
@@ -479,7 +490,7 @@ class XmlPriorityLinkOracle
             Methods.Add(root.Name, method);
             Console.WriteLine("ROUTE root={0} TypeId={1} compiler={2}", root.Name, root.TypeId, root.Compiler);
         }
-        if (Methods.Count != 289) throw new Exception("Metadata preflight did not resolve all 289 entries");
+        if (Methods.Count != 300) throw new Exception("Metadata preflight did not resolve all 300 entries");
     }
     static InstanceDeclaration Declaration(XmlDocument xml, XmlNamespaceManager namespaces)
     {
@@ -612,14 +623,14 @@ class XmlPriorityLinkOracle
                 int beforeFixtures = fixtures, beforeComparisons = comparisons;
                 foreach (Root root in Roots) Test(original, root, platform);
                 if (SelectedRoots.Count != 0) Completion(original, platform);
-                Console.WriteLine("PASS platform={0} metadataRoutes=289 testedTypes={1} fixtures={2} comparisons={3}", platform, SelectedRoots.Count, fixtures-beforeFixtures, comparisons-beforeComparisons);
+                Console.WriteLine("PASS platform={0} metadataRoutes=300 testedTypes={1} fixtures={2} comparisons={3}", platform, SelectedRoots.Count, fixtures-beforeFixtures, comparisons-beforeComparisons);
             }
             int expectedFixtures = SelectedRoots.Count * Platforms.Length;
             int expectedCompletion = ExpectedCompletionFixtures();
-            if (fixtures != expectedFixtures || comparisons != expectedFixtures * 3 || completionFixtures != expectedCompletion || completionComparisons != expectedCompletion * 3 || Methods.Count != 289) throw new Exception("Incomplete selected-root priority smoke matrix");
+            if (fixtures != expectedFixtures || comparisons != expectedFixtures * 3 || completionFixtures != expectedCompletion || completionComparisons != expectedCompletion * 3 || Methods.Count != 300) throw new Exception("Incomplete selected-root priority smoke matrix");
             foreach (Root root in Roots) if (Coverage[root.Name] != (SelectedRoots.Contains(root.Name) ? 4 : 0)) throw new Exception("Incorrect selected/unselected root coverage: " + root.Name);
             succeeded = true;
-            Console.WriteLine("PASS XmlPriorityLink metadataRoutes=289 testedTypes={0} fixtures={1} comparisons={2} completionFixtures={3} completionComparisons={4} platforms=0/1/2/99; selected-root link smoke only", SelectedRoots.Count, fixtures, comparisons, completionFixtures, completionComparisons);
+            Console.WriteLine("PASS XmlPriorityLink metadataRoutes=300 testedTypes={0} fixtures={1} comparisons={2} completionFixtures={3} completionComparisons={4} platforms=0/1/2/99; selected-root link smoke only", SelectedRoots.Count, fixtures, comparisons, completionFixtures, completionComparisons);
             return 0;
         } catch (Exception error) {
             failure = current + ": " + error.ToString();

@@ -1,0 +1,72 @@
+{
+  "runId": 41171620746,
+  "artifactId": 13030979628,
+  "archiveSha256": "a3497869d8c31e3bfaa6c2b159d724e8b9d96d8224e6865074a0ec3cd6f43dc2",
+  "archiveBytes": 2891368,
+  "downloadedAndRehashed": true,
+  "status": "passed",
+  "measurementSource": "49416d11c8a0902a63d21a6600670436b502bb43",
+  "baselineBinarySource": "75d29895be464d9a560f5f946d612e359bf4b396",
+  "candidateBinarySource": "e2dba3c321504752438b4e940d651bbfcdb58fff",
+  "candidateAcceptanceRun": "41169755141",
+  "armorPartitions": 0,
+  "sampleCount": 24,
+  "samplesByStatus": {
+    "passed": 24
+  },
+  "summary": [
+    {
+      "mode": "default",
+      "phase": "cold",
+      "baseline": {
+        "n": 3,
+        "medianMs": 36723.47880000001,
+        "minMs": 36363.71359999998,
+        "maxMs": 40996.73679999998
+      },
+      "candidate": {
+        "n": 3,
+        "medianMs": 33500.740599999976,
+        "minMs": 33303.49460000002,
+        "maxMs": 34920.40090000001
+      },
+      "reductionPercent": 8.775688756371402
+    },
+    {
+      "mode": "default",
+      "phase": "hot",
+      "baseline": {
+        "n": 6,
+        "medianMs": 2273.14819999998,
+        "minMs": 2236.563600000011,
+        "maxMs": 2300.702000000001
+      },
+      "candidate": {
+        "n": 6,
+        "medianMs": 1690.6493999999839,
+        "minMs": 1676.9800999999802,
+        "maxMs": 1724.7911000000045
+      },
+      "reductionPercent": 25.625201207734772
+    },
+    {
+      "mode": "none",
+      "phase": "cold",
+      "baseline": {
+        "n": 1,
+        "medianMs": 34411.06769999999,
+        "minMs": 34411.06769999999,
+        "maxMs": 34411.06769999999
+      },
+      "candidate": {
+        "n": 1,
+        "medianMs": 32181.511,
+        "minMs": 32181.511,
+        "maxMs": 32181.511
+      },
+      "reductionPercent": 6.47918489317899
+    }
+  ],
+  "rawReportsArchiveSha256": "a03f04f0ff6af08b9c1ae91886c6844597030e42c8c1e92e69ef7d25bca03b24",
+  "rawReportsArchiveScope": "All original JSON reports, inventories, requests and Markdown from the verified Actions ZIP. Full stdout/stderr remain in the original Actions artifact identified above."
+}

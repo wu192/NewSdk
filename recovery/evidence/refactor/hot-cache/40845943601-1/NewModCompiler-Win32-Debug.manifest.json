@@ -1,0 +1,581 @@
+{
+  "schemaVersion": 1,
+  "status": "verified-small-mod-deployment",
+  "platform": "Win32",
+  "runtime": ".NET Framework 4.8",
+  "configuration": "Debug",
+  "binarySourceCommit": "84261243a2f2cc98b77399a939be0f4115a4a98d",
+  "packagingSourceCommit": "84261243a2f2cc98b77399a939be0f4115a4a98d",
+  "runId": "40845943601",
+  "runAttempt": "1",
+  "acceptance": {
+    "runAttempt": "1",
+    "scope": "Passed real production EXE CLI Debug/Release: four tasks, single/group fresh-process output equality, two selected ASCII-companion original BAB baselines, exact Unicode/ASCII four-task output equality and DATA source semantics, SDK-internal/external Unicode MODs, explicit cache rejection, failure/retry, required-log exit7 and actual CTRL_BREAK exit6/retry; plus real file-backed APT/MapMetaData business tasks, cold group equality and current-original strict four-stream oracles, plus all three complete original UI entries, combined/cold byte equality and current original BAB four-stream/inline Texture DDS comparison; full SDK/cache acceptance remain separate; transactional published generation first/replacement, occupied output, compilation failure/cancellation preserving old generation and same-path retry passed; injected late-output rollback remains the separate controlled App lifecycle group",
+    "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\core-cli\\40845943601-1\\validation.json",
+    "sourceCommit": "84261243a2f2cc98b77399a939be0f4115a4a98d",
+    "runId": "40845943601",
+    "sha256": "7b09fd08da1e3d125336434afce574eb90a7feea5a53dbad665f39e46efee442",
+    "binarySourceCommit": "84261243a2f2cc98b77399a939be0f4115a4a98d"
+  },
+  "toolchain": {
+    "vcToolsVersion": "14.44.35207",
+    "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1",
+    "windowsSdkVersion": "10.0.26100.0\\"
+  },
+  "buildReceiptSha256": "177086d1ae5beb45473ec250f2d46bb438687519929d19ef57b94b76dc002dca",
+  "linkRecipeSha256": "e376bb39a38a441b69afe5a53ca6e513088ad9f73590a7310b42039f0b4e3e6b",
+  "files": [
+    {
+      "bytes": 6579712,
+      "name": "NewModCompiler.exe",
+      "sha256": "822c3d5886af5cc7e92024efa70727d5af6433e4864269aba118915205246abb"
+    },
+    {
+      "bytes": 201,
+      "name": "NewModCompiler.exe.config",
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+    },
+    {
+      "bytes": 99328,
+      "name": "antlr.runtime.dll",
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    {
+      "bytes": 917504,
+      "name": "BinaryAssetBuilder.TextureCompiler.dll",
+      "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+    },
+    {
+      "bytes": 14326,
+      "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+      "sha256": "693b683a52ddca23e6ff3ab769f6bae98793e79013427dc314628be8868d9c6e"
+    }
+  ],
+  "archive": {
+    "bytes": 2236765,
+    "name": "NewModCompiler-Win32-Debug.zip",
+    "sha256": "2f65bebedafe628b334818e701bebd3beac2a752295a3a138e2708c57dda590a"
+  },
+  "texturePatch": {
+    "schemaVersion": 1,
+    "tool": "TextureReferencePatch",
+    "dnlib": "4.5.0",
+    "mode": "redirect",
+    "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+    "patchedSha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+    "targetExeSha256": "822c3d5886af5cc7e92024efa70727d5af6433e4864269aba118915205246abb",
+    "assemblyRefToken": "0x23000005",
+    "originalIdentity": "BinaryAssetBuilder.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "targetIdentity": "NewModCompiler, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "targetTypeNames": [
+      "BinaryAssetBuilder.BinaryAssetBuilderException",
+      "BinaryAssetBuilder.Core.AssetBuffer",
+      "BinaryAssetBuilder.Core.AssetDeclarationDocument",
+      "BinaryAssetBuilder.Core.ExtendedTypeInformation",
+      "BinaryAssetBuilder.Core.HashProvider",
+      "BinaryAssetBuilder.Core.IAssetBuilderPlugin",
+      "BinaryAssetBuilder.Core.InstanceDeclaration",
+      "BinaryAssetBuilder.Core.InstanceHandle",
+      "BinaryAssetBuilder.Core.TargetPlatform",
+      "BinaryAssetBuilder.Core.Tracer",
+      "BinaryAssetBuilder.ErrorCode"
+    ],
+    "compatibleMemberSignatures": [
+      "BinaryAssetBuilder.Core.AssetDeclarationDocument BinaryAssetBuilder.Core.InstanceDeclaration::get_Document()",
+      "BinaryAssetBuilder.Core.InstanceHandle BinaryAssetBuilder.Core.InstanceDeclaration::get_Handle()",
+      "BinaryAssetBuilder.Core.Tracer BinaryAssetBuilder.Core.Tracer::GetTracer(System.String,System.String)",
+      "System.Boolean BinaryAssetBuilder.Core.ExtendedTypeInformation::HasCustomData",
+      "System.Byte[] BinaryAssetBuilder.Core.AssetBuffer::get_ImportsData()",
+      "System.Byte[] BinaryAssetBuilder.Core.AssetBuffer::get_InstanceData()",
+      "System.Byte[] BinaryAssetBuilder.Core.AssetBuffer::get_RelocationData()",
+      "System.String BinaryAssetBuilder.Core.ExtendedTypeInformation::TypeName",
+      "System.String BinaryAssetBuilder.Core.InstanceDeclaration::get_CustomDataPath()",
+      "System.String BinaryAssetBuilder.Core.InstanceHandle::get_InstanceName()",
+      "System.UInt32 BinaryAssetBuilder.Core.ExtendedTypeInformation::ProcessingHash",
+      "System.UInt32 BinaryAssetBuilder.Core.ExtendedTypeInformation::TypeHash",
+      "System.UInt32 BinaryAssetBuilder.Core.ExtendedTypeInformation::TypeId",
+      "System.UInt32 BinaryAssetBuilder.Core.HashProvider::GetTypeHash(System.Type)",
+      "System.UInt32 BinaryAssetBuilder.Core.InstanceHandle::get_InstanceHash()",
+      "System.UInt32 BinaryAssetBuilder.Core.InstanceHandle::get_InstanceId()",
+      "System.UInt32 BinaryAssetBuilder.Core.InstanceHandle::get_TypeHash()",
+      "System.UInt32 BinaryAssetBuilder.Core.InstanceHandle::get_TypeId()",
+      "System.Void BinaryAssetBuilder.BinaryAssetBuilderException::.ctor(BinaryAssetBuilder.ErrorCode,System.String,System.Object[])",
+      "System.Void BinaryAssetBuilder.BinaryAssetBuilderException::.ctor(System.Exception,BinaryAssetBuilder.ErrorCode,System.String,System.Object[])",
+      "System.Void BinaryAssetBuilder.Core.AssetBuffer::.ctor()",
+      "System.Void BinaryAssetBuilder.Core.AssetBuffer::set_ImportsData(System.Byte[])",
+      "System.Void BinaryAssetBuilder.Core.AssetBuffer::set_InstanceData(System.Byte[])",
+      "System.Void BinaryAssetBuilder.Core.AssetBuffer::set_RelocationData(System.Byte[])",
+      "System.Void BinaryAssetBuilder.Core.ExtendedTypeInformation::.ctor()",
+      "System.Void BinaryAssetBuilder.Core.Tracer::TraceInfo(System.String,System.Object[])",
+      "System.Void BinaryAssetBuilder.Core.Tracer::TraceWarning(System.String,System.Object[])",
+      "System.Xml.XmlNamespaceManager BinaryAssetBuilder.Core.AssetDeclarationDocument::get_NamespaceManager()",
+      "System.Xml.XmlNode BinaryAssetBuilder.Core.InstanceDeclaration::get_Node()",
+      "System.Xml.XmlNode BinaryAssetBuilder.Core.InstanceDeclaration::get_XmlNode()"
+    ],
+    "compatibleSignatureSha256": "82bde35c3b502bfe99faca88819cc53c076e7b9ea2a551853c5071d4bc490e29",
+    "status": "static-audited-runtime-validation-required",
+    "note": "Type existence is not ABI acceptance. Native PE audit and G2 A/B/C runtime receipt are mandatory.",
+    "protectedPeAudit": {
+      "schemaVersion": 1,
+      "mode": "redirect",
+      "originalSha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e",
+      "outputSha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+      "checks": {
+        "machine-x86": true,
+        "native-entry-rva": true,
+        "clr-flags-entry": true,
+        "imports": true,
+        "resources": true,
+        "relocations": true,
+        "tls": true,
+        "iat": true,
+        "clr-VTableFixups": true,
+        "clr-ManagedNativeHeader": true,
+        "clr-ExportAddressTableJumps": true,
+        "clr-Resources": true,
+        "metadata-TypeRef": true,
+        "metadata-MemberRef": true,
+        "metadata-TypeSpec": true,
+        "metadata-StandAloneSig": true,
+        "metadata-MethodDef": true,
+        "metadata-Field": true,
+        "TypeRef-scope-tokens": true,
+        "AssemblyRef-count": true,
+        "AssemblyRef-change-allowlist": true,
+        "native-MethodDef-ranges": true
+      },
+      "directories": {
+        "imports": {
+          "originalRva": 747364,
+          "outputRva": 747364,
+          "originalSha256": "221f85bfd1e4582e1423f364c160fea41688631a7f33c5afa6d551478c4bd444",
+          "outputSha256": "221f85bfd1e4582e1423f364c160fea41688631a7f33c5afa6d551478c4bd444"
+        },
+        "resources": {
+          "originalRva": 823296,
+          "outputRva": 823296,
+          "originalSha256": "10db15924211296e2b4d0da4ccaf01c6064d33adc72e28361d61b50c0dae44eb",
+          "outputSha256": "10db15924211296e2b4d0da4ccaf01c6064d33adc72e28361d61b50c0dae44eb"
+        },
+        "relocations": {
+          "originalRva": 827392,
+          "outputRva": 827392,
+          "originalSha256": "2f9e1362b33ab1a20f117aefd13856dbca85268e68e415f078ff43b2b6cac42f",
+          "outputSha256": "2f9e1362b33ab1a20f117aefd13856dbca85268e68e415f078ff43b2b6cac42f"
+        },
+        "tls": {
+          "originalRva": 0,
+          "outputRva": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "outputSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "iat": {
+          "originalRva": 618496,
+          "outputRva": 618496,
+          "originalSha256": "4cbd577617120bd10549de55b727788df42f14cb3e36be704a114f5115ca9f10",
+          "outputSha256": "4cbd577617120bd10549de55b727788df42f14cb3e36be704a114f5115ca9f10"
+        }
+      },
+      "assemblyRefChanges": [
+        {
+          "rid": 5,
+          "before": [
+            "BinaryAssetBuilder.Core",
+            1,
+            0,
+            0,
+            0,
+            "",
+            ""
+          ],
+          "after": [
+            "NewModCompiler",
+            0,
+            0,
+            0,
+            0,
+            "",
+            ""
+          ]
+        }
+      ],
+      "nativeRanges": [
+        {
+          "token": "0x60000bf",
+          "rva": 21328,
+          "bytes": 40,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000c0",
+          "rva": 7168,
+          "bytes": 16,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000c1",
+          "rva": 6848,
+          "bytes": 16,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000c2",
+          "rva": 7184,
+          "bytes": 16,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000c3",
+          "rva": 6864,
+          "bytes": 8,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000c4",
+          "rva": 6464,
+          "bytes": 16,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000c5",
+          "rva": 6480,
+          "bytes": 48,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000c6",
+          "rva": 6528,
+          "bytes": 20,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000c7",
+          "rva": 7200,
+          "bytes": 36,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000c8",
+          "rva": 22192,
+          "bytes": 8,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000c9",
+          "rva": 6656,
+          "bytes": 88,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000ca",
+          "rva": 7792,
+          "bytes": 32,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000cb",
+          "rva": 7824,
+          "bytes": 60,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000cc",
+          "rva": 329936,
+          "bytes": 8320,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000cd",
+          "rva": 321528,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000ce",
+          "rva": 612188,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000cf",
+          "rva": 612170,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000d0",
+          "rva": 249024,
+          "bytes": 4724,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000d1",
+          "rva": 323092,
+          "bytes": 80,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000d2",
+          "rva": 323080,
+          "bytes": 12,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000d3",
+          "rva": 612152,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000d4",
+          "rva": 321344,
+          "bytes": 12,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000d5",
+          "rva": 253748,
+          "bytes": 67596,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000d6",
+          "rva": 612164,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000d7",
+          "rva": 321362,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000d8",
+          "rva": 612182,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000d9",
+          "rva": 323074,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000da",
+          "rva": 321534,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000db",
+          "rva": 338256,
+          "bytes": 528,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000dc",
+          "rva": 338784,
+          "bytes": 273368,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000dd",
+          "rva": 612176,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000de",
+          "rva": 321356,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000df",
+          "rva": 612158,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000e0",
+          "rva": 321368,
+          "bytes": 160,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000e1",
+          "rva": 49264,
+          "bytes": 144,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000e2",
+          "rva": 49408,
+          "bytes": 144,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000e3",
+          "rva": 49552,
+          "bytes": 31474,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000e4",
+          "rva": 48832,
+          "bytes": 432,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000e5",
+          "rva": 323172,
+          "bytes": 196,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000e6",
+          "rva": 321540,
+          "bytes": 1418,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000e7",
+          "rva": 322958,
+          "bytes": 116,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000e8",
+          "rva": 81026,
+          "bytes": 167998,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000e9",
+          "rva": 324701,
+          "bytes": 11,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000ea",
+          "rva": 324120,
+          "bytes": 44,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000eb",
+          "rva": 324164,
+          "bytes": 452,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000ec",
+          "rva": 328102,
+          "bytes": 1834,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000ed",
+          "rva": 612350,
+          "bytes": 3266,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000ee",
+          "rva": 612332,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000ef",
+          "rva": 612344,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000f0",
+          "rva": 612326,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000f1",
+          "rva": 612338,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000f2",
+          "rva": 612320,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000f3",
+          "rva": 612194,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000f4",
+          "rva": 612200,
+          "bytes": 120,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000f5",
+          "rva": 323368,
+          "bytes": 400,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000f6",
+          "rva": 323768,
+          "bytes": 6,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000f7",
+          "rva": 323780,
+          "bytes": 340,
+          "unchanged": true
+        },
+        {
+          "token": "0x60000f8",
+          "rva": 323774,
+          "bytes": 6,
+          "unchanged": true
+        }
+      ],
+      "status": "passed",
+      "limitation": "Static audit only; native functions without MethodDef rows are not exhaustively disassembled. Full G2 runtime and integration checks still required."
+    }
+  },
+  "dependencies": {
+    "systemRequirements": [
+      "Windows x86-compatible process",
+      "NET Framework 4.8",
+      "x86 VC80 CRT for original mixed Texture",
+      "x86 VC runtime matching recorded production VCToolsVersion",
+      "existing DirectX 9/D3DX runtime required by original Texture"
+    ],
+    "textureProtectedPeAudit": "reused from exact EXE-bound patch manifest",
+    "compatibilityReference": "recovery/probes/TextureRedirect/README.md",
+    "limitations": "Uses existing G2 runtime and protected-import evidence; no new dependency audit or system DLL redistribution"
+  },
+  "validation": {
+    "scope": "Exact five-file Win32/net48 runtime ZIP deployment, production doctor and small Armor MOD with source-runtime raw output equivalence; not complete P5/G3/SDK or Unicode Texture acceptance; independently extracted exact runtime additionally passed real base/APT/maps BIG builds, original LoD and MakeBig raw member differential, explicit SDK/MOD Additional against original CopyFolders and MakeBig, opt-in neutral hash repair against original HashFix/Resolver/LoD/MakeBig (no-insertion scope), CDATA and rollback/cancellation matrices",
+    "sourceRuntimeRawOutputEquality": true,
+    "bigDeployment": {
+      "scope": "Actual production P7 BIG apt/maps selected and combined, exact current loose member bytes and independent original MakeBig format/content oracle, skudef, CDATA, cancellation/failure/publication rollback; default base LoD, explicit SDK-then-MOD Additional overlays, and optional neutral actual hash repair with no-insertion original oracle; component insertion evidence remains separate; final distribution and game runtime acceptance excluded",
+      "succeeded": true,
+      "sourceCommit": "84261243a2f2cc98b77399a939be0f4115a4a98d",
+      "packagedRuntime": true,
+      "receiptSha256": "edfb5c840a82f28bcfc6004cce93a99ec0676446c71aa10332d2723ce3ac606a"
+    },
+    "schemaProtocolSha256": "d027198f49d10558a0fbf780a8c77acf61d0ec5438d5af2db220e9da6fbcb7a7",
+    "productionDoctor": true
+  }
+}

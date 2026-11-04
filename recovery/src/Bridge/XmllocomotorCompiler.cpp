@@ -14,24 +14,8 @@ public ref class LocomotorTemplateCompiler abstract sealed {
             IntPtr(const_cast<unsigned char*>(source.data())), result, 0, result->Length);
         return result;
     }
-    static bool NamespaceAttribute(XmlAttribute^ attribute) {
-        return attribute->NamespaceURI == "http://www.w3.org/2000/xmlns/";
-    }
-    static void Attributes(XmlNode^ node, bool root) {
-        for each (XmlAttribute^ a in node->Attributes) {
-            if (NamespaceAttribute(a)) continue;
-            if (a->NamespaceURI->Length != 0)
-                throw gcnew NotSupportedException("Namespaced locomotor attributes are unsupported: " + a->Name);
-            if (a->Name == "TypeId") continue; // BAB schema-type metadata; never a locomotor field.
-            if (root && (a->Name == "id" || a->Name == "inheritFrom")) continue;
-            bool found = false;
-            const Native::Xmllocomotor::Field* fields = root ? Native::Xmllocomotor::Fields : Native::Xmllocomotor::JetFields;
-            const unsigned count = root ? Native::Xmllocomotor::FieldCount : Native::Xmllocomotor::JetFieldCount;
-            for (unsigned i = 0; i < count; ++i)
-                if (a->Name == gcnew String(fields[i].name)) { found = true; break; }
-            if (!found) throw gcnew NotSupportedException("Unknown locomotor attribute: " + a->Name);
-        }
-    }
+
+
     static void Read(XmlNodeAdapter^ node, const Native::Xmllocomotor::Field* fields,
         unsigned count, std::map<std::string,std::string>& values) {
         for (unsigned i = 0; i < count; ++i) {
@@ -39,38 +23,12 @@ public ref class LocomotorTemplateCompiler abstract sealed {
             if (value != nullptr) values[fields[i].name] = marshal_as<std::string>(value);
         }
     }
-    static void Children(XmlNode^ node, bool root) {
-        bool bounce = false, jet = false;
-        for each (XmlNode^ child in node->ChildNodes) {
-            if (child->NodeType != XmlNodeType::Element) {
-                if ((child->NodeType == XmlNodeType::Text || child->NodeType == XmlNodeType::CDATA) &&
-                    root && !String::IsNullOrWhiteSpace(child->Value))
-                    throw gcnew NotSupportedException("LocomotorTemplate does not contain text");
-                continue;
-            }
-            if (!root || child->NamespaceURI != "uri:ea.com:eala:asset")
-                throw gcnew NotSupportedException("Unknown locomotor child: " + child->Name);
-            if (child->LocalName == "JetLocomotorData" && !jet) {
-                jet = true; Attributes(child, false); Children(child, false);
-                if (!String::IsNullOrWhiteSpace(child->InnerText))
-                    throw gcnew NotSupportedException("JetLocomotorData does not contain text");
-            } else if (child->LocalName == "BounceKickTerrainMap" && !bounce) {
-                bounce = true;
-                for each (XmlAttribute^ a in child->Attributes)
-                    if (!NamespaceAttribute(a) && !(a->NamespaceURI->Length == 0 && a->Name == "TypeId"))
-                        throw gcnew NotSupportedException("BounceKickTerrainMap attributes are unsupported");
-                Children(child, false);
-            } else throw gcnew NotSupportedException("Unknown or duplicate locomotor child: " + child->Name);
-        }
-    }
+
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node, XmlNamespaceManager^ namespaces, bool bigEndian) {
-        if (node == nullptr) throw gcnew ArgumentNullException("node");
         if (namespaces == nullptr) throw gcnew ArgumentNullException("namespaces");
-        if (node->NodeType != XmlNodeType::Element || node->LocalName != "LocomotorTemplate" ||
-            node->NamespaceURI != "uri:ea.com:eala:asset")
-            throw gcnew NotSupportedException("Only LocomotorTemplate in the asset namespace is reconstructed");
-        Attributes(node, true); Children(node, true);
+        if (node == nullptr) throw gcnew ArgumentNullException("node");
+
         try {
             Native::Xmllocomotor::Input input;
             XmlNodeAdapter^ adapter = gcnew XmlNodeAdapter(node->CreateNavigator(), namespaces);

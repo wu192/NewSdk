@@ -1,0 +1,10 @@
+{
+  "scope": "P4 clean unified production deployment and complete built-in route metadata; integrated backend environment rejection only; not component differential or successful MOD compilation",
+  "status": "failed",
+  "runId": "41137876257",
+  "modes": [],
+  "sourceCommit": "e83b06ca9fd464f1dae926a29603454b489ee273",
+  "schemaVersion": 1,
+  "error": "System.Management.Automation.RuntimeException: Native/Bridge compile failed: recovery/src/Native/GameObject.cpp",
+  "runAttempt": "1"
+}

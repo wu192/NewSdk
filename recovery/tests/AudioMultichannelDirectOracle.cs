@@ -36,11 +36,12 @@ internal static class AudioMultichannelDirectOracle
     private static int Main(string[] args)
     {
         try {
-            if (args.Length != 3) throw new Exception("Usage: AudioMultichannelDirectOracle candidate.dll multichannel-original.txt fixture-directory");
+            if (args.Length != 3 && args.Length != 4) throw new Exception("Usage: AudioMultichannelDirectOracle candidate.dll multichannel-original.txt fixture-directory [expected-cases]");
+            int expectedCases = args.Length == 4 ? Int32.Parse(args[3]) : 64;
             Assembly library = Assembly.LoadFrom(Path.GetFullPath(args[0]));
             Type pcm = library.GetType("BinaryAssetBuilder.AudioCompiler.Pcm16Encoder", true);
             MethodInfo read = pcm.GetMethod("ReadWave", BindingFlags.Static | BindingFlags.NonPublic);
-            var pattern = new Regex(@"^multichannel-MultichannelC(4|6)B(8|16)WaveF(127|128|129|4096)LNoneR22050(NONE|XAS)(False|True)$");
+            var pattern = new Regex(@"^multichannel-MultichannelC(4|6|8)B(8|16)WaveF(127|128|129|4096)LNoneR22050(NONE|XAS)(False|True)$");
             int records = 0, readerSamples = 0;
             var seen = new System.Collections.Generic.HashSet<string>();
             foreach (string line in File.ReadAllLines(args[1])) {
@@ -62,7 +63,7 @@ internal static class AudioMultichannelDirectOracle
                     throw new Exception("ReadWave metadata differs");
                 // The fixture has a standard16-byte fmt, so data starts at44.
                 // Decode source bytes independently and check the confirmed inverse map.
-                int[] map = channels == 4 ? new[] { 0,1,3,2 } : new[] { 0,2,1,4,5,3 };
+                int[] map = channels == 8 ? new[] { 0,1,2,3,4,5,6,7 } : channels == 4 ? new[] { 0,1,3,2 } : new[] { 0,2,1,4,5,3 };
                 for (int frame = 0; frame < frames; ++frame) for (int c = 0; c < channels; ++c) {
                     int at = 44 + (frame * channels + map[c]) * (bits / 8);
                     float expected = bits == 8 ? (wave[at] - 128) / 128.0f :
@@ -82,16 +83,16 @@ internal static class AudioMultichannelDirectOracle
                 Result(f[0] + " EncodeSamples",codec.GetMethod("EncodeSamples").Invoke(null,new object[] {samples,channels,22050,streamed}),header,custom,channels,frames);
                 ++records;
             }
-            if (records != 64) throw new Exception("Expected64 distinct original direct-entry cases; found " + records);
+            if (records != expectedCases) throw new Exception("Expected " + expectedCases + " distinct original direct-entry cases; found " + records);
             int refusals = 0;
-            foreach (int channels in new[] { 0,3,5,8,Int32.MaxValue }) {
+            foreach (int channels in new[] { 0,3,5,7,Int32.MaxValue }) {
                 foreach (string name in new[] { "Pcm16Encoder", "Xas1Encoder" }) {
                     Type codec = library.GetType("BinaryAssetBuilder.AudioCompiler." + name,true);
                     Rejected(codec.GetMethod("EncodeSamples"),new object[] {new float[0],channels,22050,false}); ++refusals;
                 }
                 Rejected(library.GetType("BinaryAssetBuilder.AudioCompiler.Xas1Encoder",true).GetMethod("EncodeBlock128"),new object[] {new float[0],channels}); ++refusals;
             }
-            Console.WriteLine("PASS64 original transcript cases;128 direct encoder comparisons; " + readerSamples + " exact mapped reader samples;" + refusals + " invalid-channel refusals");
+            Console.WriteLine("PASS " + records + " original transcript cases; " + (records * 2) + " direct encoder comparisons; " + readerSamples + " exact mapped reader samples;" + refusals + " invalid-channel refusals");
             return 0;
         } catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }

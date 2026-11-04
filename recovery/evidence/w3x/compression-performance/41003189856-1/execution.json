@@ -1,0 +1,23 @@
+{
+  "sourceCommit": "894ef186afaa8a2d5dbf377cdfbeeddb9928aa31",
+  "runId": 41003189856,
+  "runAttempt": 1,
+  "status": "completed",
+  "conclusion": "failure",
+  "url": "https://github.com/wu162/NewSdk/actions/runs/41003189856",
+  "artifactId": 12954661564,
+  "artifactName": "w3x-compression-41003189856-1",
+  "artifactSha256": "f839251660590851229f5e327d990086cff78987f871f70482f0e604557de0f4",
+  "artifactBytes": 10945315,
+  "checks": {
+    "completeOutputPairs": 5,
+    "native-runs": true,
+    "plugin-runs": true,
+    "compression-cache": true,
+    "compression-product": "failed",
+    "matrixFixtures": 11440,
+    "DebugExeSha256": "2c7c72f500b8b13bd61880893b89d775bacf232964483b61ca3d27de4396343a",
+    "ReleaseExeSha256": "36ca5dba043c1a3a61a819343ae0d10c0e80b4a16d50060e2358d85c127df660"
+  },
+  "evidenceSha256": "5b303a4b616182c0ee3e8958270e329568ce870845ec9ccd07701eccb0989207"
+}

@@ -1,0 +1,572 @@
+[
+  {
+    "path": "Art/Common/PackedImages_003_EP1.dds",
+    "bytes": 262272,
+    "sha256": "eead7213719c59dca8c5a258053c9e55d7cc9ffc26faaf4cd066bffaac8a3a62"
+  },
+  {
+    "path": "Art/Common/PackedImages_004_EP1.dds",
+    "bytes": 262272,
+    "sha256": "4cd96b3ebdb10ff996f020fe0e51b340f21c7d5273d3500e93de09e185c3809e"
+  },
+  {
+    "path": "Art/Common/PackedImages_005_EP1.dds",
+    "bytes": 262272,
+    "sha256": "aa89a62cbb36859fd96a3df8ef95c66821b810d73ca602945afdb6ba2abbbc4f"
+  },
+  {
+    "path": "Art/Common/PackedImages_011_EP1.dds",
+    "bytes": 262272,
+    "sha256": "e634e14bf05bbdb81dbbcdc5bdeebf990ac8832f8e08deaadac012025a52a6d3"
+  },
+  {
+    "path": "Art/Common/PackedImages_012_EP1.dds",
+    "bytes": 262272,
+    "sha256": "a9de32942c868ddbf4a36d3f0277e4834c5368a246d749f56ad14619e65072fd"
+  },
+  {
+    "path": "Art/Common/PackedImages_014_EP1.dds",
+    "bytes": 262272,
+    "sha256": "b18a9f0fc7f5522e29259c87879eba82a52e810553c8bcc6b142b1dd9d94813a"
+  },
+  {
+    "path": "Art/Common/PackedImages_015_EP1.dds",
+    "bytes": 262272,
+    "sha256": "fac8a304b292cc1b67ffb1914867ee76c6fb4f1f0de3678c14458977291c9c66"
+  },
+  {
+    "path": "Art/Common/PackedImages_027_EP1.dds",
+    "bytes": 262272,
+    "sha256": "0c88e9209353f52aac180fdf9f979674390b0ad06427eb5ec90ac9d2c5b0a7ff"
+  },
+  {
+    "path": "Art/Common/PackedImages_030_EP1.dds",
+    "bytes": 262272,
+    "sha256": "b3f5c7fc02e702b86207722ed3c65b083b8158b1b00859aa00f7622d6508cb1c"
+  },
+  {
+    "path": "Art/Common/PackedImages_035_EP1.dds",
+    "bytes": 262272,
+    "sha256": "cb5d89158b3db9661a605d88187cf51799b6b497bdcb20911b91975c3142d826"
+  },
+  {
+    "path": "Art/Common/PackedImages_066_EP1.dds",
+    "bytes": 262272,
+    "sha256": "fc649775922e5dd7fd78b709c274d0fef1f404ce9efa56385fcbd350d7e81ad5"
+  },
+  {
+    "path": "Art/Common/PackedImages_067_EP1.dds",
+    "bytes": 262272,
+    "sha256": "0771bab69144ea43103bfbc39c3ebb357a61e2d5bdb9a92450bbd4485ce1a9c3"
+  },
+  {
+    "path": "Art/Common/PackedImages_069_EP1.dds",
+    "bytes": 262272,
+    "sha256": "364741624a007759fff53038dec037b3e4b2abcac8541689e74be9f9257de597"
+  },
+  {
+    "path": "Art/Common/PackedImages_082_EP1.dds",
+    "bytes": 262272,
+    "sha256": "8128a08b6247f932f3b5abe625494012faca75610e1688b8cec0b1dd1ed8f3b3"
+  },
+  {
+    "path": "Art/Common/PackedImages_083_EP1.dds",
+    "bytes": 262272,
+    "sha256": "c4118a0f3c6d81a90a14f4c74f890db56d75019409b090e4e7d8a9e538531ac2"
+  },
+  {
+    "path": "Art/Common/PackedImages_084_EP1.dds",
+    "bytes": 262272,
+    "sha256": "f42d295a0eebfd8f2b30bbae8af694fc565cc1fbd3dd629662bddd652d7360cd"
+  },
+  {
+    "path": "Art/Common/PackedImages_086_EP1.dds",
+    "bytes": 262272,
+    "sha256": "adf762b294078ccc73955758ae3bc082ceab4eb2cce0e87c119cfe302d832b81"
+  },
+  {
+    "path": "Art/Common/PackedImages_088_EP1.dds",
+    "bytes": 262272,
+    "sha256": "0fe0ddb9d96ba60a4e1a4f6cd56f7d1bade7f4088a3cf12550d30c9731ed0dc3"
+  },
+  {
+    "path": "Art/Common/PackedImages_089_EP1.dds",
+    "bytes": 262272,
+    "sha256": "8d37cb6d9655839c3e4c84b3d5dba0226949e710bf3ec59f17cb7c0b01fe6e96"
+  },
+  {
+    "path": "Art/Common/PackedImages_090_EP1.dds",
+    "bytes": 262272,
+    "sha256": "cd780df486144c80c33045558a386e755728088033ad419a09a4aecbabbbc6fc"
+  },
+  {
+    "path": "Art/Common/PackedImages_094_EP1.dds",
+    "bytes": 262272,
+    "sha256": "eebe47705ef43aa51cdfdd792fda53d0a72875e3948cd56896ce38bf6f8fb8ef"
+  },
+  {
+    "path": "Art/Common/PackedImages_097_EP1.dds",
+    "bytes": 131200,
+    "sha256": "1c2c5a6a12bf4b6b03b127316769cfa3481f7cbc1172cd56065d779a9d89dd17"
+  },
+  {
+    "path": "Art/Common/PackedImagesPortraits_004_EP1.dds",
+    "bytes": 262272,
+    "sha256": "023970c58468760039d1eebde6d72600bd04dbb9ac14cf7a38ea5ee5462b2a54"
+  },
+  {
+    "path": "Art/Common/PackedImagesPortraits_006_EP1.dds",
+    "bytes": 262272,
+    "sha256": "88611b4c8bf192fd1b6fd18fc1005b3e08e51090442f8f0b730d4caa4e5753ad"
+  },
+  {
+    "path": "Art/Common/PackedImagesPortraits_014_EP1.dds",
+    "bytes": 262272,
+    "sha256": "ccde665c2c1d109d27e43c7433f75b11fd2b093bc4d9302a9ba59149c5c4e737"
+  },
+  {
+    "path": "Art/Common/PackedImagesPortraits_016_EP1.dds",
+    "bytes": 262272,
+    "sha256": "915dec434ffb03ddf40b5fda09fc922c53fd99c9ee69df05eb6e8f4766199f77"
+  },
+  {
+    "path": "Art/Common/PackedImagesPortraits_019_EP1.dds",
+    "bytes": 262272,
+    "sha256": "cf3f37b6767482315801ba70c6332dbbd64cbbeaa798384d17801dcdb1c070d9"
+  },
+  {
+    "path": "Art/Common/PackedImagesPortraits_032_EP1.dds",
+    "bytes": 262272,
+    "sha256": "56999c95ee4d5eac6fb5a624b86e9c06cc9e9586c2255fc20c82d291dd881bf4"
+  },
+  {
+    "path": "Art/Common/PackedImagesPortraits_033_EP1.dds",
+    "bytes": 262272,
+    "sha256": "21ebc5d97bea07e2eeb31fef21c9dfb350491a294c533e1e5946af952c6416fe"
+  },
+  {
+    "path": "Art/Common/PackedImagesPortraits_034_EP1.dds",
+    "bytes": 262272,
+    "sha256": "4eeaf4b47211c4c824f447e9a635adea0b829997dfdb5a845073f1dbcf6ed21f"
+  },
+  {
+    "path": "Art/Common/PackedImagesPortraits_035_EP1.dds",
+    "bytes": 262272,
+    "sha256": "6f3c30ee886ec4f2aa2b80ea6770cf234cb4db1530805ae46952a2389a20978f"
+  },
+  {
+    "path": "Art/Specific/LURomania_vol.dds",
+    "bytes": 640,
+    "sha256": "d83e7da2b70186f8857e3d7a28c221c7b076f35d1f7def77784bdb1313ba4ff4"
+  },
+  {
+    "path": "Art/Structures/Castle Gate/RM_Castle01.dds",
+    "bytes": 174904,
+    "sha256": "85df5c75418513b73fd63143e02c58105d3622240961827ceb4bf94631ba6f48"
+  },
+  {
+    "path": "Art/Structures/Castle Gate/RM_Castle01_NRM.dds",
+    "bytes": 174904,
+    "sha256": "433a7c3550e16aed977c2364b7497e2c7d19b57ff76ab6d14970d129f68af4e5"
+  },
+  {
+    "path": "Art/Structures/Castle Gate/RM_Castle01_SPM.dds",
+    "bytes": 174904,
+    "sha256": "3ba4c7e81f7eb9c30a7ef6463857e797d9dd379bc871b44ff3402d42ae570eaa"
+  },
+  {
+    "path": "Art/Units/Allied Engineer/FXYurikoShieldFadeLUT.dds",
+    "bytes": 392,
+    "sha256": "0fad96553c29863a37966f9b85711926231c63d1932d88ebdbb976476fa0146c"
+  },
+  {
+    "path": "Art/Units/Allied Engineer/FXYurikoShieldFractal.dds",
+    "bytes": 174904,
+    "sha256": "4e814960436d71ab0126883a5a3a06f6419ffe713ec3923403b8ef96fd0d1341"
+  },
+  {
+    "path": "Art/Units/Archer Maiden/EXJapanArrow.dds",
+    "bytes": 11080,
+    "sha256": "8b8a8b99950ef9ed96fbf5b8e45bff6f691656a28b6b6ce76769d9280b4f2a8c"
+  },
+  {
+    "path": "Art/Units/Archer Maiden/EXJapanArrowVet.dds",
+    "bytes": 11080,
+    "sha256": "4437cdcff93a2d62a9d0a6b750ae7284873114747ab4965a67bc40e2012806aa"
+  },
+  {
+    "path": "Art/Units/Archer Maiden/FXCloakField.dds",
+    "bytes": 32896,
+    "sha256": "4bfd722f2a7617c8e0f82350b05094dcc060d66778fe37b459e7883612645a5c"
+  },
+  {
+    "path": "Art/Units/Archer Maiden/FXJapanSentBlast.dds",
+    "bytes": 21992,
+    "sha256": "d4ed659d3883e61fefea926d672b95ed4c8445ab9872ed4ee6889a2036d23a53"
+  },
+  {
+    "path": "Art/Units/Archer Maiden/JUArcherInfantry.dds",
+    "bytes": 22000,
+    "sha256": "42b701681043182ce335eaf43bf554f8f895d622d3c6fad83ec2d3fc65724bea"
+  },
+  {
+    "path": "Art/Units/Archer Maiden/Target_Japan_ArcherBarrage.dds",
+    "bytes": 65664,
+    "sha256": "afac628fc500868b3a4648b47e507a64ad277281fccdc5b35f4a798ca9a75323"
+  },
+  {
+    "path": "Art/Units/Cryo Legionnaire/AULegionnaireInfantry.dds",
+    "bytes": 11064,
+    "sha256": "a4fdf4c1ea3f95fae662b20a7175d701b8c42a99b6b87e6a69d4babeb4394bcf"
+  },
+  {
+    "path": "Art/Units/Cryo Legionnaire/AULegionnaireInfantry_NRM.dds",
+    "bytes": 11064,
+    "sha256": "b3cb458e59eea533aa6117b94e00b3c880142a180df811e356421f3872923cdf"
+  },
+  {
+    "path": "Art/Units/Cryo Legionnaire/AULegionnaireInfantry_SPM.dds",
+    "bytes": 11064,
+    "sha256": "6e7976d894aa067a99b9efe8a5972a27cb9a7f037c79594d20c86ff18108a4ba"
+  },
+  {
+    "path": "Art/Units/Desolator/FXCorrupterStream.dds",
+    "bytes": 16512,
+    "sha256": "a44fa0a44741684595a7197af10bf6ea46c4bf357f70dbee911179abc5b977d9"
+  },
+  {
+    "path": "Art/Units/Desolator/SUDesolator.dds",
+    "bytes": 43832,
+    "sha256": "c98a4974cb5542d6cde1af1bc3557e0ebd7f199f658ea83f2ab8136ed22a7f3d"
+  },
+  {
+    "path": "Art/Units/Desolator/SUDesolator_NRM.dds",
+    "bytes": 43832,
+    "sha256": "d2c3438cd0bf67de531f04eceb9a9e595df9cb670626cfb614c7ee0c03067f35"
+  },
+  {
+    "path": "Art/Units/Desolator/SUDesolator_SPM.dds",
+    "bytes": 43832,
+    "sha256": "ee8420b6b67988ac1ff327404a3979e2b01bc7bbc5c2a08368667673e0f19bed"
+  },
+  {
+    "path": "Art/Units/Future Tank X-1/AUFutureTank.dds",
+    "bytes": 174904,
+    "sha256": "0a9bccb4280ea1ef6b104c4dee026c64a8db916314a3995ad258ecb85f69049a"
+  },
+  {
+    "path": "Art/Units/Future Tank X-1/AUFutureTank_D.dds",
+    "bytes": 131200,
+    "sha256": "695525436a005e0d051242c236ef63da1d2fd883038c7bdf7662bd058180ae81"
+  },
+  {
+    "path": "Art/Units/Future Tank X-1/AUFutureTank_NRM.dds",
+    "bytes": 174904,
+    "sha256": "8bc2b4d929642afc1a3d6b1f08b7537e87060528ab081f37fe44b54319e58195"
+  },
+  {
+    "path": "Art/Units/Future Tank X-1/AUFutureTank_SPM.dds",
+    "bytes": 174904,
+    "sha256": "c975900ae12e688a79fc5038ae85ad0a5128e643bc836b7c36877750706a5fa2"
+  },
+  {
+    "path": "Art/Units/Future Tank X-1/FXAlienLaser.dds",
+    "bytes": 8320,
+    "sha256": "0faf27c770393fc803d7df2173559f0aabef9c229593a471116a5325de3c3dae"
+  },
+  {
+    "path": "Art/Units/Future Tank X-1/FXAlienLaserHeroic.dds",
+    "bytes": 8320,
+    "sha256": "334176d666d5f9068b896c37feb544c1263b42e5c1a6ab6571237bb73111407b"
+  },
+  {
+    "path": "Art/Units/Future Tank X-1/FXAlliedFutureElec.dds",
+    "bytes": 43832,
+    "sha256": "b792e69926c1c1bf0647e3ead785dade3fc406ba03ee469b97ba1d3dbae6bf88"
+  },
+  {
+    "path": "Art/Units/Future Tank X-1/FXAlliedFutureLaser.dds",
+    "bytes": 16512,
+    "sha256": "b2a952b6462a1e858ef5c003d09c598fe200dd8f3212a915fd298d2115fc0ef2"
+  },
+  {
+    "path": "Art/Units/Giga-Fortress/FXJapanPearlLaser02.dds",
+    "bytes": 65664,
+    "sha256": "39b1fc598d48422d7b5ab5c0a5b725726b769b58dc488b54ba67d75077941374"
+  },
+  {
+    "path": "Art/Units/Giga-Fortress/JUFortressShip.dds",
+    "bytes": 174904,
+    "sha256": "d641982756f285ae76d220dec4fc57fef2ef12b1aa8a821813a5298b01c702f4"
+  },
+  {
+    "path": "Art/Units/Giga-Fortress/JUFortressShip_D.dds",
+    "bytes": 131200,
+    "sha256": "dbd03a983ddc1d1217f9eabbbe8b3e952ee2b84b798a0476486947cd92a62788"
+  },
+  {
+    "path": "Art/Units/Giga-Fortress/JUFortressShip_NRM.dds",
+    "bytes": 174904,
+    "sha256": "c9031f29e72899b9f318e7a1fc0fdc50edc85a02da09cf28383f440e0a159d20"
+  },
+  {
+    "path": "Art/Units/Giga-Fortress/JUFortressShip_SPM.dds",
+    "bytes": 174904,
+    "sha256": "4f73e43e23b2db01186ebc6a034d34200ca5a0040d1dfd20c3465243b5d60632"
+  },
+  {
+    "path": "Art/Units/Giga-Fortress Core/EXJapanBarracks.dds",
+    "bytes": 43832,
+    "sha256": "dfbeee7bbf7d8f82162c0997103211dbf3fd15fad9e9e23d5b34870d5b969caf"
+  },
+  {
+    "path": "Art/Units/Grinder/SUGrinderVehicle.dds",
+    "bytes": 174904,
+    "sha256": "93da5fda33c5595a932b264d7cdaaa875c551c57125af40d0d9a5dede7d28ccb"
+  },
+  {
+    "path": "Art/Units/Grinder/SUGrinderVehicle_D.dds",
+    "bytes": 131200,
+    "sha256": "5f006fee87c5b179dd121a988f6f0506cca7f61e7b2979119852ea4d12a9a977"
+  },
+  {
+    "path": "Art/Units/Grinder/SUGrinderVehicle_NRM.dds",
+    "bytes": 174904,
+    "sha256": "6f0851305c755d37f214762b7903319547a84f4e5baa713d6f617c30ef8079f8"
+  },
+  {
+    "path": "Art/Units/Grinder/SUGrinderVehicle_SPM.dds",
+    "bytes": 174904,
+    "sha256": "8471c00deb2b32104c171e3f15d428fbaeac8f05217395d573e80982033b0ebc"
+  },
+  {
+    "path": "Art/Units/Harbinger Gunship/AUGunship.dds",
+    "bytes": 174904,
+    "sha256": "71821584942917841ee99ccf91261ede9bf51c9922573e9a35bf8cb93cdf974c"
+  },
+  {
+    "path": "Art/Units/Harbinger Gunship/AUGunship_D.dds",
+    "bytes": 131200,
+    "sha256": "37bd1e81195ae3c919fb794d5129e6804b111b37ff0cbe16ce93b4439948b372"
+  },
+  {
+    "path": "Art/Units/Harbinger Gunship/AUGunship_NRM.dds",
+    "bytes": 174904,
+    "sha256": "8ccf603c53b811b94eca485d8ae39cb0ea837b40db931a34fc7be199c71b18a4"
+  },
+  {
+    "path": "Art/Units/Harbinger Gunship/AUGunship_SPM.dds",
+    "bytes": 174904,
+    "sha256": "f13cb807815ee8b637033b8c44b1b78508ab4ffead165c6cf280316a94149859"
+  },
+  {
+    "path": "Art/Units/Harbinger Gunship/FXAlliedProtonColliderHitCoreDiffuseV.dds",
+    "bytes": 43832,
+    "sha256": "af3b62368e11d52d4aedf2dc6c24e89b752895ad5d5f85d0bc853950967b6941"
+  },
+  {
+    "path": "Art/Units/Harbinger Gunship/FXAlliedProtonColliderHitDiffuseV.dds",
+    "bytes": 11080,
+    "sha256": "f544bb04510601cd8a51ea4776ba45ae4bcc6cf2a64d63f3ced429fad1960f1d"
+  },
+  {
+    "path": "Art/Units/Mortar Cycle/SUMortarCycle.dds",
+    "bytes": 349680,
+    "sha256": "bae9a02cd90785aed6ef4648a2ff2d5fcdeddaceb358dd08d150a8031f361b85"
+  },
+  {
+    "path": "Art/Units/Mortar Cycle/SUMortarCycle_D.dds",
+    "bytes": 262272,
+    "sha256": "aaa142f7f692fbb6f829117c06132791f8ebc2176c076a45536beddbfb2c6904"
+  },
+  {
+    "path": "Art/Units/Mortar Cycle/SUMortarCycle_NRM.dds",
+    "bytes": 43832,
+    "sha256": "972de15354c8d7db19acda35f6c2863fb9ef215066f9c440ad97a720651aee85"
+  },
+  {
+    "path": "Art/Units/Mortar Cycle/SUMortarCycle_rider.dds",
+    "bytes": 349680,
+    "sha256": "9a435ca79773068c39fda5ce7e7febef7ee3e5fefcb8db70565fd6e00f732384"
+  },
+  {
+    "path": "Art/Units/Mortar Cycle/SUMortarCycle_SPM.dds",
+    "bytes": 174904,
+    "sha256": "bb4a33d9848ce89f20f14e4652b047d8987b0d74feb63589013eadb94c62ec73"
+  },
+  {
+    "path": "Art/Units/Pacifier FAV/AUArtilleryVehicle.dds",
+    "bytes": 174904,
+    "sha256": "a0413e88fc1f2d2f56fa351a2bb5cd5eebea1159b746493c4b4b78f1a66df758"
+  },
+  {
+    "path": "Art/Units/Pacifier FAV/AUArtilleryVehicle_D.dds",
+    "bytes": 131200,
+    "sha256": "6f9aa57698ead0c5641bc7d1d28780c17e0de54e131e84ea9761d4bb47d36bb5"
+  },
+  {
+    "path": "Art/Units/Pacifier FAV/AUArtilleryVehicle_NRM.dds",
+    "bytes": 174904,
+    "sha256": "045dbda12fb59afe981e10b8d28ddc56558d74cdfe557966b00603afb6e2c7d6"
+  },
+  {
+    "path": "Art/Units/Pacifier FAV/AUArtilleryVehicle_SPM.dds",
+    "bytes": 174904,
+    "sha256": "4643d4243ad14960cefa5d38018b77fbd6d2d45748c0756825085f3d1c8b2de4"
+  },
+  {
+    "path": "Art/Units/Pacifier FAV/FXAlienPortal.dds",
+    "bytes": 174904,
+    "sha256": "1a4d675301fa1a3cb5b7c91b4524796d8f624e3abb82ab7837ed14852ed13f93"
+  },
+  {
+    "path": "Art/Units/Pacifier FAV/FXPacifier_Reticule.dds",
+    "bytes": 131200,
+    "sha256": "149bd12bf583930f2eb64769e85139acb4952d1dc6503f30527923a16a778d96"
+  },
+  {
+    "path": "Art/Units/Reaper/SovietHeavyTurretScorch.dds",
+    "bytes": 43832,
+    "sha256": "ca0e526562161175d2474383d6412964ae7a5377478e89e5538256f81acd1c7e"
+  },
+  {
+    "path": "Art/Units/Reaper/SUHeavyWalkerVehicle.dds",
+    "bytes": 174904,
+    "sha256": "86bb60df9f52e911636311d33de0720ef5b8444f78ed0893238b72b3ad4db446"
+  },
+  {
+    "path": "Art/Units/Reaper/SUHeavyWalkerVehicle_D.dds",
+    "bytes": 131200,
+    "sha256": "96361ea1d33475a0aa4a34208a384fd7997dc6bd775a769a1f0fcf242615b6a5"
+  },
+  {
+    "path": "Art/Units/Reaper/SUHeavyWalkerVehicle_NRM.dds",
+    "bytes": 174904,
+    "sha256": "371a7a78a6ff7572b562c85bbf7075dd33fe9d1672abf342d99489a59e9993d8"
+  },
+  {
+    "path": "Art/Units/Reaper/SUHeavyWalkerVehicle_SPM.dds",
+    "bytes": 174904,
+    "sha256": "070160fb09a3240c5b531d9935012e68a0afb5a3a1741ddf595419ec16551afd"
+  },
+  {
+    "path": "Art/Units/Steel Ronin/FXKanji.dds",
+    "bytes": 43832,
+    "sha256": "dc43bb80c4e8b78c1eaf7d93461b33b5c23c0785617546625358f7a018e7213e"
+  },
+  {
+    "path": "Art/Units/Steel Ronin/JUSentinelVehicle.dds",
+    "bytes": 43832,
+    "sha256": "441115b0e4c18c99b1a26616998eaa320820150a343ebfc4f418fe18b7272525"
+  },
+  {
+    "path": "Art/Units/Steel Ronin/JUSentinelVehicle_D.dds",
+    "bytes": 32896,
+    "sha256": "b14e8bd5c48f798a00bbbb78d3b6ffd6efa65a11085641ec289bd8837511d941"
+  },
+  {
+    "path": "Art/Units/Steel Ronin/JUSentinelVehicle_NRM.dds",
+    "bytes": 43832,
+    "sha256": "617adb930cf0186c336f7ccc14cc809de2394a6dc518a625faf3661b84d30644"
+  },
+  {
+    "path": "Art/Units/Steel Ronin/JUSentinelVehicle_SPM.dds",
+    "bytes": 43832,
+    "sha256": "25368dae0a9f98fa70a371b9b4cdcea15630372985a61f4027d3eb2b8515ba56"
+  },
+  {
+    "path": "Art/Units/Terror Drone/SUScoutVehicle_D.dds",
+    "bytes": 32896,
+    "sha256": "fc3401be31310c494f92977f9a952be713e662a8451a9ee05c75b7853dbcec68"
+  },
+  {
+    "path": "Data/Mod.xml",
+    "bytes": 944,
+    "sha256": "6ce43b2b1d12a97ba3b8533e3d07506504b5e03b4ea324854b27e5cf515dd2a3"
+  },
+  {
+    "path": "Data/textures-000.xml",
+    "bytes": 5231,
+    "sha256": "30d7f33dcece03b075884734dadeb4ad655c84329c822c865af373c4440de087"
+  },
+  {
+    "path": "Data/textures-001.xml",
+    "bytes": 250,
+    "sha256": "8de58a6bef42b5953979428738327ad32fbf4a42862e5816cc4ca7985c966371"
+  },
+  {
+    "path": "Data/textures-002.xml",
+    "bytes": 524,
+    "sha256": "1933520123e6cb2ca901df56426efd08ef03b1d9f20dac9eca17c0f9b5bf804d"
+  },
+  {
+    "path": "Data/textures-003.xml",
+    "bytes": 412,
+    "sha256": "589cfea415be7c59b054e45d7fd768a39068a3ccb13a2a7be2a5854341b2a56e"
+  },
+  {
+    "path": "Data/textures-004.xml",
+    "bytes": 994,
+    "sha256": "417be7c587bb4ca45b12af1686c992a9f1035ea84538ef24789258f11c18ad4f"
+  },
+  {
+    "path": "Data/textures-005.xml",
+    "bytes": 584,
+    "sha256": "a3d097c04b92c6ff020cd58daf3646e859a30a33ed9355772585ce2fad480605"
+  },
+  {
+    "path": "Data/textures-006.xml",
+    "bytes": 642,
+    "sha256": "52e959b14adae15c4246fff1aeb2b133b693add8d56dcc30717e451fe355e17f"
+  },
+  {
+    "path": "Data/textures-007.xml",
+    "bytes": 1245,
+    "sha256": "a1eacb2801010f0d2f82295ebfe62a477019fbba2270d1a17383cba23b47cac5"
+  },
+  {
+    "path": "Data/textures-008.xml",
+    "bytes": 821,
+    "sha256": "7334e7aa83a998dc19c6506804f6b83aab8347d64bad964f7d452cb2ecaed0dc"
+  },
+  {
+    "path": "Data/textures-009.xml",
+    "bytes": 250,
+    "sha256": "5901e048d4110ba74226d744286b6438824f2a774f9fe2bec0cd1ca411a40fc2"
+  },
+  {
+    "path": "Data/textures-010.xml",
+    "bytes": 666,
+    "sha256": "f98badf4e2e91db10d9ef8d000a264f27c779e69d251f8fd914e56e555ed2167"
+  },
+  {
+    "path": "Data/textures-011.xml",
+    "bytes": 1016,
+    "sha256": "97a773c2875f7a110253faf50c5f6345b7278b9881e61b928b0b5ffa60f7161e"
+  },
+  {
+    "path": "Data/textures-012.xml",
+    "bytes": 868,
+    "sha256": "ce79535fe1ad4a573f8bbc92c079957f28d71359eebcf94e9979254c8c6b2fef"
+  },
+  {
+    "path": "Data/textures-013.xml",
+    "bytes": 982,
+    "sha256": "bb2e7a425170b8b35bfd16e79ba4ddcb7faa6f23d75c44eebb0b0753dcb444f6"
+  },
+  {
+    "path": "Data/textures-014.xml",
+    "bytes": 842,
+    "sha256": "81663e2272e37d4839f833cd8e96266309b739951aaf06aec2f2402032c6a226"
+  },
+  {
+    "path": "Data/textures-015.xml",
+    "bytes": 811,
+    "sha256": "6b4bc9584b080ca75cda21b989b61014189243b7c8edf09f29e2c8e7fa882c83"
+  },
+  {
+    "path": "Data/textures-016.xml",
+    "bytes": 246,
+    "sha256": "d7b33a8af198def5ed6d5ad076c8f417b008f8cd38af40d91e453219d6a8688f"
+  }
+]

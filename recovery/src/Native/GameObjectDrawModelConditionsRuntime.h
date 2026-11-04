@@ -11,18 +11,25 @@ template<class F> void MarshalDrawModelList(const GameObjectChild& input,const c
 template<class F> void EndianDrawModelList(unsigned char* output,unsigned offset,unsigned stride,F endian) {
     auto list=reinterpret_cast<NativeList*>(output+offset);for(U32 i=0;i<list->count;++i)endian(static_cast<unsigned char*>(list->data)+stride*i);Swap(&list->count);
 }
+template<std::size_t N,class F> void MarshalDrawModelList(const GameObjectChildGroups<N>& groups,unsigned group,unsigned char* output,unsigned offset,unsigned stride,Relo::Tracker& data,F marshal) {
+    auto list=reinterpret_cast<NativeList*>(output+offset);list->count=static_cast<U32>(groups.Count(group));
+    if(!list->count)return;
+    auto rows=static_cast<unsigned char*>(data.Push(&list->data,stride,list->count));U32 index=0;
+    groups.ForEach(group,[&](const GameObjectChild& child){marshal(child,rows+stride*index++,data);});data.Pop();
+}
 void MarshalDrawModelCondition(const GameObjectChild& input,unsigned char* output,Relo::Tracker& data) {
+    const char* names[]={"Model","Texture","WeaponFireFXBone","WeaponRecoilBone","WeaponMuzzleFlash","WeaponLaunchBone","ParticleSysBone","FXEvent","Turret","SubObject","Material","ShadowInfo"};
+    GameObjectChildGroups<12> groups(input.children,names);
     MarshalModuleFields(input,output,drawModelModelConditionStateFields,data);
-    MarshalDrawModelList(input,"Model",output,104,8,data,[](const GameObjectChild& c,unsigned char* r,Relo::Tracker& d){MarshalModuleFields(c,r,drawModelScriptedModelDrawModelFields,d);});
-    for(const auto& c:input.children)if(c.name=="Material"){auto r=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+112),28,1));MarshalBeamShaderMaterial(c,r,data);data.Pop();break;}
-    MarshalDrawModelList(input,"Texture",output,116,8,data,[](const GameObjectChild& c,unsigned char* r,Relo::Tracker& d){MarshalModuleFields(c,r,drawModelReplaceTextureFields,d);});
-    const char* bones[]={"WeaponFireFXBone","WeaponRecoilBone","WeaponMuzzleFlash","WeaponLaunchBone"};
-    for(unsigned i=0;i<4;++i)MarshalDrawModelList(input,bones[i],output,124+8*i,16,data,[](const GameObjectChild& c,unsigned char* r,Relo::Tracker& d){MarshalModuleFields(c,r,drawModelBoneAttachPointFields,d);});
-    MarshalDrawModelList(input,"ParticleSysBone",output,156,36,data,MarshalDrawParticleSysBone);
-    MarshalDrawModelList(input,"FXEvent",output,164,28,data,MarshalDrawFXEvent);
-    for(const auto& c:input.children)if(c.name=="ShadowInfo"){auto r=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+172),60,1));MarshalModuleFields(c,r,drawModelShadowInfoFields,data);data.Pop();break;}
-    MarshalDrawModelList(input,"Turret",output,176,28,data,[](const GameObjectChild& c,unsigned char* r,Relo::Tracker& d){MarshalModuleFields(c,r,drawModelModelConditionStateTurretFields,d);});
-    MarshalDrawModelList(input,"SubObject",output,184,4,data,[](const GameObjectChild& c,unsigned char* r,Relo::Tracker&){U32 v=HashAssetId(c.text);std::memcpy(r,&v,4);});
+    MarshalDrawModelList(groups,0,output,104,8,data,[](const GameObjectChild& c,unsigned char* r,Relo::Tracker& d){MarshalModuleFields(c,r,drawModelScriptedModelDrawModelFields,d);});
+    if(auto child=groups.First(10)){auto r=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+112),28,1));MarshalBeamShaderMaterial(*child,r,data);data.Pop();}
+    MarshalDrawModelList(groups,1,output,116,8,data,[](const GameObjectChild& c,unsigned char* r,Relo::Tracker& d){MarshalModuleFields(c,r,drawModelReplaceTextureFields,d);});
+    for(unsigned i=0;i<4;++i)MarshalDrawModelList(groups,2+i,output,124+8*i,16,data,[](const GameObjectChild& c,unsigned char* r,Relo::Tracker& d){MarshalModuleFields(c,r,drawModelBoneAttachPointFields,d);});
+    MarshalDrawModelList(groups,6,output,156,36,data,MarshalDrawParticleSysBone);
+    MarshalDrawModelList(groups,7,output,164,28,data,MarshalDrawFXEvent);
+    if(auto child=groups.First(11)){auto r=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+172),60,1));MarshalModuleFields(*child,r,drawModelShadowInfoFields,data);data.Pop();}
+    MarshalDrawModelList(groups,8,output,176,28,data,[](const GameObjectChild& c,unsigned char* r,Relo::Tracker& d){MarshalModuleFields(c,r,drawModelModelConditionStateTurretFields,d);});
+    MarshalDrawModelList(groups,9,output,184,4,data,[](const GameObjectChild& c,unsigned char* r,Relo::Tracker&){U32 v=HashAssetId(c.text);std::memcpy(r,&v,4);});
 }
 void EndianDrawModelCondition(unsigned char* output) {
     EndianModuleFields(output,drawModelModelConditionStateFields);

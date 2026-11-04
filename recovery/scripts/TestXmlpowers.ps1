@@ -25,7 +25,7 @@ try {
   Copy-Item SDK/tools/*.dll $modeOut -Force
   & cl /nologo /clr /LD /MD /EHa "/$mode" /fp:precise "/AI$modeOut" "/Fo$modeOut/" "/Fe$modeOut/Recovered.Xmlpowers.dll" @sources *> "$evidence/$mode-build.txt"
   if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-build.txt"; throw "$mode Xmlpowers C++/CLI build failed" }
-  & $csc /nologo /platform:x86 /r:System.Core.dll "/r:$modeOut/Recovered.Xmlpowers.dll" "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmlpowersOracle.exe" (Resolve-Path 'recovery/tests/XmlpowersOracle.cs').Path *> "$evidence/$mode-host-build.txt"
+  & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /platform:x86 /r:System.Core.dll "/r:$modeOut/Recovered.Xmlpowers.dll" "/r:$modeOut/BinaryAssetBuilder.Core.dll" "/out:$modeOut/XmlpowersOracle.exe" (Resolve-Path 'recovery/tests/XmlpowersOracle.cs').Path *> "$evidence/$mode-host-build.txt"
   if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-host-build.txt"; throw "$mode Xmlpowers oracle build failed" }
   '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$modeOut/XmlpowersOracle.exe.config"
   & "$modeOut/XmlpowersOracle.exe" (Resolve-Path 'SDK/tools/BinaryAssetBuilder.XmlCompiler.dll').Path "$evidence/$mode-result.json" $repo *> "$evidence/$mode-oracle.txt"

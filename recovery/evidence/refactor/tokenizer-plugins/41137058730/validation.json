@@ -1,0 +1,8 @@
+{
+  "error": "System.Management.Automation.RuntimeException: Performance host build failed",
+  "status": "failed",
+  "scope": "Isolated original and before/after C++/CLI plugin components, Release /O2 x86. Four synthetic prepared-XML fixtures; both byte orders compared; five alternating Win32 measurement pairs. XML parsing, Core preparation, caches and full MOD compilation excluded. managedAllocatedBytes excludes native heap allocations.",
+  "baselineCommit": "8f854606ac20ce372045e3661b38e58e4e933ca2",
+  "runId": "41137058730",
+  "sourceCommit": "35e4a961d9af6fdade07c68046ae7006d6ba27f6"
+}

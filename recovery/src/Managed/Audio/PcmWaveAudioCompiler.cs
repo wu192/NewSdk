@@ -1,15 +1,15 @@
 using System;
 using System.IO;
+using System.Globalization;
 using System.Xml;
 using BinaryAssetBuilder.Core;
 
 namespace BinaryAssetBuilder.AudioCompiler
 {
-    // Fully managed backend for the recovered integral WAVE/AIFF input
+    // AudioFile backend for the recovered integral WAVE/AIFF input
     // subset, including supported forward loops and filter 120 rate conversion. Unsupported codec/filter/input combinations are explicit.
     public sealed class PcmWaveAudioCompiler : IAudioFileCompiler
     {
-        private static bool compressionWarning;
         public AssetBuffer CompileAudioFile(InstanceDeclaration declaration, TargetPlatform platform)
         {
             AudioCatalog.RequireWin32(platform);
@@ -20,11 +20,6 @@ namespace BinaryAssetBuilder.AudioCompiler
             string streamedKey = "IsStreamedOn" + prefix;
             bool? streamed = attrs[streamedKey] == null ? (bool?)null : Bool(attrs[streamedKey].Value);
             AudioEncodingPolicy policy = AudioEncodingPolicy.Select((int)platform, file, compression, streamed);
-            if (policy.CompressionWarning && !compressionWarning)
-            {
-                Console.WriteLine("WARNING: MP3-style compression unavailable due to legal restrictions. Files will not be compressed");
-                compressionWarning = true;
-            }
             byte[] wave;
             try { wave = File.ReadAllBytes(file); }
             catch (IOException) { return null; }
@@ -49,7 +44,11 @@ namespace BinaryAssetBuilder.AudioCompiler
             }
             // Quality is ignored for representations PCM(1) and XAS(29) by the
             // original. In particular, do not add a new [0,100] rejection here.
-            PcmEncodingResult encoded = hasLoop ?
+            int quality = policy.SampleRepresentation == 31 ? Quality(attrs["PCQuality"]) : 75;
+            policy.ValidateQuality(quality);
+            PcmEncodingResult encoded = policy.SampleRepresentation == 31 ?
+                EaLayer3Encoder.EncodeSamples(input.Samples, input.Channels, input.SampleRate,
+                    policy.Streamed, quality, hasLoop, loopStart, loopEnd) : hasLoop ?
                 LoopPcmEncoder.EncodeSamples(input.Samples, input.Channels, input.SampleRate, policy.Streamed, loopStart, loopEnd, policy.SampleRepresentation == 29) :
                 policy.SampleRepresentation == 1 ?
                 Pcm16Encoder.EncodeSamples(input.Samples, input.Channels, input.SampleRate, policy.Streamed) :
@@ -69,6 +68,17 @@ namespace BinaryAssetBuilder.AudioCompiler
             if (File.Exists(declaration.CustomDataPath)) File.Delete(declaration.CustomDataPath);
             File.WriteAllBytes(declaration.CustomDataPath, encoded.CustomData);
             return builder.Finish();
+        }
+
+        private static int Quality(XmlAttribute attr)
+        {
+            if (attr == null || attr.Value.Length == 0) return 75;
+            string value = attr.Value;
+            // jonwil's RA3 AudioFile marshaler uses decimal (including leading
+            // zeroes), or the full 0xXXXXXXXX SageInt form, not C octal parsing.
+            bool hex = value.Length == 10 && value[0] == '0' && value[1] == 'x';
+            return Int32.Parse(hex ? value.Substring(2) : value,
+                hex ? NumberStyles.HexNumber : NumberStyles.Integer, CultureInfo.InvariantCulture);
         }
 
         private static int? Compression(XmlAttribute attr)

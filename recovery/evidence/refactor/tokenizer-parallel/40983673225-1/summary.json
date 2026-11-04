@@ -1,0 +1,400 @@
+{
+  "succeeded": true,
+  "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+  "binarySourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+  "testSourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+  "runId": 40983673225,
+  "runConclusion": "success",
+  "artifactId": 12947247376,
+  "archiveSha256": "8b4be2840e1feb7b27c48135139f81cf890a89e53630053d2f9701f1837288c5",
+  "archiveDigestRecomputed": true,
+  "productionCases": 64,
+  "xmlMetadataRoutes": 284,
+  "xmlPlatforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "tokenizerComponents": [
+    {
+      "mode": "Debug",
+      "tokenizerPlatforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "maximumTokenizerConcurrency": 4,
+      "tokenizerInvocationsPerPlatform": 36,
+      "threeBuffersEqual": true,
+      "sharedDomUnchanged": true,
+      "traceIndexValidated": true,
+      "nativeFailureAndCancellationJoined": true
+    },
+    {
+      "mode": "Release",
+      "tokenizerPlatforms": [
+        0,
+        1,
+        2,
+        99
+      ],
+      "maximumTokenizerConcurrency": 4,
+      "tokenizerInvocationsPerPlatform": 36,
+      "threeBuffersEqual": true,
+      "sharedDomUnchanged": true,
+      "traceIndexValidated": true,
+      "nativeFailureAndCancellationJoined": true
+    }
+  ],
+  "verifiedScopes": [
+    {
+      "scope": "core-lifecycle-deployment",
+      "succeeded": true,
+      "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+      "receiptPathInArchive": "evidence/refactor/core-lifecycle-deployment/40983673225-1/validation.json",
+      "receiptSha256": "1af794ca8b9a3870ba4eb6987ab954553500fdba75e376df1f6f77fb78bad708",
+      "modes": [
+        "Debug",
+        "Release"
+      ]
+    },
+    {
+      "scope": "core-lifecycle",
+      "succeeded": true,
+      "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+      "receiptPathInArchive": "evidence/refactor/core-lifecycle/40983673225-1/validation.json",
+      "receiptSha256": "371af3aff4572c966ffbbec4cca93a3be4105ebb92f0a3f34182f4ab0ac48443",
+      "modes": [
+        "Debug",
+        "Release"
+      ]
+    },
+    {
+      "scope": "backend-parallel",
+      "succeeded": true,
+      "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+      "receiptPathInArchive": "evidence/refactor/backend-parallel/40983673225-1/validation.json",
+      "receiptSha256": "c14b7510e282b726dc11b9e124d5cb756cb2bb7f17ca972a357a58b49f821ef3",
+      "modes": []
+    },
+    {
+      "scope": "core-lifecycle-texture",
+      "succeeded": true,
+      "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+      "receiptPathInArchive": "evidence/refactor/core-lifecycle-texture/40983673225-1/validation.json",
+      "receiptSha256": "82159a5f7e6da2527f31fe81f2257b0c54fca2faa3fdfafaba32ccb4f16581b2",
+      "modes": []
+    },
+    {
+      "scope": "core-cli",
+      "succeeded": true,
+      "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+      "receiptPathInArchive": "evidence/refactor/core-cli/40983673225-1/validation.json",
+      "receiptSha256": "310144bc7bdeb6149e6e84827928859f56efd527ffef830ff99c5e3f234bb6b3",
+      "modes": [
+        "Debug",
+        "Release"
+      ]
+    },
+    {
+      "scope": "build-cache",
+      "succeeded": true,
+      "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+      "receiptPathInArchive": "evidence/refactor/build-cache/40983673225-1/validation.json",
+      "receiptSha256": "358833d5334b79366a9e0aa815bf90d50627c2ed6e48b4b17ad35915a27ff6d9",
+      "modes": [
+        "Debug",
+        "Release"
+      ]
+    },
+    {
+      "scope": "input-roots",
+      "succeeded": true,
+      "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+      "receiptPathInArchive": "evidence/refactor/input-roots/40983673225-1/validation.json",
+      "receiptSha256": "03ae345a2e4de584d0c7825ccac338150376590c9876200e3546d938e9c1bc2f",
+      "modes": [
+        "Debug",
+        "Release"
+      ]
+    },
+    {
+      "scope": "cache-payloads",
+      "succeeded": true,
+      "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+      "receiptPathInArchive": "evidence/refactor/cache-payloads/40983673225-1/validation.json",
+      "receiptSha256": "734c18c3690d298028e2492bea57293ad5fec29b1888fc68bf8d3e42e74b9cd1",
+      "modes": [
+        "Debug",
+        "Release"
+      ]
+    },
+    {
+      "scope": "session-cache",
+      "succeeded": true,
+      "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+      "receiptPathInArchive": "evidence/refactor/session-cache/40983673225-1/validation.json",
+      "receiptSha256": "6cbb515c8971a9db69c3ae76b11bfff1580c82e9d46d55f6a3265bf7789702ed",
+      "modes": [
+        "Debug",
+        "Release"
+      ]
+    },
+    {
+      "scope": "big",
+      "succeeded": true,
+      "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+      "receiptPathInArchive": "evidence/refactor/big/40983673225-1/validation.json",
+      "receiptSha256": "956828ae2d3d16d42cfe38c514f96490f07b169079a5a6aad383a148f94fa98c",
+      "modes": [
+        "Debug",
+        "Release"
+      ]
+    },
+    {
+      "scope": "sdk-mymod",
+      "succeeded": true,
+      "sourceCommit": "5be40ac421fa4562654d34cc3d62050eca7a389e",
+      "receiptPathInArchive": "evidence/refactor/sdk-mymod/40983673225-1/validation.json",
+      "receiptSha256": "e15c828b40b37a63bcaca6b7e38bf28fd5b2017010f335387faf66f3aac924d2",
+      "modes": [
+        "Debug",
+        "Release"
+      ]
+    }
+  ],
+  "verifiedRuntimePackages": {
+    "Debug": {
+      "zipSha256": "93b7f88d2c5282d249b1334488483cb08c4b0f65250c7b9c4afe76a838f7c521",
+      "files": {
+        "NewModCompiler.exe": "d6f58a11f4abf5c9fee29d5375272b665c233d72fb3430793d0cab6f33887caa",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+        "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+        "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "5e6835e63d3692dd5d6fd31da44f6af7c8d596c964f786bb0ebdc17b7e55af20"
+      }
+    },
+    "Release": {
+      "zipSha256": "0a79bdf99ac31d3b365fdaafc3fec5f4c263dd48d975b58766ced1e1b8f75638",
+      "files": {
+        "NewModCompiler.exe": "99ce5b3d86d7d3a51f18349125bdc3a75424fc86857769eab0daf23372344395",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+        "BinaryAssetBuilder.TextureCompiler.dll": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+        "BinaryAssetBuilder.TextureCompiler.dll.patch.json": "300766f743dfe5d174188e64253ee191621ffad9a5cc1a1a141a0366196e03d4"
+      }
+    }
+  },
+  "performanceSamples": 22,
+  "rows": [
+    {
+      "jobs": "1",
+      "noCacheColdMs": 70479.75459999999,
+      "defaultColdMs": 73489.14879999984,
+      "defaultHotMedianMs": 2823.3532500003093,
+      "singleAssetModifiedMs": 3091.6677999994135,
+      "prepareMs": 0,
+      "maximumConcurrency": 1,
+      "fallbackByReason": {
+        "resource-capacity": 3354
+      },
+      "backendCallsByType": {
+        "AmbientStream": 6,
+        "AudioEvent": 304,
+        "AudioFile": 1289,
+        "GameObject": 121,
+        "MapMetaData": 1,
+        "OnDemandTexture": 2,
+        "OnDemandTextureImage": 7,
+        "Texture": 115,
+        "AIBuildStateDefinition": 18,
+        "AIPersonalityDefinition": 26,
+        "DamageFX": 7,
+        "LogicCommandSet": 26,
+        "ObjectFilterAsset": 7,
+        "PlayerTech": 45,
+        "PlayerTechStoreTemplate": 3,
+        "SpecialPowerTemplate": 27,
+        "WeaponTemplate": 108,
+        "UpgradeTemplate": 12,
+        "W3DMesh": 134,
+        "W3DContainer": 73,
+        "W3DHierarchy": 70,
+        "AttributeModifier": 16,
+        "ObjectCreationList": 29,
+        "FXList": 84,
+        "Multisound": 50,
+        "FXParticleSystemTemplate": 214,
+        "Video": 12,
+        "VideoEventList": 12,
+        "ArmorTemplate": 12,
+        "ButtonSingleStateData": 17,
+        "ExperienceLevelTemplate": 65,
+        "LogicCommand": 23,
+        "PackedTextureImage": 46,
+        "RadiusCursor": 1,
+        "UnitAbilityButtonTemplate": 12,
+        "UnitIntro": 11,
+        "UnitTypeIcon": 3,
+        "W3DAnimation": 194,
+        "W3DCollisionBox": 34,
+        "LocomotorTemplate": 12,
+        "AptAptData": 3,
+        "AptConstData": 3,
+        "AptDatData": 3,
+        "AptGeometryData": 89,
+        "Credits": 1,
+        "HealthBarSettings": 1,
+        "HealthBarTemplate": 6
+      },
+      "backendCalls": 3354,
+      "workerWaitMs": 0,
+      "workerComputeMs": 47949.1713,
+      "ownerCommitMs": 1062.5708,
+      "sampledPeakPrivateBytes": 271106048
+    },
+    {
+      "jobs": "4",
+      "noCacheColdMs": 41609.663199999886,
+      "defaultColdMs": 43610.7151000001,
+      "defaultHotMedianMs": 2867.6468500000283,
+      "singleAssetModifiedMs": 3098.417100000006,
+      "prepareMs": 2125.96,
+      "maximumConcurrency": 4,
+      "fallbackByReason": {
+        "uncertified-plugin": 117,
+        "preparation-budget-exceeded": 10
+      },
+      "backendCallsByType": {
+        "AmbientStream": 6,
+        "AudioEvent": 304,
+        "AudioFile": 1289,
+        "GameObject": 121,
+        "MapMetaData": 1,
+        "OnDemandTexture": 2,
+        "OnDemandTextureImage": 7,
+        "Texture": 115,
+        "AIBuildStateDefinition": 18,
+        "AIPersonalityDefinition": 26,
+        "DamageFX": 7,
+        "LogicCommandSet": 26,
+        "ObjectFilterAsset": 7,
+        "PlayerTech": 45,
+        "PlayerTechStoreTemplate": 3,
+        "SpecialPowerTemplate": 27,
+        "WeaponTemplate": 108,
+        "UpgradeTemplate": 12,
+        "W3DMesh": 134,
+        "W3DContainer": 73,
+        "W3DHierarchy": 70,
+        "AttributeModifier": 16,
+        "ObjectCreationList": 29,
+        "FXList": 84,
+        "Multisound": 50,
+        "FXParticleSystemTemplate": 214,
+        "Video": 12,
+        "VideoEventList": 12,
+        "ArmorTemplate": 12,
+        "ButtonSingleStateData": 17,
+        "ExperienceLevelTemplate": 65,
+        "LogicCommand": 23,
+        "PackedTextureImage": 46,
+        "RadiusCursor": 1,
+        "UnitAbilityButtonTemplate": 12,
+        "UnitIntro": 11,
+        "UnitTypeIcon": 3,
+        "W3DAnimation": 194,
+        "W3DCollisionBox": 34,
+        "LocomotorTemplate": 12,
+        "AptAptData": 3,
+        "AptConstData": 3,
+        "AptDatData": 3,
+        "AptGeometryData": 89,
+        "Credits": 1,
+        "HealthBarSettings": 1,
+        "HealthBarTemplate": 6
+      },
+      "backendCalls": 3354,
+      "workerWaitMs": 11786.888700000001,
+      "workerComputeMs": 57985.025400000006,
+      "ownerCommitMs": 1449.0848,
+      "sampledPeakPrivateBytes": 274898944
+    },
+    {
+      "jobs": "auto",
+      "noCacheColdMs": 41715.83340000006,
+      "defaultColdMs": 43632.269500000344,
+      "defaultHotMedianMs": 2823.3517499998015,
+      "singleAssetModifiedMs": 3104.3957000001683,
+      "prepareMs": 2029.4386000000002,
+      "maximumConcurrency": 4,
+      "fallbackByReason": {
+        "uncertified-plugin": 117,
+        "preparation-budget-exceeded": 10
+      },
+      "backendCallsByType": {
+        "AmbientStream": 6,
+        "AudioEvent": 304,
+        "AudioFile": 1289,
+        "GameObject": 121,
+        "MapMetaData": 1,
+        "OnDemandTexture": 2,
+        "OnDemandTextureImage": 7,
+        "Texture": 115,
+        "AIBuildStateDefinition": 18,
+        "AIPersonalityDefinition": 26,
+        "DamageFX": 7,
+        "LogicCommandSet": 26,
+        "ObjectFilterAsset": 7,
+        "PlayerTech": 45,
+        "PlayerTechStoreTemplate": 3,
+        "SpecialPowerTemplate": 27,
+        "WeaponTemplate": 108,
+        "UpgradeTemplate": 12,
+        "W3DMesh": 134,
+        "W3DContainer": 73,
+        "W3DHierarchy": 70,
+        "AttributeModifier": 16,
+        "ObjectCreationList": 29,
+        "FXList": 84,
+        "Multisound": 50,
+        "FXParticleSystemTemplate": 214,
+        "Video": 12,
+        "VideoEventList": 12,
+        "ArmorTemplate": 12,
+        "ButtonSingleStateData": 17,
+        "ExperienceLevelTemplate": 65,
+        "LogicCommand": 23,
+        "PackedTextureImage": 46,
+        "RadiusCursor": 1,
+        "UnitAbilityButtonTemplate": 12,
+        "UnitIntro": 11,
+        "UnitTypeIcon": 3,
+        "W3DAnimation": 194,
+        "W3DCollisionBox": 34,
+        "LocomotorTemplate": 12,
+        "AptAptData": 3,
+        "AptConstData": 3,
+        "AptDatData": 3,
+        "AptGeometryData": 89,
+        "Credits": 1,
+        "HealthBarSettings": 1,
+        "HealthBarTemplate": 6
+      },
+      "backendCalls": 3354,
+      "workerWaitMs": 11906.1514,
+      "workerComputeMs": 58211.6632,
+      "ownerCommitMs": 1459.7450000000001,
+      "sampledPeakPrivateBytes": 279732224
+    }
+  ],
+  "defaultColdJobs4WallReductionPercent": 40.65693260553835,
+  "rawComparison": "All original and changed published outputs compared with filecmp(shallow=False), plus independent report hash checks; complete mymod original BAB differential and five-file packages passed.",
+  "performanceLimit": "One cold sample per jobs/cache mode; two hot off samples per jobs setting, OS page cache uncontrolled. Historical implementation was measured on a different VM; no same-VM before/after claim.",
+  "oldValidationNotReused": true,
+  "performanceBinaryMatchesReleasePackage": true,
+  "allSamplesErrors": 0,
+  "allSamplesWarnings": 1859
+}

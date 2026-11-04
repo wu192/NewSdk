@@ -1,0 +1,345 @@
+{
+  "sourceCommit": "d457f99a56c3fb4a1baf94bb84c0466f243a4d95",
+  "targetCommit": "d60904bcb4fcdc6b02ff78db6b66410568543f57",
+  "changedFiles": [
+    "recovery/scripts/TestTokenizerPluginPerformance.ps1",
+    "recovery/src/Native/GameObject.cpp",
+    "recovery/src/Native/GameObjectModuleFieldsRuntime.h",
+    "recovery/src/Native/WeaponNugget.cpp",
+    "recovery/src/Native/WeaponTemplate.cpp",
+    "recovery/tests/TokenizerPluginPerformance.cs"
+  ],
+  "groups": [
+    {
+      "group": "abilitybuttons",
+      "dependencyCount": 18,
+      "changedDependencies": []
+    },
+    {
+      "group": "ai",
+      "dependencyCount": 23,
+      "changedDependencies": []
+    },
+    {
+      "group": "aptdata",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "armyopening",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "assetindexes",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "attributes",
+      "dependencyCount": 15,
+      "changedDependencies": []
+    },
+    {
+      "group": "audio",
+      "dependencyCount": 18,
+      "changedDependencies": []
+    },
+    {
+      "group": "buildeconomy",
+      "dependencyCount": 20,
+      "changedDependencies": []
+    },
+    {
+      "group": "campaign",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "chatcolors",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "commandset",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "conditions",
+      "dependencyCount": 21,
+      "changedDependencies": []
+    },
+    {
+      "group": "connections",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "conquercards",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "content",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "crowd",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "damagefx",
+      "dependencyCount": 16,
+      "changedDependencies": []
+    },
+    {
+      "group": "dynamics",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "effects",
+      "dependencyCount": 22,
+      "changedDependencies": []
+    },
+    {
+      "group": "emotions",
+      "dependencyCount": 18,
+      "changedDependencies": []
+    },
+    {
+      "group": "environment",
+      "dependencyCount": 18,
+      "changedDependencies": []
+    },
+    {
+      "group": "evaachievement",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "forcefeedback",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "fxparticle",
+      "dependencyCount": 18,
+      "changedDependencies": []
+    },
+    {
+      "group": "gamemap",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "gamescripts",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "healthbars",
+      "dependencyCount": 20,
+      "changedDependencies": []
+    },
+    {
+      "group": "hotkeymaps",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "localization",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "locomotor",
+      "dependencyCount": 15,
+      "changedDependencies": []
+    },
+    {
+      "group": "mapmetadata",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "materialrules",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "mouse",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "moviearchive",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "musicscript",
+      "dependencyCount": 22,
+      "changedDependencies": []
+    },
+    {
+      "group": "objectsets",
+      "dependencyCount": 20,
+      "changedDependencies": []
+    },
+    {
+      "group": "pathmusic",
+      "dependencyCount": 14,
+      "changedDependencies": []
+    },
+    {
+      "group": "players",
+      "dependencyCount": 33,
+      "changedDependencies": []
+    },
+    {
+      "group": "powers",
+      "dependencyCount": 20,
+      "changedDependencies": []
+    },
+    {
+      "group": "progression",
+      "dependencyCount": 25,
+      "changedDependencies": []
+    },
+    {
+      "group": "projectilepath",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "radar",
+      "dependencyCount": 20,
+      "changedDependencies": []
+    },
+    {
+      "group": "redalert",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "renderassets",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "renderdevice",
+      "dependencyCount": 21,
+      "changedDependencies": []
+    },
+    {
+      "group": "runtimeopaque",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "singlesound",
+      "dependencyCount": 19,
+      "changedDependencies": []
+    },
+    {
+      "group": "soundmaps",
+      "dependencyCount": 18,
+      "changedDependencies": []
+    },
+    {
+      "group": "systemsettings",
+      "dependencyCount": 19,
+      "changedDependencies": []
+    },
+    {
+      "group": "tacticalhotkeys",
+      "dependencyCount": 18,
+      "changedDependencies": []
+    },
+    {
+      "group": "targeting",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "terrain",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "testtextures",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "uichat",
+      "dependencyCount": 18,
+      "changedDependencies": []
+    },
+    {
+      "group": "uiconfig",
+      "dependencyCount": 22,
+      "changedDependencies": []
+    },
+    {
+      "group": "uidecals",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "uiimages",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "uisettings",
+      "dependencyCount": 18,
+      "changedDependencies": []
+    },
+    {
+      "group": "uitactical",
+      "dependencyCount": 22,
+      "changedDependencies": []
+    },
+    {
+      "group": "unitoverlay",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "visibility",
+      "dependencyCount": 20,
+      "changedDependencies": []
+    },
+    {
+      "group": "visualsystems",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    },
+    {
+      "group": "w3d",
+      "dependencyCount": 17,
+      "changedDependencies": []
+    }
+  ],
+  "all63DependencyClosuresUnchanged": true,
+  "tool": "recovery/scripts/SelectXmlComponentGroups.py",
+  "sdkSchemaAndBuildToolchainChanges": [],
+  "note": "Input identity check only; acceptance additionally requires original successful ancestor XML receipts and artifact identities.",
+  "verifiedBuildIdentityFields": {
+    "windowsSdkVersion": "10.0.26100.0\\",
+    "vcToolsVersion": "14.44.35207",
+    "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1",
+    "configuration": "Release",
+    "foundationSha256": "f32e3aaeffc0ac849afeb63087e4ac269f7ffbd767ae3039ef940bf0117cfc93",
+    "applicationSha256": "c4db821e63ad270f1db59903b9acbdf14b3eab1ae60ff368f48f8aeacd0dcf67",
+    "hostingSource": {
+      "sha256": "e5265339c7b98edfe590c7e09193368c422a2ad74f3e70e769133561953213c8",
+      "path": "recovery/src/Hosting/CompilerEntry.cpp"
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "status": "passed",
+  "baselineCommit": "7cfdd4314d8cafa2f2c7313e64f5ffbacf94eaf9",
+  "scope": "Isolated original and before/after C++/CLI plugin components, Release /O2 x86. Five synthetic prepared-XML fixtures; both byte orders compared; five alternating Win32 measurement pairs. XML parsing, Core preparation, caches and full MOD compilation excluded. managedAllocatedBytes excludes native heap allocations.",
+  "sourceCommit": "d457f99a56c3fb4a1baf94bb84c0466f243a4d95",
+  "runId": "41145351988",
+  "compiler": "14.44.35207",
+  "inputs": [
+    {
+      "name": "After.GameObject.dll",
+      "sha256": "ce119183f03a724deede5fd292140bd47ad95c5c76e0dfd584908072000b7de2"
+    },
+    {
+      "name": "After.Weapon.dll",
+      "sha256": "7c7c8c54611432097e0a5ea0d8733f7f36ddd44ac64cea1f05f197e729ff96c2"
+    },
+    {
+      "name": "antlr.astframe.dll",
+      "sha256": "f202b2befabb3b703b0389dceb4f542a606be4c1fb120fd267549a2bde7f34d4"
+    },
+    {
+      "name": "antlr.runtime.dll",
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    {
+      "name": "Before.GameObject.dll",
+      "sha256": "544029ca83a510e8a732f8c7026a0d0c487107f0de6b43f9588ffb4d178629cc"
+    },
+    {
+      "name": "Before.Weapon.dll",
+      "sha256": "98006b62330ef8038fd3a036b70ba196652796509265af9c7d38ab43130bd4cb"
+    },
+    {
+      "name": "BinaryAssetBuilder.AudioCompiler.dll",
+      "sha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139"
+    },
+    {
+      "name": "BinaryAssetBuilder.Core.dll",
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47"
+    },
+    {
+      "name": "BinaryAssetBuilder.ExpressionEval.dll",
+      "sha256": "c2c872619b4391f5987d483597116fb33e0cbf09f3cebeeda9d0105cce18b5ac"
+    },
+    {
+      "name": "BinaryAssetBuilder.GameDataVerifier.dll",
+      "sha256": "497f29052a32dca2002857a3dbc88232bb66a19e3dfcfecbdf048c73417847f0"
+    },
+    {
+      "name": "BinaryAssetBuilder.Remote.dll",
+      "sha256": "126b4ab6c2c879b5f8ed7bb50e49a73e898fb6e082b7727d6424713cd8902135"
+    },
+    {
+      "name": "BinaryAssetBuilder.TextureCompiler.dll",
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e"
+    },
+    {
+      "name": "BinaryAssetBuilder.Tokenizer.dll",
+      "sha256": "ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603"
+    },
+    {
+      "name": "BinaryAssetBuilder.Utility.dll",
+      "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b"
+    },
+    {
+      "name": "BinaryAssetBuilder.W3XCompiler.dll",
+      "sha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1"
+    },
+    {
+      "name": "BinaryAssetBuilder.XmlCompiler.dll",
+      "sha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
+    },
+    {
+      "name": "CC3Tools.dll",
+      "sha256": "923e5c12f1b1f9c408c19cfbf3d6bc6e15175b69b504b2e72ec914d439077a35"
+    },
+    {
+      "name": "EALA.Hash.dll",
+      "sha256": "b884317c4b322630d67c9e961edc475557945f86090ac9105c3977880d3dcece"
+    },
+    {
+      "name": "EALA.Metrics.dll",
+      "sha256": "bcf488c809a052fe920de95ec10975693ffa27f8d3e892a1cff510c4a118fa1c"
+    },
+    {
+      "name": "Mvp.Xml.dll",
+      "sha256": "75e86cde7ac2f4cdee06c1115550a6f44ccb22cbcfd4f57c5d5dd09c1fba78c9"
+    },
+    {
+      "name": "TokenizerPluginPerformance.exe",
+      "sha256": "5c5735b197c9a116a6d4ad861c9c0124e360813c1ffe956e3099bd864a0be31e"
+    },
+    {
+      "name": "TokenizerPluginPerformance.exe.config",
+      "sha256": "2340ad8815646b8604586fecaa1222261f65172b2506673d6474447415d1b9d7"
+    }
+  ],
+  "hostExitCode": 0
+}

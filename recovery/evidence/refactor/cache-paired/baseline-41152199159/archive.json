@@ -1,0 +1,14 @@
+{
+  "runId": 41152199159,
+  "binarySourceCommit": "1a3e4bc6d91a086404d51b6168c733366307e86e",
+  "requestedBaseline": "665468cb686cc4bcd7a172465c2f7efcb7492dc2",
+  "productionInputsUnchanged": true,
+  "artifactId": 13024328038,
+  "archiveSha256": "2ba381a049201eacf2de5ba6668e9f6061d81ccdf1eb878bda3af8d8d593138b",
+  "downloadedAndRehashed": true,
+  "files": {
+    "diagnostic-cold-4.json": "fb8944534d16446834f1cc4488e093fc0b1a4540790ac5675f5e099279a32d75",
+    "defaults-hot-diagnostic-4.json": "9434101ea563aeb64facbd82246c202845bf0180d1e2392b4d68f1373a9a96ce"
+  },
+  "scope": "Historical accepted baseline detailed attribution only. Same production inputs as requested base; not a same-VM performance comparison with this task."
+}

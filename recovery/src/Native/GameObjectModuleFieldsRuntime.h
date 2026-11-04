@@ -1,83 +1,101 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
-const ModuleChoice* FindModule(U32 type) {
-    for(const auto& choice:drawModelChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:drawBeamChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:containRestChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:containChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:slowChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:controlChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:supportChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:areaChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:utilityChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:attachChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:abilityFinishChoices) if(choice.type==type) return &choice;
-    if(type==abilityToggleChoice.type) return &abilityToggleChoice;
-    for(const auto& choice:abilityResourceChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:abilityRoutingChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:abilityStateChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:abilityMovementChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:powerCreationChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:abilityWeaponChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:abilityChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:powerRoutingChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:specialDerivedChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:specialPowerChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:motionCleanupChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:modelConditionChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:stateEventChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:resourceAlliesChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:wallEncloseChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:tiberiumChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:stealthVisionChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:statusEffectsChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:combatResponseChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:structureWallChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:economyPowerChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:queueParkingChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:buildingStructureChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:crateWatcherChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:spawnChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:assistChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:economyChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:aiUpdateChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:crateChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:healingChoices) if(choice.type==type) return &choice;
-    if(type==weaponSetChoice.type) return &weaponSetChoice;
-    for(const auto& choice:reactiveChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:flightChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:motionChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:beamChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:weaponChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:visionChoices) if(choice.type==type) return &choice;
-    if(type==receiverChoice.type) return &receiverChoice;
-    if(type==slavedChoice.type) return &slavedChoice;
-    for(const auto& choice:createChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:productionChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:remainingChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:upgradeChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:dieChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:lifecycleChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:selectorChoices) if(choice.type==type) return &choice;
-    for(const auto& choice:moduleChoices) if(choice.type==type) return &choice;
-    return nullptr;
+// Process-lifetime metadata avoids mixed-mode CRT destructor callbacks after
+// CLR shutdown. The native InitOnce barrier publishes only a complete index.
+using ModuleIndex=std::unordered_map<U32,const ModuleChoice*>;
+INIT_ONCE ModuleIndexOnce=INIT_ONCE_STATIC_INIT;
+const ModuleIndex* moduleIndex=nullptr;
+BOOL CALLBACK InitializeModuleIndex(PINIT_ONCE,PVOID,PVOID*) {
+    try {
+        std::unique_ptr<ModuleIndex> index(new ModuleIndex);
+        index->reserve(320);
+        // emplace keeps the original first-match precedence across families.
+        for(const auto& choice:drawModelChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:drawBeamChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:containRestChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:containChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:slowChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:controlChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:supportChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:areaChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:utilityChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:attachChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityFinishChoices) index->emplace(choice.type,&choice);
+        index->emplace(abilityToggleChoice.type,&abilityToggleChoice);
+        for(const auto& choice:abilityResourceChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityRoutingChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityStateChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityMovementChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:powerCreationChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityWeaponChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:abilityChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:powerRoutingChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:specialDerivedChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:specialPowerChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:motionCleanupChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:modelConditionChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:stateEventChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:resourceAlliesChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:wallEncloseChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:tiberiumChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:stealthVisionChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:statusEffectsChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:combatResponseChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:structureWallChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:economyPowerChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:queueParkingChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:buildingStructureChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:crateWatcherChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:spawnChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:assistChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:economyChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:aiUpdateChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:crateChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:healingChoices) index->emplace(choice.type,&choice);
+        index->emplace(weaponSetChoice.type,&weaponSetChoice);
+        for(const auto& choice:reactiveChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:flightChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:motionChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:beamChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:weaponChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:visionChoices) index->emplace(choice.type,&choice);
+        index->emplace(receiverChoice.type,&receiverChoice);
+        index->emplace(slavedChoice.type,&slavedChoice);
+        for(const auto& choice:createChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:productionChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:remainingChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:upgradeChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:dieChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:lifecycleChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:selectorChoices) index->emplace(choice.type,&choice);
+        for(const auto& choice:moduleChoices) index->emplace(choice.type,&choice);
+        moduleIndex=index.release();
+        return TRUE;
+    } catch(...) {
+        SetLastError(ERROR_NOT_ENOUGH_MEMORY);
+        return FALSE;
+    }
 }
+const ModuleChoice* FindModule(U32 type) {
+    if(!InitOnceExecuteOnce(&ModuleIndexOnce,InitializeModuleIndex,nullptr,nullptr))
+        throw std::runtime_error("GameObject module index initialization failed.");
+    auto found=moduleIndex->find(type);
+    return found==moduleIndex->end()?nullptr:found->second;
+}
+
 void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,const ModuleFieldSet& fields,Relo::Tracker& data) {
     for(unsigned i=0;i<fields.count;++i) {
         const auto& f=fields.fields[i];
         auto found=input.attributes.find(f.name);if(found==input.attributes.end() && !f.fallback) continue;
-        std::string value=found==input.attributes.end()?f.fallback:found->second;auto at=output+f.offset;float number=0;U32 word=0;
-        switch(f.kind) {
-        case ModuleValue::Float:case ModuleValue::Percent:
-            number=ParseFloat(value);if(f.kind==ModuleValue::Percent) number*=0.01f;std::memcpy(at,&number,4);break;
-        case ModuleValue::FrameSpeed:number=static_cast<float>(static_cast<double>(weaponSecondsPerLogicFrame)*static_cast<double>(ParseFloat(value)));std::memcpy(at,&number,4);break;
-        case ModuleValue::Angle:number=InitializeAngle(value.c_str());std::memcpy(at,&number,4);break;
-        case ModuleValue::DeathBits:MarshalEnumBitset(value,lifecycleDeathNames,34,33,34,reinterpret_cast<U32*>(at));break;
-        case ModuleValue::Duration: {
-            const float scaled=static_cast<float>(static_cast<double>(0.005f)*static_cast<double>(ParseFloat(value)));
-            const double wide=static_cast<double>(static_cast<float>(std::ceil(static_cast<double>(scaled))));
-            word=(wide>=-9223372036854775808.0 && wide<9223372036854775808.0)?static_cast<U32>(static_cast<std::int64_t>(wide)):0u;
-            std::memcpy(at,&word,4);break;
+        auto at=output+f.offset;
+        if(f.scalarSize) {
+            if(found==input.attributes.end() || (f.fallback && found->second==f.fallback))std::memcpy(at,&f.defaultWord,f.scalarSize);
+            else DecodeModuleScalar(f,found->second,at);
+            continue;
         }
+        std::string fallback;if(found==input.attributes.end())fallback=f.fallback;
+        const std::string& value=found==input.attributes.end()?fallback:found->second;
+        switch(f.kind) {
+        case ModuleValue::DeathBits:MarshalEnumBitset(value,lifecycleDeathNames,34,33,34,reinterpret_cast<U32*>(at));break;
         case ModuleValue::NullableAssetId:
             {auto target=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),4,1));*target=HashAssetId(value);data.Pop();}break;
         case ModuleValue::NullableSigned:
@@ -85,9 +103,7 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
         case ModuleValue::ObjectStatus:MarshalObjectStatus(value,reinterpret_cast<U32*>(at));break;
         case ModuleValue::NullableObjectStatus:
             {auto words=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),28,1));MarshalObjectStatus(value,words);data.Pop();}break;
-        case ModuleValue::StringHash:word=ExactStringHash(value);std::memcpy(at,&word,4);break;
         case ModuleValue::NullableStringHash:{auto target=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),4,1));*target=ExactStringHash(value);data.Pop();}break;
-        case ModuleValue::AssetId:word=HashAssetId(value);std::memcpy(at,&word,4);break;
         case ModuleValue::ModelCondition:MarshalModelCondition(value,reinterpret_cast<U32*>(at));break;
         case ModuleValue::NullableModelCondition:
             {auto words=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),60,1));MarshalModelCondition(value,words);data.Pop();}break;
@@ -115,20 +131,11 @@ void MarshalModuleFieldSet(const GameObjectChild& input,unsigned char* output,co
             if(list->count) {if(f.kind==ModuleValue::StringList) {auto values=static_cast<ReloString*>(data.Push(&list->data,8,list->count));for(U32 j=0;j<list->count;++j) MarshalString(data,values+j,tokens[j]);}else {auto words=static_cast<U32*>(data.Push(&list->data,4,list->count));for(U32 j=0;j<list->count;++j) if(f.kind==ModuleValue::FloatList) {float n=ParseFloat(tokens[j]);std::memcpy(words+j,&n,4);}else words[j]=static_cast<U32>(ParseSigned(tokens[j]));}data.Pop();}
             break;
         }
-        case ModuleValue::Signed:word=static_cast<U32>(ParseSigned(value));std::memcpy(at,&word,4);break;
-        case ModuleValue::Unsigned:word=ParseUnsigned(value);std::memcpy(at,&word,4);break;
-        case ModuleValue::Short:{auto narrow=static_cast<std::uint16_t>(ParseUnsigned(value));std::memcpy(at,&narrow,2);}break;
-        case ModuleValue::Time:number=InitializeTime(value.c_str());std::memcpy(at,&number,4);break;
-        case ModuleValue::Byte:*at=static_cast<unsigned char>(ParseUnsigned(value));break;
-        case ModuleValue::Boolean:*at=ParseBoolean(value)?1:0;break;
         case ModuleValue::String:MarshalString(data,at,value);break;
         case ModuleValue::Reference:MarshalReference(data,at,value);break;
         case ModuleValue::NullableReference:
             {auto reference=data.Push(reinterpret_cast<void**>(at),4,1);MarshalReference(data,reference,value);data.Pop();}break;
-        case ModuleValue::Enum:
-            word=static_cast<U32>(f.values->unknown);
-            for(unsigned j=0;j<f.values->count;++j) if(value==f.values->names[j].name) {word=static_cast<U32>(f.values->names[j].value);break;}
-            std::memcpy(at,&word,4);break;
+
         }
     }
 }

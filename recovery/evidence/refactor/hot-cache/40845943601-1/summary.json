@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "succeeded": true,
+  "sourceCommit": "84261243a2f2cc98b77399a939be0f4115a4a98d",
+  "runId": "40845943601",
+  "runAttempt": 1,
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/40845943601",
+  "artifactId": 12885068584,
+  "artifactSha256": "7c19fd8ff241cdac24c4055cd8f40d6b03a96f6176e0d9ef4eb5b25ba8370c83",
+  "hot": {
+    "Debug": {
+      "publicationUnchanged": true,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 3,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2,
+        "fileHashReads": 0,
+        "fileHashReuses": 22,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": false,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\_temp\\c0e90aa62\\D\\cache"
+      }
+    },
+    "Release": {
+      "publicationUnchanged": true,
+      "cache": {
+        "status": "SessionCache",
+        "hits": 0,
+        "misses": 0,
+        "sessionCache": true,
+        "sessionPackageHits": 2,
+        "sessionPackageMisses": 0,
+        "documentReuse": 3,
+        "xmlParse": 0,
+        "instanceCompile": 0,
+        "linkedStreamsRestored": 2,
+        "fileHashReads": 0,
+        "fileHashReuses": 22,
+        "fileHashBytesRead": 0,
+        "textureCache": true,
+        "compressedSessionCache": false,
+        "partialSessionCache": false,
+        "freezeSessionCache": false,
+        "alwaysTouchCache": false,
+        "partialSessionsSaved": 0,
+        "sessionCacheDirectory": "D:\\a\\_temp\\c0e90aa62\\R\\cache"
+      }
+    }
+  },
+  "sessionModes": [
+    {
+      "configuration": "Debug",
+      "passed": true,
+      "caseCount": 104
+    },
+    {
+      "configuration": "Release",
+      "passed": true,
+      "caseCount": 104
+    }
+  ],
+  "fullMymod": {
+    "succeeded": true,
+    "originalBaselinePassed": true,
+    "inputsUnchanged": true
+  },
+  "release": {
+    "Debug": {
+      "sha256": "2f65bebedafe628b334818e701bebd3beac2a752295a3a138e2708c57dda590a",
+      "bytes": 2236765
+    },
+    "Release": {
+      "sha256": "c91b67a25f5ca07f2de234bdb6f9075c355db5ee319ccc7db20fc037b0807cfd",
+      "bytes": 1737438
+    }
+  },
+  "retainedFailedRuns": [
+    "40843816424",
+    "40844174902",
+    "40844460739",
+    "40844776503",
+    "40844878304",
+    "40845097990"
+  ],
+  "failureFixes": [
+    "XmlIgnore for runtime-only SDK settings callbacks",
+    "test mutations separated across Windows timestamp ticks",
+    "preserve physical artifact contract for direct backend calls",
+    "preserve original output-path diagnostic",
+    "replace repeated staged scope on backend retry",
+    "commit reversible cache before staging deletion"
+  ],
+  "scope": "Complete production matrix including original mymod differential and independent five-file ZIP. Performance is recorded separately; historical acceptance is not substituted."
+}

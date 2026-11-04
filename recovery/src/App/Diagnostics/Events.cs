@@ -11,27 +11,14 @@ using NewModCompiler.Application;
 
 namespace NewModCompiler.Diagnostics
 {
-    // Only ordinary directory paths are accepted for writes. Each ancestor is
-    // held without FILE_SHARE_WRITE/DELETE until the write finishes, so an existing
-    // directory cannot be renamed or replaced with a junction after validation.
-    internal sealed class DiagnosticDirectory : IDisposable
+    // Check writable paths at the boundary. Directory handles are used only
+    // to resolve physical aliases, never held for a build or a log's lifetime.
+    internal static class DiagnosticDirectory
     {
-        readonly List<SafeFileHandle> handles = new List<SafeFileHandle>();
-        const uint BackupSemantics = 0x02000000, OpenReparsePoint = 0x00200000;
-        [StructLayout(LayoutKind.Sequential)] struct FileInformation
-        {
-            public uint Attributes; public System.Runtime.InteropServices.ComTypes.FILETIME Created, Accessed, Written;
-            public uint Volume, SizeHigh, SizeLow, Links, IndexHigh, IndexLow;
-        }
         [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)]
         static extern SafeFileHandle CreateFile(string path,uint access,uint share,IntPtr security,uint disposition,uint flags,IntPtr template);
-        [DllImport("kernel32.dll",EntryPoint="CreateDirectoryW",CharSet=CharSet.Unicode,SetLastError=true)]
-        static extern bool CreateDirectoryNative(string path,IntPtr security);
-        [DllImport("kernel32.dll", SetLastError=true)]
-        static extern bool GetFileInformationByHandle(SafeFileHandle file,out FileInformation information);
         [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)]
         static extern uint GetFinalPathNameByHandle(SafeFileHandle file,StringBuilder path,uint length,uint flags);
-        static IOException Error(string path) { return new IOException("Cannot secure diagnostic directory " + path, new Win32Exception(Marshal.GetLastWin32Error())); }
         internal static void ValidateSyntax(string path)
         {
             if (string.IsNullOrWhiteSpace(path)) throw new IOException("Diagnostic path is empty.");
@@ -49,138 +36,120 @@ namespace NewModCompiler.Diagnostics
                     throw new IOException("Ambiguous or device diagnostic path component: " + part);
             }
         }
-        SafeFileHandle Open(string path,bool allowReparse,bool requireDirectory=true,uint share=1,uint access=0)
+        internal static void CheckDirectory(string directory, string stopAt = null)
         {
-            var handle=CreateFile(path,access,share,IntPtr.Zero,3,BackupSemantics | (allowReparse ? 0 : OpenReparsePoint),IntPtr.Zero);
-            if (handle.IsInvalid) { handle.Dispose(); throw Error(path); }
-            FileInformation information;
-            if (!GetFileInformationByHandle(handle,out information)) { handle.Dispose(); throw Error(path); }
-            if ((requireDirectory && (information.Attributes & 0x10)==0) || (!allowReparse && (information.Attributes & 0x400)!=0)) { handle.Dispose(); throw new IOException("Diagnostic path contains a reparse point or non-directory: " + path); }
-            handles.Add(handle); return handle;
+            for (var current = new DirectoryInfo(directory); current != null; current = current.Parent)
+            {
+                if (current.Exists && (current.Attributes & FileAttributes.ReparsePoint) != 0)
+                    throw new IOException("Output path contains a reparse point: " + current.FullName);
+                if (string.Equals(current.FullName, stopAt, StringComparison.OrdinalIgnoreCase)) break;
+            }
         }
-        internal void PinPublishedFile(string path,SafeFileHandle expected)
+        internal static void PrepareDirectory(string directory, string stopAt = null)
         {
-            // Permit the existing writer, but deny later delete/rename opens.
-            // A path may have changed between rename and this open: compare the
-            // inode before the first byte is written, never reopen a writer.
-            SafeFileHandle pinned=Open(path,false,false,3,1);
-            FileInformation original, current;
-            if (!GetFileInformationByHandle(expected,out original) || !GetFileInformationByHandle(pinned,out current)) throw Error(path);
-            if (original.Volume!=current.Volume || original.IndexHigh!=current.IndexHigh || original.IndexLow!=current.IndexLow)
-                throw new IOException("Diagnostic file changed during publication: " + path);
-        }
-        static string Physical(SafeFileHandle handle)
-        {
-            var value=new StringBuilder(32768); uint count=GetFinalPathNameByHandle(handle,value,(uint)value.Capacity,0);
-            if (count==0 || count>=value.Capacity) throw Error("physical path");
-            string path=value.ToString();
-            if (path.StartsWith(@"\\?\UNC\",StringComparison.OrdinalIgnoreCase)) return @"\\"+path.Substring(8);
-            return path.StartsWith(@"\\?\",StringComparison.Ordinal) ? path.Substring(4) : path;
+            CheckDirectory(directory, stopAt);
+            Directory.CreateDirectory(directory);
         }
         internal static string ResolveInputDirectory(string path)
         {
-            using (var guard=new DiagnosticDirectory()) return Physical(guard.Open(Path.GetFullPath(path),true));
+            using (var handle = CreateFile(Path.GetFullPath(path),0,7,IntPtr.Zero,3,0x02000000,IntPtr.Zero))
+            {
+                if (handle.IsInvalid) throw new IOException("Cannot resolve directory: " + path, new Win32Exception(Marshal.GetLastWin32Error()));
+                var value=new StringBuilder(32768);
+                uint count=GetFinalPathNameByHandle(handle,value,(uint)value.Capacity,0);
+                if (count==0 || count>=value.Capacity) throw new IOException("Cannot resolve physical path: " + path);
+                string physical=value.ToString();
+                if (physical.StartsWith(@"\\?\UNC\",StringComparison.OrdinalIgnoreCase)) return @"\\"+physical.Substring(8);
+                return physical.StartsWith(@"\\?\",StringComparison.Ordinal) ? physical.Substring(4) : physical;
+            }
         }
-        // Resolve existing directory ancestors, preserving any missing suffix.
-        // This also catches DOS short-name aliases during read-only CLI parsing.
         internal static string ResolveOutput(string path)
         {
-            ValidateSyntax(path); path=Path.GetFullPath(path); ValidateSyntax(path);
-            if (Directory.Exists(path)) {
-                using (var existing=Acquire(path,false)) return Physical(existing.handles[existing.handles.Count-1]);
-            }
-            string directory=Path.GetDirectoryName(path), suffix=Path.GetFileName(path);
-            while (!Directory.Exists(directory)) {
-                if (string.IsNullOrEmpty(directory)) throw new IOException("Diagnostic path has no accessible existing directory ancestor: " + path);
-                if (File.Exists(directory)) throw new IOException("Diagnostic ancestor is a file: " + directory);
+            ValidateSyntax(path); path=Path.GetFullPath(path);
+            string directory = Directory.Exists(path) ? path : Path.GetDirectoryName(path);
+            string suffix = Directory.Exists(path) ? "" : Path.GetFileName(path);
+            while (!Directory.Exists(directory))
+            {
+                if (string.IsNullOrEmpty(directory)) throw new IOException("Output volume or directory root is unavailable: " + path);
+                if (File.Exists(directory)) throw new IOException("Output ancestor is a file: " + directory);
                 string parent=Path.GetDirectoryName(directory);
                 if (string.IsNullOrEmpty(parent) || string.Equals(parent,directory,StringComparison.OrdinalIgnoreCase))
-                    throw new IOException("Diagnostic volume or directory root is unavailable: " + path);
+                    throw new IOException("Output volume or directory root is unavailable: " + path);
                 suffix=Path.Combine(Path.GetFileName(directory),suffix); directory=parent;
             }
-            using (var guard=Acquire(directory,false)) {
-                if (File.Exists(path)) return Physical(guard.Open(path,false,false));
-                return Path.Combine(Physical(guard.handles[guard.handles.Count-1]),suffix);
-            }
+            CheckDirectory(directory);
+            DiagnosticFiles.RejectReparseFile(path);
+            return Path.Combine(ResolveInputDirectory(directory),suffix);
         }
-        internal static DiagnosticDirectory Acquire(string directory,bool create)
-        {
-            ValidateSyntax(directory); directory=Path.GetFullPath(directory); ValidateSyntax(directory);
-            var guard=new DiagnosticDirectory();
-            try {
-                string current=Path.GetPathRoot(directory); guard.Open(current,false);
-                foreach (string part in directory.Substring(current.Length).Split(new [] {'\\','/'},StringSplitOptions.RemoveEmptyEntries)) {
-                    current=Path.Combine(current,part);
-                    // Create one component only: recursive managed creation may
-                    // traverse a dangling junction before we can inspect it.
-                    if (create && !CreateDirectoryNative(current,IntPtr.Zero) && Marshal.GetLastWin32Error()!=183) throw Error(current);
-                    guard.Open(current,false);
-                }
-                return guard;
-            } catch { guard.Dispose(); throw; }
-        }
-        internal static void CreateNewDirectory(string path)
-        {
-            ValidateSyntax(path); path=Path.GetFullPath(path); ValidateSyntax(path);
-            // The caller pins the parent first. Existing files, directories and
-            // junctions are never adopted as this build's cleanup workspace.
-            if (!CreateDirectoryNative(path,IntPtr.Zero)) throw Error(path);
-        }
-        public void Dispose() { for (int i=handles.Count-1;i>=0;--i) handles[i].Dispose(); handles.Clear(); }
     }
     internal static class DiagnosticFiles
     {
-        [DllImport("kernel32.dll",EntryPoint="MoveFileExW",CharSet=CharSet.Unicode,SetLastError=true)]
-        static extern bool MoveFileEx(string existing,string replacement,uint flags);
         internal static void RejectReparseFile(string path)
         {
-            try { if ((File.GetAttributes(path) & FileAttributes.ReparsePoint)!=0) throw new IOException("Diagnostic file is a reparse point: " + path); }
+            try { if ((File.GetAttributes(path) & FileAttributes.ReparsePoint)!=0) throw new IOException("Output file is a reparse point: " + path); }
             catch (FileNotFoundException) { } catch (DirectoryNotFoundException) { }
         }
-        internal static FileStream CreateFresh(string path,out DiagnosticDirectory guard)
+        internal static FileStream CreateFresh(string path)
         {
-            DiagnosticDirectory.ValidateSyntax(path); guard=DiagnosticDirectory.Acquire(Path.GetDirectoryName(path),true);
-            string temporary=path+"."+Guid.NewGuid().ToString("N")+".tmp"; FileStream stream=null;
-            try {
+            DiagnosticDirectory.PrepareDirectory(Path.GetDirectoryName(path));
+            string temporary=path+"."+Guid.NewGuid().ToString("N")+".tmp";
+            try
+            {
                 RejectReparseFile(path);
-                // Never truncate an existing inode: it may be a hard link to a
-                // source file. Keep writing the newly created inode after rename.
-                stream=new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.Read|FileShare.Delete);
-                // ReplaceFile reopens the replacement with sharing requirements
-                // that conflict with this live writer. A same-directory rename
-                // can replace the destination while retaining our already-open
-                // inode (FILE_SHARE_DELETE above); never close and reopen path.
-                if (!MoveFileEx(temporary,path,1)) throw new IOException("Cannot publish fresh diagnostic file: " + path,new Win32Exception(Marshal.GetLastWin32Error()));
-                guard.PinPublishedFile(path,stream.SafeFileHandle);
-                return stream;
-            } catch {
-                try { if (stream!=null) stream.Dispose(); }
-                finally { try { if (File.Exists(temporary)) File.Delete(temporary); } finally { guard.Dispose(); } }
-                throw;
+                // Replace the directory entry instead of truncating an existing
+                // inode: a diagnostic destination may be a hard link to input.
+                using (var stream = new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None)) { }
+                File.Delete(path);
+                File.Move(temporary,path);
+                return new FileStream(path,FileMode.Open,FileAccess.Write,FileShare.Read);
             }
+            finally { if (File.Exists(temporary)) File.Delete(temporary); }
         }
     }
     public interface IBuildEventSink : IDisposable { void Write(IDictionary<string, object> value); }
+    internal sealed class EventFlushPolicy
+    {
+        int nextFlush;
+        internal EventFlushPolicy() : this(Environment.TickCount) { }
+        internal EventFlushPolicy(int now) { nextFlush = unchecked(now + 250); }
+        public bool Due(IDictionary<string, object> value, int now)
+        {
+            string type = (string)value["eventType"], level = (string)value["level"];
+            if (type.EndsWith("Started", StringComparison.Ordinal) || type.EndsWith("Completed", StringComparison.Ordinal) ||
+                type == "BuildFinished" || level == "error" || level == "warning" || unchecked(now - nextFlush) >= 0)
+            {
+                nextFlush = unchecked(now + 250);
+                return true;
+            }
+            return false;
+        }
+    }
     public sealed class JsonLineSink : IBuildEventSink
     {
-        readonly DiagnosticDirectory directory;
         readonly StreamWriter writer; readonly JavaScriptSerializer json = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
-        public JsonLineSink(string path) { writer = new StreamWriter(DiagnosticFiles.CreateFresh(path,out directory), new UTF8Encoding(false)); }
-        public void Write(IDictionary<string, object> value) { writer.WriteLine(json.Serialize(value)); writer.Flush(); }
-        public void Dispose() { try { writer.Dispose(); } finally { directory.Dispose(); } }
+        readonly EventFlushPolicy flush = new EventFlushPolicy();
+        public JsonLineSink(string path) { writer = new StreamWriter(DiagnosticFiles.CreateFresh(path), new UTF8Encoding(false), 64 * 1024); }
+        public void Write(IDictionary<string, object> value) { writer.WriteLine(json.Serialize(value)); if (flush.Due(value, Environment.TickCount)) writer.Flush(); }
+        public void Dispose() { writer.Dispose(); }
     }
     public sealed class TextLogSink : IBuildEventSink
     {
-        readonly DiagnosticDirectory directory;
         readonly StreamWriter writer;
-        public TextLogSink(string path) { writer = new StreamWriter(DiagnosticFiles.CreateFresh(path,out directory), new UTF8Encoding(false)); }
-        public void Write(IDictionary<string, object> value) { writer.WriteLine("{0} [{1}] #{2} {3} {4} {5}", value["timestampUtc"],value["buildId"],value["sequence"],value["level"],value["eventType"],value.ContainsKey("message") ? value["message"] : ""); writer.Flush(); }
-        public void Dispose() { try { writer.Dispose(); } finally { directory.Dispose(); } }
+        readonly EventFlushPolicy flush = new EventFlushPolicy();
+        public TextLogSink(string path) { writer = new StreamWriter(DiagnosticFiles.CreateFresh(path), new UTF8Encoding(false), 64 * 1024); }
+        public void Write(IDictionary<string, object> value) { writer.WriteLine("{0} [{1}] #{2} {3} {4} {5}", value["timestampUtc"],value["buildId"],value["sequence"],value["level"],value["eventType"],value.ContainsKey("message") ? value["message"] : ""); if (flush.Due(value, Environment.TickCount)) writer.Flush(); }
+        public void Dispose() { writer.Dispose(); }
     }
     public sealed class EventDispatcher : IDisposable
     {
         readonly List<IBuildEventSink> sinks; readonly Stopwatch clock = Stopwatch.StartNew();
         long sequence; bool finished; bool outputFailed; bool disposed;
+        internal ConsoleProgressRenderer ConsoleOutput { get; set; }
+        internal void WriteConsoleLine(string message)
+        {
+            try { if (ConsoleOutput != null) ConsoleOutput.WriteLine(message); else Console.Error.WriteLine(message); }
+            catch (IOException) { }
+        }
         public string BuildId { get; private set; }
         public bool OutputFailed { get { return outputFailed; } }
         public bool CloseFailed { get; private set; }
@@ -199,9 +168,23 @@ namespace NewModCompiler.Diagnostics
             if (streamId != null) value["streamId"] = streamId;
             if (stageId != null) value["stageId"] = stageId;
             Exception failure = null;
-            foreach (IBuildEventSink sink in sinks) { try { sink.Write(value); } catch (Exception e) { outputFailed = true; failure = e; } }
+            for (int index = 0; index < sinks.Count; index++)
+            {
+                var sink = sinks[index];
+                try { sink.Write(value); }
+                catch (Exception error)
+                {
+                    if (!(sink is TextLogSink)) { outputFailed = true; failure = error; continue; }
+                    // Human-readable text is optional; JSONL and the final
+                    // report remain the required machine-readable outputs.
+                    try { sink.Dispose(); } catch { }
+                    sinks.RemoveAt(index--);
+                    WriteConsoleLine("Optional text log disabled: " + error.Message);
+                }
+            }
             // Console is optional; a disconnected caller must not hide the durable final result.
-            try { if (type == "Diagnostic" || type == "BuildFinished") Console.Error.WriteLine("[{0}] {1} {2}",level,code ?? type,message ?? ""); } catch (IOException) { }
+            if ((type == "BuildFinished" && ConsoleOutput == null) || (type == "Diagnostic" && (level == "error" || level == "warning")))
+                WriteConsoleLine(string.Format("[{0}] {1} {2}",level,code ?? type,message ?? ""));
             if (failure != null) throw new BuildFailure(ExitCode.Output,"EVENT_WRITE_FAILED",failure.Message);
         }
         public void Dispose()
@@ -210,7 +193,7 @@ namespace NewModCompiler.Diagnostics
             disposed=true;
             foreach (var sink in sinks) {
                 try { sink.Dispose(); }
-                catch (Exception e) { outputFailed=true; CloseFailed=true; CloseFailureMessage=e.Message; }
+                catch (Exception e) { if (!(sink is TextLogSink)) { outputFailed=true; CloseFailed=true; CloseFailureMessage=e.Message; } }
             }
         }
     }
@@ -218,27 +201,23 @@ namespace NewModCompiler.Diagnostics
     {
         public static void RemoveStale(string path)
         {
-            DiagnosticDirectory.ValidateSyntax(path);
-            using (var guard=DiagnosticDirectory.Acquire(Path.GetDirectoryName(path),true)) {
-                DiagnosticFiles.RejectReparseFile(path);
-                // Unlinking a hard link does not modify the linked source inode.
-                if (File.Exists(path)) File.Delete(path);
-            }
+            DiagnosticDirectory.PrepareDirectory(Path.GetDirectoryName(path));
+            // Unlinking a hard link cannot modify its source inode.
+            File.Delete(path);
         }
         public static void WriteAtomic(string path, IDictionary<string, object> report)
         {
-            DiagnosticDirectory.ValidateSyntax(path);
-            using (var guard=DiagnosticDirectory.Acquire(Path.GetDirectoryName(path),true)) {
+            DiagnosticDirectory.PrepareDirectory(Path.GetDirectoryName(path));
             string temporary = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
-            try {
+            try
+            {
                 DiagnosticFiles.RejectReparseFile(path);
-                using (var stream = new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None)) {
-                    byte[] bytes = new UTF8Encoding(false).GetBytes(new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Serialize(report));
-                    stream.Write(bytes,0,bytes.Length); stream.Flush(true);
-                }
+                using (var stream = new FileStream(temporary,FileMode.CreateNew,FileAccess.Write,FileShare.None))
+                using (var writer = new StreamWriter(stream,new UTF8Encoding(false),64 * 1024))
+                    writer.Write(new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Serialize(report));
                 if (File.Exists(path)) File.Replace(temporary,path,null); else File.Move(temporary,path);
-            } finally { if (File.Exists(temporary)) File.Delete(temporary); }
             }
+            finally { if (File.Exists(temporary)) File.Delete(temporary); }
         }
     }
 }

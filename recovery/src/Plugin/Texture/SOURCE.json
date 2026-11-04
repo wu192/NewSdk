@@ -1,0 +1,87 @@
+{
+  "repository": "https://github.com/wu162/NewSdk",
+  "ref": "b30dffac5aeb027cf37a6dac0cd47beafe9fbea0",
+  "sourceDirectory": "src/TextureCompiler/Managed",
+  "unchangedCopiedSources": [
+    {
+      "path": "TexturePacker.cs",
+      "sha256": "2f26818102a898347338664f37c464570dbecfc94fbef1850158bab083c0efd1"
+    },
+    {
+      "path": "TextureBmpDecoder.cs",
+      "sha256": "0c11da81063c78cd7df38fedcca3e8e82f0c9cac2f1138f99f0b52d6bdf125ec"
+    },
+    {
+      "path": "TextureDibDecoder.cs",
+      "sha256": "82114dbb0f27525e8da93530889ee9e1edb7821fa16ab012f90efff4bd1e7699"
+    },
+    {
+      "path": "TexturePngDecoder.cs",
+      "sha256": "482e59aa6f0be7a889f4a4da2dab36f2107bd8d08858ad0b32685e8a43773204"
+    },
+    {
+      "path": "TextureTgaDecoder.cs",
+      "sha256": "5c8ab8c52bd0e1f4db1000e931d49506a4c2afd8cc53a1b73e872f6905de0cf7"
+    },
+    {
+      "path": "TextureTgaAdditionalFormats.cs",
+      "sha256": "554452273078040390f8db5a808cd27d003e256c6a9d002ee6df883afae31e00"
+    },
+    {
+      "path": "TextureTgaMetadata.cs",
+      "sha256": "542edb6540de7c7ab9b147df141f580546c98654d107a66c36269790583dc6bc"
+    },
+    {
+      "path": "TextureImageRules.cs",
+      "sha256": "0d28ee8379ed1db82c8cabc45781ee84013c7810e0fb82e717705cd9c7371261"
+    },
+    {
+      "path": "TextureNpotRgba8Resampler.cs",
+      "sha256": "38a8a228adc2307e36ed1ae4e86478ba01c780af9e0f98f5568b0eadb04a29d2"
+    },
+    {
+      "path": "TextureNpotStorageResampler.cs",
+      "sha256": "a49f21e786ff757deab4fb0eb0dcb218de8c0d208db2f3d8c81ace1b80f625af"
+    },
+    {
+      "path": "TextureRawDdsEncoder.cs",
+      "sha256": "f61c996058ba8e8f885661e92e38eaab83818c842a114ef72be0507e846df506"
+    },
+    {
+      "path": "TextureTriangleMipEncoder.cs",
+      "sha256": "192760ba5faa062c0f3686a78914ce9a057666588d099fa2b40ec05d4a5a8d90"
+    },
+    {
+      "path": "TextureVolume.cs",
+      "sha256": "bb1926e461291da8f5c7cb6c2ad7ce92207a860a74d956430d72e0fd5d9dd9b1"
+    },
+    {
+      "path": "TextureVolumeRawDdsEncoder.cs",
+      "sha256": "197a971cbb22b3fa6987a5f04419c53bfda0301c375c6fadab531455cb1b7b70"
+    },
+    {
+      "path": "TextureVolumeMipEncoder.cs",
+      "sha256": "60a76847a0081e6c3793aa6114abe02b9a9618adce3fe707de68a103e820c109"
+    },
+    {
+      "path": "Plugin.Atlas.cs",
+      "sha256": "a1c411f5e49d4de1e7a4e73abc37dbe9d5c582bfc493b7addd0c715314a22a1e"
+    }
+  ],
+  "adaptedSources": [
+    "TextureCatalog.cs",
+    "Plugin.Metadata.cs",
+    "Plugin.Dds.cs",
+    "Plugin.Images.cs",
+    "TextureImageLoader.cs",
+    "TextureAtlasDdsEncoder.cs",
+    "TextureDdsEncoder.cs",
+    "TextureDxtBlockEncoder.cs",
+    "TextureDxtSampleBlockEncoder.cs"
+  ],
+  "newSources": [
+    "TextureBlockCompression.cs",
+    "TextureIndexedBmpDecoder.cs"
+  ],
+  "runtimeNativeDlls": []
+}

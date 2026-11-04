@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "status": "passed-complete-windows-production-sdk-and-zip",
+  "sourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "binarySourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "runId": "41180859852",
+  "runAttempt": "1",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41180859852",
+  "terminal": {
+    "status": "completed",
+    "conclusion": "success",
+    "metadataSha256": "0722ce1732b0f46f42276ed8567ebf2c2828aee3777e74b8373522c1bb5b8f1b"
+  },
+  "artifact": {
+    "id": 13035436860,
+    "url": "https://github.com/wu162/NewSdk/actions/runs/41180859852/artifacts/13035436860",
+    "bytes": 164663037,
+    "sha256": "896c9301731ae20f858f348e597b3efcc32f8b46e7a1340c53d41227727d30d7"
+  },
+  "packages": [
+    {
+      "configuration": "Debug",
+      "archive": {
+        "sha256": "67cbf97ff56c431b03ff043433aeb0508ff4b5fd63d806515a1b3677c8b43177",
+        "bytes": 2154011,
+        "name": "NewModCompiler-Win32-Debug.zip"
+      },
+      "manifestSha256": "97f727ab2e72b63910e8481a4f24ed324b3175360c025db21a8d9be7fae3c7a6",
+      "files": [
+        {
+          "sha256": "f5963684c81c3168975c608bd0194cd5ef0f2379b48e6e70453b69e9836dff01",
+          "bytes": 7561216,
+          "name": "NewModCompiler.exe"
+        },
+        {
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "bytes": 201,
+          "name": "NewModCompiler.exe.config"
+        },
+        {
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "bytes": 99328,
+          "name": "antlr.runtime.dll"
+        }
+      ],
+      "buildReceiptSha256": "4e2703af9963efa08a1900603505aef685be0c92ab837a6bb5aba53b39041bf6"
+    },
+    {
+      "configuration": "Release",
+      "archive": {
+        "sha256": "ba04e6ffa49b52975c0dd4aeba2cc090be6f0ac85656e01a38296036150c069b",
+        "bytes": 1624363,
+        "name": "NewModCompiler-Win32-Release.zip"
+      },
+      "manifestSha256": "85e169404cf15557944ee83304ecb499d609923f956b8c4b78b5e5a37125313f",
+      "files": [
+        {
+          "sha256": "801d5732fbff8ffd3bf5110db5208a971619b891775a11845819c79e987c6873",
+          "bytes": 4888576,
+          "name": "NewModCompiler.exe"
+        },
+        {
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "bytes": 201,
+          "name": "NewModCompiler.exe.config"
+        },
+        {
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "bytes": 99328,
+          "name": "antlr.runtime.dll"
+        }
+      ],
+      "buildReceiptSha256": "bbfa005be4db4e088b3cda361e86a23a6c587feb4574e21bb18dd9b59e561d9f"
+    }
+  ],
+  "verification": {
+    "archiveIdentityVerified": true,
+    "twoZipMemberSetsExactlyThreeFiles": true,
+    "allSixRuntimeFileHashesVerifiedAgainstProductionBuilds": true,
+    "commonProductionExeHashesMatch": true,
+    "commonReceiptMatchesSeparateArtifact": true
+  },
+  "passedScopes": [
+    "deployment",
+    "core",
+    "cli",
+    "backend-parallel",
+    "build-cache",
+    "input-roots",
+    "cache-payloads",
+    "session-cache",
+    "sdk",
+    "big",
+    "texture",
+    "upheaval",
+    "three-file-zip-deployment",
+    "core-original-bab-oracles",
+    "common-formats-and-texture-cli"
+  ],
+  "counts": {
+    "commonCasesPerConfiguration": 31,
+    "commonAssertionsPerConfiguration": 532,
+    "textureCliCases": 12,
+    "backendParallelCases": 64,
+    "upheavalSamples": 22
+  },
+  "textureOriginalDifferential": {
+    "successesPerConfiguration": 6,
+    "rejectionCasesPerConfiguration": 3,
+    "versionChangedFrom": 4202,
+    "versionChangedTo": 4300,
+    "rawBuffersCustomDataAndErrorsIdenticalAfterVersionHeaderAlignment": true,
+    "transcripts": [
+      {
+        "path": "texture/original.txt.gz",
+        "bytes": 4194094,
+        "sha256": "6a3b60d58a08baead972c8a567e3f5797c7e8281365fa54081eb25042b6892ce",
+        "gzipSha256": "c30ea97c14f92550920a40adcc86c5fd5c25718e9165d3f99adcf9a820068b23",
+        "artifactPaths": [
+          "evidence/refactor/core-lifecycle-texture/41180859852-1/original.txt"
+        ]
+      },
+      {
+        "path": "texture/source-debug-release.txt.gz",
+        "bytes": 4194094,
+        "sha256": "810fe07771921a98035aa4196918eddc5f9cc9cdaec1d8616f10b680f500fc8e",
+        "gzipSha256": "e62612ade5b4028aef6523994554c30590f1d4b040a88d0078c304e3ca7773b4",
+        "artifactPaths": [
+          "evidence/refactor/core-lifecycle-texture/41180859852-1/Debug/source.txt",
+          "evidence/refactor/core-lifecycle-texture/41180859852-1/Release/source.txt"
+        ]
+      }
+    ]
+  },
+  "originalSdkIdentityAlignment": "Original codec/AssetBuffer output retained; test-only original oracle overrides only Version and ProcessingHash to match deliberate source cache invalidation.",
+  "limits": [
+    "BC1/DXT1 and DXT1A use the new managed codec; common tests validate decoded pixels and complete DDS layout, not legacy compressed byte identity.",
+    "S3 DXT3/5 and common-image support are validated within recorded fixtures and unchanged mymod/Upheaval scope, not every legacy texture option or input profile.",
+    "No game runtime/playback acceptance; no general speed claim from the 22 Upheaval same-VM samples."
+  ],
+  "inventory": {
+    "path": "full-file-inventory.json",
+    "sha256": "e97a890faa04d8a3404028e9658c19112e4338a411e0173e6cf4f0cb66c6e989",
+    "archivedFiles": 85
+  },
+  "skippedWorkflowSteps": [
+    "Download and strictly verify accepted historical CLI runtimes",
+    "Complete shared-helper XML route smoke",
+    "All 63 shared-helper XML original differential matrices",
+    "Complete GameObject original byte and tokenizer matrices",
+    "Complete Weapon original byte and tokenizer matrices"
+  ]
+}

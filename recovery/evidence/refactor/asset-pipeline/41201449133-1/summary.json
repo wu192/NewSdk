@@ -1,0 +1,96 @@
+{
+  "sourceCommit": "408458b82df20b0a119ab6c45ebf7f55ec1fe712",
+  "runId": "41201449133",
+  "runAttempt": 1,
+  "status": "failed",
+  "artifactId": 13042503863,
+  "archiveSha256": "2d173b8128192362383246d0744a48596e41eba8e047124aededf85830a901aa",
+  "independentFailures": [
+    {
+      "kind": "test-contract",
+      "fixture": "CompilerXmlBackendBatch Debug/Release",
+      "message": "Finalized metadata input was unnecessarily copied: AttributeModifier",
+      "fix": "Assert private declaration/document view with shared finalized Node/Handle/references; byte assertions unchanged"
+    },
+    {
+      "kind": "production",
+      "fixture": "CompilerCoreLifecycle Debug/Release SaveFailureCase",
+      "message": "Core traversal frames leaked",
+      "owner": "lifecycle"
+    },
+    {
+      "kind": "production",
+      "fixture": "Release CompilerApplicationBuild; medium jobs1 hot-cache; parallel jobs4; session-cache cold; BIG",
+      "message": "Document has pending work without an executable dependency.",
+      "owner": "scheduler"
+    },
+    {
+      "kind": "production-metrics",
+      "fixture": "TestCompilerPerformance cold detailed",
+      "message": "Missing cold detail phases: ['core.asset.commit']",
+      "owner": "root/binary_io"
+    }
+  ],
+  "runtime": {
+    "Debug": {
+      "sourceCommit": "408458b82df20b0a119ab6c45ebf7f55ec1fe712",
+      "files": {
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+        "NewModCompiler.exe": "b75ef598f15283602d10758a19311245096302d15de5c8bc939076a7dcaa76ce",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+      },
+      "buildReceiptMatched": true
+    },
+    "Release": {
+      "sourceCommit": "408458b82df20b0a119ab6c45ebf7f55ec1fe712",
+      "files": {
+        "antlr.runtime.dll": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+        "NewModCompiler.exe": "4d3da33bea21ebe6e6e6043e135488c8740a459efeacf0250c2afa84bb3f2b75",
+        "NewModCompiler.exe.config": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+      },
+      "buildReceiptMatched": true
+    }
+  },
+  "fixtureResults": {
+    "Debug": {
+      "CompilerApplicationBuild": true,
+      "CompilerBackendLifecycle": true,
+      "CompilerCacheContent": true,
+      "CompilerCoreLifecycle": false,
+      "CompilerCorePaths": true,
+      "CompilerInputRoots": true,
+      "CompilerPreparedBackend": true,
+      "CompilerResourceLifecycle": true,
+      "CompilerStableSort": true,
+      "CompilerStateLifecycle": true,
+      "CompilerUnicodeSettings": true
+    },
+    "Release": {
+      "CompilerApplicationBuild": false,
+      "CompilerBackendLifecycle": true,
+      "CompilerCacheContent": true,
+      "CompilerCoreLifecycle": false,
+      "CompilerCorePaths": true,
+      "CompilerInputRoots": true,
+      "CompilerPreparedBackend": true,
+      "CompilerResourceLifecycle": true,
+      "CompilerStableSort": true,
+      "CompilerStateLifecycle": true,
+      "CompilerUnicodeSettings": true
+    }
+  },
+  "passedGroups": [
+    "core-cli",
+    "build-cache",
+    "input-roots",
+    "cache-payloads",
+    "core-lifecycle-texture"
+  ],
+  "notReached": [
+    "complete-mymod-original-SDK",
+    "final-three-file-packages",
+    "full-Upheaval-22",
+    "paired-old-new-throughput",
+    "DeferredVersionCacheCase (SaveFailureCase failed earlier)"
+  ]
+}

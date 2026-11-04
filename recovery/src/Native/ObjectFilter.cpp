@@ -341,8 +341,7 @@ void MarshalObjectFilter(const ObjectFilterInput& input, ObjectFilter* object, R
     const auto& attrs = input.attributes;
     for (const auto& item : attrs) {
         const auto& name = item.first;
-        if (name != "id" && name != "Rule" && name != "Relationship" && name != "Alignment" && name != "Include" && name != "Exclude" && name != "StatusBitFlags" && name != "StatusBitFlagsExclude")
-            throw std::invalid_argument("Unsupported ObjectFilter attribute: "+name);
+
     }
     auto text = [&](const char* name, const char* fallback) { auto found = attrs.find(name); return found == attrs.end() ? std::string(fallback) : found->second; };
     if (attrs.count("id")) object->id = HashAssetId(text("id", ""));

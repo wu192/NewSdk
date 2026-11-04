@@ -32,6 +32,7 @@
 - [GameScriptList完整XmlCompiler组件](XML_GAME_SCRIPTS.md)
 - [Health bar component recovery](XML_HEALTHBARS.md)
 - [Keyboard mapping asset group](XML_HOTKEYMAPS.md)
+- [Joypad 11 类独立资产与按钮 Data 编译](XML_JOYPAD.md)
 - [Localization, font descriptions and credits](XML_LOCALIZATION.md)
 - [XmlCompiler LocomotorTemplate](XML_LOCOMOTOR.md)
 - [MapMetaData完整XmlCompiler组件](XML_MAP_METADATA.md)

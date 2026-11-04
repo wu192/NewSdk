@@ -1,0 +1,11 @@
+{
+  "schemaCompiled": true,
+  "originalInputValidBefore": true,
+  "requiredAttributeRejectedAfter": true,
+  "errors": [
+    "SDK/Mods/mymod/Data/RecoveryArmorProbe.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element '{uri:ea.com:eala:asset}ArmorTemplate': The attribute 'DamageScalar' is required but missing.",
+    "SDK/Mods/mymod/Data/RecoveryArmorProbe.xml:14:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element '{uri:ea.com:eala:asset}ArmorTemplate': The attribute 'DamageScalar' is required but missing."
+  ],
+  "sourceCommit": "ecd2bf1dc7d9448c1b7fd349910b9697aabcb3bf",
+  "validator": "lxml 6.1.1, Linux source preflight; separate Windows production evidence is in final summary"
+}

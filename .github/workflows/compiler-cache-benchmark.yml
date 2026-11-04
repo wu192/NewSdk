@@ -1,0 +1,143 @@
+name: Bounded legacy compiler cache benchmark
+on:
+  push:
+    branches: [recovery/legacy-sdk-cache, compiler-main]
+    paths:
+      - '.github/workflows/compiler-cache-benchmark.yml'
+      - 'recovery/scripts/BenchmarkCompilerCache.py'
+      - 'recovery/scripts/PrepareCompilerCacheBenchmark.py'
+      - 'recovery/tests/test_cache_benchmark.py'
+      - 'recovery/tests/test_prepare_cache_benchmark.py'
+  workflow_dispatch:
+    inputs:
+      candidate_run_id:
+        description: 'Optional successful lifecycle run for same-VM baseline/candidate pairing'
+        required: false
+        type: string
+      candidate_source:
+        description: 'Full production source SHA from the paired candidate run'
+        required: false
+        type: string
+      measurement_mode:
+        description: 'Cold/hot throughput, bounded synthetic edits, or complete Upheaval large edits'
+        required: false
+        type: choice
+        options: [throughput, incremental, upheaval-edits]
+        default: throughput
+      edit_group:
+        description: 'Complete Upheaval edits: all groups, or one independent group for a targeted run'
+        required: false
+        type: choice
+        options: [all, A, B]
+        default: all
+      armor_partitions:
+        description: 'Additional reachable Armor partitions for paired mode (0 is untouched full Upheaval)'
+        required: false
+        type: choice
+        options: ['0', '1', '2', '4', '6', '8']
+        default: '0'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: cache-benchmark-${{ github.ref }}-${{ github.sha }}-${{ inputs.candidate_run_id }}-${{ inputs.armor_partitions }}-${{ inputs.measurement_mode }}-${{ inputs.edit_group }}
+  cancel-in-progress: false
+jobs:
+  paired:
+    if: github.event_name == 'workflow_dispatch' && inputs.candidate_run_id != ''
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario_group: ${{ fromJSON(inputs.measurement_mode == 'upheaval-edits' && (inputs.edit_group == 'A' && '["A"]' || inputs.edit_group == 'B' && '["B"]' || '["A","B"]') || '["single"]') }}
+    uses: ./.github/workflows/compiler-cache-paired.yml
+    with:
+      candidate_run_id: ${{ inputs.candidate_run_id }}
+      candidate_source: ${{ inputs.candidate_source }}
+      armor_partitions: ${{ inputs.armor_partitions }}
+      measurement_mode: ${{ inputs.measurement_mode }}
+      scenario_group: ${{ matrix.scenario_group }}
+  benchmark:
+    if: (github.event_name == 'workflow_dispatch' && inputs.candidate_run_id == '') || contains(github.event.head_commit.message, '[cache-benchmark]')
+    runs-on: windows-2022
+    timeout-minutes: 8
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Fast benchmark correctness checks
+        shell: pwsh
+        run: |
+          python -m unittest discover -s recovery/tests -p '*cache_benchmark.py' -v
+          if($LASTEXITCODE -ne 0){throw 'Benchmark preflight failed'}
+      - name: Verify and stage accepted Release and bounded workloads
+        timeout-minutes: 2
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python recovery/scripts/PrepareCompilerCacheBenchmark.py --repo . --candidate-commit $env:GITHUB_SHA --output "$env:RUNNER_TEMP/cb"
+          if($LASTEXITCODE -ne 0){throw 'Accepted benchmark runtime preparation failed'}
+      - name: Run six cache modes with strict process and total budgets
+        timeout-minutes: 4
+        shell: pwsh
+        run: |
+          $out="recovery/evidence/refactor/cache-benchmark/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+          python recovery/scripts/BenchmarkCompilerCache.py --preparation "$env:RUNNER_TEMP/cb/preparation.json" --sdk-root "$PWD/SDK" --output $out --timeout-seconds 30 --budget-seconds 180 --hot-runs 2
+          $benchmarkExit=$LASTEXITCODE
+          if(Test-Path $out){Copy-Item "$env:RUNNER_TEMP/cb/preparation.json" "$out/preparation.json"}
+          if(Test-Path "$out/benchmark.md"){Get-Content "$out/benchmark.md"|Add-Content $env:GITHUB_STEP_SUMMARY}
+          if($benchmarkExit -ne 0){throw 'Benchmark failed or exhausted its time budget; partial evidence retained'}
+      - name: Summarize compiler-cache-benchmark reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/preparation.json
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/benchmark.json
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/benchmark.md
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/summary.csv
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/request.json
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/report.json
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-cache-benchmark reports"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compiler-cache-benchmark-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/preparation.json
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/benchmark.json
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/benchmark.md
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/summary.csv
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/request.json
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/report.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-cache-benchmark failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stdout.log
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stderr.log
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/stdout.log
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/stderr.log
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-cache-benchmark failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: compiler-cache-benchmark-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stdout.log
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/doctor-stderr.log
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/stdout.log
+            recovery/evidence/refactor/cache-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/*/stderr.log
+          retention-days: 1
+          if-no-files-found: warn

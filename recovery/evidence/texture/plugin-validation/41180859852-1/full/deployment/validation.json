@@ -1,0 +1,62 @@
+{
+  "runId": "41180859852",
+  "sourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "scope": "P4 clean unified production deployment and complete built-in route metadata; integrated backend environment rejection only; not component differential or successful MOD compilation",
+  "schemaVersion": 1,
+  "status": "passed",
+  "modes": [
+    {
+      "componentExecution": "test-only host using identical production inputs",
+      "configuration": "Debug",
+      "builtinPluginCount": 7,
+      "componentDifferentialPassed": false,
+      "backendIntegrated": true,
+      "builtinRouteCount": 299,
+      "typeInventoryVerified": true,
+      "exeSha256": "f5963684c81c3168975c608bd0194cd5ef0f2379b48e6e70453b69e9836dff01",
+      "fakeSdkRejected": true,
+      "passed": true,
+      "doctorExit": 3,
+      "exactResourcesVerified": true,
+      "validationHostSha256": "8a21104e0a98ed0176b24fdb68e3cb9e62581bd652243777f083d26ff484eaf6",
+      "moduleInputsQuarantined": true,
+      "routeMetadataVerified": true,
+      "runtimeFiles": [
+        "NewModCompiler.exe",
+        "NewModCompiler.exe.config",
+        "antlr.runtime.dll"
+      ],
+      "productContainsTests": false,
+      "planExit": 0,
+      "modCompilationValidated": false,
+      "buildExit": 3
+    },
+    {
+      "componentExecution": "test-only host using identical production inputs",
+      "configuration": "Release",
+      "builtinPluginCount": 7,
+      "componentDifferentialPassed": false,
+      "backendIntegrated": true,
+      "builtinRouteCount": 299,
+      "typeInventoryVerified": true,
+      "exeSha256": "801d5732fbff8ffd3bf5110db5208a971619b891775a11845819c79e987c6873",
+      "fakeSdkRejected": true,
+      "passed": true,
+      "doctorExit": 3,
+      "exactResourcesVerified": true,
+      "validationHostSha256": "3373a6c8a1e55971f270f0b34ee4b6380cf4ed42cf1229930623878525e6bd97",
+      "moduleInputsQuarantined": true,
+      "routeMetadataVerified": true,
+      "runtimeFiles": [
+        "NewModCompiler.exe",
+        "NewModCompiler.exe.config",
+        "antlr.runtime.dll"
+      ],
+      "productContainsTests": false,
+      "planExit": 0,
+      "modCompilationValidated": false,
+      "buildExit": 3
+    }
+  ],
+  "runAttempt": "1"
+}

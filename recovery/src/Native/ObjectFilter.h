@@ -1,10 +1,11 @@
 #pragma once
+#include "AttributeMap.h"
 #include "Relocation.h"
 #include <map>
 #include <string>
 namespace Recovered { namespace Native {
 struct ObjectFilterInput {
-    std::map<std::string, std::string> attributes;
+    AttributeMap attributes;
     std::vector<std::string> includeThings, excludeThings;
 };
 struct ObjectFilter {

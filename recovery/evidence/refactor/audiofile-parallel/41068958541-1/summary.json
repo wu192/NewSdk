@@ -1,0 +1,403 @@
+{
+  "sourceCommit": "cc10391be67dda57c7efa7fc06256b99e9372d9a",
+  "binarySourceCommit": "cc10391be67dda57c7efa7fc06256b99e9372d9a",
+  "testSourceCommit": "cc10391be67dda57c7efa7fc06256b99e9372d9a",
+  "runId": "41068958541",
+  "runAttempt": 1,
+  "status": "passed",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41068958541",
+  "artifact": {
+    "id": 12985656362,
+    "bytes": 167579889,
+    "sha256": "13464d2e0bb1207538dd883fb86e3774f1ddcb0671901245a27970d9edf87adb",
+    "downloadedAndRehashed": true,
+    "url": "https://github.com/wu162/NewSdk/actions/runs/41068958541/artifacts/12985656362"
+  },
+  "receipts": [
+    {
+      "path": "evidence/refactor/core-lifecycle-deployment/41068958541-1/validation.json",
+      "bytes": 2506,
+      "sha256": "d707b76519ed24c134c488e0749e16a9327041d0280d72b359900840ca845364",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/core-lifecycle/41068958541-1/validation.json",
+      "bytes": 183208,
+      "sha256": "ed6be39d3b605b195d79c1763d34b76c514eff6ce2a72c4bf1e867b090664eeb",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/core-cli/41068958541-1/validation.json",
+      "bytes": 850784,
+      "sha256": "11a1ea1ec713dc57a6761958f8362135f5b8ff5c4784b65144110726632076fa",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/build-cache/41068958541-1/validation.json",
+      "bytes": 178201,
+      "sha256": "d96c4d510aacfa9faf79563d20176553fb2b61f513aa1bbfb6962829f06a05a6",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/input-roots/41068958541-1/validation.json",
+      "bytes": 38785,
+      "sha256": "127335df89c1eb63ce822eb17c995ddcc2480603f1ef62fafdd5576f760c3fb2",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/cache-payloads/41068958541-1/validation.json",
+      "bytes": 62848,
+      "sha256": "09428eeb37436d4d368e2e141a896a7bba154ad91170f57b650368901b86ffd2",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/session-cache/41068958541-1/validation.json",
+      "bytes": 556258,
+      "sha256": "6dc0a28975c3d859ab1abd1bd6e385fed36437a1e0c6a8083c34a3cc74143d8d",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/big/41068958541-1/validation.json",
+      "bytes": 618527,
+      "sha256": "67abbb2bc411f09832fd5c943383df163bebcd653075f5de28b48b6b6648fdcf",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/sdk-mymod/41068958541-1/validation.json",
+      "bytes": 3081134,
+      "sha256": "79c820eb2f7f95ff37d725e5e6a1eab2754bdbe06531f17c4e12617bc6e82a49",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/backend-parallel/41068958541-1/validation.json",
+      "bytes": 558345,
+      "sha256": "155022ad2cb5fc9f331b0ff3692fb84e82d1fa83530a383bf85afe0fbc4a40c6",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/core-lifecycle/41068958541-1/Debug/CompilerPreparedBackend/result.json",
+      "bytes": 15837,
+      "sha256": "bbcb646ed6b44d9daea611aba7bffab2125d75eb85a80ff90552d6b25225cc2a",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/core-lifecycle/41068958541-1/Release/CompilerPreparedBackend/result.json",
+      "bytes": 15908,
+      "sha256": "db605e29e18b3c2ebb1fa55f8e97bf5965f04892f8f850225d4cb3a9af4fca91",
+      "succeeded": true
+    },
+    {
+      "path": "evidence/refactor/backend-parallel-performance/41068958541-1/measurement.json",
+      "bytes": 332884,
+      "sha256": "810bc2e417a5fce6a2446d65b0929c53dda28d3728eaf56c2013c0c05c2f7584",
+      "succeeded": true
+    },
+    {
+      "path": "artifacts/final-release/41068958541-1/release.json",
+      "bytes": 230892,
+      "sha256": "e74646910fc9ff732595b49123750e2b5b61948d9d48d329aabc861af2a6792c",
+      "succeeded": true
+    }
+  ],
+  "productionMatrix": {
+    "cases": 64,
+    "allPassed": true,
+    "scope": "Current production mixed GameObject/Weapon/Armor/W3X/Texture/XML/APT/Audio, cache/jobs switches, raw output bytes; full MOD and component certification separate",
+    "coldParallelAudioCases": [
+      {
+        "configuration": "Debug",
+        "name": "sc0-bc0-j4",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Debug",
+        "name": "sc0-bc0-jauto",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Debug",
+        "name": "sc0-bc1-j4",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Debug",
+        "name": "sc0-bc1-jauto",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Debug",
+        "name": "sc1-bc0-j4",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Debug",
+        "name": "sc1-bc0-jauto",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Debug",
+        "name": "sc1-bc1-j4",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Debug",
+        "name": "sc1-bc1-jauto",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Release",
+        "name": "sc0-bc0-j4",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Release",
+        "name": "sc0-bc0-jauto",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Release",
+        "name": "sc0-bc1-j4",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Release",
+        "name": "sc0-bc1-jauto",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Release",
+        "name": "sc1-bc0-j4",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Release",
+        "name": "sc1-bc0-jauto",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Release",
+        "name": "sc1-bc1-j4",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      },
+      {
+        "configuration": "Release",
+        "name": "sc1-bc1-jauto",
+        "audioWorkerCalls": 8,
+        "maximumConcurrency": 4
+      }
+    ]
+  },
+  "components": [
+    {
+      "configuration": "Debug",
+      "audioSettings": {
+        "kind": "audio-parallel-settings",
+        "assets": 8,
+        "compressionSettings": [
+          "NONE",
+          "XAS",
+          "EALAYER3",
+          "default"
+        ],
+        "sampleRates": [
+          22050,
+          44100,
+          11025
+        ],
+        "compressionWarnings": 1
+      },
+      "workerCount": 4,
+      "maximumConcurrency": 4
+    },
+    {
+      "configuration": "Release",
+      "audioSettings": {
+        "kind": "audio-parallel-settings",
+        "assets": 8,
+        "compressionSettings": [
+          "NONE",
+          "XAS",
+          "EALAYER3",
+          "default"
+        ],
+        "sampleRates": [
+          22050,
+          44100,
+          11025
+        ],
+        "compressionWarnings": 1
+      },
+      "workerCount": 4,
+      "maximumConcurrency": 4
+    }
+  ],
+  "upheaval": {
+    "samples": 22,
+    "allRawOutputsIdentical": true,
+    "errorsPerSample": 0,
+    "warningsPerSample": 1859,
+    "workload": {
+      "tier": "large",
+      "name": "upheaval-full",
+      "modRoot": "D:\\a\\_temp\\upheaval-parallel\\historical\\SDK\\Mods\\Upheaval",
+      "fullModInputCopy": true,
+      "scope": "Complete untouched historical Upheaval, all auto-discovered base/APT/maps, BIG+SKUDEF and Additional. Success is established only by this run, not older component/SDK evidence.",
+      "dimensions": {
+        "files": 2723,
+        "bytes": 300900885,
+        "xmlAndW3xFiles": 955,
+        "declaredAssetsInInputFiles": 3852
+      },
+      "inputFingerprint": "c41fdfd1d72f340351fba7b2828e92c33a0d63ff562ddc8b9962d2be002497f7",
+      "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+      "sourceTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0"
+    },
+    "comparison": "Actual published bytes compared with filecmp(shallow=False); all report artifact hashes independently checked.",
+    "caution": "One cold sample per jobs/mode; OS page cache uncontrolled. No-cache starts jobs1; defaults reverses order4,1,auto. Do not treat small differences as deterministic regressions.",
+    "boundary": "Process wall; fixture setup, baseline copy and comparison excluded. All samples on one Windows VM, same executable. Off samples compared only with off; detailed samples used for attribution.",
+    "jobs": [
+      {
+        "jobs": "1",
+        "nocacheColdMs": 51266.79830000012,
+        "defaultColdMs": 54012.27719999997,
+        "defaultHotMedianMs": 2211.9077499999094,
+        "modifiedMs": 2597.4317000000156,
+        "maximumConcurrency": 1,
+        "audioCalls": 1289,
+        "fallbackByReason": {
+          "resource-capacity": 3354
+        },
+        "sampledPeakPrivateBytes": 237375488
+      },
+      {
+        "jobs": "4",
+        "nocacheColdMs": 33814.68739999991,
+        "defaultColdMs": 35691.57410000003,
+        "defaultHotMedianMs": 2177.6133500000014,
+        "modifiedMs": 2545.2236999999514,
+        "maximumConcurrency": 4,
+        "audioCalls": 1289,
+        "fallbackByReason": {
+          "uncertified-plugin": 117,
+          "preparation-budget-exceeded": 10
+        },
+        "sampledPeakPrivateBytes": 266690560
+      },
+      {
+        "jobs": "auto",
+        "nocacheColdMs": 34027.46489999982,
+        "defaultColdMs": 35800.43499999988,
+        "defaultHotMedianMs": 2251.775899999984,
+        "modifiedMs": 2577.7234000001954,
+        "maximumConcurrency": 4,
+        "audioCalls": 1289,
+        "fallbackByReason": {
+          "uncertified-plugin": 117,
+          "preparation-budget-exceeded": 10
+        },
+        "sampledPeakPrivateBytes": 266596352
+      }
+    ]
+  },
+  "runtimeFiles": [
+    {
+      "configuration": "Debug",
+      "zip": "artifacts/final-release/41068958541-1/NewModCompiler-Win32-Debug.zip",
+      "zipSha256": "a1d096385dee1e73b1d9f23d799dc92d1ac4da9cf91b6e4e360bbd2ba123c66a",
+      "locallyRehashed": true,
+      "files": [
+        {
+          "sha256": "74b4b608b1efdc4a368b64615d049536e316103c5167c33ef3387b3e5a1afc86",
+          "name": "NewModCompiler.exe",
+          "bytes": 6246400
+        },
+        {
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "name": "NewModCompiler.exe.config",
+          "bytes": 201
+        },
+        {
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "name": "antlr.runtime.dll",
+          "bytes": 99328
+        },
+        {
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "bytes": 917504
+        },
+        {
+          "sha256": "fc56825f4fa623bc50a12e1f691cedb2e563ae140c375feb52b6753d26aa1358",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "bytes": 14326
+        }
+      ]
+    },
+    {
+      "configuration": "Release",
+      "zip": "artifacts/final-release/41068958541-1/NewModCompiler-Win32-Release.zip",
+      "zipSha256": "836c48e1f0b20ed1faea6a9542173b4a9dbf7c8ddb220cd68dae1ec97964fb68",
+      "locallyRehashed": true,
+      "files": [
+        {
+          "sha256": "882fec0b34565230c38347f3cc0c0646a5e36cd4ffb31ac5056a01d2752e9ac0",
+          "name": "NewModCompiler.exe",
+          "bytes": 3887104
+        },
+        {
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+          "name": "NewModCompiler.exe.config",
+          "bytes": 201
+        },
+        {
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+          "name": "antlr.runtime.dll",
+          "bytes": 99328
+        },
+        {
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll",
+          "bytes": 917504
+        },
+        {
+          "sha256": "6fb1529654f1b9463dadbf8c0aaed3a5a771a81a76457b68776e71b98d1aae2e",
+          "name": "BinaryAssetBuilder.TextureCompiler.dll.patch.json",
+          "bytes": 14326
+        }
+      ]
+    }
+  ],
+  "verifiedGitTrees": {
+    "recovery/src": "ce0711ac237a410b90a679ce5408eb70b8d92512",
+    "recovery/build": "f3af80204a3569f5b955ca3eeb2f7445a8277dd7",
+    "recovery/tests": "b29f8dde42d53548496bd3fe38b8af0061d864f1",
+    "recovery/scripts": "1664dcdb1fee401a7253f782efcc81d8d5d58659",
+    "SDK/Schemas": "62e1c5684ee0ea4407430f0a343a37431be6c03c",
+    "SDK/tools": "10a9b868c74db96976c9c306dc587ec5de62965f"
+  },
+  "limits": "Same-candidate jobs comparison, not a before/after throughput claim. Four-times file charge is a scheduling heuristic, not a hard peak-memory bound. No new game runtime or game-internal validation.",
+  "integration": {
+    "targetBase": "d85b8c8c0ddc688ea3614ab70a3439a7c41b7eac",
+    "includesMergedPr": 28,
+    "conflictsResolved": [
+      "recovery/RESUME.md",
+      "recovery/tests/CompilerPreparedBackend.cs"
+    ],
+    "preservesCleanup": true
+  }
+}

@@ -1,0 +1,17 @@
+[error] CORE_COMPILE_FAILED BinaryAssetBuilder.BinaryAssetBuilderException: The texture file referenced from the XML does not exist on disk!
+   at Recovered.Compiler.Texture.Plugin.CompileTexture(InstanceDeclaration declaration, Boolean onDemand)
+   at Recovered.Compiler.Texture.Plugin.ProcessInstance(InstanceDeclaration declaration)
+   at NewModCompiler.Application.BuiltinCompilers.LazyPlugin.ProcessInstance(InstanceDeclaration instance)
+   at NewModCompiler.Application.ParallelBackendScheduler.<>c__DisplayClass30_0.<ExecuteCompatibility>b__0()
+   at NewModCompiler.Application.ParallelBackendMetrics.Execute(String type, Func`1 execute, Int64& elapsed)
+   at NewModCompiler.Application.ParallelBackendScheduler.ExecuteCompatibility(IAssetBuilderPlugin plugin, InstanceDeclaration declaration)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.CompileInstance(BinaryAsset asset, InstanceDeclaration declaration)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.<>c__DisplayClass116_2.<ProcessInstances>b__2()
+   at NewModCompiler.Application.ParallelBackendScheduler.Compatibility(InstanceDeclaration declaration, Action compile, Action verify, Action`1 commit, BinaryAsset asset, String reason)
+   at NewModCompiler.Application.ParallelBackendScheduler.Enqueue(BinaryAsset asset, InstanceDeclaration declaration, IAssetBuilderPlugin plugin, Action compileCompatibility, Action verify, Action`1 commit)
+   at BinaryAssetBuilder.Core.AssetDeclarationDocument.ProcessInstances(OutputManager outputManager, Int32& instancesCompiledCount, Int32& instancesCopiedFromCacheCount)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentContents(AssetDeclarationDocument document, OutputManager outputManager, ProcessOptions op, Boolean generateOutput)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocumentInternal(String logicalPath, String sourcePath, OutputManager outputManager, ProcessOptions op)
+   at BinaryAssetBuilder.Core.DocumentProcessor.ProcessDocument(String fileName, Boolean generateOutput, Boolean __outputStringHashes, Boolean& success)
+   at NewModCompiler.Application.CoreStreamCompiler.Compile(StreamContext context, CancellationToken cancellation)
+[error] BuildFinished Build failed

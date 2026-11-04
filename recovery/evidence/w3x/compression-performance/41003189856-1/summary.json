@@ -1,0 +1,140 @@
+{
+  "sourceCommit": "894ef186afaa8a2d5dbf377cdfbeeddb9928aa31",
+  "baselineCommit": "436115db594c405c1650d27754594454eed54bdc",
+  "workingTreeDirty": false,
+  "runId": "41003189856",
+  "runAttempt": "1",
+  "succeeded": true,
+  "compiler": "cl",
+  "scope": "native compression; synthetic complete output comparison, not SDK acceptance",
+  "warmups": 1,
+  "measuredPairs": 3,
+  "scenarios": {
+    "timecoded-scalar-threshold-16384": {
+      "baselineMs": 180.624,
+      "optimizedMs": 0.1729,
+      "speedup": 1044.6732215153268,
+      "samplesMs": {
+        "baseline": [
+          180.624,
+          193.436,
+          180.172
+        ],
+        "optimized": [
+          0.1727,
+          0.3662,
+          0.1729
+        ]
+      }
+    },
+    "timecoded-scalar-forced-8192": {
+      "baselineMs": 139.4,
+      "optimizedMs": 0.9821,
+      "speedup": 141.9407392322574,
+      "samplesMs": {
+        "baseline": [
+          139.4,
+          148.498,
+          138.584
+        ],
+        "optimized": [
+          0.9929,
+          0.9821,
+          0.9781
+        ]
+      }
+    },
+    "timecoded-quaternion-threshold-8192": {
+      "baselineMs": 45.477,
+      "optimizedMs": 0.1664,
+      "speedup": 273.2992788461538,
+      "samplesMs": {
+        "baseline": [
+          45.6473,
+          45.477,
+          45.453
+        ],
+        "optimized": [
+          0.1686,
+          0.163,
+          0.1664
+        ]
+      }
+    },
+    "timecoded-quaternion-forced-2048": {
+      "baselineMs": 4.9582,
+      "optimizedMs": 0.556,
+      "speedup": 8.917625899280575,
+      "samplesMs": {
+        "baseline": [
+          4.9582,
+          4.992,
+          4.9415
+        ],
+        "optimized": [
+          0.556,
+          0.5506,
+          0.5586
+        ]
+      }
+    },
+    "delta-constant-16384x4": {
+      "baselineMs": 198.588,
+      "optimizedMs": 2.0118,
+      "speedup": 98.71160155084998,
+      "samplesMs": {
+        "baseline": [
+          195.585,
+          199.883,
+          198.588
+        ],
+        "optimized": [
+          1.9857,
+          2.0118,
+          2.0125
+        ]
+      }
+    },
+    "delta-smooth-8192x4": {
+      "baselineMs": 178.845,
+      "optimizedMs": 96.5185,
+      "speedup": 1.852960831343214,
+      "samplesMs": {
+        "baseline": [
+          177.254,
+          178.845,
+          179.128
+        ],
+        "optimized": [
+          95.5975,
+          96.5185,
+          96.7979
+        ]
+      }
+    },
+    "delta-random-4096x4": {
+      "baselineMs": 232.668,
+      "optimizedMs": 118.763,
+      "speedup": 1.9590950043363673,
+      "samplesMs": {
+        "baseline": [
+          231.379,
+          232.668,
+          234.872
+        ],
+        "optimized": [
+          120.428,
+          118.763,
+          117.835
+        ]
+      }
+    }
+  },
+  "matrixSha256": "8a18d1dc927a73b00d308487f3629ca07e323f93c0bf7d23551c6af59a63715f",
+  "longOutputSha256": {
+    "-1": "c534f81461b896305cf87b95882bf09d232505eb640edbf06d3ebfe6fccbcbfe",
+    "0": "c534f81461b896305cf87b95882bf09d232505eb640edbf06d3ebfe6fccbcbfe",
+    "1": "c534f81461b896305cf87b95882bf09d232505eb640edbf06d3ebfe6fccbcbfe",
+    "2": "c534f81461b896305cf87b95882bf09d232505eb640edbf06d3ebfe6fccbcbfe"
+  }
+}

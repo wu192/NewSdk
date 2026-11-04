@@ -1,0 +1,92 @@
+name: BIG over 2 GiB quick regression
+on:
+  push:
+    branches: [fix/big-streaming-over-2gb]
+    paths:
+      - '.github/workflows/big-large.yml'
+      - 'recovery/src/App/**'
+      - 'recovery/tests/App/**'
+      - 'recovery/tests/large-big/**'
+      - 'recovery/scripts/BuildApp.ps1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: windows-2022
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            recovery/src/App
+            recovery/tests/App
+            recovery/tests/large-big
+            recovery/scripts
+            recovery/preparation/base-postprocess
+            SDK/tools
+      - name: App contracts and real x86 resolver to BIG above 2 GiB
+        shell: pwsh
+        run: |
+          $vs=& "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
+          $csc=Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe'
+          $refs=Join-Path ${env:ProgramFiles(x86)} 'Reference Assemblies/Microsoft/Framework/.NETFramework/v4.8'
+          $sources=@(Get-ChildItem recovery/src/App -Recurse -Filter '*.cs' | Sort-Object FullName | ForEach-Object FullName)
+          $references=@('mscorlib','System','System.Core','System.Configuration','System.Web.Extensions','System.Xml') | ForEach-Object { '/reference:'+(Join-Path $refs "$_.dll") }
+          foreach($mode in @('Debug','Release')) {
+            $out="recovery/artifacts/large-big/$mode"
+            ./recovery/scripts/BuildApp.ps1 -Tests -Configuration $mode -OutputDirectory $out
+            & "$out/NewModCompiler.AppTests.exe" "$env:RUNNER_TEMP/large-big-app-$mode" *> "$out/contracts.log"
+            if($LASTEXITCODE -ne 0){Get-Content "$out/contracts.log" -Tail 100;throw "$mode App contracts failed"}
+            Get-Content "$out/contracts.log" -Tail 8
+            $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
+            & $csc /nologo /noconfig /nostdlib+ /target:exe /platform:x86 /langversion:7.3 $opt /main:NewModCompiler.Tests.LargeBigTests "/out:$out/LargeBigTests.exe" @references @sources recovery/tests/large-big/LargeBigTests.cs
+            if($LASTEXITCODE -ne 0){throw "$mode large BIG host compilation failed"}
+            & "$out/LargeBigTests.exe" "$env:RUNNER_TEMP/large-big-$mode" *> "$out/large-big.log"
+            Get-Content "$out/large-big.log"
+            if($LASTEXITCODE -ne 0){throw "$mode over-2GiB regression failed"}
+          }
+      - name: Original resolver raw bytes differential
+        shell: pwsh
+        run: |
+          $vs=& "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
+          $csc=Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe'
+          foreach($mode in @('Debug','Release')) {
+            $out="recovery/artifacts/large-big/$mode"
+            $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
+            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 /r:System.Web.Extensions.dll $opt "/out:$out/BasePostprocessControl.exe" recovery/src/App/Application/HashFix.cs recovery/src/App/Application/ModAssetResolver.cs recovery/src/App/Application/WorldbuilderPayload.cs recovery/src/App/Application/LoDStreamBuilder.cs recovery/preparation/base-postprocess/BasePostprocessControl.cs
+            if($LASTEXITCODE -ne 0){throw "$mode original resolver host compilation failed"}
+            python recovery/preparation/base-postprocess/TestCompilerBasePostprocess.py --tools SDK/tools --candidate "$out/BasePostprocessControl.exe" --output "$out/original-differential" --hashfix-resolver-only
+            if($LASTEXITCODE -ne 0){throw "$mode original resolver differential failed"}
+          }
+      - name: Summarize CI evidence
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/large-big/*/*.log
+            recovery/artifacts/large-big/*/original-differential/**/*.json
+            recovery/artifacts/large-big/*/original-differential/**/*.log
+            recovery/artifacts/large-big/*/original-differential/**/*.md
+            recovery/artifacts/large-big/*/original-differential/**/*.csv
+            recovery/artifacts/large-big/*/original-differential/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'large-big-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/large-big/*/*.log
+            recovery/artifacts/large-big/*/original-differential/**/*.json
+            recovery/artifacts/large-big/*/original-differential/**/*.log
+            recovery/artifacts/large-big/*/original-differential/**/*.md
+            recovery/artifacts/large-big/*/original-differential/**/*.csv
+            recovery/artifacts/large-big/*/original-differential/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

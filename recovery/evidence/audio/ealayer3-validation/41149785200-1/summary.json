@@ -1,0 +1,211 @@
+{
+  "sourceCommit": "4ddac274b859be7fdb537df8d21d1e25e7ef8e06",
+  "binarySourceCommit": "4ddac274b859be7fdb537df8d21d1e25e7ef8e06",
+  "runId": 41149785200,
+  "runAttempt": 1,
+  "workflowUrl": "https://github.com/wu162/NewSdk/actions/runs/41149785200",
+  "passed": true,
+  "gamePlaybackTested": false,
+  "archives": [
+    {
+      "artifactId": 13022203398,
+      "name": "ealayer3-41149785200",
+      "bytes": 28809600,
+      "sha256": "211f8ed91dfab527e71a40126949833186468eb5ed056b1bfbff9b7bc3f73c90",
+      "downloadedAndVerified": true
+    },
+    {
+      "artifactId": 13023270153,
+      "name": "ealayer3-integration-41149785200",
+      "bytes": 31643473,
+      "sha256": "d49344b89b67f919b1c6e459afbccdc69e256bd635a9b241256e0eaa82745931",
+      "downloadedAndVerified": true
+    }
+  ],
+  "receipts": [
+    {
+      "file": "targeted.json",
+      "artifactEntry": "ealayer3/validation.json",
+      "sha256": "12670a900f201ad33aafd7d6bdf190726f281f959deaafbf9df10f8509c0b0fe"
+    },
+    {
+      "file": "ra3-plugin-v2-reference.json",
+      "artifactEntry": "ealayer3/oracle/comparison.json",
+      "sha256": "87c273ec6b02e8b83f2314cfcf948207f6361a33171082a06786392540c9ecc2"
+    },
+    {
+      "file": "adapted-v1-reference.json",
+      "artifactEntry": "ealayer3/oracle-v1/comparison.json",
+      "sha256": "978fe924fc49c2193d22f9531375ca059b0ad004b88f8d5ceb5215c1c29b5c51"
+    },
+    {
+      "file": "metadata.json",
+      "artifactEntry": "ealayer3/metadata/validation.json",
+      "sha256": "04689fb22e12945494750344a27fe79af679d176f04c8762fc947206148b28a9"
+    },
+    {
+      "file": "legacy-byte-regression.json",
+      "artifactEntry": "plugin-validation/41149785200-1/validation.json",
+      "sha256": "662382f9de0d9fcd486663c2d7a7e27ba16daf55ee8d55ae19576ecf80924719"
+    },
+    {
+      "file": "official-bab.json",
+      "artifactEntry": "evidence/audio/ealayer3-sdk/validation.json",
+      "sha256": "66cbbf50f5d40f894bf2032a87da7f8e8ea38bda46bc8970bfae8a5b8863f30e"
+    },
+    {
+      "file": "production-cli.json",
+      "artifactEntry": "evidence/audio/ealayer3-cli/validation.json",
+      "sha256": "f9043dd819c490cf0e5710fbca4f429631590ba252695e7187ef39b91f014e94"
+    },
+    {
+      "file": "complete-sdk.json",
+      "artifactEntry": "evidence/audio/ealayer3-full-sdk/validation.json",
+      "sha256": "044b134f7a6007ff834f6fcc71b4da5c4a981b5695683ed2a5a52f069c39e848"
+    }
+  ],
+  "binaries": {
+    "Debug": {
+      "exeSha256": "d5b5073dfac88c793e878115a42e3147b9787cdb36207138bf7349e4f13d2984",
+      "runtimeFiles": {
+        "NewModCompiler.exe": {
+          "bytes": 6649344,
+          "sha256": "d5b5073dfac88c793e878115a42e3147b9787cdb36207138bf7349e4f13d2984"
+        },
+        "NewModCompiler.exe.config": {
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        "antlr.runtime.dll": {
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        },
+        "BinaryAssetBuilder.TextureCompiler.dll": {
+          "bytes": 917504,
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+        },
+        "BinaryAssetBuilder.TextureCompiler.dll.patch.json": {
+          "bytes": 14326,
+          "sha256": "f8336d5fb2c9153a1ea65cf518f916704575407e95e12b2d377458f696ae2a79"
+        }
+      }
+    },
+    "Release": {
+      "exeSha256": "762f6d456d2e6001387922e12f10bf936228c60f5c0ac9b70b3e2904497a5eaa",
+      "runtimeFiles": {
+        "NewModCompiler.exe": {
+          "bytes": 4126208,
+          "sha256": "762f6d456d2e6001387922e12f10bf936228c60f5c0ac9b70b3e2904497a5eaa"
+        },
+        "NewModCompiler.exe.config": {
+          "bytes": 201,
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        "antlr.runtime.dll": {
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        },
+        "BinaryAssetBuilder.TextureCompiler.dll": {
+          "bytes": 917504,
+          "sha256": "076509e81077fcd916ef884949caa4d9c1817366ffd5291e49bab44dfd7eae48"
+        },
+        "BinaryAssetBuilder.TextureCompiler.dll.patch.json": {
+          "bytes": 14326,
+          "sha256": "37ef421d188651fc169ee6d8ebfc91cd38c58b20dc1aea69f423f9c691c7acd4"
+        }
+      }
+    }
+  },
+  "scope": "Windows Debug/Release production build; real AudioFile plugin encode/decode and official BAB; exact original legacy formats; production CLI jobs/cache/change; unchanged complete mymod/LoD/BIG/SKUDEF. Public V1 LSF reference limitations are recorded separately, not accepted as signal equivalence.",
+  "candidateDecodedCases": 88,
+  "encodedCases": 176,
+  "legacyByteRecordsPerMode": 521,
+  "officialBabAudioFiles": 44,
+  "cli": [
+    {
+      "name": "jobs1-cold",
+      "compiled": 44,
+      "xmlParse": 1,
+      "peakBackendConcurrency": 1,
+      "customDataFiles": 44,
+      "passed": true
+    },
+    {
+      "name": "jobs4-cold",
+      "compiled": 44,
+      "xmlParse": 1,
+      "peakBackendConcurrency": 4,
+      "customDataFiles": 44,
+      "passed": true
+    },
+    {
+      "name": "jobs4-hot",
+      "compiled": 0,
+      "xmlParse": 0,
+      "peakBackendConcurrency": 0,
+      "customDataFiles": 44,
+      "passed": true
+    },
+    {
+      "name": "modified-audio",
+      "compiled": 1,
+      "xmlParse": 1,
+      "peakBackendConcurrency": 1,
+      "customDataFiles": 44,
+      "passed": true
+    },
+    {
+      "name": "modified-independent",
+      "compiled": 44,
+      "xmlParse": 1,
+      "peakBackendConcurrency": 1,
+      "customDataFiles": 44,
+      "passed": true
+    },
+    {
+      "name": "modified-hot",
+      "compiled": 0,
+      "xmlParse": 0,
+      "peakBackendConcurrency": 0,
+      "customDataFiles": 44,
+      "passed": true
+    }
+  ],
+  "completeSdk": {
+    "passed": true,
+    "inputsUnchanged": true,
+    "originalBaselinePassed": true,
+    "configurations": [
+      {
+        "configuration": "Debug",
+        "looseSucceeded": true,
+        "streamComparisons": 1,
+        "bigSkudefSucceeded": true,
+        "diagnostics": {
+          "error": 0,
+          "warning": 82
+        }
+      },
+      {
+        "configuration": "Release",
+        "looseSucceeded": true,
+        "streamComparisons": 1,
+        "bigSkudefSucceeded": true,
+        "diagnostics": {
+          "error": 0,
+          "warning": 82
+        }
+      }
+    ]
+  },
+  "referenceComparisons": {
+    "unmodifiedRa3V2": {
+      "records": 29,
+      "waveformEquivalenceClaimed": false
+    },
+    "adaptedV1": {
+      "usable": 4,
+      "unusableLsf": 25
+    }
+  }
+}

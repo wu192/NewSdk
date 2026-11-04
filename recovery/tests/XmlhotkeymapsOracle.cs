@@ -55,7 +55,7 @@ class XmlhotkeymapsOracle {
         }catch(Exception e){throw new Exception(label+" platform="+(int)p+" xml="+d.OuterXml,e);}
     }
     static AssetBuffer Test(string label,string xml,TargetPlatform p){return TestDoc(label,Parse(xml),p);}
-    static void Reject(string label,string xml){XmlDocument d=Parse(xml);try{XmlhotkeymapsCompiler.CompileXml(d.DocumentElement,Namespaces(d),false);}catch(NotSupportedException){++rejections;return;}throw new Exception("Expected rejection: "+label);}
+    static void Reject(string label,string xml){XmlDocument d=Parse(xml);try{ PluginSchemaBoundary.Validate(d); XmlhotkeymapsCompiler.CompileXml(d.DocumentElement,Namespaces(d),false);}catch(NotSupportedException){++rejections;return;}throw new Exception("Expected rejection: "+label);}
 
     static string Mapping(string attrs){return "<Map><HotKey "+attrs+"/></Map>";}
     static void Abi(TargetPlatform p) {

@@ -1,0 +1,670 @@
+{
+  "productExeSha256": "69d829e7a00a7125f54dca94917c663ae4dd007fb9d0218f585a4977b23feb81",
+  "entryPoint": "NewModCompiler.Validation.ValidationEntry.Main",
+  "entrySource": {
+    "sha256": "14deeda2825e7dd7f24979b66f2b7d093e6d0873c842ef82de9cfb784a9c8b35",
+    "path": "recovery/tests/CompilerValidationEntry.cpp"
+  },
+  "sourceCommit": "1f0cea03083f2219e43fa35f3dd44df73158310e",
+  "sameProductionObjects": true,
+  "exeSha256": "cc10c41d0eeebbf8afea773bdcbed1a4b9d3800c46ef08265f3dfdfb8518026e",
+  "status": "linked test-only host; runtime validation required",
+  "schemaVersion": 2,
+  "configuration": "Release",
+  "productionExeUnchanged": true,
+  "productionEntryPoint": "NewModCompiler.Hosting.CompilerEntry.Main",
+  "linkRecipeSha256": "352b6ac60c122cf724e2397822f25f672df6eba5345acb92ed202d3eb0e3279f",
+  "runtimeFiles": [
+    {
+      "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68",
+      "name": "NewModCompiler.exe.config"
+    },
+    {
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a",
+      "name": "antlr.runtime.dll"
+    }
+  ],
+  "inputs": [
+    {
+      "kind": "foundation",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\foundation\\Managed.Foundation.netmodule",
+      "sha256": "f1cb9a6499c9db57b2bb97e9ee47da254921140dff1de691600b1d8b66e4b42b"
+    },
+    {
+      "kind": "application",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\Managed.Application.netmodule",
+      "sha256": "a90a56df4fe77ac4d6836e9b818fa24f2592d59b44790c56baf0d4e2e21c2612"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Relocation.obj",
+      "sha256": "8a0eda096bdaabcc2db7f58547672a2b1859cf157ce649c3e9924d90c43ec30d"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_ScalarParsing.obj",
+      "sha256": "4404b80e65f1265516cf92d40f0eb12c0baa50cca90b72fad6785f0d83313fcd"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_DataInitializers.obj",
+      "sha256": "358aed9229379ce88962159933bb2b9579fbd2a845707e49f9cda8dd9fcc2e10"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_ResourceMarshaling.obj",
+      "sha256": "be9bc123c204ea36221747ae81b1eaf744600cfdfe3db260953478e6edc438a2"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_EnumBitset.obj",
+      "sha256": "65f8dd29293d03e6c446010e9abd71eb24335187dc4f5326f3d38f629c157b96"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_ObjectFilter.obj",
+      "sha256": "88558c12a7344a9f41122515557ec40acaaddf60e32d19fd95e79c6d8b2c3459"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_ArmorTemplate.obj",
+      "sha256": "c2026a2ef8174f5c1bbbeeeb9052e36df4da77b02fd5ba20a5378f060fbe75ad"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_WeaponNugget.obj",
+      "sha256": "d2023c12090016c9e0803d8b39def3ee6e2b63578424c3e504def2223d98c423"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_WeaponTemplate.obj",
+      "sha256": "d9ace8ee52b747631305ea9dd2e4bbf6f17415e786898875c981a1a0cfae6690"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_WeaponSlotOrder.obj",
+      "sha256": "20c7381c3e9dde0f9233180510cb27c52ed45397e75194773fac63e5218cb52a"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_GameObject.obj",
+      "sha256": "b1ad212ce1b9341a4669d9ccf6cd8fb5889b06565c580df8f02c228e8cb18651"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlabilitybuttons.obj",
+      "sha256": "48434119e4378d788d8bd7f86a57ac987ad8b07f3a0e88f6dc50b7af54cb4d33"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlai.obj",
+      "sha256": "8a830c7daed0b18a87afc1add2aaa63172eef21232c3629a7ebfbb986d3dd54b"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlaptdata.obj",
+      "sha256": "7bae25282a791ba73defd61115a7ae883cea4985fee3505655aaa0ad89f6211c"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlarmyopening.obj",
+      "sha256": "8319355059a1fb906516318b2f1b467e04b6f5431040ef5dc12a8ba249757d4b"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlassetindexes.obj",
+      "sha256": "4f27b823f749e7f540909b13a57f6cf41afd2077d2ea5f1b06eef8e75bc81d2a"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlattributes.obj",
+      "sha256": "c8ce5b0d7028b05015a47243aea2cfa302bcc2d6eb3474d18ee093e888ccf8ae"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlaudio.obj",
+      "sha256": "32f8d75ed8d8e097dfb18f2f314915c8ac0fa63da2c646b67d2a9e6b8b3a4692"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlbuildeconomy.obj",
+      "sha256": "95633afbfdfc19a6876a273efa7a576142e6a5e0854d220fb4ce987994c92148"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcampaign.obj",
+      "sha256": "d3c4aedf5bab379fbc59540af065103a16a081863eca1cf30c9c84e872352b3f"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlchatcolors.obj",
+      "sha256": "df2cfbd40022798f802d8380e7517eac192b60897e209be1fffd0d2de5df248b"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcommandset.obj",
+      "sha256": "3d7c283c49ec0c416250187359fd4319a3e56b1466167c9099c250a822a4951c"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlconditions.obj",
+      "sha256": "df51d30dd59551d392c09e198ba75a71f0ed16452ea9edd092c083caee229d6d"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlconnections.obj",
+      "sha256": "c16b54579f045531d48df1ec5f4a5bf826c5af163f9b45f9869b946bdc3a6ea8"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlconquercards.obj",
+      "sha256": "a3ae5097b9d7d3dc402ae03af70b1ea125cfe103f220dcf75d4eebad9cbd57ad"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcontent.obj",
+      "sha256": "82e6d5abb0fa881ca5a3f4f02fea0ce306dba29fe42d74568b764aed69348e1a"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlcrowd.obj",
+      "sha256": "2cc75d6d0a15823958b0d9cd07005501a9a858ee362bc2e51ac19a0defe37a1f"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmldamagefx.obj",
+      "sha256": "ab514c8fdbb0cddd0f7a2d552781add0c02a51ded8d27e294f761362f477e1be"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmldynamics.obj",
+      "sha256": "2c768c45e85dd5ce8f0479c7ebd13163baf6f9b182a1ffa8bcdb2e79f57c5d43"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmleffects.obj",
+      "sha256": "8ce42dba8d8457beaf674af9f7292046330174a3fed6fd3e4d39e4184f5e6df7"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmleffectsEnums.obj",
+      "sha256": "84ff527ecb456c030e5ef1f7d1688ba2182fb06680fabc47d97973f0a45361cb"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmleffectsNuggets.obj",
+      "sha256": "005d3e22ad648bdcaadeb7509f920aa180d4681796f4f4bad578ddb1819fe29c"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlemotions.obj",
+      "sha256": "643f6507c1d9ef97d419a75a59a86580eafa6e32367c761f1d3885f6a195cce2"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlenvironment.obj",
+      "sha256": "3e3665d7609416ddfda43cc525f81e6a6935959cfbc2c186c3f0fbdd63a533ea"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlevaachievement.obj",
+      "sha256": "f092b615e959ee6d869a5997632c9412db8d4066e425f244939cccc28a7b7d1a"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlforcefeedback.obj",
+      "sha256": "f97073e352ced867e0627699f5fd158e7eb4d8fe832749824e48647a17c6018d"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlfxparticle.obj",
+      "sha256": "6187fc9909f9e82e90afb0774c66b2e7020eb05755950768e9a07324253f5080"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlgamemap.obj",
+      "sha256": "8ca0d66b89ec40e9b1c38c8093e375b9e8e9d37640057409482f802ce5a0098a"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlgamescripts.obj",
+      "sha256": "b61ad32a4fb7df45d32439e9e80a14ea1770009dc835b544b7904ae498e8ea3b"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlhealthbars.obj",
+      "sha256": "cb8b51d6e7e03cc947fa56f875eae0e55fee56f0481d861396d7d80aacb383dc"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlhotkeymaps.obj",
+      "sha256": "dc492386c979fbc1d5893942b4fe009ede7102fdbc0bc7605ce7e6b0b9c62e53"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmllocalization.obj",
+      "sha256": "11e9b0edd67c6e5763275b256cd0b9cc2d8adc16f025ca4da0e5c8ccf7e7aa83"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmllocomotor.obj",
+      "sha256": "8d71623be78407e3aa4200fcf181ce925a81c739be11881b619c2ceeb585d2bb"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmapmetadata.obj",
+      "sha256": "771f835121b26001cc3de7564919029a54263c50ca0fe7d3f70546eefa021fcb"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmaterialrules.obj",
+      "sha256": "7658b2c0c4e93c39315a242404a687690148da96e421043d1c693bc0aad4de06"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmouse.obj",
+      "sha256": "0558d820084660371b40cdb57361f77898624fc42c2c6c261c198de0a26ee718"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmoviearchive.obj",
+      "sha256": "da670a5a89f0aa91854b543d6d07ae4731c8c5cd81126be13997843eb08c32f7"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlmusicscript.obj",
+      "sha256": "a15e92c6ec46ec3e41c7a6bde0d72ae7e297ff84a7e33f6dcf01a838d34090ff"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlobjectsets.obj",
+      "sha256": "16ea4cdffc0940781c8aa4412df28a824c551febcdf9216be20a443f2050b339"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlpathmusic.obj",
+      "sha256": "d407eb60cf68ee9a261017e0e042dc594ad24b896c5f58a1e35f9758f70dd2fd"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlplayers.obj",
+      "sha256": "468cf13ed3a66094f496517dfffb19a20ea54b6332019cad54c56b6efa3b495f"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlpowers.obj",
+      "sha256": "2c09709d0b83d4f423721242b694194daa8a3e26e2e6c75c4ab6dba0b964e964"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlprogression.obj",
+      "sha256": "72843877ab22b087e29bcaec34fec5e5e2cbc04640639474efcf8249af678b7c"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmlprogressionFont.obj",
+      "sha256": "eac4ae7c3d49f0b98c4848280f3159370f29d9f5fed5852e72aa40a5b2b64100"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_XmlprogressionUi.obj",
+      "sha256": "efd25f1f1a934da52e29f5dcadd45663d2e1609195fc5b6b44101bb74b885dd6"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlprojectilepath.obj",
+      "sha256": "0d006ebf362733769bbbc0bd838537ef1c10f6600a604788af66eb2181357281"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlradar.obj",
+      "sha256": "fd08a91ed51670dcc90a28bee3eb06fdcf299efd3e9f769f20ae3c4f24ef1803"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlredalert.obj",
+      "sha256": "4f663ccceb6512eadd920d3003bae609f4f8d2a61367c8994c6199a221c51167"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlrenderassets.obj",
+      "sha256": "2e0e49d3f539059954a677fffad03c0e69599442a1c242e62a11da286b68b33d"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlrenderdevice.obj",
+      "sha256": "dc08a6d9fb1d7679bb76a2402963a5ecc2aee58bf9b13a5b38690d7546f29952"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlruntimeopaque.obj",
+      "sha256": "1a511800c147bef2a45df5d6c59da6f397e6caae4df9f13212a74cd136300d2e"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlsinglesound.obj",
+      "sha256": "c6eda7068b83596c6bd6a2cffe8078363f5b1252058e6a9f0e7354efd522be6b"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlsoundmaps.obj",
+      "sha256": "345f6f2841ee3efde67fb4d8cf812f137f63a821319228f8eb79e1ddfcf5bbd7"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlsystemsettings.obj",
+      "sha256": "382b9d18738fb51e28b40c42776108d6aad2bb39a2413fdfc83e05ed9c905614"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmljoypad.obj",
+      "sha256": "a09a2a2df8b8c4b6bdf01ae396ee075d0dfa31cc5b177aba91cdd2699196e7b9"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmltacticalhotkeys.obj",
+      "sha256": "5585b28e074cbeb54fcd3aeac3eaff8cba3f12b2b20a87db45c9b063e1b92466"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmltargeting.obj",
+      "sha256": "4e232891a1fe77ab25623283ae57edb5a4d2e2ebac892fcee46a608637f0abaa"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlterrain.obj",
+      "sha256": "0bad94974fd16e0f628da3b9c6059847151be11e946bcfbac4f5bc8c339eb7c7"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmltesttextures.obj",
+      "sha256": "d4d993039d4587b29e5bd310f9bed38e6229b368895df9e2ed2d3953ee693675"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluichat.obj",
+      "sha256": "f02b101b6afde2dcadf13cd96bae3c65b96d05debe5371195db46140118fc34f"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluiconfig.obj",
+      "sha256": "6c012df7cc4c3c5c08dd4212a7f0d907925aa8a28838e5c182356cf78feba039"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluidecals.obj",
+      "sha256": "20619df74a87cb974e702472ec078c4cf1de9c9a2eac83a814c4c559886c9cd7"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluiimages.obj",
+      "sha256": "8a700b363edb55dc1ab6a166530b318f78a1ab68203ac1da335704f9de05268f"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluisettings.obj",
+      "sha256": "d516f5fe526662d73413452674be0227000e776ddcceeb64093db9a6f27815c3"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmluitactical.obj",
+      "sha256": "a86dab7c03e44f02aeeb6b26d0b44f2e6a5dc79a7b82a57bb1edb8560481c69d"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlunitoverlay.obj",
+      "sha256": "d5b54f3e12bcc4696e73199a58f217de4de6212d8c078d6860f086aa2c9da3a0"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlvisibility.obj",
+      "sha256": "13b3fdd348c3d75ec73d3196ef49c8a6a0b6cc781669a542ed4d88c98e811b36"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlvisualsystems.obj",
+      "sha256": "78c737a61d935b0079e8bf78dd6f157c56688a0b3a875bbd802608390fbbfcaf"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Xmlw3d.obj",
+      "sha256": "14b57f61235be5604d751a2430d5f39260f88300bacd487742e7d714b98b43c1"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_AdaptiveDelta.obj",
+      "sha256": "a2cae8f97b5437b30888ba79b27a71146547ce46ed3f03c97d97e30cd86f414c"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_AnimationCompiler.obj",
+      "sha256": "fe4ee6a56671dc065743877d1ec0fed2f11c81bd1c2094443f2ded79c66d38cd"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_AnimationPipeline.obj",
+      "sha256": "c84cd49ae65d660c8db43aab9d19e2ad87f0e666ebf3d906f8cd06ff7d9c8cf5"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshAsset.obj",
+      "sha256": "a6f5b20a19a30c6ac4ec81c3bb93ec38053762088d9771ae7676fbc2699b6692"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshBuilder.obj",
+      "sha256": "786cd4881ef930f9fc6214d385e18ce8fd2fa08d04792ac648a2ce1f34fdda2e"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshConverters.obj",
+      "sha256": "a80409063ce8e651a9e1212aaf40d95edde0329610a40c6f297a36fd0912e1db"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_MeshSerialization.obj",
+      "sha256": "f1e3fa2167eb63b955ff8299b403190553b6f4a31b8e3d2ce3c0bca389bf6519"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_Shader.obj",
+      "sha256": "fc809ed8af2b03051c09fc2e642a979336f56b79bd476b13d7c0b14b8f59aab4"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_W3x_Timecoded.obj",
+      "sha256": "8f2d1b16340cc7f1b6fc112d0afecf5f31a808040f6fbc42c746fa84ede5672e"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_bitreserve.obj",
+      "sha256": "116af83b8d9bda6c127a3ce7b10b0bdf9123495380df0b69f913aef0e278ea23"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_ealayer3core.obj",
+      "sha256": "2119e8a7ce1406368503fbcfdd398db168dd0265693768f2d53fdf62f7112187"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_VbrTag.obj",
+      "sha256": "c924137c7a9a2f238f1e97e51705fc0f89bc0159368a09c2909c82f00aadfeca"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_bitstream.obj",
+      "sha256": "3e23c39ca63d71c005806b43c50451573f1f4932d100d2b32d76ae9ec6c0b392"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_encoder.obj",
+      "sha256": "927a48de696d41eb6acd17094485e81da0cdcdddf38cd10ec97b798cfd24c4f7"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_fft.obj",
+      "sha256": "14458b48f2faec43733b11f7f8796f8dd8f976b9304dac3995942b6078ad8a05"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_gain_analysis.obj",
+      "sha256": "5d6aa315833aba7bbf494bdb8215b88fdc0650298ab8a851c28fddbc87002bf5"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_id3tag.obj",
+      "sha256": "f35570842ae7946b389c898027183f3dc50fd244c9c974ed2956440df701ada4"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_lame.obj",
+      "sha256": "df256ffbf1c3bb5a1634aa40603f47a43526dfcca2b04adc51944c001f1b1f84"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_newmdct.obj",
+      "sha256": "0639c1f05975300ad44ce453f80faba5689a0096c93bbc3b38059787251e0cc9"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_presets.obj",
+      "sha256": "11ea17b2455b280a8aeee51d10f73825a5d5368ebf219b6579a1c0c3f4d8d724"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_psymodel.obj",
+      "sha256": "34186874ea54692172f2927df042e62db9646bcc09c00fdfedcddd5e9d083c84"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_quantize.obj",
+      "sha256": "0268f921112189444b95c02f44d765eb24b61b510938e54c447823943a341c62"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_quantize_pvt.obj",
+      "sha256": "0f4e4c566e94c2903149527a3417b9b22199c4adc73315514239b7a7462e2f56"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_reservoir.obj",
+      "sha256": "c6297519464c90ebd08088b0a0c7b6e10682c55142f032b42556b08378e4be3a"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_set_get.obj",
+      "sha256": "53cf2acbc35c30328857b7f0be93f1b758a94ff5d630cacb6c449c77bf029f91"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_tables.obj",
+      "sha256": "5c1db34950124bbd39ee7470b10401a6134965f2c04349415fe1d29a582ed402"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_takehiro.obj",
+      "sha256": "2189cfc1c41af5973a9a78e3f212b93d9f45412c7f009023371cbef40c7cb128"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_util.obj",
+      "sha256": "3b5882e13b84d73b775dcbae8fcc7f96f8d32153994088c887456ca647d666e7"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_vbrquantize.obj",
+      "sha256": "201c4146c20e3973b1485b55ce9d7c510b1b95732bef6a30b681286042d37087"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_lame396_version.obj",
+      "sha256": "5db2c587ae829fbd1cbdc13bd20a2190382337506680f278ca42cdb736a2e6ed"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mp3toea.obj",
+      "sha256": "22b9ef98e31e3eaf3888645a3b8726f487936254918497232abad57a40fee6b3"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpeg.obj",
+      "sha256": "4edde7b641d52d6dea6cf8477cdb6a3717b48cd659d8911ffd01f37162a58331"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpeghufftables.obj",
+      "sha256": "d4822b5a4ecb76614ffdb4f944028a0cf1890e8d41b38d7c9638509a5f80c592"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpegl3base.obj",
+      "sha256": "2fc3ecc2d27e5e6984d0a4e18bb7bc6780602d523bcaa818093db9c157bc11a5"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_mpegpoly_c.obj",
+      "sha256": "ae0b50695ed494094e4d55ec86548a695e255c9a95cd567bfd3ad766d7f61835"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3Encoder.obj",
+      "sha256": "cb818ab0d7f24633637b299b047e489975246192c49599701e8f465b2537dde4"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Audio_EaLayer3_scalesamples.obj",
+      "sha256": "281d86f1d9bdcd1837e694a523d54dabd3d41475de8a4ff489146ff8b3f37155"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\recovery_src_Native_Texture_PublicS3_s3_quant.obj",
+      "sha256": "2cd85d1ba48fdaa59fda5116e9a19d2151d9ff8b31ebc46036204f5c0500cc55"
+    },
+    {
+      "kind": "nativeOrBridge",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\native\\objects\\CompilerBridges.obj",
+      "sha256": "882a26d8343c1e1e030daca6070c30e2ca10e588dc6a628f2f2471916b3ffcd6"
+    },
+    {
+      "kind": "resource",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\foundation\\resources\\BinaryAssetBuilderProject.xsd",
+      "sha256": "3ffe9a0f876bc76deaf28d2e0302f32d63b0c842d719f3d9c428dc961b7616c1"
+    },
+    {
+      "kind": "resource",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\foundation\\resources\\Mvp.Xml.Common.SR.resources",
+      "sha256": "65bc06e64351f384b3f8658d273a36d7dcb2af167e458adc0f9579bb2cf0a1cb"
+    },
+    {
+      "kind": "resource",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\foundation\\resources\\Mvp.Xml.Common.Serialization.PerfCounterInstaller.resources",
+      "sha256": "a3237a994521c1904b0367691fdafc8b4b309371b845157bd149f27b53849d76"
+    },
+    {
+      "kind": "resource",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\foundation\\resources\\Mvp.Xml.XPointer.SR.resources",
+      "sha256": "fb2b9ea0745131e0ba26b9c7967a4f74885427d73dbeb6ad68114c8a3bacb1de"
+    },
+    {
+      "kind": "resource",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\foundation\\resources\\Mvp.Xml.XInclude.SR.resources",
+      "sha256": "0ef800084cbdf48a5a0b2de121f52737410aaa1356a6325fae779a8b56a77f6c"
+    },
+    {
+      "kind": "resource",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\foundation\\resources\\LibTessDotNet.dll",
+      "sha256": "6f2a8b10515fe328e1c9a28b23660958d8a3eea0ca436042516ff5e0a2ec5921"
+    },
+    {
+      "kind": "resource",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\foundation\\resources\\Clipper2Lib.dll",
+      "sha256": "48c351243cdaedc28fc726ae0e4d8fdb39207556fb8caf1a6e4d0bdfe77159f4"
+    },
+    {
+      "kind": "resource",
+      "path": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\joypad-product\\Release\\obj\\foundation\\resources\\StbImageSharp.dll",
+      "sha256": "387e42762fafcac4f82cbc2bf2b418f4ada338ea444734b1d444c6a6e2d1cb6e"
+    }
+  ],
+  "entryObjectSha256": "9957ccf317174cb3487fba76ef7ebc59660e6369f28bfb937d6a2af390f66c24"
+}

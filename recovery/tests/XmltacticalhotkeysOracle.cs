@@ -64,7 +64,7 @@ class XmltacticalhotkeysOracle {
         }catch(Exception e){throw new Exception(label+" platform="+(int)p+" xml="+d.OuterXml,e);}
     }
     static AssetBuffer Test(string label,string xml,TargetPlatform p){return TestDoc(label,Parse(xml),p);}
-    static void Reject(string label,string xml){XmlDocument d=Parse(xml);try{XmltacticalhotkeysCompiler.CompileXml(d.DocumentElement,Namespaces(d),false);}catch(NotSupportedException){++rejections;return;}throw new Exception("Expected rejection: "+label);}
+    static void Reject(string label,string xml){XmlDocument d=Parse(xml);try{ PluginSchemaBoundary.Validate(d); XmltacticalhotkeysCompiler.CompileXml(d.DocumentElement,Namespaces(d),false);}catch(NotSupportedException){++rejections;return;}throw new Exception("Expected rejection: "+label);}
 
     static XmlDocument Set(string root,string path,string attribute,string value) {
         XmlDocument d=Parse(Root(root,"",""));XmlElement node=d.DocumentElement;
@@ -173,7 +173,11 @@ class XmltacticalhotkeysOracle {
         bool nullInput=false;try{XmltacticalhotkeysCompiler.ProcessInstance(null,p);}catch(ArgumentNullException){nullInput=true;}Check(nullInput,"null declaration rejected");++rejections;
         XmlDocument wrong=Parse(Root(Selection,"",""));InstanceDeclaration declaration=Declaration(wrong);declaration.Handle.TypeName=Player;
         bool mismatch=false;try{XmltacticalhotkeysCompiler.ProcessInstance(declaration,p);}catch(NotSupportedException){mismatch=true;}Check(mismatch,"root/handle mismatch rejected");++rejections;
-        bool namespaceBinding=false;try{XmltacticalhotkeysCompiler.CompileXml(wrong.DocumentElement,new XmlNamespaceManager(wrong.NameTable),false);}catch(NotSupportedException){namespaceBinding=true;}Check(namespaceBinding,"namespace binding rejected");++rejections;
+        var unboundSchemaResult=XmltacticalhotkeysCompiler.CompileXml(wrong.DocumentElement,new XmlNamespaceManager(wrong.NameTable),false);
+        var boundSchemaResult=XmltacticalhotkeysCompiler.CompileXml(wrong.DocumentElement,Namespaces(wrong),false);
+        Check(Convert.ToBase64String(unboundSchemaResult.InstanceData)==Convert.ToBase64String(boundSchemaResult.InstanceData) &&
+            Convert.ToBase64String(unboundSchemaResult.RelocationData)==Convert.ToBase64String(boundSchemaResult.RelocationData) &&
+            Convert.ToBase64String(unboundSchemaResult.ImportsData)==Convert.ToBase64String(boundSchemaResult.ImportsData),"plugin does not repeat Core namespace validation");++layouts;
         Abi(p);Growth(p);
     }
     static int Main(string[] args) {

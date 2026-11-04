@@ -1,0 +1,20 @@
+{
+  "runId": "40820325416",
+  "binarySourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "benchmarkSourceCommit": "c39ad93eb5df7f7b7cd78f7028155d14a5094f2b",
+  "artifactSha256": "09273e1cfbf9ad984bc197c9c09325160500fd2ed87bb111c82ac7b89c4fb27c",
+  "files": {
+    "benchmark.json": "0bee42918b88a853fc727d91cd9c09a61af84a3a9c1713382f867c1a9719ed52",
+    "benchmark.md": "fe5cc316d0a58932c90151ed37cd9eacb3e469a87332ee740ec9a153472dbf8a",
+    "summary.csv": "bd88a359b3e13cad9afd5cb94b8e06aa29ae35bca9b6c5f4bd729a46256a87bc",
+    "preparation.json": "def4b82348eb0fd41080716cd87739dfc0eee9c4bcb5fcea96faac53d35b9a1a"
+  },
+  "locallyVerified": true,
+  "sampleCount": 54,
+  "allOutputInventoriesIdentical": true,
+  "nativeTextureAssetHitsVerified": true,
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/40820325416",
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/40820325416/artifacts/12874810166",
+  "artifactId": 12874810166,
+  "workflowConclusion": "success"
+}

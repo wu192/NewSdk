@@ -1,0 +1,110 @@
+name: W3X compression performance and byte equivalence
+on:
+  push:
+    branches: [optimize/w3d-animation-compression]
+    paths:
+      - 'recovery/src/Native/W3x/**'
+      - 'recovery/tests/W3xCompressionPerformance.cpp'
+      - 'recovery/scripts/BenchmarkW3xCompression.py'
+      - '.github/workflows/w3x-compression-performance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: w3x-compression-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: windows-2022
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Install existing product validation dependencies
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt lxml==6.0.2
+      - name: Existing complete native original differential in Od and O2
+        id: native
+        shell: pwsh
+        run: ./recovery/scripts/TestW3xNative.ps1
+      - name: Existing formal plugin differential and original-free replay
+        if: ${{ !cancelled() && steps.native.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestW3xPlugin.ps1 -CaptureDirectory "recovery/evidence/w3x/native-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -OutputDirectory "recovery/evidence/w3x/plugin-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Paired same-host baseline and optimized complete outputs and timings
+        if: '!cancelled()'
+        shell: pwsh
+        run: python recovery/scripts/BenchmarkW3xCompression.py --output "recovery/evidence/w3x/compression-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Build current Debug and Release product EXEs
+        id: product
+        if: '!cancelled()'
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/w3x-compression-product/$mode"
+            ./recovery/scripts/BuildCompilerValidationHost.ps1 -ProductBuildDirectory "recovery/artifacts/w3x-compression-product/$mode" -OutputDirectory "recovery/artifacts/w3x-compression-product/$mode/validation"
+          }
+      - name: Complete captured ProcessInstance matrix against current product EXEs
+        if: ${{ !cancelled() && steps.native.outcome == 'success' && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestW3xProduct.ps1 -CaptureDirectory "recovery/evidence/w3x/native-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -PluginValidation "recovery/evidence/w3x/plugin-runs/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/plugin-validation.json" -CompilerDirectory recovery/artifacts/w3x-compression-product -OutputDirectory "recovery/evidence/w3x/compression-product/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Existing production Audio and W3X payload cache matrix
+        if: ${{ !cancelled() && steps.product.outcome == 'success' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerBuildCachePayloads.ps1 -CompilerDirectory recovery/artifacts/w3x-compression-product -OutputDirectory "recovery/evidence/w3x/compression-cache/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Summarize w3x-compression-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/w3x-compression-product/*/build.json
+            recovery/artifacts/w3x-compression-product/*/validation/build.json
+        run: python recovery/scripts/WriteCiSummary.py --title "w3x-compression-performance reports"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w3x-compression-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/w3x-compression-product/*/build.json
+            recovery/artifacts/w3x-compression-product/*/validation/build.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize w3x-compression-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/w3x-compression-product/**/*.log
+        run: python recovery/scripts/WriteCiSummary.py --title "w3x-compression-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: w3x-compression-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/*/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/w3x-compression-product/**/*.log
+          retention-days: 1
+          if-no-files-found: warn

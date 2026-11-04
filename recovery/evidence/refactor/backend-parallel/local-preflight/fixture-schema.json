@@ -1,0 +1,38 @@
+{
+  "succeeded": true,
+  "scope": "Linux static fixture/schema preflight; no Windows runtime claim",
+  "reachableSchemaDefinitions": 50,
+  "validatedXml": [
+    {
+      "path": "Data/Animations.xml",
+      "sha256": "fb8092f221b5b54a5e30beed49e5497e11ff32ae8e1b1bdbf710f4b1af0fb46e"
+    },
+    {
+      "path": "Data/Dependencies.xml",
+      "sha256": "15ace33a02bda64411eea695becfbceb52ab81c8433aa801f34eb156b804087e"
+    },
+    {
+      "path": "Data/DuplicateDependencies.xml",
+      "sha256": "15ace33a02bda64411eea695becfbceb52ab81c8433aa801f34eb156b804087e"
+    },
+    {
+      "path": "Data/FixturesApt.xml",
+      "sha256": "2f781a4f1a5ae3ee772c990221d5c4becb707b83791a11b500c566ecdb4140ff"
+    },
+    {
+      "path": "Data/Meshes.xml",
+      "sha256": "e23738ba724c3c31cecfb6a323a146fd7d8c4fc3d4348ed86e91ab27d168459f"
+    },
+    {
+      "path": "Data/Mod.xml",
+      "sha256": "56357019e11cd2c774b67a178c9799849786bdab01d69803a7f10794fc6d3487"
+    },
+    {
+      "path": "Data/ParallelAudio.xml",
+      "sha256": "3f72916f570ad32ed2d938b2c2a1c92cb5ec31e508e5efd911e357f860bf076f"
+    }
+  ],
+  "runtimeExecuted": false,
+  "windowsValidated": false,
+  "sourceSha256": "30efb208a6d94e6ee6aa03f8abff12f0262ab442a65eeaa3ab2e95c65773a381"
+}

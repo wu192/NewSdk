@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "repository": "wu162/NewSdk",
+  "tag": "compiler-2026.11.01-game-worldbuilder",
+  "sourceCommit": "3cf65b6de24358647447ed242621e8460243f847",
+  "sourceBranch": "fix/neutral-worldbuilder-config",
+  "runId": 41322569300,
+  "runAttempt": 1,
+  "artifactId": 13090520584,
+  "artifactName": "game-worldbuilder-41322569300-1",
+  "artifactSha256": "81b57c7a8300c3dcea1e25a45ba87680969c4f8ecc507b163338b1849c89b87a",
+  "acceptanceUrl": "https://github.com/wu162/NewSdk/actions/runs/41322569300",
+  "runtimePackages": [
+    {
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 2103501,
+      "sha256": "f6f66b15d230302829bbf5f28b42b0978c605c667e0baa6a3d0b703654f28b02",
+      "configuration": "Debug",
+      "sourceCommit": "3cf65b6de24358647447ed242621e8460243f847",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 7724032,
+          "sha256": "ffbaa53b1ee8ab5b913ee4ad9b900e72402a3576238051a32e22a6df3d435a91"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 330,
+          "sha256": "57926cc13c550bbf4ae2d3b152dfca5dc7ee32566854b0e390b414538e0598f9"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "independentZipDeployment": {
+        "succeeded": true,
+        "coldGameExtraction": true,
+        "exactAcceptedRawOutputs": true,
+        "artifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ]
+      },
+      "neutralAcceptance": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "caseCount": 9,
+        "rawOriginalMembers": true
+      }
+    },
+    {
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 1609442,
+      "sha256": "5a4f35583c5a3e0bb15c7fc17055f524c08772c9be896d88988ed663f61b0f81",
+      "configuration": "Release",
+      "sourceCommit": "3cf65b6de24358647447ed242621e8460243f847",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 5022720,
+          "sha256": "507c26921d12250c2c0da3c4a9da204309668b84e198656f08d8fadd09af51f5"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 330,
+          "sha256": "57926cc13c550bbf4ae2d3b152dfca5dc7ee32566854b0e390b414538e0598f9"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "independentZipDeployment": {
+        "succeeded": true,
+        "coldGameExtraction": true,
+        "exactAcceptedRawOutputs": true,
+        "artifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ]
+      },
+      "neutralAcceptance": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "caseCount": 9,
+        "rawOriginalMembers": true
+      }
+    }
+  ],
+  "autoArchiveFiles": [
+    "README.md",
+    "release-metadata.json"
+  ],
+  "scope": "Debug/Release new builds; each App1894 and actual official-stream two-asset MOD in simulated game layout; 9 cases per configuration, both registry views restored, game/SDK/MOD unchanged, extraction cache cold/hot and missing/retry, original HashFix/Resolver/LoD/MakeBig raw member comparison and independent ZIP cold game extraction. No new full Core/CLI matrix, full MOD or in-game acceptance.",
+  "referencePayloadEmbedded": false,
+  "externalReferenceZipIncluded": false
+}

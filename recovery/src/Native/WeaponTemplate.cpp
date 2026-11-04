@@ -8,6 +8,11 @@
 #include <sstream>
 #include <algorithm>
 #include <cctype>
+#include <type_traits>
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
 #ifdef _MANAGED
 #pragma managed(push, off)
 #endif
@@ -205,25 +210,76 @@ U32 Lookup(const std::string& group, const std::string& text) {
     if (group == "FXTriggerType") return 1u;
     throw std::logic_error("Unknown recovered enum group");
 }
+struct BitsetGroup { std::vector<EnumNameValue> names; int unknown; };
+using BitsetGroups=std::map<std::string,BitsetGroup>;
+INIT_ONCE BitsetGroupsOnce=INIT_ONCE_STATIC_INIT;
+const BitsetGroups* bitsetGroups=nullptr;
+BOOL CALLBACK InitializeBitsetGroups(PINIT_ONCE,PVOID,PVOID*) {
+    try {
+        std::unique_ptr<BitsetGroups> groups(new BitsetGroups);
+        for(const auto& entry:enumEntries)
+            (*groups)[entry.group].names.push_back({entry.name,static_cast<int>(entry.value)});
+        for(auto& entry:*groups) entry.second.unknown=static_cast<int>(Lookup(entry.first,""));
+        // Native process-lifetime tables must not register CLR shutdown destructors.
+        bitsetGroups=groups.release();
+        return TRUE;
+    } catch(...) {
+        SetLastError(ERROR_NOT_ENOUGH_MEMORY);
+        return FALSE;
+    }
+}
 U32 Bits(const std::string& group, const std::string& text) {
-    U32 result = 0;
-    std::vector<EnumNameValue> names;
-    for (const auto& entry : enumEntries) if (group == entry.group)
-        names.push_back({ entry.name, static_cast<int>(entry.value) });
-    MarshalEnumBitset(text, names.data(), names.size(), static_cast<int>(Lookup(group, "")), 32, &result);
+    if(!InitOnceExecuteOnce(&BitsetGroupsOnce,InitializeBitsetGroups,nullptr,nullptr))
+        throw std::runtime_error("Weapon bitset table initialization failed.");
+    const auto& values=bitsetGroups->at(group);
+    U32 result=0;
+    MarshalEnumBitset(text,values.names.data(),values.names.size(),values.unknown,32,&result,true);
     return result;
 }
+
 void Swap(void* at) {
     auto p = static_cast<unsigned char*>(at);
     std::swap(p[0], p[3]); std::swap(p[1], p[2]);
 }
+bool WeaponScalarDefault(WeaponValue value) {
+    return value==WeaponValue::AssetId || value==WeaponValue::Boolean || value==WeaponValue::Integer ||
+        value==WeaponValue::Enum || value==WeaponValue::Bits || value==WeaponValue::Float ||
+        value==WeaponValue::Angle || value==WeaponValue::Time || value==WeaponValue::Percentage;
+}
+U32 DecodeWeaponScalar(const WeaponField& field,const std::string& text) {
+    float number=0;U32 word=0;
+    switch(field.value) {
+    case WeaponValue::AssetId:return HashAssetId(text);
+    case WeaponValue::Boolean:return ParseBoolean(text)?1:0;
+    case WeaponValue::Integer:return static_cast<U32>(ParseSigned(text));
+    case WeaponValue::Enum:return Lookup(field.enumGroup,text);
+    case WeaponValue::Bits:return Bits(field.enumGroup,text);
+    case WeaponValue::Float:number=ParseFloat(text);break;
+    case WeaponValue::Angle:number=InitializeAngle(text.c_str());break;
+    case WeaponValue::Time:number=InitializeTime(text.c_str());break;
+    case WeaponValue::Percentage:number=ParsePercentage(text);break;
+    default:throw std::logic_error("Expected scalar Weapon field");
+    }
+    std::memcpy(&word,&number,4);return word;
+}
+struct WeaponRootDefaults {
+    unsigned char bytes[328]{};
+    WeaponRootDefaults() {
+        for(const auto& field:fields)if(field.fallback && WeaponScalarDefault(field.value)) {
+            U32 word=DecodeWeaponScalar(field,std::string(field.fallback));
+            std::memcpy(bytes+field.offset,&word,field.value==WeaponValue::Boolean?1:4);
+        }
+    }
+};
+static_assert(std::is_trivially_destructible<WeaponRootDefaults>::value,"Root defaults must not own exit-time state");
+const WeaponRootDefaults rootDefaults;
 struct Procedure { U32 name, type; void* offset; };
 static_assert(sizeof(Procedure) == 12, "Weapon serializer requires x86");
 struct Root { unsigned char bytes[328]; };
 }
 const WeaponField* WeaponFields() { return fields; }
 unsigned WeaponFieldCount() { return sizeof(fields) / sizeof(fields[0]); }
-Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
+Relo::Chunk CompileWeapon(const AttributeMap& attributes,
     const std::map<std::string, WeaponDurationInput>& durations,
     const std::map<std::string, WeaponOptionalInput>& optionalBlocks,
     const std::vector<std::string>& incompatibleModifiers,
@@ -231,68 +287,37 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
     const std::vector<WeaponScatterInput>& scatter,
     const std::vector<WeaponNuggetInput>& nuggets, bool bigEndian) {
     const char* durationNames[] = { "PreAttackDelay", "FiringDuration", "CoolDownDelayBetweenShots", "ClipReloadTime" };
-    for (const auto& duration : durations) {
-        bool known = false;
-        for (const char* name : durationNames) if (duration.first == name) known = true;
-        if (!known) throw std::invalid_argument("Unsupported WeaponTemplate duration: " + duration.first);
-    }
-    for (const auto& entry : optionalBlocks) {
-        bool sound = entry.first == "OverrideVoiceAttackSound" || entry.first == "OverrideVoiceEnterStateAttackSound";
-        if (!sound && entry.first != "WeaponAiHintInfo") throw std::invalid_argument("Unsupported optional block: " + entry.first);
-        for (const auto& attr : entry.second) {
-            bool known = sound ? (attr.first == "Sound" || attr.first == "EvaEvent") :
-                (attr.first == "IsAntiGarrisonWeapon" || attr.first == "MaxSpeedOfTarget" || attr.first == "UseLongLockOnTimeCode" || attr.first == "UseAsWarheadForDamageCalculations");
-            if (!known) throw std::invalid_argument("Unsupported optional attribute: " + attr.first);
-        }
-    }
-    // Validate before allocation: unsupported input must never silently produce zero data.
-    for (const auto& attr : attributes) {
-        const WeaponField* field = nullptr;
-        for (const auto& candidate : fields) if (attr.first == candidate.name) { field = &candidate; break; }
-        if (!field || field->value == WeaponValue::Absent)
-            throw std::invalid_argument("Unsupported WeaponTemplate field: " + attr.first);
-    }
+
     Relo::Tracker data, tokens;
     Root* root = nullptr;
     data.Push(reinterpret_cast<void**>(&root), sizeof(Root), 1);
+    std::memcpy(root->bytes,rootDefaults.bytes,sizeof(Root));
     std::map<U32, void*> referenceBlocks;
-    for (const auto& field : fields) {
-        auto found = attributes.find(field.name);
-        if (field.value == WeaponValue::Absent) continue;
-        if (found == attributes.end() && field.fallback == nullptr) continue;
-        const std::string text = found == attributes.end() ? field.fallback : found->second;
-        unsigned char* at = root->bytes + field.offset;
-        float number = 0;
-        U32 word = 0;
-        switch (field.value) {
-        case WeaponValue::String:
-            MarshalString(data, at, text); continue;
-        case WeaponValue::Reference:
-            MarshalReference(data, at, text); continue;
+    for(const auto& field:fields) {
+        if(field.value==WeaponValue::Absent)continue;
+        auto found=attributes.find(field.name);
+        if(found==attributes.end() && (!field.fallback || WeaponScalarDefault(field.value)))continue;
+        if(found!=attributes.end() && field.fallback && WeaponScalarDefault(field.value) && found->second==field.fallback)continue;
+        std::string fallback;if(found==attributes.end())fallback=field.fallback;
+        const std::string& text=found==attributes.end()?fallback:found->second;
+        auto at=root->bytes+field.offset;
+        if(WeaponScalarDefault(field.value)) {
+            U32 word=DecodeWeaponScalar(field,text);
+            std::memcpy(at,&word,field.value==WeaponValue::Boolean?1:4);continue;
+        }
+        switch(field.value) {
+        case WeaponValue::String:MarshalString(data,at,text);break;
+        case WeaponValue::Reference:MarshalReference(data,at,text);break;
         case WeaponValue::ReferencePointer: {
-            auto block = data.Push(reinterpret_cast<void**>(at), 4, 1);
-            MarshalReference(data, block, text);
-            referenceBlocks[field.offset] = block;
-            data.Pop(); continue;
+            auto block=data.Push(reinterpret_cast<void**>(at),4,1);MarshalReference(data,block,text);
+            referenceBlocks[field.offset]=block;data.Pop();break;
         }
         case WeaponValue::StatusPointer: {
-            auto block = static_cast<U32*>(data.Push(reinterpret_cast<void**>(at), 28, 1));
-            MarshalObjectStatus(text, block);
-            referenceBlocks[field.offset] = block;
-            data.Pop(); continue;
+            auto block=static_cast<U32*>(data.Push(reinterpret_cast<void**>(at),28,1));MarshalObjectStatus(text,block);
+            referenceBlocks[field.offset]=block;data.Pop();break;
         }
-        case WeaponValue::AssetId: word = HashAssetId(text); break;
-        case WeaponValue::Boolean: *at = ParseBoolean(text) ? 1 : 0; continue;
-        case WeaponValue::Integer: word = static_cast<U32>(ParseSigned(text)); break;
-        case WeaponValue::Enum: word = Lookup(field.enumGroup, text); break;
-        case WeaponValue::Bits: word = Bits(field.enumGroup, text); break;
-        case WeaponValue::Float: number = ParseFloat(text); std::memcpy(&word, &number, 4); break;
-        case WeaponValue::Angle: number = InitializeAngle(text.c_str()); std::memcpy(&word, &number, 4); break;
-        case WeaponValue::Time: number = InitializeTime(text.c_str()); std::memcpy(&word, &number, 4); break;
-        case WeaponValue::Percentage: number = ParsePercentage(text); std::memcpy(&word, &number, 4); break;
-        default: throw std::logic_error("Unimplemented Weapon value");
+        default:throw std::logic_error("Unimplemented Weapon value");
         }
-        std::memcpy(at, &word, 4);
     }
     struct SoundOrEvaEvent { void* sound; U32 eva; };
     SoundOrEvaEvent* soundBlocks[2] = {};
@@ -349,10 +374,7 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         auto block = static_cast<ObjectFilter*>(data.Push(reinterpret_cast<void**>(root->bytes+264+4*i), 112, 1));
         MarshalObjectFilter(found->second, block, data); filterBlocks[i] = block; data.Pop();
     }
-    for (const auto& filter : filters) {
-        bool known = false; for (const char* name : filterNames) if (filter.first == name) known = true;
-        if (!known) throw std::invalid_argument("Unsupported WeaponTemplate filter: "+filter.first);
-    }
+    ;
     // Scatter elements are inline 176-byte structures; absent Filter stays zero.
     struct ScatterRadius { float radius; U32 conditions[15]; ObjectFilter filter; };
     static_assert(sizeof(ScatterRadius) == 176, "Original ScatterRadiusType layout");
@@ -458,16 +480,8 @@ Relo::Chunk CompileWeapon(const std::map<std::string, std::string>& attributes,
         if (maxSpeed) Swap(maxSpeed);
         for (auto block : durationBlocks) if (block) { Swap(&block->minSeconds); Swap(&block->maxSeconds); }
     }
-    auto tokenChunk = tokens.MakeRelocatable(bigEndian, 0);
-    tokens.FixupMemberOffsets(data, tokenChunk, bigEndian);
-    auto result = data.MakeRelocatable(bigEndian, static_cast<U32>(tokenChunk.instance.size()));
-    if (bigEndian) for (unsigned at = 0; at < tokenChunk.instance.size(); at += 12) {
-        Swap(tokenChunk.instance.data() + at); Swap(tokenChunk.instance.data() + at + 4);
-    }
-    tokenChunk.instance.insert(tokenChunk.instance.end(), result.instance.begin(), result.instance.end());
-    result.instance = std::move(tokenChunk.instance);
-    result.imports.clear();
-    return result;
+    auto result=tokens.MakeTokenized(data,bigEndian);
+    result.imports.clear();return result;
 }
 }}
 #ifdef _MANAGED

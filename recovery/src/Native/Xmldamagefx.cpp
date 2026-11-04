@@ -12,23 +12,11 @@ using Relo::U32;
 struct EnumEntry {const char* name;int value;};
 #include "XmldamagefxEnums.inc"
 const char* const References[]={"MajorFX","MinorFX","RearFX","SideFX","TopFX","VeteranMajorFX","VeteranMinorFX","VeteranRearFX","VeteranSideFX","VeteranTopFX"};
-bool White(const std::string& s){return s.find_first_not_of(" \t\r\n")==std::string::npos;}
+
 void Check(bool value,const char* text){if(!value)throw std::invalid_argument(text);}
 void Swap(void* p){U32 v;std::memcpy(&v,p,4);v=(v<<24)|((v<<8)&0xff0000u)|((v>>8)&0xff00u)|(v>>24);std::memcpy(p,&v,4);}
 std::string Value(const XmldamagefxNode& node,const char* name,const char* fallback){auto at=node.attributes.find(name);return at==node.attributes.end()?std::string(fallback):at->second;}
-void Validate(const XmldamagefxNode& node,bool root,bool settings) {
-    Check(White(node.value),"Unexpected DamageFX text.");
-    for(const auto& a:node.attributes) {
-        bool known=a.first=="TypeId"||(root&&(a.first=="id"||a.first=="inheritFrom"));
-        if(settings)known=known||a.first=="GroundDamageFX";
-        else if(!root) {
-            known=known||a.first=="Type"||a.first=="Amount"||a.first=="ThrottleTime";
-            for(const char* name:References)known=known||a.first==name;
-        }
-        Check(known,"Unknown DamageFX attribute.");
-    }
-    for(const auto& child:node.children)Check(root&&!settings&&child.name=="FXGroup","Unknown DamageFX child.");
-}
+
 int TypeValue(const std::string& value) {
     for(const auto& entry:DamageTypes)if(std::strcmp(entry.name,value.c_str())==0)return entry.value;
     return 35; // Original EnumLookup's unknown token fallback, not DEFAULT (-1).
@@ -44,7 +32,7 @@ Relo::Chunk CompileXmldamagefx(const XmldamagefxNode& input,bool bigEndian) {
     static_assert(sizeof(void*)==4,"DamageFX component requires x86.");
     Check(XmldamagefxTypeId(input.name)!=0,"Unsupported DamageFX root.");
     const bool settings=input.name=="DamageFXSettings";
-    Validate(input,true,settings);
+
     Relo::Tracker tracker;unsigned char* root=nullptr;
     tracker.Push(reinterpret_cast<void**>(&root),settings?8:12,1);
     if(settings) {
@@ -59,7 +47,7 @@ Relo::Chunk CompileXmldamagefx(const XmldamagefxNode& input,bool bigEndian) {
         if(count) {
             auto list=static_cast<unsigned char*>(tracker.Push(reinterpret_cast<void**>(root+8),52,count));
             for(U32 i=0;i<count;++i) {
-                const auto& group=input.children[i];Validate(group,false,false);
+                const auto& group=input.children[i];
                 unsigned char* item=list+52*i;
                 int type=TypeValue(Value(group,"Type","DEFAULT"));
                 float amount=ParseFloat(Value(group,"Amount","0.0"));

@@ -1,0 +1,273 @@
+{
+  "schemaVersion": "1.0",
+  "buildId": "cd8874e683284dbeb72c19a31adf0a93",
+  "status": "succeeded",
+  "exitCode": 0,
+  "requestArguments": [
+    "build",
+    "--mod",
+    "D:\\a\\_temp\\ce33fe65d\\D\\m",
+    "--sdk-root",
+    "D:\\a\\_temp\\ce33fe65d\\D\\s",
+    "--out",
+    "D:\\a\\_temp\\ce33fe65d\\D\\cache",
+    "--package-format",
+    "loose",
+    "--package-content",
+    "base,apt",
+    "--csc=false",
+    "--psc=false",
+    "--sc=true",
+    "--bc=false"
+  ],
+  "effectiveOptions": {
+    "atc": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "bc": {
+      "Value": "false",
+      "Source": "commandLine"
+    },
+    "csc": {
+      "Value": "false",
+      "Source": "commandLine"
+    },
+    "events": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\build.events.jsonl",
+      "Source": "default"
+    },
+    "fix-neutral-assets": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "fsc": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "game-version": {
+      "Value": "1.12",
+      "Source": "default"
+    },
+    "include-additional": {
+      "Value": "false",
+      "Source": "default"
+    },
+    "jobs": {
+      "Value": "auto",
+      "Source": "default"
+    },
+    "log": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\build.log",
+      "Source": "default"
+    },
+    "mod": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\D\\m",
+      "Source": "commandLine"
+    },
+    "mod-version": {
+      "Value": "1.0",
+      "Source": "default"
+    },
+    "out": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\D\\cache",
+      "Source": "commandLine"
+    },
+    "package-content": {
+      "Value": "base,apt",
+      "Source": "commandLine"
+    },
+    "package-format": {
+      "Value": "loose",
+      "Source": "commandLine"
+    },
+    "pc": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "performance": {
+      "Value": "off",
+      "Source": "default"
+    },
+    "profile": {
+      "Value": "standard",
+      "Source": "default"
+    },
+    "psc": {
+      "Value": "false",
+      "Source": "commandLine"
+    },
+    "report": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\build-report.json",
+      "Source": "default"
+    },
+    "sc": {
+      "Value": "true",
+      "Source": "commandLine"
+    },
+    "sdk-root": {
+      "Value": "D:\\a\\_temp\\ce33fe65d\\D\\s",
+      "Source": "commandLine"
+    },
+    "slowclean": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "ss": {
+      "Value": "true",
+      "Source": "default"
+    },
+    "tp": {
+      "Value": "Win32",
+      "Source": "default"
+    }
+  },
+  "selectedContent": [
+    "base",
+    "apt"
+  ],
+  "inputRoots": {
+    "dataRoot": "D:\\a\\_temp\\ce33fe65d\\D\\s",
+    "schemaPath": "D:\\a\\_temp\\ce33fe65d\\D\\s\\Schemas\\xsd\\CnC3Types.xsd",
+    "dataPaths": [
+      "D:\\a\\_temp\\ce33fe65d\\D\\m\\Data",
+      "D:\\a\\_temp\\ce33fe65d\\D\\s",
+      "D:\\a\\_temp\\ce33fe65d\\D\\s\\Mods",
+      "D:\\a\\_temp\\ce33fe65d\\D\\s\\SAGEXML"
+    ],
+    "artPaths": [
+      "D:\\a\\_temp\\ce33fe65d\\D\\m\\Art",
+      "D:\\a\\_temp\\ce33fe65d\\D\\s\\Art"
+    ],
+    "audioPaths": [
+      "D:\\a\\_temp\\ce33fe65d\\D\\m\\Audio",
+      "D:\\a\\_temp\\ce33fe65d\\D\\s\\Audio"
+    ],
+    "sources": {
+      "dataRoot": "sdk-root",
+      "dataPaths": "mod-prepend+sdk-config",
+      "artPaths": "mod-prepend+sdk-config",
+      "audioPaths": "mod-prepend+sdk-config"
+    }
+  },
+  "plan": {
+    "Tasks": [
+      {
+        "Id": "base/Mod",
+        "Content": "base",
+        "InputPath": "D:\\a\\_temp\\ce33fe65d\\D\\m\\Data\\Mod.xml",
+        "OutputName": "base/Mod",
+        "Reason": "ExplicitContentSelection",
+        "Dependencies": []
+      },
+      {
+        "Id": "apt/Payload",
+        "Content": "apt",
+        "InputPath": "D:\\a\\_temp\\ce33fe65d\\D\\m\\Data\\AptUI\\Payload.xml",
+        "OutputName": "apt/Payload",
+        "Reason": "ExplicitContentSelection",
+        "Dependencies": []
+      }
+    ],
+    "Skipped": [],
+    "PlanKind": "StreamDiscovery",
+    "DependencyPolicy": "Default is stream discovery only. Core owns include/reference closure. An explicit dependency planner may add stream dependencies, which are validated, deduplicated, and topologically ordered."
+  },
+  "stages": [
+    {
+      "id": "plan",
+      "status": "succeeded",
+      "elapsedMs": 9,
+      "artifactCount": 0
+    },
+    {
+      "id": "compile",
+      "status": "succeeded",
+      "elapsedMs": 402,
+      "artifactCount": 8
+    }
+  ],
+  "diagnostics": [],
+  "diagnosticCounts": {
+    "error": 0,
+    "warning": 0
+  },
+  "loadedProviders": [
+    "NewModCompiler.Core.Win32.LegacySessionCache"
+  ],
+  "externalTools": [],
+  "cache": {
+    "status": "SessionCache",
+    "hits": 0,
+    "misses": 0,
+    "sessionCache": true,
+    "sessionPackageHits": 2,
+    "sessionPackageMisses": 0,
+    "documentReuse": 3,
+    "xmlParse": 0,
+    "instanceCompile": 0,
+    "linkedStreamsRestored": 1,
+    "fileHashReads": 0,
+    "fileHashReuses": 829,
+    "fileHashBytesRead": 0,
+    "textureCache": true,
+    "compressedSessionCache": false,
+    "partialSessionCache": false,
+    "freezeSessionCache": false,
+    "alwaysTouchCache": false,
+    "partialSessionsSaved": 0,
+    "parallel": null,
+    "sessionCacheDirectory": "D:\\a\\_temp\\ce33fe65d\\D\\cache"
+  },
+  "elapsedMs": 435,
+  "artifacts": [
+    {
+      "Path": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\published\\base\\Mod\\streams\\mod.bin",
+      "Kind": "stream.bin",
+      "Size": 1108
+    },
+    {
+      "Path": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\published\\base\\Mod\\streams\\mod.imp",
+      "Kind": "stream.imp",
+      "Size": 4
+    },
+    {
+      "Path": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\published\\base\\Mod\\streams\\mod.manifest",
+      "Kind": "stream.manifest",
+      "Size": 591
+    },
+    {
+      "Path": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\published\\base\\Mod\\streams\\mod.relo",
+      "Kind": "stream.relo",
+      "Size": 20
+    },
+    {
+      "Path": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\published\\apt\\Payload\\streams\\aptui\\payload.bin",
+      "Kind": "stream.bin",
+      "Size": 24
+    },
+    {
+      "Path": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\published\\apt\\Payload\\streams\\aptui\\payload.imp",
+      "Kind": "stream.imp",
+      "Size": 4
+    },
+    {
+      "Path": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\published\\apt\\Payload\\streams\\aptui\\payload.manifest",
+      "Kind": "stream.manifest",
+      "Size": 145
+    },
+    {
+      "Path": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\published\\apt\\Payload\\streams\\aptui\\payload.relo",
+      "Kind": "stream.relo",
+      "Size": 12
+    }
+  ],
+  "logPaths": {
+    "events": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\build.events.jsonl",
+    "report": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\build-report.json",
+    "text": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\build.log"
+  },
+  "executionMode": "InProcess",
+  "publicationStatus": "PublishedDirectory",
+  "publicationDirectory": "D:\\a\\_temp\\ce33fe65d\\D\\cache\\published"
+}

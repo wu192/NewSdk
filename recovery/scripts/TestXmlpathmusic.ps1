@@ -19,7 +19,7 @@ try {
         $buildLog = "$evidence/$mode-build.txt"
         & cl /nologo /clr /LD /MD /EHa "/$mode" /fp:precise "/AI$out" "/Fo$out/" "/Fe$out/Recovered.Xmlpathmusic.dll" recovery/src/Native/Relocation.cpp recovery/src/Native/ScalarParsing.cpp recovery/src/Native/ResourceMarshaling.cpp recovery/src/Native/Xmlpathmusic.cpp recovery/src/Bridge/XmlpathmusicCompiler.cpp *> $buildLog
         if ($LASTEXITCODE -ne 0) { Get-Content $buildLog; throw "$mode C++/CLI build failed" }
-        & $csc /nologo /platform:x86 /r:System.Core.dll "/r:$out/Recovered.Xmlpathmusic.dll" "/r:$out/BinaryAssetBuilder.Core.dll" "/out:$out/XmlpathmusicOracle.exe" (Resolve-Path recovery/tests/XmlpathmusicOracle.cs) (Resolve-Path recovery/tests/XmlpathmusicCases.cs) *> "$evidence/$mode-host-build.txt"
+        & $csc (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs') /nologo /platform:x86 /r:System.Core.dll "/r:$out/Recovered.Xmlpathmusic.dll" "/r:$out/BinaryAssetBuilder.Core.dll" "/out:$out/XmlpathmusicOracle.exe" (Resolve-Path recovery/tests/XmlpathmusicOracle.cs) (Resolve-Path recovery/tests/XmlpathmusicCases.cs) *> "$evidence/$mode-host-build.txt"
         if ($LASTEXITCODE -ne 0) { Get-Content "$evidence/$mode-host-build.txt"; throw "$mode C# oracle build failed" }
         '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$out/XmlpathmusicOracle.exe.config"
         & "$out/XmlpathmusicOracle.exe" (Resolve-Path SDK/tools/BinaryAssetBuilder.XmlCompiler.dll).Path "$out/Recovered.Xmlpathmusic.dll" *> "$evidence/$mode-oracle.txt"

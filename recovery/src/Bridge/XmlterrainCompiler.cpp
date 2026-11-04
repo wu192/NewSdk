@@ -9,20 +9,18 @@ namespace Recovered {
 public ref class XmlterrainCompiler abstract sealed {
     static Native::XmlterrainNode Read(XmlNode^ node,int depth) {
         if(depth>32)throw gcnew NotSupportedException("Terrain nesting exceeds 32.");
-        if(node->NodeType!=XmlNodeType::Element || node->NamespaceURI!="uri:ea.com:eala:asset")
-            throw gcnew NotSupportedException("Terrain requires the asset namespace.");
+
         Native::XmlterrainNode result;result.name=marshal_as<std::string>(node->LocalName);
         for each(XmlAttribute^ attr in node->Attributes) {
             if(attr->NamespaceURI=="http://www.w3.org/2000/xmlns/")continue;
-            if(attr->NamespaceURI->Length)throw gcnew NotSupportedException("Qualified Terrain attributes are unsupported.");
+
             result.attributes[marshal_as<std::string>(attr->LocalName)]=marshal_as<std::string>(attr->Value);
         }
         for each(XmlNode^ child in node->ChildNodes) {
             if(child->NodeType==XmlNodeType::Element)result.children.push_back(Read(child,depth+1));
             else if(child->NodeType==XmlNodeType::Text || child->NodeType==XmlNodeType::CDATA || child->NodeType==XmlNodeType::SignificantWhitespace)
                 result.value+=marshal_as<std::string>(child->Value);
-            else if(child->NodeType!=XmlNodeType::Comment && child->NodeType!=XmlNodeType::Whitespace)
-                throw gcnew NotSupportedException("Unsupported Terrain XML node.");
+            else ;
         }
         return result;
     }
@@ -34,7 +32,7 @@ public ref class XmlterrainCompiler abstract sealed {
 public:
     static AssetBuffer^ CompileXml(XmlNode^ node,XmlNamespaceManager^ namespaces,bool bigEndian) {
         if(node==nullptr)throw gcnew ArgumentNullException("node");
-        if(namespaces==nullptr || namespaces->LookupNamespace("ea")!="uri:ea.com:eala:asset")throw gcnew NotSupportedException("Terrain requires ea namespace binding.");
+
         try {
             Relo::Chunk chunk=Native::CompileXmlterrain(Read(node,0),bigEndian);
             AssetBuffer^ result=gcnew AssetBuffer();result->InstanceData=Copy(chunk.instance);result->RelocationData=Copy(chunk.relocations);result->ImportsData=Copy(chunk.imports);return result;

@@ -1,0 +1,48 @@
+{
+  "runId": "40819993842",
+  "benchmarkSourceCommit": "1c5cc3a19ab077a4e5b5cff0a8c56c6d70a0c274",
+  "binarySourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+  "status": "failed",
+  "error": "TimeoutError: Process timeout: mymod-none-0",
+  "elapsedSeconds": 30.03368820000003,
+  "samples": [
+    {
+      "workload": "mymod",
+      "mode": "none",
+      "phase": "uncached",
+      "assetCacheApplicable": false,
+      "round": 0,
+      "status": "timed-out",
+      "command": [
+        "D:\\a\\_temp\\cb\\runtime\\NewModCompiler.exe",
+        "build",
+        "--sdk-root",
+        "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "--mod",
+        "D:\\a\\_temp\\cb\\workloads\\mymod",
+        "--out",
+        "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40819993842-1\\work\\mymod\\none",
+        "--package-content",
+        "base",
+        "--package-format",
+        "loose",
+        "/bc:false",
+        "/sc:false",
+        "/csc:false",
+        "/psc:true",
+        "/fsc:false",
+        "/atc:false",
+        "/iod:D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\refactor\\cache-benchmark\\40819993842-1\\work\\fresh-intermediate\\mymod-none-0"
+      ],
+      "timeoutSeconds": 30,
+      "wallMs": 30033.128000000033,
+      "exitCode": 1
+    }
+  ],
+  "runtimeUnchanged": true,
+  "inputsUnchanged": true,
+  "sdkUnchanged": true,
+  "artifactUrl": "https://github.com/wu162/NewSdk/actions/runs/40819993842/artifacts/12873189948",
+  "artifactSha256": "817c7ca1d0a8173ca4f9a23b7ffe7d29427def087b34a444cdf240628da11914",
+  "diagnosis": "First launch timeout before stdout/stderr; no valid performance sample. Root cause not established. Next run uses accepted x86 MSVC environment and an explicit doctor startup probe with Windows error dialogs disabled; original timeouts retained."
+}

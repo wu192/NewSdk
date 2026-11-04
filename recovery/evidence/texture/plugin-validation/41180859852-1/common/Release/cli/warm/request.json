@@ -1,0 +1,28 @@
+{
+  "arguments": [
+    "build",
+    "--mod",
+    "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\MOD 中文纹理",
+    "--sdk-root",
+    "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\sdk",
+    "--out",
+    "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached",
+    "--package-format",
+    "loose",
+    "--package-content",
+    "base",
+    "--performance",
+    "detailed",
+    "--sc=true",
+    "--bc=true",
+    "--iod",
+    "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached-intermediate"
+  ],
+  "timeoutSeconds": 90,
+  "stderr": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture\\common-formats\\41180859852-1\\Release\\cli\\warm\\stderr.log",
+  "stdout": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture\\common-formats\\41180859852-1\\Release\\cli\\warm\\stdout.log",
+  "cancel": false,
+  "exe": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\runtime\\NewModCompiler.exe",
+  "cwd": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\runtime",
+  "events": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\texture-common-bd72307028df4140bd0da09718a4f1d3\\Release\\production\\cached\\build.events.jsonl"
+}

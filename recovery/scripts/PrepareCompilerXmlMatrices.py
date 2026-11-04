@@ -40,14 +40,14 @@ def adapt(source):
 def prepare(root, output):
     tests = root / 'recovery/tests'
     groups = sorted(p for p in tests.glob('Xml*Oracle.cs') if p.name not in EXCLUDED)
-    if len(groups) != 63:
-        raise ValueError(f"Expected all 63 XML group oracles, got {len(groups)}")
+    if len(groups) != 64:
+        raise ValueError(f"Expected all 64 XML group oracles, got {len(groups)}")
     output.mkdir(parents=True, exist_ok=True)
     rows = []
     for oracle in groups:
         group = oracle.stem.removesuffix('Oracle')
         adapted, dynamic = adapt(oracle.read_text(encoding='utf-8-sig'))
-        sources = [oracle] + sorted(tests.glob(group + '*Cases.cs'))
+        sources = [oracle] + sorted(tests.glob(group + '*Cases.cs')) + [tests / 'PluginSchemaBoundary.cs']
         folder = output / group
         folder.mkdir()
         written = []

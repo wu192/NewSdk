@@ -5,7 +5,7 @@ if (!$env:RUNNER_TEMP) { $env:RUNNER_TEMP=[IO.Path]::GetTempPath() }
 if (!$OutputDirectory) { $OutputDirectory="recovery/evidence/audio/multichannel-original/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" }
 if (Test-Path $OutputDirectory) { throw 'Refusing to overwrite original multichannel evidence' }
 if (@($BitDepths | Where-Object { $_ -notin @(8,16,24) }).Count) { throw 'Only integral PCM8/16/24 is in this probe' }
-if (@($Channels | Where-Object { $_ -notin @(1,2,4,6) }).Count -or @($Frames | Where-Object { $_ -lt 2 -or $_ -gt 4096 }).Count) { throw 'Probe bounds exceeded' }
+if (@($Channels | Where-Object { $_ -notin @(1,2,4,6,8) }).Count -or @($Frames | Where-Object { $_ -lt 2 -or $_ -gt 4096 }).Count) { throw 'Probe bounds exceeded' }
 New-Item -ItemType Directory $OutputDirectory -Force | Out-Null; $out=(Resolve-Path $OutputDirectory).Path
 $work=Join-Path $env:RUNNER_TEMP ('audio-multichannel-original-'+[Guid]::NewGuid().ToString('N'))
 $hostDirectory=Join-Path $work 'host'; New-Item -ItemType Directory $hostDirectory -Force | Out-Null

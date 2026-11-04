@@ -104,7 +104,7 @@ class XmlpowersOracle
     {
         current = "rejection platform=" + platform + " " + xmlText;
         XmlDocument xml = new XmlDocument(); xml.LoadXml(xmlText);
-        try { Recovered(xml, platform); }
+        try { PluginSchemaBoundary.Validate(xml);  Recovered(xml, platform); }
         catch (NotSupportedException) { ++rejections; return; }
         throw new Exception("Unsupported input accepted: " + current);
     }

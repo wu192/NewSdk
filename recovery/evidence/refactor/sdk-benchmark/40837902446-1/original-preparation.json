@@ -1,0 +1,4548 @@
+{
+  "schemaVersion": 1,
+  "succeeded": true,
+  "binarySourceCommit": "4ad5d0d9f9c162783641a8dde5a5222cd61b5c29",
+  "benchmarkSourceCommit": "0fb98df2ad029ae14acb3006d8800cafb0b8fbfc",
+  "sourceRunId": "40836177604",
+  "sharedPreparation": "D:\\a\\_temp\\cb\\preparation.json",
+  "sharedPreparationSha256": "876f3fe35590e7f7608316c4602d6dbc17410a9426da5dd9a6afe10822c08dbc",
+  "originalExe": "D:\\a\\_temp\\ob\\original-runtime\\BinaryAssetBuilder.exe",
+  "originalRuntimeDirectory": "D:\\a\\_temp\\ob\\original-runtime",
+  "originalRuntimeFiles": [
+    {
+      "name": "antlr.astframe.dll",
+      "bytes": 6656,
+      "sha256": "f202b2befabb3b703b0389dceb4f542a606be4c1fb120fd267549a2bde7f34d4"
+    },
+    {
+      "name": "antlr.runtime.dll",
+      "bytes": 99328,
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    {
+      "name": "AssetMerge.exe",
+      "bytes": 116736,
+      "sha256": "639da001afc97177c624fe3fa358430b09550250f3a384678628a81f4e5edd82"
+    },
+    {
+      "name": "AssetResolver.exe",
+      "bytes": 13824,
+      "sha256": "21b9992ea770fc7ff21e92aa6ffd9c645ba80404fc8a5c68d233725f53090b93"
+    },
+    {
+      "name": "BinaryAssetBuilder.AudioCompiler.dll",
+      "bytes": 1232896,
+      "sha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139"
+    },
+    {
+      "name": "BinaryAssetBuilder.Core.dll",
+      "bytes": 212992,
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47"
+    },
+    {
+      "name": "BinaryAssetBuilder.exe",
+      "bytes": 36864,
+      "sha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af"
+    },
+    {
+      "name": "BinaryAssetBuilder.exe.config",
+      "bytes": 3042,
+      "sha256": "d3f5abfbd0a0cf43b790458b2f2a650f35fd3bba1730809b55d646b453c1ed93"
+    },
+    {
+      "name": "BinaryAssetBuilder.ExpressionEval.dll",
+      "bytes": 32768,
+      "sha256": "c2c872619b4391f5987d483597116fb33e0cbf09f3cebeeda9d0105cce18b5ac"
+    },
+    {
+      "name": "BinaryAssetBuilder.GameDataVerifier.dll",
+      "bytes": 9728,
+      "sha256": "497f29052a32dca2002857a3dbc88232bb66a19e3dfcfecbdf048c73417847f0"
+    },
+    {
+      "name": "BinaryAssetBuilder.Remote.dll",
+      "bytes": 3584,
+      "sha256": "126b4ab6c2c879b5f8ed7bb50e49a73e898fb6e082b7727d6424713cd8902135"
+    },
+    {
+      "name": "BinaryAssetBuilder.TextureCompiler.dll",
+      "bytes": 815104,
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e"
+    },
+    {
+      "name": "BinaryAssetBuilder.Tokenizer.dll",
+      "bytes": 1654784,
+      "sha256": "ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603"
+    },
+    {
+      "name": "BinaryAssetBuilder.Utility.dll",
+      "bytes": 63488,
+      "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b"
+    },
+    {
+      "name": "BinaryAssetBuilder.W3XCompiler.dll",
+      "bytes": 159744,
+      "sha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1"
+    },
+    {
+      "name": "BinaryAssetBuilder.XmlCompiler.dll",
+      "bytes": 1933312,
+      "sha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
+    },
+    {
+      "name": "CC3Tools.dll",
+      "bytes": 161792,
+      "sha256": "923e5c12f1b1f9c408c19cfbf3d6bc6e15175b69b504b2e72ec914d439077a35"
+    },
+    {
+      "name": "EALA.Hash.dll",
+      "bytes": 26624,
+      "sha256": "b884317c4b322630d67c9e961edc475557945f86090ac9105c3977880d3dcece"
+    },
+    {
+      "name": "EALA.Metrics.dll",
+      "bytes": 16384,
+      "sha256": "bcf488c809a052fe920de95ec10975693ffa27f8d3e892a1cff510c4a118fa1c"
+    },
+    {
+      "name": "HashFix.exe",
+      "bytes": 322560,
+      "sha256": "005682dfa26e401799f18c775cc8b6e0e2b0cd3efa08438597bf46a765e4e72a"
+    },
+    {
+      "name": "LoDStreamBuilder.exe",
+      "bytes": 124928,
+      "sha256": "e28b665a17cbbf597b47a2069a6efd979da00b44021f8f73b6beb0fb076fac0b"
+    },
+    {
+      "name": "MakeBig.exe",
+      "bytes": 13312,
+      "sha256": "2eaa2dfa8473ed5a74b5901c65ab133ddea26f70c8cb2747a0d8725c6c5a7cf9"
+    },
+    {
+      "name": "MapAssetResolver.exe",
+      "bytes": 13824,
+      "sha256": "21b9992ea770fc7ff21e92aa6ffd9c645ba80404fc8a5c68d233725f53090b93"
+    },
+    {
+      "name": "ModAssetResolver.exe",
+      "bytes": 457728,
+      "sha256": "b16c35fbf4eb6bea683d1d9baff65d29c2b2131ef2e5493b996d196de7361bb0"
+    },
+    {
+      "name": "ModAssetResolver_InstanceHashes.txt",
+      "bytes": 1976780,
+      "sha256": "7c6a753eb399509d006723a6268c1b4d0fdfa36699e90c93738729badfdd28a2"
+    },
+    {
+      "name": "ModAssetResolver_TypeHashes.txt",
+      "bytes": 9520,
+      "sha256": "1924064fa35614f45e9dd96366f0cec63d693260619f0edde0aa13ef3d2df920"
+    },
+    {
+      "name": "Mvp.Xml.dll",
+      "bytes": 176256,
+      "sha256": "75e86cde7ac2f4cdee06c1115550a6f44ccb22cbcfd4f57c5d5dd09c1fba78c9"
+    },
+    {
+      "name": "ReferenceFix.exe",
+      "bytes": 119296,
+      "sha256": "e7ff783032a119b3377462850670dd324506d2fa30be4fc44932b7b6c8052051"
+    },
+    {
+      "name": "Shaders/AlienShield.fx",
+      "bytes": 13656,
+      "sha256": "b383d136c235a3fe5fc7ec6d6be17d70b18ff4b9d1b22519945ef4f8b74d1ac2"
+    },
+    {
+      "name": "Shaders/BasicW3D.fx",
+      "bytes": 108992,
+      "sha256": "ac5a012846ed920917d6f63c6101bb77d720669dbf880051cb079057bc8a984b"
+    },
+    {
+      "name": "Shaders/compiled/Basic.scrape.dep",
+      "bytes": 359,
+      "sha256": "eafc5d69625e20f17d411554c422484e319e2af5cc93838fb203eb988179ebf2"
+    },
+    {
+      "name": "Shaders/compiled/basic.scrapeo",
+      "bytes": 280,
+      "sha256": "a2b6be987bcebdf3f7bdc6fbbbfc5f22c0794a3c00921853b856ff2448854d98"
+    },
+    {
+      "name": "Shaders/compiled/BasicW3D.fx.dep",
+      "bytes": 1111,
+      "sha256": "eda327b1d3ff79b77f32ce711615daea38713ea7fd4fd5e60429a25e99dd6d98"
+    },
+    {
+      "name": "Shaders/compiled/basicw3d.fxo",
+      "bytes": 65348,
+      "sha256": "0bb2c89ccc5f3202c56210bd8320b127499047899ec1fd0e9f0c17a7e0134a71"
+    },
+    {
+      "name": "Shaders/compiled/BasicW3DHolographic.fx.dep",
+      "bytes": 1133,
+      "sha256": "dbb9fcbd465e601691b0c49d521db4ffe6ce741cfd3a8b55d65f46628117a663"
+    },
+    {
+      "name": "Shaders/compiled/basicw3dholographic.fxo",
+      "bytes": 46596,
+      "sha256": "34774813ac6a6ed5b17ee5c95ed570fccd4458fdcaf12ce221c0da56084e4513"
+    },
+    {
+      "name": "Shaders/compiled/BasicW3DSupportHDR.fx.dep",
+      "bytes": 1131,
+      "sha256": "9b3d2da288b5ab3167912e6387b7b04ce87c997ac79358d5b002347b13361b44"
+    },
+    {
+      "name": "Shaders/compiled/basicw3dsupporthdr.fxo",
+      "bytes": 65912,
+      "sha256": "51b1a0d9fc4d8528cba1eaf805c2a125936235d56c2bd94c76865b0e7bb4c5a4"
+    },
+    {
+      "name": "Shaders/compiled/BootupScreen.fx.dep",
+      "bytes": 749,
+      "sha256": "85e9540767769973683188857017a1379c065ff338766a5888d0c3834b766fb8"
+    },
+    {
+      "name": "Shaders/compiled/bootupscreen.fxo",
+      "bytes": 6068,
+      "sha256": "e5d4fe50675eb9c40396dcf9e3e27b7fdca4a009e515af965e30a59a8c279e45"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsAllied.fx.dep",
+      "bytes": 1130,
+      "sha256": "34a3fd70aa92b5cd4a088c841556f8c4c13768659c2f4afef35a7ca8a5ef20eb"
+    },
+    {
+      "name": "Shaders/compiled/buildingsallied.fxo",
+      "bytes": 64256,
+      "sha256": "74e7b21640edaebf373187e3a29dbd98f26ca93944df0f42d760d43bc0244ade"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsFactionFrozen.fx.dep",
+      "bytes": 1144,
+      "sha256": "db787f29eee7d726b7d9ecfe775292854b7bbd33c7ba013777c5c8ca14f78736"
+    },
+    {
+      "name": "Shaders/compiled/buildingsfactionfrozen.fxo",
+      "bytes": 100332,
+      "sha256": "b1e2acbb85b94d75e3d478b264ed1efcee032803af0976ea13c5816904f9bcdb"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsGeneric.fx.dep",
+      "bytes": 1132,
+      "sha256": "a26f14e55180166ae8e1ea53184a8c60b5318fbb916c17164e629a984231a0c9"
+    },
+    {
+      "name": "Shaders/compiled/buildingsgeneric.fxo",
+      "bytes": 66532,
+      "sha256": "4e292cc20087d844cf5a36e51b3fd2df07c3d448c874717226e199e4873a21b6"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsGenericDamageFill.fx.dep",
+      "bytes": 1152,
+      "sha256": "848b3e0786a0485d24be2903cf7ce210edbaa17a717973ea040f0891d4c6b30f"
+    },
+    {
+      "name": "Shaders/compiled/buildingsgenericdamagefill.fxo",
+      "bytes": 66664,
+      "sha256": "df1b1d100e298e37982833b17b6616ae6308ea4f5b1dd243ee2bace1717931ba"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsGenericFrozen.fx.dep",
+      "bytes": 1144,
+      "sha256": "e591d7d47932f2a1071c52dd30175befccbe810560ba3e552803b967a76d3bfa"
+    },
+    {
+      "name": "Shaders/compiled/buildingsgenericfrozen.fxo",
+      "bytes": 98900,
+      "sha256": "76f264cba877fc4bd004785909deb270898c8d8f8980c641c09d71b55754d874"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsJapan.fx.dep",
+      "bytes": 1128,
+      "sha256": "da6480167a7a1c29f9465f45c71db48302b49222ba220d00c510325646fffa8c"
+    },
+    {
+      "name": "Shaders/compiled/buildingsjapan.fxo",
+      "bytes": 64256,
+      "sha256": "74e7b21640edaebf373187e3a29dbd98f26ca93944df0f42d760d43bc0244ade"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsJapanBuildup.fx.dep",
+      "bytes": 1142,
+      "sha256": "e360b90a8c6cc613f157ae93ac4e3b15ed2d147516b880c77734b1a1d2035fce"
+    },
+    {
+      "name": "Shaders/compiled/buildingsjapanbuildup.fxo",
+      "bytes": 67756,
+      "sha256": "b4f04377797cbf031fbf0f6085e31bfd739376f351bbe512e164ff82f82d1f54"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsSoviet.fx.dep",
+      "bytes": 1130,
+      "sha256": "e56231e9cf17e506a3b9e416f54cb1f5407c89f0c2c0e8ed86af0fe64cfd7e32"
+    },
+    {
+      "name": "Shaders/compiled/buildingssoviet.fxo",
+      "bytes": 64256,
+      "sha256": "05c26b2bfd0fd661bf59b039a340925ebcb679591cde0be69d361ac3bda48c45"
+    },
+    {
+      "name": "Shaders/compiled/ConnectionLine.fx.dep",
+      "bytes": 753,
+      "sha256": "b205d9e8cef7a92d809581f13f2256acf2c7e1592125498a9b8551b0c5ec4e53"
+    },
+    {
+      "name": "Shaders/compiled/connectionline.fxo",
+      "bytes": 9232,
+      "sha256": "c20eb80c41722bf575cce293ae2e3840ee6b87253773090f7603c91ff2c4fa61"
+    },
+    {
+      "name": "Shaders/compiled/CPUParticle.fx.dep",
+      "bytes": 907,
+      "sha256": "f7416eb74db1875195cfef18527eaa7e5e2809d80ad6d9742d221c8ebbb7c299"
+    },
+    {
+      "name": "Shaders/compiled/cpuparticle.fxo",
+      "bytes": 57160,
+      "sha256": "6022f910e13446af8ffe8d07c2ed8d2c9c1b5c0fb24deae17b6a0c005a682e19"
+    },
+    {
+      "name": "Shaders/compiled/Debug.fx.dep",
+      "bytes": 735,
+      "sha256": "234a05b77bbd4e79a3e299acfed11d633b30309c832bc4f10bfadaa17d6ee94d"
+    },
+    {
+      "name": "Shaders/compiled/debug.fxo",
+      "bytes": 13276,
+      "sha256": "90ec6b424f9e73d993c6612736dd41ebcc2ddf01a8a61a7f82182c5e1a926c30"
+    },
+    {
+      "name": "Shaders/compiled/Decal.fx.dep",
+      "bytes": 735,
+      "sha256": "1da64320b069e98bb9dc36eb0f12fcd078bae7561b78c6f5f6f2c635a9dc288e"
+    },
+    {
+      "name": "Shaders/compiled/decal.fxo",
+      "bytes": 13636,
+      "sha256": "0b4c8052c19d5d32ca14ab2e73658605ba950833a01c9182ddc9ffb056a98d23"
+    },
+    {
+      "name": "Shaders/compiled/DefaultW3D.fx.dep",
+      "bytes": 1066,
+      "sha256": "3bb29612a753a680008417ee46cc092d18ab8a176ce4aec64ef134402cb8ad37"
+    },
+    {
+      "name": "Shaders/compiled/defaultw3d.fxo",
+      "bytes": 671032,
+      "sha256": "113ff1e9233a70900a3aea8a49934ad05b9cf8b49b3ae39c6dc126f685536396"
+    },
+    {
+      "name": "Shaders/compiled/DefaultW3DNoFogNoCloud.fx.dep",
+      "bytes": 1090,
+      "sha256": "acc015aa8e3b4a74da965ac40b78d2c9249be73f21aa1963a653ef053d45ec32"
+    },
+    {
+      "name": "Shaders/compiled/defaultw3dnofognocloud.fxo",
+      "bytes": 612604,
+      "sha256": "c3681199b03e4de430b73d3fa73cad6b0d8bd41430ac9b71fe7b667e7b83079c"
+    },
+    {
+      "name": "Shaders/compiled/DistortingObject.fx.dep",
+      "bytes": 810,
+      "sha256": "0b8ada61171c167c31d141ec79bcab4ccbac7c3e6db39b8c606a3385a6052f78"
+    },
+    {
+      "name": "Shaders/compiled/distortingobject.fxo",
+      "bytes": 15708,
+      "sha256": "1b2445280b33fd7bac74a3d54d4356c1b719eceb1fac280beeb9957e856fdd48"
+    },
+    {
+      "name": "Shaders/compiled/ErrorMissing.fx.dep",
+      "bytes": 749,
+      "sha256": "32cbfc62306acbf3acec4f8635454cc1f8a18a96b387e50c5bdc352b9c0273fa"
+    },
+    {
+      "name": "Shaders/compiled/errormissing.fxo",
+      "bytes": 5572,
+      "sha256": "b5ae6057e6ef9c63542198308fa5a91f351f73f5e08ecb68442e866e35276166"
+    },
+    {
+      "name": "Shaders/compiled/FXBeamHit.fx.dep",
+      "bytes": 853,
+      "sha256": "6534ad4ce0b26d99f55bc66cf3afb917ffa4d353611688696733da0e34259041"
+    },
+    {
+      "name": "Shaders/compiled/fxbeamhit.fxo",
+      "bytes": 14384,
+      "sha256": "de50ffb3f34605bf68fb1da6e44c7d081b2d86366a96951e1be0e34311c789f0"
+    },
+    {
+      "name": "Shaders/compiled/FXLightning.fx.dep",
+      "bytes": 901,
+      "sha256": "0148cdcb69b00ba8808990488a22afa1e8541eead52240b820ac622fbd00caa9"
+    },
+    {
+      "name": "Shaders/compiled/fxlightning.fxo",
+      "bytes": 17264,
+      "sha256": "822ffb1e856fc1b5fbf2806d0278fe3c295104088aa40427b60218ae2cd0254a"
+    },
+    {
+      "name": "Shaders/compiled/FXProtonCollider.fx.dep",
+      "bytes": 966,
+      "sha256": "ea3eace8119afcf9b7ed80fcb3bb7f7e364a3f112716b3902d84333a987a92ea"
+    },
+    {
+      "name": "Shaders/compiled/fxprotoncollider.fxo",
+      "bytes": 15644,
+      "sha256": "73f9ecb834bdb4617242dd8c1638a4afdbb6e606efecf17fcafcdf3220d71b3f"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticle.fx.dep",
+      "bytes": 907,
+      "sha256": "e586d648565b79887851944ef169d3b7b465f21bb2e75470f43c7a381f80a144"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticle.fxo",
+      "bytes": 51200,
+      "sha256": "f2eac6d3e4cb4a1dc389483f312ee77789cc98f8f45ac505fe80e29e255a6b13"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticleDistort.fx.dep",
+      "bytes": 921,
+      "sha256": "318b13533234433e9cfc632ebdc5e03f81ed132cf70f45b33344a6a0e7bdd291"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticledistort.fxo",
+      "bytes": 55560,
+      "sha256": "14ce905da697c38e2c953500074daf2ce64e4b16a0c19e301a0adc47984e633a"
+    },
+    {
+      "name": "Shaders/compiled/GPUParticleDistortion.fx.dep",
+      "bytes": 877,
+      "sha256": "4f359e13d110e14271ea54766069007650f8f41e01c515990b26340766065969"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticledistortion.fxo",
+      "bytes": 25652,
+      "sha256": "e72498606060d98fdaef3f4e464b9de0d68cfba0bec96411c33453951c4bf2e1"
+    },
+    {
+      "name": "Shaders/compiled/GPUParticleLit.fx.dep",
+      "bytes": 913,
+      "sha256": "96ac3cc3dbea0b05c5ada1861d5a419bb2b96b3f2e17ab7245d18cfa99ff870b"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticlelit.fxo",
+      "bytes": 32712,
+      "sha256": "b0000697fde1f5a2cfbbc19a3082f5883c48ddd97dbafd11fb3ea0b625a3e234"
+    },
+    {
+      "name": "Shaders/compiled/GPUParticleLitAccumLight.fx.dep",
+      "bytes": 933,
+      "sha256": "2d7b0176cd686604db22d24545bfcf5a9e911ddd0892af23baab34a2130cb642"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticlelitaccumlight.fxo",
+      "bytes": 32664,
+      "sha256": "b47c23fa786f2f751e662ddc0598a9fe46a5c27b332b66dd3a24234e0ba810f9"
+    },
+    {
+      "name": "Shaders/compiled/GPUParticleNormalMap.fx.dep",
+      "bytes": 875,
+      "sha256": "b4b01ac1e7e235d9e1264a98820f12a3f572b999393d3011b7c552a7263a3f5d"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticlenormalmap.fxo",
+      "bytes": 35484,
+      "sha256": "a5b6080aab516604e88e0478497a22d373408f25aec2226b4810d0823a940495"
+    },
+    {
+      "name": "Shaders/compiled/GPUParticleOceanDisplacement.fx.dep",
+      "bytes": 891,
+      "sha256": "d900660deda9a5c77bf441779b828892d8b1c943bf08be26c72425cd8f52aa92"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticleoceandisplacement.fxo",
+      "bytes": 13704,
+      "sha256": "8f9a3fbd8174664bfc86e68248d1c12dd59dba465cd5e222a70b370143bded18"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticlePerpendicularBottom.fx.dep",
+      "bytes": 962,
+      "sha256": "bc3f31f8343469f5465a2b1093d1186e6e9db3a81bb09be6a4a70df065a86649"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticleperpendicularbottom.fxo",
+      "bytes": 71784,
+      "sha256": "f9fa59ba0eea91797c4a1ebd490d3c2cbe3a4829fad41a1fe762a47069f3b208"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticlePerpendicularCenter.fx.dep",
+      "bytes": 962,
+      "sha256": "85e585470d5e75c162e89673c34dd4d1461fe6e86a234e6751e71d810a3c304b"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticleperpendicularcenter.fxo",
+      "bytes": 71984,
+      "sha256": "04fc35488b71608fcb77309097fd23644de3d3ac24da6e0419316b6c47a51e49"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticleUnderwater.fx.dep",
+      "bytes": 988,
+      "sha256": "7095cffae1f3dc131284c5fdeddde2d383ba6e606ece23e709812a4d54fcb94a"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticleunderwater.fxo",
+      "bytes": 55608,
+      "sha256": "65fbc5b3ff9d3447f40be4439e19c6f080b7dc27ede613f7a0df7c884a473d99"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticleXY.fx.dep",
+      "bytes": 966,
+      "sha256": "8121722e3a6e8bccec7ebe73d4d91e9bd34b35fd02074aa3416324ac3037b24e"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticlexy.fxo",
+      "bytes": 49728,
+      "sha256": "233ff11d73daa86a7ed91e175de3e1b0f9975013c34b343f8b46dd8fa1ea37bb"
+    },
+    {
+      "name": "Shaders/compiled/Infantry.fx.dep",
+      "bytes": 1111,
+      "sha256": "ccf275c6a44c3127682ce2a8e4301d4ead64d64843e44eabdc8b98a6a04c96c7"
+    },
+    {
+      "name": "Shaders/compiled/infantry.fxo",
+      "bytes": 78292,
+      "sha256": "64eb1599b050a78e929166766df46456783dbac96a7712836f00ea57fc8f609a"
+    },
+    {
+      "name": "Shaders/compiled/InfantryChronoRift.fx.dep",
+      "bytes": 1131,
+      "sha256": "8ba8d81a3d3ca10bcf37927fe06d63c561112f79425812129bb3cb13585d8081"
+    },
+    {
+      "name": "Shaders/compiled/infantrychronorift.fxo",
+      "bytes": 65660,
+      "sha256": "01d55c1f88b2d0a2f987125002ab902fe3075906dc1ddeafd6dbb9a92ae35c62"
+    },
+    {
+      "name": "Shaders/compiled/InfantryFormationPreview.fx.dep",
+      "bytes": 1143,
+      "sha256": "c5f95b00717b86643aee1619d23173561c300551c8302fb03a26a8bdc49786f7"
+    },
+    {
+      "name": "Shaders/compiled/infantryformationpreview.fxo",
+      "bytes": 53272,
+      "sha256": "a26f2f52e470aeb53ac5e98cc4a2e213f37501fc8c1d6778163c21c7a176aaff"
+    },
+    {
+      "name": "Shaders/compiled/InfantryFrozen.fx.dep",
+      "bytes": 1123,
+      "sha256": "61608fbe99d485450e8cdeb37e956c99dbdb362291e5250664f140bdc5548214"
+    },
+    {
+      "name": "Shaders/compiled/infantryfrozen.fxo",
+      "bytes": 89600,
+      "sha256": "352d2363f2da0fec41769994cff62fafbcd14b6523109b9290033858e3cd29a9"
+    },
+    {
+      "name": "Shaders/compiled/InfantryRadiation.fx.dep",
+      "bytes": 1129,
+      "sha256": "30ad2d31e7f044fcd5b9e0bf7d3c94e67d4293ab2a3e4d3ef12f9203f1ab7b36"
+    },
+    {
+      "name": "Shaders/compiled/infantryradiation.fxo",
+      "bytes": 67748,
+      "sha256": "dc3dea84806b007680001fb479460ebe02ac295583afc56d82499c272b5c20e1"
+    },
+    {
+      "name": "Shaders/compiled/ingame-test.scrape.dep",
+      "bytes": 371,
+      "sha256": "0dc42724d32d6074cdb60dd129d356f7bded330452a8466337698303dc474a0a"
+    },
+    {
+      "name": "Shaders/compiled/ingame-test.scrapeo",
+      "bytes": 1625,
+      "sha256": "3ad27a0870b52f6462733925e84ccfc286b694d7ae58058d4b5f0e8d9b5d1361"
+    },
+    {
+      "name": "Shaders/compiled/InGame.scrape.dep",
+      "bytes": 1400,
+      "sha256": "66505bfb6cadd265a23d3106c1e27cd9dd3ad554735cbce3cafbfc27c1401498"
+    },
+    {
+      "name": "Shaders/compiled/ingame.scrapeo",
+      "bytes": 26998,
+      "sha256": "5403bced9126fa3ae3d7c7b979bca9e7c0610dc11c31f064b9a0974ae94eda1c"
+    },
+    {
+      "name": "Shaders/compiled/Laser.fx.dep",
+      "bytes": 785,
+      "sha256": "32563a7152db239d95386d0aad80e6498c0b002db7c5f79eacfacc090947cfb8"
+    },
+    {
+      "name": "Shaders/compiled/laser.fxo",
+      "bytes": 11012,
+      "sha256": "38407b2be9c3a84dc8a551ab9194586bc353a2efb76803593ec4e0b8ad2b5f14"
+    },
+    {
+      "name": "Shaders/compiled/LaserAlpha.fx.dep",
+      "bytes": 795,
+      "sha256": "6ab79159270f44fd223d4c9954d881c198f58b39f3a9af0c1b021a3455750518"
+    },
+    {
+      "name": "Shaders/compiled/laseralpha.fxo",
+      "bytes": 10524,
+      "sha256": "0ef33269b0684707eb365c3f6daad855a5332ced51733f52a5c67bf6cbbd562a"
+    },
+    {
+      "name": "Shaders/compiled/LaserDistortion.fx.dep",
+      "bytes": 755,
+      "sha256": "2d255ee653d08135ec522e5226565f143a1af0f99a74b2d92736c1eec46aad37"
+    },
+    {
+      "name": "Shaders/compiled/laserdistortion.fxo",
+      "bytes": 9696,
+      "sha256": "d99307cafd8a5e5baedd9f17dba3eeac7725396aa874a11e30c0f2c01543c21c"
+    },
+    {
+      "name": "Shaders/compiled/Lightning.fx.dep",
+      "bytes": 897,
+      "sha256": "fd897e586c79c5ffdfa346e8f1980d06e6c296cfc165f9f92bc3559bc7cd1243"
+    },
+    {
+      "name": "Shaders/compiled/lightning.fxo",
+      "bytes": 29332,
+      "sha256": "1420a0491b2e09fe9b2006f38b0870f38a8f5100f0498eceef1fea2f6046e4f2"
+    },
+    {
+      "name": "Shaders/compiled/LineRenderers.fx.dep",
+      "bytes": 801,
+      "sha256": "f5c3d141a878457f36cec181a56fba1829f626accb157d265db29169077c9bc2"
+    },
+    {
+      "name": "Shaders/compiled/linerenderers.fxo",
+      "bytes": 28512,
+      "sha256": "399a4912bf502bd77895299d591cbb11f497545ac20fa87bd451eb18bea1e5ca"
+    },
+    {
+      "name": "Shaders/compiled/MuzzleFlash.fx.dep",
+      "bytes": 850,
+      "sha256": "e8d5d6bb5491a4cc68de9c5a48fe212e6efe3a9df81c2a6926c08ebcff7d53b5"
+    },
+    {
+      "name": "Shaders/compiled/muzzleflash.fxo",
+      "bytes": 27600,
+      "sha256": "bd2e338549c6dced37f7c7359523de8d23075d9611aa30e48d400e9679288669"
+    },
+    {
+      "name": "Shaders/compiled/NormalMapped.fx.dep",
+      "bytes": 1124,
+      "sha256": "a0f53708555f907ad7e6bb37e68a2b643b0fd8e1fd395f981138952f623bea39"
+    },
+    {
+      "name": "Shaders/compiled/normalmapped.fxo",
+      "bytes": 62080,
+      "sha256": "d15d4c68ea545514543487dd5760fa85b04776c24ec1e2842b8a057ef4bd716f"
+    },
+    {
+      "name": "Shaders/compiled/Null.fx.dep",
+      "bytes": 404,
+      "sha256": "ab64b7536fa467e8103a125360984b60b01b7371efe76473154ad5383d99ca2c"
+    },
+    {
+      "name": "Shaders/compiled/null.fxo",
+      "bytes": 60,
+      "sha256": "a3a0443b10818874d51dcf9f3a346a6e7dd81ca84b0aac9dc673354492116824"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsAllied.fx.dep",
+      "bytes": 1126,
+      "sha256": "124c38fedb29f55ab3a33cbc9b9e2716c6aa8a868e802db029b97aab9ab6b265"
+    },
+    {
+      "name": "Shaders/compiled/objectsallied.fxo",
+      "bytes": 62512,
+      "sha256": "cbccf57b52c9e45d4cab0445843485e78c2f3a5b3fc28baa2e191467aad60f66"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsAlliedTread.fx.dep",
+      "bytes": 1136,
+      "sha256": "c519e7bd3fc2d1766dff04b1f6872a30477548b8488a635b877403251bee8c2a"
+    },
+    {
+      "name": "Shaders/compiled/objectsalliedtread.fxo",
+      "bytes": 62704,
+      "sha256": "fc1592d5d3a9d743e0f3c3b306d9d0e2007c50852c249b6755ed09f676ff5a9f"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsChronoRift.fx.dep",
+      "bytes": 1134,
+      "sha256": "2bf7e183f17f23d8bcfc8fa8b9cc4e3395e0dda2e0df9ef2ecc1aa01ca7295a8"
+    },
+    {
+      "name": "Shaders/compiled/objectschronorift.fxo",
+      "bytes": 52116,
+      "sha256": "396f73ebddcffe97297a0e29664b4c2fd371fa6084f4eb767aaaf7ff2c323dde"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsFactionFrozen.fx.dep",
+      "bytes": 1140,
+      "sha256": "d087e06ac6ed89a8023551d7e4bc38d960d697239375d7111c3110a72785d773"
+    },
+    {
+      "name": "Shaders/compiled/objectsfactionfrozen.fxo",
+      "bytes": 97740,
+      "sha256": "6589febd913b1727afc2c96dd016350fb2ab188ff0845769ea48c03292ec68ae"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsFormationPreview.fx.dep",
+      "bytes": 1146,
+      "sha256": "7a7748f029c47c422b6f28b2c98c38085c7958c51cb7778690e27496ae9c77bf"
+    },
+    {
+      "name": "Shaders/compiled/objectsformationpreview.fxo",
+      "bytes": 49460,
+      "sha256": "469e98c7c107c8fdf54a9a0ff7531a536cdf911dc2eb1c29535fe8b22ddeeacc"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsFrozen.fx.dep",
+      "bytes": 1126,
+      "sha256": "37d2c309ede184b51d6774c4274c9d87d084d31bca45569f40d1d267221c9245"
+    },
+    {
+      "name": "Shaders/compiled/objectsfrozen.fxo",
+      "bytes": 96280,
+      "sha256": "09eadd16e298c30b6109de66782466365df447ee1b88816333764c7b977cd29d"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsGeneric.fx.dep",
+      "bytes": 1128,
+      "sha256": "ef111895adb5167deb6afe6115947fd3cb0d18edc81d200035d4dc33d71ba65c"
+    },
+    {
+      "name": "Shaders/compiled/objectsgeneric.fxo",
+      "bytes": 64760,
+      "sha256": "dba251d5c5cd7bf2f1588c71ad93e1414b3d823a3fd7b00ba4f2bad18434ae5b"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsGenericLightmap.fx.dep",
+      "bytes": 1144,
+      "sha256": "5e6a421fffe99d1623ca19915a3d2c72849410555140b65c88e9079cc32f89e0"
+    },
+    {
+      "name": "Shaders/compiled/objectsgenericlightmap.fxo",
+      "bytes": 66720,
+      "sha256": "2cfb5f35ce3e7afc9d6b4abcd7ef83647912062262c859b98f2218001b979994"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsIronCurtain.fx.dep",
+      "bytes": 1136,
+      "sha256": "fd0875ae6de0acc0f7a4474d78e779cd3860ac6e60db5dd583644a61510970ea"
+    },
+    {
+      "name": "Shaders/compiled/objectsironcurtain.fxo",
+      "bytes": 51824,
+      "sha256": "54004b1bb4492dfba36a7bd51e83cf86b1823e9ebbcc3ffc0d0b4532f3b78474"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsJapan.fx.dep",
+      "bytes": 1124,
+      "sha256": "8f9d13d9e098a3c61a19a00f7f518c0add288b05cbb4b38358216c83e0a662cc"
+    },
+    {
+      "name": "Shaders/compiled/objectsjapan.fxo",
+      "bytes": 62512,
+      "sha256": "cbccf57b52c9e45d4cab0445843485e78c2f3a5b3fc28baa2e191467aad60f66"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsRoads.fx.dep",
+      "bytes": 1124,
+      "sha256": "bb340831ec60b0e49c789cca38e32f82ce96e99e85ef757304047d021ca68c9b"
+    },
+    {
+      "name": "Shaders/compiled/objectsroads.fxo",
+      "bytes": 64760,
+      "sha256": "b08c40cbed8069fb928f644474b3de1f00ff1443c541106e4ec74fd54f419e1a"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsSoviet.fx.dep",
+      "bytes": 1126,
+      "sha256": "d7f7fc590138a73634a6bb96cdd88ac131b47f9b2791d1b6ae9e20a9b198d02e"
+    },
+    {
+      "name": "Shaders/compiled/objectssoviet.fxo",
+      "bytes": 62512,
+      "sha256": "01588119d2a3833c874f9a254ba782c72665e716b093e329b1e0766d14c68b31"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsTerrain.fx.dep",
+      "bytes": 1076,
+      "sha256": "5888e5297c6f5c175f93ff626f884f8fbcd85c708d49af739c0c446b070007d2"
+    },
+    {
+      "name": "Shaders/compiled/objectsterrain.fxo",
+      "bytes": 31164,
+      "sha256": "b784ff93fc917e42e89844e4b1b4df2c4fcb7287f7369f641bc4bed4eedb67d2"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsTesla.fx.dep",
+      "bytes": 1124,
+      "sha256": "2c81670025a89cac3e93f30c97747e6dfd0f3905f607b9cd3ee845d7fbce25f8"
+    },
+    {
+      "name": "Shaders/compiled/objectstesla.fxo",
+      "bytes": 84072,
+      "sha256": "3030c13a93d39023284b3f505078134b8d48ce18f0178baa6ad4b82a637fde28"
+    },
+    {
+      "name": "Shaders/compiled/Occlusion.fx.dep",
+      "bytes": 743,
+      "sha256": "a788d781d9fbbccc252075c08ed8a8deeffd0120ec4a12a20feb456d66e4c213"
+    },
+    {
+      "name": "Shaders/compiled/occlusion.fxo",
+      "bytes": 7556,
+      "sha256": "2f9ae6b1582bd1ab402d3ca3b2b63b52357238d4d8bb2b574bc571cd61fa093a"
+    },
+    {
+      "name": "Shaders/compiled/Ocean.fx.dep",
+      "bytes": 899,
+      "sha256": "e68a14f2177b1f8290403155eac53a529109571059676a6f6d60d2fc81d4cb13"
+    },
+    {
+      "name": "Shaders/compiled/ocean.fxo",
+      "bytes": 32520,
+      "sha256": "be19b2a00c77faa5b5303fdd270b0ca1c70a314ba712c0d81286d19677ab74ce"
+    },
+    {
+      "name": "Shaders/compiled/OceanDisplacement.fx.dep",
+      "bytes": 759,
+      "sha256": "2891b172e3be3e6303976b7454f0f07d5c7a27f68b8887d2048d45bf83ee0974"
+    },
+    {
+      "name": "Shaders/compiled/oceandisplacement.fxo",
+      "bytes": 19840,
+      "sha256": "4a6f64a701c0cde9ab5a371fe7d5d7d642a8c1e46ff69f8d4a7a36f9c6864534"
+    },
+    {
+      "name": "Shaders/compiled/OceanNoVertexTexture.fx.dep",
+      "bytes": 978,
+      "sha256": "9bfcb3ae1ae4a18d94f60d3b669c6932443b4de6603ea9b2470b689cd2ae3c4d"
+    },
+    {
+      "name": "Shaders/compiled/oceannovertextexture.fxo",
+      "bytes": 33220,
+      "sha256": "de0c66a0e28d4746bb3aa6cdf47a473b21bb47be0d3a03a6a542d24fdf762a94"
+    },
+    {
+      "name": "Shaders/compiled/Outlines.fx.dep",
+      "bytes": 798,
+      "sha256": "75a40aadd2612ce3e7a4313b47787e007654e20006827db6684cfcfaa80ad383"
+    },
+    {
+      "name": "Shaders/compiled/outlines.fxo",
+      "bytes": 12532,
+      "sha256": "ff38af74c31fec26b35c08bdb06e94ca803b2c23a3039e6152e4e3aae6cceac5"
+    },
+    {
+      "name": "Shaders/compiled/PostFX_Bloom.fx.dep",
+      "bytes": 856,
+      "sha256": "039efa0eb2a2a0fdb430b61d8cbfa92f4ca8b8e98eb9d0cfa1a92af5a1702ac3"
+    },
+    {
+      "name": "Shaders/compiled/postfx_bloom.fxo",
+      "bytes": 34276,
+      "sha256": "fd60239172e62703bc5f1c19fa1fe3247dc68ea06ecd4981d117902514b43b21"
+    },
+    {
+      "name": "Shaders/compiled/PostFX_Distortion.fx.dep",
+      "bytes": 816,
+      "sha256": "830b8d41da87b7834af78d295bc220138fae9a9cfc1b7d96f18f91771b2e5ac0"
+    },
+    {
+      "name": "Shaders/compiled/postfx_distortion.fxo",
+      "bytes": 8212,
+      "sha256": "7e1bd0332a21e72a09a3ff26e2cc4ed7dfb1edd8c03fd1cbd2ba018df338a76e"
+    },
+    {
+      "name": "Shaders/compiled/PostFX_LinearDepth.fx.dep",
+      "bytes": 761,
+      "sha256": "8575a42c344e461bbde5c988790c69cb084fcb38250dc70b7939158c03ce8201"
+    },
+    {
+      "name": "Shaders/compiled/postfx_lineardepth.fxo",
+      "bytes": 6456,
+      "sha256": "104d3c5aa8d028ceb393aef7eaf4aa6fc75f4b733b040419889dd9aff7b26423"
+    },
+    {
+      "name": "Shaders/compiled/PostFX_LookupTable.fx.dep",
+      "bytes": 868,
+      "sha256": "a3832e40f5a491c1cc2860b2ffadb6f9f176ac4d65e5a0b73b62853c0769f4cd"
+    },
+    {
+      "name": "Shaders/compiled/postfx_lookuptable.fxo",
+      "bytes": 11496,
+      "sha256": "b5b04ebd0bcf8e1d5dee4ab0f946182a40b4291d2e890cbf4d5379f5769d897a"
+    },
+    {
+      "name": "Shaders/compiled/PostFX_MSAA.fx.dep",
+      "bytes": 804,
+      "sha256": "fcbd43b82ab3bd1faa750de37f7fbf9b45f1066527a44f67d51163eb903b0068"
+    },
+    {
+      "name": "Shaders/compiled/postfx_msaa.fxo",
+      "bytes": 8348,
+      "sha256": "4a7eaab330069f19fca882b2158b35ca78d878160dfa9ad2761a3c123a4d849c"
+    },
+    {
+      "name": "Shaders/compiled/Rain.fx.dep",
+      "bytes": 783,
+      "sha256": "88b59200b01a64e3898202d27d5395c5c1e453a743257b39340e5a4fcfeced6c"
+    },
+    {
+      "name": "Shaders/compiled/rain.fxo",
+      "bytes": 15896,
+      "sha256": "e40ecac879776824105133054f1e8d5917ceb91a29489cd786db334824e0a7e3"
+    },
+    {
+      "name": "Shaders/compiled/Render2D.fx.dep",
+      "bytes": 741,
+      "sha256": "aa296bcc53312c41dc5fe1c6570bae11e39286cabaec08bc4c5071417cfa78ba"
+    },
+    {
+      "name": "Shaders/compiled/render2d.fxo",
+      "bytes": 14332,
+      "sha256": "27c4d5603492cca893a6107eb27c1c13d4cb7dbd912d1a1f9fe7ad48f045f479"
+    },
+    {
+      "name": "Shaders/compiled/RiverReflection.fx.dep",
+      "bytes": 755,
+      "sha256": "fd18873d13461d81b34739a1aba8a9517adfe902920537a52e82159152461cd1"
+    },
+    {
+      "name": "Shaders/compiled/riverreflection.fxo",
+      "bytes": 12480,
+      "sha256": "a4ee86d60fd7bdc3158b7141ebc8c120ba26f5edfa0705ac5b804e7149812346"
+    },
+    {
+      "name": "Shaders/compiled/RiverWater.fx.dep",
+      "bytes": 795,
+      "sha256": "f8efde4ba485fded1f7e08dee94557a38093a1c8bb8c2c6c62d72a89cbed979c"
+    },
+    {
+      "name": "Shaders/compiled/riverwater.fxo",
+      "bytes": 17080,
+      "sha256": "e70e539371c0ce4d6e94d5a534b2bc8cb06bd0533bafafaa9d1e15326f764985"
+    },
+    {
+      "name": "Shaders/compiled/RotateEnvironmentMap.fx.dep",
+      "bytes": 765,
+      "sha256": "641d2ece9b792b84333d8e295f8e810c7c75919fb5246e91e66cf21371b4493b"
+    },
+    {
+      "name": "Shaders/compiled/rotateenvironmentmap.fxo",
+      "bytes": 12496,
+      "sha256": "eb5a520f12e1cceae01beac73b11623267d8ebb5bd4d3c6858f9598d8d6a906a"
+    },
+    {
+      "name": "Shaders/compiled/Shadow.fx.dep",
+      "bytes": 737,
+      "sha256": "880230a41373f6eb9de2b64c35ced2dfa729dae0a9fe58d5cd7ebdd9fdc614e5"
+    },
+    {
+      "name": "Shaders/compiled/shadow.fxo",
+      "bytes": 7448,
+      "sha256": "9639c03b2f2068fdc3b96b40d0c127730553c88d270c4550e1953202eafcc054"
+    },
+    {
+      "name": "Shaders/compiled/Shell.scrape.dep",
+      "bytes": 359,
+      "sha256": "2f9ea5d953050d896027de06a1ba9db7ee42f30cf18349cdee32a2b7f283f26e"
+    },
+    {
+      "name": "Shaders/compiled/shell.scrapeo",
+      "bytes": 200,
+      "sha256": "78aae389a26f9e554f4dd6dc987e1c6ecbb999d8b87c69fd43a8e4e3da5e7dae"
+    },
+    {
+      "name": "Shaders/compiled/Simple.fx.dep",
+      "bytes": 737,
+      "sha256": "5930f2e06ae821fc02d78a51b7c56e4737db0c325a62743f4f3c6c2ba7f2c0ba"
+    },
+    {
+      "name": "Shaders/compiled/simple.fxo",
+      "bytes": 8768,
+      "sha256": "73bb257abe4dc68634b3d6752310d4e0fe7c810963f1b40d5355f2e69e3e585c"
+    },
+    {
+      "name": "Shaders/compiled/Simplest.fx.dep",
+      "bytes": 741,
+      "sha256": "89be28a538269cc591343a0a42d389ed288ee00d67d36cc86ca48b38c1fd9c93"
+    },
+    {
+      "name": "Shaders/compiled/simplest.fxo",
+      "bytes": 8612,
+      "sha256": "1fa8aa4f3cdc80e8667b9f4c58af9bb0ee432aeeb82c45be34d4a918280da554"
+    },
+    {
+      "name": "Shaders/compiled/Stream.fx.dep",
+      "bytes": 787,
+      "sha256": "87e8d4b504d7b4fc66c4f871cd08044811456ba96fae9c8cba99490446916155"
+    },
+    {
+      "name": "Shaders/compiled/stream.fxo",
+      "bytes": 16636,
+      "sha256": "38ce2eba7b2d50670125d6ff9cf2c9c362318f1d5df3e5b77749c41c838452bf"
+    },
+    {
+      "name": "Shaders/compiled/SwarmParticle.fx.dep",
+      "bytes": 751,
+      "sha256": "d65cc576d4c73034355586eb29832d25d4c6b4cf3f3512637c755ddfbf094f22"
+    },
+    {
+      "name": "Shaders/compiled/swarmparticle.fxo",
+      "bytes": 12368,
+      "sha256": "07da9adc3e13da871185fe703bc9f0e03e3cd77f2f434927d8651614c1121481"
+    },
+    {
+      "name": "Shaders/compiled/Terrain.fx.dep",
+      "bytes": 1009,
+      "sha256": "f517599f3bd5c9827046da35898325934209c85f817e8746d0f40054c0cb4b6d"
+    },
+    {
+      "name": "Shaders/compiled/terrain.fxo",
+      "bytes": 95304,
+      "sha256": "45c30bf0c3fb33cf9d621acf3069d4af946ed34a3d799e59b5ae3dc202c84a3d"
+    },
+    {
+      "name": "Shaders/compiled/TerrainTracks.fx.dep",
+      "bytes": 801,
+      "sha256": "6e2b412c987cafacb9d6284a6b289b01789832069b58ea9490d79d4cb2173f5a"
+    },
+    {
+      "name": "Shaders/compiled/terraintracks.fxo",
+      "bytes": 7960,
+      "sha256": "91067325e10b7d117d1c6d5bce8cf1856ba88f2b163e1e0cf156399360bc5bd7"
+    },
+    {
+      "name": "Shaders/compiled/Tracer.fx.dep",
+      "bytes": 787,
+      "sha256": "35b3b8fbc2e5193f32186d91777d4d8aadfa4b1297028ed8a74deca4c28fa282"
+    },
+    {
+      "name": "Shaders/compiled/tracer.fxo",
+      "bytes": 20304,
+      "sha256": "e34f68d74d834731c8f67f2884cf02e3932906d9ea9a2b1d544a0fc99b76a3c3"
+    },
+    {
+      "name": "Shaders/compiled/Trail.fx.dep",
+      "bytes": 845,
+      "sha256": "11d455d651b5822cbd6a2f9783525967e5119b6bc474effb1c050956d62390e0"
+    },
+    {
+      "name": "Shaders/compiled/trail.fxo",
+      "bytes": 10984,
+      "sha256": "fdf2356c6663fa8729172224d178951145977f8cec285c3fb56dd506c24ce8c2"
+    },
+    {
+      "name": "Shaders/compiled/Tree.fx.dep",
+      "bytes": 1103,
+      "sha256": "f11c12b76cfae3517ce2bcec8e80706c4bda2c3ee3039503a4439bfb2e0bab1e"
+    },
+    {
+      "name": "Shaders/compiled/tree.fxo",
+      "bytes": 65348,
+      "sha256": "6ef3c7f4b4f285b07e925c95b1250c5ea4b4a01f3216fa9945cfa0cfe5aba671"
+    },
+    {
+      "name": "Shaders/compiled/TreeSway.fx.dep",
+      "bytes": 958,
+      "sha256": "9a3c0c6bfd298f09a32e7248f564bb16dc969d60b1485a9b19b6e0b5f3aa02bc"
+    },
+    {
+      "name": "Shaders/compiled/treesway.fxo",
+      "bytes": 38480,
+      "sha256": "687ab6239a4a11aa770f67909aeb9b4774f00567166fd5638919141870d05b35"
+    },
+    {
+      "name": "Shaders/compiled/UnderwaterDeferred.fx.dep",
+      "bytes": 872,
+      "sha256": "972425701e6085d385badd2183ea25e281ab27b5e4cd396c2350f8a141ac29f7"
+    },
+    {
+      "name": "Shaders/compiled/underwaterdeferred.fxo",
+      "bytes": 17112,
+      "sha256": "b211378c860780bf7f84165477bc1c519d257bc6e10f2540beded42410aea388"
+    },
+    {
+      "name": "Shaders/compiled/Video.fx.dep",
+      "bytes": 735,
+      "sha256": "e9906f224c9b87b7680e088159c497b2c6c5a5b8cfc0acae0b606c271e38722f"
+    },
+    {
+      "name": "Shaders/compiled/video.fxo",
+      "bytes": 7712,
+      "sha256": "d7a12623bd9d16598f2439aedb6429eb7593891635676a7c4da6bde78ff838ea"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Basic.scrape.dep",
+      "bytes": 379,
+      "sha256": "aeec28740317b91c2f86c3444e05b96d77f1f4570adcfd58f23fb429ee5502d3"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/basic.scrapeo",
+      "bytes": 280,
+      "sha256": "a2b6be987bcebdf3f7bdc6fbbbfc5f22c0794a3c00921853b856ff2448854d98"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BasicW3D.fx.dep",
+      "bytes": 1131,
+      "sha256": "6bff293528fef29b51ae0bf96b21edeb25f55e5074e148539075a0b207888f87"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/basicw3d.fxo",
+      "bytes": 62632,
+      "sha256": "11eb7e97dcdf3d68537c299c0540ab5ad7c6d66203737d041387f328f1ace533"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BasicW3DHolographic.fx.dep",
+      "bytes": 1153,
+      "sha256": "f5e33b8c3233b52d168439e2f7ea72cc51487dd7769ed3349d062576733a67b5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/basicw3dholographic.fxo",
+      "bytes": 45080,
+      "sha256": "0782272d2b4133f1beb818ff2fd7fff3a38bb332964439176877d8a0a6012863"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BasicW3DSupportHDR.fx.dep",
+      "bytes": 1151,
+      "sha256": "8917c574e83ce340ab49403cbc7b2a0eb51b0e2d2d5f9cddfc60f3464464a6ba"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/basicw3dsupporthdr.fxo",
+      "bytes": 63196,
+      "sha256": "b6645eb682ee2f831eec5e1c6d7add9e3164aa55de44e0c3fc6a7d3c81b0054c"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BootupScreen.fx.dep",
+      "bytes": 769,
+      "sha256": "e71bddaed2a41a6d1e1aee5295d8e71f6716bc94486af50362aa056303b8e43b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/bootupscreen.fxo",
+      "bytes": 6068,
+      "sha256": "4f9247de2ab982d83cdd3d20f77efa5ee643059ca739e22845769d1640fc4617"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsAllied.fx.dep",
+      "bytes": 1150,
+      "sha256": "08456157d87809312f3f75b1d638e19337ec3d3c5c9937c84e44bde92873a473"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsallied.fxo",
+      "bytes": 62300,
+      "sha256": "e6d22a611b4f0e9243ad73012cab0810b7ef9b5bf18effc13f71296eafb2ea9f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsFactionFrozen.fx.dep",
+      "bytes": 1164,
+      "sha256": "21af649daa769d17fa7c22481e3f0dd732ea9986a518dc216150747da6141521"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsfactionfrozen.fxo",
+      "bytes": 96456,
+      "sha256": "eb4aedd164026037b0253c6e79e989518038f85d7358ac2c5a39b2d09424fa9a"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsGeneric.fx.dep",
+      "bytes": 1152,
+      "sha256": "1147b9481a120fa703ca7dadf28e3755d5240ff588cfa00b741a2d6322eba5a1"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsgeneric.fxo",
+      "bytes": 64564,
+      "sha256": "3f01b670bcf10371178545e1419a78455fe81afaa20c0099c7ceb4feb134bccf"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsGenericDamageFill.fx.dep",
+      "bytes": 1172,
+      "sha256": "c98b10f062013cd322a0a6afa4541492096b0b0b9c18d4e038e0187333c6e408"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsgenericdamagefill.fxo",
+      "bytes": 64696,
+      "sha256": "cb9373147a0d49e877fd0e16923961ab2ba1819c0dba1fe6f384f8a7461058bd"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsGenericFrozen.fx.dep",
+      "bytes": 1164,
+      "sha256": "6f3f098420a7ae8d8a7995b3783796b9a2419238b120cf68b8353244ccfefa15"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsgenericfrozen.fxo",
+      "bytes": 95020,
+      "sha256": "a54de3a3f01774905b1a9be57ebf8225e9c24badf5d0c6d4945589df2c02cde4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsJapan.fx.dep",
+      "bytes": 1148,
+      "sha256": "930894ffec7029c7d6f6c656e0d7c2dc392caa017d04de1d31eac7931db2d712"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsjapan.fxo",
+      "bytes": 62300,
+      "sha256": "e6d22a611b4f0e9243ad73012cab0810b7ef9b5bf18effc13f71296eafb2ea9f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsJapanBuildup.fx.dep",
+      "bytes": 1162,
+      "sha256": "ddc2e967e300192a3593b46374966b097cf841a03e0eb67c81485d8109680afb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsjapanbuildup.fxo",
+      "bytes": 65772,
+      "sha256": "3be56b80076845bfd47dc07dddce1e4b7254b3490ba550d7b180bcd30a5eb9c7"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsSoviet.fx.dep",
+      "bytes": 1150,
+      "sha256": "e0db36df8b55f7af095dc20a5132a79d472bb82eb46973fe602f4ff38b5b2140"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingssoviet.fxo",
+      "bytes": 62300,
+      "sha256": "07005aa81578747b78dfb1a43703483ead3954cea393b0804d949761e9839b94"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ConnectionLine.fx.dep",
+      "bytes": 773,
+      "sha256": "08160d1fa9fdd1f6a98104d2cdd1e7c6ec5e41cd6aa85c11b4e667c99be25008"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/connectionline.fxo",
+      "bytes": 9232,
+      "sha256": "1d4548308384b8cca5ac580dbae3b76a81f126d9d3c2e388847a8a8acaab1363"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/CPUParticle.fx.dep",
+      "bytes": 927,
+      "sha256": "fe676401a5d393f1c449ff92fe18e627aff88bcde9af1853d7e62e8ed1962407"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/cpuparticle.fxo",
+      "bytes": 57160,
+      "sha256": "05ea3b8c38cf2aed15369f821fd811913fa95e38a9a00010909bedd1432b281f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Debug.fx.dep",
+      "bytes": 755,
+      "sha256": "322822f01ee32b092c9ddc224435a9e681b1408d1fcf69e11b4e9e358b6c3e49"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/debug.fxo",
+      "bytes": 13276,
+      "sha256": "f14b8d47d71546c143238a40013bd7d51dfd4b4b7b4bedc840edf290649b15bd"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Decal.fx.dep",
+      "bytes": 755,
+      "sha256": "51b73dab6fa55b8508537201f51198730a0614f28f3da8d24e1f8526d4079f57"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/decal.fxo",
+      "bytes": 13636,
+      "sha256": "b5d93f2d6379db512a1479b90b89abc6a87ed528e7e009ebceaf60beddf575a6"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/DefaultW3D.fx.dep",
+      "bytes": 1086,
+      "sha256": "ed81c0ed4d8fa937b509f9f5c837e900e2fd2708f43ae0a3ce7b29b14e394d64"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/defaultw3d.fxo",
+      "bytes": 651564,
+      "sha256": "270c639b67c64ca651637a58c7416552bbbe67effb0f3dbc0190e9bd3dbc193a"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/DefaultW3DNoFogNoCloud.fx.dep",
+      "bytes": 1110,
+      "sha256": "0fd971966207422233e0a16fa8237dba467c6ca3b32f27e2d5b5b1cb7f783d26"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/defaultw3dnofognocloud.fxo",
+      "bytes": 612528,
+      "sha256": "ac73f78b6ba7207a698835354e521084c5dca60d13042ada4bb24b49ad424351"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/DistortingObject.fx.dep",
+      "bytes": 830,
+      "sha256": "c34ef0ce29fb26cfc2d190b5bb56819f5f7599be2b05fc96f93a09c64b9a7f6b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/distortingobject.fxo",
+      "bytes": 15632,
+      "sha256": "bb7e0b40db5ab6d70da4e8af5a131449376f827cc6d80b79f5dcd9464983efea"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ErrorMissing.fx.dep",
+      "bytes": 769,
+      "sha256": "5dfc2bde0ad6cac9979a2b7c578bd6fce501272e5a3d995d41c94cb58c49daca"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/errormissing.fxo",
+      "bytes": 5572,
+      "sha256": "05d53fe242f16ebf533ffc2f338a9355549e7953175290095a9188dabf6fecfb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/FXBeamHit.fx.dep",
+      "bytes": 873,
+      "sha256": "040215ec8ecdc79a3e7a8bab3bad96613adde6a2c3c683a14c09e0e79f20ddc6"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/fxbeamhit.fxo",
+      "bytes": 14384,
+      "sha256": "9414e782eedaf6e6066b915051cd420611ecd59675b17c8b0d8fe205c17d7fb5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/FXLightning.fx.dep",
+      "bytes": 921,
+      "sha256": "3c34763f112483a08690da2132d538be4adbd07d11cf4e3a2488d5455932dc5e"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/fxlightning.fxo",
+      "bytes": 17264,
+      "sha256": "b8bcb02841cec8833219628ddff5912cb17744bdb9a2076c05b31ca834674c90"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/FXProtonCollider.fx.dep",
+      "bytes": 986,
+      "sha256": "6446bb65581c75fd2bc1bed26e96f5e0fa40c1adcdae76bb8d4b203081757426"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/fxprotoncollider.fxo",
+      "bytes": 15644,
+      "sha256": "5abf1a5e316e12bf20b71c04463015f4d19fb0072ff3675b73e045192db89231"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticle.fx.dep",
+      "bytes": 927,
+      "sha256": "b608b97292ec04f0cf692ea57373bc6a3d7afce387f3537683a709d27ebe8edf"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticle.fxo",
+      "bytes": 51200,
+      "sha256": "d759b9c6b48572a0b1abd4f6ba0bbed2025d240aec5b0bd7dc3b2946adf23862"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticleDistort.fx.dep",
+      "bytes": 941,
+      "sha256": "91608599b48e9ba16f330aa44ca8bb835624c92ccd9ee663becdd017ed7b9180"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticledistort.fxo",
+      "bytes": 55560,
+      "sha256": "37bf80f1332d90002e551b9ba6f6412ea16eb0d495170075aa2987339aadadc8"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GPUParticleDistortion.fx.dep",
+      "bytes": 897,
+      "sha256": "e595db9afee73741ab8cfe4d50ee07fa18c1df96194176517e843a261723b9c1"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticledistortion.fxo",
+      "bytes": 25652,
+      "sha256": "da69a646b013a3a510b25f585762406f6c29467a0096b9d2df8939635ba74f7d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GPUParticleLit.fx.dep",
+      "bytes": 933,
+      "sha256": "ecff480a3a4cd9b00d57607c69c2dfa2b31ed8aa413ed8cab8b4c838d0e19768"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticlelit.fxo",
+      "bytes": 32712,
+      "sha256": "6840826c0827e58cd5c92ecd425c7a8d81dfd71fced4835d549dab620b98d654"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GPUParticleLitAccumLight.fx.dep",
+      "bytes": 953,
+      "sha256": "b344c778325305d46137748f269c380131b055dc74af80229bc6c99a31450b18"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticlelitaccumlight.fxo",
+      "bytes": 32664,
+      "sha256": "1a6be8ff502d0fcf1f598604a77b3bbd8f2899f8458114484458414aad933500"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GPUParticleNormalMap.fx.dep",
+      "bytes": 895,
+      "sha256": "758c1e91173e1f57bcad64712746fc3de83ead5e5cb4ab0d3c8a685b2538704d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticlenormalmap.fxo",
+      "bytes": 35484,
+      "sha256": "4530b6df68d6b130c1957f3485958e1a563260218e9def8b99c89eeeda843a80"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GPUParticleOceanDisplacement.fx.dep",
+      "bytes": 911,
+      "sha256": "fcc6b45a3b4d126ad7804c9866b2835b0d180c57a900ddb4a989df1e8bd7019d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticleoceandisplacement.fxo",
+      "bytes": 13704,
+      "sha256": "170471c954ba403d1c642cfd48f8466168586cbf8a52e5eda0cdd16fc1013b46"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticlePerpendicularBottom.fx.dep",
+      "bytes": 982,
+      "sha256": "ff963805abca7d92f46fb46e6fe1a65924f6ce444aab4ed4e562c6203aa9e7cc"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticleperpendicularbottom.fxo",
+      "bytes": 71784,
+      "sha256": "f273b0a969c735a2b11af82f3fb19df6c6df00145faa8d0de576ae435271030b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticlePerpendicularCenter.fx.dep",
+      "bytes": 982,
+      "sha256": "eafd0fae3bd63c96ae136f5b2dee25747b670ea6e4375f97be43c2d2c2096b0c"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticleperpendicularcenter.fxo",
+      "bytes": 71984,
+      "sha256": "f8a11b5aa4b7c4ee7263cb62b8ad5285a98e673c41510181ad7a7ef392d288cf"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticleUnderwater.fx.dep",
+      "bytes": 1008,
+      "sha256": "6b583aef11c32d8c78bf412ffaeb5582a46f2f1014d2829485ac7a267e9d5457"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticleunderwater.fxo",
+      "bytes": 55608,
+      "sha256": "ea756d23adab380e64c31c85301309378a9b2030422e94a86f1cf0f73dd4c741"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticleXY.fx.dep",
+      "bytes": 986,
+      "sha256": "32a6da042b40ee01d76790ea1fe08d6cbe94c8f466756a1c9ce05d5f4eaaaf28"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticlexy.fxo",
+      "bytes": 49728,
+      "sha256": "c75d6143f9ba22a9f25093711e5d84451dc2af5218f383009eb9dd69ce42620a"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Infantry.fx.dep",
+      "bytes": 1131,
+      "sha256": "e7fc641c66c1fd5ae37b1901aaeb354515097cafbe9579c8d02e7b8e35c66fb4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/infantry.fxo",
+      "bytes": 72912,
+      "sha256": "528f0418bfaa0c0b8d4c342e8b11f2eacd12eee59769e9a83246541129adb0d4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/InfantryChronoRift.fx.dep",
+      "bytes": 1151,
+      "sha256": "a5933b4297bb308cd6b8202f36e118e1768b88f4d7fb7ce4d56295a28bc2ba7a"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/infantrychronorift.fxo",
+      "bytes": 64312,
+      "sha256": "09b0455fb02e21b94957ef31c2b7c43b37572178538c5fbc6a80c4051cd7bb36"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/InfantryFormationPreview.fx.dep",
+      "bytes": 1163,
+      "sha256": "4c64deb19075014065212463a67cbf00e19e5ac438b199586e9421b389005a5b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/infantryformationpreview.fxo",
+      "bytes": 51708,
+      "sha256": "8537eedf0b8611607c3e1cf3fe8c0a7f2ac8f17f5299d1bb7afded6f54fae108"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/InfantryFrozen.fx.dep",
+      "bytes": 1143,
+      "sha256": "07c215a307b31f45317960f78b6b6abd78edc48e062c2fe93ce572e228c0d3a2"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/infantryfrozen.fxo",
+      "bytes": 86680,
+      "sha256": "49f5ea12ca4daa2b9d5d7a727a0f20e5a8bb0c08cf62c21b4bb9e37a43793c85"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/InfantryRadiation.fx.dep",
+      "bytes": 1149,
+      "sha256": "95e6f2547ecb5b29081b4e8c65efaec1f002f5a75cd3c29f337f8adf1797826d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/infantryradiation.fxo",
+      "bytes": 65032,
+      "sha256": "571ac76a9e3639a8943df15a3778927fd9054c93bfe7ea99173d5b5b27bb4eac"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ingame-test.scrape.dep",
+      "bytes": 391,
+      "sha256": "6812dfd23173ff5ea1790524d208accd76af034cb2f19e179d134727e57b7bb5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ingame-test.scrapeo",
+      "bytes": 1625,
+      "sha256": "3ad27a0870b52f6462733925e84ccfc286b694d7ae58058d4b5f0e8d9b5d1361"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/InGame.scrape.dep",
+      "bytes": 1420,
+      "sha256": "9177a255416f0e5f7d3782f639f1b0b42187b82853cd4480c23ed3671bc701bb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ingame.scrapeo",
+      "bytes": 26998,
+      "sha256": "5403bced9126fa3ae3d7c7b979bca9e7c0610dc11c31f064b9a0974ae94eda1c"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Laser.fx.dep",
+      "bytes": 805,
+      "sha256": "6a056b19c47877fb1199173bac6530e05ac99517546b5d63cc9f198c8f8cc512"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/laser.fxo",
+      "bytes": 11012,
+      "sha256": "cdfc494963e3e77d7c842bda3470838f074dadaa5988b05279a580ee7df7b4ea"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/LaserAlpha.fx.dep",
+      "bytes": 815,
+      "sha256": "2ba28e09181842fc869e5e54b9babed66800aa8db3674434457dd0bfb5ea5579"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/laseralpha.fxo",
+      "bytes": 10524,
+      "sha256": "f680b36b0531340d76e64f5ac2340582ac82c77c9ddfad135bd4115d1fe372bb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/LaserDistortion.fx.dep",
+      "bytes": 775,
+      "sha256": "f9a806b9f08ddd11b0b437f282b4438f9bce17c213f52a2056b8902796c0ade1"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/laserdistortion.fxo",
+      "bytes": 9696,
+      "sha256": "8373aa7639a20510668917d4f00bf1b081b37f1d912e69694a943dd596de2af3"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Lightning.fx.dep",
+      "bytes": 917,
+      "sha256": "bf4686f69a014d5ccabe9bfc31f42c138381cb74a40ea6c702dff3ee6745f34b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/lightning.fxo",
+      "bytes": 29332,
+      "sha256": "640ca224d5347cb0057e97612275524437f8fbf4866d55ab9f346d9864d0b65d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/LineRenderers.fx.dep",
+      "bytes": 821,
+      "sha256": "ae59ac318271e7bf36fca913fe4d97978da99fec0629c5f29d25d7422eed4711"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/linerenderers.fxo",
+      "bytes": 28512,
+      "sha256": "6c5677fb8d736e93c45b57b1792eaa2f34f6b61083a320c7317a705c949768ef"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/MuzzleFlash.fx.dep",
+      "bytes": 870,
+      "sha256": "d0299e6bc9981cdece92550e0e1e37494a9858c8bdd6ff02cd8be187a8e5509f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/muzzleflash.fxo",
+      "bytes": 27076,
+      "sha256": "66dfe72ab576335a7749d1f74f33d5b1a4f9a3e444796a37b6647ebfa54f4821"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/NormalMapped.fx.dep",
+      "bytes": 1144,
+      "sha256": "a893b266c75be0b9d3730efd0999dc444c74051d864608f504605672238dc9e2"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/normalmapped.fxo",
+      "bytes": 60096,
+      "sha256": "9e877f958af7e86509f84b8023cba8204a111c6e41359cee577259c479ac0774"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Null.fx.dep",
+      "bytes": 424,
+      "sha256": "cfb257173a3e5dd9966afbe72634f887f70da7b7f322a1fc242cb6cac7b36b6b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/null.fxo",
+      "bytes": 60,
+      "sha256": "a3a0443b10818874d51dcf9f3a346a6e7dd81ca84b0aac9dc673354492116824"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsAllied.fx.dep",
+      "bytes": 1146,
+      "sha256": "a263826a96861e0c76acda16e573dc2780b5d5972065213c69298693730cd868"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsallied.fxo",
+      "bytes": 60528,
+      "sha256": "f27b4bc232e8ff7ef8abb65fa934ad06c3454941e0aa463522f26e58e8a8f70d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsAlliedTread.fx.dep",
+      "bytes": 1156,
+      "sha256": "2870e17bf2b79cb7be461c9874e993d353ec26bfa68d557334c679b147480625"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsalliedtread.fxo",
+      "bytes": 60720,
+      "sha256": "8184ce05af85424557ea198f926bacebe228fed3e8e308434de24d7a9e8bc5a5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsChronoRift.fx.dep",
+      "bytes": 1154,
+      "sha256": "200f79ad987d79be0938c2e40ba5584a43550ac5679c6c0cc8e94b4047054990"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectschronorift.fxo",
+      "bytes": 51156,
+      "sha256": "2e506524b76d62feaeef065e970aabc324bbb659a8dca79543e183ef12924417"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsFactionFrozen.fx.dep",
+      "bytes": 1160,
+      "sha256": "d5682ae9a2b8a72a9b50811bc4c0d502dc3920683873bad87b2afa015f0a0447"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsfactionfrozen.fxo",
+      "bytes": 93900,
+      "sha256": "326fee7a301f16f7f4da03d334c34fd9604c94ec82715f157257aa11ad349d00"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsFormationPreview.fx.dep",
+      "bytes": 1166,
+      "sha256": "f7646b6aaf4312624869058403a9ef1d1dcc0a091fa5a0905de8bcb8300d693c"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsformationpreview.fxo",
+      "bytes": 48460,
+      "sha256": "d3c2c1c5b6e1e534d4202562ca8054c7914b5df65a4d1f9c616bcbad2cd09aa6"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsFrozen.fx.dep",
+      "bytes": 1146,
+      "sha256": "87a075c2ca47aed1e70eefc701a758916d5da0f9f09e3b87702ed1749eadbe9f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsfrozen.fxo",
+      "bytes": 92440,
+      "sha256": "f30b3a26b8f3309782598ffc7e2e2d61544412487b93958ddd93e91c7b20b4d0"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsGeneric.fx.dep",
+      "bytes": 1148,
+      "sha256": "059b00d1739bc8a32b4f1eb64f5d830239d35875e08b7916a91b675218295b87"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsgeneric.fxo",
+      "bytes": 62768,
+      "sha256": "da419844cc7f457f4c5c58714da6b3c1c64a06b0048e86e3fc8c6b26a7676081"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsGenericLightmap.fx.dep",
+      "bytes": 1164,
+      "sha256": "f5e84670a460676a7a34bd2f2a07fab632e1b1ba4dc59fd8a15a270ec938d3b6"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsgenericlightmap.fxo",
+      "bytes": 64728,
+      "sha256": "897279ca12192f4525d943c4901d916c73946be5fd1d9b9bf100036f640b3960"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsIronCurtain.fx.dep",
+      "bytes": 1156,
+      "sha256": "ad702928be7c48a8ab120e184356a2b5df9078b12d8ae5689f82c284b192d735"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsironcurtain.fxo",
+      "bytes": 50864,
+      "sha256": "0956a0239a9898a9baf70a1e4cd5ad4944a06de029277f77bd1303849f0cd4fd"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsJapan.fx.dep",
+      "bytes": 1144,
+      "sha256": "24f34d32870f21213f3af37477a4cd18b36c4b110ef48d8af48ca904f15ced89"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsjapan.fxo",
+      "bytes": 60528,
+      "sha256": "f27b4bc232e8ff7ef8abb65fa934ad06c3454941e0aa463522f26e58e8a8f70d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsRoads.fx.dep",
+      "bytes": 1144,
+      "sha256": "38f62989cf63403066ce12c099aef6a37b4418d9632807add84c33407cc03ebf"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsroads.fxo",
+      "bytes": 62768,
+      "sha256": "0dbf9dbc8c3a70b73d27f581d6670c7b5e8c96d87d5d8970613814f352693cc5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsSoviet.fx.dep",
+      "bytes": 1146,
+      "sha256": "41167713c162a041fe25b151b24007854354bdaaed61696437d2f5a8d91a31bc"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectssoviet.fxo",
+      "bytes": 60528,
+      "sha256": "d688edfb1a28764c11076c208c73781272dfbda1ce9678c1d524e552e52c3edb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsTerrain.fx.dep",
+      "bytes": 1096,
+      "sha256": "68cd1d0afb6be770959b6b1baf4257a48ba335af725056cf727ef0976cd2453d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsterrain.fxo",
+      "bytes": 31164,
+      "sha256": "b4d32028f9bcf5195a0bb9fa9f079007497d8955b8f910215ad1b4c56bffa317"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsTesla.fx.dep",
+      "bytes": 1144,
+      "sha256": "477cc8767e854a6bd46bfddd817e4a6949a03ed2e1412441719256c5ebb94b47"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectstesla.fxo",
+      "bytes": 81696,
+      "sha256": "d7c62959766215400e64c2f58728b8292f656fd54a956ea63850426a80eca0b2"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Occlusion.fx.dep",
+      "bytes": 763,
+      "sha256": "ff699887dc7d810b63369613f232cc97227f11f054707182ad22e1bf2023af6e"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/occlusion.fxo",
+      "bytes": 7556,
+      "sha256": "79246bdb190248a6ef6dbc60864831a1c4e280d21330eb343eafa99b7bd96e5c"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Ocean.fx.dep",
+      "bytes": 919,
+      "sha256": "d587f8eb27c49f4056d9264e41323ecdd82af576a31d9dee0ff4c12fa1faf14e"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ocean.fxo",
+      "bytes": 32520,
+      "sha256": "6c250e026acc0712e6e1355a59520a4deaad38580932358213687336fe936210"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/OceanDisplacement.fx.dep",
+      "bytes": 779,
+      "sha256": "1407c6b05c4a1205947f5f713a97df9a65e37f6a8193f8cde7d66dcae4566094"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/oceandisplacement.fxo",
+      "bytes": 19840,
+      "sha256": "efff6da413219837f21f890e819c22ab4a2531bdbfffcd9c73c218fe996c5939"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/OceanNoVertexTexture.fx.dep",
+      "bytes": 998,
+      "sha256": "cb0d3dd3456a6d656cd78179cf7e9fa9bec29ff29f385cc682459b2de7520b5d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/oceannovertextexture.fxo",
+      "bytes": 33220,
+      "sha256": "82047db21c3d9239220bdc9cb59ebc6da6ed7f95197f96bd378412f95874b1f0"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Outlines.fx.dep",
+      "bytes": 818,
+      "sha256": "da0883d6d32f59c296eee5edcfd3828838122603d04b6d72f9f4ad01eeff3509"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/outlines.fxo",
+      "bytes": 12532,
+      "sha256": "14a4eb90d719be8b8adfaa7b1c9042b6efe20acd00e9d9e54f9fe568a5fcf544"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/PostFX_Bloom.fx.dep",
+      "bytes": 876,
+      "sha256": "76781c24742b00853b2076f85e2a2b58d8755c8225901b2401b9babc66c26dbd"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/postfx_bloom.fxo",
+      "bytes": 34276,
+      "sha256": "7c55997c384e0f673b4e1876e052173743a7ddd2d87a091ab22c53835126e1a4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/PostFX_Distortion.fx.dep",
+      "bytes": 836,
+      "sha256": "946f7f323597658065283de09821d8daab526a07739ddfc6e41d6032576ee2d0"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/postfx_distortion.fxo",
+      "bytes": 8212,
+      "sha256": "7e1bd0332a21e72a09a3ff26e2cc4ed7dfb1edd8c03fd1cbd2ba018df338a76e"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/PostFX_LinearDepth.fx.dep",
+      "bytes": 781,
+      "sha256": "80821f5ff95444f9fa905945a5a56da9b53dc3164da099f2d0ac17036507bb50"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/postfx_lineardepth.fxo",
+      "bytes": 6456,
+      "sha256": "c8f3c0fcb33e848649f8ada244191fbcaf05e459288bf74fd3edbab188de734b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/PostFX_LookupTable.fx.dep",
+      "bytes": 888,
+      "sha256": "e38964147a06a47895c9bed0d0904e709f983e2d30c06f41dbb686ce7cc33f0d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/postfx_lookuptable.fxo",
+      "bytes": 11496,
+      "sha256": "354a5c97aecaf3133a67b851c67a6c35e08e685f6c9ffcaaa7501b099882b099"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/PostFX_MSAA.fx.dep",
+      "bytes": 824,
+      "sha256": "afd2d8fc16e1f9a004245909667604bced1fbfde09521193b0deec2d667015ae"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/postfx_msaa.fxo",
+      "bytes": 8348,
+      "sha256": "f703aa911cc61d9578e538b18e5eebe2200f828afc4425bb54bad59ee2042b36"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Rain.fx.dep",
+      "bytes": 803,
+      "sha256": "3c43dbe388ef961b98d02c1e1d193eff8779f92695810ff1af36d2072aa37029"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/rain.fxo",
+      "bytes": 15896,
+      "sha256": "4de3994a74eefc14e2a58abaee7baba3c400fef91c737d097721293d7bebf876"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Render2D.fx.dep",
+      "bytes": 761,
+      "sha256": "959392cf27ceccbaf2910abfdff281b7fa05816ad98c42821ca7aac5a018063b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/render2d.fxo",
+      "bytes": 14332,
+      "sha256": "12da7f8c0de8eafbf995d403cd6188958bfff15608aa09507c11c3ee3575e1db"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/RiverReflection.fx.dep",
+      "bytes": 775,
+      "sha256": "70c9e3f34fd2f43e064407fac6acf5aa142c87004a56c11e5d8f23a7afef9ea2"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/riverreflection.fxo",
+      "bytes": 12480,
+      "sha256": "23811b5aecca2f69a6ded33c4a780c1baef506f1ad331ce2849286078c5003ca"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/RiverWater.fx.dep",
+      "bytes": 815,
+      "sha256": "6513fc7ebcf3bf3689614e8373929a05daf671f679534eed9e960690646a7d49"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/riverwater.fxo",
+      "bytes": 17080,
+      "sha256": "9232aa8ad9d89bd3362dbb5a17be3dc86e2da1bc7ada6c3cd7d9d39827bfd14d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/RotateEnvironmentMap.fx.dep",
+      "bytes": 785,
+      "sha256": "0dd86177092a96f0e8b246a297d2aa43e3914c4cd60a0499670681ecc3b17884"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/rotateenvironmentmap.fxo",
+      "bytes": 12496,
+      "sha256": "10fc4d1ce8361d5de7387b7a98a9e7c2f4f262d421f78dde55685bf7f70e50be"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Shadow.fx.dep",
+      "bytes": 757,
+      "sha256": "939ca93ea67ca5cb8b80043482298ebee443bf5cd5cef8d5f3dadc6de1b71677"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/shadow.fxo",
+      "bytes": 7448,
+      "sha256": "9639c03b2f2068fdc3b96b40d0c127730553c88d270c4550e1953202eafcc054"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Shell.scrape.dep",
+      "bytes": 379,
+      "sha256": "a3f72d47e3e429589e9335fd78e8735ed516298eb925d6f3ff2b8b636385aac1"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/shell.scrapeo",
+      "bytes": 200,
+      "sha256": "78aae389a26f9e554f4dd6dc987e1c6ecbb999d8b87c69fd43a8e4e3da5e7dae"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Simple.fx.dep",
+      "bytes": 757,
+      "sha256": "43c800bffc1dfe7266a32e51bd15cd14840ae1dff36fcd0713a15e2e35f38d9f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/simple.fxo",
+      "bytes": 8768,
+      "sha256": "e20b89e27b23def032121e54eff32ee17414578570be9e63f2cfa7a3211c52f5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Simplest.fx.dep",
+      "bytes": 761,
+      "sha256": "ac7ab20d819d1da5a11515e251027a0c459a1b1f7d030b4ee95c4ff818ae2554"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/simplest.fxo",
+      "bytes": 8612,
+      "sha256": "8fdccd1f6e597eeea3cbbc3ef3f25d855af387c732d1a452c61ec5dc906e89b4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Stream.fx.dep",
+      "bytes": 807,
+      "sha256": "cfdd03583b722abad430db8e0d98428b3c1573f999349975f5797c577c471ded"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/stream.fxo",
+      "bytes": 16636,
+      "sha256": "71ca076db1e18f61d3b6fa95db17a5a56cdc11d24bf4997e5b24b75507767568"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/SwarmParticle.fx.dep",
+      "bytes": 771,
+      "sha256": "c1a62c484dbce234953bc061625a3d07087923012c44c2e1822ec1df3f2d9936"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/swarmparticle.fxo",
+      "bytes": 12368,
+      "sha256": "aab2fd1a5c07b66395e97627f4529fcc310d02453324b620d99bb81de95a67ad"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Terrain.fx.dep",
+      "bytes": 1029,
+      "sha256": "8d2f13926e4b6f3be7ef063c4fe62e41a1d1fbde84de172d12bfc932308bebe4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/terrain.fxo",
+      "bytes": 95304,
+      "sha256": "cda812efc875898b90f2186060cbc9e64ec32f54b3f7227eec50cbe241f5da55"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/TerrainTracks.fx.dep",
+      "bytes": 821,
+      "sha256": "68776e82880c190d4c448c980c535c8c906c349671495c2461d031e8b1d925c9"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/terraintracks.fxo",
+      "bytes": 7960,
+      "sha256": "e675148eb421929d7603a6676bac44e2e43abd141ec35089301eff3ca55b0827"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Tracer.fx.dep",
+      "bytes": 807,
+      "sha256": "992278fd9d4682bdd094fd8a22c155bf5853dac49ec494004c62a23c8db1babb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/tracer.fxo",
+      "bytes": 20304,
+      "sha256": "c1ddbb9a50162fda8bde9d438e00d0482e11685e18bd5cbd7c556afae2ede636"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Trail.fx.dep",
+      "bytes": 865,
+      "sha256": "e6c6a259afe66535c2ccb76056dcd84599aaf33d83daf817343a03cfd3d62c5f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/trail.fxo",
+      "bytes": 10984,
+      "sha256": "464091baf988791b122804d6ad77d7cabb51527a767bb211c71cd24ecde10066"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Tree.fx.dep",
+      "bytes": 1123,
+      "sha256": "b206c1cbd21fca97e857382bbc2ec7788e77090fc9af67012256a8e8cd8fe681"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/tree.fxo",
+      "bytes": 62632,
+      "sha256": "cd2517584487c58e0c34d0fc7f073ba4ddccea31b0237f149626ff3d3b004ccb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/TreeSway.fx.dep",
+      "bytes": 978,
+      "sha256": "184c5944a3b6ae0a87c1fb926d7f21e17069d6821df02c9af51139c5e256700e"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/treesway.fxo",
+      "bytes": 38080,
+      "sha256": "43b5145262d48baa145129d1160793736590f0581c249fafe87cb457c2035084"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/UnderwaterDeferred.fx.dep",
+      "bytes": 892,
+      "sha256": "f9643dc0dc0bbbd9f57a3c2d375e21424204e909865dad71708bf65462581987"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/underwaterdeferred.fxo",
+      "bytes": 17112,
+      "sha256": "874817c734ada63d8e5e66dd67f81f70bacc0b09f35416d8b3632e093eb7dec5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Video.fx.dep",
+      "bytes": 755,
+      "sha256": "f7b16ec5d2027193e03a214ef95cb8362c959c9f21033c5e19323888cc903f6b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/video.fxo",
+      "bytes": 7712,
+      "sha256": "4bf76b5482d32b0102bc0cc631416bb3d77318146fad283266f01b99fb2b1118"
+    },
+    {
+      "name": "Shaders/DefaultW3D.fx",
+      "bytes": 1504552,
+      "sha256": "ee94e441dde0600c22d11f1dcafe53b6f30b2228f138465e1dca018fddcbaeb8"
+    },
+    {
+      "name": "Shaders/DefaultW3DNoFogNoCloud.fx",
+      "bytes": 1423288,
+      "sha256": "c03fdf19694f7d178085f3fc7699f0317d8498731fb91da6b2c0ace7a43118da"
+    },
+    {
+      "name": "Shaders/DistortingObject.fx",
+      "bytes": 19432,
+      "sha256": "727139f4c858d1e24d4299ef88caab5d281cce7041e7049f94f67ce398c94870"
+    },
+    {
+      "name": "Shaders/Infantry.fx",
+      "bytes": 126300,
+      "sha256": "9182a5f0609b8f9459aa284e98d22ed1ab1a1610bc9617cbefac745e9bb3d6f8"
+    },
+    {
+      "name": "Shaders/MuzzleFlash.fx",
+      "bytes": 31640,
+      "sha256": "98c8db80ad6ccad59a86d1ac33625c1c54b26e46d3f34b5c6b28188352cafddd"
+    },
+    {
+      "name": "Shaders/NormalMapped.fx",
+      "bytes": 120292,
+      "sha256": "3ec7a668e59fc8560c8f6841780d7318559dc126e586b3c0ee726d8ad190600a"
+    },
+    {
+      "name": "Shaders/ObjectsAlien.fx",
+      "bytes": 133896,
+      "sha256": "67556c7e00528332740cf8d14ef03f5deb3a1a11dd4a5a7cdcac9f5466c37eab"
+    },
+    {
+      "name": "Shaders/ObjectsAlienBuildup.fx",
+      "bytes": 140112,
+      "sha256": "f4f1d090befbe70960baa51af4a280a60269e63bebe3a0259eb680349d8c3fd6"
+    },
+    {
+      "name": "Shaders/ObjectsAlienIonHull.fx",
+      "bytes": 140408,
+      "sha256": "d50d4c626e8e99c52e00fcfc594896f3cf3e717ceab80231d35e0b2fafac5f34"
+    },
+    {
+      "name": "Shaders/ObjectsGDI.fx",
+      "bytes": 128024,
+      "sha256": "fb1ea8568207b533336dfc0a5e04d6f4a2400e2000ee0559adbb3b6c9ba31337"
+    },
+    {
+      "name": "Shaders/ObjectsGeneric.fx",
+      "bytes": 130492,
+      "sha256": "4325ba6bd569678b0f7b93c2467c42e02b0ace1a575fda51688100884a4665db"
+    },
+    {
+      "name": "Shaders/ObjectsGenericEnvMap.fx",
+      "bytes": 130344,
+      "sha256": "d0d69a55a3ba18df0f53e0f8aa5d951783c0e0e9523c9b3cc313cd3ee43a3ff3"
+    },
+    {
+      "name": "Shaders/ObjectsNOD.fx",
+      "bytes": 130032,
+      "sha256": "357b8cf03ab8d6efdf765e98f7df978f198c624ad19af89ca3523369d32c921d"
+    },
+    {
+      "name": "Shaders/ShieldDistortion.fx",
+      "bytes": 20912,
+      "sha256": "47fa3d7ad806039140d36d73969c3aca272d497d30149f3383d0be1b9ffbe1e5"
+    },
+    {
+      "name": "Shaders/Simple.fx",
+      "bytes": 5800,
+      "sha256": "126c08ecc0989460354d09c99b9b0f05ee870d9ca4ad3e7ae52ae4d300107cbc"
+    },
+    {
+      "name": "Shaders/Tiberium.fx",
+      "bytes": 116160,
+      "sha256": "eb01c466794a63cd1036fa1678d72911922912f096df64fd55871cc35fa47c67"
+    },
+    {
+      "name": "Shaders/Tree.fx",
+      "bytes": 127320,
+      "sha256": "69b480879d9e5941b1cf34255a99599c03ffcbfb300b15a1954e3a2ef685f2b5"
+    },
+    {
+      "name": "Shaders/WaterShader.fx",
+      "bytes": 125408,
+      "sha256": "efb005fea093e5455d93f4a4139370e7f8b7d83d7942bb43862a7461a43dc71c"
+    },
+    {
+      "name": "Source/ModAssetResolver.dpr",
+      "bytes": 34419,
+      "sha256": "18d1181130d3a470c75ca2e084c1d0e52e41111464c0a1aed2a6f6f5be42d6fd"
+    },
+    {
+      "name": "Source/ModAssetResolver_StringHashes.pas",
+      "bytes": 2772810,
+      "sha256": "b741abea1377fc60fd0dab7651e76d8e8882de5c4a861307bb5050e697159662"
+    },
+    {
+      "name": "W3XViewer.exe",
+      "bytes": 1634304,
+      "sha256": "3941fa25aca34cc10baf4b4eadd84b390868f5e84f96850ad717f01dd585510d"
+    },
+    {
+      "name": "WBAssetResolver.exe",
+      "bytes": 433152,
+      "sha256": "2340879685d5948447a100eabeb6abd6b8fd6b2be795d7be259e7c817418482e"
+    }
+  ],
+  "originalSourceFiles": [
+    {
+      "name": "antlr.astframe.dll",
+      "bytes": 6656,
+      "sha256": "f202b2befabb3b703b0389dceb4f542a606be4c1fb120fd267549a2bde7f34d4"
+    },
+    {
+      "name": "antlr.runtime.dll",
+      "bytes": 99328,
+      "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+    },
+    {
+      "name": "AssetMerge.exe",
+      "bytes": 116736,
+      "sha256": "639da001afc97177c624fe3fa358430b09550250f3a384678628a81f4e5edd82"
+    },
+    {
+      "name": "AssetResolver.exe",
+      "bytes": 13824,
+      "sha256": "21b9992ea770fc7ff21e92aa6ffd9c645ba80404fc8a5c68d233725f53090b93"
+    },
+    {
+      "name": "BinaryAssetBuilder.AudioCompiler.dll",
+      "bytes": 1232896,
+      "sha256": "a14d15addef502c2df6f6ba272d6098c4c131fbea9c3ed0149c11c4556347139"
+    },
+    {
+      "name": "BinaryAssetBuilder.Core.dll",
+      "bytes": 212992,
+      "sha256": "b36d5015f97532457d64072034f9f5c629a4c060a2d34c49c4f89fd6e6f79e47"
+    },
+    {
+      "name": "BinaryAssetBuilder.exe",
+      "bytes": 36864,
+      "sha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af"
+    },
+    {
+      "name": "BinaryAssetBuilder.exe.config",
+      "bytes": 2945,
+      "sha256": "c70ba3231cec9a130fa170d2866836c020659bad2777dfb1d8dc61e914b666cb"
+    },
+    {
+      "name": "BinaryAssetBuilder.ExpressionEval.dll",
+      "bytes": 32768,
+      "sha256": "c2c872619b4391f5987d483597116fb33e0cbf09f3cebeeda9d0105cce18b5ac"
+    },
+    {
+      "name": "BinaryAssetBuilder.GameDataVerifier.dll",
+      "bytes": 9728,
+      "sha256": "497f29052a32dca2002857a3dbc88232bb66a19e3dfcfecbdf048c73417847f0"
+    },
+    {
+      "name": "BinaryAssetBuilder.Remote.dll",
+      "bytes": 3584,
+      "sha256": "126b4ab6c2c879b5f8ed7bb50e49a73e898fb6e082b7727d6424713cd8902135"
+    },
+    {
+      "name": "BinaryAssetBuilder.TextureCompiler.dll",
+      "bytes": 815104,
+      "sha256": "4f559428e11a5cf8b914792e0eccf3b94397b8851233ec658d4c02c4633e9d9e"
+    },
+    {
+      "name": "BinaryAssetBuilder.Tokenizer.dll",
+      "bytes": 1654784,
+      "sha256": "ba5e34e9a44509d5489086f610c3bb4502b441c1513740fb66d6b740ad3eb603"
+    },
+    {
+      "name": "BinaryAssetBuilder.Utility.dll",
+      "bytes": 63488,
+      "sha256": "f71d8f4b10002637deb72eac68e14599e38bac07221f0ed2d1dfc751d8ffd96b"
+    },
+    {
+      "name": "BinaryAssetBuilder.W3XCompiler.dll",
+      "bytes": 159744,
+      "sha256": "bff82309b8e5e9f689112202e3613ad335148934c92dc70fe143f6e60d9ad3f1"
+    },
+    {
+      "name": "BinaryAssetBuilder.XmlCompiler.dll",
+      "bytes": 1933312,
+      "sha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6"
+    },
+    {
+      "name": "CC3Tools.dll",
+      "bytes": 161792,
+      "sha256": "923e5c12f1b1f9c408c19cfbf3d6bc6e15175b69b504b2e72ec914d439077a35"
+    },
+    {
+      "name": "EALA.Hash.dll",
+      "bytes": 26624,
+      "sha256": "b884317c4b322630d67c9e961edc475557945f86090ac9105c3977880d3dcece"
+    },
+    {
+      "name": "EALA.Metrics.dll",
+      "bytes": 16384,
+      "sha256": "bcf488c809a052fe920de95ec10975693ffa27f8d3e892a1cff510c4a118fa1c"
+    },
+    {
+      "name": "HashFix.exe",
+      "bytes": 322560,
+      "sha256": "005682dfa26e401799f18c775cc8b6e0e2b0cd3efa08438597bf46a765e4e72a"
+    },
+    {
+      "name": "LoDStreamBuilder.exe",
+      "bytes": 124928,
+      "sha256": "e28b665a17cbbf597b47a2069a6efd979da00b44021f8f73b6beb0fb076fac0b"
+    },
+    {
+      "name": "MakeBig.exe",
+      "bytes": 13312,
+      "sha256": "2eaa2dfa8473ed5a74b5901c65ab133ddea26f70c8cb2747a0d8725c6c5a7cf9"
+    },
+    {
+      "name": "MapAssetResolver.exe",
+      "bytes": 13824,
+      "sha256": "21b9992ea770fc7ff21e92aa6ffd9c645ba80404fc8a5c68d233725f53090b93"
+    },
+    {
+      "name": "ModAssetResolver.exe",
+      "bytes": 457728,
+      "sha256": "b16c35fbf4eb6bea683d1d9baff65d29c2b2131ef2e5493b996d196de7361bb0"
+    },
+    {
+      "name": "ModAssetResolver_InstanceHashes.txt",
+      "bytes": 1976780,
+      "sha256": "7c6a753eb399509d006723a6268c1b4d0fdfa36699e90c93738729badfdd28a2"
+    },
+    {
+      "name": "ModAssetResolver_TypeHashes.txt",
+      "bytes": 9520,
+      "sha256": "1924064fa35614f45e9dd96366f0cec63d693260619f0edde0aa13ef3d2df920"
+    },
+    {
+      "name": "Mvp.Xml.dll",
+      "bytes": 176256,
+      "sha256": "75e86cde7ac2f4cdee06c1115550a6f44ccb22cbcfd4f57c5d5dd09c1fba78c9"
+    },
+    {
+      "name": "ReferenceFix.exe",
+      "bytes": 119296,
+      "sha256": "e7ff783032a119b3377462850670dd324506d2fa30be4fc44932b7b6c8052051"
+    },
+    {
+      "name": "Shaders/AlienShield.fx",
+      "bytes": 13656,
+      "sha256": "b383d136c235a3fe5fc7ec6d6be17d70b18ff4b9d1b22519945ef4f8b74d1ac2"
+    },
+    {
+      "name": "Shaders/BasicW3D.fx",
+      "bytes": 108992,
+      "sha256": "ac5a012846ed920917d6f63c6101bb77d720669dbf880051cb079057bc8a984b"
+    },
+    {
+      "name": "Shaders/compiled/Basic.scrape.dep",
+      "bytes": 359,
+      "sha256": "eafc5d69625e20f17d411554c422484e319e2af5cc93838fb203eb988179ebf2"
+    },
+    {
+      "name": "Shaders/compiled/basic.scrapeo",
+      "bytes": 280,
+      "sha256": "a2b6be987bcebdf3f7bdc6fbbbfc5f22c0794a3c00921853b856ff2448854d98"
+    },
+    {
+      "name": "Shaders/compiled/BasicW3D.fx.dep",
+      "bytes": 1111,
+      "sha256": "eda327b1d3ff79b77f32ce711615daea38713ea7fd4fd5e60429a25e99dd6d98"
+    },
+    {
+      "name": "Shaders/compiled/basicw3d.fxo",
+      "bytes": 65348,
+      "sha256": "0bb2c89ccc5f3202c56210bd8320b127499047899ec1fd0e9f0c17a7e0134a71"
+    },
+    {
+      "name": "Shaders/compiled/BasicW3DHolographic.fx.dep",
+      "bytes": 1133,
+      "sha256": "dbb9fcbd465e601691b0c49d521db4ffe6ce741cfd3a8b55d65f46628117a663"
+    },
+    {
+      "name": "Shaders/compiled/basicw3dholographic.fxo",
+      "bytes": 46596,
+      "sha256": "34774813ac6a6ed5b17ee5c95ed570fccd4458fdcaf12ce221c0da56084e4513"
+    },
+    {
+      "name": "Shaders/compiled/BasicW3DSupportHDR.fx.dep",
+      "bytes": 1131,
+      "sha256": "9b3d2da288b5ab3167912e6387b7b04ce87c997ac79358d5b002347b13361b44"
+    },
+    {
+      "name": "Shaders/compiled/basicw3dsupporthdr.fxo",
+      "bytes": 65912,
+      "sha256": "51b1a0d9fc4d8528cba1eaf805c2a125936235d56c2bd94c76865b0e7bb4c5a4"
+    },
+    {
+      "name": "Shaders/compiled/BootupScreen.fx.dep",
+      "bytes": 749,
+      "sha256": "85e9540767769973683188857017a1379c065ff338766a5888d0c3834b766fb8"
+    },
+    {
+      "name": "Shaders/compiled/bootupscreen.fxo",
+      "bytes": 6068,
+      "sha256": "e5d4fe50675eb9c40396dcf9e3e27b7fdca4a009e515af965e30a59a8c279e45"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsAllied.fx.dep",
+      "bytes": 1130,
+      "sha256": "34a3fd70aa92b5cd4a088c841556f8c4c13768659c2f4afef35a7ca8a5ef20eb"
+    },
+    {
+      "name": "Shaders/compiled/buildingsallied.fxo",
+      "bytes": 64256,
+      "sha256": "74e7b21640edaebf373187e3a29dbd98f26ca93944df0f42d760d43bc0244ade"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsFactionFrozen.fx.dep",
+      "bytes": 1144,
+      "sha256": "db787f29eee7d726b7d9ecfe775292854b7bbd33c7ba013777c5c8ca14f78736"
+    },
+    {
+      "name": "Shaders/compiled/buildingsfactionfrozen.fxo",
+      "bytes": 100332,
+      "sha256": "b1e2acbb85b94d75e3d478b264ed1efcee032803af0976ea13c5816904f9bcdb"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsGeneric.fx.dep",
+      "bytes": 1132,
+      "sha256": "a26f14e55180166ae8e1ea53184a8c60b5318fbb916c17164e629a984231a0c9"
+    },
+    {
+      "name": "Shaders/compiled/buildingsgeneric.fxo",
+      "bytes": 66532,
+      "sha256": "4e292cc20087d844cf5a36e51b3fd2df07c3d448c874717226e199e4873a21b6"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsGenericDamageFill.fx.dep",
+      "bytes": 1152,
+      "sha256": "848b3e0786a0485d24be2903cf7ce210edbaa17a717973ea040f0891d4c6b30f"
+    },
+    {
+      "name": "Shaders/compiled/buildingsgenericdamagefill.fxo",
+      "bytes": 66664,
+      "sha256": "df1b1d100e298e37982833b17b6616ae6308ea4f5b1dd243ee2bace1717931ba"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsGenericFrozen.fx.dep",
+      "bytes": 1144,
+      "sha256": "e591d7d47932f2a1071c52dd30175befccbe810560ba3e552803b967a76d3bfa"
+    },
+    {
+      "name": "Shaders/compiled/buildingsgenericfrozen.fxo",
+      "bytes": 98900,
+      "sha256": "76f264cba877fc4bd004785909deb270898c8d8f8980c641c09d71b55754d874"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsJapan.fx.dep",
+      "bytes": 1128,
+      "sha256": "da6480167a7a1c29f9465f45c71db48302b49222ba220d00c510325646fffa8c"
+    },
+    {
+      "name": "Shaders/compiled/buildingsjapan.fxo",
+      "bytes": 64256,
+      "sha256": "74e7b21640edaebf373187e3a29dbd98f26ca93944df0f42d760d43bc0244ade"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsJapanBuildup.fx.dep",
+      "bytes": 1142,
+      "sha256": "e360b90a8c6cc613f157ae93ac4e3b15ed2d147516b880c77734b1a1d2035fce"
+    },
+    {
+      "name": "Shaders/compiled/buildingsjapanbuildup.fxo",
+      "bytes": 67756,
+      "sha256": "b4f04377797cbf031fbf0f6085e31bfd739376f351bbe512e164ff82f82d1f54"
+    },
+    {
+      "name": "Shaders/compiled/BuildingsSoviet.fx.dep",
+      "bytes": 1130,
+      "sha256": "e56231e9cf17e506a3b9e416f54cb1f5407c89f0c2c0e8ed86af0fe64cfd7e32"
+    },
+    {
+      "name": "Shaders/compiled/buildingssoviet.fxo",
+      "bytes": 64256,
+      "sha256": "05c26b2bfd0fd661bf59b039a340925ebcb679591cde0be69d361ac3bda48c45"
+    },
+    {
+      "name": "Shaders/compiled/ConnectionLine.fx.dep",
+      "bytes": 753,
+      "sha256": "b205d9e8cef7a92d809581f13f2256acf2c7e1592125498a9b8551b0c5ec4e53"
+    },
+    {
+      "name": "Shaders/compiled/connectionline.fxo",
+      "bytes": 9232,
+      "sha256": "c20eb80c41722bf575cce293ae2e3840ee6b87253773090f7603c91ff2c4fa61"
+    },
+    {
+      "name": "Shaders/compiled/CPUParticle.fx.dep",
+      "bytes": 907,
+      "sha256": "f7416eb74db1875195cfef18527eaa7e5e2809d80ad6d9742d221c8ebbb7c299"
+    },
+    {
+      "name": "Shaders/compiled/cpuparticle.fxo",
+      "bytes": 57160,
+      "sha256": "6022f910e13446af8ffe8d07c2ed8d2c9c1b5c0fb24deae17b6a0c005a682e19"
+    },
+    {
+      "name": "Shaders/compiled/Debug.fx.dep",
+      "bytes": 735,
+      "sha256": "234a05b77bbd4e79a3e299acfed11d633b30309c832bc4f10bfadaa17d6ee94d"
+    },
+    {
+      "name": "Shaders/compiled/debug.fxo",
+      "bytes": 13276,
+      "sha256": "90ec6b424f9e73d993c6612736dd41ebcc2ddf01a8a61a7f82182c5e1a926c30"
+    },
+    {
+      "name": "Shaders/compiled/Decal.fx.dep",
+      "bytes": 735,
+      "sha256": "1da64320b069e98bb9dc36eb0f12fcd078bae7561b78c6f5f6f2c635a9dc288e"
+    },
+    {
+      "name": "Shaders/compiled/decal.fxo",
+      "bytes": 13636,
+      "sha256": "0b4c8052c19d5d32ca14ab2e73658605ba950833a01c9182ddc9ffb056a98d23"
+    },
+    {
+      "name": "Shaders/compiled/DefaultW3D.fx.dep",
+      "bytes": 1066,
+      "sha256": "3bb29612a753a680008417ee46cc092d18ab8a176ce4aec64ef134402cb8ad37"
+    },
+    {
+      "name": "Shaders/compiled/defaultw3d.fxo",
+      "bytes": 671032,
+      "sha256": "113ff1e9233a70900a3aea8a49934ad05b9cf8b49b3ae39c6dc126f685536396"
+    },
+    {
+      "name": "Shaders/compiled/DefaultW3DNoFogNoCloud.fx.dep",
+      "bytes": 1090,
+      "sha256": "acc015aa8e3b4a74da965ac40b78d2c9249be73f21aa1963a653ef053d45ec32"
+    },
+    {
+      "name": "Shaders/compiled/defaultw3dnofognocloud.fxo",
+      "bytes": 612604,
+      "sha256": "c3681199b03e4de430b73d3fa73cad6b0d8bd41430ac9b71fe7b667e7b83079c"
+    },
+    {
+      "name": "Shaders/compiled/DistortingObject.fx.dep",
+      "bytes": 810,
+      "sha256": "0b8ada61171c167c31d141ec79bcab4ccbac7c3e6db39b8c606a3385a6052f78"
+    },
+    {
+      "name": "Shaders/compiled/distortingobject.fxo",
+      "bytes": 15708,
+      "sha256": "1b2445280b33fd7bac74a3d54d4356c1b719eceb1fac280beeb9957e856fdd48"
+    },
+    {
+      "name": "Shaders/compiled/ErrorMissing.fx.dep",
+      "bytes": 749,
+      "sha256": "32cbfc62306acbf3acec4f8635454cc1f8a18a96b387e50c5bdc352b9c0273fa"
+    },
+    {
+      "name": "Shaders/compiled/errormissing.fxo",
+      "bytes": 5572,
+      "sha256": "b5ae6057e6ef9c63542198308fa5a91f351f73f5e08ecb68442e866e35276166"
+    },
+    {
+      "name": "Shaders/compiled/FXBeamHit.fx.dep",
+      "bytes": 853,
+      "sha256": "6534ad4ce0b26d99f55bc66cf3afb917ffa4d353611688696733da0e34259041"
+    },
+    {
+      "name": "Shaders/compiled/fxbeamhit.fxo",
+      "bytes": 14384,
+      "sha256": "de50ffb3f34605bf68fb1da6e44c7d081b2d86366a96951e1be0e34311c789f0"
+    },
+    {
+      "name": "Shaders/compiled/FXLightning.fx.dep",
+      "bytes": 901,
+      "sha256": "0148cdcb69b00ba8808990488a22afa1e8541eead52240b820ac622fbd00caa9"
+    },
+    {
+      "name": "Shaders/compiled/fxlightning.fxo",
+      "bytes": 17264,
+      "sha256": "822ffb1e856fc1b5fbf2806d0278fe3c295104088aa40427b60218ae2cd0254a"
+    },
+    {
+      "name": "Shaders/compiled/FXProtonCollider.fx.dep",
+      "bytes": 966,
+      "sha256": "ea3eace8119afcf9b7ed80fcb3bb7f7e364a3f112716b3902d84333a987a92ea"
+    },
+    {
+      "name": "Shaders/compiled/fxprotoncollider.fxo",
+      "bytes": 15644,
+      "sha256": "73f9ecb834bdb4617242dd8c1638a4afdbb6e606efecf17fcafcdf3220d71b3f"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticle.fx.dep",
+      "bytes": 907,
+      "sha256": "e586d648565b79887851944ef169d3b7b465f21bb2e75470f43c7a381f80a144"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticle.fxo",
+      "bytes": 51200,
+      "sha256": "f2eac6d3e4cb4a1dc389483f312ee77789cc98f8f45ac505fe80e29e255a6b13"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticleDistort.fx.dep",
+      "bytes": 921,
+      "sha256": "318b13533234433e9cfc632ebdc5e03f81ed132cf70f45b33344a6a0e7bdd291"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticledistort.fxo",
+      "bytes": 55560,
+      "sha256": "14ce905da697c38e2c953500074daf2ce64e4b16a0c19e301a0adc47984e633a"
+    },
+    {
+      "name": "Shaders/compiled/GPUParticleDistortion.fx.dep",
+      "bytes": 877,
+      "sha256": "4f359e13d110e14271ea54766069007650f8f41e01c515990b26340766065969"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticledistortion.fxo",
+      "bytes": 25652,
+      "sha256": "e72498606060d98fdaef3f4e464b9de0d68cfba0bec96411c33453951c4bf2e1"
+    },
+    {
+      "name": "Shaders/compiled/GPUParticleLit.fx.dep",
+      "bytes": 913,
+      "sha256": "96ac3cc3dbea0b05c5ada1861d5a419bb2b96b3f2e17ab7245d18cfa99ff870b"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticlelit.fxo",
+      "bytes": 32712,
+      "sha256": "b0000697fde1f5a2cfbbc19a3082f5883c48ddd97dbafd11fb3ea0b625a3e234"
+    },
+    {
+      "name": "Shaders/compiled/GPUParticleLitAccumLight.fx.dep",
+      "bytes": 933,
+      "sha256": "2d7b0176cd686604db22d24545bfcf5a9e911ddd0892af23baab34a2130cb642"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticlelitaccumlight.fxo",
+      "bytes": 32664,
+      "sha256": "b47c23fa786f2f751e662ddc0598a9fe46a5c27b332b66dd3a24234e0ba810f9"
+    },
+    {
+      "name": "Shaders/compiled/GPUParticleNormalMap.fx.dep",
+      "bytes": 875,
+      "sha256": "b4b01ac1e7e235d9e1264a98820f12a3f572b999393d3011b7c552a7263a3f5d"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticlenormalmap.fxo",
+      "bytes": 35484,
+      "sha256": "a5b6080aab516604e88e0478497a22d373408f25aec2226b4810d0823a940495"
+    },
+    {
+      "name": "Shaders/compiled/GPUParticleOceanDisplacement.fx.dep",
+      "bytes": 891,
+      "sha256": "d900660deda9a5c77bf441779b828892d8b1c943bf08be26c72425cd8f52aa92"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticleoceandisplacement.fxo",
+      "bytes": 13704,
+      "sha256": "8f9a3fbd8174664bfc86e68248d1c12dd59dba465cd5e222a70b370143bded18"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticlePerpendicularBottom.fx.dep",
+      "bytes": 962,
+      "sha256": "bc3f31f8343469f5465a2b1093d1186e6e9db3a81bb09be6a4a70df065a86649"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticleperpendicularbottom.fxo",
+      "bytes": 71784,
+      "sha256": "f9fa59ba0eea91797c4a1ebd490d3c2cbe3a4829fad41a1fe762a47069f3b208"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticlePerpendicularCenter.fx.dep",
+      "bytes": 962,
+      "sha256": "85e585470d5e75c162e89673c34dd4d1461fe6e86a234e6751e71d810a3c304b"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticleperpendicularcenter.fxo",
+      "bytes": 71984,
+      "sha256": "04fc35488b71608fcb77309097fd23644de3d3ac24da6e0419316b6c47a51e49"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticleUnderwater.fx.dep",
+      "bytes": 988,
+      "sha256": "7095cffae1f3dc131284c5fdeddde2d383ba6e606ece23e709812a4d54fcb94a"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticleunderwater.fxo",
+      "bytes": 55608,
+      "sha256": "65fbc5b3ff9d3447f40be4439e19c6f080b7dc27ede613f7a0df7c884a473d99"
+    },
+    {
+      "name": "Shaders/compiled/GpuParticleXY.fx.dep",
+      "bytes": 966,
+      "sha256": "8121722e3a6e8bccec7ebe73d4d91e9bd34b35fd02074aa3416324ac3037b24e"
+    },
+    {
+      "name": "Shaders/compiled/gpuparticlexy.fxo",
+      "bytes": 49728,
+      "sha256": "233ff11d73daa86a7ed91e175de3e1b0f9975013c34b343f8b46dd8fa1ea37bb"
+    },
+    {
+      "name": "Shaders/compiled/Infantry.fx.dep",
+      "bytes": 1111,
+      "sha256": "ccf275c6a44c3127682ce2a8e4301d4ead64d64843e44eabdc8b98a6a04c96c7"
+    },
+    {
+      "name": "Shaders/compiled/infantry.fxo",
+      "bytes": 78292,
+      "sha256": "64eb1599b050a78e929166766df46456783dbac96a7712836f00ea57fc8f609a"
+    },
+    {
+      "name": "Shaders/compiled/InfantryChronoRift.fx.dep",
+      "bytes": 1131,
+      "sha256": "8ba8d81a3d3ca10bcf37927fe06d63c561112f79425812129bb3cb13585d8081"
+    },
+    {
+      "name": "Shaders/compiled/infantrychronorift.fxo",
+      "bytes": 65660,
+      "sha256": "01d55c1f88b2d0a2f987125002ab902fe3075906dc1ddeafd6dbb9a92ae35c62"
+    },
+    {
+      "name": "Shaders/compiled/InfantryFormationPreview.fx.dep",
+      "bytes": 1143,
+      "sha256": "c5f95b00717b86643aee1619d23173561c300551c8302fb03a26a8bdc49786f7"
+    },
+    {
+      "name": "Shaders/compiled/infantryformationpreview.fxo",
+      "bytes": 53272,
+      "sha256": "a26f2f52e470aeb53ac5e98cc4a2e213f37501fc8c1d6778163c21c7a176aaff"
+    },
+    {
+      "name": "Shaders/compiled/InfantryFrozen.fx.dep",
+      "bytes": 1123,
+      "sha256": "61608fbe99d485450e8cdeb37e956c99dbdb362291e5250664f140bdc5548214"
+    },
+    {
+      "name": "Shaders/compiled/infantryfrozen.fxo",
+      "bytes": 89600,
+      "sha256": "352d2363f2da0fec41769994cff62fafbcd14b6523109b9290033858e3cd29a9"
+    },
+    {
+      "name": "Shaders/compiled/InfantryRadiation.fx.dep",
+      "bytes": 1129,
+      "sha256": "30ad2d31e7f044fcd5b9e0bf7d3c94e67d4293ab2a3e4d3ef12f9203f1ab7b36"
+    },
+    {
+      "name": "Shaders/compiled/infantryradiation.fxo",
+      "bytes": 67748,
+      "sha256": "dc3dea84806b007680001fb479460ebe02ac295583afc56d82499c272b5c20e1"
+    },
+    {
+      "name": "Shaders/compiled/ingame-test.scrape.dep",
+      "bytes": 371,
+      "sha256": "0dc42724d32d6074cdb60dd129d356f7bded330452a8466337698303dc474a0a"
+    },
+    {
+      "name": "Shaders/compiled/ingame-test.scrapeo",
+      "bytes": 1625,
+      "sha256": "3ad27a0870b52f6462733925e84ccfc286b694d7ae58058d4b5f0e8d9b5d1361"
+    },
+    {
+      "name": "Shaders/compiled/InGame.scrape.dep",
+      "bytes": 1400,
+      "sha256": "66505bfb6cadd265a23d3106c1e27cd9dd3ad554735cbce3cafbfc27c1401498"
+    },
+    {
+      "name": "Shaders/compiled/ingame.scrapeo",
+      "bytes": 26998,
+      "sha256": "5403bced9126fa3ae3d7c7b979bca9e7c0610dc11c31f064b9a0974ae94eda1c"
+    },
+    {
+      "name": "Shaders/compiled/Laser.fx.dep",
+      "bytes": 785,
+      "sha256": "32563a7152db239d95386d0aad80e6498c0b002db7c5f79eacfacc090947cfb8"
+    },
+    {
+      "name": "Shaders/compiled/laser.fxo",
+      "bytes": 11012,
+      "sha256": "38407b2be9c3a84dc8a551ab9194586bc353a2efb76803593ec4e0b8ad2b5f14"
+    },
+    {
+      "name": "Shaders/compiled/LaserAlpha.fx.dep",
+      "bytes": 795,
+      "sha256": "6ab79159270f44fd223d4c9954d881c198f58b39f3a9af0c1b021a3455750518"
+    },
+    {
+      "name": "Shaders/compiled/laseralpha.fxo",
+      "bytes": 10524,
+      "sha256": "0ef33269b0684707eb365c3f6daad855a5332ced51733f52a5c67bf6cbbd562a"
+    },
+    {
+      "name": "Shaders/compiled/LaserDistortion.fx.dep",
+      "bytes": 755,
+      "sha256": "2d255ee653d08135ec522e5226565f143a1af0f99a74b2d92736c1eec46aad37"
+    },
+    {
+      "name": "Shaders/compiled/laserdistortion.fxo",
+      "bytes": 9696,
+      "sha256": "d99307cafd8a5e5baedd9f17dba3eeac7725396aa874a11e30c0f2c01543c21c"
+    },
+    {
+      "name": "Shaders/compiled/Lightning.fx.dep",
+      "bytes": 897,
+      "sha256": "fd897e586c79c5ffdfa346e8f1980d06e6c296cfc165f9f92bc3559bc7cd1243"
+    },
+    {
+      "name": "Shaders/compiled/lightning.fxo",
+      "bytes": 29332,
+      "sha256": "1420a0491b2e09fe9b2006f38b0870f38a8f5100f0498eceef1fea2f6046e4f2"
+    },
+    {
+      "name": "Shaders/compiled/LineRenderers.fx.dep",
+      "bytes": 801,
+      "sha256": "f5c3d141a878457f36cec181a56fba1829f626accb157d265db29169077c9bc2"
+    },
+    {
+      "name": "Shaders/compiled/linerenderers.fxo",
+      "bytes": 28512,
+      "sha256": "399a4912bf502bd77895299d591cbb11f497545ac20fa87bd451eb18bea1e5ca"
+    },
+    {
+      "name": "Shaders/compiled/MuzzleFlash.fx.dep",
+      "bytes": 850,
+      "sha256": "e8d5d6bb5491a4cc68de9c5a48fe212e6efe3a9df81c2a6926c08ebcff7d53b5"
+    },
+    {
+      "name": "Shaders/compiled/muzzleflash.fxo",
+      "bytes": 27600,
+      "sha256": "bd2e338549c6dced37f7c7359523de8d23075d9611aa30e48d400e9679288669"
+    },
+    {
+      "name": "Shaders/compiled/NormalMapped.fx.dep",
+      "bytes": 1124,
+      "sha256": "a0f53708555f907ad7e6bb37e68a2b643b0fd8e1fd395f981138952f623bea39"
+    },
+    {
+      "name": "Shaders/compiled/normalmapped.fxo",
+      "bytes": 62080,
+      "sha256": "d15d4c68ea545514543487dd5760fa85b04776c24ec1e2842b8a057ef4bd716f"
+    },
+    {
+      "name": "Shaders/compiled/Null.fx.dep",
+      "bytes": 404,
+      "sha256": "ab64b7536fa467e8103a125360984b60b01b7371efe76473154ad5383d99ca2c"
+    },
+    {
+      "name": "Shaders/compiled/null.fxo",
+      "bytes": 60,
+      "sha256": "a3a0443b10818874d51dcf9f3a346a6e7dd81ca84b0aac9dc673354492116824"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsAllied.fx.dep",
+      "bytes": 1126,
+      "sha256": "124c38fedb29f55ab3a33cbc9b9e2716c6aa8a868e802db029b97aab9ab6b265"
+    },
+    {
+      "name": "Shaders/compiled/objectsallied.fxo",
+      "bytes": 62512,
+      "sha256": "cbccf57b52c9e45d4cab0445843485e78c2f3a5b3fc28baa2e191467aad60f66"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsAlliedTread.fx.dep",
+      "bytes": 1136,
+      "sha256": "c519e7bd3fc2d1766dff04b1f6872a30477548b8488a635b877403251bee8c2a"
+    },
+    {
+      "name": "Shaders/compiled/objectsalliedtread.fxo",
+      "bytes": 62704,
+      "sha256": "fc1592d5d3a9d743e0f3c3b306d9d0e2007c50852c249b6755ed09f676ff5a9f"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsChronoRift.fx.dep",
+      "bytes": 1134,
+      "sha256": "2bf7e183f17f23d8bcfc8fa8b9cc4e3395e0dda2e0df9ef2ecc1aa01ca7295a8"
+    },
+    {
+      "name": "Shaders/compiled/objectschronorift.fxo",
+      "bytes": 52116,
+      "sha256": "396f73ebddcffe97297a0e29664b4c2fd371fa6084f4eb767aaaf7ff2c323dde"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsFactionFrozen.fx.dep",
+      "bytes": 1140,
+      "sha256": "d087e06ac6ed89a8023551d7e4bc38d960d697239375d7111c3110a72785d773"
+    },
+    {
+      "name": "Shaders/compiled/objectsfactionfrozen.fxo",
+      "bytes": 97740,
+      "sha256": "6589febd913b1727afc2c96dd016350fb2ab188ff0845769ea48c03292ec68ae"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsFormationPreview.fx.dep",
+      "bytes": 1146,
+      "sha256": "7a7748f029c47c422b6f28b2c98c38085c7958c51cb7778690e27496ae9c77bf"
+    },
+    {
+      "name": "Shaders/compiled/objectsformationpreview.fxo",
+      "bytes": 49460,
+      "sha256": "469e98c7c107c8fdf54a9a0ff7531a536cdf911dc2eb1c29535fe8b22ddeeacc"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsFrozen.fx.dep",
+      "bytes": 1126,
+      "sha256": "37d2c309ede184b51d6774c4274c9d87d084d31bca45569f40d1d267221c9245"
+    },
+    {
+      "name": "Shaders/compiled/objectsfrozen.fxo",
+      "bytes": 96280,
+      "sha256": "09eadd16e298c30b6109de66782466365df447ee1b88816333764c7b977cd29d"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsGeneric.fx.dep",
+      "bytes": 1128,
+      "sha256": "ef111895adb5167deb6afe6115947fd3cb0d18edc81d200035d4dc33d71ba65c"
+    },
+    {
+      "name": "Shaders/compiled/objectsgeneric.fxo",
+      "bytes": 64760,
+      "sha256": "dba251d5c5cd7bf2f1588c71ad93e1414b3d823a3fd7b00ba4f2bad18434ae5b"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsGenericLightmap.fx.dep",
+      "bytes": 1144,
+      "sha256": "5e6a421fffe99d1623ca19915a3d2c72849410555140b65c88e9079cc32f89e0"
+    },
+    {
+      "name": "Shaders/compiled/objectsgenericlightmap.fxo",
+      "bytes": 66720,
+      "sha256": "2cfb5f35ce3e7afc9d6b4abcd7ef83647912062262c859b98f2218001b979994"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsIronCurtain.fx.dep",
+      "bytes": 1136,
+      "sha256": "fd0875ae6de0acc0f7a4474d78e779cd3860ac6e60db5dd583644a61510970ea"
+    },
+    {
+      "name": "Shaders/compiled/objectsironcurtain.fxo",
+      "bytes": 51824,
+      "sha256": "54004b1bb4492dfba36a7bd51e83cf86b1823e9ebbcc3ffc0d0b4532f3b78474"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsJapan.fx.dep",
+      "bytes": 1124,
+      "sha256": "8f9d13d9e098a3c61a19a00f7f518c0add288b05cbb4b38358216c83e0a662cc"
+    },
+    {
+      "name": "Shaders/compiled/objectsjapan.fxo",
+      "bytes": 62512,
+      "sha256": "cbccf57b52c9e45d4cab0445843485e78c2f3a5b3fc28baa2e191467aad60f66"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsRoads.fx.dep",
+      "bytes": 1124,
+      "sha256": "bb340831ec60b0e49c789cca38e32f82ce96e99e85ef757304047d021ca68c9b"
+    },
+    {
+      "name": "Shaders/compiled/objectsroads.fxo",
+      "bytes": 64760,
+      "sha256": "b08c40cbed8069fb928f644474b3de1f00ff1443c541106e4ec74fd54f419e1a"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsSoviet.fx.dep",
+      "bytes": 1126,
+      "sha256": "d7f7fc590138a73634a6bb96cdd88ac131b47f9b2791d1b6ae9e20a9b198d02e"
+    },
+    {
+      "name": "Shaders/compiled/objectssoviet.fxo",
+      "bytes": 62512,
+      "sha256": "01588119d2a3833c874f9a254ba782c72665e716b093e329b1e0766d14c68b31"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsTerrain.fx.dep",
+      "bytes": 1076,
+      "sha256": "5888e5297c6f5c175f93ff626f884f8fbcd85c708d49af739c0c446b070007d2"
+    },
+    {
+      "name": "Shaders/compiled/objectsterrain.fxo",
+      "bytes": 31164,
+      "sha256": "b784ff93fc917e42e89844e4b1b4df2c4fcb7287f7369f641bc4bed4eedb67d2"
+    },
+    {
+      "name": "Shaders/compiled/ObjectsTesla.fx.dep",
+      "bytes": 1124,
+      "sha256": "2c81670025a89cac3e93f30c97747e6dfd0f3905f607b9cd3ee845d7fbce25f8"
+    },
+    {
+      "name": "Shaders/compiled/objectstesla.fxo",
+      "bytes": 84072,
+      "sha256": "3030c13a93d39023284b3f505078134b8d48ce18f0178baa6ad4b82a637fde28"
+    },
+    {
+      "name": "Shaders/compiled/Occlusion.fx.dep",
+      "bytes": 743,
+      "sha256": "a788d781d9fbbccc252075c08ed8a8deeffd0120ec4a12a20feb456d66e4c213"
+    },
+    {
+      "name": "Shaders/compiled/occlusion.fxo",
+      "bytes": 7556,
+      "sha256": "2f9ae6b1582bd1ab402d3ca3b2b63b52357238d4d8bb2b574bc571cd61fa093a"
+    },
+    {
+      "name": "Shaders/compiled/Ocean.fx.dep",
+      "bytes": 899,
+      "sha256": "e68a14f2177b1f8290403155eac53a529109571059676a6f6d60d2fc81d4cb13"
+    },
+    {
+      "name": "Shaders/compiled/ocean.fxo",
+      "bytes": 32520,
+      "sha256": "be19b2a00c77faa5b5303fdd270b0ca1c70a314ba712c0d81286d19677ab74ce"
+    },
+    {
+      "name": "Shaders/compiled/OceanDisplacement.fx.dep",
+      "bytes": 759,
+      "sha256": "2891b172e3be3e6303976b7454f0f07d5c7a27f68b8887d2048d45bf83ee0974"
+    },
+    {
+      "name": "Shaders/compiled/oceandisplacement.fxo",
+      "bytes": 19840,
+      "sha256": "4a6f64a701c0cde9ab5a371fe7d5d7d642a8c1e46ff69f8d4a7a36f9c6864534"
+    },
+    {
+      "name": "Shaders/compiled/OceanNoVertexTexture.fx.dep",
+      "bytes": 978,
+      "sha256": "9bfcb3ae1ae4a18d94f60d3b669c6932443b4de6603ea9b2470b689cd2ae3c4d"
+    },
+    {
+      "name": "Shaders/compiled/oceannovertextexture.fxo",
+      "bytes": 33220,
+      "sha256": "de0c66a0e28d4746bb3aa6cdf47a473b21bb47be0d3a03a6a542d24fdf762a94"
+    },
+    {
+      "name": "Shaders/compiled/Outlines.fx.dep",
+      "bytes": 798,
+      "sha256": "75a40aadd2612ce3e7a4313b47787e007654e20006827db6684cfcfaa80ad383"
+    },
+    {
+      "name": "Shaders/compiled/outlines.fxo",
+      "bytes": 12532,
+      "sha256": "ff38af74c31fec26b35c08bdb06e94ca803b2c23a3039e6152e4e3aae6cceac5"
+    },
+    {
+      "name": "Shaders/compiled/PostFX_Bloom.fx.dep",
+      "bytes": 856,
+      "sha256": "039efa0eb2a2a0fdb430b61d8cbfa92f4ca8b8e98eb9d0cfa1a92af5a1702ac3"
+    },
+    {
+      "name": "Shaders/compiled/postfx_bloom.fxo",
+      "bytes": 34276,
+      "sha256": "fd60239172e62703bc5f1c19fa1fe3247dc68ea06ecd4981d117902514b43b21"
+    },
+    {
+      "name": "Shaders/compiled/PostFX_Distortion.fx.dep",
+      "bytes": 816,
+      "sha256": "830b8d41da87b7834af78d295bc220138fae9a9cfc1b7d96f18f91771b2e5ac0"
+    },
+    {
+      "name": "Shaders/compiled/postfx_distortion.fxo",
+      "bytes": 8212,
+      "sha256": "7e1bd0332a21e72a09a3ff26e2cc4ed7dfb1edd8c03fd1cbd2ba018df338a76e"
+    },
+    {
+      "name": "Shaders/compiled/PostFX_LinearDepth.fx.dep",
+      "bytes": 761,
+      "sha256": "8575a42c344e461bbde5c988790c69cb084fcb38250dc70b7939158c03ce8201"
+    },
+    {
+      "name": "Shaders/compiled/postfx_lineardepth.fxo",
+      "bytes": 6456,
+      "sha256": "104d3c5aa8d028ceb393aef7eaf4aa6fc75f4b733b040419889dd9aff7b26423"
+    },
+    {
+      "name": "Shaders/compiled/PostFX_LookupTable.fx.dep",
+      "bytes": 868,
+      "sha256": "a3832e40f5a491c1cc2860b2ffadb6f9f176ac4d65e5a0b73b62853c0769f4cd"
+    },
+    {
+      "name": "Shaders/compiled/postfx_lookuptable.fxo",
+      "bytes": 11496,
+      "sha256": "b5b04ebd0bcf8e1d5dee4ab0f946182a40b4291d2e890cbf4d5379f5769d897a"
+    },
+    {
+      "name": "Shaders/compiled/PostFX_MSAA.fx.dep",
+      "bytes": 804,
+      "sha256": "fcbd43b82ab3bd1faa750de37f7fbf9b45f1066527a44f67d51163eb903b0068"
+    },
+    {
+      "name": "Shaders/compiled/postfx_msaa.fxo",
+      "bytes": 8348,
+      "sha256": "4a7eaab330069f19fca882b2158b35ca78d878160dfa9ad2761a3c123a4d849c"
+    },
+    {
+      "name": "Shaders/compiled/Rain.fx.dep",
+      "bytes": 783,
+      "sha256": "88b59200b01a64e3898202d27d5395c5c1e453a743257b39340e5a4fcfeced6c"
+    },
+    {
+      "name": "Shaders/compiled/rain.fxo",
+      "bytes": 15896,
+      "sha256": "e40ecac879776824105133054f1e8d5917ceb91a29489cd786db334824e0a7e3"
+    },
+    {
+      "name": "Shaders/compiled/Render2D.fx.dep",
+      "bytes": 741,
+      "sha256": "aa296bcc53312c41dc5fe1c6570bae11e39286cabaec08bc4c5071417cfa78ba"
+    },
+    {
+      "name": "Shaders/compiled/render2d.fxo",
+      "bytes": 14332,
+      "sha256": "27c4d5603492cca893a6107eb27c1c13d4cb7dbd912d1a1f9fe7ad48f045f479"
+    },
+    {
+      "name": "Shaders/compiled/RiverReflection.fx.dep",
+      "bytes": 755,
+      "sha256": "fd18873d13461d81b34739a1aba8a9517adfe902920537a52e82159152461cd1"
+    },
+    {
+      "name": "Shaders/compiled/riverreflection.fxo",
+      "bytes": 12480,
+      "sha256": "a4ee86d60fd7bdc3158b7141ebc8c120ba26f5edfa0705ac5b804e7149812346"
+    },
+    {
+      "name": "Shaders/compiled/RiverWater.fx.dep",
+      "bytes": 795,
+      "sha256": "f8efde4ba485fded1f7e08dee94557a38093a1c8bb8c2c6c62d72a89cbed979c"
+    },
+    {
+      "name": "Shaders/compiled/riverwater.fxo",
+      "bytes": 17080,
+      "sha256": "e70e539371c0ce4d6e94d5a534b2bc8cb06bd0533bafafaa9d1e15326f764985"
+    },
+    {
+      "name": "Shaders/compiled/RotateEnvironmentMap.fx.dep",
+      "bytes": 765,
+      "sha256": "641d2ece9b792b84333d8e295f8e810c7c75919fb5246e91e66cf21371b4493b"
+    },
+    {
+      "name": "Shaders/compiled/rotateenvironmentmap.fxo",
+      "bytes": 12496,
+      "sha256": "eb5a520f12e1cceae01beac73b11623267d8ebb5bd4d3c6858f9598d8d6a906a"
+    },
+    {
+      "name": "Shaders/compiled/Shadow.fx.dep",
+      "bytes": 737,
+      "sha256": "880230a41373f6eb9de2b64c35ced2dfa729dae0a9fe58d5cd7ebdd9fdc614e5"
+    },
+    {
+      "name": "Shaders/compiled/shadow.fxo",
+      "bytes": 7448,
+      "sha256": "9639c03b2f2068fdc3b96b40d0c127730553c88d270c4550e1953202eafcc054"
+    },
+    {
+      "name": "Shaders/compiled/Shell.scrape.dep",
+      "bytes": 359,
+      "sha256": "2f9ea5d953050d896027de06a1ba9db7ee42f30cf18349cdee32a2b7f283f26e"
+    },
+    {
+      "name": "Shaders/compiled/shell.scrapeo",
+      "bytes": 200,
+      "sha256": "78aae389a26f9e554f4dd6dc987e1c6ecbb999d8b87c69fd43a8e4e3da5e7dae"
+    },
+    {
+      "name": "Shaders/compiled/Simple.fx.dep",
+      "bytes": 737,
+      "sha256": "5930f2e06ae821fc02d78a51b7c56e4737db0c325a62743f4f3c6c2ba7f2c0ba"
+    },
+    {
+      "name": "Shaders/compiled/simple.fxo",
+      "bytes": 8768,
+      "sha256": "73bb257abe4dc68634b3d6752310d4e0fe7c810963f1b40d5355f2e69e3e585c"
+    },
+    {
+      "name": "Shaders/compiled/Simplest.fx.dep",
+      "bytes": 741,
+      "sha256": "89be28a538269cc591343a0a42d389ed288ee00d67d36cc86ca48b38c1fd9c93"
+    },
+    {
+      "name": "Shaders/compiled/simplest.fxo",
+      "bytes": 8612,
+      "sha256": "1fa8aa4f3cdc80e8667b9f4c58af9bb0ee432aeeb82c45be34d4a918280da554"
+    },
+    {
+      "name": "Shaders/compiled/Stream.fx.dep",
+      "bytes": 787,
+      "sha256": "87e8d4b504d7b4fc66c4f871cd08044811456ba96fae9c8cba99490446916155"
+    },
+    {
+      "name": "Shaders/compiled/stream.fxo",
+      "bytes": 16636,
+      "sha256": "38ce2eba7b2d50670125d6ff9cf2c9c362318f1d5df3e5b77749c41c838452bf"
+    },
+    {
+      "name": "Shaders/compiled/SwarmParticle.fx.dep",
+      "bytes": 751,
+      "sha256": "d65cc576d4c73034355586eb29832d25d4c6b4cf3f3512637c755ddfbf094f22"
+    },
+    {
+      "name": "Shaders/compiled/swarmparticle.fxo",
+      "bytes": 12368,
+      "sha256": "07da9adc3e13da871185fe703bc9f0e03e3cd77f2f434927d8651614c1121481"
+    },
+    {
+      "name": "Shaders/compiled/Terrain.fx.dep",
+      "bytes": 1009,
+      "sha256": "f517599f3bd5c9827046da35898325934209c85f817e8746d0f40054c0cb4b6d"
+    },
+    {
+      "name": "Shaders/compiled/terrain.fxo",
+      "bytes": 95304,
+      "sha256": "45c30bf0c3fb33cf9d621acf3069d4af946ed34a3d799e59b5ae3dc202c84a3d"
+    },
+    {
+      "name": "Shaders/compiled/TerrainTracks.fx.dep",
+      "bytes": 801,
+      "sha256": "6e2b412c987cafacb9d6284a6b289b01789832069b58ea9490d79d4cb2173f5a"
+    },
+    {
+      "name": "Shaders/compiled/terraintracks.fxo",
+      "bytes": 7960,
+      "sha256": "91067325e10b7d117d1c6d5bce8cf1856ba88f2b163e1e0cf156399360bc5bd7"
+    },
+    {
+      "name": "Shaders/compiled/Tracer.fx.dep",
+      "bytes": 787,
+      "sha256": "35b3b8fbc2e5193f32186d91777d4d8aadfa4b1297028ed8a74deca4c28fa282"
+    },
+    {
+      "name": "Shaders/compiled/tracer.fxo",
+      "bytes": 20304,
+      "sha256": "e34f68d74d834731c8f67f2884cf02e3932906d9ea9a2b1d544a0fc99b76a3c3"
+    },
+    {
+      "name": "Shaders/compiled/Trail.fx.dep",
+      "bytes": 845,
+      "sha256": "11d455d651b5822cbd6a2f9783525967e5119b6bc474effb1c050956d62390e0"
+    },
+    {
+      "name": "Shaders/compiled/trail.fxo",
+      "bytes": 10984,
+      "sha256": "fdf2356c6663fa8729172224d178951145977f8cec285c3fb56dd506c24ce8c2"
+    },
+    {
+      "name": "Shaders/compiled/Tree.fx.dep",
+      "bytes": 1103,
+      "sha256": "f11c12b76cfae3517ce2bcec8e80706c4bda2c3ee3039503a4439bfb2e0bab1e"
+    },
+    {
+      "name": "Shaders/compiled/tree.fxo",
+      "bytes": 65348,
+      "sha256": "6ef3c7f4b4f285b07e925c95b1250c5ea4b4a01f3216fa9945cfa0cfe5aba671"
+    },
+    {
+      "name": "Shaders/compiled/TreeSway.fx.dep",
+      "bytes": 958,
+      "sha256": "9a3c0c6bfd298f09a32e7248f564bb16dc969d60b1485a9b19b6e0b5f3aa02bc"
+    },
+    {
+      "name": "Shaders/compiled/treesway.fxo",
+      "bytes": 38480,
+      "sha256": "687ab6239a4a11aa770f67909aeb9b4774f00567166fd5638919141870d05b35"
+    },
+    {
+      "name": "Shaders/compiled/UnderwaterDeferred.fx.dep",
+      "bytes": 872,
+      "sha256": "972425701e6085d385badd2183ea25e281ab27b5e4cd396c2350f8a141ac29f7"
+    },
+    {
+      "name": "Shaders/compiled/underwaterdeferred.fxo",
+      "bytes": 17112,
+      "sha256": "b211378c860780bf7f84165477bc1c519d257bc6e10f2540beded42410aea388"
+    },
+    {
+      "name": "Shaders/compiled/Video.fx.dep",
+      "bytes": 735,
+      "sha256": "e9906f224c9b87b7680e088159c497b2c6c5a5b8cfc0acae0b606c271e38722f"
+    },
+    {
+      "name": "Shaders/compiled/video.fxo",
+      "bytes": 7712,
+      "sha256": "d7a12623bd9d16598f2439aedb6429eb7593891635676a7c4da6bde78ff838ea"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Basic.scrape.dep",
+      "bytes": 379,
+      "sha256": "aeec28740317b91c2f86c3444e05b96d77f1f4570adcfd58f23fb429ee5502d3"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/basic.scrapeo",
+      "bytes": 280,
+      "sha256": "a2b6be987bcebdf3f7bdc6fbbbfc5f22c0794a3c00921853b856ff2448854d98"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BasicW3D.fx.dep",
+      "bytes": 1131,
+      "sha256": "6bff293528fef29b51ae0bf96b21edeb25f55e5074e148539075a0b207888f87"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/basicw3d.fxo",
+      "bytes": 62632,
+      "sha256": "11eb7e97dcdf3d68537c299c0540ab5ad7c6d66203737d041387f328f1ace533"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BasicW3DHolographic.fx.dep",
+      "bytes": 1153,
+      "sha256": "f5e33b8c3233b52d168439e2f7ea72cc51487dd7769ed3349d062576733a67b5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/basicw3dholographic.fxo",
+      "bytes": 45080,
+      "sha256": "0782272d2b4133f1beb818ff2fd7fff3a38bb332964439176877d8a0a6012863"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BasicW3DSupportHDR.fx.dep",
+      "bytes": 1151,
+      "sha256": "8917c574e83ce340ab49403cbc7b2a0eb51b0e2d2d5f9cddfc60f3464464a6ba"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/basicw3dsupporthdr.fxo",
+      "bytes": 63196,
+      "sha256": "b6645eb682ee2f831eec5e1c6d7add9e3164aa55de44e0c3fc6a7d3c81b0054c"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BootupScreen.fx.dep",
+      "bytes": 769,
+      "sha256": "e71bddaed2a41a6d1e1aee5295d8e71f6716bc94486af50362aa056303b8e43b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/bootupscreen.fxo",
+      "bytes": 6068,
+      "sha256": "4f9247de2ab982d83cdd3d20f77efa5ee643059ca739e22845769d1640fc4617"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsAllied.fx.dep",
+      "bytes": 1150,
+      "sha256": "08456157d87809312f3f75b1d638e19337ec3d3c5c9937c84e44bde92873a473"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsallied.fxo",
+      "bytes": 62300,
+      "sha256": "e6d22a611b4f0e9243ad73012cab0810b7ef9b5bf18effc13f71296eafb2ea9f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsFactionFrozen.fx.dep",
+      "bytes": 1164,
+      "sha256": "21af649daa769d17fa7c22481e3f0dd732ea9986a518dc216150747da6141521"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsfactionfrozen.fxo",
+      "bytes": 96456,
+      "sha256": "eb4aedd164026037b0253c6e79e989518038f85d7358ac2c5a39b2d09424fa9a"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsGeneric.fx.dep",
+      "bytes": 1152,
+      "sha256": "1147b9481a120fa703ca7dadf28e3755d5240ff588cfa00b741a2d6322eba5a1"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsgeneric.fxo",
+      "bytes": 64564,
+      "sha256": "3f01b670bcf10371178545e1419a78455fe81afaa20c0099c7ceb4feb134bccf"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsGenericDamageFill.fx.dep",
+      "bytes": 1172,
+      "sha256": "c98b10f062013cd322a0a6afa4541492096b0b0b9c18d4e038e0187333c6e408"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsgenericdamagefill.fxo",
+      "bytes": 64696,
+      "sha256": "cb9373147a0d49e877fd0e16923961ab2ba1819c0dba1fe6f384f8a7461058bd"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsGenericFrozen.fx.dep",
+      "bytes": 1164,
+      "sha256": "6f3f098420a7ae8d8a7995b3783796b9a2419238b120cf68b8353244ccfefa15"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsgenericfrozen.fxo",
+      "bytes": 95020,
+      "sha256": "a54de3a3f01774905b1a9be57ebf8225e9c24badf5d0c6d4945589df2c02cde4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsJapan.fx.dep",
+      "bytes": 1148,
+      "sha256": "930894ffec7029c7d6f6c656e0d7c2dc392caa017d04de1d31eac7931db2d712"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsjapan.fxo",
+      "bytes": 62300,
+      "sha256": "e6d22a611b4f0e9243ad73012cab0810b7ef9b5bf18effc13f71296eafb2ea9f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsJapanBuildup.fx.dep",
+      "bytes": 1162,
+      "sha256": "ddc2e967e300192a3593b46374966b097cf841a03e0eb67c81485d8109680afb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingsjapanbuildup.fxo",
+      "bytes": 65772,
+      "sha256": "3be56b80076845bfd47dc07dddce1e4b7254b3490ba550d7b180bcd30a5eb9c7"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/BuildingsSoviet.fx.dep",
+      "bytes": 1150,
+      "sha256": "e0db36df8b55f7af095dc20a5132a79d472bb82eb46973fe602f4ff38b5b2140"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/buildingssoviet.fxo",
+      "bytes": 62300,
+      "sha256": "07005aa81578747b78dfb1a43703483ead3954cea393b0804d949761e9839b94"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ConnectionLine.fx.dep",
+      "bytes": 773,
+      "sha256": "08160d1fa9fdd1f6a98104d2cdd1e7c6ec5e41cd6aa85c11b4e667c99be25008"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/connectionline.fxo",
+      "bytes": 9232,
+      "sha256": "1d4548308384b8cca5ac580dbae3b76a81f126d9d3c2e388847a8a8acaab1363"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/CPUParticle.fx.dep",
+      "bytes": 927,
+      "sha256": "fe676401a5d393f1c449ff92fe18e627aff88bcde9af1853d7e62e8ed1962407"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/cpuparticle.fxo",
+      "bytes": 57160,
+      "sha256": "05ea3b8c38cf2aed15369f821fd811913fa95e38a9a00010909bedd1432b281f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Debug.fx.dep",
+      "bytes": 755,
+      "sha256": "322822f01ee32b092c9ddc224435a9e681b1408d1fcf69e11b4e9e358b6c3e49"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/debug.fxo",
+      "bytes": 13276,
+      "sha256": "f14b8d47d71546c143238a40013bd7d51dfd4b4b7b4bedc840edf290649b15bd"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Decal.fx.dep",
+      "bytes": 755,
+      "sha256": "51b73dab6fa55b8508537201f51198730a0614f28f3da8d24e1f8526d4079f57"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/decal.fxo",
+      "bytes": 13636,
+      "sha256": "b5d93f2d6379db512a1479b90b89abc6a87ed528e7e009ebceaf60beddf575a6"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/DefaultW3D.fx.dep",
+      "bytes": 1086,
+      "sha256": "ed81c0ed4d8fa937b509f9f5c837e900e2fd2708f43ae0a3ce7b29b14e394d64"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/defaultw3d.fxo",
+      "bytes": 651564,
+      "sha256": "270c639b67c64ca651637a58c7416552bbbe67effb0f3dbc0190e9bd3dbc193a"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/DefaultW3DNoFogNoCloud.fx.dep",
+      "bytes": 1110,
+      "sha256": "0fd971966207422233e0a16fa8237dba467c6ca3b32f27e2d5b5b1cb7f783d26"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/defaultw3dnofognocloud.fxo",
+      "bytes": 612528,
+      "sha256": "ac73f78b6ba7207a698835354e521084c5dca60d13042ada4bb24b49ad424351"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/DistortingObject.fx.dep",
+      "bytes": 830,
+      "sha256": "c34ef0ce29fb26cfc2d190b5bb56819f5f7599be2b05fc96f93a09c64b9a7f6b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/distortingobject.fxo",
+      "bytes": 15632,
+      "sha256": "bb7e0b40db5ab6d70da4e8af5a131449376f827cc6d80b79f5dcd9464983efea"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ErrorMissing.fx.dep",
+      "bytes": 769,
+      "sha256": "5dfc2bde0ad6cac9979a2b7c578bd6fce501272e5a3d995d41c94cb58c49daca"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/errormissing.fxo",
+      "bytes": 5572,
+      "sha256": "05d53fe242f16ebf533ffc2f338a9355549e7953175290095a9188dabf6fecfb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/FXBeamHit.fx.dep",
+      "bytes": 873,
+      "sha256": "040215ec8ecdc79a3e7a8bab3bad96613adde6a2c3c683a14c09e0e79f20ddc6"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/fxbeamhit.fxo",
+      "bytes": 14384,
+      "sha256": "9414e782eedaf6e6066b915051cd420611ecd59675b17c8b0d8fe205c17d7fb5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/FXLightning.fx.dep",
+      "bytes": 921,
+      "sha256": "3c34763f112483a08690da2132d538be4adbd07d11cf4e3a2488d5455932dc5e"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/fxlightning.fxo",
+      "bytes": 17264,
+      "sha256": "b8bcb02841cec8833219628ddff5912cb17744bdb9a2076c05b31ca834674c90"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/FXProtonCollider.fx.dep",
+      "bytes": 986,
+      "sha256": "6446bb65581c75fd2bc1bed26e96f5e0fa40c1adcdae76bb8d4b203081757426"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/fxprotoncollider.fxo",
+      "bytes": 15644,
+      "sha256": "5abf1a5e316e12bf20b71c04463015f4d19fb0072ff3675b73e045192db89231"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticle.fx.dep",
+      "bytes": 927,
+      "sha256": "b608b97292ec04f0cf692ea57373bc6a3d7afce387f3537683a709d27ebe8edf"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticle.fxo",
+      "bytes": 51200,
+      "sha256": "d759b9c6b48572a0b1abd4f6ba0bbed2025d240aec5b0bd7dc3b2946adf23862"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticleDistort.fx.dep",
+      "bytes": 941,
+      "sha256": "91608599b48e9ba16f330aa44ca8bb835624c92ccd9ee663becdd017ed7b9180"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticledistort.fxo",
+      "bytes": 55560,
+      "sha256": "37bf80f1332d90002e551b9ba6f6412ea16eb0d495170075aa2987339aadadc8"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GPUParticleDistortion.fx.dep",
+      "bytes": 897,
+      "sha256": "e595db9afee73741ab8cfe4d50ee07fa18c1df96194176517e843a261723b9c1"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticledistortion.fxo",
+      "bytes": 25652,
+      "sha256": "da69a646b013a3a510b25f585762406f6c29467a0096b9d2df8939635ba74f7d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GPUParticleLit.fx.dep",
+      "bytes": 933,
+      "sha256": "ecff480a3a4cd9b00d57607c69c2dfa2b31ed8aa413ed8cab8b4c838d0e19768"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticlelit.fxo",
+      "bytes": 32712,
+      "sha256": "6840826c0827e58cd5c92ecd425c7a8d81dfd71fced4835d549dab620b98d654"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GPUParticleLitAccumLight.fx.dep",
+      "bytes": 953,
+      "sha256": "b344c778325305d46137748f269c380131b055dc74af80229bc6c99a31450b18"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticlelitaccumlight.fxo",
+      "bytes": 32664,
+      "sha256": "1a6be8ff502d0fcf1f598604a77b3bbd8f2899f8458114484458414aad933500"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GPUParticleNormalMap.fx.dep",
+      "bytes": 895,
+      "sha256": "758c1e91173e1f57bcad64712746fc3de83ead5e5cb4ab0d3c8a685b2538704d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticlenormalmap.fxo",
+      "bytes": 35484,
+      "sha256": "4530b6df68d6b130c1957f3485958e1a563260218e9def8b99c89eeeda843a80"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GPUParticleOceanDisplacement.fx.dep",
+      "bytes": 911,
+      "sha256": "fcc6b45a3b4d126ad7804c9866b2835b0d180c57a900ddb4a989df1e8bd7019d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticleoceandisplacement.fxo",
+      "bytes": 13704,
+      "sha256": "170471c954ba403d1c642cfd48f8466168586cbf8a52e5eda0cdd16fc1013b46"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticlePerpendicularBottom.fx.dep",
+      "bytes": 982,
+      "sha256": "ff963805abca7d92f46fb46e6fe1a65924f6ce444aab4ed4e562c6203aa9e7cc"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticleperpendicularbottom.fxo",
+      "bytes": 71784,
+      "sha256": "f273b0a969c735a2b11af82f3fb19df6c6df00145faa8d0de576ae435271030b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticlePerpendicularCenter.fx.dep",
+      "bytes": 982,
+      "sha256": "eafd0fae3bd63c96ae136f5b2dee25747b670ea6e4375f97be43c2d2c2096b0c"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticleperpendicularcenter.fxo",
+      "bytes": 71984,
+      "sha256": "f8a11b5aa4b7c4ee7263cb62b8ad5285a98e673c41510181ad7a7ef392d288cf"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticleUnderwater.fx.dep",
+      "bytes": 1008,
+      "sha256": "6b583aef11c32d8c78bf412ffaeb5582a46f2f1014d2829485ac7a267e9d5457"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticleunderwater.fxo",
+      "bytes": 55608,
+      "sha256": "ea756d23adab380e64c31c85301309378a9b2030422e94a86f1cf0f73dd4c741"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/GpuParticleXY.fx.dep",
+      "bytes": 986,
+      "sha256": "32a6da042b40ee01d76790ea1fe08d6cbe94c8f466756a1c9ce05d5f4eaaaf28"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/gpuparticlexy.fxo",
+      "bytes": 49728,
+      "sha256": "c75d6143f9ba22a9f25093711e5d84451dc2af5218f383009eb9dd69ce42620a"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Infantry.fx.dep",
+      "bytes": 1131,
+      "sha256": "e7fc641c66c1fd5ae37b1901aaeb354515097cafbe9579c8d02e7b8e35c66fb4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/infantry.fxo",
+      "bytes": 72912,
+      "sha256": "528f0418bfaa0c0b8d4c342e8b11f2eacd12eee59769e9a83246541129adb0d4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/InfantryChronoRift.fx.dep",
+      "bytes": 1151,
+      "sha256": "a5933b4297bb308cd6b8202f36e118e1768b88f4d7fb7ce4d56295a28bc2ba7a"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/infantrychronorift.fxo",
+      "bytes": 64312,
+      "sha256": "09b0455fb02e21b94957ef31c2b7c43b37572178538c5fbc6a80c4051cd7bb36"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/InfantryFormationPreview.fx.dep",
+      "bytes": 1163,
+      "sha256": "4c64deb19075014065212463a67cbf00e19e5ac438b199586e9421b389005a5b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/infantryformationpreview.fxo",
+      "bytes": 51708,
+      "sha256": "8537eedf0b8611607c3e1cf3fe8c0a7f2ac8f17f5299d1bb7afded6f54fae108"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/InfantryFrozen.fx.dep",
+      "bytes": 1143,
+      "sha256": "07c215a307b31f45317960f78b6b6abd78edc48e062c2fe93ce572e228c0d3a2"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/infantryfrozen.fxo",
+      "bytes": 86680,
+      "sha256": "49f5ea12ca4daa2b9d5d7a727a0f20e5a8bb0c08cf62c21b4bb9e37a43793c85"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/InfantryRadiation.fx.dep",
+      "bytes": 1149,
+      "sha256": "95e6f2547ecb5b29081b4e8c65efaec1f002f5a75cd3c29f337f8adf1797826d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/infantryradiation.fxo",
+      "bytes": 65032,
+      "sha256": "571ac76a9e3639a8943df15a3778927fd9054c93bfe7ea99173d5b5b27bb4eac"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ingame-test.scrape.dep",
+      "bytes": 391,
+      "sha256": "6812dfd23173ff5ea1790524d208accd76af034cb2f19e179d134727e57b7bb5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ingame-test.scrapeo",
+      "bytes": 1625,
+      "sha256": "3ad27a0870b52f6462733925e84ccfc286b694d7ae58058d4b5f0e8d9b5d1361"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/InGame.scrape.dep",
+      "bytes": 1420,
+      "sha256": "9177a255416f0e5f7d3782f639f1b0b42187b82853cd4480c23ed3671bc701bb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ingame.scrapeo",
+      "bytes": 26998,
+      "sha256": "5403bced9126fa3ae3d7c7b979bca9e7c0610dc11c31f064b9a0974ae94eda1c"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Laser.fx.dep",
+      "bytes": 805,
+      "sha256": "6a056b19c47877fb1199173bac6530e05ac99517546b5d63cc9f198c8f8cc512"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/laser.fxo",
+      "bytes": 11012,
+      "sha256": "cdfc494963e3e77d7c842bda3470838f074dadaa5988b05279a580ee7df7b4ea"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/LaserAlpha.fx.dep",
+      "bytes": 815,
+      "sha256": "2ba28e09181842fc869e5e54b9babed66800aa8db3674434457dd0bfb5ea5579"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/laseralpha.fxo",
+      "bytes": 10524,
+      "sha256": "f680b36b0531340d76e64f5ac2340582ac82c77c9ddfad135bd4115d1fe372bb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/LaserDistortion.fx.dep",
+      "bytes": 775,
+      "sha256": "f9a806b9f08ddd11b0b437f282b4438f9bce17c213f52a2056b8902796c0ade1"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/laserdistortion.fxo",
+      "bytes": 9696,
+      "sha256": "8373aa7639a20510668917d4f00bf1b081b37f1d912e69694a943dd596de2af3"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Lightning.fx.dep",
+      "bytes": 917,
+      "sha256": "bf4686f69a014d5ccabe9bfc31f42c138381cb74a40ea6c702dff3ee6745f34b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/lightning.fxo",
+      "bytes": 29332,
+      "sha256": "640ca224d5347cb0057e97612275524437f8fbf4866d55ab9f346d9864d0b65d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/LineRenderers.fx.dep",
+      "bytes": 821,
+      "sha256": "ae59ac318271e7bf36fca913fe4d97978da99fec0629c5f29d25d7422eed4711"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/linerenderers.fxo",
+      "bytes": 28512,
+      "sha256": "6c5677fb8d736e93c45b57b1792eaa2f34f6b61083a320c7317a705c949768ef"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/MuzzleFlash.fx.dep",
+      "bytes": 870,
+      "sha256": "d0299e6bc9981cdece92550e0e1e37494a9858c8bdd6ff02cd8be187a8e5509f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/muzzleflash.fxo",
+      "bytes": 27076,
+      "sha256": "66dfe72ab576335a7749d1f74f33d5b1a4f9a3e444796a37b6647ebfa54f4821"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/NormalMapped.fx.dep",
+      "bytes": 1144,
+      "sha256": "a893b266c75be0b9d3730efd0999dc444c74051d864608f504605672238dc9e2"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/normalmapped.fxo",
+      "bytes": 60096,
+      "sha256": "9e877f958af7e86509f84b8023cba8204a111c6e41359cee577259c479ac0774"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Null.fx.dep",
+      "bytes": 424,
+      "sha256": "cfb257173a3e5dd9966afbe72634f887f70da7b7f322a1fc242cb6cac7b36b6b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/null.fxo",
+      "bytes": 60,
+      "sha256": "a3a0443b10818874d51dcf9f3a346a6e7dd81ca84b0aac9dc673354492116824"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsAllied.fx.dep",
+      "bytes": 1146,
+      "sha256": "a263826a96861e0c76acda16e573dc2780b5d5972065213c69298693730cd868"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsallied.fxo",
+      "bytes": 60528,
+      "sha256": "f27b4bc232e8ff7ef8abb65fa934ad06c3454941e0aa463522f26e58e8a8f70d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsAlliedTread.fx.dep",
+      "bytes": 1156,
+      "sha256": "2870e17bf2b79cb7be461c9874e993d353ec26bfa68d557334c679b147480625"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsalliedtread.fxo",
+      "bytes": 60720,
+      "sha256": "8184ce05af85424557ea198f926bacebe228fed3e8e308434de24d7a9e8bc5a5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsChronoRift.fx.dep",
+      "bytes": 1154,
+      "sha256": "200f79ad987d79be0938c2e40ba5584a43550ac5679c6c0cc8e94b4047054990"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectschronorift.fxo",
+      "bytes": 51156,
+      "sha256": "2e506524b76d62feaeef065e970aabc324bbb659a8dca79543e183ef12924417"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsFactionFrozen.fx.dep",
+      "bytes": 1160,
+      "sha256": "d5682ae9a2b8a72a9b50811bc4c0d502dc3920683873bad87b2afa015f0a0447"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsfactionfrozen.fxo",
+      "bytes": 93900,
+      "sha256": "326fee7a301f16f7f4da03d334c34fd9604c94ec82715f157257aa11ad349d00"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsFormationPreview.fx.dep",
+      "bytes": 1166,
+      "sha256": "f7646b6aaf4312624869058403a9ef1d1dcc0a091fa5a0905de8bcb8300d693c"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsformationpreview.fxo",
+      "bytes": 48460,
+      "sha256": "d3c2c1c5b6e1e534d4202562ca8054c7914b5df65a4d1f9c616bcbad2cd09aa6"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsFrozen.fx.dep",
+      "bytes": 1146,
+      "sha256": "87a075c2ca47aed1e70eefc701a758916d5da0f9f09e3b87702ed1749eadbe9f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsfrozen.fxo",
+      "bytes": 92440,
+      "sha256": "f30b3a26b8f3309782598ffc7e2e2d61544412487b93958ddd93e91c7b20b4d0"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsGeneric.fx.dep",
+      "bytes": 1148,
+      "sha256": "059b00d1739bc8a32b4f1eb64f5d830239d35875e08b7916a91b675218295b87"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsgeneric.fxo",
+      "bytes": 62768,
+      "sha256": "da419844cc7f457f4c5c58714da6b3c1c64a06b0048e86e3fc8c6b26a7676081"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsGenericLightmap.fx.dep",
+      "bytes": 1164,
+      "sha256": "f5e84670a460676a7a34bd2f2a07fab632e1b1ba4dc59fd8a15a270ec938d3b6"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsgenericlightmap.fxo",
+      "bytes": 64728,
+      "sha256": "897279ca12192f4525d943c4901d916c73946be5fd1d9b9bf100036f640b3960"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsIronCurtain.fx.dep",
+      "bytes": 1156,
+      "sha256": "ad702928be7c48a8ab120e184356a2b5df9078b12d8ae5689f82c284b192d735"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsironcurtain.fxo",
+      "bytes": 50864,
+      "sha256": "0956a0239a9898a9baf70a1e4cd5ad4944a06de029277f77bd1303849f0cd4fd"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsJapan.fx.dep",
+      "bytes": 1144,
+      "sha256": "24f34d32870f21213f3af37477a4cd18b36c4b110ef48d8af48ca904f15ced89"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsjapan.fxo",
+      "bytes": 60528,
+      "sha256": "f27b4bc232e8ff7ef8abb65fa934ad06c3454941e0aa463522f26e58e8a8f70d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsRoads.fx.dep",
+      "bytes": 1144,
+      "sha256": "38f62989cf63403066ce12c099aef6a37b4418d9632807add84c33407cc03ebf"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsroads.fxo",
+      "bytes": 62768,
+      "sha256": "0dbf9dbc8c3a70b73d27f581d6670c7b5e8c96d87d5d8970613814f352693cc5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsSoviet.fx.dep",
+      "bytes": 1146,
+      "sha256": "41167713c162a041fe25b151b24007854354bdaaed61696437d2f5a8d91a31bc"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectssoviet.fxo",
+      "bytes": 60528,
+      "sha256": "d688edfb1a28764c11076c208c73781272dfbda1ce9678c1d524e552e52c3edb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsTerrain.fx.dep",
+      "bytes": 1096,
+      "sha256": "68cd1d0afb6be770959b6b1baf4257a48ba335af725056cf727ef0976cd2453d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectsterrain.fxo",
+      "bytes": 31164,
+      "sha256": "b4d32028f9bcf5195a0bb9fa9f079007497d8955b8f910215ad1b4c56bffa317"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ObjectsTesla.fx.dep",
+      "bytes": 1144,
+      "sha256": "477cc8767e854a6bd46bfddd817e4a6949a03ed2e1412441719256c5ebb94b47"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/objectstesla.fxo",
+      "bytes": 81696,
+      "sha256": "d7c62959766215400e64c2f58728b8292f656fd54a956ea63850426a80eca0b2"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Occlusion.fx.dep",
+      "bytes": 763,
+      "sha256": "ff699887dc7d810b63369613f232cc97227f11f054707182ad22e1bf2023af6e"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/occlusion.fxo",
+      "bytes": 7556,
+      "sha256": "79246bdb190248a6ef6dbc60864831a1c4e280d21330eb343eafa99b7bd96e5c"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Ocean.fx.dep",
+      "bytes": 919,
+      "sha256": "d587f8eb27c49f4056d9264e41323ecdd82af576a31d9dee0ff4c12fa1faf14e"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/ocean.fxo",
+      "bytes": 32520,
+      "sha256": "6c250e026acc0712e6e1355a59520a4deaad38580932358213687336fe936210"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/OceanDisplacement.fx.dep",
+      "bytes": 779,
+      "sha256": "1407c6b05c4a1205947f5f713a97df9a65e37f6a8193f8cde7d66dcae4566094"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/oceandisplacement.fxo",
+      "bytes": 19840,
+      "sha256": "efff6da413219837f21f890e819c22ab4a2531bdbfffcd9c73c218fe996c5939"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/OceanNoVertexTexture.fx.dep",
+      "bytes": 998,
+      "sha256": "cb0d3dd3456a6d656cd78179cf7e9fa9bec29ff29f385cc682459b2de7520b5d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/oceannovertextexture.fxo",
+      "bytes": 33220,
+      "sha256": "82047db21c3d9239220bdc9cb59ebc6da6ed7f95197f96bd378412f95874b1f0"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Outlines.fx.dep",
+      "bytes": 818,
+      "sha256": "da0883d6d32f59c296eee5edcfd3828838122603d04b6d72f9f4ad01eeff3509"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/outlines.fxo",
+      "bytes": 12532,
+      "sha256": "14a4eb90d719be8b8adfaa7b1c9042b6efe20acd00e9d9e54f9fe568a5fcf544"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/PostFX_Bloom.fx.dep",
+      "bytes": 876,
+      "sha256": "76781c24742b00853b2076f85e2a2b58d8755c8225901b2401b9babc66c26dbd"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/postfx_bloom.fxo",
+      "bytes": 34276,
+      "sha256": "7c55997c384e0f673b4e1876e052173743a7ddd2d87a091ab22c53835126e1a4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/PostFX_Distortion.fx.dep",
+      "bytes": 836,
+      "sha256": "946f7f323597658065283de09821d8daab526a07739ddfc6e41d6032576ee2d0"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/postfx_distortion.fxo",
+      "bytes": 8212,
+      "sha256": "7e1bd0332a21e72a09a3ff26e2cc4ed7dfb1edd8c03fd1cbd2ba018df338a76e"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/PostFX_LinearDepth.fx.dep",
+      "bytes": 781,
+      "sha256": "80821f5ff95444f9fa905945a5a56da9b53dc3164da099f2d0ac17036507bb50"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/postfx_lineardepth.fxo",
+      "bytes": 6456,
+      "sha256": "c8f3c0fcb33e848649f8ada244191fbcaf05e459288bf74fd3edbab188de734b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/PostFX_LookupTable.fx.dep",
+      "bytes": 888,
+      "sha256": "e38964147a06a47895c9bed0d0904e709f983e2d30c06f41dbb686ce7cc33f0d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/postfx_lookuptable.fxo",
+      "bytes": 11496,
+      "sha256": "354a5c97aecaf3133a67b851c67a6c35e08e685f6c9ffcaaa7501b099882b099"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/PostFX_MSAA.fx.dep",
+      "bytes": 824,
+      "sha256": "afd2d8fc16e1f9a004245909667604bced1fbfde09521193b0deec2d667015ae"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/postfx_msaa.fxo",
+      "bytes": 8348,
+      "sha256": "f703aa911cc61d9578e538b18e5eebe2200f828afc4425bb54bad59ee2042b36"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Rain.fx.dep",
+      "bytes": 803,
+      "sha256": "3c43dbe388ef961b98d02c1e1d193eff8779f92695810ff1af36d2072aa37029"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/rain.fxo",
+      "bytes": 15896,
+      "sha256": "4de3994a74eefc14e2a58abaee7baba3c400fef91c737d097721293d7bebf876"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Render2D.fx.dep",
+      "bytes": 761,
+      "sha256": "959392cf27ceccbaf2910abfdff281b7fa05816ad98c42821ca7aac5a018063b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/render2d.fxo",
+      "bytes": 14332,
+      "sha256": "12da7f8c0de8eafbf995d403cd6188958bfff15608aa09507c11c3ee3575e1db"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/RiverReflection.fx.dep",
+      "bytes": 775,
+      "sha256": "70c9e3f34fd2f43e064407fac6acf5aa142c87004a56c11e5d8f23a7afef9ea2"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/riverreflection.fxo",
+      "bytes": 12480,
+      "sha256": "23811b5aecca2f69a6ded33c4a780c1baef506f1ad331ce2849286078c5003ca"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/RiverWater.fx.dep",
+      "bytes": 815,
+      "sha256": "6513fc7ebcf3bf3689614e8373929a05daf671f679534eed9e960690646a7d49"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/riverwater.fxo",
+      "bytes": 17080,
+      "sha256": "9232aa8ad9d89bd3362dbb5a17be3dc86e2da1bc7ada6c3cd7d9d39827bfd14d"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/RotateEnvironmentMap.fx.dep",
+      "bytes": 785,
+      "sha256": "0dd86177092a96f0e8b246a297d2aa43e3914c4cd60a0499670681ecc3b17884"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/rotateenvironmentmap.fxo",
+      "bytes": 12496,
+      "sha256": "10fc4d1ce8361d5de7387b7a98a9e7c2f4f262d421f78dde55685bf7f70e50be"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Shadow.fx.dep",
+      "bytes": 757,
+      "sha256": "939ca93ea67ca5cb8b80043482298ebee443bf5cd5cef8d5f3dadc6de1b71677"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/shadow.fxo",
+      "bytes": 7448,
+      "sha256": "9639c03b2f2068fdc3b96b40d0c127730553c88d270c4550e1953202eafcc054"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Shell.scrape.dep",
+      "bytes": 379,
+      "sha256": "a3f72d47e3e429589e9335fd78e8735ed516298eb925d6f3ff2b8b636385aac1"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/shell.scrapeo",
+      "bytes": 200,
+      "sha256": "78aae389a26f9e554f4dd6dc987e1c6ecbb999d8b87c69fd43a8e4e3da5e7dae"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Simple.fx.dep",
+      "bytes": 757,
+      "sha256": "43c800bffc1dfe7266a32e51bd15cd14840ae1dff36fcd0713a15e2e35f38d9f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/simple.fxo",
+      "bytes": 8768,
+      "sha256": "e20b89e27b23def032121e54eff32ee17414578570be9e63f2cfa7a3211c52f5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Simplest.fx.dep",
+      "bytes": 761,
+      "sha256": "ac7ab20d819d1da5a11515e251027a0c459a1b1f7d030b4ee95c4ff818ae2554"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/simplest.fxo",
+      "bytes": 8612,
+      "sha256": "8fdccd1f6e597eeea3cbbc3ef3f25d855af387c732d1a452c61ec5dc906e89b4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Stream.fx.dep",
+      "bytes": 807,
+      "sha256": "cfdd03583b722abad430db8e0d98428b3c1573f999349975f5797c577c471ded"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/stream.fxo",
+      "bytes": 16636,
+      "sha256": "71ca076db1e18f61d3b6fa95db17a5a56cdc11d24bf4997e5b24b75507767568"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/SwarmParticle.fx.dep",
+      "bytes": 771,
+      "sha256": "c1a62c484dbce234953bc061625a3d07087923012c44c2e1822ec1df3f2d9936"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/swarmparticle.fxo",
+      "bytes": 12368,
+      "sha256": "aab2fd1a5c07b66395e97627f4529fcc310d02453324b620d99bb81de95a67ad"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Terrain.fx.dep",
+      "bytes": 1029,
+      "sha256": "8d2f13926e4b6f3be7ef063c4fe62e41a1d1fbde84de172d12bfc932308bebe4"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/terrain.fxo",
+      "bytes": 95304,
+      "sha256": "cda812efc875898b90f2186060cbc9e64ec32f54b3f7227eec50cbe241f5da55"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/TerrainTracks.fx.dep",
+      "bytes": 821,
+      "sha256": "68776e82880c190d4c448c980c535c8c906c349671495c2461d031e8b1d925c9"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/terraintracks.fxo",
+      "bytes": 7960,
+      "sha256": "e675148eb421929d7603a6676bac44e2e43abd141ec35089301eff3ca55b0827"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Tracer.fx.dep",
+      "bytes": 807,
+      "sha256": "992278fd9d4682bdd094fd8a22c155bf5853dac49ec494004c62a23c8db1babb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/tracer.fxo",
+      "bytes": 20304,
+      "sha256": "c1ddbb9a50162fda8bde9d438e00d0482e11685e18bd5cbd7c556afae2ede636"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Trail.fx.dep",
+      "bytes": 865,
+      "sha256": "e6c6a259afe66535c2ccb76056dcd84599aaf33d83daf817343a03cfd3d62c5f"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/trail.fxo",
+      "bytes": 10984,
+      "sha256": "464091baf988791b122804d6ad77d7cabb51527a767bb211c71cd24ecde10066"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Tree.fx.dep",
+      "bytes": 1123,
+      "sha256": "b206c1cbd21fca97e857382bbc2ec7788e77090fc9af67012256a8e8cd8fe681"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/tree.fxo",
+      "bytes": 62632,
+      "sha256": "cd2517584487c58e0c34d0fc7f073ba4ddccea31b0237f149626ff3d3b004ccb"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/TreeSway.fx.dep",
+      "bytes": 978,
+      "sha256": "184c5944a3b6ae0a87c1fb926d7f21e17069d6821df02c9af51139c5e256700e"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/treesway.fxo",
+      "bytes": 38080,
+      "sha256": "43b5145262d48baa145129d1160793736590f0581c249fafe87cb457c2035084"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/UnderwaterDeferred.fx.dep",
+      "bytes": 892,
+      "sha256": "f9643dc0dc0bbbd9f57a3c2d375e21424204e909865dad71708bf65462581987"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/underwaterdeferred.fxo",
+      "bytes": 17112,
+      "sha256": "874817c734ada63d8e5e66dd67f81f70bacc0b09f35416d8b3632e093eb7dec5"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/Video.fx.dep",
+      "bytes": 755,
+      "sha256": "f7b16ec5d2027193e03a214ef95cb8362c959c9f21033c5e19323888cc903f6b"
+    },
+    {
+      "name": "Shaders/compiled/W3XView/video.fxo",
+      "bytes": 7712,
+      "sha256": "4bf76b5482d32b0102bc0cc631416bb3d77318146fad283266f01b99fb2b1118"
+    },
+    {
+      "name": "Shaders/DefaultW3D.fx",
+      "bytes": 1504552,
+      "sha256": "ee94e441dde0600c22d11f1dcafe53b6f30b2228f138465e1dca018fddcbaeb8"
+    },
+    {
+      "name": "Shaders/DefaultW3DNoFogNoCloud.fx",
+      "bytes": 1423288,
+      "sha256": "c03fdf19694f7d178085f3fc7699f0317d8498731fb91da6b2c0ace7a43118da"
+    },
+    {
+      "name": "Shaders/DistortingObject.fx",
+      "bytes": 19432,
+      "sha256": "727139f4c858d1e24d4299ef88caab5d281cce7041e7049f94f67ce398c94870"
+    },
+    {
+      "name": "Shaders/Infantry.fx",
+      "bytes": 126300,
+      "sha256": "9182a5f0609b8f9459aa284e98d22ed1ab1a1610bc9617cbefac745e9bb3d6f8"
+    },
+    {
+      "name": "Shaders/MuzzleFlash.fx",
+      "bytes": 31640,
+      "sha256": "98c8db80ad6ccad59a86d1ac33625c1c54b26e46d3f34b5c6b28188352cafddd"
+    },
+    {
+      "name": "Shaders/NormalMapped.fx",
+      "bytes": 120292,
+      "sha256": "3ec7a668e59fc8560c8f6841780d7318559dc126e586b3c0ee726d8ad190600a"
+    },
+    {
+      "name": "Shaders/ObjectsAlien.fx",
+      "bytes": 133896,
+      "sha256": "67556c7e00528332740cf8d14ef03f5deb3a1a11dd4a5a7cdcac9f5466c37eab"
+    },
+    {
+      "name": "Shaders/ObjectsAlienBuildup.fx",
+      "bytes": 140112,
+      "sha256": "f4f1d090befbe70960baa51af4a280a60269e63bebe3a0259eb680349d8c3fd6"
+    },
+    {
+      "name": "Shaders/ObjectsAlienIonHull.fx",
+      "bytes": 140408,
+      "sha256": "d50d4c626e8e99c52e00fcfc594896f3cf3e717ceab80231d35e0b2fafac5f34"
+    },
+    {
+      "name": "Shaders/ObjectsGDI.fx",
+      "bytes": 128024,
+      "sha256": "fb1ea8568207b533336dfc0a5e04d6f4a2400e2000ee0559adbb3b6c9ba31337"
+    },
+    {
+      "name": "Shaders/ObjectsGeneric.fx",
+      "bytes": 130492,
+      "sha256": "4325ba6bd569678b0f7b93c2467c42e02b0ace1a575fda51688100884a4665db"
+    },
+    {
+      "name": "Shaders/ObjectsGenericEnvMap.fx",
+      "bytes": 130344,
+      "sha256": "d0d69a55a3ba18df0f53e0f8aa5d951783c0e0e9523c9b3cc313cd3ee43a3ff3"
+    },
+    {
+      "name": "Shaders/ObjectsNOD.fx",
+      "bytes": 130032,
+      "sha256": "357b8cf03ab8d6efdf765e98f7df978f198c624ad19af89ca3523369d32c921d"
+    },
+    {
+      "name": "Shaders/ShieldDistortion.fx",
+      "bytes": 20912,
+      "sha256": "47fa3d7ad806039140d36d73969c3aca272d497d30149f3383d0be1b9ffbe1e5"
+    },
+    {
+      "name": "Shaders/Simple.fx",
+      "bytes": 5800,
+      "sha256": "126c08ecc0989460354d09c99b9b0f05ee870d9ca4ad3e7ae52ae4d300107cbc"
+    },
+    {
+      "name": "Shaders/Tiberium.fx",
+      "bytes": 116160,
+      "sha256": "eb01c466794a63cd1036fa1678d72911922912f096df64fd55871cc35fa47c67"
+    },
+    {
+      "name": "Shaders/Tree.fx",
+      "bytes": 127320,
+      "sha256": "69b480879d9e5941b1cf34255a99599c03ffcbfb300b15a1954e3a2ef685f2b5"
+    },
+    {
+      "name": "Shaders/WaterShader.fx",
+      "bytes": 125408,
+      "sha256": "efb005fea093e5455d93f4a4139370e7f8b7d83d7942bb43862a7461a43dc71c"
+    },
+    {
+      "name": "Source/ModAssetResolver.dpr",
+      "bytes": 34419,
+      "sha256": "18d1181130d3a470c75ca2e084c1d0e52e41111464c0a1aed2a6f6f5be42d6fd"
+    },
+    {
+      "name": "Source/ModAssetResolver_StringHashes.pas",
+      "bytes": 2772810,
+      "sha256": "b741abea1377fc60fd0dab7651e76d8e8882de5c4a861307bb5050e697159662"
+    },
+    {
+      "name": "W3XViewer.exe",
+      "bytes": 1634304,
+      "sha256": "3941fa25aca34cc10baf4b4eadd84b390868f5e84f96850ad717f01dd585510d"
+    },
+    {
+      "name": "WBAssetResolver.exe",
+      "bytes": 433152,
+      "sha256": "2340879685d5948447a100eabeb6abd6b8fd6b2be795d7be259e7c817418482e"
+    }
+  ],
+  "sourceSdkRoot": "D:\\a\\NewSdk\\NewSdk\\SDK",
+  "originalWorkingDirectory": "D:\\a\\NewSdk\\NewSdk\\SDK",
+  "originalConfigSha256": "c70ba3231cec9a130fa170d2866836c020659bad2777dfb1d8dc61e914b666cb",
+  "effectiveConfigSha256": "d3f5abfbd0a0cf43b790458b2f2a650f35fd3bba1730809b55d646b453c1ed93",
+  "assetbuilderConfigUnchanged": true,
+  "workloads": [
+    {
+      "name": "mymod",
+      "modRoot": "D:\\a\\_temp\\cb\\workloads\\mymod",
+      "scope": "Complete current SDK/Mods/mymod input copy; benchmark selects base only, without packaging.",
+      "files": [
+        {
+          "path": "Additional/Data/gamestrings.csf",
+          "bytes": 827422,
+          "sha256": "67591bb700b7fc3472083325dcc61d7a187c5448940470d112056859684cbd06"
+        },
+        {
+          "path": "Data/CommandData.xml",
+          "bytes": 1149,
+          "sha256": "69349eae29b8bcf64a047c5f00f6b9bfb6c144bc2c41dced56429932d1e8827e"
+        },
+        {
+          "path": "Data/Mod.xml",
+          "bytes": 814,
+          "sha256": "da23958410bc4b612643c94f6d4fdd16ed91646fd69a3f226f0d5bef77722a59"
+        },
+        {
+          "path": "Data/mytank.xml",
+          "bytes": 16072,
+          "sha256": "be98d44a20da38e0058aac86cb1723b23aafb4536d202090171b81af4e5acb3c"
+        },
+        {
+          "path": "Data/RecoveryArmorProbe.xml",
+          "bytes": 757,
+          "sha256": "93d0923c10f1c9eccf6ad5c00a407c28f2001b9d3bc26f8784e1b46deb250257"
+        },
+        {
+          "path": "Data/RecoveryWeaponNuggetProbe.xml",
+          "bytes": 51051,
+          "sha256": "72a64cedd81a211f5c8879b4bc7d3ddc5624759331d1fc61b2daa5067d9f73b8"
+        },
+        {
+          "path": "Data/【配套教程】【代码篇】RA3DIY---入门教程 初级教程.doc",
+          "bytes": 84992,
+          "sha256": "722db1388ea9fd9434cf5c7bcf24ac2a5cb9b5fbd06bc0c753a7128a4551b505"
+        }
+      ],
+      "sourceCommit": "39039961847cd1ca9cb93743fd51741a4e5c9f49",
+      "sourcePath": "SDK/Mods/mymod",
+      "fullModInputCopy": true,
+      "effectiveInputRoots": {
+        "dataRoot": "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "dataPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\mymod\\Data",
+          "D:\\a\\NewSdk\\NewSdk\\SDK",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\SAGEXML"
+        ],
+        "artPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\mymod\\Art",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Art"
+        ],
+        "audioPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\mymod\\Audio",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+        ]
+      },
+      "missingInputRoots": {
+        "dataPaths": [],
+        "artPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\mymod\\Art"
+        ],
+        "audioPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\mymod\\Audio",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+        ]
+      }
+    },
+    {
+      "name": "upheaval-armor",
+      "modRoot": "D:\\a\\_temp\\cb\\workloads\\upheaval-armor",
+      "scope": "Subset only: eleven unchanged historical Upheaval Armor.xml documents, twelve ArmorTemplate assets, generated include entry. No full Upheaval, Texture, Audio, GameObject, APT or packaging claim.",
+      "sourceCommit": "bacfc69fc3e71c8116d1f22b933b8b6173170ecf",
+      "sourceTree": "5551fc26a6f96b62613443e0d0fa2958c14cbce0",
+      "sources": [
+        {
+          "path": "Data/armor-00.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Archer Maiden/Armor.xml",
+          "gitBlob": "2379200e6bb2b868427e8836f7ff3137b808506b",
+          "sha256": "30873dbbfb4ad76468af1d49d606535b881feb5263bc7e40fa5fe518ffcd3af5"
+        },
+        {
+          "path": "Data/armor-01.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Cryo Legionnaire/Armor.xml",
+          "gitBlob": "75239cc18dcc18abb2eec63312a3136c32b19008",
+          "sha256": "2dc203dd4247a3f93d55ad464f76adcf928bd1424b94912eacd0f1389c80a485"
+        },
+        {
+          "path": "Data/armor-02.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Desolator/Armor.xml",
+          "gitBlob": "23b8fb5854cf6cec9ca6317209a13c8d325ef702",
+          "sha256": "d0522655d684266f56376bb6016aaa630fcc556ae80fffe223d0547389b84c0e"
+        },
+        {
+          "path": "Data/armor-03.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Future Tank X-1/Armor.xml",
+          "gitBlob": "da837d9c92f52d926ceb9e7df222d8c3971908f5",
+          "sha256": "a8cb56551d02df5346ab31ef7e748567e9e73a0d0ca2056a145f67d0cd8d2c85"
+        },
+        {
+          "path": "Data/armor-04.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Giga-Fortress/Armor.xml",
+          "gitBlob": "f885247df712e92db690c94f80165430b99e62df",
+          "sha256": "33b1796227cbc992b4f7443cd4feb9f997e6d8772f43030c3dc9b7ff96fd9a22"
+        },
+        {
+          "path": "Data/armor-05.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Grinder/Armor.xml",
+          "gitBlob": "0b3d24af4e3341c714bbf04483b343c54508f7f1",
+          "sha256": "8c1efd890d1c9dfb1bb925366e8739736ccddb9e48fd05959ca9677fe2c60fbd"
+        },
+        {
+          "path": "Data/armor-06.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Harbinger Gunship/Armor.xml",
+          "gitBlob": "5819e0f0144220d1324041ddb6b4cf7de328aee1",
+          "sha256": "52ba95a90ef74bd4dff02dd762f07676993033fee8610062efb49e288ef71b65"
+        },
+        {
+          "path": "Data/armor-07.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Mortar Cycle/Armor.xml",
+          "gitBlob": "751b12b6a1c5cde1b4e857af3a66b5103cbe8236",
+          "sha256": "6e6e36b6217e4bd24a2d1744037838d67f7beae5c2e35623889c77cd42cc4aca"
+        },
+        {
+          "path": "Data/armor-08.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Pacifier FAV/Armor.xml",
+          "gitBlob": "7246fb22914ebac3ffe6e395de6b70ca01fc44b9",
+          "sha256": "3aa77afc5fe2afd7fdc41ce9324612c8dc275cb380ebcb6a31cee4918923e1d3"
+        },
+        {
+          "path": "Data/armor-09.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Reaper/Armor.xml",
+          "gitBlob": "2d955fb23e7bb61a736e2961676e6161265920dd",
+          "sha256": "1736991e51dc5d3bb9b620566f1573a96c87bef3634ac2cba1b2f1af00ff5d13"
+        },
+        {
+          "path": "Data/armor-10.xml",
+          "sourcePath": "SDK/Mods/Upheaval/Data/Mod/Units/Steel Ronin/Armor.xml",
+          "gitBlob": "a4e4a5b8a124bf9ab0a1cfce27227b4131eeed76",
+          "sha256": "1dba3d709416181d8b3740e4dfc3b5993ba1860bc5b60c85101d0df0ae61d6aa"
+        }
+      ],
+      "assetCount": 12,
+      "fullModInputCopy": false,
+      "files": [
+        {
+          "path": "Data/armor-00.xml",
+          "bytes": 907,
+          "sha256": "30873dbbfb4ad76468af1d49d606535b881feb5263bc7e40fa5fe518ffcd3af5"
+        },
+        {
+          "path": "Data/armor-01.xml",
+          "bytes": 905,
+          "sha256": "2dc203dd4247a3f93d55ad464f76adcf928bd1424b94912eacd0f1389c80a485"
+        },
+        {
+          "path": "Data/armor-02.xml",
+          "bytes": 901,
+          "sha256": "d0522655d684266f56376bb6016aaa630fcc556ae80fffe223d0547389b84c0e"
+        },
+        {
+          "path": "Data/armor-03.xml",
+          "bytes": 945,
+          "sha256": "a8cb56551d02df5346ab31ef7e748567e9e73a0d0ca2056a145f67d0cd8d2c85"
+        },
+        {
+          "path": "Data/armor-04.xml",
+          "bytes": 950,
+          "sha256": "33b1796227cbc992b4f7443cd4feb9f997e6d8772f43030c3dc9b7ff96fd9a22"
+        },
+        {
+          "path": "Data/armor-05.xml",
+          "bytes": 952,
+          "sha256": "8c1efd890d1c9dfb1bb925366e8739736ccddb9e48fd05959ca9677fe2c60fbd"
+        },
+        {
+          "path": "Data/armor-06.xml",
+          "bytes": 696,
+          "sha256": "52ba95a90ef74bd4dff02dd762f07676993033fee8610062efb49e288ef71b65"
+        },
+        {
+          "path": "Data/armor-07.xml",
+          "bytes": 894,
+          "sha256": "6e6e36b6217e4bd24a2d1744037838d67f7beae5c2e35623889c77cd42cc4aca"
+        },
+        {
+          "path": "Data/armor-08.xml",
+          "bytes": 952,
+          "sha256": "3aa77afc5fe2afd7fdc41ce9324612c8dc275cb380ebcb6a31cee4918923e1d3"
+        },
+        {
+          "path": "Data/armor-09.xml",
+          "bytes": 1643,
+          "sha256": "1736991e51dc5d3bb9b620566f1573a96c87bef3634ac2cba1b2f1af00ff5d13"
+        },
+        {
+          "path": "Data/armor-10.xml",
+          "bytes": 950,
+          "sha256": "1dba3d709416181d8b3740e4dfc3b5993ba1860bc5b60c85101d0df0ae61d6aa"
+        },
+        {
+          "path": "Data/Mod.xml",
+          "bytes": 563,
+          "sha256": "ded6a0f030a15d1a6d1c145bf0f94f9966f63b1b180eb575727a293b9bc34bce"
+        }
+      ],
+      "effectiveInputRoots": {
+        "dataRoot": "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "dataPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\upheaval-armor\\Data",
+          "D:\\a\\NewSdk\\NewSdk\\SDK",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\SAGEXML"
+        ],
+        "artPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\upheaval-armor\\Art",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Art"
+        ],
+        "audioPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\upheaval-armor\\Audio",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+        ]
+      },
+      "missingInputRoots": {
+        "dataPaths": [],
+        "artPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\upheaval-armor\\Art"
+        ],
+        "audioPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\upheaval-armor\\Audio",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+        ]
+      }
+    },
+    {
+      "name": "texture-16",
+      "modRoot": "D:\\a\\_temp\\cb\\workloads\\texture-16",
+      "assetCount": 16,
+      "scope": "Synthetic only: sixteen independent Texture identities using a generated 256x256 top-left BGRA TGA. Not Upheaval or a complete real MOD; no Audio, GameObject, APT or packaging claim.",
+      "synthetic": true,
+      "fullModInputCopy": false,
+      "files": [
+        {
+          "path": "Data/Mod.xml",
+          "bytes": 2485,
+          "sha256": "5cb2cc988235b16cc663326b2577c82f7e9ab35ca04ccedfa31f110efefb748c"
+        },
+        {
+          "path": "Data/probe.tga",
+          "bytes": 262162,
+          "sha256": "93778f3b8cd56e469701e7546b12b257da52d1f5c0784bf8c52e688ee8ff4cc4"
+        }
+      ],
+      "effectiveInputRoots": {
+        "dataRoot": "D:\\a\\NewSdk\\NewSdk\\SDK",
+        "dataPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\texture-16\\Data",
+          "D:\\a\\NewSdk\\NewSdk\\SDK",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Mods",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\SAGEXML"
+        ],
+        "artPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\texture-16\\Art",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Art"
+        ],
+        "audioPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\texture-16\\Audio",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+        ]
+      },
+      "missingInputRoots": {
+        "dataPaths": [],
+        "artPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\texture-16\\Art"
+        ],
+        "audioPaths": [
+          "D:\\a\\_temp\\cb\\workloads\\texture-16\\Audio",
+          "D:\\a\\NewSdk\\NewSdk\\SDK\\Audio"
+        ]
+      }
+    }
+  ],
+  "scope": "Original SDK EXE/DLL bytes copied from accepted source; only CLR4 startup adapted. Shared workload files and SDK roots; no second workload copy or modified plugin/cache/buildConfiguration settings."
+}

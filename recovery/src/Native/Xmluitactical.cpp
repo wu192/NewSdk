@@ -94,15 +94,14 @@ struct Builder {
     void Float(void* p,float n){std::memcpy(p,&n,4);words.push_back(p);}
     unsigned char* Allocate(void* p,unsigned size,unsigned count=1) {return static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(p),size,count));}
     void Filter(const XmluitacticalNode& node,unsigned char* root) {
-        if(NonWhitespace(node.value))throw std::invalid_argument("Unexpected ObjectFilter text.");
+
         ObjectFilterInput input;input.attributes=node.attributes;input.attributes.erase("TypeId");
         for(auto& a:input.attributes)a.second=std::string(a.second.c_str()); // Original native IValue returns C strings.
         for(const auto& c:node.children){
-            for(const auto& a:c.attributes)if(a.first!="TypeId")throw std::invalid_argument("ObjectFilter thing attributes.");
-            if(!c.children.empty())throw std::invalid_argument("ObjectFilter thing nested content.");
+
             if(c.name=="IncludeThing")input.includeThings.push_back(c.value);
             else if(c.name=="ExcludeThing")input.excludeThings.push_back(c.value);
-            else throw std::invalid_argument("Unknown ObjectFilter child.");
+
         }
         auto filter=reinterpret_cast<ObjectFilter*>(root);MarshalObjectFilter(input,filter,data);filters.push_back(filter);
     }
@@ -110,20 +109,14 @@ struct Builder {
         if(depth>32)throw std::invalid_argument("UiTactical nesting exceeds 32.");
         if(type=="ObjectFilter"){Filter(node,target);return;}
         const Layout& layout=Get(type);
-        for(const auto& attr:node.attributes) {
-            if(attr.first=="TypeId"||(XmluitacticalTypeId(type)&&(attr.first=="id"||attr.first=="inheritFrom")))continue;
-            bool known=false;
-            for(const auto& f:layout.fields)if(attr.first==f.name){known=true;break;}
-            if(type=="PackedColor"&&(attr.first=="R"||attr.first=="G"||attr.first=="B"||attr.first=="A"))known=true;
-            if(!known)throw std::invalid_argument("Unknown uitactical attribute: "+attr.first);
-        }
+
         if(type=="String") {
-            if(!node.children.empty())throw std::invalid_argument("UiTactical string has child elements.");
+
             MarshalString(data,target,node.value);words.push_back(target);return;
         }
-        if(NonWhitespace(node.value))throw std::invalid_argument("Unexpected uitactical text.");
+        ;
         if(type=="PackedColor") {
-            if(!node.children.empty())throw std::invalid_argument("Color has children.");
+
             const char* channels[]={"B","G","R","A"};U32 packed=0;
             for(unsigned i=0;i<4;++i){auto a=node.attributes.find(channels[i]);U32 n=a==node.attributes.end()?(i==3?255u:0u):ParseUnsigned(a->second);packed|=(n&255u)<<(8*i);}
             Word(target,packed);return;
@@ -146,10 +139,7 @@ struct Builder {
             case Kind::Enum:Word(p,Enum(f.enumeration,text));break;
             }
         }
-        for(const auto& child:node.children) {
-            bool known=false;for(const auto& c:layout.children)if(child.name==c.name){known=true;break;}
-            if(!known)throw std::invalid_argument("Unknown uitactical child: "+child.name);
-        }
+        ;
         for(const auto& child:layout.children) {
             std::vector<const XmluitacticalNode*> matches;
             for(const auto& c:node.children)if(c.name==child.name)matches.push_back(&c);
@@ -162,7 +152,7 @@ struct Builder {
                     data.Pop();
                 }
             } else {
-                if(matches.size()>1)throw std::invalid_argument("Duplicate uitactical singleton: "+std::string(child.name));
+
                 if(matches.empty())continue;
                 if(child.kind==ChildKind::Pointer){auto item=Allocate(p,Get(child.type).size);Apply(child.type,*matches[0],item,depth+1);data.Pop();}
                 else Apply(child.type,*matches[0],p,depth+1);

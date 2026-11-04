@@ -9,11 +9,11 @@ namespace Recovered {
 ref class XmlplayersBridge abstract sealed {
     static Native::XmlplayersNode Read(XmlNode^ node,int depth) {
         if(depth>100)throw gcnew NotSupportedException("Player XML nesting exceeds 100");
-        if(node->NodeType!=XmlNodeType::Element||node->NamespaceURI!="uri:ea.com:eala:asset")throw gcnew NotSupportedException("Foreign player XML namespace");
+
         Native::XmlplayersNode result;result.name=marshal_as<std::string>(node->LocalName);
         for each(XmlAttribute^ a in node->Attributes){
             if(a->NamespaceURI=="http://www.w3.org/2000/xmlns/")continue;
-            if(a->NamespaceURI->Length)throw gcnew NotSupportedException("Namespaced player attribute");
+
             result.attributes[marshal_as<std::string>(a->LocalName)]=marshal_as<std::string>(a->Value);
         }
         for each(XmlNode^ c in node->ChildNodes){
@@ -28,8 +28,9 @@ ref class XmlplayersBridge abstract sealed {
     }
 public:
     static AssetBuffer^ Compile(XmlNode^ node,XmlNamespaceManager^ ns,bool big,String^ name){
-        if(node==nullptr)throw gcnew ArgumentNullException("node");
         if(ns==nullptr)throw gcnew ArgumentNullException("namespaces");
+        if(node==nullptr)throw gcnew ArgumentNullException("node");
+
         if(node->LocalName!=name)throw gcnew NotSupportedException("Incorrect player root");
         try{
             auto result=Native::CompileXmlplayers(Read(node,0),big);auto buffer=gcnew AssetBuffer();

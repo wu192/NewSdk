@@ -35,27 +35,28 @@ def counts(document,key,label):
 def aggregate(evidence):
  catalog=read(ROOT/'recovery/catalog/XmlSdkTypes.json')
  registered={r['name']:r for r in catalog['roots']}
- require(len(registered)==len(catalog['roots'])==289,'Expected 289 unique current registered routes')
+ require(len(registered)==len(catalog['roots'])==300,'Expected 300 unique current registered routes')
  expected_global={name for name,row in registered.items() if row['schemaGlobal']}
  non_global=set(registered)-expected_global
- require(len(expected_global)==267 and len(non_global)==22,'Current catalog must split into 267 global and 22 non-global registrations')
+ require(len(expected_global)==278 and len(non_global)==22,'Current catalog must split into 278 global and 22 non-global registrations')
  excluded={r['name'] for r in catalog['excluded']}
- require(len(excluded)==12 and 'TestGameObject' in excluded and sum('Joypad' in n for n in excluded)==11,'Excluded scope must remain TestGameObject plus 11 Joypad roots')
+ require(excluded=={'TestGameObject'},'Only TestGameObject remains excluded')
  require(not excluded.intersection(registered),'Excluded roots entered current SDK routes')
  baseline=read(ROOT/'recovery/catalog/XmlRecoveredTypes.json')
  additions=read(ROOT/'recovery/catalog/XmlComponentOnlyTypes.json')
  old={r['name'] for r in baseline['roots']};added={r['name'] for r in additions['roots']}
- require(len(old)==82 and len(added)==207 and not old.intersection(added) and old|added==set(registered),'Historical 82-root catalog and 207 additions must remain separate and account for the current 289 routes')
+ joypad={r['name'] for r in read(ROOT/'recovery/catalog/XmljoypadTypes.json')['roots']}
+ require(len(old)==82 and len(added)==207 and len(joypad)==11 and not old.intersection(added) and not joypad.intersection(old|added) and old|added|joypad==set(registered),'Historical 82-root catalog, 207 additions and 11 Joypad roots must account for the current 300 routes')
  summary=read(evidence/'validation.json');success(summary,'SDK matrix')
  require(summary.get('sdkMode')=='/O2' and summary.get('sdkPlatform')==0,'SDK acceptance must name actual /O2 Win32 scope')
  require(summary.get('originalDllUnchanged') is True and summary.get('fullMymodGate') is True,'Original DLL integrity/full mymod gate missing')
  require(summary.get('studioStages')==[1,2,5],'Expected EALAModStudio base-data stages 1/2/5 only')
  for key in ('sourceCommit','runId','compilerSha256','pluginSha256'):require(bool(summary.get(key)),f'SDK matrix missing {key}')
  metadata=read(evidence/'metadata.json');success(metadata,'SDK metadata')
- require(metadata.get('supportedTypes')==289 and metadata.get('excludedTypes')==12,'Metadata must validate current 289 routes and 12 exclusions; old 82-entry metadata is not current acceptance')
+ require(metadata.get('supportedTypes')==300 and metadata.get('excludedTypes')==1,'Metadata must validate current 300 routes and one exclusion; historical metadata is not current acceptance')
  require(metadata.get('platforms')==[0,1,2,99] and metadata.get('initializations')==4 and metadata.get('reinitializations')==4,'Incomplete Initialize/ReInitialize four-platform metadata matrix')
  require(set(metadata.get('nonGlobalRegisteredRoots',[]))==non_global,'Metadata non-global root set differs from catalog')
- require(metadata.get('unknownTypeRejections')==56 and metadata.get('fieldComparisons')==16200,'Incomplete fixed 289-type metadata/unknown/excluded rejection matrix')
+ require(metadata.get('unknownTypeRejections')==12 and metadata.get('fieldComparisons')==16816,'Incomplete fixed 300-type metadata/unknown/excluded rejection matrix')
  require(same_hash(metadata.get('originalSha256'),ORIGINAL),'Original DLL fingerprint drift')
  require(same_hash(metadata.get('recoveredSha256'),summary['pluginSha256']),'Metadata validated another SDK plugin')
  fresh={row['name']:row for row in summary.get('profiles',[])}
@@ -96,7 +97,7 @@ def aggregate(evidence):
    require(guard.get('nativeCompilerCalls')==0 and guard.get('processInstanceCalls')==0 and guard.get('guardChecks',0)>0,f'{name}: invalid zero-call reuse proof')
    require(same_hash(guard.get('pluginSha256'),summary['pluginSha256']),f'{name}: guard did not load current plugin')
   schema=read(folder/'schema.json');success(schema,name+' schema')
-  require(schema.get('registeredTypes')==289 and schema.get('expectedAssets',0)>0 and schema.get('expectedTypes',0)>0,f'{name}: schema validated another/empty scope')
+  require(schema.get('registeredTypes')==300 and schema.get('expectedAssets',0)>0 and schema.get('expectedTypes',0)>0,f'{name}: schema validated another/empty scope')
   probe=folder/'source-probe.xml';require(probe.is_file(),f'{name}: no actual source probe')
   require(same_hash(digest(probe),entry.get('probeSha256')) and same_hash(digest(probe),schema.get('probeSha256')),f'{name}: source/schema probe fingerprints differ')
   original_input=folder/'Original-Mod.xml';recovered_input=folder/'Recovered-Mod.xml'
@@ -116,7 +117,7 @@ def aggregate(evidence):
    success(result,name+'/'+label)
    require(result.get('profile')==name and result.get('platform')==0,f'{name}/{label}: wrong profile/platform')
    require(result.get('sourceCommit')==entry['sourceCommit'] and str(result.get('runId'))==str(entry['runId']),f'{name}/{label}: evidence anchor differs')
-   require(result.get('registeredTypes')==289 and set(result.get('nonGlobalRegisteredRoots',[]))==non_global,f'{name}/{label}: not the current registration scope')
+   require(result.get('registeredTypes')==300 and set(result.get('nonGlobalRegisteredRoots',[]))==non_global,f'{name}/{label}: not the current registration scope')
    require(result.get('nonGlobalRootEntryCoverageClaimed') is False,f'{name}/{label}: non-global root coverage overclaimed')
    require(result.get('expectedAssets')==schema['expectedAssets']==result.get('requiredAssetsVerified'),f'{name}/{label}: missing required source asset calls')
    require(result.get('requiredTypeCount')==schema['expectedTypes'],f'{name}/{label}: required type count differs from schema probe')
@@ -137,7 +138,7 @@ def aggregate(evidence):
    require(len(guard.get('xmlSha256',{}))==replay['verifiedCalls'],f'{name}: incomplete per-input guard hashes')
   global_calls.update(replay['typeCalls']);total_calls+=replay['verifiedCalls'];total_comparisons+=replay['comparisons']+isolated['comparisons']
   profile_rows.append({'name':name,'reused':is_reused,'sourceCommit':entry['sourceCommit'],'runId':str(entry['runId']),'actualCalls':replay['verifiedCalls'],'actualTypes':len(replay['typeCalls']),'requiredAssets':replay['expectedAssets'],'requiredTypes':replay['requiredTypeCount'],'receiptAnchorFieldsFromReplay':anchor_from_replay,'threeBufferComparisons':replay['comparisons']+isolated['comparisons'],'traceManifestSha256':replay['traceManifestSha256'],'probeSha256':entry['probeSha256'],'outputs':output_hashes})
- require(set(global_calls)==expected_global,'Actual SDK root-call union is not exactly 267 globals; missing='+repr(sorted(expected_global-set(global_calls)))+' extra='+repr(sorted(set(global_calls)-expected_global)))
+ require(set(global_calls)==expected_global,'Actual SDK root-call union is not exactly 278 globals; missing='+repr(sorted(expected_global-set(global_calls)))+' extra='+repr(sorted(set(global_calls)-expected_global)))
  apt=read(evidence/'XmlCompilerRecoveryApt'/'apt-payloads.json');success(apt,'APT payload capability')
  # The dedicated checker owns structural/payload validation; bind its result to
  # this same actual SDK trace before claiming nonempty file-read coverage.
@@ -155,7 +156,7 @@ def aggregate(evidence):
   require(same_hash(check.get('sourceSha256'),check.get('payloadSha256')),'APT source and payload byte fingerprints differ')
   require(same_hash(digest(evidence/'XmlCompilerRecoveryApt'/'trace'/(stem+'.bin')),check.get('traceInstanceSha256')),'APT traced instance changed after capability validation')
   require(same_hash(digest(evidence/'XmlCompilerRecoveryApt'/'trace'/(stem+'.xml')),check.get('traceXmlSha256')),'APT normalized source XML changed after capability validation')
- return {'succeeded':True,'scope':'Current /O2 Win32 SDK base-data compilation and original/original-free replay for 267 actual global root types; all 289 registration metadata verified separately; 22 non-global root entry SDK calls not claimed','sourceCommit':summary['sourceCommit'],'runId':str(summary['runId']),'nativeCompilerSha256':summary['compilerSha256'].lower(),'sdkPluginSha256':summary['pluginSha256'].lower(),'originalDllSha256':ORIGINAL,'sdkMode':'/O2','sdkPlatform':0,'studioStages':[1,2,5],'currentRegisteredEntries':289,'actualSdkGlobalEntries':267,'nonGlobalRegisteredEntries':22,'nonGlobalRootEntryCoverageClaimed':False,'excludedEntries':12,'excludedRoots':sorted(excluded),'nonGlobalRootsWithoutDirectSdkEntryAcceptance':sorted(non_global),'historicalSdkCatalog':{'entries':82,'sourceCommit':additions['sdkBaselineSourceCommit'],'runId':str(additions['sdkBaselineRunId']),'isCurrentDllAcceptance':False},'profiles':profile_rows,'actualSdkCalls':total_calls,'originalAndIsolatedThreeBufferComparisons':total_comparisons,'actualTypeCalls':dict(sorted(global_calls.items())),'aptPayloadCapability':apt,'realSdkBuildsThisRun':summary.get('realSdkBuilds'),'reusedProfiles':[r['name'] for r in profile_rows if r['reused']],'currentCatalogsMutated':False}
+ return {'succeeded':True,'scope':'Current /O2 Win32 SDK base-data compilation and original/original-free replay for 278 actual global root types; all 300 registration metadata verified separately; 22 non-global root entry SDK calls not claimed','sourceCommit':summary['sourceCommit'],'runId':str(summary['runId']),'nativeCompilerSha256':summary['compilerSha256'].lower(),'sdkPluginSha256':summary['pluginSha256'].lower(),'originalDllSha256':ORIGINAL,'sdkMode':'/O2','sdkPlatform':0,'studioStages':[1,2,5],'currentRegisteredEntries':300,'actualSdkGlobalEntries':278,'nonGlobalRegisteredEntries':22,'nonGlobalRootEntryCoverageClaimed':False,'excludedEntries':1,'excludedRoots':sorted(excluded),'nonGlobalRootsWithoutDirectSdkEntryAcceptance':sorted(non_global),'historicalSdkCatalog':{'entries':82,'sourceCommit':additions['sdkBaselineSourceCommit'],'runId':str(additions['sdkBaselineRunId']),'isCurrentDllAcceptance':False},'profiles':profile_rows,'actualSdkCalls':total_calls,'originalAndIsolatedThreeBufferComparisons':total_comparisons,'actualTypeCalls':dict(sorted(global_calls.items())),'aptPayloadCapability':apt,'realSdkBuildsThisRun':summary.get('realSdkBuilds'),'reusedProfiles':[r['name'] for r in profile_rows if r['reused']],'currentCatalogsMutated':False}
 
 def main():
  parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--evidence-root',type=Path,default=ROOT/'recovery/evidence/xml-priority-sdk');parser.add_argument('--output',type=Path);args=parser.parse_args()

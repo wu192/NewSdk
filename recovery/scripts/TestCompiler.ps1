@@ -39,7 +39,7 @@ try {
         # original absolute paths; make all native/managed objects unavailable.
         if(!(Test-Path "$build/obj")){throw 'Missing product object directory to quarantine'}
         Move-Item "$build/obj" (Join-Path $work "$mode/quarantined-obj")
-        $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')
+        $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
         if(@(Get-ChildItem $clean -Recurse|Where-Object{$_.PSIsContainer -or $_.Name -notin $allowed}).Count -ne 0){throw 'Unexpected file or subdirectory in clean production directory'}
         foreach($required in $allowed){if(!(Test-Path (Join-Path $clean $required) -PathType Leaf)){throw "Missing required production file: $required"}}
         $exe=Join-Path $clean 'NewModCompiler.exe'
@@ -74,7 +74,7 @@ try {
             Copy-Item "$destination/build.events.jsonl" "$modeOut/$command-events.jsonl"
         }
         Complete-CompilerValidationRun $validationRun
-        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;componentExecution='test-only host using identical production inputs';configuration=$mode;passed=$true;exeSha256=(Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant();runtimeFiles=$allowed;typeInventoryVerified=$true;exactResourcesVerified=$true;productContainsTests=$false;moduleInputsQuarantined=$true;builtinRouteCount=299;builtinPluginCount=6;routeMetadataVerified=$true;componentDifferentialPassed=$false;planExit=0;doctorExit=3;buildExit=3;backendIntegrated=$true;fakeSdkRejected=$true;modCompilationValidated=$false}
+        $state.modes+=@{validationHostSha256=$validationRun.validationHostSha256;componentExecution='test-only host using identical production inputs';configuration=$mode;passed=$true;exeSha256=(Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant();runtimeFiles=$allowed;typeInventoryVerified=$true;exactResourcesVerified=$true;productContainsTests=$false;moduleInputsQuarantined=$true;builtinRouteCount=299;builtinPluginCount=7;routeMetadataVerified=$true;componentDifferentialPassed=$false;planExit=0;doctorExit=3;buildExit=3;backendIntegrated=$true;fakeSdkRejected=$true;modCompilationValidated=$false}
         Write-Host "PASS production $mode clean directory: metadata/types/resources, all built-in routes/rejections, help, plan/events/report, specific missing-SDK-configuration rejection with integrated backend"
     }
     $state.status='passed'

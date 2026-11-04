@@ -1,0 +1,41 @@
+{
+  "succeeded": true,
+  "sourceSha256": "bb9deecb33dd2f9a2ad44c39c166ae0cbbc69211ccf514615543b8120cf6a96f",
+  "controllerSha256": "40e0576d80027263a085995ecb6d86e761745ce005dddc9252b74a75e8a70db5",
+  "parentIdentitySelfTest": {
+    "assertions": 6,
+    "succeeded": true,
+    "logSha256": "f8b67d0afdb4ec8e3194542d39d0bd68b9dc7f2b8b936ca92308eff8c6a94caa"
+  },
+  "controllerCompiler": {
+    "sha256": "cf32cb7e8e5691b962e1b6f92b03d87409dd9e7afbed71c5bf77b8203cc56ee1",
+    "version": "4.1400.26.42407",
+    "languageVersion": "7.3",
+    "target": "net48/x86",
+    "path": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\MSBuild\\Current\\Bin\\Roslyn\\csc.exe"
+  },
+  "controllerReferences": [
+    {
+      "sha256": "6b35530467b914b0b195146ca1d1485ddd219afaad6461103f16f54e952f75a9",
+      "name": "mscorlib"
+    },
+    {
+      "sha256": "2fe343569f794f2ca92ee14a41875571a9f21bf92637b8f8ee86306534209cca",
+      "name": "System"
+    },
+    {
+      "sha256": "94a1fc97eb0d36f13acd209bb7207da504c8be10caf7e5096b2c46e671dc6fe2",
+      "name": "System.Core"
+    },
+    {
+      "sha256": "495f926ee9e41da7e3b847c19a0fef9843ed5ed954034bee50e04f702ba62b4e",
+      "name": "System.Web"
+    },
+    {
+      "sha256": "7512218c4a6a83de0cdbb8a25240b8b5ee542f93ff9b31acfbf9f7399394450e",
+      "name": "System.Web.Extensions"
+    }
+  ],
+  "sourceCommit": "4c74bf64b7867a6a91fa1f03e76e45b9be5e33a3",
+  "executable": "D:\\a\\NewSdk\\NewSdk\\recovery\\evidence\\texture\\common-formats\\41180859852-1\\controller\\ctrl.exe"
+}

@@ -16,8 +16,8 @@ namespace BinaryAssetBuilder.AudioCompiler
         {
             if (input == null) throw new ArgumentNullException("input");
             if (input.Samples == null) throw new ArgumentException("Missing PCM samples", "input");
-            if ((input.Channels != 1 && input.Channels != 2 && input.Channels != 4 && input.Channels != 6) || input.Samples.Length % input.Channels != 0)
-                throw new ArgumentException("1/2/4/6-channel interleaved PCM is required", "input");
+            if ((input.Channels != 1 && input.Channels != 2 && input.Channels != 4 && input.Channels != 6 && input.Channels != 8) || input.Samples.Length % input.Channels != 0)
+                throw new ArgumentException("1/2/4/6/8-channel interleaved PCM is required", "input");
             int sourceFrames = input.Samples.Length / input.Channels;
             // Original 0x404e0 succeeds without reading/writing any samples
             // for start0,count1. The caller's malloc payload is uninitialized.

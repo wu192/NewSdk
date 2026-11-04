@@ -1,0 +1,75 @@
+{
+  "runId": 41176937044,
+  "sourceCommit": "fc44f6eaecbbb50849d7fe42fa1ad037754d6fdf",
+  "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+  "status": "failed",
+  "artifactId": 13032774067,
+  "archiveSha256": "394674b48cf7c1382c373410d21a67f89abcbc1e24335e143c32677dcbb425d3",
+  "archiveBytes": 8642470,
+  "downloadedAndRehashed": true,
+  "runtimeSameAsFirst": true,
+  "fixtures": {
+    "Debug/CompilerInstanceIncludeCache": {
+      "succeeded": false,
+      "checks": 18,
+      "binarySourceCommit": null,
+      "testSourceCommit": null,
+      "error": "System.Exception: Completed generation did not become 0-parse/0-compile hot\r\n   at CompilerInstanceIncludeCache.Need(Boolean condition, String message) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInstanceIncludeCache.cs:line 21\r\n   at CompilerInstanceIncludeCache.Hot(SessionCache cache, DocumentProcessor processor, String root) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInstanceIncludeCache.cs:line 109\r\n   at CompilerInstanceIncludeCache.Chain(BuiltinCompilers plugins) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInstanceIncludeCache.cs:line 140\r\n   at CompilerInstanceIncludeCache.Main(String[] args) in D:\\a\\NewSdk\\NewSdk\\recovery\\tests\\CompilerInstanceIncludeCache.cs:line 217"
+    },
+    "Debug/CompilerInheritanceSnapshot": {
+      "succeeded": true,
+      "checks": 40,
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "testSourceCommit": "fc44f6eaecbbb50849d7fe42fa1ad037754d6fdf",
+      "error": null
+    },
+    "Debug/CompilerReferenceSemantics": {
+      "succeeded": true,
+      "checks": 109,
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "testSourceCommit": "fc44f6eaecbbb50849d7fe42fa1ad037754d6fdf",
+      "error": null
+    },
+    "Release/CompilerInstanceIncludeCache": {
+      "succeeded": false,
+      "checks": 18,
+      "binarySourceCommit": null,
+      "testSourceCommit": null,
+      "error": "System.Exception: Completed generation did not become 0-parse/0-compile hot\r\n   at CompilerInstanceIncludeCache.Need(Boolean condition, String message)\r\n   at CompilerInstanceIncludeCache.Hot(SessionCache cache, DocumentProcessor processor, String root)\r\n   at CompilerInstanceIncludeCache.Chain(BuiltinCompilers plugins)\r\n   at CompilerInstanceIncludeCache.Main(String[] args)"
+    },
+    "Release/CompilerInheritanceSnapshot": {
+      "succeeded": true,
+      "checks": 40,
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "testSourceCommit": "fc44f6eaecbbb50849d7fe42fa1ad037754d6fdf",
+      "error": null
+    },
+    "Release/CompilerReferenceSemantics": {
+      "succeeded": true,
+      "checks": 109,
+      "binarySourceCommit": "8e8cf766df1016c6095158b62ea18f48a5c37cfe",
+      "testSourceCommit": "fc44f6eaecbbb50849d7fe42fa1ad037754d6fdf",
+      "error": null
+    }
+  },
+  "preparationSelectedFixtures": [
+    "CompilerInstanceIncludeCache",
+    "CompilerInheritanceSnapshot",
+    "CompilerReferenceSemantics"
+  ],
+  "reusedFixtures": [
+    "CompilerPreparedBackend",
+    "CompilerXmlBackendBatch",
+    "CompilerCacheContent",
+    "CompilerStableSort",
+    "CompilerInputRoots",
+    "CompilerCorePaths",
+    "CompilerUnicodeSettings",
+    "CompilerCoreLifecycle",
+    "CompilerResourceLifecycle",
+    "CompilerStateLifecycle",
+    "CompilerBackendLifecycle",
+    "CompilerApplicationBuild"
+  ],
+  "receiptArchiveSha256": "1e72dca27e22fd388a03e118f3b1a9aaca35765b6ee02b729a7bd3bc4ab07233"
+}

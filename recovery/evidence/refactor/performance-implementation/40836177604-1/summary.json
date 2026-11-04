@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "4ad5d0d9f9c162783641a8dde5a5222cd61b5c29",
+  "binarySourceCommit": "4ad5d0d9f9c162783641a8dde5a5222cd61b5c29",
+  "testSourceCommit": "4ad5d0d9f9c162783641a8dde5a5222cd61b5c29",
+  "runId": "40836177604",
+  "runAttempt": 1,
+  "conclusion": "success",
+  "artifactId": "12881800506",
+  "archiveSha256": "30ee535f25609213da6ddab37cf7a174718a064516b8cbe4c397823cdd7d8837",
+  "localArchiveSha256Verified": true,
+  "receipts": {
+    "core-cli": {
+      "path": "evidence/refactor/core-cli/40836177604-1/validation.json",
+      "sha256": "eba80e70b1e677422576ff66241a434ebe2e6d810975abbaf50d428f9ceacb0f",
+      "succeeded": true
+    },
+    "build-cache": {
+      "path": "evidence/refactor/build-cache/40836177604-1/validation.json",
+      "sha256": "af4c5af399b63326ab3dd41bee355af32d60d72b51e6933a06f38fa9d7f0b88f",
+      "succeeded": true
+    },
+    "input-roots": {
+      "path": "evidence/refactor/input-roots/40836177604-1/validation.json",
+      "sha256": "95b39fdc815b31f7659364a3d88934c754933d6878b5dd2689562017fec82e5a",
+      "succeeded": true
+    },
+    "cache-payloads": {
+      "path": "evidence/refactor/cache-payloads/40836177604-1/validation.json",
+      "sha256": "2d41660148278c625fd1789e61a5dd6c051569425f1d3f9d643b72305d65661a",
+      "succeeded": true
+    },
+    "session-cache": {
+      "path": "evidence/refactor/session-cache/40836177604-1/validation.json",
+      "sha256": "87897612263f86c782bd0ab4682936ee812f8a67203bd0712044ac279a63bc9b",
+      "succeeded": true
+    },
+    "big": {
+      "path": "evidence/refactor/big/40836177604-1/validation.json",
+      "sha256": "88409fe0daa5088927452938606d5def26d227d46104d5436875c4b605070e4d",
+      "succeeded": true
+    },
+    "sdk-mymod": {
+      "path": "evidence/refactor/sdk-mymod/40836177604-1/validation.json",
+      "sha256": "e7d41b65eb7b5ccc77ed703989165ee638dc066b52660a14b5c5faea1b3a37b4",
+      "succeeded": true
+    }
+  },
+  "hotCases": {
+    "Debug": {
+      "linkedStreamsRestored": 2,
+      "fileHashReads": 0,
+      "fileHashReuses": 18,
+      "fileHashBytesRead": 0,
+      "publicationUnchanged": true,
+      "bigReusedFromPublished": true
+    },
+    "Release": {
+      "linkedStreamsRestored": 2,
+      "fileHashReads": 0,
+      "fileHashReuses": 18,
+      "fileHashBytesRead": 0,
+      "publicationUnchanged": true,
+      "bigReusedFromPublished": true
+    }
+  },
+  "retainedFailedRun": {
+    "runId": "40832233489",
+    "sourceCommit": "f44b49a2ac98a80aa5b3b8868d1e4c5d54c1ab84",
+    "reason": "Old publication-fault fixtures expected a locked unchanged generation to be replaced. Fixtures now verify locked unchanged success, then force real replacement and retain failure/retry assertions."
+  },
+  "release": [
+    {
+      "configuration": "Debug",
+      "rawOutputEquality": true,
+      "succeeded": true,
+      "zipSha256": "fdab4a31fb6a26887f904fe220151553512d3fc3dff087020523cf8352383740"
+    },
+    {
+      "configuration": "Release",
+      "rawOutputEquality": true,
+      "succeeded": true,
+      "zipSha256": "8956c064de57996c0983b0f762d37d3481220fe2aca50927da8b36a814215425"
+    }
+  ]
+}

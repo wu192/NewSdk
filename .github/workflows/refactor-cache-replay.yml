@@ -54,13 +54,55 @@ jobs:
             python recovery/scripts/ValidateAppProtocol.py $directory --source-commit $env:GITHUB_SHA --output "$directory/protocol.json"
             if($LASTEXITCODE -ne 0){throw "Replay $scope protocol failed"}
           }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
-        with:
-          name: refactor-cache-replay-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/artifacts/replay-controller/**
-            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/replay-controller/**/*.json
+            recovery/artifacts/replay-controller/**/*.log
+            recovery/artifacts/replay-controller/**/*.md
+            recovery/artifacts/replay-controller/**/*.csv
+            recovery/artifacts/replay-controller/**/*.tsv
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/artifacts/candidate-replay/candidate-replay.json
             recovery/artifacts/candidate-replay/original-input-roots-protocol.json
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'refactor-cache-replay-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/replay-controller/**/*.json
+            recovery/artifacts/replay-controller/**/*.log
+            recovery/artifacts/replay-controller/**/*.md
+            recovery/artifacts/replay-controller/**/*.csv
+            recovery/artifacts/replay-controller/**/*.tsv
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/candidate-replay/candidate-replay.json
+            recovery/artifacts/candidate-replay/original-input-roots-protocol.json
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

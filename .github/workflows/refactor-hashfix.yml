@@ -34,9 +34,31 @@ jobs:
             python recovery/preparation/hashfix/TestCompilerHashFix.py --original SDK/tools/HashFix.exe --candidate "$out/HashFixControl.exe" --output "$out/evidence"
             if($LASTEXITCODE -ne 0){throw 'Original HashFix differential failed'}
           }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/hashfix/**/*.json
+            recovery/artifacts/hashfix/**/*.log
+            recovery/artifacts/hashfix/**/*.md
+            recovery/artifacts/hashfix/**/*.csv
+            recovery/artifacts/hashfix/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: prepared-hashfix-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/artifacts/hashfix/**
-          if-no-files-found: error
+          name: 'prepared-hashfix-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/hashfix/**/*.json
+            recovery/artifacts/hashfix/**/*.log
+            recovery/artifacts/hashfix/**/*.md
+            recovery/artifacts/hashfix/**/*.csv
+            recovery/artifacts/hashfix/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

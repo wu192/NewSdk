@@ -66,23 +66,16 @@ try {
         if((Get-FileHash "$evidence/adapter.txt").Hash -cne $baseline){throw 'Texture adapter output, custom data or errors differ from original'}
         $manifest="$bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json"
         $saved=[IO.File]::ReadAllText($manifest)
-        $rejects=@('originalSha256','patchedSha256','targetExeSha256','targetIdentity','protectedPeAudit')
-        foreach($field in $rejects){
-            try {
-                $invalid=$saved|ConvertFrom-Json
-                if($field -eq 'protectedPeAudit'){$invalid.PSObject.Properties.Remove($field)}else{$invalid.$field='invalid'}
-                $invalid|ConvertTo-Json -Depth 12|Set-Content $manifest -Encoding utf8
-                & $exe "$bin/BinaryAssetBuilder.TextureCompiler.dll" "$work/fixture.tga" "$evidence/rejected-$field.txt" exe *> "$evidence/rejected-$field.log"
-                if($LASTEXITCODE -eq 0){throw "Accepted invalid texture deployment: $field"}
-                if(Test-Path "$evidence/rejected-$field.txt"){throw "Invalid deployment reached compilation: $field"}
-            } finally {[IO.File]::WriteAllText($manifest,$saved,[Text.UTF8Encoding]::new($false))}
-        }
-        $state.configurations+=@{configuration=$mode;passed=$true;successes=6;invalidInputErrors=3;deploymentRejections=$rejects;singleDispose=$true;moduleInputsQuarantined=$true;transcriptSha256=$baseline.ToLowerInvariant();exeSha256=(Get-FileHash $exe).Hash.ToLowerInvariant()}
+        try {
+            Remove-Item -LiteralPath $manifest
+            Invoke-Checked $exe @("$bin/BinaryAssetBuilder.TextureCompiler.dll","$work/fixture.tga","$evidence/no-manifest.txt",'exe') "$evidence/no-manifest.log"
+            if((Get-FileHash "$evidence/no-manifest.txt").Hash -cne $baseline){throw 'Texture adapter without deployment manifest differs from original'}
+        } finally {[IO.File]::WriteAllText($manifest,$saved,[Text.UTF8Encoding]::new($false))}
+        $state.configurations+=@{configuration=$mode;passed=$true;successes=6;invalidInputErrors=3;runtimeDeploymentAuditRemoved=$true;worksWithoutManifest=$true;singleDispose=$true;moduleInputsQuarantined=$true;transcriptSha256=$baseline.ToLowerInvariant();exeSha256=(Get-FileHash $exe).Hash.ToLowerInvariant()}
     }
     $state.status='passed'
-    # Expected rejection probes return nonzero; the complete harness passed.
     $global:LASTEXITCODE=0
-    Write-Host 'PASS Texture adapter Debug/Release: original outputs/errors, reuse, single-close and deployment rejection.'
+    Write-Host 'PASS Texture adapter Debug/Release: original outputs/errors, reuse, single-close and operation without a deployment manifest.'
 } catch {$state.status='failed';$state.error=$_.Exception.ToString();throw}
 finally {$state|ConvertTo-Json -Depth 8|Set-Content "$out/validation.json" -Encoding utf8;Pop-Location}
 

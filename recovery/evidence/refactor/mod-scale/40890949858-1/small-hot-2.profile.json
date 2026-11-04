@@ -1,0 +1,451 @@
+{
+  "schemaVersion": "1.0",
+  "buildId": "c8ac72e061154866ae42b5de16c0876d",
+  "status": "succeeded",
+  "exitCode": 0,
+  "stages": [
+    {
+      "id": "plan",
+      "status": "succeeded",
+      "elapsedMs": 7,
+      "artifactCount": 0
+    },
+    {
+      "id": "compile",
+      "status": "succeeded",
+      "elapsedMs": 407,
+      "artifactCount": 4
+    },
+    {
+      "id": "package",
+      "status": "succeeded",
+      "elapsedMs": 27,
+      "artifactCount": 2
+    },
+    {
+      "id": "publish",
+      "status": "succeeded",
+      "elapsedMs": 13,
+      "artifactCount": 2
+    }
+  ],
+  "cache": {
+    "status": "SessionCache",
+    "hits": 0,
+    "misses": 0,
+    "sessionCache": true,
+    "sessionPackageHits": 1,
+    "sessionPackageMisses": 0,
+    "documentReuse": 11,
+    "xmlParse": 0,
+    "instanceCompile": 0,
+    "linkedStreamsRestored": 1,
+    "fileHashReads": 2,
+    "fileHashReuses": 1647,
+    "fileHashBytesRead": 1056818,
+    "textureCache": true,
+    "compressedSessionCache": true,
+    "partialSessionCache": true,
+    "freezeSessionCache": false,
+    "alwaysTouchCache": false,
+    "partialSessionsSaved": 0,
+    "sessionCacheDirectory": "D:\\a\\_temp\\mod-scale\\outputs\\small"
+  },
+  "performance": {
+    "level": "detailed",
+    "clock": "Stopwatch",
+    "frequency": 10000000,
+    "boundary": "before-report-write",
+    "entries": [
+      {
+        "name": "backend.dispose",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.8825000000000001,
+        "selfMs": 0.8825000000000001,
+        "maxMs": 0.8825000000000001
+      },
+      {
+        "name": "backend.initialize",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 45.9859,
+        "selfMs": 45.9859,
+        "maxMs": 45.9859
+      },
+      {
+        "name": "cache.commit",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 1.8116,
+        "selfMs": 1.8116,
+        "maxMs": 1.8116
+      },
+      {
+        "name": "identity.directory",
+        "streamId": null,
+        "count": 2,
+        "totalMs": 0.11800000000000001,
+        "selfMs": 0.11800000000000001,
+        "maxMs": 0.07540000000000001
+      },
+      {
+        "name": "identity.load",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 5.9332,
+        "selfMs": 5.9332,
+        "maxMs": 5.9332
+      },
+      {
+        "name": "identity.save",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 6.6923,
+        "selfMs": 6.6923,
+        "maxMs": 6.6923
+      },
+      {
+        "name": "identity.sha256",
+        "streamId": null,
+        "count": 2,
+        "totalMs": 1.4423000000000001,
+        "selfMs": 1.4423000000000001,
+        "maxMs": 1.3836000000000002
+      },
+      {
+        "name": "package.additional-inputs",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 3.6085000000000003,
+        "selfMs": 3.6085000000000003,
+        "maxMs": 3.6085000000000003
+      },
+      {
+        "name": "package.additional-merge",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 3.0617,
+        "selfMs": 3.0617,
+        "maxMs": 3.0617
+      },
+      {
+        "name": "package.big",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 8.5713,
+        "selfMs": 8.5713,
+        "maxMs": 8.5713
+      },
+      {
+        "name": "package.hash",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 1.8152000000000001,
+        "selfMs": 0.2975,
+        "maxMs": 1.8152000000000001
+      },
+      {
+        "name": "package.lod",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 3.596,
+        "selfMs": 3.596,
+        "maxMs": 3.596
+      },
+      {
+        "name": "package.skudef",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 1.22,
+        "selfMs": 1.22,
+        "maxMs": 1.22
+      },
+      {
+        "name": "publish.commit",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 0.4436,
+        "selfMs": 0.4436,
+        "maxMs": 0.4436
+      },
+      {
+        "name": "publish.prepare",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 5.733700000000001,
+        "selfMs": 5.6911000000000005,
+        "maxMs": 5.733700000000001
+      },
+      {
+        "name": "stage.compile",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 407.1342,
+        "selfMs": 1.5073,
+        "maxMs": 407.1342
+      },
+      {
+        "name": "stage.package",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 26.6172,
+        "selfMs": 4.7445,
+        "maxMs": 26.6172
+      },
+      {
+        "name": "stage.plan",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 6.4548000000000005,
+        "selfMs": 6.4548000000000005,
+        "maxMs": 6.4548000000000005
+      },
+      {
+        "name": "stage.publish",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 12.8887,
+        "selfMs": 0.019100000000000002,
+        "maxMs": 12.8887
+      },
+      {
+        "name": "staging.cleanup",
+        "streamId": null,
+        "count": 1,
+        "totalMs": 1.0007000000000001,
+        "selfMs": 1.0007000000000001,
+        "maxMs": 1.0007000000000001
+      },
+      {
+        "name": "artifacts.collect",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 1.8108000000000002,
+        "selfMs": 1.8108000000000002,
+        "maxMs": 1.8108000000000002
+      },
+      {
+        "name": "cache.linked-stage",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 0.7098,
+        "selfMs": 0.7098,
+        "maxMs": 0.7098
+      },
+      {
+        "name": "cache.load",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 15.4548,
+        "selfMs": 14.951400000000001,
+        "maxMs": 15.4548
+      },
+      {
+        "name": "cache.prepare",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 5.5769,
+        "selfMs": 5.5769,
+        "maxMs": 5.5769
+      },
+      {
+        "name": "cache.save",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 0.0012000000000000001,
+        "selfMs": 0.0012000000000000001,
+        "maxMs": 0.0012000000000000001
+      },
+      {
+        "name": "core.asset.commit",
+        "streamId": "base/Mod",
+        "count": 47,
+        "totalMs": 0.8436,
+        "selfMs": 0.8436,
+        "maxMs": 0.8398
+      },
+      {
+        "name": "core.asset.verify",
+        "streamId": "base/Mod",
+        "count": 47,
+        "totalMs": 0.004,
+        "selfMs": 0.004,
+        "maxMs": 0.0013000000000000002
+      },
+      {
+        "name": "core.assets",
+        "streamId": "base/Mod",
+        "count": 11,
+        "totalMs": 1.875,
+        "selfMs": 1.0274,
+        "maxMs": 1.725
+      },
+      {
+        "name": "core.cleanup",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 0.9913000000000001,
+        "selfMs": 0.9913000000000001,
+        "maxMs": 0.9913000000000001
+      },
+      {
+        "name": "core.document",
+        "streamId": "base/Mod",
+        "count": 12,
+        "totalMs": 84.45320000000001,
+        "selfMs": 33.6762,
+        "maxMs": 60.376400000000004
+      },
+      {
+        "name": "core.document.open",
+        "streamId": "base/Mod",
+        "count": 12,
+        "totalMs": 5.1553,
+        "selfMs": 5.1553,
+        "maxMs": 2.7758000000000003
+      },
+      {
+        "name": "core.includes",
+        "streamId": "base/Mod",
+        "count": 12,
+        "totalMs": 29.7253,
+        "selfMs": 5.6485,
+        "maxMs": 27.253600000000002
+      },
+      {
+        "name": "core.output.clean",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 0.5247,
+        "selfMs": 0.5247,
+        "maxMs": 0.5247
+      },
+      {
+        "name": "core.output.link",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 0.07010000000000001,
+        "selfMs": 0.07010000000000001,
+        "maxMs": 0.07010000000000001
+      },
+      {
+        "name": "core.output.manifest",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 1.0992,
+        "selfMs": 1.0992,
+        "maxMs": 1.0992
+      },
+      {
+        "name": "core.output.references",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 12.255500000000001,
+        "selfMs": 12.255500000000001,
+        "maxMs": 12.255500000000001
+      },
+      {
+        "name": "core.process",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 64.17490000000001,
+        "selfMs": 3.7985,
+        "maxMs": 64.17490000000001
+      },
+      {
+        "name": "core.providers",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 12.0919,
+        "selfMs": 12.0919,
+        "maxMs": 12.0919
+      },
+      {
+        "name": "core.schema",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 224.5865,
+        "selfMs": 6.1833,
+        "maxMs": 224.5865
+      },
+      {
+        "name": "core.schema.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 29.651500000000002,
+        "selfMs": 29.651500000000002,
+        "maxMs": 29.651500000000002
+      },
+      {
+        "name": "core.schema.metadata",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 18.3092,
+        "selfMs": 18.3092,
+        "maxMs": 18.3092
+      },
+      {
+        "name": "core.schema.read",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 169.0319,
+        "selfMs": 166.8595,
+        "maxMs": 169.0319
+      },
+      {
+        "name": "core.settings",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 8.361600000000001,
+        "selfMs": 8.361600000000001,
+        "maxMs": 8.361600000000001
+      },
+      {
+        "name": "core.string-hashes",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 2.0925000000000002,
+        "selfMs": 2.0925000000000002,
+        "maxMs": 2.0925000000000002
+      },
+      {
+        "name": "identity.directory",
+        "streamId": "base/Mod",
+        "count": 37,
+        "totalMs": 4.1583000000000006,
+        "selfMs": 4.1583000000000006,
+        "maxMs": 1.4106
+      },
+      {
+        "name": "stream.compile",
+        "streamId": "base/Mod",
+        "count": 1,
+        "totalMs": 353.7078,
+        "selfMs": 17.855600000000003,
+        "maxMs": 353.7078
+      }
+    ]
+  },
+  "diagnosticCounts": {
+    "error": 0,
+    "warning": 82
+  },
+  "elapsedMs": 483,
+  "publicationUnchanged": true,
+  "artifacts": [
+    {
+      "Path": "D:\\a\\_temp\\mod-scale\\outputs\\small\\published\\small-mymod_1.0.big",
+      "Kind": "package.big",
+      "Size": 1056774,
+      "Sha256": "efb81d3cdac58d7ef06061b4c50b57879ebbaddb5aed747d24dfdfcf3fb161fa"
+    },
+    {
+      "Path": "D:\\a\\_temp\\mod-scale\\outputs\\small\\published\\small-mymod_1.0.skudef",
+      "Kind": "package.skudef",
+      "Size": 44,
+      "Sha256": "48112f639c7d9ef0cd9cce9d9f87eeb2d4809092ff87422876559fba42b567eb"
+    }
+  ],
+  "rawReportSha256": "d3311bd2ca687e49b949eaadbb6b6bfbfb5e6b8f9c29087f5125dcb1e0a60f13"
+}

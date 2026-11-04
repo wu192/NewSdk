@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Script.Serialization;
+using System.Xml;
 using BinaryAssetBuilder;
 using BinaryAssetBuilder.Core;
 
@@ -239,6 +241,66 @@ public static class CompilerStateLifecycle
             Environment.SetEnvironmentVariable("BabEnableTrace", environment);
         }
     }
+    static void WorkerVerificationChecks()
+    {
+        const int workers = 4, repetitions = 64;
+        var verifier = (IConcurrentAssetBuilderVerifierPlugin)Activator.CreateInstance(
+            typeof(Tracer).Assembly.GetType("BinaryAssetBuilder.GameDataVerifier.Plugin", true), true);
+        var declarations = new InstanceDeclaration[workers];
+        var captures = new Tracer.DiagnosticCapture[workers];
+        var tasks = new Task[workers];
+        int owner = Thread.CurrentThread.ManagedThreadId, callbacks = 0;
+        var messages = new List<string>();
+        for (int i = 0; i < workers; i++)
+        {
+            string ns = "urn:verification:" + i;
+            var xml = new XmlDocument();
+            xml.LoadXml("<GameObject xmlns='" + ns + "' id='Concurrent" + i + "'><Behaviors><B id='same'/><B id='same'/></Behaviors></GameObject>");
+            var namespaces = new XmlNamespaceManager(xml.NameTable);
+            namespaces.AddNamespace("ea", ns);
+            declarations[i] = new InstanceDeclaration(AssetDeclarationDocument.CreateBackendView(namespaces));
+            declarations[i].XmlNode = xml.DocumentElement;
+            declarations[i] = declarations[i].CreateBackendView();
+        }
+        using (Tracer.BeginScope(delegate(string source, TraceEventType kind, string message)
+        {
+            Require(Thread.CurrentThread.ManagedThreadId == owner, "Worker invoked the owner diagnostic callback");
+            Require(source == "GameDataVerifier" && kind == TraceEventType.Error, "Worker verification lost diagnostic source or severity");
+            callbacks++; messages.Add(message);
+        }, 9))
+        using (var ready = new CountdownEvent(workers))
+        using (var begin = new ManualResetEventSlim())
+        {
+            for (int i = 0; i < workers; i++)
+            {
+                int index = i;
+                tasks[i] = Task.Factory.StartNew(delegate
+                {
+                    captures[index] = Tracer.CaptureDiagnostics();
+                    using (captures[index])
+                    {
+                        ready.Signal(); begin.Wait();
+                        for (int round = 0; round < repetitions; round++)
+                        {
+                            Require(!verifier.VerifyInstance(declarations[index]), "Concurrent verifier used another document's namespace bindings");
+                            Thread.Yield();
+                        }
+                    }
+                }, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+            }
+            ready.Wait(); begin.Set(); Task.WaitAll(tasks);
+            Require(callbacks == 0, "Worker verification delivered diagnostics before owner replay");
+            for (int i = 0; i < workers; i++)
+            {
+                int start = messages.Count;
+                captures[i].Replay(); captures[i].Replay();
+                Require(messages.Count == start + repetitions, "Owner replay lost or duplicated worker diagnostics");
+                for (int j = start; j < messages.Count; j++)
+                    Require(messages[j].Contains("GameObject Concurrent" + i + " has 2 modules"), "Diagnostic capture leaked between workers");
+            }
+            Require(callbacks == workers * repetitions, "Concurrent verifier diagnostic count differs");
+        }
+    }
     public static void Run(string outputDirectory)
     {
         Directory.CreateDirectory(outputDirectory);
@@ -247,7 +309,7 @@ public static class CompilerStateLifecycle
         try
         {
             Environment.SetEnvironmentVariable("BabEnableTrace", "False");
-            HashChecks(outputDirectory); TraceChecks();
+            HashChecks(outputDirectory); TraceChecks(); WorkerVerificationChecks();
         }
         finally { Environment.SetEnvironmentVariable("BabEnableTrace", environment); }
         Console.WriteLine("PASS Hash/Tracer state lifecycle");
@@ -257,7 +319,7 @@ public static class CompilerStateLifecycle
         try
         {
             Run(args[0]);
-            File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = new[] { "hash-scope-restoration", "atomic-hash-initialization", "hash-write-failure-releases-file", "hash-callback-worker-no-deadlock", "hash-lifo-and-thread-rejection", "trace-scope-restoration", "trace-no-duplicate-callbacks", "trace-lifo-and-thread-rejection", "trace-explicit-scope-overrides-latched-legacy-switch-only-within-scope" } }));
+            File.WriteAllText(args[1], new JavaScriptSerializer().Serialize(new { succeeded = true, sourceCommit = args[2], runId = args[3], checks = new[] { "hash-scope-restoration", "atomic-hash-initialization", "hash-write-failure-releases-file", "hash-callback-worker-no-deadlock", "hash-lifo-and-thread-rejection", "trace-scope-restoration", "trace-no-duplicate-callbacks", "trace-lifo-and-thread-rejection", "trace-explicit-scope-overrides-latched-legacy-switch-only-within-scope", "parallel-verifier-private-namespace-and-diagnostics", "owner-diagnostic-replay-once" } }));
             return 0;
         }
         catch (Exception error) { Console.Error.WriteLine(error); return 1; }

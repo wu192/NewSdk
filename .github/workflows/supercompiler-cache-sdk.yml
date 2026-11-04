@@ -1,0 +1,139 @@
+name: SuperCompilerCache targeted mymod and Upheaval
+on:
+  push:
+    branches: [feature/supercompiler-cache]
+    paths:
+      - '.github/workflows/supercompiler-cache-sdk.yml'
+      - 'recovery/scripts/TestSuperCompilerCache.ps1'
+      - 'recovery/src/App/**'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  sdk:
+    if: contains(github.event.head_commit.message, '[cache-sdk]') || contains(github.event.head_commit.message, '[cache-sdk-reuse:')
+    runs-on: windows-2022
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - name: Select fresh build or an explicitly identified current-source runtime
+        id: mode
+        shell: pwsh
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          $match=[regex]::Match($env:COMMIT_MESSAGE,'\[cache-sdk-reuse:(\d+)\]')
+          "reuse=$($match.Success.ToString().ToLowerInvariant())"|Add-Content $env:GITHUB_OUTPUT
+          if($match.Success){"run_id=$($match.Groups[1].Value)"|Add-Content $env:GITHUB_OUTPUT}
+      - name: Download the already built product and its original receipt
+        if: steps.mode.outputs.reuse == 'true'
+        uses: actions/download-artifact@v4
+        with:
+          name: supercompiler-cache-sdk-${{ steps.mode.outputs.run_id }}-1
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.mode.outputs.run_id }}
+          path: recovery/artifacts
+      - name: Reject reused binaries if any production inputs changed
+        if: steps.mode.outputs.reuse == 'true'
+        shell: pwsh
+        run: |
+          $product='recovery/artifacts/supercompiler-cache-product'
+          $receipt=Get-Content "$product/build.json" -Raw|ConvertFrom-Json
+          git merge-base --is-ancestor $receipt.sourceCommit HEAD
+          if($LASTEXITCODE -ne 0){throw 'Runtime source is not an ancestor of this validation commit'}
+          git diff --exit-code $receipt.sourceCommit HEAD -- recovery/src SDK ui recovery/build 'recovery/scripts/Build*.ps1' recovery/scripts/RestoreUiDependencies.ps1
+          if($LASTEXITCODE -ne 0){throw 'Production inputs changed; runtime reuse rejected'}
+          $exe="$product/bin/NewModCompiler.exe"
+          if((Get-FileHash $exe -Algorithm SHA256).Hash.ToLowerInvariant() -cne $receipt.exeSha256){throw 'Reused EXE differs from its production receipt'}
+          foreach($file in @(@{runtime="$exe.config";source='recovery/src/App/App.config'},@{runtime="$product/bin/antlr.runtime.dll";source='SDK/tools/antlr.runtime.dll'})){
+            if((Get-FileHash $file.runtime -Algorithm SHA256).Hash -cne (Get-FileHash $file.source -Algorithm SHA256).Hash){throw 'Reused runtime dependency differs from current production input'}
+          }
+          if(@(Get-ChildItem "$product/bin" -Force).Count -ne 3){throw 'Reused runtime contains unexpected files'}
+          $receipt.sourceCommit|Set-Content recovery/artifacts/cache-binary-source.txt
+          Remove-Item recovery/artifacts/supercompiler-cache-sdk -Recurse -Force
+      - uses: actions/setup-dotnet@v4
+        if: steps.mode.outputs.reuse != 'true'
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: steps.mode.outputs.reuse != 'true'
+        with:
+          arch: x86
+      - name: Check the focused validation script before production compilation
+        shell: pwsh
+        run: |
+          $tokens=$null;$errors=$null
+          $null=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'recovery/scripts/TestSuperCompilerCache.ps1'),[ref]$tokens,[ref]$errors)
+          if($errors.Count){$errors|Format-List;throw 'Cache validation script syntax failed'}
+      - name: Build one current Release product only
+        if: steps.mode.outputs.reuse != 'true'
+        shell: pwsh
+        run: ./recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory recovery/artifacts/supercompiler-cache-product
+      - name: Run base cold hot loose and BIG with source write auditing
+        shell: pwsh
+        run: ./recovery/scripts/TestSuperCompilerCache.ps1 -Compiler recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe -OutputDirectory recovery/artifacts/supercompiler-cache-sdk
+      - name: Summarize results and selected upload size
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/supercompiler-cache-sdk/**/*.json
+            recovery/artifacts/supercompiler-cache-sdk/**/*.jsonl
+            recovery/artifacts/supercompiler-cache-sdk/**/*.log
+            recovery/artifacts/supercompiler-cache-sdk/**/*.txt
+            recovery/artifacts/supercompiler-cache-sdk/**/*.md
+            recovery/artifacts/supercompiler-cache-sdk/**/*.csv
+            recovery/artifacts/supercompiler-cache-sdk/**/*.tsv
+            recovery/artifacts/supercompiler-cache-product/build.json
+            recovery/artifacts/supercompiler-cache-product/*-build.log
+            recovery/artifacts/supercompiler-cache-product/link-inputs.json
+            recovery/artifacts/supercompiler-cache-product/obj/foundation/*.log
+            recovery/artifacts/supercompiler-cache-product/obj/native/logs/*.log
+            recovery/artifacts/cache-binary-source.txt
+            recovery/artifacts/supercompiler-cache-product/build.json
+            recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe
+            recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe.config
+            recovery/artifacts/supercompiler-cache-product/bin/antlr.runtime.dll
+            recovery/artifacts/supercompiler-cache-sdk/validation.json
+            recovery/artifacts/cache-binary-source.txt
+        run: python recovery/scripts/WriteCiSummary.py --title "SuperCompilerCache SDK acceptance"
+      # Seven days for explicit [cache-sdk-reuse:RUN] validation; retain product and SDK receipt layout, omit generated MOD outputs.
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: supercompiler-cache-sdk-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 7
+          path: |
+            recovery/artifacts/supercompiler-cache-product/build.json
+            recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe
+            recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe.config
+            recovery/artifacts/supercompiler-cache-product/bin/antlr.runtime.dll
+            recovery/artifacts/supercompiler-cache-sdk/validation.json
+            recovery/artifacts/cache-binary-source.txt
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: supercompiler-cache-sdk-diagnostics-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 1
+          path: |
+            recovery/artifacts/supercompiler-cache-sdk/**/*.json
+            recovery/artifacts/supercompiler-cache-sdk/**/*.jsonl
+            recovery/artifacts/supercompiler-cache-sdk/**/*.log
+            recovery/artifacts/supercompiler-cache-sdk/**/*.txt
+            recovery/artifacts/supercompiler-cache-sdk/**/*.md
+            recovery/artifacts/supercompiler-cache-sdk/**/*.csv
+            recovery/artifacts/supercompiler-cache-sdk/**/*.tsv
+            recovery/artifacts/supercompiler-cache-product/build.json
+            recovery/artifacts/supercompiler-cache-product/*-build.log
+            recovery/artifacts/supercompiler-cache-product/link-inputs.json
+            recovery/artifacts/supercompiler-cache-product/obj/foundation/*.log
+            recovery/artifacts/supercompiler-cache-product/obj/native/logs/*.log
+            recovery/artifacts/cache-binary-source.txt
+          if-no-files-found: warn

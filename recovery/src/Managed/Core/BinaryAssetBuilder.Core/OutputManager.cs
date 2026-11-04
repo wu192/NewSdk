@@ -11,9 +11,11 @@ public class OutputManager
 
 	private static Tracer _Tracer = Tracer.GetTracer("Output Manager", "Provides manifest serialization functionality");
 
-	private IDictionary<string, OutputAsset> _OldOutputInstances = new SortedDictionary<string, OutputAsset>();
+	private IDictionary<string, OutputAsset> _OldOutputInstances = new Dictionary<string, OutputAsset>(StringComparer.Ordinal);
 
-	private IDictionary<string, BinaryAsset> _Assets = new SortedDictionary<string, BinaryAsset>();
+	// FileBase is a fixed hexadecimal content identity. Output order comes
+	// from document.OutputInstances, not the order of these lookup tables.
+	private IDictionary<string, BinaryAsset> _Assets = new Dictionary<string, BinaryAsset>(StringComparer.Ordinal);
 
 	private int _AssetFileCount;
 
@@ -38,6 +40,8 @@ public class OutputManager
 	private string _ManifestFile;
 
 	private string _OldManifestFile;
+	private string _CachedLinkedOutput;
+	private bool _ReuseLinked;
 
 	private string _VersionFile;
 
@@ -52,8 +56,6 @@ public class OutputManager
 	private Manifest _BasePatchStreamManifest;
 
 	private ManifestHeader _Header;
-
-	private static InstanceHandle breakHandle = new InstanceHandle(568797146u, 2920827972u);
 
 	private static byte[] _LinkedBuffer = new byte[65536];
 
@@ -86,11 +88,25 @@ public class OutputManager
 		_ManifestFile = _OutputDirectory + ".manifest";
 		_OldManifestFile = _OutputDirectory + ".old.manifest";
 		_VersionFile = _OutputDirectory.Remove(_OutputDirectory.LastIndexOf(Settings.Current.CustomPostfix)) + ".version";
-		if (File.Exists(_OldManifestFile))
+        Directory.CreateDirectory(Path.GetDirectoryName(_OutputDirectory));
+        Settings.Current.StreamOutputStarted?.Invoke(_OutputDirectory);
+        bool complete = true;
+        foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" })
+            if (!File.Exists(_OutputDirectory + extension)) { complete = false; break; }
+        _CachedLinkedOutput = complete ? _OutputDirectory : null;
+        if (!complete)
+            foreach (string extension in new[] { ".bin", ".imp", ".relo" }) File.Delete(_OutputDirectory + extension);
+		if (_CachedLinkedOutput != null)
+		{
+			_OldManifestFile = _CachedLinkedOutput + ".manifest";
+			_Header = new ManifestHeader();
+			using (var input = File.OpenRead(_OldManifestFile)) _Header.LoadFromStream(input, Settings.Current.BigEndian);
+		}
+		if (_CachedLinkedOutput == null && File.Exists(_OldManifestFile))
 		{
 			File.Delete(_OldManifestFile);
 		}
-		if (File.Exists(_ManifestFile))
+		if (_CachedLinkedOutput == null && File.Exists(_ManifestFile))
 		{
 			try
 			{
@@ -157,7 +173,7 @@ public class OutputManager
 		}
 		_BasePatchStream = basePatchStream;
 		_BasePatchStreamRelativePath = baseStreamRelativePath;
-		_BasePatchStreamAssets = new SortedDictionary<string, AssetHeader>();
+		_BasePatchStreamAssets = new Dictionary<string, AssetHeader>(StringComparer.Ordinal);
 		Asset[] assets = manifest.Assets;
 		foreach (Asset asset in assets)
 		{
@@ -189,12 +205,12 @@ public class OutputManager
 			value = new BinaryAsset(this, value2, instance);
 			_Assets.Add(fileBase, value);
 		}
-		else
-		{
-			value.Instance = instance;
-		}
 		if (isOutputAsset && !value.IsOutputAsset)
 		{
+			// Availability probes can precede an XML reload. Bind the actual
+			// declaration once at first output registration, before any worker
+			// exists; later requests retain this stable physical input.
+			value.Instance = instance;
 			_OldOutputInstances.Remove(value.FileBase);
 			value.IsOutputAsset = true;
 			_AssetFileCount++;
@@ -221,16 +237,23 @@ public class OutputManager
 
 	public void CommitManifest(AssetDeclarationDocument document)
 	{
+		using var performance = PerformanceScope.Measure("core.output.manifest");
 		uint allTypesHash = _DocumentProcessor.Plugins.DefaultPlugin.GetAllTypesHash();
 		if (_Header != null)
 		{
 			if (_Header.IsLinked == Settings.Current.LinkedStreams && _Header.Version == ManifestHeader.LatestVersion && _Header.StreamChecksum == document.OutputChecksum && _Header.AllTypesHash == allTypesHash)
 			{
-				File.Move(_OldManifestFile, _ManifestFile);
-				_Tracer.TraceInfo("Old manifest is up to date.");
-				return;
+				if (_CachedLinkedOutput != null && LinkedChecksumsMatch(document.OutputChecksum))
+				{
+					_ReuseLinked = true;
+					_Tracer.TraceInfo("Old manifest is up to date.");
+					return;
+				}
+				if (_CachedLinkedOutput == null) { File.Move(_OldManifestFile, _ManifestFile); return; }
+				_Tracer.TraceInfo("Cached linked data requires regeneration.");
 			}
-			File.Delete(_OldManifestFile);
+			if (_CachedLinkedOutput == null) File.Delete(_OldManifestFile);
+			Directory.CreateDirectory(Path.GetDirectoryName(_ManifestFile));
 			_Tracer.TraceInfo("Regenerating manifest.");
 		}
 		else
@@ -241,6 +264,9 @@ public class OutputManager
 				Directory.CreateDirectory(directoryName);
 			}
 		}
+        // If any checksum differs, regenerate all linked payloads together.
+        // Import/relocation buffers are populated while linking the binary file.
+        foreach (string extension in new[] { ".bin", ".imp", ".relo" }) File.Delete(_OutputDirectory + extension);
 		_Header = new ManifestHeader();
 		MemoryStream memoryStream = new MemoryStream();
 		uint num = 0u;
@@ -368,8 +394,29 @@ public class OutputManager
 		File.Move(linkPath + ext, linkPathExisting + ext);
 	}
 
+	private bool LinkedChecksumsMatch(uint checksum)
+	{
+		foreach (string extension in new[] { ".bin", ".imp", ".relo" })
+			using (var input = File.OpenRead(_CachedLinkedOutput + extension))
+			using (var reader = new BinaryReader(input))
+			{
+				uint expected = Settings.Current.BigEndian ? ((checksum & 255) << 24) | ((checksum & 65280) << 8) | ((checksum >> 8) & 65280) | (checksum >> 24) : checksum;
+				if (input.Length < 4 || reader.ReadUInt32() != expected) return false;
+			}
+		return true;
+	}
+
 	public void LinkStream(AssetDeclarationDocument document)
 	{
+		using var performance = PerformanceScope.Measure("core.output.link");
+		if (_ReuseLinked)
+		{
+			_Tracer.Message("{0} Linked binary data up to date", document.SourcePathFromRoot);
+			_Tracer.Message("{0} Linked import data up to date", document.SourcePathFromRoot);
+			_Tracer.Message("{0} Linked relocation data up to date", document.SourcePathFromRoot);
+            Settings.Current.StreamOutputCompleted?.Invoke(_OutputDirectory, true);
+			return;
+		}
 		string text = _OutputDirectory + ".temp";
 		string outputDirectory = _OutputDirectory;
 		uint num = document.OutputChecksum;
@@ -469,12 +516,14 @@ public class OutputManager
 		{
 			_Tracer.Message("{0} Linked relocation data up to date", document.SourcePathFromRoot);
 		}
+        Settings.Current.StreamOutputCompleted?.Invoke(_OutputDirectory, false);
 		memoryStream2.Close();
 		memoryStream.Close();
 	}
 
 	public void CleanOutput()
 	{
+		using var performance = PerformanceScope.Measure("core.output.clean");
 		bool flag = Path.GetFullPath(_IntermediateOutputDirectory) == Path.GetFullPath(_OutputDirectory);
 		DirectoryInfo directoryInfo = new DirectoryInfo(_OutputDirectory);
 		if (directoryInfo.Exists)

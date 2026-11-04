@@ -1,0 +1,126 @@
+{
+  "platforms": [
+    0,
+    1,
+    2,
+    99
+  ],
+  "sourceCommit": "1f0cea03083f2219e43fa35f3dd44df73158310e",
+  "succeeded": true,
+  "status": "passed",
+  "scope": "11 independent Joypad roots, all 34 runtime polymorphic Data layouts; original raw three buffers, Od/O2, platforms0/1/2/99",
+  "modes": [
+    {
+      "mode": "/Od",
+      "result": {
+        "succeeded": true,
+        "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+        "inputCases": 1480,
+        "rootNames": [
+          "JoypadCommandBarButtonTemplate",
+          "JoypadCommandBarTemplate",
+          "UIJoypadCommandBarButtonBuild",
+          "UIJoypadCommandBarControlGroups",
+          "UIJoypadCommandBarCoopCommunicator",
+          "UIJoypadCommandBarHomogenousGroup",
+          "UIJoypadCommandBarMixedGroup",
+          "UIJoypadCommandBarPlayerPowers",
+          "UIJoypadCommandBarSingleUnit",
+          "UIJoypadCommandBarStances",
+          "UIJoypadCommandBarTopMenu"
+        ],
+        "platforms": [
+          {
+            "platform": 0,
+            "fixtures": 1500,
+            "arrayComparisons": 9000,
+            "rejections": 34,
+            "layoutAssertions": 19115
+          },
+          {
+            "platform": 1,
+            "fixtures": 1500,
+            "arrayComparisons": 9000,
+            "rejections": 34,
+            "layoutAssertions": 19115
+          },
+          {
+            "platform": 2,
+            "fixtures": 1500,
+            "arrayComparisons": 9000,
+            "rejections": 34,
+            "layoutAssertions": 19115
+          },
+          {
+            "platform": 99,
+            "fixtures": 1500,
+            "arrayComparisons": 9000,
+            "rejections": 34,
+            "layoutAssertions": 19115
+          }
+        ],
+        "fixtures": 6000,
+        "arrayComparisons": 36000,
+        "rejections": 136,
+        "layoutAssertions": 76461
+      }
+    },
+    {
+      "mode": "/O2",
+      "result": {
+        "succeeded": true,
+        "originalDllSha256": "d4b78e2da951dd458357bee7b358e6bc9689d1987d55867254d68b3f87bbf0e6",
+        "inputCases": 1480,
+        "rootNames": [
+          "JoypadCommandBarButtonTemplate",
+          "JoypadCommandBarTemplate",
+          "UIJoypadCommandBarButtonBuild",
+          "UIJoypadCommandBarControlGroups",
+          "UIJoypadCommandBarCoopCommunicator",
+          "UIJoypadCommandBarHomogenousGroup",
+          "UIJoypadCommandBarMixedGroup",
+          "UIJoypadCommandBarPlayerPowers",
+          "UIJoypadCommandBarSingleUnit",
+          "UIJoypadCommandBarStances",
+          "UIJoypadCommandBarTopMenu"
+        ],
+        "platforms": [
+          {
+            "platform": 0,
+            "fixtures": 1500,
+            "arrayComparisons": 9000,
+            "rejections": 34,
+            "layoutAssertions": 19115
+          },
+          {
+            "platform": 1,
+            "fixtures": 1500,
+            "arrayComparisons": 9000,
+            "rejections": 34,
+            "layoutAssertions": 19115
+          },
+          {
+            "platform": 2,
+            "fixtures": 1500,
+            "arrayComparisons": 9000,
+            "rejections": 34,
+            "layoutAssertions": 19115
+          },
+          {
+            "platform": 99,
+            "fixtures": 1500,
+            "arrayComparisons": 9000,
+            "rejections": 34,
+            "layoutAssertions": 19115
+          }
+        ],
+        "fixtures": 6000,
+        "arrayComparisons": 36000,
+        "rejections": 136,
+        "layoutAssertions": 76461
+      }
+    }
+  ],
+  "runAttempt": "1",
+  "runId": "41270490335"
+}
