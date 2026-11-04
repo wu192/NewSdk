@@ -79,22 +79,31 @@ jobs:
         if: always()
         shell: pwsh
         run: ./recovery/scripts/PublishGameObjectEvidence.ps1
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
-        with:
-          name: recovered-gameobject-root
-          path: recovery/evidence/gameobject-root
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/gameobject-root/**/*.json
+            recovery/evidence/gameobject-root/**/*.log
+            recovery/evidence/gameobject-root/**/*.md
+            recovery/evidence/gameobject-root/**/*.csv
+            recovery/evidence/gameobject-root/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
       - uses: actions/upload-artifact@v4
-        if: success()
+        if: failure()
         with:
-          name: recovered-gameobject-component-x86
-          path: ${{ runner.temp }}/ra3-recovered-gameobject/Recovered.GameObject.dll
-
-
-
-
-
-
-
-
-
+          name: 'recovered-gameobject-root'
+          path: |
+            recovery/evidence/gameobject-root/**/*.json
+            recovery/evidence/gameobject-root/**/*.log
+            recovery/evidence/gameobject-root/**/*.md
+            recovery/evidence/gameobject-root/**/*.csv
+            recovery/evidence/gameobject-root/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

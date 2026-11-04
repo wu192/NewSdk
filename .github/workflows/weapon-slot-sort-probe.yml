@@ -33,8 +33,31 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Unable to preserve concurrent changes' }
           git push origin HEAD:recovery/compiler-source
           if ($LASTEXITCODE -ne 0) { throw 'Unable to push probe evidence' }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/gameobject-modules/weapon-slot-sort-probe/**/*.json
+            recovery/evidence/gameobject-modules/weapon-slot-sort-probe/**/*.log
+            recovery/evidence/gameobject-modules/weapon-slot-sort-probe/**/*.md
+            recovery/evidence/gameobject-modules/weapon-slot-sort-probe/**/*.csv
+            recovery/evidence/gameobject-modules/weapon-slot-sort-probe/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: original-weapon-slot-sort-evidence
-          path: recovery/evidence/gameobject-modules/weapon-slot-sort-probe
+          name: 'original-weapon-slot-sort-evidence'
+          path: |
+            recovery/evidence/gameobject-modules/weapon-slot-sort-probe/**/*.json
+            recovery/evidence/gameobject-modules/weapon-slot-sort-probe/**/*.log
+            recovery/evidence/gameobject-modules/weapon-slot-sort-probe/**/*.md
+            recovery/evidence/gameobject-modules/weapon-slot-sort-probe/**/*.csv
+            recovery/evidence/gameobject-modules/weapon-slot-sort-probe/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

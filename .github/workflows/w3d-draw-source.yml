@@ -21,7 +21,19 @@ jobs:
           p=pathlib.Path('recovery/evidence/gameobject-modules/draw-source')
           print('DRAW_METHOD_ARCHIVE='+json.dumps({str(f):f.read_text() for f in sorted(p.iterdir())}))
           PYCODE
+      - name: Summarize CI evidence
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/gameobject-modules/draw-source/manifest.json
+            recovery/evidence/gameobject-modules/draw-source/*.txt
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
       - uses: actions/upload-artifact@v4
+        if: success()
         with:
-          name: original-w3d-draw-source
-          path: recovery/evidence/gameobject-modules/draw-source
+          name: 'original-w3d-draw-source'
+          path: |
+            recovery/evidence/gameobject-modules/draw-source/manifest.json
+            recovery/evidence/gameobject-modules/draw-source/*.txt
+          retention-days: 1
+          if-no-files-found: warn

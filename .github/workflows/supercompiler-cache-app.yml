@@ -44,11 +44,19 @@ jobs:
           $result = $LASTEXITCODE
           @{ sourceCommit = $env:GITHUB_SHA; runId = $env:GITHUB_RUN_ID; exitCode = $result; scope = 'Managed App contracts; controlled backend only; no native build or real MOD compilation' } | ConvertTo-Json | Set-Content "$out/validation.json"
           if ($result -ne 0) { throw "App contracts failed: $result" }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            ${{ runner.temp }}/supercompiler-cache-app/contracts.log
+            ${{ runner.temp }}/supercompiler-cache-app/validation.json
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: supercompiler-cache-app-${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'supercompiler-cache-app-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
             ${{ runner.temp }}/supercompiler-cache-app/contracts.log
             ${{ runner.temp }}/supercompiler-cache-app/validation.json
+          retention-days: 1
           if-no-files-found: warn

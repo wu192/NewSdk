@@ -39,9 +39,31 @@ jobs:
             if($LASTEXITCODE -ne 0){$failed+=$mode}
           }
           if($failed.Count -ne 0){throw ('Original base postprocess raw differential failed: '+($failed -join ','))}
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/base-postprocess/**/*.json
+            recovery/artifacts/base-postprocess/**/*.log
+            recovery/artifacts/base-postprocess/**/*.md
+            recovery/artifacts/base-postprocess/**/*.csv
+            recovery/artifacts/base-postprocess/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: base-postprocess-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/artifacts/base-postprocess/**
-          if-no-files-found: error
+          name: 'base-postprocess-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/base-postprocess/**/*.json
+            recovery/artifacts/base-postprocess/**/*.log
+            recovery/artifacts/base-postprocess/**/*.md
+            recovery/artifacts/base-postprocess/**/*.csv
+            recovery/artifacts/base-postprocess/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

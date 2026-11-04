@@ -10,6 +10,10 @@ on:
       - 'recovery/scripts/PackageJoypadReview.py'
   workflow_dispatch:
     inputs:
+      export_review_package:
+        description: 'Save validated runtime ZIPs for manual review; does not publish a Release'
+        type: boolean
+        default: false
       reuse_run_id:
         description: 'Optional previous run from this workflow with unchanged production inputs'
         type: string
@@ -184,21 +188,72 @@ jobs:
           if($LASTEXITCODE -ne 0){throw 'Extracted Joypad ZIP worker acceptance failed'}
           python recovery/scripts/PackageJoypadReview.py --products recovery/artifacts/joypad-parallel-product --packages $env:PACKAGE_ROOT --evidence $env:EVIDENCE_ROOT --output recovery/artifacts/joypad-parallel-review --source-commit $env:BINARY_SOURCE
           if($LASTEXITCODE -ne 0){throw 'Source-free review package identity audit failed'}
+      - name: Summarize NewModCompiler-2026.11.01-joypad-review
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/joypad-parallel-review/*.zip
+            recovery/artifacts/joypad-parallel-review/*.json
+            recovery/artifacts/joypad-parallel-review/*.md
+            recovery/artifacts/joypad-parallel-review/SHA256SUMS.txt
+        run: python recovery/scripts/WriteCiSummary.py --title "NewModCompiler-2026.11.01-joypad-review"
       - uses: actions/upload-artifact@v4
-        if: success()
+        if: success() && inputs.export_review_package == true
         with:
           name: NewModCompiler-2026.11.01-joypad-review
-          path: recovery/artifacts/joypad-parallel-review/*
-          if-no-files-found: error
+          retention-days: 1
+          path: |
+            recovery/artifacts/joypad-parallel-review/*.zip
+            recovery/artifacts/joypad-parallel-review/*.json
+            recovery/artifacts/joypad-parallel-review/*.md
+            recovery/artifacts/joypad-parallel-review/SHA256SUMS.txt
+          if-no-files-found: warn
+      - name: Summarize joypad-parallel-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/cli/**/build.events.jsonl
+            recovery/artifacts/joypad-parallel-product/*/build.json
+            recovery/artifacts/joypad-parallel-product/*/bin/NewModCompiler.exe
+            recovery/artifacts/joypad-parallel-product/*/bin/NewModCompiler.exe.config
+            recovery/artifacts/joypad-parallel-product/*/bin/antlr.runtime.dll
+            recovery/artifacts/joypad-parallel-packages/**/*.manifest.json
+            recovery/artifacts/joypad-parallel-packages/**/release.json
+        run: python recovery/scripts/WriteCiSummary.py --title "joypad-parallel-evidence-${{ github.run_id }}-${{ github.run_attempt }}"
+      # Cross-run reuse_run_id and cli_acceptance_run_id require both modes, component results and exact CLI protocol events; keep for one week.
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: joypad-parallel-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 7
           path: |
-            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/**
-            recovery/artifacts/joypad-parallel-product/**/build.json
-            recovery/artifacts/joypad-parallel-product/**/link-inputs.json
-            recovery/artifacts/joypad-parallel-product/**/bin/*
+            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/cli/**/build.events.jsonl
+            recovery/artifacts/joypad-parallel-product/*/build.json
+            recovery/artifacts/joypad-parallel-product/*/bin/NewModCompiler.exe
+            recovery/artifacts/joypad-parallel-product/*/bin/NewModCompiler.exe.config
+            recovery/artifacts/joypad-parallel-product/*/bin/antlr.runtime.dll
+            recovery/artifacts/joypad-parallel-packages/**/*.manifest.json
+            recovery/artifacts/joypad-parallel-packages/**/release.json
+          if-no-files-found: warn
+      - name: Summarize joypad-parallel-evidence-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
             recovery/artifacts/joypad-parallel-product/**/*.log
-            recovery/artifacts/joypad-parallel-packages/**
-          if-no-files-found: error
+        run: python recovery/scripts/WriteCiSummary.py --title "joypad-parallel-evidence-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: joypad-parallel-evidence-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          retention-days: 1
+          path: |
+            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/joypad-parallel-product/**/*.log
+          if-no-files-found: warn

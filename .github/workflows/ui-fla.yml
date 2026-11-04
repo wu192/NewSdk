@@ -78,14 +78,39 @@ jobs:
       - name: Package and verify the five-file runtime ZIPs
         shell: pwsh
         run: ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/ui-product -AcceptanceReceipt recovery/artifacts/ui-tests/cli/validation.json -OutputDirectory recovery/artifacts/ui-tests/release
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
-        with:
-          name: ui-fla-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/artifacts/ui-tests
-            recovery/artifacts/ui-product/*/bin
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/ui-tests/**/*.json
+            recovery/artifacts/ui-tests/**/*.log
+            recovery/artifacts/ui-tests/**/*.md
+            recovery/artifacts/ui-tests/**/*.csv
+            recovery/artifacts/ui-tests/**/*.tsv
             recovery/artifacts/ui-product/*/*.json
             recovery/artifacts/ui-product/*/*.log
             recovery/artifacts/ui-foundation/*/*.log
             recovery/artifacts/ui-foundation/*/*.json
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'ui-fla-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/ui-tests/**/*.json
+            recovery/artifacts/ui-tests/**/*.log
+            recovery/artifacts/ui-tests/**/*.md
+            recovery/artifacts/ui-tests/**/*.csv
+            recovery/artifacts/ui-tests/**/*.tsv
+            recovery/artifacts/ui-product/*/*.json
+            recovery/artifacts/ui-product/*/*.log
+            recovery/artifacts/ui-foundation/*/*.log
+            recovery/artifacts/ui-foundation/*/*.json
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

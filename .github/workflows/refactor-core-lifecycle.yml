@@ -263,13 +263,22 @@ jobs:
         if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
         shell: pwsh
         run: ./recovery/scripts/TestTextureCommonFormats.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/texture/common-formats/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-      - name: Preserve common texture results before the remaining production matrix
-        if: ${{ always() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
-        uses: actions/upload-artifact@v4
+      - name: Summarize texture-common-${{ github.run_id }}-${{ github.run_attempt }}
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+        run: python recovery/scripts/WriteCiSummary.py --title "texture-common-${{ github.run_id }}-${{ github.run_attempt }}"
+      - uses: actions/upload-artifact@v4
+        if: failure() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true'
         with:
           name: texture-common-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          retention-days: 1
+          path: |
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+          if-no-files-found: warn
       - name: Real production CLI, cold processes and actual CtrlBreak cancellation
         id: cli
         if: ${{ !cancelled() && (steps.reuse.outcome == 'success' || (steps.product.outcome == 'success' && steps.product.outputs.cliEnabled == 'true')) }}
@@ -374,47 +383,400 @@ jobs:
           $summary="recovery/evidence/refactor/backend-parallel-performance/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/measurement.md"
           if(Test-Path $summary){Get-Content $summary|Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'Full Upheaval parallel A/B failed; retain partial evidence'}
+      - name: Summarize refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/backend-parallel-performance/**/*.json
+            recovery/evidence/refactor/backend-parallel-performance/**/*.md
+            recovery/evidence/refactor/backend-parallel-performance/**/*.csv
+            recovery/evidence/refactor/backend-parallel-performance/**/*.tsv
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/ui-integration/**/*.json
+            recovery/evidence/refactor/ui-integration/**/*.md
+            recovery/evidence/refactor/ui-integration/**/*.csv
+            recovery/evidence/refactor/ui-integration/**/*.tsv
+            recovery/evidence/refactor/backend-parallel/**/*.json
+            recovery/evidence/refactor/backend-parallel/**/*.md
+            recovery/evidence/refactor/backend-parallel/**/*.csv
+            recovery/evidence/refactor/backend-parallel/**/*.tsv
+            recovery/artifacts/final-release/**/*.json
+            recovery/artifacts/final-release/**/*.md
+            recovery/artifacts/final-release/**/*.csv
+            recovery/artifacts/final-release/**/*.tsv
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/evidence/**/build.events.jsonl
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/big-fixture-preflight/**/*.json
+            recovery/artifacts/big-fixture-preflight/**/*.md
+            recovery/artifacts/big-fixture-preflight/**/*.csv
+            recovery/artifacts/big-fixture-preflight/**/*.tsv
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/build.events.jsonl
+            recovery/artifacts/core-cli-reuse-product/reuse.json
+            recovery/artifacts/cli-controller-preflight/**/*.json
+            recovery/artifacts/cli-controller-preflight/**/*.md
+            recovery/artifacts/cli-controller-preflight/**/*.csv
+            recovery/artifacts/cli-controller-preflight/**/*.tsv
+            recovery/artifacts/cli-output-preflight/**/*.json
+            recovery/artifacts/cli-output-preflight/**/*.md
+            recovery/artifacts/cli-output-preflight/**/*.csv
+            recovery/artifacts/cli-output-preflight/**/*.tsv
+            recovery/artifacts/session-fixture-preflight/**/*.json
+            recovery/artifacts/session-fixture-preflight/**/*.md
+            recovery/artifacts/session-fixture-preflight/**/*.csv
+            recovery/artifacts/session-fixture-preflight/**/*.tsv
+            recovery/artifacts/core-lifecycle-foundation/**/build.json
+            recovery/artifacts/core-lifecycle-product/**/build.json
+            recovery/artifacts/core-lifecycle-product/**/link-inputs.json
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.json
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.md
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.csv
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.tsv
+            !**/test-work/**
+            recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe
+            recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe.config
+            recovery/artifacts/core-lifecycle-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
+            recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Release.zip
+        run: python recovery/scripts/WriteCiSummary.py --title "refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}"
+      # Cross-run benchmark inputs: preserve archive name, recovery-root layout, Release runtime and package for one week.
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 7
           path: |
-            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/backend-parallel-performance/**
-            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/ui-integration/**
-            recovery/evidence/refactor/backend-parallel/**
-            recovery/artifacts/final-release/**
-            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/artifacts/big-fixture-preflight/**
-            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/backend-parallel-performance/**/*.json
+            recovery/evidence/refactor/backend-parallel-performance/**/*.md
+            recovery/evidence/refactor/backend-parallel-performance/**/*.csv
+            recovery/evidence/refactor/backend-parallel-performance/**/*.tsv
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/ui-integration/**/*.json
+            recovery/evidence/refactor/ui-integration/**/*.md
+            recovery/evidence/refactor/ui-integration/**/*.csv
+            recovery/evidence/refactor/ui-integration/**/*.tsv
+            recovery/evidence/refactor/backend-parallel/**/*.json
+            recovery/evidence/refactor/backend-parallel/**/*.md
+            recovery/evidence/refactor/backend-parallel/**/*.csv
+            recovery/evidence/refactor/backend-parallel/**/*.tsv
+            recovery/artifacts/final-release/**/*.json
+            recovery/artifacts/final-release/**/*.md
+            recovery/artifacts/final-release/**/*.csv
+            recovery/artifacts/final-release/**/*.tsv
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/evidence/**/build.events.jsonl
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/big-fixture-preflight/**/*.json
+            recovery/artifacts/big-fixture-preflight/**/*.md
+            recovery/artifacts/big-fixture-preflight/**/*.csv
+            recovery/artifacts/big-fixture-preflight/**/*.tsv
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/build.events.jsonl
             recovery/artifacts/core-cli-reuse-product/reuse.json
-            recovery/artifacts/cli-controller-preflight/**
-            recovery/artifacts/cli-output-preflight/**
-            recovery/artifacts/session-fixture-preflight/**
+            recovery/artifacts/cli-controller-preflight/**/*.json
+            recovery/artifacts/cli-controller-preflight/**/*.md
+            recovery/artifacts/cli-controller-preflight/**/*.csv
+            recovery/artifacts/cli-controller-preflight/**/*.tsv
+            recovery/artifacts/cli-output-preflight/**/*.json
+            recovery/artifacts/cli-output-preflight/**/*.md
+            recovery/artifacts/cli-output-preflight/**/*.csv
+            recovery/artifacts/cli-output-preflight/**/*.tsv
+            recovery/artifacts/session-fixture-preflight/**/*.json
+            recovery/artifacts/session-fixture-preflight/**/*.md
+            recovery/artifacts/session-fixture-preflight/**/*.csv
+            recovery/artifacts/session-fixture-preflight/**/*.tsv
             recovery/artifacts/core-lifecycle-foundation/**/build.json
-            recovery/artifacts/core-lifecycle-foundation/**/*.log
             recovery/artifacts/core-lifecycle-product/**/build.json
             recovery/artifacts/core-lifecycle-product/**/link-inputs.json
-            recovery/artifacts/core-lifecycle-product/**/bin/*
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.json
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.md
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.csv
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.tsv
+            !**/test-work/**
+            recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe
+            recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe.config
+            recovery/artifacts/core-lifecycle-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
+            recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
+            recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Release.zip
+          if-no-files-found: warn
+      - name: Summarize refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/backend-parallel-performance/**/*.log
+            recovery/evidence/refactor/backend-parallel-performance/**/*.jsonl
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/ui-integration/**/*.log
+            recovery/evidence/refactor/ui-integration/**/*.jsonl
+            recovery/evidence/refactor/backend-parallel/**/*.log
+            recovery/evidence/refactor/backend-parallel/**/*.jsonl
+            recovery/artifacts/final-release/**/*.log
+            recovery/artifacts/final-release/**/*.jsonl
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/big-fixture-preflight/**/*.log
+            recovery/artifacts/big-fixture-preflight/**/*.jsonl
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/cli-controller-preflight/**/*.log
+            recovery/artifacts/cli-controller-preflight/**/*.jsonl
+            recovery/artifacts/cli-output-preflight/**/*.log
+            recovery/artifacts/cli-output-preflight/**/*.jsonl
+            recovery/artifacts/session-fixture-preflight/**/*.log
+            recovery/artifacts/session-fixture-preflight/**/*.jsonl
+            recovery/artifacts/core-lifecycle-foundation/**/*.log
             recovery/artifacts/core-lifecycle-product/**/*.log
-            recovery/artifacts/lifecycle-app/**/test-work/**
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.log
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.jsonl
             recovery/artifacts/lifecycle-app/**/test-app.log
-          include-hidden-files: true
-          if-no-files-found: error
-
+            !**/test-work/**
+            !**/bin/**
+        run: python recovery/scripts/WriteCiSummary.py --title "refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: refactor-core-lifecycle-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          retention-days: 1
+          path: |
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/shared-xml-smoke/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/shared-xml-matrices/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/plugin-gameobject/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/plugin-weapon/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/backend-parallel-performance/**/*.log
+            recovery/evidence/refactor/backend-parallel-performance/**/*.jsonl
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/hot-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/ui-integration/**/*.log
+            recovery/evidence/refactor/ui-integration/**/*.jsonl
+            recovery/evidence/refactor/backend-parallel/**/*.log
+            recovery/evidence/refactor/backend-parallel/**/*.jsonl
+            recovery/artifacts/final-release/**/*.log
+            recovery/artifacts/final-release/**/*.jsonl
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/big/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/big-fixture-preflight/**/*.log
+            recovery/artifacts/big-fixture-preflight/**/*.jsonl
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/sdk-mymod/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/session-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/cache-payloads/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/input-roots/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/build-cache/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-lifecycle-deployment/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-lifecycle/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-lifecycle-texture/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/texture/common-formats/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-backend-baseline/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/core-cli/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+            recovery/artifacts/cli-controller-preflight/**/*.log
+            recovery/artifacts/cli-controller-preflight/**/*.jsonl
+            recovery/artifacts/cli-output-preflight/**/*.log
+            recovery/artifacts/cli-output-preflight/**/*.jsonl
+            recovery/artifacts/session-fixture-preflight/**/*.log
+            recovery/artifacts/session-fixture-preflight/**/*.jsonl
+            recovery/artifacts/core-lifecycle-foundation/**/*.log
+            recovery/artifacts/core-lifecycle-product/**/*.log
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.log
+            recovery/artifacts/lifecycle-app/**/test-work/**/*.jsonl
+            recovery/artifacts/lifecycle-app/**/test-app.log
+            !**/test-work/**
+            !**/bin/**
+          if-no-files-found: warn

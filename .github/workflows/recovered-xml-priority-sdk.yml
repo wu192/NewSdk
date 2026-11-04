@@ -51,12 +51,34 @@ jobs:
           if (!$result.succeeded -or !$result.originalDllUnchanged -or $result.sourceCommit -ne $env:GITHUB_SHA -or [string]$result.runId -ne $env:GITHUB_RUN_ID) { throw 'Missing or mismatched SDK validation evidence' }
           python recovery/scripts/SummarizeXmlSdkAcceptance.py --evidence-root recovery/evidence/xml-priority-sdk --output recovery/evidence/xml-priority-sdk/acceptance.json
           if ($LASTEXITCODE -ne 0) { throw 'SDK evidence aggregation failed' }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/xml-priority-sdk/**/*.json
+            recovery/evidence/xml-priority-sdk/**/*.log
+            recovery/evidence/xml-priority-sdk/**/*.md
+            recovery/evidence/xml-priority-sdk/**/*.csv
+            recovery/evidence/xml-priority-sdk/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: xml-priority-sdk-evidence
-          path: recovery/evidence/xml-priority-sdk
-          if-no-files-found: error
+          name: 'xml-priority-sdk-evidence'
+          path: |
+            recovery/evidence/xml-priority-sdk/**/*.json
+            recovery/evidence/xml-priority-sdk/**/*.log
+            recovery/evidence/xml-priority-sdk/**/*.md
+            recovery/evidence/xml-priority-sdk/**/*.csv
+            recovery/evidence/xml-priority-sdk/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn
       - name: Preserve SDK evidence without overwriting concurrent commits
         if: always()
         shell: pwsh

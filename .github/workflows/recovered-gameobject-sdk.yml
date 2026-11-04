@@ -51,9 +51,31 @@ jobs:
             if ($LASTEXITCODE -eq 0) { exit 0 }
           }
           throw 'Unable to push SDK evidence; artifact retained'
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/gameobject-sdk/**/*.json
+            recovery/evidence/gameobject-sdk/**/*.log
+            recovery/evidence/gameobject-sdk/**/*.md
+            recovery/evidence/gameobject-sdk/**/*.csv
+            recovery/evidence/gameobject-sdk/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: recovered-gameobject-sdk-evidence
-          path: recovery/evidence/gameobject-sdk
-          if-no-files-found: error
+          name: 'recovered-gameobject-sdk-evidence'
+          path: |
+            recovery/evidence/gameobject-sdk/**/*.json
+            recovery/evidence/gameobject-sdk/**/*.log
+            recovery/evidence/gameobject-sdk/**/*.md
+            recovery/evidence/gameobject-sdk/**/*.csv
+            recovery/evidence/gameobject-sdk/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

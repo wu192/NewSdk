@@ -25,13 +25,34 @@ jobs:
       - name: Build both managed modes and compare with original
         shell: pwsh
         run: ./recovery/scripts/TestW3xManaged.ps1
-      - name: Publish results
+      - name: Summarize CI evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: w3x-managed-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}
-          retention-days: 30
+          name: 'w3x-managed-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/w3x/managed-runs/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn
       - name: Save immutable successful validation
         shell: pwsh
         run: |

@@ -434,13 +434,9 @@ def main():
                     a, b = pair['original'], pair['new']
                     differences = sorted(n for n in a[0]['outputFiles'].keys() | b[0]['outputFiles'].keys()
                         if a[0]['outputFiles'].get(n) != b[0]['outputFiles'].get(n))
-                    if trial == 0 and phase == 'cold':
-                        for engine in ('original', 'new'):
-                            for member, path in pair[engine][1].items():
-                                if '/' not in member or state['fullContent'] and '/cdata/' not in member:
-                                    target = out / 'baseline-streams' / w['name'] / engine / member
-                                    target.parent.mkdir(parents=True, exist_ok=True)
-                                    shutil.copy2(path, target)
+                    # Runtime reference copies in work/reference remain available for every
+                    # byte comparison. Do not duplicate linked streams into CI evidence:
+                    # measurement.json already records each output's size and SHA256.
                     if not differences:
                         compare_pair(a[0]['outputFiles'], b[0]['outputFiles'], a[1], b[1])
                     state['pairs'].append(dict(workload=w['name'], trial=trial, mode=mode, phase=phase,

@@ -63,15 +63,39 @@ jobs:
         run: |
           python recovery/scripts/TestGameWorldbuilder.py --product-root recovery/artifacts/game-wb-product --output recovery/artifacts/game-wb-validation
           if($LASTEXITCODE -ne 0){throw 'Automatic game WorldBuilder acceptance or ZIP deployment failed'}
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/game-wb-app/*/contracts.log
+            recovery/artifacts/game-wb-product/*/build.json
+            recovery/artifacts/game-wb-product/*/link-inputs.json
+            recovery/artifacts/game-wb-product/**/*.log
+            recovery/artifacts/game-wb-validation/**/*.json
+            recovery/artifacts/game-wb-validation/**/*.log
+            recovery/artifacts/game-wb-validation/**/*.md
+            recovery/artifacts/game-wb-validation/**/*.csv
+            recovery/artifacts/game-wb-validation/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: game-worldbuilder-${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'game-worldbuilder-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
             recovery/artifacts/game-wb-app/*/contracts.log
             recovery/artifacts/game-wb-product/*/build.json
             recovery/artifacts/game-wb-product/*/link-inputs.json
-            recovery/artifacts/game-wb-product/*/bin/
             recovery/artifacts/game-wb-product/**/*.log
-            recovery/artifacts/game-wb-validation/
+            recovery/artifacts/game-wb-validation/**/*.json
+            recovery/artifacts/game-wb-validation/**/*.log
+            recovery/artifacts/game-wb-validation/**/*.md
+            recovery/artifacts/game-wb-validation/**/*.csv
+            recovery/artifacts/game-wb-validation/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
           if-no-files-found: warn

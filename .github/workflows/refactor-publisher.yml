@@ -50,10 +50,31 @@ jobs:
             }
             Get-Content "$directory/test-app.log" -Tail 8|Out-Host
           }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/publisher/**/*.json
+            recovery/artifacts/publisher/**/*.log
+            recovery/artifacts/publisher/**/*.md
+            recovery/artifacts/publisher/**/*.csv
+            recovery/artifacts/publisher/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: refactor-publisher-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/artifacts/publisher/**
-          include-hidden-files: true
-          if-no-files-found: error
+          name: 'refactor-publisher-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/publisher/**/*.json
+            recovery/artifacts/publisher/**/*.log
+            recovery/artifacts/publisher/**/*.md
+            recovery/artifacts/publisher/**/*.csv
+            recovery/artifacts/publisher/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

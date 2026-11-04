@@ -65,17 +65,63 @@ jobs:
           $result=$LASTEXITCODE
           if(Test-Path recovery/evidence/refactor/hot-cache/validation.md){Get-Content recovery/evidence/refactor/hot-cache/validation.md|Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'Expanded hot-cache matrix failed; partial evidence retained'}
+      - name: Summarize compiler-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/performance/**/*.json
+            recovery/evidence/refactor/performance/**/*.md
+            recovery/evidence/refactor/performance/**/*.csv
+            recovery/evidence/refactor/performance/**/*.tsv
+            recovery/evidence/refactor/hot-cache/**/*.json
+            recovery/evidence/refactor/hot-cache/**/*.md
+            recovery/evidence/refactor/hot-cache/**/*.csv
+            recovery/evidence/refactor/hot-cache/**/*.tsv
+            recovery/artifacts/performance-product/*.json
+            recovery/artifacts/performance-product/obj/foundation/*.json
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-performance reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: compiler-performance-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            recovery/evidence/refactor/performance/**
-            recovery/evidence/refactor/hot-cache/**
+            recovery/evidence/refactor/performance/**/*.json
+            recovery/evidence/refactor/performance/**/*.md
+            recovery/evidence/refactor/performance/**/*.csv
+            recovery/evidence/refactor/performance/**/*.tsv
+            recovery/evidence/refactor/hot-cache/**/*.json
+            recovery/evidence/refactor/hot-cache/**/*.md
+            recovery/evidence/refactor/hot-cache/**/*.csv
+            recovery/evidence/refactor/hot-cache/**/*.tsv
+            recovery/artifacts/performance-product/*.json
+            recovery/artifacts/performance-product/obj/foundation/*.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/performance/**/*.log
+            recovery/evidence/refactor/performance/**/*.jsonl
+            recovery/evidence/refactor/hot-cache/**/*.log
+            recovery/evidence/refactor/hot-cache/**/*.jsonl
             recovery/artifacts/performance-app/*.log
             recovery/artifacts/performance-product/*.log
-            recovery/artifacts/performance-product/*.json
-            recovery/artifacts/performance-product/bin/*
             recovery/artifacts/performance-product/obj/foundation/*.log
-            recovery/artifacts/performance-product/obj/foundation/*.json
             recovery/artifacts/performance-product/obj/native/logs/*.log
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: compiler-performance-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/performance/**/*.log
+            recovery/evidence/refactor/performance/**/*.jsonl
+            recovery/evidence/refactor/hot-cache/**/*.log
+            recovery/evidence/refactor/hot-cache/**/*.jsonl
+            recovery/artifacts/performance-app/*.log
+            recovery/artifacts/performance-product/*.log
+            recovery/artifacts/performance-product/obj/foundation/*.log
+            recovery/artifacts/performance-product/obj/native/logs/*.log
+          retention-days: 1
+          if-no-files-found: warn

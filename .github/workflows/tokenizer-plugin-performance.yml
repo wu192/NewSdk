@@ -42,9 +42,39 @@ jobs:
       - name: Original byte equivalence and same-VM paired plugin measurements
         shell: pwsh
         run: ./recovery/scripts/TestTokenizerPluginPerformance.ps1
+      - name: Summarize tokenizer-plugin-performance reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "tokenizer-plugin-performance reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: tokenizer-plugin-performance-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}
-          if-no-files-found: error
+          path: |
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize tokenizer-plugin-performance failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+        run: python recovery/scripts/WriteCiSummary.py --title "tokenizer-plugin-performance failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: tokenizer-plugin-performance-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/tokenizer-plugin-performance/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+          retention-days: 1
+          if-no-files-found: warn

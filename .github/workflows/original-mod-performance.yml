@@ -61,13 +61,60 @@ jobs:
           $out="recovery/evidence/refactor/original-mod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           python recovery/scripts/MeasureCompilerOriginalMod.py --accepted-build work/original-mod-accepted/artifacts/core-lifecycle-product/Release --work "$env:RUNNER_TEMP/original-mod" --output $out --pairs 3
           $result=$LASTEXITCODE
-          if(Test-Path "$out/report.md"){Get-Content "$out/report.md" -Encoding UTF8 | Add-Content $env:GITHUB_STEP_SUMMARY}
           if($result -ne 0){throw 'Benchmark did not fully pass; raw evidence retained'}
+      - name: Summarize compact benchmark reports and upload size
+        if: always()
+        shell: pwsh
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/measurement.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/report.md
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/accepted-build.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/preparation.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/original-preparation.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/request.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/process.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/build-report.json
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/build-report.json
+        run: python recovery/scripts/WriteCiSummary.py --title 'Original SDK benchmark reports'
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: original-mod-performance-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**
-            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**
-          if-no-files-found: error
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/measurement.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/report.md
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/accepted-build.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/preparation.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/original-preparation.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/request.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/process.json
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/build-report.json
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/validation.json
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/build-report.json
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize failure diagnostic upload size
+        if: failure()
+        shell: pwsh
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/build.events.jsonl
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+        run: python recovery/scripts/WriteCiSummary.py --title 'Original SDK benchmark failure diagnostics'
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: original-mod-failure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+            recovery/evidence/refactor/original-mod/${{ github.run_id }}-${{ github.run_attempt }}/**/build.events.jsonl
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/stdout.log
+            recovery/evidence/refactor/audio-identity/${{ github.run_id }}-${{ github.run_attempt }}/**/stderr.log
+          retention-days: 1
+          if-no-files-found: warn

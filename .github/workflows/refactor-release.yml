@@ -75,14 +75,57 @@ jobs:
         run: |
           ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/release-product -AcceptanceReceipt recovery/artifacts/release-product/accepted-cli.json -OutputDirectory "recovery/artifacts/release-refresh/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
           if($LASTEXITCODE -ne 0){throw 'P7 release ZIP deployment validation failed'}
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
-        with:
-          name: refactor-release-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}
-            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
             recovery/artifacts/release-product/release-preparation.json
             recovery/artifacts/release-product/accepted-cli.json
             recovery/artifacts/release-product/accepted-mymod.json
-            recovery/artifacts/release-product/acceptance/**
+            recovery/artifacts/release-product/acceptance/**/*.json
+            recovery/artifacts/release-product/acceptance/**/*.log
+            recovery/artifacts/release-product/acceptance/**/*.md
+            recovery/artifacts/release-product/acceptance/**/*.csv
+            recovery/artifacts/release-product/acceptance/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: 'refactor-release-${{ github.run_id }}-${{ github.run_attempt }}'
+          path: |
+            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/artifacts/legacy-version-probe/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/artifacts/release-refresh/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+            recovery/artifacts/release-product/release-preparation.json
+            recovery/artifacts/release-product/accepted-cli.json
+            recovery/artifacts/release-product/accepted-mymod.json
+            recovery/artifacts/release-product/acceptance/**/*.json
+            recovery/artifacts/release-product/acceptance/**/*.log
+            recovery/artifacts/release-product/acceptance/**/*.md
+            recovery/artifacts/release-product/acceptance/**/*.csv
+            recovery/artifacts/release-product/acceptance/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn

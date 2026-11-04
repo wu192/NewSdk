@@ -72,8 +72,39 @@ jobs:
           }
           if(Test-Path "$out/comparison.md"){Get-Content "$out/comparison.md"|Add-Content $env:GITHUB_STEP_SUMMARY}
           if($comparisonExit -ne 0){throw 'Comparison failed or exceeded budget; original evidence retained'}
+      - name: Summarize compiler-sdk-benchmark reports
+        if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-sdk-benchmark reports"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: compiler-sdk-benchmark-${{ github.run_id }}-${{ github.run_attempt }}
-          path: recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**
+          path: |
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.json
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.md
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.csv
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.tsv
+          retention-days: 1
+          if-no-files-found: warn
+      - name: Summarize compiler-sdk-benchmark failure diagnostics
+        if: failure()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+        run: python recovery/scripts/WriteCiSummary.py --title "compiler-sdk-benchmark failure diagnostics"
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: compiler-sdk-benchmark-${{ github.run_id }}-${{ github.run_attempt }}-diagnostics
+          path: |
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.log
+            recovery/evidence/refactor/sdk-benchmark/${{ github.run_id }}-${{ github.run_attempt }}/**/*.jsonl
+          retention-days: 1
+          if-no-files-found: warn

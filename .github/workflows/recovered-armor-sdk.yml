@@ -35,11 +35,34 @@ jobs:
       - name: Build plugin and compare actual SDK output
         shell: pwsh
         run: ./recovery/scripts/TestArmorSdk.ps1
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/evidence/armor-sdk/**/*.json
+            recovery/evidence/armor-sdk/**/*.log
+            recovery/evidence/armor-sdk/**/*.md
+            recovery/evidence/armor-sdk/**/*.csv
+            recovery/evidence/armor-sdk/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: recovered-armor-sdk-evidence
-          path: recovery/evidence/armor-sdk
+          name: 'recovered-armor-sdk-evidence'
+          path: |
+            recovery/evidence/armor-sdk/**/*.json
+            recovery/evidence/armor-sdk/**/*.log
+            recovery/evidence/armor-sdk/**/*.md
+            recovery/evidence/armor-sdk/**/*.csv
+            recovery/evidence/armor-sdk/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn
       - name: Persist integration evidence
         if: always()
         shell: pwsh
@@ -51,10 +74,3 @@ jobs:
           git commit -m 'recovery: record ArmorTemplate SDK integration results'
           git pull --rebase origin recovery/compiler-source
           git push origin HEAD:recovery/compiler-source
-      - uses: actions/upload-artifact@v4
-        if: success()
-        with:
-          name: recovered-armor-sdk-plugin-x86
-          path: |
-            ${{ runner.temp }}/ra3-armor-sdk/build/Recovered.Armor.dll
-            ${{ runner.temp }}/ra3-armor-sdk/build/Recovered.Compiler.dll

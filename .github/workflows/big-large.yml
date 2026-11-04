@@ -60,11 +60,33 @@ jobs:
             python recovery/preparation/base-postprocess/TestCompilerBasePostprocess.py --tools SDK/tools --candidate "$out/BasePostprocessControl.exe" --output "$out/original-differential" --hashfix-resolver-only
             if($LASTEXITCODE -ne 0){throw "$mode original resolver differential failed"}
           }
-      - uses: actions/upload-artifact@v4
+      - name: Summarize CI evidence
         if: always()
+        env:
+          ARTIFACT_PATHS: |
+            recovery/artifacts/large-big/*/*.log
+            recovery/artifacts/large-big/*/original-differential/**/*.json
+            recovery/artifacts/large-big/*/original-differential/**/*.log
+            recovery/artifacts/large-big/*/original-differential/**/*.md
+            recovery/artifacts/large-big/*/original-differential/**/*.csv
+            recovery/artifacts/large-big/*/original-differential/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+        run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
+      - uses: actions/upload-artifact@v4
+        if: failure()
         with:
-          name: large-big-${{ github.run_id }}-${{ github.run_attempt }}
+          name: 'large-big-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
             recovery/artifacts/large-big/*/*.log
-            recovery/artifacts/large-big/*/original-differential/
-          if-no-files-found: error
+            recovery/artifacts/large-big/*/original-differential/**/*.json
+            recovery/artifacts/large-big/*/original-differential/**/*.log
+            recovery/artifacts/large-big/*/original-differential/**/*.md
+            recovery/artifacts/large-big/*/original-differential/**/*.csv
+            recovery/artifacts/large-big/*/original-differential/**/*.tsv
+            !**/bin/**
+            !**/test-work/**
+            !**/baseline-streams/**
+          retention-days: 1
+          if-no-files-found: warn
