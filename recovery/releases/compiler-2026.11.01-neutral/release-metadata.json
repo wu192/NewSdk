@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "repository": "wu162/NewSdk",
+  "tag": "compiler-2026.11.01-neutral",
+  "binarySourceCommit": "f74da90fd8461fcb983acebcb694d66aeb8dbfdd",
+  "sourceBranch": "fix/neutral-worldbuilder-config",
+  "incorporatedReleaseCommit": "feadec6e375bfd8861bddde85c474514fe3a1049",
+  "runId": "41319194413",
+  "acceptanceUrl": "https://github.com/wu162/NewSdk/actions/runs/41319194413",
+  "artifactId": 13088463710,
+  "artifactSha256": "4073475f4f4fe4c6fd7982ac7a9f2586450ea606ecda09fcdd97d21fa9593729",
+  "runtimePackages": [
+    {
+      "configuration": "Debug",
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 2100922,
+      "sha256": "a973545cdf6e33c108e5d29c411f4d4749220d9d832f3048f12e49703bcea8c1",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 7712256,
+          "sha256": "15856fea733439637a08db9850eba36a5da86aedc0cade1f817cb3bd321b63ea"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 293,
+          "sha256": "ea28ee4fc430b23a232aa0a38217e53b34a529198ae0f4dc13407c8eadb0c138"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "neutralAcceptance": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "caseCount": 8,
+        "rawOriginalMembers": true
+      },
+      "independentZipDeployment": {
+        "succeeded": true,
+        "sourceCommit": "f74da90fd8461fcb983acebcb694d66aeb8dbfdd",
+        "configuration": "Debug",
+        "zipSha256": "a973545cdf6e33c108e5d29c411f4d4749220d9d832f3048f12e49703bcea8c1",
+        "coldSmallMod": true,
+        "exactAcceptedRawOutputs": true,
+        "arguments": [
+          "build",
+          "--mod",
+          "D:\\nwz-t4y7tjqe\\NeutralWbProbe",
+          "--sdk-root",
+          "D:\\nwz-t4y7tjqe\\sdk",
+          "--out",
+          "D:\\nwz-t4y7tjqe\\out",
+          "--mod-version",
+          "1.0"
+        ],
+        "runtimeFiles": [
+          {
+            "name": "NewModCompiler.exe",
+            "sha256": "15856fea733439637a08db9850eba36a5da86aedc0cade1f817cb3bd321b63ea"
+          },
+          {
+            "name": "NewModCompiler.exe.config",
+            "sha256": "ea28ee4fc430b23a232aa0a38217e53b34a529198ae0f4dc13407c8eadb0c138"
+          },
+          {
+            "name": "antlr.runtime.dll",
+            "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ]
+      }
+    },
+    {
+      "configuration": "Release",
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 1606133,
+      "sha256": "a4fec82a3ea05dd8b0480993a0356562ce6b836af36ccc907b7f9e9a89e0b3b7",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 5011968,
+          "sha256": "60110e304c185f56bbd8e818a648080c0b67b65c8403d037eb519f9dd4137d33"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 293,
+          "sha256": "ea28ee4fc430b23a232aa0a38217e53b34a529198ae0f4dc13407c8eadb0c138"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "neutralAcceptance": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "caseCount": 8,
+        "rawOriginalMembers": true
+      },
+      "independentZipDeployment": {
+        "succeeded": true,
+        "sourceCommit": "f74da90fd8461fcb983acebcb694d66aeb8dbfdd",
+        "configuration": "Release",
+        "zipSha256": "a4fec82a3ea05dd8b0480993a0356562ce6b836af36ccc907b7f9e9a89e0b3b7",
+        "coldSmallMod": true,
+        "exactAcceptedRawOutputs": true,
+        "arguments": [
+          "build",
+          "--mod",
+          "D:\\nwz-cfrod_2v\\NeutralWbProbe",
+          "--sdk-root",
+          "D:\\nwz-cfrod_2v\\sdk",
+          "--out",
+          "D:\\nwz-cfrod_2v\\out",
+          "--mod-version",
+          "1.0"
+        ],
+        "runtimeFiles": [
+          {
+            "name": "NewModCompiler.exe",
+            "sha256": "60110e304c185f56bbd8e818a648080c0b67b65c8403d037eb519f9dd4137d33"
+          },
+          {
+            "name": "NewModCompiler.exe.config",
+            "sha256": "ea28ee4fc430b23a232aa0a38217e53b34a529198ae0f4dc13407c8eadb0c138"
+          },
+          {
+            "name": "antlr.runtime.dll",
+            "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+          }
+        ],
+        "artifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ]
+      }
+    }
+  ],
+  "referencePackage": {
+    "file": "RA3-Worldbuilder-1.12-References.zip",
+    "bytes": 500207147,
+    "sha256": "58a3f59dbd6b2e726bffd51ce42197ca04ee5ff0434a99a556d81cd5b7455c9a",
+    "officialReferenceFiles": 162
+  },
+  "scope": "Debug/Release App, real Core/CLI, official two-asset neutral MOD and independent three-file ZIP deployment; exact original postprocess/BIG member bytes. No full MOD or in-game acceptance.",
+  "autoArchiveFiles": [
+    "README.md",
+    "release-metadata.json"
+  ]
+}

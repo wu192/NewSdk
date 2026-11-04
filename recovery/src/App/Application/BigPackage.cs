@@ -78,7 +78,7 @@ namespace NewModCompiler.Application
                 if(request.FixNeutralAssets) {
                     string originalRoot=Path.GetDirectoryName(manifest);
                     using (request.Performance.Measure("package.neutral"))
-                        manifest=BasePostProcessor.Prepare(manifest,request.SdkRoot,Path.Combine(temporary,"package-neutral"),cancellation);
+                        manifest=BasePostProcessor.Prepare(manifest,request,Path.Combine(temporary,"package-neutral"),cancellation);
                     string preparedStem=Path.Combine(Path.GetDirectoryName(manifest),"mod");
                     foreach(var entry in entries) if(Paths.Contains(originalRoot,entry.SourcePath)) {
                         string extension=Path.GetExtension(entry.SourcePath);

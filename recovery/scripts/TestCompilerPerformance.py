@@ -13,6 +13,7 @@ import time
 
 from PrepareCompilerSdkBenchmark import startup_config
 from BenchmarkCompilerSdkComparison import root_arguments
+from CompilerCachePaths import cache_root
 
 
 def need(value, message):
@@ -98,6 +99,10 @@ def run(args):
         destination = work / (('bad-' if broken else fmt + '-') + level)
         command = [str(exe), 'build', '--sdk-root', str(sdk), '--mod', str(mod), '--out', str(destination),
                    '--package-content', 'base', '--package-format', fmt, '--include-additional=false', '--performance', level]
+        namespace = cache_root(sdk, mod) / 'tests' / destination.name
+        command += ['/scd:' + str(namespace / 's'), '/bcd:' + str(namespace / 'b'), '/iod:' + str(namespace / 'i')]
+        if fmt == 'big':
+            command += ['--mod-version', '1.0']
         log, sample = invoke(label, command, 4 if broken else 0)
         report_path = destination / 'build-report.json'
         report = json.loads(report_path.read_text(encoding='utf-8-sig'))

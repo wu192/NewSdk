@@ -27,7 +27,7 @@ public static class CompilerXmlBackendBatch
     }
     sealed class Work
     {
-        public string TypeName, Family;
+        public string TypeName, Family, CaseLabel;
         public object Envelope;
         public InstanceDeclaration Control;
         public Outcome Worker;
@@ -35,12 +35,14 @@ public static class CompilerXmlBackendBatch
     static void Need(bool value, string message)
     { checks++; if (!value) throw new InvalidOperationException(message); }
     static InstanceDeclaration Declaration(string type, IAssetBuilderPlugin plugin, out XmlNamespaceManager namespaces)
+    { return DeclarationXml("<" + type + " xmlns='" + NS + "' id='Batch" + type + "'/>", plugin, out namespaces); }
+    static InstanceDeclaration DeclarationXml(string xml, IAssetBuilderPlugin plugin, out XmlNamespaceManager namespaces)
     {
         var document = new XmlDocument { XmlResolver = null };
-        var root = document.CreateElement(type, NS); root.SetAttribute("id", "Batch" + type); document.AppendChild(root);
+        document.LoadXml(xml);
         namespaces = new XmlNamespaceManager(document.NameTable); namespaces.AddNamespace("ea", NS);
         var declaration = new InstanceDeclaration(AssetDeclarationDocument.CreateBackendView(namespaces));
-        declaration.XmlNode = root;
+        declaration.XmlNode = document.DocumentElement;
         var metadata = plugin.GetExtendedTypeInformation(declaration.Handle.TypeId);
         declaration.Handle.TypeHash = metadata.TypeHash; declaration.ProcessingHash = metadata.ProcessingHash;
         declaration.HasCustomData = metadata.HasCustomData;
@@ -127,10 +129,35 @@ public static class CompilerXmlBackendBatch
                 work.Add(new Work { TypeName = route.TypeName, Family = (string)Policy.GetMethod("FamilyFor").Invoke(null, new object[] { route.TypeId }), Envelope = envelope, Control = control });
             }
             var expectedOwners = new HashSet<string>(new[] { "AptAptData", "AptConstData", "AptDatData", "AptGeometryData", "TestTexture" }, StringComparer.Ordinal);
-            Need(retainedOwners.Count == 5 && expectedOwners.SetEquals(retainedOwners), "Only the four explicitly closed-read APT routes and TestTexture may remain outside the metadata matrix");
+            Need(retainedOwners.Count == expectedOwners.Count && expectedOwners.SetEquals(retainedOwners), "Only four APT routes and TestTexture may remain outside the metadata matrix");
             Need(work.Count == (int)Policy.GetProperty("TypeCount").GetValue(null, null), "Batch must execute every reviewed registry route present in the built-in XML set");
-            Need(work.Count == 284, "The current reviewed metadata source closure must contain exactly 284 registered routes");
+            Need(work.Count == 295, "The reviewed metadata source closure, including eleven Joypad roots, must contain exactly 295 registered routes");
             Need(!(bool)Policy.GetMethod("IsCertified").Invoke(null, new object[] { UInt32.MaxValue }), "An unknown root ID must remain outside the closed metadata registry");
+            int certifiedRoutes = work.Count, joypadComplexInputs = 0;
+            string joypadCases = Environment.GetEnvironmentVariable("NEWSDK_JOYPAD_BACKEND_CASES");
+            if (!String.IsNullOrEmpty(joypadCases))
+            {
+                var roots = new HashSet<string>(StringComparer.Ordinal);
+                var variants = new HashSet<string>(StringComparer.Ordinal);
+                var caseRows = new JavaScriptSerializer().Deserialize<object[]>(File.ReadAllText(joypadCases));
+                foreach (Dictionary<string, object> row in caseRows)
+                {
+                    string label = (string)row["name"];
+                    if (!label.StartsWith("defaults/", StringComparison.Ordinal) && !label.StartsWith("complete/", StringComparison.Ordinal) &&
+                        !label.StartsWith("variant-default/", StringComparison.Ordinal) && !label.StartsWith("variant-complete/", StringComparison.Ordinal)) continue;
+                    XmlNamespaceManager namespaces, ignored;
+                    var declaration = DeclarationXml((string)row["xml"], plugin, out namespaces);
+                    var control = DeclarationXml((string)row["xml"], plugin, out ignored);
+                    Need((string)Policy.GetMethod("FamilyFor").Invoke(null, new object[] { declaration.Handle.TypeId }) == "Xmljoypad", "Complex Joypad input is not certified");
+                    object envelope = Prepare(declaration, plugin);
+                    Need(envelope != null, "Complex Joypad input was not prepared: " + label);
+                    work.Add(new Work { TypeName = declaration.Node.LocalName, CaseLabel = label, Family = "Xmljoypad", Envelope = envelope, Control = control });
+                    roots.Add(declaration.Node.LocalName);
+                    if (label.StartsWith("variant-complete/", StringComparison.Ordinal)) variants.Add(label.Substring("variant-complete/".Length));
+                    joypadComplexInputs++;
+                }
+                Need(roots.Count == 11 && variants.Count == 34 && joypadComplexInputs == 89, "Complex Joypad matrix must cover all roots and concrete runtime Data branches");
+            }
             int next = -1; active = 0; maximum = 0;
             int workerCount = Math.Max(1, Math.Min(4, Environment.ProcessorCount));
             var tasks = new Task[workerCount];
@@ -156,8 +183,9 @@ public static class CompilerXmlBackendBatch
                 Need(item.Worker != null && item.Worker.ThreadId != ownerThread && item.Worker.End > item.Worker.Start, "No completed real worker invocation: " + item.TypeName);
                 var owner = Call(delegate { return plugin.ProcessInstance(item.Control); });
                 Equal(owner, item.Worker, item.TypeName + "/" + platform);
+                if (item.CaseLabel != null) Need(owner.ErrorType == null, "Complete Joypad input unexpectedly rejected: " + item.CaseLabel);
                 if (owner.ErrorType == null) successful++; else rejected++;
-                rows.Add(new { type = item.TypeName, family = item.Family, workerThreadId = item.Worker.ThreadId,
+                rows.Add(new { type = item.TypeName, caseLabel = item.CaseLabel, family = item.Family, workerThreadId = item.Worker.ThreadId,
                     startTicks = item.Worker.Start, endTicks = item.Worker.End, ownerThreadId = ownerThread,
                     outcome = owner.ErrorType == null ? "three-buffer-equal" : "same-minimal-input-rejection", exceptionType = owner.ErrorType,
                     instanceBytes = owner.Buffer == null || owner.Buffer.InstanceData == null ? 0 : owner.Buffer.InstanceData.Length,
@@ -165,7 +193,7 @@ public static class CompilerXmlBackendBatch
                     importsBytes = owner.Buffer == null || owner.Buffer.ImportsData == null ? 0 : owner.Buffer.ImportsData.Length });
             }
             Need(active == 0 && maximum <= workerCount, "Component worker wave did not join within its bound");
-            return new { platform = (int)platform, certifiedRoutes = work.Count, successfulMinimalInputs = successful,
+            return new { platform = (int)platform, certifiedRoutes, joypadComplexInputs, successfulMinimalInputs = successful,
                 rejectedMinimalInputs = rejected, workerCount, maximumConcurrency = maximum, retainedOwners, rows };
         }
         finally

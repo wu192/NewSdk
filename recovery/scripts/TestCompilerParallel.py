@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Production legacy-cache/parallel matrix; archives reports and exact output bytes."""
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -9,6 +10,8 @@ import subprocess
 import time
 import wave
 import xml.etree.ElementTree as ET
+
+from CompilerCachePaths import cache_root
 
 NS = 'uri:ea.com:eala:asset'
 ET.register_namespace('', NS)
@@ -93,6 +96,11 @@ def run(args):
                    '--out', str(destination), '--jobs', str(jobs), '--performance', 'detailed',
                    '--sc=' + str(sc).lower(), '--bc=' + str(bc).lower(), '--package-content', 'base',
                    '--package-format', 'loose'] + list(extra)
+        # --out no longer owns caches. Give independent cold scenarios explicit
+        # namespaces inside the real SDK/MOD partition; a hot retry keeps its
+        # destination and therefore retains the same three cache directories.
+        namespace = cache_root(repo / 'SDK', mod) / 'tests' / hashlib.sha256(str(destination).encode()).hexdigest()[:10]
+        command += ['/scd:' + str(namespace / 's'), '/bcd:' + str(namespace / 'b'), '/iod:' + str(namespace / 'i')]
         tick = time.perf_counter()
         with (evidence / 'stdout.log').open('wb') as stdout, (evidence / 'stderr.log').open('wb') as stderr:
             process = subprocess.run(command, cwd=exe.parent, stdout=stdout, stderr=stderr, timeout=180)

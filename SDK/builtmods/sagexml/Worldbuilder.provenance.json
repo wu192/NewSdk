@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "sourceUrl": "https://files.cncnz.com/red_alert_3/modding/CCRA3WorldBuilder_ModSDKv112.zip",
+  "archive": {
+    "file": "WBData_12.big",
+    "bytes": 1330449436,
+    "sha256": "dc3ec9203630587047d116c9c48c023ab5a7f1ef3fd363661372d5997c9ca74d"
+  },
+  "assetCount": 15931,
+  "streamChecksum": "aad42acf",
+  "existingManifestMatchesOfficial": true,
+  "rawStreams": {
+    ".manifest": {
+      "file": "Worldbuilder.manifest",
+      "bytes": 1978623,
+      "sha256": "1f621187352425571d72a0761fa56ca11cba525b12220cca27c94345080eeedd"
+    },
+    ".bin": {
+      "file": "Worldbuilder.bin",
+      "bytes": 1308421704,
+      "sha256": "682b7c654c589a61e90eae565860497e5847e02bcee4ab303d6161ecc7280e36"
+    },
+    ".relo": {
+      "file": "Worldbuilder.relo",
+      "bytes": 19946772,
+      "sha256": "b925077947506e35a8ee2cd33e0a8929d8c71c427b320d36961ad73cbe23c6c6"
+    },
+    ".imp": {
+      "file": "Worldbuilder.imp",
+      "bytes": 102044,
+      "sha256": "ac569110c44583fd5ce462fe81db987ce0a475e9e8c4208e78a58ac346673216"
+    }
+  },
+  "packing": {
+    "format": "independent raw Deflate blocks",
+    "level": 6,
+    "blockSize": 8388608,
+    "blockCount": 156,
+    "compressedBytes": 498047426,
+    "blockSha256Meaning": "uncompressed block bytes",
+    "restoredSha256": "682b7c654c589a61e90eae565860497e5847e02bcee4ab303d6161ecc7280e36",
+    "byteExactReconstructionVerified": true
+  },
+  "sourceZip": {
+    "file": "CCRA3WorldBuilder_ModSDKv112.zip",
+    "bytes": 678150533,
+    "sha256": "797e8cfe86d3b578dbb6c20b7a274ac1786db4cb3992a2bc2e4ece8121719ffb"
+  },
+  "installer": {
+    "file": "CCRA3WorldBuilder_ModSDKv112.exe",
+    "bytes": 684968320,
+    "sha256": "f518e7aaa4550c82053863df9d37496f06c0ada9ff534341932e204c12ef0297"
+  }
+}

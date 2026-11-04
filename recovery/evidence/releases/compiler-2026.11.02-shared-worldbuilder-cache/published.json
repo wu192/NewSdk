@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "releaseId": 430700842,
+  "tag": "compiler-2026.11.02-shared-worldbuilder-cache",
+  "url": "https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.02-shared-worldbuilder-cache",
+  "draft": false,
+  "publishedAt": "2026-11-01T16:21:36Z",
+  "latestVerified": true,
+  "sourceCommit": "57c0c78375c2a41ecb206c04dd761f5d9db1adcc",
+  "sourceBranch": "fix/neutral-worldbuilder-config",
+  "acceptanceRunId": "41324686715",
+  "publicationRunId": "41325895676",
+  "sharedCachePath": "SDK/SuperCompilerCache/shared/neutral-worldbuilder",
+  "reusedAcceptedRuntimeBytes": true,
+  "autoArchiveFiles": [
+    "README.md",
+    "release-metadata.json"
+  ],
+  "assets": [
+    {
+      "id": 698839197,
+      "name": "compiler-manifest.json",
+      "bytes": 3868,
+      "digest": "sha256:fc5202ff927caa3ca428e7347147f274c14d12c0dddacee5461918e6006149d5",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.02-shared-worldbuilder-cache/compiler-manifest.json"
+    },
+    {
+      "id": 698839195,
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 2103982,
+      "digest": "sha256:28eb7d0b22c4bb3c6d160119bf1a7273c4cd193f21c57d52b93c77dfab61e0a2",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.02-shared-worldbuilder-cache/NewModCompiler-Win32-Debug.zip"
+    },
+    {
+      "id": 698839200,
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 1609756,
+      "digest": "sha256:94f9d1afb934b75840344c04381256cb1cd65eb2757bf87110f66557da099525",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.02-shared-worldbuilder-cache/NewModCompiler-Win32-Release.zip"
+    },
+    {
+      "id": 698839196,
+      "name": "release-metadata.json",
+      "bytes": 4310,
+      "digest": "sha256:e4a6722e755d2ecd82c5cb4d27eaf59a5266b690de64bf2b870a72e5233c052c",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.02-shared-worldbuilder-cache/release-metadata.json"
+    },
+    {
+      "id": 698839214,
+      "name": "SHA256SUMS.txt",
+      "bytes": 454,
+      "digest": "sha256:0604a98001e93a202ebf8792f5738040e36f42292541cb3a5fdfb3b48ccf86b3",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.02-shared-worldbuilder-cache/SHA256SUMS.txt"
+    },
+    {
+      "id": 698839194,
+      "name": "USAGE.zh-CN.md",
+      "bytes": 3622,
+      "digest": "sha256:669c26c7b632f57b16e4c70decc3d4f5b909f8c7deac2cee92f81ae72b088d2f",
+      "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.02-shared-worldbuilder-cache/USAGE.zh-CN.md"
+    }
+  ]
+}
+

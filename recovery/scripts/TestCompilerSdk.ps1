@@ -18,11 +18,11 @@ function Within([string]$Directory,[string]$Path){
     $base=[IO.Path]::GetFullPath($Directory).TrimEnd([char[]]'\/');$full=[IO.Path]::GetFullPath($Path)
     $full.Equals($base,[StringComparison]::OrdinalIgnoreCase) -or $full.StartsWith($base+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)
 }
-function Snapshot([string]$Directory){
-    $result=@{};Get-ChildItem -LiteralPath $Directory -File -Recurse|ForEach-Object{$result[[IO.Path]::GetRelativePath($Directory,$_.FullName).Replace('\','/')]=@{sha256=(Hash $_.FullName);bytes=$_.Length}};$result
+function Snapshot([string]$Directory,[string]$ExcludedOutput){
+    $result=@{};Get-ChildItem -LiteralPath $Directory -File -Recurse|Where-Object{!$ExcludedOutput -or !(Within $ExcludedOutput $_.FullName)}|ForEach-Object{$result[[IO.Path]::GetRelativePath($Directory,$_.FullName).Replace('\','/')]=@{sha256=(Hash $_.FullName);bytes=$_.Length}};$result
 }
-function Unchanged([string]$Directory,$Expected){
-    $actual=Snapshot $Directory;Need ($actual.Count -eq $Expected.Count) "Input tree file count changed: $Directory"
+function Unchanged([string]$Directory,$Expected,[string]$ExcludedOutput){
+    $actual=Snapshot $Directory $ExcludedOutput;Need ($actual.Count -eq $Expected.Count) "Input tree file count changed: $Directory"
     foreach($key in $Expected.Keys){Need ($actual.ContainsKey($key) -and $actual[$key].sha256 -ceq $Expected[$key].sha256 -and $actual[$key].bytes -eq $Expected[$key].bytes) "Input changed: $Directory/$key"}
 }
 function InvokeControlled([string]$Name,[string]$Exe,[string[]]$Arguments,[string]$Cwd,[string]$Events,[string]$CaseOut){
@@ -84,7 +84,7 @@ function VerifySdkBig([string]$Mode,$Runtime,$ModeOut,$Sdk,$Mod,$Tasks,$Original
     $bigOut=Join-Path $ModeOut 'big';New-Item -ItemType Directory -Path $bigOut|Out-Null
     $destination=Join-Path $script:short ($Mode.Substring(0,1)+'big')
     New-Item -ItemType Directory -Path $destination|Out-Null
-    $arguments=@('build','--mod',$Mod,'--sdk-root',$Sdk,'--out',$destination,'/sc:false','/bc:false',"/data:$Data","/art:$Art","/audio:$Audio")
+    $arguments=@('build','--mod',$Mod,'--sdk-root',$Sdk,'--out',$destination,'--mod-version','1.0','/sc:false','/bc:false',"/data:$Data","/art:$Art","/audio:$Audio")
     $audit=InvokeControlled ($Mode+'/big') (Join-Path $Runtime 'NewModCompiler.exe') $arguments $Runtime (Join-Path $destination 'build.events.jsonl') (Join-Path $bigOut 'process')
     Copy-Item -LiteralPath $destination -Destination (Join-Path $bigOut 'output') -Recurse
     $report=Get-Content (Join-Path $destination 'build-report.json') -Raw|ConvertFrom-Json
@@ -185,7 +185,8 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
     }
 
     $sdk=(Resolve-Path -LiteralPath (Join-Path $root 'SDK')).Path;$mod=(Resolve-Path -LiteralPath (Join-Path $sdk 'Mods/mymod')).Path
-    $sdkBefore=Snapshot $sdk;$state.sdkInputs=$sdkBefore
+    $sdkCacheOutput=Join-Path $sdk 'SuperCompilerCache'
+    $sdkBefore=Snapshot $sdk $sdkCacheOutput;$state.sdkInputs=$sdkBefore;$state.sdkOutputExclusions=@('SuperCompilerCache')
     $state.sdkGitTree=(git -C $root rev-parse HEAD:SDK).Trim();$state.modGitTree=(git -C $root rev-parse HEAD:SDK/Mods/mymod).Trim()
     Need ((Test-Path -LiteralPath (Join-Path $mod 'Data/Mod.xml')) -and (Test-Path -LiteralPath (Join-Path $sdk 'SageXml/Static.xml'))) 'Full SDK/MOD source is unavailable'
     $tasks=@(@{id='base/Mod';content='base';inputPath=(Join-Path $mod 'Data/Mod.xml')});$skipped=@()
@@ -296,14 +297,14 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
         if($modeState.looseSucceeded){$modeState.big=VerifySdkBig $mode $runtime $modeOut $sdk $mod $tasks $originals $data $art $audio;$modeState.succeeded=$true}
         Unchanged $runtime $runtimeBefore
     }
-    Unchanged $oracleTools $state.originalRuntime;Unchanged $sdk $sdkBefore;$state.inputsUnchanged=$true
+    Unchanged $oracleTools $state.originalRuntime;Unchanged $sdk $sdkBefore $sdkCacheOutput;$state.inputsUnchanged=$true
     Need (@($state.modes).Count -eq 2 -and @($state.modes|Where-Object{!$_.succeeded}).Count -eq 0) 'Complete SDK differential failed; see per-file raw comparisons in validation.json'
     $state.succeeded=$true
     $global:LASTEXITCODE=0
 } catch {$state.error=$_.Exception.ToString();throw}
 finally {
     if($sdk -and $sdkBefore){
-        try{Unchanged $sdk $sdkBefore;$state.inputsUnchanged=$true}
+        try{Unchanged $sdk $sdkBefore $sdkCacheOutput;$state.inputsUnchanged=$true}
         catch{$state.inputsUnchanged=$false;$state.succeeded=$false;$state.inputVerificationError=$_.Exception.ToString();if(!$state.error){$verificationFailure=$_}}
     }
     $env:PATH=$oldPath;foreach($key in $removedEnvironment.Keys){[Environment]::SetEnvironmentVariable($key,$removedEnvironment[$key],'Process')}

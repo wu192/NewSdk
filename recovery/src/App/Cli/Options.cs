@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web.Script.Serialization;
@@ -18,7 +19,7 @@ namespace NewModCompiler.Cli
             "mod","sdk-root","out","package-content","package-format","include-additional","mod-version","skudef-name","jobs","performance"
         };
         static readonly HashSet<string> Advanced = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-            "fix-neutral-assets","game-version","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod",
+            "fix-neutral-assets","game-root","game-version","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod",
             "ss","pc","slowclean","dr","data","art","audio","tl","log","events","report"
         };
         // These entries preserve old invocations, without introducing user modes
@@ -144,6 +145,18 @@ namespace NewModCompiler.Cli
                 if (File.Exists(preset)) LoadPreset(request.Options, preset);
             }
             foreach (var pair in commandLine) request.Options[pair.Key] = pair.Value;
+            // The shipped EXE config can set the neutral-repair default for
+            // all MODs. Project and command-line values retain precedence.
+            if (!request.Options.ContainsKey("fix-neutral-assets") || !request.Options.ContainsKey("game-root")) {
+                System.Collections.Specialized.NameValueCollection settings;
+                try { settings = ConfigurationManager.AppSettings; }
+                catch (ConfigurationErrorsException e) { throw Bad("CONFIG_INVALID", "Invalid compiler configuration: " + e.Message); }
+                string neutral = settings["fix-neutral-assets"], game = settings["game-root"];
+                if (!request.Options.ContainsKey("fix-neutral-assets") && neutral != null)
+                    Set(request.Options,"fix-neutral-assets",NormalizeValue("fix-neutral-assets",neutral),"applicationConfig");
+                if (!request.Options.ContainsKey("game-root") && !string.IsNullOrWhiteSpace(game))
+                    Set(request.Options,"game-root",FullPath(Path.IsPathRooted(game) ? game : Path.Combine(AppDomain.CurrentDomain.BaseDirectory,game)),"applicationConfig");
+            }
             Default(request,"ss","true"); Default(request,"pc","true"); Default(request,"slowclean","true");
             foreach (string key in new[] {"sc","bc","psc","csc"}) Default(request,key,"true");
             foreach (string key in new[] {"fsc","atc"}) Default(request,key,"false");
@@ -190,6 +203,7 @@ namespace NewModCompiler.Cli
                 }
             }
             request.ModVersion=request.Options["mod-version"].Value; request.GameVersion=request.Options["game-version"].Value;
+            EffectiveOption gameRoot; if(request.Options.TryGetValue("game-root",out gameRoot)) request.GameRoot=gameRoot.Value;
             EffectiveOption sku; if(request.Options.TryGetValue("skudef-name",out sku)) request.SkudefName=sku.Value;
             // Keep established task IDs, workspace names and protocol values for compatibility.
             request.AutoDetectContent = request.Options["package-content"].Value == "auto";
@@ -225,7 +239,7 @@ namespace NewModCompiler.Cli
             } catch (IOException e) { throw Bad("CLI_LOG_PATH",e.Message); }
             return path;
         }
-        static bool IsPath(string key) { return new [] {"mod","sdk-root","out","events","report","log","session-cache-directory","build-cache-directory","iod"}.Contains(key); }
+        static bool IsPath(string key) { return new [] {"mod","sdk-root","game-root","out","events","report","log","session-cache-directory","build-cache-directory","iod"}.Contains(key); }
         static string FullPath(string value) { try { return Path.GetFullPath(value); } catch (Exception e) { throw Bad("CLI_PATH", e.Message); } }
         static void LoadPreset(IDictionary<string, EffectiveOption> options, string file)
         {
@@ -234,7 +248,7 @@ namespace NewModCompiler.Cli
                 if (values == null) throw Bad("PROJECT_INVALID", "Project preset must be a JSON object.");
                 foreach (var pair in values) {
                     string key = Canonical(pair.Key);
-                    if (!new [] {"jobs","profile","sdk-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
+                    if (!new [] {"jobs","profile","sdk-root","game-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
                     if (!(pair.Value is IConvertible)) throw Bad("PROJECT_OPTION", "Project values must be scalar values: " + pair.Key);
                     string raw = Convert.ToString(pair.Value, System.Globalization.CultureInfo.InvariantCulture);
                     if (string.IsNullOrWhiteSpace(raw)) throw Bad("PROJECT_OPTION", "Project value must not be empty: " + pair.Key);
@@ -262,7 +276,8 @@ namespace NewModCompiler.Cli
             "Use --help-advanced for cache, resource-root, diagnostic and neutral-repair controls.\n";
         public const string AdvancedHelp = Help +
             "Advanced options are directly usable with build/plan; no mode switch is required.\n" +
-            "  --fix-neutral-assets=<true|false>   Default false; requires base content in BIG and existing extracted reference streams, including Worldbuilder.\n" +
+            "  --fix-neutral-assets=<true|false>   Default false; also configurable in MOD/newmodcompiler.json or EXE.config appSettings. Requires base content in BIG; missing Worldbuilder streams are obtained from the registered game's Data/WBData_12.big.\n" +
+            "  --game-root <directory>            Optional game install directory; overrides automatic registry discovery for neutral repair. Also supported in project JSON and EXE appSettings.\n" +
             "  --game-version <version>           Default 1.12; changes only the SKUDEF field.\n" +
             "Cache: /sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false; each accepts true|false. SDK buildCache config can override the default /bc.\n" +
             "Caches: <sdk-root>/SuperCompilerCache/<ModKey>. /scd:<directory> (/scp alias), /bcd:<directory> (/bcp alias), /iod:<directory> must stay inside that MOD partition.\n" +

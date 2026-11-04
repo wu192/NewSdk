@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "repository": "wu162/NewSdk",
+  "binarySourceCommit": "a75840ef7d0351cedc11c91b1b4510d295b911a7",
+  "sourceBranch": "release/compiler-2026.11.01-harness",
+  "runId": "41300821811",
+  "binaryBuildRunId": "41299605157",
+  "componentEvidenceRunId": "41299605157",
+  "cliEvidenceRunId": "41300380253",
+  "testSourceCommit": "6c098c0c240ae6a29ec2ea3688e53a39cd906f32",
+  "publicationStatus": "awaiting-user-confirmation; no release or tag created",
+  "scope": "Joypad parallelism: 11 roots, 34 runtime Data branches in the component matrix, 29 schema choices in a 45-asset MOD. Actual worker overlap, jobs1/4/auto, hot-cache output changes, single-asset edit, original SDK and extracted runtime parity.",
+  "largeModCompilationPerformed": false,
+  "fullSdkCompilationPerformed": false,
+  "knownLimits": "No new large MOD, complete mymod, game runtime or performance benchmark acceptance; unchanged native layout/parser evidence retains its original source/run provenance.",
+  "checks": {
+    "componentPlatforms": [
+      0,
+      1,
+      2,
+      99
+    ],
+    "certifiedMetadataRoutes": 295,
+    "complexInputsPerPlatform": 89,
+    "originalSdkSmallMod": true,
+    "productionCliCancellation": true,
+    "packagedJoypadWorkers": true,
+    "rawBytesEqual": true,
+    "archiveCrc": true,
+    "archiveAndFileSha256": true,
+    "sourceFilesIncluded": false
+  },
+  "packages": [
+    {
+      "configuration": "Debug",
+      "archive": {
+        "bytes": 2191493,
+        "name": "NewModCompiler-Win32-Debug.zip",
+        "sha256": "8c1b84505185d877a40bc8e7401a3b8335fbb04e7d0880e25017f94f0bc1506e"
+      },
+      "files": [
+        {
+          "bytes": 7706112,
+          "name": "NewModCompiler.exe",
+          "sha256": "3a89db8d22c46dba2435dd075f86d0ebe8fa75a3cc7c0c41e58d68c80997adee"
+        },
+        {
+          "bytes": 201,
+          "name": "NewModCompiler.exe.config",
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        {
+          "bytes": 99328,
+          "name": "antlr.runtime.dll",
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "toolchain": {
+        "windowsSdkVersion": "10.0.26100.0\\",
+        "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1",
+        "vcToolsVersion": "14.44.35207"
+      }
+    },
+    {
+      "configuration": "Release",
+      "archive": {
+        "bytes": 1655147,
+        "name": "NewModCompiler-Win32-Release.zip",
+        "sha256": "1ac1e6fac89aeab0e12035b7894760c2ac243fef17506c9f7f40f3acde8d18e6"
+      },
+      "files": [
+        {
+          "bytes": 5006336,
+          "name": "NewModCompiler.exe",
+          "sha256": "2bc946ca5cb6530c4f3d4731779cfe569ff3cd8191ae6e18aee20f9429196b56"
+        },
+        {
+          "bytes": 201,
+          "name": "NewModCompiler.exe.config",
+          "sha256": "94eedb0cd0150b90c8115aaee53f64ab0523b39bd67887991b1b62679a752e68"
+        },
+        {
+          "bytes": 99328,
+          "name": "antlr.runtime.dll",
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "toolchain": {
+        "windowsSdkVersion": "10.0.26100.0\\",
+        "compiler": "Microsoft.Net.Compilers.Toolset/4.0.1",
+        "vcToolsVersion": "14.44.35207"
+      }
+    }
+  ],
+  "reviewArtifact": {
+    "id": 13081475771,
+    "url": "https://github.com/wu162/NewSdk/actions/runs/41300821811/artifacts/13081475771",
+    "bytes": 3797183,
+    "sha256": "376e4273296ce7ce408e0fabe13e7ba504eec82918a30bdbdebe526bef6d1466",
+    "downloadedAndReverified": true
+  }
+}

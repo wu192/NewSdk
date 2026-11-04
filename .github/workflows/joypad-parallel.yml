@@ -1,0 +1,204 @@
+name: Joypad workers and small runtime package
+on:
+  push:
+    branches: [release/compiler-2026.11.01-harness]
+    paths:
+      - '.github/workflows/joypad-parallel.yml'
+      - 'recovery/src/App/Application/XmlBackendCertification.cs'
+      - 'recovery/tests/CompilerXmlBackendBatch.cs'
+      - 'recovery/scripts/TestJoypadParallel.py'
+      - 'recovery/scripts/PackageJoypadReview.py'
+  workflow_dispatch:
+    inputs:
+      reuse_run_id:
+        description: 'Optional previous run from this workflow with unchanged production inputs'
+        type: string
+        default: ''
+      cli_acceptance_run_id:
+        description: 'Optional independently passed CLI acceptance with unchanged scripts and runtime'
+        type: string
+        default: ''
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: joypad-parallel-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  small-validation:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[joypad-build]')
+    runs-on: windows-2022
+    timeout-minutes: 30
+    env:
+      COMPILER_TEST_SOURCE_COMMIT: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+            !/recovery/decompiled/
+      - uses: actions/download-artifact@v4
+        if: ${{ inputs.reuse_run_id != '' }}
+        with:
+          name: joypad-parallel-evidence-${{ inputs.reuse_run_id }}-1
+          run-id: ${{ inputs.reuse_run_id }}
+          github-token: ${{ github.token }}
+          path: work/reused
+      - uses: actions/download-artifact@v4
+        if: ${{ inputs.cli_acceptance_run_id != '' }}
+        with:
+          name: joypad-parallel-evidence-${{ inputs.cli_acceptance_run_id }}-1
+          run-id: ${{ inputs.cli_acceptance_run_id }}
+          github-token: ${{ github.token }}
+          path: work/cli-reused
+      - name: Select fresh source or strictly unchanged production runtime
+        shell: pwsh
+        env:
+          REUSE_RUN: ${{ inputs.reuse_run_id }}
+        run: |
+          if($env:REUSE_RUN){
+            $source='work/reused/artifacts/joypad-parallel-product'
+            $receipt=Get-Content "$source/Release/build.json" -Raw|ConvertFrom-Json
+            git merge-base --is-ancestor $receipt.sourceCommit HEAD
+            if($LASTEXITCODE -ne 0){throw 'Reused production source is not an ancestor'}
+            git diff --exit-code $receipt.sourceCommit HEAD -- recovery/src SDK ui recovery/build 'recovery/scripts/Build*.ps1' recovery/scripts/RestoreUiDependencies.ps1
+            if($LASTEXITCODE -ne 0){throw 'Production inputs changed; fresh product build required'}
+            git checkout --detach $receipt.sourceCommit
+            if($LASTEXITCODE -ne 0){throw 'Cannot select exact binary source'}
+            git restore --source=$env:COMPILER_TEST_SOURCE_COMMIT -- recovery/scripts recovery/tests .github
+            if($LASTEXITCODE -ne 0){throw 'Cannot select current acceptance scripts'}
+            New-Item -ItemType Directory -Force recovery/artifacts|Out-Null
+            Copy-Item $source recovery/artifacts/ -Recurse
+            foreach($mode in @('Debug','Release')){
+              $product="recovery/artifacts/joypad-parallel-product/$mode"
+              $build=Get-Content "$product/build.json" -Raw|ConvertFrom-Json
+              if($build.sourceCommit -cne $receipt.sourceCommit -or $build.configuration -cne $mode -or (Get-FileHash "$product/bin/NewModCompiler.exe" -Algorithm SHA256).Hash.ToLowerInvariant() -cne $build.exeSha256){throw 'Reused production identity differs'}
+            }
+            "BINARY_BUILD_RUN=$env:REUSE_RUN"|Add-Content $env:GITHUB_ENV
+            $componentPath="work/reused/evidence/joypad-parallel/$env:REUSE_RUN-1/component"
+            if(Test-Path "$componentPath/validation.json"){
+              $component=Get-Content "$componentPath/validation.json" -Raw|ConvertFrom-Json
+              $reuseComponent=($component.succeeded -and $component.sourceCommit -ceq $receipt.sourceCommit -and $component.modes.Count -eq 2 -and $component.runnerSha256 -ceq (Get-FileHash recovery/scripts/TestCompilerCoreLifecycle.ps1 -Algorithm SHA256).Hash.ToLowerInvariant())
+              foreach($fixture in $component.fixtures){if($fixture.sha256 -cne (Get-FileHash $fixture.path -Algorithm SHA256).Hash.ToLowerInvariant()){$reuseComponent=$false}}
+              foreach($mode in $component.modes){if(!$mode.passed){$reuseComponent=$false}}
+              if($reuseComponent){
+                $destination="recovery/evidence/joypad-parallel/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+                New-Item -ItemType Directory -Force $destination|Out-Null
+                Copy-Item $componentPath $destination -Recurse
+                "REUSE_COMPONENT=true"|Add-Content $env:GITHUB_ENV
+              }
+            }
+          }
+          "BINARY_SOURCE=$((git rev-parse HEAD).Trim())"|Add-Content $env:GITHUB_ENV
+          "EVIDENCE_ROOT=recovery/evidence/joypad-parallel/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"|Add-Content $env:GITHUB_ENV
+          "PACKAGE_ROOT=recovery/artifacts/joypad-parallel-packages/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"|Add-Content $env:GITHUB_ENV
+      - name: Require actual independent CLI success before reusing its receipt
+        if: ${{ inputs.cli_acceptance_run_id != '' }}
+        shell: pwsh
+        env:
+          CLI_RUN: ${{ inputs.cli_acceptance_run_id }}
+        run: |
+          $source="work/cli-reused/evidence/joypad-parallel/$env:CLI_RUN-1/cli"
+          $cli=Get-Content "$source/validation.json" -Raw|ConvertFrom-Json
+          if(!$cli.succeeded -or $cli.sourceCommit -cne $env:BINARY_SOURCE -or $cli.modes.Count -ne 2 -or $cli.scriptSha256 -cne (Get-FileHash recovery/scripts/TestCompilerCli.ps1 -Algorithm SHA256).Hash.ToLowerInvariant() -or $cli.controllerSourceSha256 -cne (Get-FileHash recovery/tests/CompilerCliControl.cs -Algorithm SHA256).Hash.ToLowerInvariant()){throw 'Independent CLI receipt source or script differs'}
+          foreach($mode in $cli.modes){
+            $build=Get-Content "recovery/artifacts/joypad-parallel-product/$($mode.configuration)/build.json" -Raw|ConvertFrom-Json
+            if(!$mode.passed -or $mode.exeSha256 -cne $build.exeSha256){throw 'Independent CLI executable or success differs'}
+          }
+          New-Item -ItemType Directory -Force $env:EVIDENCE_ROOT|Out-Null
+          Copy-Item $source $env:EVIDENCE_ROOT -Recurse
+          "REUSE_CLI=true"|Add-Content $env:GITHUB_ENV
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: ${{ inputs.reuse_run_id == '' }}
+        with:
+          arch: x86
+      - name: Cheap script and 43-asset fixture checks before native compilation
+        shell: pwsh
+        run: |
+          python -m pip install -r recovery/probes/TextureRedirect/requirements.txt -r recovery/scripts/app-protocol-requirements.txt lxml==6.0.2
+          if($LASTEXITCODE -ne 0){throw 'Pinned acceptance dependencies failed'}
+          python -m py_compile recovery/scripts/TestJoypadParallel.py recovery/scripts/PackageJoypadReview.py recovery/scripts/PrepareJoypadFixtures.py
+          if($LASTEXITCODE -ne 0){throw 'Python script syntax failed'}
+          foreach($script in @('TestCompilerCoreLifecycle.ps1','TestCompilerCli.ps1','TestCompilerBackendBaseline.ps1','PublishCompiler.ps1')){
+            $tokens=$null;$errors=$null
+            [Management.Automation.Language.Parser]::ParseFile((Resolve-Path "recovery/scripts/$script"),[ref]$tokens,[ref]$errors)|Out-Null
+            if($errors.Count){throw ($errors|Out-String)}
+          }
+          python recovery/scripts/PrepareJoypadFixtures.py --output recovery/artifacts/joypad-parallel-fixtures
+          if($LASTEXITCODE -ne 0){throw 'Small Joypad fixture generation failed'}
+          "NEWSDK_JOYPAD_BACKEND_CASES=$((Resolve-Path recovery/artifacts/joypad-parallel-fixtures/cases.json).Path)"|Add-Content $env:GITHUB_ENV
+          python recovery/scripts/TestJoypadParallel.py --repo . --products recovery/artifacts/joypad-parallel-product --fixtures recovery/artifacts/joypad-parallel-fixtures --work "$env:RUNNER_TEMP/joypad-fixture-preflight" --output "$env:EVIDENCE_ROOT/preflight" --source-commit $env:BINARY_SOURCE --prepare-only
+          if($LASTEXITCODE -ne 0){throw '45-asset source-XSD fixture preflight failed before product compilation'}
+      - name: Build only the two compiler products needed for repackaging
+        if: ${{ inputs.reuse_run_id == '' }}
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')){
+            ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/joypad-parallel-product/$mode"
+            ./recovery/scripts/BuildCompilerValidationHost.ps1 -ProductBuildDirectory "recovery/artifacts/joypad-parallel-product/$mode" -OutputDirectory "recovery/artifacts/joypad-parallel-product/$mode/validation"
+          }
+      - name: Prepared worker contracts and four-platform 295-route matrix plus 89 Joypad inputs
+        if: ${{ env.REUSE_COMPONENT != 'true' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/joypad-parallel-product -FixtureNames @('CompilerPreparedBackend','CompilerXmlBackendBatch') -OutputDirectory "$env:EVIDENCE_ROOT/component"
+      - name: Small 45-asset real Joypad CLI worker and cache matrix
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestJoypadParallel.py --repo . --products recovery/artifacts/joypad-parallel-product --fixtures recovery/artifacts/joypad-parallel-fixtures --work "$env:RUNNER_TEMP/joypad-source" --output "$env:EVIDENCE_ROOT/production" --source-commit $env:BINARY_SOURCE
+          if($LASTEXITCODE -ne 0){throw 'Small Joypad worker/cache matrix failed'}
+      - name: Compare only this small Joypad MOD against original SDK four-stream bytes
+        if: ${{ !cancelled() }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerBackendBaseline.ps1 -FixtureResult "$env:EVIDENCE_ROOT/production/original-fixture.json" -OutputDirectory "$env:EVIDENCE_ROOT/original-baseline" -ExpectedCaseCount 1
+      - name: Existing small production CLI and real cancellation contracts
+        if: ${{ !cancelled() && env.REUSE_CLI != 'true' }}
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerCli.ps1 -CompilerDirectory recovery/artifacts/joypad-parallel-product -OutputDirectory "$env:EVIDENCE_ROOT/cli"
+      - name: Check actual CLI protocol and prepare independently extracted three-file ZIPs
+        if: ${{ success() }}
+        shell: pwsh
+        run: |
+          python recovery/scripts/ValidateAppProtocol.py "$env:EVIDENCE_ROOT/cli" --source-commit $env:BINARY_SOURCE --output "$env:EVIDENCE_ROOT/cli/protocol.json"
+          if($LASTEXITCODE -ne 0){throw 'CLI protocol validation failed'}
+          ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/joypad-parallel-product -AcceptanceReceipt "$env:EVIDENCE_ROOT/cli/validation.json" -OutputDirectory $env:PACKAGE_ROOT
+          if($LASTEXITCODE -ne 0){throw 'Small independent runtime ZIP deployment failed'}
+          foreach($mode in @('Debug','Release')){
+            $product="recovery/artifacts/joypad-packaged-product/$mode"
+            New-Item -ItemType Directory -Force "$product/bin"|Out-Null
+            Expand-Archive "$env:PACKAGE_ROOT/NewModCompiler-Win32-$mode.zip" "$product/bin"
+            Copy-Item "recovery/artifacts/joypad-parallel-product/$mode/build.json" $product
+          }
+      - name: Run the same small Joypad checks from the exact extracted ZIP bytes
+        if: ${{ success() }}
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestJoypadParallel.py --repo . --products recovery/artifacts/joypad-packaged-product --fixtures recovery/artifacts/joypad-parallel-fixtures --work "$env:RUNNER_TEMP/joypad-packaged" --output "$env:EVIDENCE_ROOT/packaged" --source-commit $env:BINARY_SOURCE --packaged --reference "$env:EVIDENCE_ROOT/production/validation.json"
+          if($LASTEXITCODE -ne 0){throw 'Extracted Joypad ZIP worker acceptance failed'}
+          python recovery/scripts/PackageJoypadReview.py --products recovery/artifacts/joypad-parallel-product --packages $env:PACKAGE_ROOT --evidence $env:EVIDENCE_ROOT --output recovery/artifacts/joypad-parallel-review --source-commit $env:BINARY_SOURCE
+          if($LASTEXITCODE -ne 0){throw 'Source-free review package identity audit failed'}
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: NewModCompiler-2026.11.01-joypad-review
+          path: recovery/artifacts/joypad-parallel-review/*
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: joypad-parallel-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/evidence/joypad-parallel/${{ github.run_id }}-${{ github.run_attempt }}/**
+            recovery/artifacts/joypad-parallel-product/**/build.json
+            recovery/artifacts/joypad-parallel-product/**/link-inputs.json
+            recovery/artifacts/joypad-parallel-product/**/bin/*
+            recovery/artifacts/joypad-parallel-product/**/*.log
+            recovery/artifacts/joypad-parallel-packages/**
+          if-no-files-found: error

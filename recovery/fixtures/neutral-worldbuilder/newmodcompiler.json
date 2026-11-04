@@ -1,0 +1,6 @@
+{
+  "package-content": "base",
+  "package-format": "big",
+  "include-additional": false,
+  "fix-neutral-assets": true
+}

@@ -12,6 +12,7 @@ import subprocess
 import time
 from MeasureCompilerModScale import prepare, sha, comparison_key, write
 from BenchmarkCompilerCache import process_metrics
+from CompilerCachePaths import cache_root
 
 
 def need(value, message):
@@ -63,7 +64,9 @@ def run(args):
         if phase == 'diagnostic':
             destination = work / 'outputs' / ('diagnostic-'+str(jobs))
         command = [str(exe), 'build', '--sdk-root', str(repo / 'SDK'), '--mod', str(mod), '--out', str(destination),
-                   '--jobs', str(jobs), '--performance', performance]
+                   '--jobs', str(jobs), '--performance', performance, '--mod-version', '1.0']
+        namespace = cache_root(repo / 'SDK', mod) / 'tests' / __import__('hashlib').sha256(str(destination).encode()).hexdigest()[:10]
+        command += ['/scd:' + str(namespace / 's'), '/bcd:' + str(namespace / 'b'), '/iod:' + str(namespace / 'i')]
         if not cache:
             command += ['--sc=false', '--bc=false']
         row = {'label': label, 'jobs': str(jobs), 'legacyCaches': cache, 'phase': phase,

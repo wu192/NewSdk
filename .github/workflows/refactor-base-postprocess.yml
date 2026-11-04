@@ -7,6 +7,7 @@ on:
       - 'recovery/preparation/base-postprocess/**'
       - 'recovery/src/App/Application/HashFix.cs'
       - 'recovery/src/App/Application/ModAssetResolver.cs'
+      - 'recovery/src/App/Application/WorldbuilderPayload.cs'
       - 'recovery/src/App/Application/LoDStreamBuilder.cs'
   workflow_dispatch:
 permissions:
@@ -32,7 +33,7 @@ jobs:
           foreach($mode in @('Debug','Release')) {
             $out="recovery/artifacts/base-postprocess/$mode";New-Item -ItemType Directory -Force $out|Out-Null
             $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
-            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/BasePostprocessControl.exe" recovery/src/App/Application/HashFix.cs recovery/src/App/Application/ModAssetResolver.cs recovery/src/App/Application/LoDStreamBuilder.cs recovery/preparation/base-postprocess/BasePostprocessControl.cs
+            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 /r:System.Web.Extensions.dll $opt "/out:$out/BasePostprocessControl.exe" recovery/src/App/Application/HashFix.cs recovery/src/App/Application/ModAssetResolver.cs recovery/src/App/Application/WorldbuilderPayload.cs recovery/src/App/Application/LoDStreamBuilder.cs recovery/preparation/base-postprocess/BasePostprocessControl.cs
             if($LASTEXITCODE -ne 0){throw 'Base postprocess validation host compilation failed'}
             python recovery/preparation/base-postprocess/TestCompilerBasePostprocess.py --tools SDK/tools --candidate "$out/BasePostprocessControl.exe" --output "$out/evidence"
             if($LASTEXITCODE -ne 0){$failed+=$mode}

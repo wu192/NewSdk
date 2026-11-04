@@ -6,9 +6,11 @@
 
 `--jobs auto|<正整数>` 默认 auto，表示 CPU 和当前 Win32 可用内存共同约束的 worker 上限；`--jobs 1` 保留 owner 串行对照，`--jobs 4` 允许最多四个已认证后端任务。`plan`、`build` 和 `newmodcompiler.json` 的 `"jobs": "auto"` 或整数均支持。修改 jobs 不改变原缓存身份。
 
-并行路由包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、284 个认证 XML metadata TypeId、四类 APT，以及本轮接入的 `Texture`、`OnDemandTexture`、`TerrainTextureAtlas`。纹理在 owner 准备只读输入租约并按图像尺寸、DDS 长度或图集工作量计入预算，解码和编码在 worker 执行；S3 临时状态与懒初始化表按线程隔离。资源不足、输入租约失败、纹理头无法识别、APT 非 ASCII 路径或未认证后端回到 owner。Core XML 前端、验证、缓存、诊断与输出提交保持 owner 顺序。源码 `8fe12ca9b` 已通过 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 的 Debug/Release 实际四 worker、原元数据完整转录、组件、缓存、完整 mymod、独立 ZIP 及 Upheaval 22 样本验收；[常见格式与16个CLI用例收据](evidence/texture/plugin-validation/41185772818-1/common-summary.json)已入库。
+并行路由包括 GameObject、WeaponTemplate、ArmorTemplate、W3DAnimation/W3DMesh、精确内建编码器的 NONE/XAS AudioFile（无显式 PCSampleRate）、MP3 passthrough、295 个认证 XML metadata TypeId（含 11 个 Joypad 独立根）、四类 APT，以及本轮接入的 `Texture`、`OnDemandTexture`、`TerrainTextureAtlas`。纹理在 owner 准备只读输入租约并按图像尺寸、DDS 长度或图集工作量计入预算，解码和编码在 worker 执行；S3 临时状态与懒初始化表按线程隔离。资源不足、输入租约失败、纹理头无法识别、APT 非 ASCII 路径或未认证后端回到 owner。Core XML 前端、验证、缓存、诊断与输出提交保持 owner 顺序。源码 `8fe12ca9b` 已通过 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 的 Debug/Release 实际四 worker、原元数据完整转录、组件、缓存、完整 mymod、独立 ZIP 及 Upheaval 22 样本验收；[常见格式与16个CLI用例收据](evidence/texture/plugin-validation/41185772818-1/common-summary.json)已入库。
 
 默认 `/sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false` 不变，Texture 继续使用原 BAB 缓存格式，目录统一位于当前 SDK 的 MOD 专属分区，插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。工具不会因切换实现自动清理缓存或更换身份；BC1 编码字节可能与既有产物不同，切换时应在无构建运行时清理当前 MOD 的缓存分区。无需关闭 SessionCache 来使用多 worker。`--sc=false --bc=false --jobs 1|4` 可作纯冷态吞吐对照。没有新增动作缓存、额外持久结果或文件哈希体系。
+
+Joypad 新并行范围见 [Joypad 说明](docs/components/xml/XML_JOYPAD.md)。本次只验证定向组件与 45 资产小 MOD，源运行目录和独立三文件 ZIP 的 jobs1/4/auto、缓存、编辑和原 SDK 四流对照已通过；没有运行大型 MOD 或全量 SDK 编译。上述 `8fe12ca9b` 的纹理/完整 MOD 结果为历史证据，未冒充本轮重测。Joypad 并行包已按用户明确批准发布：[2026.11.01 Release](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01)。
 
 ## 1. 安装与检查
 
@@ -126,7 +128,35 @@ SDK 和输出路径可由项目提供；BIG `build`/`plan` 仍须每次在命令
 
 `--game-version` 默认 `1.12`，只控制 SKUDEF 的 `mod-game` 字段，不改变资产编译，也不代表已验证其他游戏版本的实际运行。
 
-`--fix-neutral-assets=false` 为默认值，不执行中立修复。显式 `--fix-neutral-assets=true` 仅限包含 base 的 BIG，仍沿用 `HashFix → ModAssetResolver`：预检已有参考文件，复制私有四流，修正后再生成 LoD。缺少 Worldbuilder 等参考文件时报告 `PACKAGE_NEUTRAL_REFERENCE_MISSING`。本工具不下载或提取 WBData，也不新增自动修复；已有组件差分及生产零插入链证据不能当作完整游戏中立资产验收。
+`--fix-neutral-assets=false` 为出厂默认值。启用后仅用于包含 base 的 BIG，依次执行 `HashFix → ModAssetResolver → LoD`，修正中立/地编资产身份，并递归补入 MOD 引用的 Worldbuilder 资产。修改在本轮打包私有副本中完成。缺少参考文件报告 `PACKAGE_NEUTRAL_REFERENCE_MISSING`。
+
+在 MOD 目录的 `newmodcompiler.json` 中保存：
+
+```json
+{
+  "package-format": "big",
+  "fix-neutral-assets": true
+}
+```
+
+也可以修改编译器旁的 `NewModCompiler.exe.config`，让全部 MOD 默认启用：
+
+```xml
+<appSettings>
+  <add key="fix-neutral-assets" value="true"/>
+</appSettings>
+```
+
+修改现有 `<configuration>` 内的 `appSettings`，保留其 `startup` 节点。优先级为命令行 > MOD 项目 JSON > EXE 配置 > false；例如 `--fix-neutral-assets=false` 可临时关闭配置中启用的修复。BIG 仍要求命令行显式传入 `--mod-version`。
+
+启用后，缺少完整 Worldbuilder 参考流时按老 SDK 方式查询注册表游戏安装目录，自动读取 `Data/WBData_12.big`。
+该文件由 SDK 地编安装到游戏目录，普通游戏不保证自带。提取结果进入 `SDK/SuperCompilerCache/shared/neutral-worldbuilder/`，同一SDK下的所有Mod共用一份，游戏和SDK输入保持只读；后续构建复用缓存。
+首次使用时会迁入当前Mod的有效旧地编缓存；共享副本已存在时会清理当前Mod的同来源有效旧副本。其它Mod遗留副本在它们下次使用时处理，不扫描删除其它分区。
+完整的已有参考四流或分块包继续兼容，日常使用无需另下载500MB参考包。
+
+便携游戏或注册表未登记时，可在 CLI 使用 `--game-root C:\Games\RedAlert3`，或在 MOD JSON / EXE appSettings 中设置 `game-root`。
+CLI > 项目 JSON > EXE 配置；JSON相对路径以MOD目录为准，EXE配置相对路径以编译器目录为准，EXE配置空值表示自动发现。
+显式游戏路径优先于旧参考输入。目录和验证边界见 [中立地编修复说明](docs/NEUTRAL_WORLDBUILDER.md)。未启用时不读取或提取地编数据。
 
 ### 缓存与资源根
 
@@ -141,7 +171,7 @@ SDK 和输出路径可由项目提供；BIG `build`/`plan` 仍须每次在命令
 
 `/sc` 按原文档、文件依赖、定义和继承复用解析与中间结果；`/bc` 按原类型/实例哈希复用资产，包括三种 Texture 路由。修改、新增、删除 MOD 输入均交由原 Core 判断，不再将整个 SDK/MOD 内容指纹作为冷失效开关。四流按原清单/流校验和原地复用；BIG 每次重新打包。
 
-`/csc:false` 使用原 `BinaryAssetBuilder.SessionCache.xml`，true 使用 `.xml.deflate`。全部缓存和编译工作文件统一放在传入 SDK 的 `SuperCompilerCache/<ModKey>/`：会话为 `session`，资产为 `build-cache`，中间资产为 `intermediate`，可复用四流为 `streams`。`/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod` 及项目预设中的对应值仅能指定当前分区内部目录，超界以 `CLI_CACHE_PATH` 拒绝。会话格式和会话根 `.NewModCompiler/cdata` 的恢复逻辑保留；旧 `--out` 下的缓存不读取、不迁移或自动删除。布局与路径边界见 [集中缓存说明](docs/SUPERCOMPILER_CACHE.md)。
+`/csc:false` 使用原 `BinaryAssetBuilder.SessionCache.xml`，true 使用 `.xml.deflate`。MOD缓存和编译工作文件放在传入 SDK 的 `SuperCompilerCache/<ModKey>/`：会话为 `session`，资产为 `build-cache`，中间资产为 `intermediate`，可复用四流为 `streams`。`/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod` 及项目预设中的对应值仅能指定当前分区内部目录，超界以 `CLI_CACHE_PATH` 拒绝。会话格式和会话根 `.NewModCompiler/cdata` 的恢复逻辑保留；旧 `--out` 下的缓存不读取、不迁移或自动删除。布局与路径边界见 [集中缓存说明](docs/SUPERCOMPILER_CACHE.md)。
 
 同一个物理 MOD 更换 `--out` 或版本仍使用同一缓存分区；同名但路径不同的 MOD 各自隔离。切换原 DLL 与源码纹理实现时，原版本与 ProcessingHash 保持不变，既有 BC1 产物可能直接命中；需要冷缓存时，应在无构建运行时清理当前 MOD 分区。更换输出目录不再清空缓存。构建器不引入额外指纹、缓存代次或自动清理。
 

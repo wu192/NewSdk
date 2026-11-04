@@ -3,9 +3,9 @@
   "sourceCommit": "c807fd1bd13f902bd659d2112dfd3c91fcf66c71",
   "scope": "Closed source certification of all existing XML modules; not runtime acceptance. No type added in future is implicitly certified.",
   "summary": {
-    "builtinXmlRoutes": 289,
-    "metadataCertifiedRoutes": 284,
-    "metadataCertifiedFamilies": 62,
+    "builtinXmlRoutes": 300,
+    "metadataCertifiedRoutes": 295,
+    "metadataCertifiedFamilies": 63,
     "existingAptClosedReadRoutes": 4,
     "retainedOwnerRoutes": [
       {
@@ -13,7 +13,22 @@
         "typeId": 2826773070
       }
     ],
-    "overallParallelQualifiedXmlRoutes": 288
+    "overallParallelQualifiedXmlRoutes": 299
+  },
+  "joypadAudit": {
+    "sourceCommit": "e2e4ae3d1e63198b0274307afde510344d39f78d",
+    "family": "Xmljoypad",
+    "status": "source-certified",
+    "scope": "Explicit eleven-root extension to the historical audit; no new root IDs are implicitly certified.",
+    "nativeSources": ["recovery/src/Native/Xmljoypad.cpp", "recovery/src/Native/XmljoypadLayouts.inc"],
+    "bridgeSource": "recovery/src/Bridge/XmljoypadCompiler.cpp",
+    "safeTypeIds": [1276968974, 1546953756, 1654297531, 1804891371, 1887864852, 1931769760, 2170044043, 2742786440, 3423839194, 3645205636, 3901433122],
+    "externalReads": false,
+    "globalHashRegistration": false,
+    "sharedState": "Root, payload and enum layouts are const. The initialized plugin platform is read-only; optional plugin success/failure trace writes hold TraceGate.",
+    "callLocalState": "Bridge Read builds native node/attribute/child storage per call. Native CompileXmljoypad owns Builder, Tracker, endian-word and ObjectFilter lists. Relocation, scalar parsing, enum bitsets and resource marshaling use caller-owned storage.",
+    "allocation": "Fixed root/payload sizes and DOM child/string counts bound output and scratch growth; parsed numeric fields do not control allocation counts. Existing preparation budget and owner-only commit remain in force.",
+    "runtimeEvidence": "Component run 41299605157 passed four platforms, 295 registry routes and 89 complex Joypad inputs per platform in Debug/Release. Final run 41300821811 accepted real worker overlap, jobs/cache/edit raw parity, original SDK comparison on a 45-asset MOD and exact ZIP runtime; no large MOD or full SDK compilation. Binary source a75840ef7d0351cedc11c91b1b4510d295b911a7; test source 6c098c0c240ae6a29ec2ea3688e53a39cd906f32. See components/xml/XML_JOYPAD.md; prior failed aggregate conclusions retained."
   },
   "amAudit": {
     "sourceCommit": "c807fd1bd13f902bd659d2112dfd3c91fcf66c71",

@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "repository": "wu162/NewSdk",
+  "releaseId": 430534056,
+  "tag": "compiler-2026.11.01",
+  "url": "https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01",
+  "publishedAt": "2026-11-01T11:25:12Z",
+  "draft": false,
+  "prerelease": false,
+  "latestVerified": true,
+  "publicationRunId": "41301776942",
+  "binarySourceCommit": "a75840ef7d0351cedc11c91b1b4510d295b911a7",
+  "binaryBuildRunId": "41299605157",
+  "acceptanceRunId": "41300821811",
+  "tagCommit": "31ce106c90b90416855187768b22313dc1ad610c",
+  "approvedRuntimeZipsUnchanged": true,
+  "autoArchiveFiles": [
+    "README.md",
+    "release-metadata.json"
+  ],
+  "autoArchiveDigests": {
+    "automatic-source.zip": "a45fb7c1800a4e1732288ad0a475e3e01637b0a77fbec4eccbbb709b229e5818",
+    "automatic-source.tar.gz": "dda5865e787487ea4f4870cf369653010152d1c6b125aa82c2c5c4c6380ac86c"
+  },
+  "assets": [
+    {
+      "id": 698136173,
+      "name": "NewModCompiler-Win32-Debug.manifest.json",
+      "size": 3632,
+      "digest": "sha256:d9c9417f8c0938edab68c381bae781f36899913db3389174a365b6869b2d278c",
+      "browser_download_url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01/NewModCompiler-Win32-Debug.manifest.json"
+    },
+    {
+      "id": 698136207,
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "size": 2191493,
+      "digest": "sha256:8c1b84505185d877a40bc8e7401a3b8335fbb04e7d0880e25017f94f0bc1506e",
+      "browser_download_url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01/NewModCompiler-Win32-Debug.zip"
+    },
+    {
+      "id": 698136250,
+      "name": "NewModCompiler-Win32-Release.manifest.json",
+      "size": 3636,
+      "digest": "sha256:7285cbf8d093986252e5cc527942e4e0d00bfd59b9b4ae86273ed633371b1eea",
+      "browser_download_url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01/NewModCompiler-Win32-Release.manifest.json"
+    },
+    {
+      "id": 698136286,
+      "name": "NewModCompiler-Win32-Release.zip",
+      "size": 1655147,
+      "digest": "sha256:1ac1e6fac89aeab0e12035b7894760c2ac243fef17506c9f7f40f3acde8d18e6",
+      "browser_download_url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01/NewModCompiler-Win32-Release.zip"
+    },
+    {
+      "id": 698136348,
+      "name": "release-metadata.json",
+      "size": 4124,
+      "digest": "sha256:2e877c96e4a8bacf110ab0992f888343986c632b1a57160c3f205f88edbc5c6e",
+      "browser_download_url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01/release-metadata.json"
+    },
+    {
+      "id": 698136303,
+      "name": "SHA256SUMS.txt",
+      "size": 581,
+      "digest": "sha256:dd1d042253ccaed0ac7cb42798ae2e1aefb50059eda3c8fbc5fea93973914288",
+      "browser_download_url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01/SHA256SUMS.txt"
+    },
+    {
+      "id": 698136323,
+      "name": "USAGE.zh-CN.md",
+      "size": 1088,
+      "digest": "sha256:440d5a07fc10eea9395e999cad93f29c1b1902b57f86090d2e304e552d409236",
+      "browser_download_url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01/USAGE.zh-CN.md"
+    }
+  ]
+}

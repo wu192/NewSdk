@@ -4,7 +4,8 @@ using System.Collections.Generic;
 namespace NewModCompiler.Application
 {
     // Closed, module-wide source certification at c807fd1b. See the full
-    // XML_BACKEND_REENTRY.json audit. New route IDs are owner-only until
+    // XML_BACKEND_REENTRY.json audit, including the later Joypad source audit.
+    // New route IDs are owner-only until
     // their module read/write and allocation contracts are explicitly reviewed.
     // This registry is not generated from live routes at runtime. APT leases
     // remain separate; TestTexture external reads are deliberately excluded.
@@ -71,6 +72,9 @@ namespace NewModCompiler.Application
             Add(result, "Xmlhealthbars", 1507490649u, 3919360587u);
             // GeneralHotKeySlots, DefaultHotKeys, DebugHotKeys, MappableKey
             Add(result, "Xmlhotkeymaps", 417176643u, 3741098742u, 3359870461u, 1350608344u);
+            // The eleven Joypad roots use immutable layouts and per-call bridge,
+            // Builder/Tracker, endian-word and ObjectFilter storage; no file reads.
+            Add(result, "Xmljoypad", 1276968974u, 1546953756u, 1654297531u, 1804891371u, 1887864852u, 1931769760u, 2170044043u, 2742786440u, 3423839194u, 3645205636u, 3901433122u);
             // Language, HeaderTemplate, FontDirectory, TheVersion, Credits
             Add(result, "Xmllocalization", 2915726794u, 1218703046u, 3569007303u, 4236434438u, 3978455785u);
             // LocomotorTemplate

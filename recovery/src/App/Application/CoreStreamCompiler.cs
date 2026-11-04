@@ -188,7 +188,7 @@ namespace NewModCompiler.Application
             compressedSessionCache = partialSessionCache = true; freezeSessionCache = alwaysTouchCache = false;
             stableSortEnabled = usePrecompiled = forceSlowCleanup = true;
             BigPackage.ValidateRequest(candidate);
-            if(candidate.Command=="build" && candidate.FixNeutralAssets) BasePostProcessor.ValidateReferences(candidate.SdkRoot);
+            if(candidate.Command=="build" && candidate.FixNeutralAssets) BasePostProcessor.ValidateReferences(candidate);
             foreach (var option in candidate.Options)
             {
                 string key = option.Key, value = option.Value.Value;

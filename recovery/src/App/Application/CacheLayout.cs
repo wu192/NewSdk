@@ -13,17 +13,20 @@ namespace NewModCompiler.Application
         public string ModKey { get; private set; }
         public string CacheBase { get; private set; }
         public string CacheRoot { get; private set; }
+        public string SharedReferences { get; private set; }
         public string Session { get; private set; }
         public string BuildCache { get; private set; }
         public string Intermediate { get; private set; }
         public string Streams { get; private set; }
         public string Generated { get; private set; }
         public string Temp { get; private set; }
+        readonly string sourceMod, publicationRoot;
 
         CacheLayout(BuildRequest request)
         {
             string sdk = DiagnosticDirectory.ResolveInputDirectory(request.SdkRoot);
             string mod = DiagnosticDirectory.ResolveInputDirectory(request.ModRoot);
+            sourceMod = mod;
             string normalized = mod.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar).TrimEnd('\\', '/').ToUpperInvariant() + Path.DirectorySeparatorChar;
             string identity;
             using (var hash = SHA256.Create())
@@ -37,6 +40,7 @@ namespace NewModCompiler.Application
             if (label.Length == 0) label.Append("Mod");
             ModKey = label + "_" + identity;
             CacheBase = Path.Combine(sdk, "SuperCompilerCache");
+            SharedReferences = Path.Combine(CacheBase, "shared");
             CacheRoot = Path.Combine(CacheBase, ModKey);
             ValidatePath(CacheRoot);
             if (File.Exists(CacheRoot)) throw Invalid("Cache partition is an existing file: " + CacheRoot);
@@ -46,6 +50,7 @@ namespace NewModCompiler.Application
                 throw Invalid("The SDK cache partition must not alias or overlap MOD sources.");
             if (!string.IsNullOrEmpty(request.OutputRoot)) {
                 string output = DiagnosticDirectory.ResolveOutput(request.OutputRoot);
+                publicationRoot = output;
                 if (Paths.Contains(output, physical) || Paths.Contains(physical, output))
                     throw Invalid("The SDK cache partition must not alias or overlap output.");
             }
@@ -115,6 +120,21 @@ namespace NewModCompiler.Application
             if (!Paths.Contains(CacheRoot, path)) throw Invalid("Compiler writes must remain in this MOD's SDK cache partition.");
             // Check all existing ancestors, including the partition itself, once
             // at each writable boundary before handing it to BAB.
+            DiagnosticDirectory.PrepareDirectory(path);
+        }
+
+        // Only read-only reference material may use the SDK-wide shared area;
+        // regular compilation outputs retain their per-MOD boundary above.
+        public void PrepareSharedReferenceDirectory(string path)
+        {
+            path = Path.GetFullPath(path);
+            ValidatePath(path);
+            if (!Paths.Contains(SharedReferences, path)) throw Invalid("Reference cache writes must remain in the SDK shared directory.");
+            string physical = DiagnosticDirectory.ResolveOutput(path);
+            if (!string.Equals(physical, path, StringComparison.OrdinalIgnoreCase) ||
+                Paths.Contains(sourceMod, physical) || Paths.Contains(physical, sourceMod) ||
+                publicationRoot != null && (Paths.Contains(publicationRoot, physical) || Paths.Contains(physical, publicationRoot)))
+                throw Invalid("The SDK shared reference cache must not alias or overlap MOD sources or output.");
             DiagnosticDirectory.PrepareDirectory(path);
         }
 

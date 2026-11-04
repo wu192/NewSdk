@@ -21,7 +21,7 @@ if ($Tests) {
     $entry = 'NewModCompiler.Tests.AppTests'; $file = 'NewModCompiler.AppTests.exe'
 }
 $arguments = @('/nologo','/noconfig','/nostdlib+','/target:exe','/platform:x86','/langversion:7.3',"/main:$entry",("/out:" + (Join-Path $OutputDirectory $file)))
-foreach ($reference in @('mscorlib','System','System.Core','System.Web.Extensions','System.Xml')) { $arguments += ('/reference:' + (Join-Path $refs "$reference.dll")) }
+foreach ($reference in @('mscorlib','System','System.Core','System.Configuration','System.Web.Extensions','System.Xml')) { $arguments += ('/reference:' + (Join-Path $refs "$reference.dll")) }
 $arguments += $(if ($Configuration -eq 'Release') { '/optimize+' } else { '/debug:full' })
 & $csc @arguments @sources
 if ($LASTEXITCODE -ne 0) { throw "App compilation failed: $LASTEXITCODE" }

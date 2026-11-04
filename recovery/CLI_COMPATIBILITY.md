@@ -27,7 +27,8 @@
 
 | 用途 | 参数与默认行为 |
 | --- | --- |
-| 中立修复 | `--fix-neutral-assets=false`；显式 true 仅限含 base 的 BIG，沿用 `HashFix → ModAssetResolver`、参考文件预检、私有四流复制及修正后 LoD 生成；缺少参考文件仍报 `PACKAGE_NEUTRAL_REFERENCE_MISSING`，不下载或提取 WBData |
+| 中立修复 | `--fix-neutral-assets=false`；true 仅限含 base 的 BIG，执行 `HashFix → ModAssetResolver → LoD`；可在 MOD JSON 或 EXE appSettings 保存。缺少完整参考流时自动从注册表中的游戏安装目录 `Data/WBData_12.big` 提取到 MOD 专属编译缓存；完整旧参考仍兼容；缺少文件报 `PACKAGE_NEUTRAL_REFERENCE_MISSING` |
+| 游戏安装目录 | `--game-root <目录>`，也可保存到 MOD JSON 或 EXE appSettings；显式设置时优先从该目录的 `Data/WBData_12.big` 读取。未设置时自动发现注册表路径。CLI > 项目 > EXE 配置；EXE中的空值表示自动 |
 | 游戏版本字段 | `--game-version=1.12`，只控制 SKUDEF 的 `mod-game` 字段 |
 | 缓存开关 | `/sc:true`、`/bc:true`、`/csc:true`、`/psc:true`、`/fsc:false`、`/atc:false`；未显式指定 `/bc` 时仍受 SDK `buildCache` 配置覆盖 |
 | 缓存目录 | `/scd`（别名 `/scp`）、`/bcd`（别名 `/bcp`）、`/iod`，仅允许当前 `SuperCompilerCache/<ModKey>` 分区内部；原 BAB 格式保留 |
@@ -61,7 +62,7 @@
 
 ## 项目预设与包身份
 
-`newmodcompiler.json` 既有键继续有效，完整列表为：`jobs`、`profile`、`sdk-root`、`out`、`package-content`、`package-format`、`include-additional`、`fix-neutral-assets`、`mod-version`、`game-version`、`skudef-name`、`tp`、`ss`、`pc`、`slowclean`、`sc`、`bc`、`csc`、`psc`、`fsc`、`atc`、`session-cache-directory`（`scd`/`scp` 别名）、`build-cache-directory`（`bcd`/`bcp` 别名）和 `iod`。`od` 仍为 `out` 的别名；不扩充配置格式。
+`newmodcompiler.json` 既有键继续有效，完整列表为：`jobs`、`profile`、`sdk-root`、`game-root`、`out`、`package-content`、`package-format`、`include-additional`、`fix-neutral-assets`、`mod-version`、`game-version`、`skudef-name`、`tp`、`ss`、`pc`、`slowclean`、`sc`、`bc`、`csc`、`psc`、`fsc`、`atc`、`session-cache-directory`（`scd`/`scp` 别名）、`build-cache-directory`（`bcd`/`bcp` 别名）和 `iod`。`od` 仍为 `out` 的别名。
 
 优先级保持命令行 ＞ 项目预设 ＞ 默认值，同一来源同一参数指定冲突值时报错。`mod-version` 项目键继续被识别，但 BIG 的必填要求只能由本次 CLI 显式版本满足，须用命令行覆盖项目版本。JSON 相对路径以 MOD 目录为基准，命令行路径以调用目录为基准；生效值及来源进入报告与事件。SDK 的 `buildCache` 仅覆盖未显式指定的 `/bc` 默认值。
 

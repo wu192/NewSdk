@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "binarySourceCommit": "788566c07449eb0e223ad21e64bc28d15c3d8c56",
+  "binaryBuildRunId": 41434055130,
+  "binaryBuildScope": "Debug/Release product builds and complete targeted Core passed; original run failed later in UI fixture preparation (partial-clone historical blob fetch without credentials)",
+  "binaryBuildArtifactId": 13136500472,
+  "binaryBuildArtifactSha256": "a2eed3a78e142565602870b97f4092ee1a79763a7fef607ffcb3e072d621a159",
+  "largeBigRegressionRunId": 41433492176,
+  "packagingWorkflowCommit": "0f3783982fbeb5a8f79c2c0a3cd3d8641a3409ad",
+  "packagingRunId": 41435748800,
+  "packagingConclusion": "success",
+  "packageArtifactId": 13137145304,
+  "packageArtifactSha256": "51621ef68b0ed9fb6e66b7881b230bbfdaa998793d3fa23b62760223afed5933",
+  "evidenceArtifactId": 13135684697,
+  "evidenceArtifactSha256": "f59d26bd9624a0e3d79b7c5dbefcb6e2ca9978fd67fc3f0c9c5be5c704e0b040",
+  "locallyVerified": [
+    "both artifact ZIP digests",
+    "user artifact contains exactly both accepted ZIPs and manifest",
+    "per-package ZIP size, SHA256, exact three runtime files and member hashes",
+    "product EXE identity equals small MOD acceptance and independently extracted ZIP deployment",
+    "both repaired application source hashes match source checkout with Git LF/CRLF conversion"
+  ],
+  "scope": "Existing successful App/Core/component ranges reused; unchanged real CLI, official neutral small MOD/original BIG bytes and independent final ZIP deployment freshly passed. No large MOD/full SDK/game acceptance. No GitHub Release published or PR merged."
+}

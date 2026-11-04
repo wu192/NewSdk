@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "repository": "wu162/NewSdk",
+  "tag": "compiler-2026.11.02-shared-worldbuilder-cache",
+  "sourceCommit": "57c0c78375c2a41ecb206c04dd761f5d9db1adcc",
+  "sourceBranch": "fix/neutral-worldbuilder-config",
+  "runId": 41324686715,
+  "runAttempt": 1,
+  "artifactId": 13090784649,
+  "artifactName": "game-worldbuilder-41324686715-1",
+  "artifactSha256": "9259dead38b4dabc36feb57378e7b58ba18a2a5c7d466a5b9d3e3691efa3aef4",
+  "acceptanceUrl": "https://github.com/wu162/NewSdk/actions/runs/41324686715",
+  "runtimePackages": [
+    {
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 2103982,
+      "sha256": "28eb7d0b22c4bb3c6d160119bf1a7273c4cd193f21c57d52b93c77dfab61e0a2",
+      "configuration": "Debug",
+      "sourceCommit": "57c0c78375c2a41ecb206c04dd761f5d9db1adcc",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 7726080,
+          "sha256": "76c41f77165d87c8df92f3f0c8d96d9f454ad66a4bad7320fb709b4b907abc1c"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 330,
+          "sha256": "57926cc13c550bbf4ae2d3b152dfca5dc7ee32566854b0e390b414538e0598f9"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "independentZipDeployment": {
+        "succeeded": true,
+        "coldGameExtraction": true,
+        "sharedWorldbuilderCache": true,
+        "exactAcceptedRawOutputs": true,
+        "artifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ]
+      },
+      "neutralAcceptance": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "caseCount": 9,
+        "rawOriginalMembers": true
+      }
+    },
+    {
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 1609756,
+      "sha256": "94f9d1afb934b75840344c04381256cb1cd65eb2757bf87110f66557da099525",
+      "configuration": "Release",
+      "sourceCommit": "57c0c78375c2a41ecb206c04dd761f5d9db1adcc",
+      "runtimeFiles": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 5024256,
+          "sha256": "8d567d55a26136c0f006c579e738835ae9be0d0bacd2e458d4a8376e880b417f"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 330,
+          "sha256": "57926cc13c550bbf4ae2d3b152dfca5dc7ee32566854b0e390b414538e0598f9"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        }
+      ],
+      "independentZipDeployment": {
+        "succeeded": true,
+        "coldGameExtraction": true,
+        "sharedWorldbuilderCache": true,
+        "exactAcceptedRawOutputs": true,
+        "artifacts": [
+          {
+            "name": "NeutralWbProbe_1.0.big",
+            "bytes": 734007,
+            "sha256": "fa60b16513ec8a5fb1ddabdc8669f7540854c14652c19d73672d6ea129e8983c"
+          },
+          {
+            "name": "NeutralWbProbe_1.0.skudef",
+            "bytes": 47,
+            "sha256": "38c68d5e121ddcc3ec658bd5a66ca12f8311d31019feec74aef02c068337d9ed"
+          }
+        ]
+      },
+      "neutralAcceptance": {
+        "hashFixChangedCount": 1,
+        "resolverInsertedAssets": 5,
+        "caseCount": 9,
+        "rawOriginalMembers": true
+      }
+    }
+  ],
+  "autoArchiveFiles": [
+    "README.md",
+    "release-metadata.json"
+  ],
+  "sharedWorldbuilderCache": true,
+  "sharedCachePath": "SDK/SuperCompilerCache/shared/neutral-worldbuilder",
+  "scope": "Debug/Release fresh production and App1901; original 9 game-layout neutral cases plus two-Mod shared hot hit and actual overlapping cold extraction (one payload copy), original SDK whole-BIG bytes, and independent ZIP shared cold extraction. Current-Mod old cache move/cleanup and lock cancellation covered in App. No full Core/CLI matrix, large MOD or in-game acceptance."
+}

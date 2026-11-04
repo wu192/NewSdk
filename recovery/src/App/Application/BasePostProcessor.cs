@@ -13,6 +13,15 @@ namespace NewModCompiler.Application
     {
         static readonly string[] Extensions={".manifest",".bin",".imp",".relo"};
         public static string Prepare(string manifest,string sdkRoot,string workDir,CancellationToken cancellation)
+        {return Prepare(manifest,sdkRoot,workDir,cancellation,null);}
+        public static string Prepare(string manifest,BuildRequest request,string workDir,CancellationToken cancellation)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            ReferenceInputs inputs=ResolveReferences(request,true,cancellation);
+            try {return Prepare(manifest,request.SdkRoot,workDir,cancellation,inputs);}
+            finally {if(inputs.Lease!=null)inputs.Lease.Dispose();}
+        }
+        static string Prepare(string manifest,string sdkRoot,string workDir,CancellationToken cancellation,ReferenceInputs inputs)
         {
             cancellation.ThrowIfCancellationRequested();
             manifest=Path.GetFullPath(manifest);sdkRoot=Path.GetFullPath(sdkRoot);workDir=Path.GetFullPath(workDir);
@@ -21,7 +30,7 @@ namespace NewModCompiler.Application
             if(Paths.Contains(sourceDirectory,workDir) || Paths.Contains(workDir,sourceDirectory) || string.Equals(workDir,sourceDirectory,StringComparison.OrdinalIgnoreCase))
                 throw new IOException("Neutral repair must use a separate package workspace.");
             if(Directory.Exists(workDir) || File.Exists(workDir))throw new IOException("Neutral repair workspace already exists.");
-            var inputs=ResolveReferences(sdkRoot);
+            if(inputs==null)inputs=ResolveReferences(sdkRoot);
             string builtMods=inputs.BuiltMods,hashReference=inputs.HashReference,world=inputs.World;
             var references=inputs.Files;
             var guards=new List<IDisposable>();bool created=false;
@@ -39,7 +48,7 @@ namespace NewModCompiler.Application
                 foreach(string file in custom)Copy(file,Path.Combine(targetStem,"cdata",Path.GetFileName(file)),cancellation);
                 string target=targetStem+".manifest";
                 HashFix.Apply(target,hashReference,cancellation);
-                ModAssetResolver.Apply(target,builtMods,world,cancellation);
+                ModAssetResolver.Apply(target,builtMods,world,inputs.Payload,cancellation);
                 cancellation.ThrowIfCancellationRequested();return target;
             }
             catch {
@@ -50,8 +59,33 @@ namespace NewModCompiler.Application
             }
             finally {for(int i=guards.Count-1;i>=0;i--)guards[i].Dispose();}
         }
-        sealed class ReferenceInputs {public string BuiltMods,HashReference,World;public List<string> Files;}
+        sealed class ReferenceInputs {public string BuiltMods,HashReference,World;public List<string> Files;public WorldbuilderPayload Payload;public IDisposable Lease;}
         public static void ValidateReferences(string sdkRoot) {ResolveReferences(Path.GetFullPath(sdkRoot));}
+        public static void ValidateReferences(BuildRequest request) {ResolveReferences(request,false,CancellationToken.None);}
+        static ReferenceInputs ResolveReferences(BuildRequest request,bool extract,CancellationToken cancellation)
+        {
+            string sdk=Path.GetFullPath(request.SdkRoot);
+            if(string.IsNullOrEmpty(request.GameRoot)) {
+                try {return ResolveReferences(sdk);}
+                catch(BuildFailure error) {if(error.Code!="PACKAGE_NEUTRAL_REFERENCE_MISSING")throw;}
+            }
+            // Static/Global/Audio belong to ordinary SDK linking and are not
+            // supplied by the WorldBuilder archive.
+            string built=Path.Combine(sdk,"builtmods");
+            var missing=new[]{"Static.manifest","Global.manifest","Audio.manifest"}.Select(name=>Path.Combine(built,name)).Where(path=>!File.Exists(path)).ToArray();
+            if(missing.Length!=0)throw new BuildFailure(ExitCode.Environment,"PACKAGE_NEUTRAL_REFERENCE_MISSING","Neutral repair requires SDK reference files: "+string.Join(", ",missing));
+            string archive=GameWorldbuilderData.FindArchive(request.GameRoot);
+            if(!extract) {GameWorldbuilderData.Validate(archive);return null;}
+            IDisposable lease=GameWorldbuilderData.Acquire(request,cancellation);
+            try {
+                string world=GameWorldbuilderData.PrepareLocked(request,archive,cancellation);
+                string hash=Path.Combine(built,"sagexml","Worldbuilder.manifest");
+                ReferenceInputs inputs=ResolveReferences(sdk,world,File.Exists(hash)?hash:world);
+                inputs.Lease=lease;
+                return inputs;
+            }
+            catch {lease.Dispose();throw;}
+        }
         static ReferenceInputs ResolveReferences(string sdkRoot) {
             string builtMods=Path.Combine(sdkRoot,"builtmods"),sage=Path.Combine(builtMods,"sagexml");
             string hashReference=Path.Combine(sage,"Worldbuilder.manifest");
@@ -60,12 +94,22 @@ namespace NewModCompiler.Application
             // A complete SageXml quartet is an explicit fallback only when no
             // root quartet member exists. Never mix generations across roots.
             string[] rootWorld=Extensions.Select(ext=>Path.Combine(builtMods,"Worldbuilder"+ext)).ToArray();
-            string world= rootWorld.Any(path=>File.Exists(path) || Directory.Exists(path)) ? rootWorld[0] : Path.Combine(sage,"Worldbuilder.manifest");
+            string world= rootWorld.Any(path=>File.Exists(path) || Directory.Exists(path)) || Directory.Exists(Path.Combine(builtMods,"Worldbuilder.bin.parts")) ? rootWorld[0] : Path.Combine(sage,"Worldbuilder.manifest");
+            return ResolveReferences(sdkRoot,world,hashReference);
+        }
+        static ReferenceInputs ResolveReferences(string sdkRoot,string world,string hashReference) {
+            string builtMods=Path.Combine(sdkRoot,"builtmods");
             var references=new List<string> {hashReference,Path.Combine(builtMods,"Static.manifest"),Path.Combine(builtMods,"Global.manifest"),Path.Combine(builtMods,"Audio.manifest")};
-            references.AddRange(Extensions.Select(ext=>Path.ChangeExtension(world,ext)));
+            references.AddRange(Extensions.Where(ext=>ext!=".bin").Select(ext=>Path.ChangeExtension(world,ext)));
+            string bin=Path.ChangeExtension(world,".bin");
+            if(!File.Exists(bin) && !File.Exists(Path.Combine(bin+".parts","index.json")))references.Add(bin);
             var missing=references.Distinct(StringComparer.OrdinalIgnoreCase).Where(path=>!File.Exists(path)).ToArray();
-            if(missing.Length!=0)throw new BuildFailure(ExitCode.Environment,"PACKAGE_NEUTRAL_REFERENCE_MISSING","Neutral asset repair requires explicit original reference files: "+string.Join(", ",missing)+". WBData extraction is not implemented; no game or SDK files were modified.");
-            return new ReferenceInputs {BuiltMods=builtMods,HashReference=hashReference,World=world,Files=references};
+            if(missing.Length!=0)throw new BuildFailure(ExitCode.Environment,"PACKAGE_NEUTRAL_REFERENCE_MISSING","Neutral asset repair requires original reference files: "+string.Join(", ",missing)+". Worldbuilder.bin may also be supplied as its indexed .bin.parts blocks.");
+            WorldbuilderPayload payload;
+            try {payload=new WorldbuilderPayload(bin);}
+            catch(FileNotFoundException error) {throw new BuildFailure(ExitCode.Environment,"PACKAGE_NEUTRAL_REFERENCE_MISSING",error.Message);}
+            references.AddRange(payload.Files);
+            return new ReferenceInputs {BuiltMods=builtMods,HashReference=hashReference,World=world,Files=references,Payload=payload};
         }
         static void RejectFile(string path) {
             FileAttributes attributes=File.GetAttributes(path);

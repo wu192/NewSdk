@@ -1,4 +1,73 @@
-# 当前：CLI 单行编译进度已验收（PR #47）
+# 当前：BIG 超过 2 GiB 内存修复已验证并打包，PR #50 待审
+
+基于用户指定的 `fix/neutral-worldbuilder-config` / `9a1c93a1`，修复中立资源处理
+整文件读取/多份复制 MOD 载荷导致的 2 GiB 限制及 x86 内存溢出，改为流式插入和复制。
+生产/测试 `788566c0` 的 [Windows x86 41433492176](https://github.com/wu162/NewSdk/actions/runs/41433492176)
+整体 success：Debug/Release App、超过 2 GiB 的实际 resolver→BIG 和原工具字节差分通过。
+[范围与验收](docs/BIG_LARGE_FILES.md)、[PR #50](https://github.com/wu162/NewSdk/pull/50)。
+按用户要求提供[修复版 D/R 运行包](https://github.com/wu162/NewSdk/actions/runs/41435748800/artifacts/13137145304)：
+原 `41434055130` 新构建/Core 成功，保留后续历史 UI blob 缺失失败；完整检出重放
+`41435748800` 的真实 CLI、小 MOD 原工具 BIG 及独立 ZIP 验证整体 success。
+归档/三个运行文件/修复源码身份已核对。未运行大型 MOD/全量 SDK或游戏验证；未发布 GitHub Release、未合并，禁止强推。
+
+# 当前：地编缓存改为SDK共享，已快测发布
+
+分支fix/neutral-worldbuilder-config；生产57c0c783。
+游戏地编四流位于SDK/SuperCompilerCache/shared/neutral-worldbuilder，全SDK所有Mod复用一份。
+共享锁覆盖提取至消费，支持取消；当前Mod有效旧cache移动迁入或清理冗余，其它Mod在下次使用时处理。
+普通Mod缓存边界保持分区隔离。
+[Windows41324686715](https://github.com/wu162/NewSdk/actions/runs/41324686715)全success：D/R新构建、App各1901、
+原9个游戏用例、第二Mod热复用、双Mod并发冷提取仅1份payload，原SDK整个BIG与独立ZIP共享冷编译通过。
+[compiler-2026.11.02-shared-worldbuilder-cache](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.02-shared-worldbuilder-cache)
+已公开/latest；发布41325895676复用同一验收二进制，6附件大小/SHA全核对，一次性工作流已移除。
+[测试收据](evidence/shared-worldbuilder/41324686715-1/summary.json)、[发布收据](evidence/releases/compiler-2026.11.02-shared-worldbuilder-cache/published.json)。
+未做完整Core/CLI大矩阵、完整大Mod或游戏内新验证；没有合入其它开发分支，禁止强推。
+
+# 当前：按老SDK自动读取游戏地编，已快测发布
+
+分支 `fix/neutral-worldbuilder-config`；生产源码 `3cf65b6d`。
+开启fix-neutral-assets后，缺完整旧参考时按HKLM EA Install Dir的32/64位视图自动找游戏Data/WBData_12.big；
+可用CLI/JSON/EXE的game-root指定。首次流式提取到Mod专属SuperCompilerCache/neutral-worldbuilder，后续按来源元数据复用。
+游戏/SDK/MOD输入只读，保留旧完整四流/pack兼容，不把资产内嵌EXE，不再附500MB参考包。
+[Windows41322569300](https://github.com/wu162/NewSdk/actions/runs/41322569300)全success：D/R新构建，各App1894、
+9个游戏布局小MOD用例（两注册表视图恢复、配置、冷热提取、缺失重试）、原完整处理链BIG字节及独立ZIP冷编译通过。
+[发行compiler-2026.11.01-game-worldbuilder](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-game-worldbuilder)
+已公开并为latest；[发布41323676291](https://github.com/wu162/NewSdk/actions/runs/41323676291)复用已验收二进制，6附件大小/摘要全核对。
+Release EXE5022720B，仅增10.5KiB；未重跑完整Core/CLI大矩阵、完整大型MOD或游戏内验证。
+[逻辑与边界](docs/NEUTRAL_WORLDBUILDER.md)、[测试收据](evidence/game-worldbuilder/41322569300-1/summary.json)、
+[发行收据](evidence/releases/compiler-2026.11.01-game-worldbuilder/published.json)。一次性发布工作流已移除，原草稿查询失败记录保留。
+未合入其他开发分支；禁止强推，后续合入仍须用户批准。
+
+# 当前：官方中立地编修复与配置已验收
+
+分支 `fix/neutral-worldbuilder-config`，从用户指定的 `recovery/legacy-sdk-cache` / `680c4f0c` 开始，
+已按用户纠正把 `release/compiler-2026.11.01-harness` / `feadec6e` 的修改带入本分支；未修改该发布分支。
+完整官方15931资产四流已入库，1.3GB bin以156个独立Deflate块保存，按引用随机读取。
+MOD JSON和EXE appSettings均可设置fix-neutral-assets，CLI优先。
+生产/测试 `f74da90f`，[Windows 41319194413](https://github.com/wu162/NewSdk/actions/runs/41319194413) 全success：
+D/R新构建、App各1879、10组原修复差分、12个Core fixture、31个CLI用例及各8次真实小MOD通过；
+实际改1哈希/补5资产，12个BIG成员与原HashFix→Resolver→LoD→MakeBig原字节相同。
+两个三文件ZIP独立解压冷编译通过；未完整大型MOD/游戏验收，旧LoD合成尾字节差异按原确定合同保留。
+[说明与边界](docs/NEUTRAL_WORLDBUILDER.md)、[收据](evidence/neutral-worldbuilder/41319194413-1/summary.json)。
+已公开发布 [compiler-2026.11.01-neutral](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01-neutral)，
+[发布运行41320643988](https://github.com/wu162/NewSdk/actions/runs/41320643988) 成功；两个三文件ZIP、完整官方参考ZIP及说明/清单共7附件已核对API大小与SHA256，已设latest。
+沿用独立只含README/metadata的源码归档标签，复用已验收二进制；一次性发布工作流已移除。
+禁止强推，未获另行批准不把本分支合入其他开发分支。
+
+# 当前：Joypad 并行版已发布（PR #49 未合并）
+
+11 个 Joypad 根已显式认证到 worker，metadata 路由 284→295；原 TypeId/版本/字节布局与缓存身份不变。
+生产 `a75840ef` 的 D/R 只构建一次；[最终 41300821811](https://github.com/wu162/NewSdk/actions/runs/41300821811) success，严格复用已通过的组件/CLI 范围，45 资产小 MOD、实际 worker 重叠、串并行/缓存/原 SDK 四流与独立三文件 ZIP 均通过。
+按用户要求未运行大型 MOD 或完整 mymod/全量 SDK 编译，没有新性能或游戏内结论。
+用户已明确批准发布：[compiler-2026.11.01](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.01) 已公开并设为 Latest，两个 ZIP 与确认包逐字节相同，七附件和自动文档归档均复核通过；[发行收据](evidence/releases/compiler-2026.11.01/published.json)、[范围与来源](docs/components/xml/XML_JOYPAD.md)。源码和修复仍在 [PR #49](https://github.com/wu162/NewSdk/pull/49)，未合并；禁止强推，后续合入仍须用户明确批准。
+
+# 此前：发行验收误报已修复，待确认包（PR #49）
+
+基线 `recovery/legacy-sdk-cache` / `680c4f0c`，仅修复验收脚本的显式 BIG 版本、集中缓存冷态隔离、SDK 缓存输出审计和 Joypad 主线程集合预期。生产源码及构建输入不变。
+[最终 Windows 41297316677](https://github.com/wu162/NewSdk/actions/runs/41297316677) success：复用本次 D/R 构建及独立成功组，完整 mymod 原 SDK、独立三文件 ZIP 与完整 Upheaval 22 样本通过，原失败终态保留。
+用户要求修复后先打包，明确确认后才能发布；本轮没有创建 Release 或发行标签。[待确认运行包](https://github.com/wu162/NewSdk/actions/runs/41298119902/artifacts/13079722889) 已通过纯运行文件及校验检查。[说明与来源](docs/RELEASE_VALIDATION_FIXES.md)、[PR #49](https://github.com/wu162/NewSdk/pull/49)（未合并）。禁止强推，合入仍须用户明确批准。
+
+# 此前：CLI 单行编译进度已验收（PR #47）
 
 分支 `feat/cli-build-progress`，基线 `recovery/legacy-sdk-cache` / `52d44c6`。
 默认单行阶段/数据流进度、真实资产/XML/文档复用计数、警告/错误协调和重定向降级已接通；

@@ -1,0 +1,77 @@
+name: Automatic game WorldBuilder fast validation and packages
+on:
+  push:
+    branches: [fix/neutral-worldbuilder-config]
+    paths:
+      - '.github/workflows/game-worldbuilder.yml'
+      - 'recovery/src/App/**'
+      - 'recovery/tests/App/**'
+      - 'recovery/scripts/TestGameWorldbuilder.py'
+      - 'recovery/scripts/BuildApp.ps1'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: game-worldbuilder-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[game-worldbuilder]')
+    runs-on: windows-2022
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+            !/recovery/decompiled/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Preflight unchanged official fixture and schema
+        shell: pwsh
+        run: |
+          python -m pip install lxml==6.0.2
+          if($LASTEXITCODE -ne 0){throw 'Schema dependency installation failed'}
+          python recovery/scripts/TestGameWorldbuilder.py --preflight
+          if($LASTEXITCODE -ne 0){throw 'Game WorldBuilder fixture preflight failed'}
+      - name: Debug and Release App contracts before native compilation
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            $out="recovery/artifacts/game-wb-app/$mode"
+            ./recovery/scripts/BuildApp.ps1 -Tests -Configuration $mode -OutputDirectory $out
+            & "$out/NewModCompiler.AppTests.exe" "C:\game-wb-app-$mode" *> "$out/contracts.log"
+            if($LASTEXITCODE -ne 0){Get-Content "$out/contracts.log" -Tail 100;throw "$mode App contracts failed"}
+            Get-Content "$out/contracts.log" -Tail 12
+          }
+      - name: Build current Debug and Release production
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/BuildCompiler.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/game-wb-product/$mode"
+          }
+      - name: Real game BIG extraction discovery raw oracle and independent ZIP deployment
+        shell: pwsh
+        run: |
+          python recovery/scripts/TestGameWorldbuilder.py --product-root recovery/artifacts/game-wb-product --output recovery/artifacts/game-wb-validation
+          if($LASTEXITCODE -ne 0){throw 'Automatic game WorldBuilder acceptance or ZIP deployment failed'}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: game-worldbuilder-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/game-wb-app/*/contracts.log
+            recovery/artifacts/game-wb-product/*/build.json
+            recovery/artifacts/game-wb-product/*/link-inputs.json
+            recovery/artifacts/game-wb-product/*/bin/
+            recovery/artifacts/game-wb-product/**/*.log
+            recovery/artifacts/game-wb-validation/
+          if-no-files-found: warn

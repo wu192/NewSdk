@@ -57,6 +57,7 @@ function RunCli([string]$Name,[string]$Mod,[string]$Destination,[string]$Selecti
         # Keep the original no-overlay differential; default overlays are verified separately below.
         if($Format -eq 'big' -and !@($Extra|Where-Object{$_ -like '--include-additional*'}).Count){$arguments+='--include-additional=false'}
     }
+    if(($Format -eq 'big' -or $Defaults) -and !@($Extra|Where-Object{$_ -like '--mod-version*'}).Count){$arguments+=@('--mod-version','1.0')}
     $arguments+=$Extra
     $events=Join-Path $Destination 'build.events.jsonl';$report=Join-Path $Destination 'build-report.json'
     $request=@{exe=$script:exe;cwd=$script:runtime;arguments=$arguments;stdout=(Join-Path $caseOut 'stdout.log');stderr=(Join-Path $caseOut 'stderr.log');events=$events;cancel=$Cancel;timeoutSeconds=$TimeoutSeconds}

@@ -9,7 +9,7 @@
     <StartupObject>NewModCompiler.Cli.Program</StartupObject>
     <DebugSymbols>true</DebugSymbols><Optimize Condition="'$(Configuration)' == 'Release'">true</Optimize>
   </PropertyGroup>
-  <ItemGroup><Reference Include="System"/><Reference Include="System.Core"/><Reference Include="System.Web.Extensions"/><Reference Include="System.Xml"/></ItemGroup>
+  <ItemGroup><Reference Include="System"/><Reference Include="System.Core"/><Reference Include="System.Configuration"/><Reference Include="System.Web.Extensions"/><Reference Include="System.Xml"/></ItemGroup>
   <ItemGroup><Compile Include="Cli\*.cs"/><Compile Include="Application\*.cs"/><Compile Include="Diagnostics\*.cs"/></ItemGroup>
   <ItemGroup><None Include="App.config"/></ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>

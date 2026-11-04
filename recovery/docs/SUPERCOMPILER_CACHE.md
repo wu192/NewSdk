@@ -6,6 +6,10 @@
 不扫描或散列 MOD 文件。同一个 MOD 更换输出目录、版本或构建时间不会更换分区；
 同名但物理路径不同的 MOD 各自隔离。
 
+地编参考数据为SDK共享：`<sdk-root>/SuperCompilerCache/shared/neutral-worldbuilder/` 保存从游戏BIG提取的官方四流，
+所有Mod复用同一份，不按Mod复制1.33GB。`shared/neutral-worldbuilder.lock`覆盖提取及参考消费，
+避免不同Mod并发首次提取或切换来源时混用数据；等待可取消。普通Mod编译缓存仍按下表隔离。
+
 | 分区内路径 | 内容 |
 | --- | --- |
 | `session/` | 原 BAB SessionCache XML/Deflate、`.tmp/.old`、既有字符串哈希与 `.NewModCompiler/cdata` |
@@ -21,7 +25,7 @@
 
 MOD 源码在计划、编译、失败清理及打包期间只读，`newmodcompiler.json` 只读取。
 MOD 位于当前 SDK 的 `Mods/` 内也适用。`--out` 及诊断文件继续必须位于 SDK/MOD
-源码目录外；SDK 内允许的编译写入目标仅为当前 MOD 分区。物理路径别名、重解析点、
+源码目录外；SDK 内允许的编译写入目标为当前 MOD 分区，另有上述地编参考共享目录。物理路径别名、重解析点、
 目录权限及 Win32 路径限制仍须通过原路径边界；失败不回退到其他缓存位置。
 `plan`、`doctor` 只解析和检查布局，不创建缓存目录。
 
@@ -39,6 +43,7 @@ BIG 直接读取本轮确认的缓存流，`published` 仅写最终 `.big/.skude
 同一 MOD 的分区锁覆盖完整 build：编译、Core 释放资源，直到 BIG 打包或 loose
 导出结束。第二个并发 build 立即以 `CACHE_BUSY` 拒绝，不等待；不同 MOD 的分区
 互不锁住。原会话文件锁与分区锁分别持有，不在 Core 释放资源时提前放开打包保护。
+中立地编后处理另外持有SDK共享参考锁；它只串行化参考提取/读取阶段，不锁住其它Mod的普通编译。
 
 裸 FLA 的合成目录只在该 FLA 流中优先作为 DATA 根，保持 `DATA:<movie>.xml`
 逻辑源名；普通 MOD 的 DATA 搜索顺序不变。Additional 继续直接读取当前 SDK/MOD

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "788566c07449eb0e223ad21e64bc28d15c3d8c56",
+  "baseCommit": "9a1c93a1779e65b0150d26c6d96e952b9d6d190d",
+  "runId": 41433492176,
+  "runAttempt": 1,
+  "conclusion": "success",
+  "runUrl": "https://github.com/wu162/NewSdk/actions/runs/41433492176",
+  "artifactId": 13135212220,
+  "artifactSha256": "87e520a2f0696cb7a062a6ee5775636462e9678298ffbf24b7a1f8ed68ea062c",
+  "platform": "Windows x86 .NET Framework 4.8",
+  "fixturePayloadBytes": 2147487744,
+  "configurations": {
+    "Debug": {
+      "appAssertions": 1901,
+      "largeBigChecks": 128,
+      "elapsedMs": 12785,
+      "peakWorkingSetBytes": 15257600,
+      "originalDifferentialCases": 10,
+      "originalDifferentialAllBytesIdentical": true,
+      "originalValidationSha256": "6092acfc7e5c0667e11eb1cdbacf42f2ab3f6e3299b544ab5fe388a1b3eee77d"
+    },
+    "Release": {
+      "appAssertions": 1901,
+      "largeBigChecks": 128,
+      "elapsedMs": 12430,
+      "peakWorkingSetBytes": 16285696,
+      "originalDifferentialCases": 10,
+      "originalDifferentialAllBytesIdentical": true,
+      "originalValidationSha256": "1b0fd536a1d7d14d762a46373c249ed289df763d21d781c560214239269a50a2"
+    }
+  },
+  "scope": "App contracts, synthetic >2GiB resolver-to-BIG and original HashFix/resolver byte differential; no full MOD/SDK or game validation",
+  "inputsSha256": {
+    "recovery/src/App/Application/ModAssetResolver.cs": "300609fe39370735be921441438cfc2edca315e06168bb1c33132616c3de8634",
+    "recovery/src/App/Application/WorldbuilderPayload.cs": "ca63cfd6de87dce4eff54a700c776eeff6ea02f9ef3301eb59995a71a14362c4",
+    "recovery/tests/large-big/LargeBigTests.cs": "8a038f13c550a00113daaf45b88498ced344accd9d9d0c5b6c00a47be7c0b118",
+    ".github/workflows/big-large.yml": "cd44a0d18dda6fa185ff4f95dff01306cbe358ca2203cbf00e8c5fc71cb488d4"
+  }
+}
