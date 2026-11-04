@@ -2,10 +2,14 @@ name: Prepared RA3 HashFix original differential
 on:
   push:
     branches: [compiler-main, refactor/modcompiler-p0-p3]
-    paths:
+    paths: &paths
+      - 'recovery/scripts/WriteCiSummary.py'
       - '.github/workflows/refactor-hashfix.yml'
       - 'recovery/preparation/hashfix/**'
       - 'recovery/src/App/Application/HashFix.cs'
+  pull_request:
+    branches: [compiler-main]
+    paths: *paths
   workflow_dispatch:
 permissions:
   contents: read
@@ -18,6 +22,7 @@ jobs:
         with:
           persist-credentials: false
           sparse-checkout: |
+            recovery/scripts
             recovery/preparation/hashfix
             recovery/src/App/Application
             SDK/tools

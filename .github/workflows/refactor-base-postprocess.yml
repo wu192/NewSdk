@@ -2,13 +2,17 @@ name: RA3 base postprocess original differential
 on:
   push:
     branches: [compiler-main, refactor/modcompiler-p0-p3]
-    paths:
+    paths: &paths
+      - 'recovery/scripts/WriteCiSummary.py'
       - '.github/workflows/refactor-base-postprocess.yml'
       - 'recovery/preparation/base-postprocess/**'
       - 'recovery/src/App/Application/HashFix.cs'
       - 'recovery/src/App/Application/ModAssetResolver.cs'
       - 'recovery/src/App/Application/WorldbuilderPayload.cs'
       - 'recovery/src/App/Application/LoDStreamBuilder.cs'
+  pull_request:
+    branches: [compiler-main]
+    paths: *paths
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,24 +25,36 @@ jobs:
         with:
           persist-credentials: false
           sparse-checkout: |
+            recovery/scripts
             recovery/preparation/base-postprocess
             recovery/src/App/Application
             SDK/tools
-      - name: Compare original HashFix resolver and LoD raw stage outputs
+      - name: Check canonical gate rejection contracts
+        run: python -m unittest discover -s recovery/preparation/base-postprocess -p test_canonical_lod.py -v
+      - name: Check raw stages and documented canonical LoD contract
+        id: differential
         shell: pwsh
         run: |
           $vs=& "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
           $csc=Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe'
           $failed=@()
+          $rawDifferences=$false
           foreach($mode in @('Debug','Release')) {
             $out="recovery/artifacts/base-postprocess/$mode";New-Item -ItemType Directory -Force $out|Out-Null
             $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
             & $csc /nologo /target:exe /platform:x86 /langversion:7.3 /r:System.Web.Extensions.dll $opt "/out:$out/BasePostprocessControl.exe" recovery/src/App/Application/HashFix.cs recovery/src/App/Application/ModAssetResolver.cs recovery/src/App/Application/WorldbuilderPayload.cs recovery/src/App/Application/LoDStreamBuilder.cs recovery/preparation/base-postprocess/BasePostprocessControl.cs
             if($LASTEXITCODE -ne 0){throw 'Base postprocess validation host compilation failed'}
             python recovery/preparation/base-postprocess/TestCompilerBasePostprocess.py --tools SDK/tools --candidate "$out/BasePostprocessControl.exe" --output "$out/evidence"
+            $rawExit=$LASTEXITCODE
+            if($rawExit -notin @(0,1)){throw "Raw differential did not complete: $rawExit"}
+            if($rawExit -eq 1){$rawDifferences=$true}
+            # Preserve the raw assertions and failed receipt. Accept only the
+            # documented canonical fix, with pinned inputs and exact byte checks.
+            python recovery/preparation/base-postprocess/CheckCanonicalLoD.py --evidence "$out/evidence" --source-commit ((git rev-parse HEAD).Trim()) --output "$out/canonical-validation.json"
             if($LASTEXITCODE -ne 0){$failed+=$mode}
           }
-          if($failed.Count -ne 0){throw ('Original base postprocess raw differential failed: '+($failed -join ','))}
+          ('raw-differences='+$rawDifferences.ToString().ToLowerInvariant()) | Add-Content $env:GITHUB_OUTPUT
+          if($failed.Count -ne 0){throw ('Base postprocess canonical contract failed: '+($failed -join ','))}
       - name: Summarize CI evidence
         if: always()
         env:
@@ -53,7 +69,8 @@ jobs:
             !**/baseline-streams/**
         run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
       - uses: actions/upload-artifact@v4
-        if: failure()
+        # Keep the original failed raw receipts even when the canonical contract passes.
+        if: failure() || steps.differential.outputs.raw-differences == 'true'
         with:
           name: 'base-postprocess-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |

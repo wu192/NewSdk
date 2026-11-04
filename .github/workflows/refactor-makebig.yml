@@ -2,11 +2,15 @@ name: Recovered managed MakeBig original differential
 on:
   push:
     branches: [compiler-main, refactor/modcompiler-p0-p3]
-    paths:
+    paths: &paths
+      - 'recovery/scripts/WriteCiSummary.py'
       - '.github/workflows/refactor-makebig.yml'
-      - 'recovery/src/App/Application/MakeBig.cs'
-      - 'recovery/src/App/Application/BigArchiveWriter.cs'
+      - 'recovery/src/App/**'
+      - 'recovery/scripts/BuildApp.ps1'
       - 'recovery/preparation/makebig/**'
+  pull_request:
+    branches: [compiler-main]
+    paths: *paths
   workflow_dispatch:
 permissions:
   contents: read
@@ -19,8 +23,9 @@ jobs:
         with:
           persist-credentials: false
           sparse-checkout: |
+            recovery/scripts
             recovery/preparation/makebig
-            recovery/src/App/Application
+            recovery/src/App
             SDK/tools
       - name: Compare original managed MakeBig and recovered source
         shell: pwsh
@@ -34,8 +39,9 @@ jobs:
           $failed=@()
           foreach($mode in @('Debug','Release')) {
             $out="recovery/artifacts/makebig/$mode";New-Item -ItemType Directory -Force $out|Out-Null
+            ./recovery/scripts/BuildApp.ps1 -Configuration $mode -OutputDirectory $out
             $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
-            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/MakeBigControl.exe" recovery/src/App/Application/MakeBig.cs recovery/src/App/Application/BigArchiveWriter.cs recovery/preparation/makebig/MakeBigControl.cs
+            & $csc /nologo /target:exe /platform:x86 /langversion:7.3 $opt "/out:$out/MakeBigControl.exe" "/r:$out/NewModCompiler.exe" recovery/preparation/makebig/MakeBigControl.cs
             if($LASTEXITCODE -ne 0){throw 'Recovered MakeBig validation host compilation failed'}
             python recovery/preparation/makebig/TestCompilerMakeBig.py --original $original --candidate "$out/MakeBigControl.exe" --output "$out/evidence"
             if($LASTEXITCODE -ne 0){$failed+=$mode}

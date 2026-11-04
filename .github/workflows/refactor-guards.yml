@@ -2,7 +2,7 @@ name: MOD compiler validation guard regressions
 on:
   push:
     branches: [compiler-main, refactor/modcompiler-p0-p3]
-    paths:
+    paths: &paths
       - '.github/workflows/refactor-guards.yml'
       - 'recovery/scripts/BuildCompilerValidationHost.ps1'
       - 'recovery/scripts/CompilerValidation.Common.ps1'
@@ -18,6 +18,9 @@ on:
       - 'recovery/tests/test_prepare_compiler_xml_matrices.py'
       - 'recovery/tests/test_w3x_capture_inputs.py'
       - 'recovery/tests/test_compiler_xml_evidence.py'
+  pull_request:
+    branches: [compiler-main]
+    paths: *paths
   workflow_dispatch:
 permissions:
   contents: read
@@ -42,7 +45,7 @@ jobs:
         if: ${{ !cancelled() }}
         shell: pwsh
         run: ./recovery/tests/TestCompilerXmlSmokeReport.ps1
-      - name: All 63 XML matrix count contracts
+      - name: All 64 XML matrix count contracts
         if: ${{ !cancelled() }}
         shell: pwsh
         run: ./recovery/tests/TestCompilerXmlMatrixGuards.ps1

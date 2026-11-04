@@ -39,7 +39,7 @@ function Write-MatrixFixture([string]$Group,[string]$Format,[int]$Fixtures,[int]
 try {
     $excluded=@('XmlNodeOracle.cs','XmlPriorityLinkOracle.cs','XmlPrioritySdkOracle.cs')
     $oracles=@(Get-ChildItem "$root/recovery/tests/Xml*Oracle.cs"|Where-Object{$_.Name -notin $excluded}|Sort-Object Name)
-    if($oracles.Count -ne 63){throw 'Expected all 63 group contracts'}
+    if($oracles.Count -ne 64){throw 'Expected all 64 group contracts'}
     foreach($oracle in $oracles) {
         $group=$oracle.BaseName -replace 'Oracle$',''
         $old=Get-Content "$root/recovery/scripts/Test$group.ps1" -Raw
