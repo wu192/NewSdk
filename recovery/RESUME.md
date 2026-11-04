@@ -1,11 +1,21 @@
-# 当前：compiler-main CI 修复验证中
+# 当前：compiler-main CI 五工作流通过，PR #1 待审
 
-`fix/compiler-main-ci` 基于 `72aa8f0c`，补齐五份稀疏工作流的汇总脚本检出；
-MakeBig 对比宿主引用现有 BuildApp 的完整依赖构建；XML guard 同步 300 路由/64 分组。
-联合后处理保留原始 raw 断言及失败收据，新增单独的 canonical LoD 验证：
-只接受固定原工具和五个固定输入的末尾 `01/00` 差异，其他十二文件字节仍严格检查。
-本地 XML guards、六个 canonical 接受/拒绝用例及 actionlint 已通过；Windows 五工作流待验证。
-生产源码未改；此处不代表全量 SDK/大型 MOD 验收。禁止强推，合入仍须先 PR 并获用户批准。
+[PR #1](https://github.com/wu192/NewSdk/pull/1)，`fix/compiler-main-ci` 基于 `72aa8f0c`。
+验证分支头 `12b0cd99`，PR 检出源码 `1ac655d5`：
+[HashFix](https://github.com/wu192/NewSdk/actions/runs/41818840198)、
+[LoD](https://github.com/wu192/NewSdk/actions/runs/41818839929)、
+[MakeBig](https://github.com/wu192/NewSdk/actions/runs/41818840222)、
+[XML guards](https://github.com/wu192/NewSdk/actions/runs/41818839919)、
+[基础后处理](https://github.com/wu192/NewSdk/actions/runs/41818840241) 均 success。
+
+补齐五份稀疏工作流的汇总脚本检出；MakeBig 宿主引用现有 BuildApp 完整依赖构建；
+XML 测试同步 300 路由/64 分组，并为当前五项增加 PR 自动检查。
+D/R HashFix 各9、LoD 各17、MakeBig 各15用例通过；XML 原有拒绝/传输检查通过。
+联合后处理十组按[已定 canonical 合同](P7_LOD_ORIGINAL_TAIL.md)通过，五组已知末尾
+`01/00` 差异及原始 raw 失败收据保留；原始断言未改。精简归档已下载复核。
+本地六个 canonical 接受/拒绝用例、actionlint 和二十段工作流 PowerShell 语法检查通过。
+生产源码未改，无全量 SDK/大型 MOD 新结论；后续文档提交不改变上述验证输入。
+未合并，禁止强推，合入仍须获用户批准。
 
 # 此前：BIG 超过 2 GiB 内存修复已验证并打包，PR #50 待审
 
