@@ -58,3 +58,5 @@ HashFix/Resolver 的十组均原字节一致，其余五组 LoD 也原字节一�
 最后一个字节为原工具 `01`、候选 `00`；其他任意差异、缺文件/组、错误收据均失败。
 单独的 `canonical-validation.json` 明示 `rawByteIdentical` 和全部已知差异位置，
 不能把它当作联合 raw 相等、生产 BIG 或 SDK 通过。正常组件 raw 差分仍独立执行。
+只要原始 raw 对比失败，工作流仍上传精简 JSON/日志（保留一天），即使 canonical
+合同通过也保留失败收据；不上传可重建二进制或扩大普通成功产物的保留策略。

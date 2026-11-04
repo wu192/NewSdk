@@ -32,11 +32,13 @@ jobs:
       - name: Check canonical gate rejection contracts
         run: python -m unittest discover -s recovery/preparation/base-postprocess -p test_canonical_lod.py -v
       - name: Check raw stages and documented canonical LoD contract
+        id: differential
         shell: pwsh
         run: |
           $vs=& "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -products '*' -requires Microsoft.Component.MSBuild -property installationPath
           $csc=Join-Path $vs 'MSBuild/Current/Bin/Roslyn/csc.exe'
           $failed=@()
+          $rawDifferences=$false
           foreach($mode in @('Debug','Release')) {
             $out="recovery/artifacts/base-postprocess/$mode";New-Item -ItemType Directory -Force $out|Out-Null
             $opt=if($mode -eq 'Release'){'/optimize+'}else{'/debug:full'}
@@ -45,11 +47,13 @@ jobs:
             python recovery/preparation/base-postprocess/TestCompilerBasePostprocess.py --tools SDK/tools --candidate "$out/BasePostprocessControl.exe" --output "$out/evidence"
             $rawExit=$LASTEXITCODE
             if($rawExit -notin @(0,1)){throw "Raw differential did not complete: $rawExit"}
+            if($rawExit -eq 1){$rawDifferences=$true}
             # Preserve the raw assertions and failed receipt. Accept only the
             # documented canonical fix, with pinned inputs and exact byte checks.
             python recovery/preparation/base-postprocess/CheckCanonicalLoD.py --evidence "$out/evidence" --source-commit ((git rev-parse HEAD).Trim()) --output "$out/canonical-validation.json"
             if($LASTEXITCODE -ne 0){$failed+=$mode}
           }
+          ('raw-differences='+$rawDifferences.ToString().ToLowerInvariant()) | Add-Content $env:GITHUB_OUTPUT
           if($failed.Count -ne 0){throw ('Base postprocess canonical contract failed: '+($failed -join ','))}
       - name: Summarize CI evidence
         if: always()
@@ -65,7 +69,8 @@ jobs:
             !**/baseline-streams/**
         run: python recovery/scripts/WriteCiSummary.py --title "CI evidence"
       - uses: actions/upload-artifact@v4
-        if: failure()
+        # Keep the original failed raw receipts even when the canonical contract passes.
+        if: failure() || steps.differential.outputs.raw-differences == 'true'
         with:
           name: 'base-postprocess-${{ github.run_id }}-${{ github.run_attempt }}'
           path: |
