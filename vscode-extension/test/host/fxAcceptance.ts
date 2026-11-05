@@ -89,7 +89,7 @@ export async function runFxAcceptance(fx: FxApi, modRoot: string, evidence: stri
     await waitFor(() => !!fx.getSnapshot(auraUri.fsPath).ir?.systems.some(s => s.fields.some(f => pathIdentity(f.uri) === pathIdentity(auraUri.fsPath))), 'B edit/save queue ready');
     // Exercise the exact production message dispatcher with the version a webview sees
     // before blur submits an edit and Ctrl+S immediately submits Save.
-    const boundary = fx as unknown as { current(): {document: vscode.TextDocument; session: {id: string}}; dispatch(state: unknown, message: unknown): Promise<void> };
+    const boundary = fx as unknown as { current(): {document: vscode.TextDocument; session: {id: string; documentVersion: number}}; dispatch(state: unknown, message: unknown): Promise<void> };
     const queueState = boundary.current(); assert.equal(pathIdentity(queueState.document.uri.fsPath), pathIdentity(auraUri.fsPath));
     const queueSnap = fx.getSnapshot(auraUri.fsPath);
     const queuedField = queueSnap.ir!.systems.flatMap(s => s.fields).find(f => pathIdentity(f.uri) === pathIdentity(auraUri.fsPath) && f.attribute === 'Low' && /Lifetime/.test(f.nodePath))!;
@@ -106,13 +106,21 @@ export async function runFxAcceptance(fx: FxApi, modRoot: string, evidence: stri
     cases.push('production dispatcher: B edit then old-version Ctrl+S saves new B text / A unchanged / native B undo');
 
 
+    await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+    await waitFor(() => fx.getSnapshot().sessionCount===0,'isolate source trajectory editor');
     await fx.open(flash);
     await waitFor(() => !!fx.getSnapshot(flash.fsPath).ir, 'save and compile');
     const motionScene = structuredClone(fx.getSnapshot(flash.fsPath).ir!.scene);
     motionScene.sourceMotion = {playback:'pingPong',points:[{frame:0,offset:[0,0,0]},{frame:90,offset:[60,20,5]}]};
     const applyScene = async (scene: typeof motionScene, requestId: number) => {
+        await waitFor(() => {
+            const current = boundary.current(), preview = fx.getSnapshot(flash.fsPath).ir;
+            return !!current && pathIdentity(current.document.uri.fsPath)===pathIdentity(flash.fsPath)
+                && current.session.documentVersion===current.document.version && preview?.documentVersion===current.document.version;
+        },'source trajectory target panel and observed document version');
         const current = boundary.current();
-        await boundary.dispatch(current,{sessionId:current.session.id,documentVersion:current.document.version,requestId,type:'scene',scene});
+        assert.equal(pathIdentity(current.document.uri.fsPath),pathIdentity(flash.fsPath));
+        await boundary.dispatch(current,{sessionId:current.session.id,documentVersion:fx.getSnapshot(flash.fsPath).ir!.documentVersion,requestId,type:'scene',scene});
     };
     const beforeMotionText = document.getText(), beforeMotionDisk = await fs.readFile(flash.fsPath,'utf8');
     await applyScene(motionScene,1000010);
