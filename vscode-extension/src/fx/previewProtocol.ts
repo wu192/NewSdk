@@ -40,7 +40,7 @@ export type FxClientMessage = FxEnvelope & (
     | {type: 'scene'; scene: FxScene} | {type: 'reload'; resetRenderer?: boolean} | {type: 'saveAndBuild'}
     | {type: 'openShared'; systemKey: string} | {type: 'new'; preset: string}
     | {type: 'openFieldSource'; key: string} | {type: 'overrideField'; key: string; value: string; expectedValue: string}
-    | {type: 'copy'; assetKey: string} | {type: 'state'; state: Record<string, unknown>}
+    | {type: 'copy'; assetKey: string; systemKey?: string} | {type: 'state'; state: Record<string, unknown>}
     | {type: 'textureAck'; key: string; transferId: string; level: number; offset: number}
     | {type: 'undo'} | {type: 'redo'}
 );

@@ -69,7 +69,8 @@ export class AssetIndex {
         const absolute = filePath(uri); const current = this.physicalPaths.get(absolute) ?? absolute;
         const sdk = this.options.sdkRoot ? this.physicalPaths.get(filePath(this.options.sdkRoot)) ?? filePath(this.options.sdkRoot) : undefined;
         const mod = this.options.modRoot ? this.physicalPaths.get(filePath(this.options.modRoot)) ?? filePath(this.options.modRoot) : undefined;
-        return !!sdk && contains(sdk, current) && !(mod && contains(mod, current));
+        // Only an explicitly selected MOD strictly inside the SDK is writable.
+        return !!sdk && contains(sdk, current) && !(mod && identity(mod) !== identity(sdk) && contains(sdk, mod) && contains(mod, current));
     }
     /** Lexical and physical checks both run before any external file reader. */
     async checkedFile(uri: string): Promise<string> {

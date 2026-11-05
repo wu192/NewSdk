@@ -96,7 +96,7 @@ function renderInspector():void {
     const system=selectedSystem();
     if(system){
         inspectorBody.append(el('h2','system-title',system.name));
-        const shared=el('div','shared-tools');shared.append(button('编辑共享源','切换可视编辑器与原生 XML 到该模板定义；组合预览根保持不变',()=>send({type:'openShared',systemKey:system.key})),button('XML ↗','在原生 XML 中定位此系统',()=>{const f=system.fields[0];if(f)send({type:'locate',key:f.key});}));inspectorBody.append(shared);
+        const shared=el('div','shared-tools');shared.append(button('复制为独立模板','复制选中模板及其继承父定义，仅替换这次调用；不复制贴图文件',()=>send({type:'copy',assetKey:system.templateKey,systemKey:system.key})),button('编辑共享源','切换可视编辑器与原生 XML 到该模板定义；组合预览根保持不变',()=>send({type:'openShared',systemKey:system.key})),button('XML ↗','在原生 XML 中定位此系统',()=>{const f=system.fields[0];if(f)send({type:'locate',key:f.key});}));inspectorBody.append(shared);
         const fields=[...system.fields];const keys=new Set(fields.map(f=>f.key));
         const rootFields=ir.fields.filter(f=>!keys.has(f.key));
         if(rootFields.length){const root=el('details','call-fields');root.open=true;root.append(el('summary','','这次调用 / 组合'),fieldsPanel(rootFields,actions));inspectorBody.append(root);}

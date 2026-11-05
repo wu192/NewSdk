@@ -246,6 +246,27 @@ test('SDK aliases stay readonly and local instances override reference-stream de
     aliasedSelector.dispose();
 });
 
+test('a workspace containing the SDK, or selecting the SDK itself, cannot make SDK assets writable', async t => {
+    const root = await temporary(t); const sdk = path.join(root,'SDK'); await fs.mkdir(sdk);
+    const source = path.join(sdk,'source.xml'); await fs.writeFile(source,wrap('<Texture id="T" File="source.tga"/>'));
+    const local = path.join(root,'local.xml'); await fs.writeFile(local,wrap('<Texture id="Local" File="local.tga"/>'));
+    for (const mod of [root,sdk]) {
+        const index = new AssetIndex({roots:[root,sdk],modRoot:mod,sdkRoot:sdk});
+        await index.load(source); assert.equal(index.listAssets()[0].readonly,true); assert.equal(index.isReadonly(sdk),true);
+        await index.load(local); assert.equal(index.listAssets()[0].readonly,false); index.dispose();
+    }
+});
+
+test('a selected MOD strictly inside the SDK is writable while SDK sources remain readonly', async t => {
+    const root = await temporary(t); const sdk = path.join(root,'SDK'); const mod = path.join(sdk,'Mods','MyMod');
+    await fs.mkdir(mod,{recursive:true});
+    const source = path.join(sdk,'source.xml'); const local = path.join(mod,'local.xml');
+    await fs.writeFile(source,wrap('<Texture id="T" File="source.tga"/>')); await fs.writeFile(local,wrap('<Texture id="Local" File="local.tga"/>'));
+    const index = new AssetIndex({roots:[sdk,mod],modRoot:mod,sdkRoot:sdk});
+    await index.load(local); assert.equal(index.listAssets()[0].readonly,false);
+    await index.load(source); assert.equal(index.listAssets()[0].readonly,true); assert.equal(index.isReadonly(sdk),true); index.dispose();
+});
+
 test('absent Atlas defaults expose authorized insertion fields at the real Gpu node', async t => {
     const root = await temporary(t);
     const template = (await templateXml()).replace(/ SingleRow="0" RandTex="0"/,'');

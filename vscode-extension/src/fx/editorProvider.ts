@@ -14,6 +14,7 @@ import { FxClientMessage, FxEnvelope, FxField, FxHostMessage, FxScene, PreviewIR
 import { canonicalPath, containsPath, DiscoveredProject, pathIdentity, ResolvedProjectSettings } from '../project';
 import { createFxTemplate, escapeXml, FxPreset, fxPresets } from './templates';
 import { prepareTextureState, streamPreviewTextures, UploadedTexture } from './texturePipeline';
+import { planAssetCopy } from './copyAsset';
 
 const viewType = 'newsdk.fxEditor';
 const sourceLimit = 4 * 1024 * 1024;
@@ -39,6 +40,7 @@ export interface FxApi extends vscode.Disposable {
     refreshProject(): void;
     open(uri: vscode.Uri, assetKey?: string): Promise<void>;
     openShared(uri: string, systemKey: string): Promise<void>;
+    copy(uri: string, assetKey: string, systemKey?: string): Promise<void>;
     applyEdits(uri: string, edits: { key: string; value: string; expectedValue: string }[], version: number): Promise<boolean>;
     getSnapshot(uri?: string): { sessionCount: number; activeCount: number; dependencies: string[]; ir?: PreviewIR; documentVersion?: number; sessionId?: string };
 }
@@ -151,7 +153,11 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         if (!this.roots.some(root => containsPath(root, physical))) throw new Error('文件不在当前 MOD / SDK 资源根中。');
         const sdk = this.services.getConfiguration()?.sdkRoot;
         const mod = this.services.getProject()?.root ?? this.roots[0];
-        if (editable && sdk && containsPath(await canonicalPath(sdk), physical) && !containsPath(await canonicalPath(mod), physical)) throw new Error('SDK 来源只读，请复制为 MOD 独立资源后编辑。');
+        if (editable && sdk) {
+            const sdkRoot = await canonicalPath(sdk); const modRoot = await canonicalPath(mod);
+            const nestedMod = pathIdentity(sdkRoot) !== pathIdentity(modRoot) && containsPath(sdkRoot, modRoot);
+            if (containsPath(sdkRoot, physical) && !(nestedMod && containsPath(modRoot, physical))) throw new Error('SDK 来源只读，请复制为 MOD 独立资源后编辑。');
+        }
         if (editable && !vscode.workspace.isTrusted) throw new Error('信任此工作区后才能修改特效。');
         return physical;
     }
@@ -395,7 +401,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                     && message.value.length <= 4096 && state.session.acceptMutation(message.requestId)) await this.overrideField(state, message.key, message.value, message.expectedValue);
                 break;
             case 'new': if (fxPresets.includes(message.preset as FxPreset)) await this.newPreset(state, message.preset as FxPreset); break;
-            case 'copy': if (typeof message.assetKey === 'string') await this.copyAsset(state, message.assetKey); break;
+            case 'copy': if (typeof message.assetKey === 'string') await this.copyAsset(state, message.assetKey, typeof message.systemKey === 'string' ? message.systemKey : undefined); break;
             case 'state':
                 state.state = safeUiState(message.state); state.followCursor = state.state.followCursor === true;
                 await this.context.workspaceState.update(`newsdk.fx:${state.document.uri.toString()}`, { ...state.state, scene: state.scene }); break;
@@ -581,36 +587,87 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         const at = match.index + 1;
         return fragment.slice(0, at) + missing.map(([key, value]) => ` ${key}="${escapeXml(value)}"`).join('') + fragment.slice(at);
     }
-    private async copyAsset(state: EditorState, assetKey: string): Promise<void> {
+    async copy(uri: string, assetKey: string, systemKey?: string): Promise<void> {
+        const state = [...this.editors].find(editor => sameFile(editor.document.uri.fsPath, uri));
+        if (state) await this.copyAsset(state, assetKey, systemKey);
+    }
+    private async copyAsset(state: EditorState, assetKey: string, systemKey?: string): Promise<void> {
         const asset = state.index.getAsset(assetKey); if (!asset || !state.ir) return;
-        await this.allowed(state.document.uri.fsPath, true); await this.allowed(asset.uri);
-        const model = parseXml(state.document.getText(), state.document.uri.fsPath, state.document.version);
-        const root = model.roots.find(r => r.localName === 'AssetDeclaration');
-        if (!root || root.selfClosing || !model.valid) throw new Error('请修复目标 XML 后再复制资源。');
+        const rootIr = state.ir;
+        await this.allowed(asset.uri);
         const source = await vscode.workspace.openTextDocument(asUri(asset.uri));
         const sourceModel = parseXml(source.getText(), source.uri.fsPath, source.version);
         const node = sourceModel.find(asset.node.path); if (!node || !sourceModel.valid) throw new Error('共享源已更新，请重载。');
-        let id = `${asset.id}_Copy`; for (let n = 2; state.index.listAssets().some(a => a.id === id); n++) id = `${asset.id}_Copy${n}`;
-        const systems = state.ir.systems.filter(s => s.templateKey === asset.key);
-        let system = systems[0];
-        if (systems.length > 1) system = (await vscode.window.showQuickPick(systems.map(s => ({ label: s.name, system: s })), { title: '选择要改为独立资源的调用' }))?.system!;
-        if (systems.length > 1 && !system) return;
-        const reference = system && fields(state.ir).find(f => f.nodePath === system.source.nodePath && f.attribute === 'Particle' && sameFile(f.uri, state.document.uri.fsPath));
-        if (!sameFile(asset.uri, state.document.uri.fsPath) && !reference) throw new Error('当前编辑文档没有可安全替换的 Particle 引用；请回到组合调用后复制。');
-        const idToken = node.attributeTokens.id; if (!idToken) return;
-        let copy = source.getText().slice(node.start, node.end);
-        copy = copy.slice(0, idToken.valueStart - node.start) + escapeXml(id) + copy.slice(idToken.valueEnd - node.start);
-        // Carry namespace bindings used by unknown descendants into the copied subtree.
-        copy = this.withNamespaces(copy, node);
-        const version = state.document.version; const sourceVersion = source.version;
-        const confirmed = await vscode.window.showInformationMessage(`复制 ${asset.id} 为 ${id}${reference ? '，并只修改当前调用引用' : ''}`, { modal: true, detail: copy }, '复制');
-        if (confirmed !== '复制') return;
-        if (state.document.version !== version || source.version !== sourceVersion) throw new Error('内容已更新，请重新复制。');
-        const edit = new vscode.WorkspaceEdit(); edit.insert(state.document.uri, state.document.positionAt(root.closeStart), `\n${copy}\n`);
-        if (reference) for (const patch of prepareTransaction(model, [{ nodePath: reference.nodePath, attribute: reference.attribute, expectedValue: reference.value, value: id, documentVersion: version }])) {
-            edit.replace(state.document.uri, new vscode.Range(state.document.positionAt(patch.start), state.document.positionAt(patch.end)), patch.text);
+        if (node.attributes.id !== asset.id) throw new Error('共享源身份已更新，请重载。');
+        const systems = rootIr.systems.filter(system => system.templateKey === asset.key);
+        const calls = [...new Map(systems.map(system => [`${system.source.uri}\0${system.source.nodePath}`, system])).values()];
+        let system = systemKey ? systems.find(candidate => candidate.key === systemKey) : calls[0];
+        if (systemKey && !system) throw new Error('所选调用已更新，请重载。');
+        if (!systemKey && calls.length > 1) system = (await vscode.window.showQuickPick(calls.map(candidate => ({ label: candidate.name, description: path.basename(candidate.source.uri), system: candidate })), { title: '选择要改为独立模板的调用' }))?.system;
+        if (!systemKey && calls.length > 1 && !system) return;
+        let reference: {nodePath: string; attribute: string; expectedValue: string} | undefined;
+        let targetUri: vscode.Uri | undefined;
+        if (system) {
+            const caller = await vscode.workspace.openTextDocument(asUri(system.source.uri));
+            const snapshot = state.index.getDocument(system.source.uri);
+            if (!snapshot?.valid || snapshot.text !== caller.getText()) throw new Error('调用文档已更新，请重载后重新复制。');
+            const call = parseXml(caller.getText(), caller.uri.fsPath, caller.version).find(system.source.nodePath);
+            if (call?.localName === 'ParticleSystem' && call.attributes.Particle === asset.id) {
+                try {
+                    await this.allowed(caller.uri.fsPath, true);
+                    targetUri = caller.uri; reference = { nodePath: call.path, attribute: 'Particle', expectedValue: asset.id };
+                } catch { /* SDK calls stay read-only; choose a MOD XML for a new independent template. */ }
+            }
         }
-        if (!await vscode.workspace.applyEdit(edit)) throw new Error('复制未应用，源文档保留。');
+        if (!targetUri) {
+            const preferred = state.previewKey ? asUri(rootIr.documentUri) : state.document.uri;
+            try { await this.allowed(preferred.fsPath, true); targetUri = preferred; } catch { /* A standalone SDK source needs a MOD destination. */ }
+        }
+        if (!targetUri) {
+            const mod = this.services.getProject()?.root ?? this.roots[0];
+            const candidates = new Map<string, vscode.Uri>();
+            for (const document of vscode.workspace.textDocuments) if (document.uri.scheme === 'file' && /\.xml$/i.test(document.uri.fsPath)) {
+                try { await this.allowed(document.uri.fsPath, true); candidates.set(document.uri.toString(), document.uri); } catch { /* SDK text remains read-only. */ }
+            }
+            const entry = vscode.Uri.file(path.join(mod, 'Data', 'Mod.xml'));
+            try { await fs.access(entry.fsPath); await this.allowed(entry.fsPath, true); candidates.set(entry.toString(), entry); } catch { /* Allow choosing a different MOD XML. */ }
+            const choices = [...candidates.values()].map(uri => ({ label: path.basename(uri.fsPath), description: uri.fsPath, uri }));
+            const choice = await vscode.window.showQuickPick([...choices, { label: '选择其他 MOD XML…', description: '', uri: undefined }], { title: '复制 SDK 模板到哪个 MOD XML？' });
+            if (!choice) return;
+            targetUri = choice.uri ?? (await vscode.window.showOpenDialog({ title: '选择 MOD XML', canSelectMany: false, filters: { XML: ['xml'] }, defaultUri: vscode.Uri.file(mod) }))?.[0];
+            if (!targetUri) return;
+        }
+        await this.allowed(targetUri.fsPath, true);
+        const target = await vscode.workspace.openTextDocument(targetUri);
+        const targetModel = parseXml(target.getText(), target.uri.fsPath, target.version);
+        const targetIndex = this.newIndex();
+        let entry = rootIr.entry;
+        try {
+            if (!containsPath(this.services.getProject()?.root ?? this.roots[0], entry)) entry = path.join(this.services.getProject()?.root ?? this.roots[0], 'Data', 'Mod.xml');
+            try { await fs.access(entry); } catch { entry = target.uri.fsPath; }
+            await targetIndex.load(entry);
+            if (!targetIndex.getDocument(target.uri.fsPath)) { entry = target.uri.fsPath; await targetIndex.load(entry); }
+            const visible = targetIndex.listAssets();
+            const plan = planAssetCopy({ source: sourceModel, sourcePath: node.path, target: targetModel,
+                reservedIds: visible.map(candidate => candidate.id), visibleAssets: visible, reference });
+            const version = target.version; const sourceVersion = source.version;
+            const confirmed = await vscode.window.showInformationMessage(`复制 ${asset.id} 为 ${plan.assetId}，写入 ${path.basename(target.uri.fsPath)}${reference ? '并修改当前调用' : ''}`,
+                { modal: true, detail: `${plan.copied.map(item => `${item.sourceId} → ${item.id}`).join('\n')}\n依赖保留引用，不复制贴图文件。\n\n${plan.preview}` }, '复制');
+            if (confirmed !== '复制') return;
+            if (state.disposed || target.version !== version || source.version !== sourceVersion) throw new Error('内容已更新，请重新复制。');
+            await this.allowed(target.uri.fsPath, true);
+            if (state.disposed || target.version !== version || source.version !== sourceVersion) throw new Error('内容已更新，请重新复制。');
+            const edit = new vscode.WorkspaceEdit();
+            for (const patch of plan.patches) edit.replace(target.uri, new vscode.Range(target.positionAt(patch.start), target.positionAt(patch.end)), patch.text);
+            if (!await vscode.workspace.applyEdit(edit)) throw new Error('复制未应用，源文档保留。');
+            targetIndex.invalidate(target.uri.fsPath); await targetIndex.load(entry);
+            const selected = reference ? targetIndex.listAssets().find(candidate => candidate.type === 'FXList' && sameFile(candidate.uri, target.uri.fsPath)
+                && !!targetIndex.getDocument(target.uri.fsPath)?.find(reference!.nodePath)?.path.startsWith(`${candidate.node.path}/`))
+                : targetIndex.listAssets().find(candidate => candidate.id === plan.assetId && sameFile(candidate.uri, target.uri.fsPath));
+            await this.open(target.uri, selected?.key);
+            const editing = [...this.editors].find(editor => sameFile(editor.document.uri.fsPath, target.uri.fsPath));
+            if (editing) await this.locate(editing);
+        } finally { targetIndex.dispose(); }
     }
     getSnapshot(uri?: string): ReturnType<FxApi['getSnapshot']> {
         const state = uri ? [...this.editors].find(s => sameFile(s.document.uri.fsPath, uri)) : this.current();

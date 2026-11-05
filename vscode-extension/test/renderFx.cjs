@@ -154,6 +154,16 @@ async function fixture(file, id) {
     assert.equal(await page.evaluate(()=>window.fxMessages.filter(m=>m.type==='edit').length),1,'No-WebGL editor must still submit XML edits');
     await page.evaluate(()=>window.__fxTest.dispose());
     cases.push({id:'No WebGL2',checks:['specific status','stopped RAF','structure and parameter editing']});
+    await page.goto(`${origin}/app`);
+    await page.waitForFunction(()=>window.__fxTest);
+    await page.evaluate(ir=>window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:1,type:'preview',ir,assets:[{key:ir.assetKey,name:ir.name,type:'FXList'}],editingUri:ir.documentUri}),aura);
+    await page.evaluate(()=>window.__fxTest.pause());
+    await page.getByRole('button',{name:'复制为独立模板',exact:true}).click();
+    const copyIntent=await page.evaluate(()=>window.fxMessages.find(m=>m.type==='copy'));
+    assert.equal(copyIntent.assetKey,aura.systems[0].templateKey,'Independent-template copy must target the selected template, not the FXList root');
+    assert.equal(copyIntent.systemKey,aura.systems[0].key,'Copy must identify the exact call to replace');
+    await page.evaluate(()=>window.__fxTest.dispose());
+    cases.push({id:'Independent shared template',checks:['template identity','exact invocation identity']});
     assert.deepEqual(errors, []);
     await fs.writeFile(path.join(output, 'fx-render.json'), JSON.stringify({passed: true, renderer:'Chromium SwiftShader; regression only, no hardware FPS claim', cases, switches:100, gpuHandlesAfterClose:{buffers:0,textures:0,programs:0,vaos:0}}, null, 2));
     console.log(`FX renderer: ${cases.length} fixed fixtures, deterministic seek, 100 dispose cycles passed`);
