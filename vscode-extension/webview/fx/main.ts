@@ -287,7 +287,7 @@ async function receive(message:FxHostMessage):Promise<void> {
     if(message.type==='focusField'){focusField(message.key);return;}
     if(message.type==='focusSystem'){if(allSystems(ir).some(system=>system.key===message.key)){cancelDraft();state.selected=message.key;activeTab='parameters';for(const child of Array.from(tabs.children))child.classList.toggle('selected',(child as HTMLElement).dataset.tab==='parameters');renderLayers();renderInspector();persist();}return;}
     if(message.type==='resetRenderer'){resetRenderer();return;}
-    if(message.type==='status'){const scenePending=pendingSceneCommit;pendingSceneCommit=false;if(message.stale){pendingCommit=false;app.classList.remove('editing-pending');if(draftIr){discardDraft();if(ir)void rebuild(ir,Math.max(0,state.frame));}renderInspector();}else if(scenePending&&activeTab==='scene')renderInspector();status(message.message,message.stale?'warning':'');return;}
+    if(message.type==='status'){if(message.stale){pendingSceneCommit=false;pendingCommit=false;app.classList.remove('editing-pending');if(draftIr){discardDraft();if(ir)void rebuild(ir,Math.max(0,state.frame));}renderInspector();}status(message.message,message.stale?'warning':'');return;}
     if(message.type==='textureState'){receiveTextureState(message);return;}
     if(message.type==='textureBegin'||message.type==='textureChunk'||message.type==='textureEnd'){receiveTexture(message);return;}
     if(message.type!=='preview'||message.requestId<lastPreviewRequest||message.ir?.schemaVersion!==1)return;
