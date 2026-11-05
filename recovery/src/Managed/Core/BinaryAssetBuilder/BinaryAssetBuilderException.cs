@@ -13,6 +13,17 @@ public class BinaryAssetBuilderException : ApplicationException
 
 	public ErrorCode ErrorCode => _ErrorCode;
 
+	// Add metadata where the caller already owns the document/asset. The first
+	// (innermost) context wins when an include failure unwinds through parents.
+	public static void AttachSource(Exception error, string file, string assetType = null, string assetId = null, int line = 0, int column = 0)
+	{
+		if (!string.IsNullOrEmpty(file) && !error.Data.Contains("NewSdk.SourceFile")) error.Data["NewSdk.SourceFile"] = file;
+		if (!string.IsNullOrEmpty(assetType) && !error.Data.Contains("NewSdk.AssetType")) error.Data["NewSdk.AssetType"] = assetType;
+		if (!string.IsNullOrEmpty(assetId) && !error.Data.Contains("NewSdk.AssetId")) error.Data["NewSdk.AssetId"] = assetId;
+		if (line > 0 && !error.Data.Contains("NewSdk.SourceLine")) error.Data["NewSdk.SourceLine"] = line;
+		if (column > 0 && !error.Data.Contains("NewSdk.SourceColumn")) error.Data["NewSdk.SourceColumn"] = column;
+	}
+
 	public BinaryAssetBuilderException(SerializationInfo info, StreamingContext context)
 		: base(info, context)
 	{

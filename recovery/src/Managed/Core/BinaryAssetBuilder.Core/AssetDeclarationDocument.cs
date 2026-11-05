@@ -18,11 +18,13 @@ namespace BinaryAssetBuilder.Core;
 [Serializable]
 public class AssetDeclarationDocument : IXmlSerializable
 {
-	private class XmlNodeWithMetaData
+	private class XmlNodeWithMetaData : IEquatable<XmlNodeWithMetaData>
 	{
 		public XmlNode Node;
 
 		public int LineNumber;
+		public int LinePosition;
+		public string SourceUri;
 
 		public XmlNodeWithMetaData(XmlNode node, int line)
 		{
@@ -865,7 +867,8 @@ public class AssetDeclarationDocument : IXmlSerializable
 		IXmlLineInfo xmlLineInfo = _Current.XmlReader as IXmlLineInfo;
 		if (xmlLineInfo.HasLineInfo())
 		{
-			_Current.NodeSourceInfoSet.AddFirst(new XmlNodeWithMetaData(e.Node, xmlLineInfo.LineNumber));
+			_Current.NodeSourceInfoSet.AddFirst(new XmlNodeWithMetaData(e.Node, xmlLineInfo.LineNumber) {
+				LinePosition = xmlLineInfo.LinePosition, SourceUri = _Current.XmlReader.BaseURI });
 		}
 	}
 
@@ -1010,7 +1013,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 			LinkedListNode<XmlNodeWithMetaData> linkedListNode = _Current.NodeSourceInfoSet.Find(new XmlNodeWithMetaData(node, 0));
 			if (linkedListNode != null && linkedListNode.Value != null)
 			{
-				throw new BinaryAssetBuilderException(ErrorCode.SchemaValidation, "XML validation error encountered in '{0}' near line {1}:\n   {2}", SourcePath, linkedListNode.Value.LineNumber, e.Message);
+				var info = linkedListNode.Value;
+				var failure = new BinaryAssetBuilderException(e.Exception, ErrorCode.SchemaValidation, "XML validation error encountered in '{0}' near line {1}:\n   {2}", SourcePath, info.LineNumber, e.Message);
+				if (!string.IsNullOrEmpty(info.SourceUri)) BinaryAssetBuilderException.AttachSource(failure, info.SourceUri, line: info.LineNumber, column: info.LinePosition);
+				throw failure;
 			}
 		}
 		throw new BinaryAssetBuilderException(e.Exception, ErrorCode.SchemaValidation, "XML validation error encountered in '{0}'", SourcePath);

@@ -212,29 +212,33 @@ namespace NewModCompiler.Application
             // failure and its Output exception must reach the build outcome.
             events.Emit("Diagnostic",level,payload:new {source=source,traceEventType=type},message:message,code:code,streamId:activeStream,stageId:activeStage);
         }
-        void AddReportDiagnostic(string code,string message,string level,string streamId,string stageId,string source,string traceEventType)
+        void AddReportDiagnostic(string code,string message,string level,string streamId,string stageId,string source,string traceEventType,IDictionary<string,object> location = null)
         {
             var diagnostic = new Dictionary<string,object> {{"code",code},{"message",message},{"level",level}};
             if (streamId != null) diagnostic["streamId"] = streamId;
             if (stageId != null) diagnostic["stageId"] = stageId;
             if (source != null) diagnostic["source"] = source;
             if (traceEventType != null) diagnostic["traceEventType"] = traceEventType;
+            DiagnosticSource.Apply(diagnostic,location);
             diagnostics.Add(diagnostic);
             if (level == "error") errorCount++;
             if (level == "warning") warningCount++;
         }
-        void Diagnostic(string code, string message,string level = "error",string streamId = null,string stageId = null)
+        void Diagnostic(string code, string message,string level = "error",string streamId = null,string stageId = null,Exception error = null)
         {
-            AddReportDiagnostic(code,message,level,streamId,stageId,null,null);
+            var location = DiagnosticSource.FromException(error);
+            AddReportDiagnostic(code,message,level,streamId,stageId,null,null,location);
+            var payload = new Dictionary<string,object>();
+            DiagnosticSource.Apply(payload,location);
             // These diagnostics are emitted while unwinding an existing failure.
             // EventDispatcher.OutputFailed still forces Output at finalization.
-            try { events.Emit("Diagnostic",level,message:message,code:code,streamId:streamId,stageId:stageId); } catch { }
+            try { events.Emit("Diagnostic",level,payload:payload.Count == 0 ? null : payload,message:message,code:code,streamId:streamId,stageId:stageId); } catch { }
         }
         void Fail(Exception error,string status,string code,string message)
         {
             string stage = activeStage;
             CompleteFailedStage(status);
-            Diagnostic(code,message,streamId:activeStream,stageId:stage);
+            Diagnostic(code,message,streamId:activeStream,stageId:stage,error:error);
             ExportExceptionDetails(error,activeStream,stage);
         }
         static void AttachCleanup(Exception primary,Exception cleanup)
@@ -264,7 +268,7 @@ namespace NewModCompiler.Application
                     if (duplicate) continue;
                     if (++count > 16) { truncated = true; break; }
                     seen.Add(detail);
-                    Diagnostic(key == "OriginalException" ? "CORE_ORIGINAL_EXCEPTION" : "CORE_METRICS_CLEANUP_FAILED",detail.ToString(),key == "OriginalException" ? "info" : "error",streamId,stageId);
+                    Diagnostic(key == "OriginalException" ? "CORE_ORIGINAL_EXCEPTION" : "CORE_METRICS_CLEANUP_FAILED",detail.ToString(),key == "OriginalException" ? "info" : "error",streamId,stageId,detail);
                     pending.Enqueue(Tuple.Create(detail,item.Item2+1));
                 }
                 var cleanup = item.Item1.Data["CoreCleanupExceptions"] as IEnumerable<Exception>;
@@ -278,7 +282,7 @@ namespace NewModCompiler.Application
                     if (duplicate) continue;
                     if (++count > 16) { truncated = true; break; }
                     seen.Add(detail);
-                    Diagnostic("CORE_CLEANUP_FAILED",detail.ToString(),"error",streamId,stageId);
+                    Diagnostic("CORE_CLEANUP_FAILED",detail.ToString(),"error",streamId,stageId,detail);
                     pending.Enqueue(Tuple.Create(detail,item.Item2+1));
                 }
                 if (count > 16) break;

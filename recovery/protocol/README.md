@@ -2,6 +2,8 @@
 
 Artifacts identify the current completed output by path, kind and length. The compiler no longer hashes complete output files or records publication receipts. Byte comparisons belong to external validation.
 
+Source diagnostics are optional additions to protocol `1.0`. A `Diagnostic` event's `payload` and its final report diagnostic carry the same `file`, `line`, `column`, `assetType`, and `assetId` when known, with an optional `source` object containing those fields. XML-reader coordinates are one-based and retain the actual XML/XSD source URI (file URIs are decoded to local paths). Known Core document/asset contexts are forwarded without reparsing XML. Unknown rows/columns are omitted; a missing file or an asset identity does not imply row 1. Existing tracer-name `source` strings, codes, messages, stream/stage correlation and detailed exception logs remain compatible.
+
 `NewModCompiler plan --mod <directory> --sdk-root <directory> --out <directory>` discovers selected stream roots and writes UTF-8 `build.log`, `build.events.jsonl`, and `build-report.json`. `--events`, `--report`, and `--log` override their paths. Diagnostics use stderr. `--events -` is rejected pending verified native output isolation.
 
 The standalone App entry has no asset backend and rejects `build` with `BACKEND_NOT_INTEGRATED` (exit 3). The unified production EXE integrates the experimental Win32 loose Core backend (caching disabled unless `/bc:true` is requested). A successful `plan` report states `PlanOnly` and `NoCompilationRequested`. Controlled App tests inject an executor which is not shipped in production; actual Core and CLI acceptance remain separate evidence.
