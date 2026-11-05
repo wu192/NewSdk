@@ -440,6 +440,8 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                 const scene = parseFxScene(message.scene);
                 if (scene) {
                     state.scene = scene;
+                    // Cancel old scene resolves before persistence yields to them.
+                    state.session.renew(state.document.version);
                     await this.context.workspaceState.update(`newsdk.fx:${state.document.uri.toString()}`, { ...state.state, scene });
                     await this.rebuild(state);
                 }

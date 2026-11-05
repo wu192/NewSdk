@@ -3,6 +3,8 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import * as vscode from 'vscode';
 import type { FxApi } from '../../src/fx/editorProvider';
+import type { AssetResolver } from '../../src/fx/assetResolver';
+import type { FxScene } from '../../src/fx/previewProtocol';
 import { containsPath, pathIdentity } from '../../src/project';
 import { captureFxMemory, fxMemoryReport } from './fxMemory';
 
@@ -89,7 +91,12 @@ export async function runFxAcceptance(fx: FxApi, modRoot: string, evidence: stri
     await waitFor(() => !!fx.getSnapshot(auraUri.fsPath).ir?.systems.some(s => s.fields.some(f => pathIdentity(f.uri) === pathIdentity(auraUri.fsPath))), 'B edit/save queue ready');
     // Exercise the exact production message dispatcher with the version a webview sees
     // before blur submits an edit and Ctrl+S immediately submits Save.
-    const boundary = fx as unknown as { current(): {document: vscode.TextDocument; session: {id: string; documentVersion: number}}; dispatch(state: unknown, message: unknown): Promise<void> };
+    const boundary = fx as unknown as {
+        current(): {document: vscode.TextDocument; scene: FxScene; session: {id: string; documentVersion: number; signal: AbortSignal}; resolver: AssetResolver};
+        context: {workspaceState: vscode.Memento};
+        dispatch(state: unknown, message: unknown): Promise<void>;
+        rebuild(state: unknown): Promise<void>;
+    };
     const queueState = boundary.current(); assert.equal(pathIdentity(queueState.document.uri.fsPath), pathIdentity(auraUri.fsPath));
     const queueSnap = fx.getSnapshot(auraUri.fsPath);
     const queuedField = queueSnap.ir!.systems.flatMap(s => s.fields).find(f => pathIdentity(f.uri) === pathIdentity(auraUri.fsPath) && f.attribute === 'Low' && /Lifetime/.test(f.nodePath))!;
@@ -112,7 +119,7 @@ export async function runFxAcceptance(fx: FxApi, modRoot: string, evidence: stri
     await waitFor(() => !!fx.getSnapshot(flash.fsPath).ir, 'save and compile');
     const motionScene = structuredClone(fx.getSnapshot(flash.fsPath).ir!.scene);
     motionScene.sourceMotion = {playback:'pingPong',points:[{frame:0,offset:[0,0,0]},{frame:90,offset:[60,20,5]}]};
-    const applyScene = async (scene: typeof motionScene, requestId: number) => {
+    const applyScene = async (scene: typeof motionScene, requestId: number, accepted = true) => {
         await waitFor(() => {
             const current = boundary.current(), preview = fx.getSnapshot(flash.fsPath).ir;
             return !!current && pathIdentity(current.document.uri.fsPath)===pathIdentity(flash.fsPath)
@@ -121,12 +128,68 @@ export async function runFxAcceptance(fx: FxApi, modRoot: string, evidence: stri
         const current = boundary.current();
         assert.equal(pathIdentity(current.document.uri.fsPath),pathIdentity(flash.fsPath));
         await boundary.dispatch(current,{sessionId:current.session.id,documentVersion:fx.getSnapshot(flash.fsPath).ir!.documentVersion,requestId,type:'scene',scene});
+        if (accepted) await waitFor(() => {
+            const preview = fx.getSnapshot(flash.fsPath).ir;
+            return !!preview && JSON.stringify(preview.scene.sourceMotion) === JSON.stringify(scene.sourceMotion);
+        }, 'accepted source trajectory reaches IR');
     };
     const beforeMotionText = document.getText(), beforeMotionDisk = await fs.readFile(flash.fsPath,'utf8');
+    const stationaryScene = structuredClone(motionScene); delete stationaryScene.sourceMotion;
+    await applyScene(stationaryScene,1000008);
+    // Hold an already computed old IR while the new scene is awaiting persistence.
+    // Releasing it first must not let the old rebuild overwrite the accepted scene.
+    const raceState = boundary.current(), resolver = raceState.resolver, workspaceState = boundary.context.workspaceState;
+    const originalResolve = resolver.resolve, originalUpdate = workspaceState.update;
+    const gate = () => { let release!: () => void; const promise = new Promise<void>(resolve => { release = resolve; }); return {promise, release}; };
+    const persistGate = gate();
+    let oldIrGate: ReturnType<typeof gate> | undefined;
+    let oldIrReady = false, persistenceWaiting = false;
+    let controlledSignal: AbortSignal | undefined;
+    let heldSignal: AbortSignal | undefined;
+    let oldRebuild: Promise<void> | undefined, sceneDispatch: Promise<void> | undefined;
+    try {
+        resolver.resolve = async (...args: Parameters<AssetResolver['resolve']>) => {
+            const resolved = await originalResolve.apply(resolver,args);
+            if (args[2] === controlledSignal) { heldSignal = args[2]; oldIrReady = true; await oldIrGate!.promise; }
+            return resolved;
+        };
+        workspaceState.update = async (key: string, value: unknown) => {
+            if (key === `newsdk.fx:${raceState.document.uri.toString()}`
+                && JSON.stringify((value as {scene?: FxScene})?.scene?.sourceMotion) === JSON.stringify(motionScene.sourceMotion)) {
+                persistenceWaiting = true; await persistGate.promise;
+            }
+            await originalUpdate.call(workspaceState,key,value);
+        };
+        // A newly opened webview may still send its initial Ready. Retry only
+        // cancelled attempts, and hold the explicit rebuild's signal, not Ready's.
+        for (let attempt = 0; ; attempt++) {
+            assert.ok(attempt < 10,'Initial webview activity kept cancelling the controlled source scene rebuild');
+            oldIrReady = false; oldIrGate = gate();
+            oldRebuild = boundary.rebuild(raceState); controlledSignal = raceState.session.signal;
+            await waitFor(() => oldIrReady || controlledSignal!.aborted,'controlled old IR computed or superseded by initial Ready');
+            if (!controlledSignal.aborted) break;
+            oldIrGate.release(); await oldRebuild;
+        }
+        assert.ok(heldSignal); assert.equal(heldSignal.aborted,false,'The controlled old rebuild must still be current before scene dispatch');
+        sceneDispatch = boundary.dispatch(raceState,{sessionId:raceState.session.id,documentVersion:raceState.document.version,requestId:1000009,type:'scene',scene:motionScene});
+        const cancelledBeforePersistence = heldSignal.aborted;
+        await waitFor(() => persistenceWaiting,'new source scene persistence gate');
+        oldIrGate.release(); await oldRebuild;
+        assert.deepEqual(raceState.scene.sourceMotion,motionScene.sourceMotion,'An old IR must not overwrite the accepted scene while persistence is delayed');
+        persistGate.release(); await sceneDispatch;
+        await waitFor(() => JSON.stringify(fx.getSnapshot(flash.fsPath).ir?.scene.sourceMotion)===JSON.stringify(motionScene.sourceMotion),'accepted trajectory IR after delayed persistence');
+        assert.deepEqual(fx.getSnapshot(flash.fsPath).ir!.scene.sourceMotion,motionScene.sourceMotion,'An old IR completed during scene persistence must not discard the new trajectory');
+        assert.equal(cancelledBeforePersistence,true,'Scene dispatch must cancel the old rebuild before its first persistence yield');
+    } finally {
+        oldIrGate?.release(); persistGate.release();
+        resolver.resolve = originalResolve; workspaceState.update = originalUpdate;
+        await Promise.allSettled([oldRebuild,sceneDispatch].filter((task): task is Promise<void> => !!task));
+    }
+    cases.push('scene persistence cancels an already resolved old IR before its delayed return');
     await applyScene(motionScene,1000010);
     assert.deepEqual(fx.getSnapshot(flash.fsPath).ir!.scene.sourceMotion,motionScene.sourceMotion);
     const invalidMotionScene = structuredClone(motionScene); invalidMotionScene.sourceMotion!.points[1].frame = 0;
-    await applyScene(invalidMotionScene,1000011);
+    await applyScene(invalidMotionScene,1000011,false);
     assert.deepEqual(fx.getSnapshot(flash.fsPath).ir!.scene.sourceMotion,motionScene.sourceMotion,'Invalid path must retain last valid scene');
     await vscode.commands.executeCommand('workbench.action.closeAllEditors');
     await waitFor(() => fx.getSnapshot().sessionCount===0,'close motion editor');
