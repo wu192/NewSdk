@@ -38,6 +38,8 @@ jobs:
             /SDK/tools/antlr.runtime.dll
             /SDK/tools/BinaryAssetBuilder.Utility.dll
             /SDK/tools/BinaryAssetBuilder.Core.dll
+            /SDK/tools/BinaryAssetBuilder.exe.config
+            /SDK/Schemas/xsd/
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -55,6 +57,9 @@ jobs:
         run: |
           ./recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory work/product *> work/evidence/compiler-build.log
           if ($LASTEXITCODE -ne 0) { Get-Content work/evidence/compiler-build.log -Tail 80; throw 'Compiler build failed' }
+      - name: Verify actual Core schema source diagnostics
+        run: |
+          ./recovery/scripts/TestSourceDiagnostics.ps1 -CompilerPath work/product/bin/NewModCompiler.exe -SourceSdkRoot SDK -WorkDirectory "$env:RUNNER_TEMP/newsdk-source-diagnostics-$env:GITHUB_RUN_ID" -SummaryPath work/evidence/source-diagnostics.json
       - name: Publish versioned compiler package
         env:
           GH_TOKEN: ${{ github.token }}
@@ -66,7 +71,7 @@ jobs:
           $url = "https://github.com/$env:GITHUB_REPOSITORY/releases/download/$tag"
           $manifest = @{ tag = $tag; url = "$url/NewModCompiler-Win32-Release.zip"; sha256 = $hash; binarySourceCommit = $env:GITHUB_SHA; manifestUrl = "$url/NewModCompiler-Win32-Release.manifest.json" }
           $manifest | ConvertTo-Json | Set-Content work/NewModCompiler-Win32-Release.manifest.json
-          @('Adds optional reliable source and asset metadata to existing schema 1.0 diagnostics.', 'Application diagnostic contracts passed. Windows extension and MOD integration acceptance is tracked separately.') | Set-Content work/release-notes.txt
+          @('Adds optional reliable source and asset metadata to existing schema 1.0 diagnostics.', 'Application contracts and actual Core schema-error event/report/source location probe passed. Windows extension and broader MOD integration acceptance is tracked separately.') | Set-Content work/release-notes.txt
           gh release create $tag $zip work/NewModCompiler-Win32-Release.manifest.json --target $env:GITHUB_SHA --prerelease --title "NewModCompiler XML diagnostics $($env:GITHUB_SHA.Substring(0,7))" --notes-file work/release-notes.txt
           if ($LASTEXITCODE -ne 0) { throw 'Compiler release upload failed' }
           $manifest | ConvertTo-Json | Set-Content work/evidence/release.json

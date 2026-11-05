@@ -27,7 +27,11 @@ namespace NewModCompiler.Diagnostics
                 // an SDK XSD or an included XML rather than the MOD entry.
                 if (xml != null && !string.IsNullOrEmpty(xml.SourceUri))
                     SetLocation(result,xml.SourceUri,xml.LineNumber,xml.LinePosition,true);
-                else if (schema != null && !string.IsNullOrEmpty(schema.SourceUri))
+                // A DOM validation URI may name the containing document rather
+                // than an expanded xi:include node. Its zero coordinates cannot
+                // displace a location captured from that node's actual reader.
+                else if (schema != null && !string.IsNullOrEmpty(schema.SourceUri) &&
+                    (!(schema is XmlSchemaValidationException) || schema.LineNumber > 0 || !result.ContainsKey("line")))
                     SetLocation(result,schema.SourceUri,schema.LineNumber,schema.LinePosition,true);
                 else if (missing != null && IsFilePath(missing.FileName))
                     SetLocation(result,missing.FileName,0,0,true);
@@ -61,7 +65,14 @@ namespace NewModCompiler.Diagnostics
             if (string.IsNullOrEmpty(file)) return;
             Uri uri;
             if (Uri.TryCreate(file,UriKind.Absolute,out uri) && uri.IsFile) file = uri.LocalPath;
-            if (replace) { result.Remove("line"); result.Remove("column"); }
+            // DOM validation retains its document URI but commonly has no
+            // coordinates. Do not erase a location captured while loading the
+            // same document. When selecting another real source, its unknown
+            // coordinates must not inherit the previous file's coordinates.
+            object previousFile;
+            bool sameFile = result.TryGetValue("file",out previousFile) &&
+                string.Equals(previousFile as string,file,StringComparison.OrdinalIgnoreCase);
+            if (replace && (!sameFile || line > 0)) { result.Remove("line"); result.Remove("column"); }
             result["file"] = file;
             if (line > 0) result["line"] = line;
             if (line > 0 && column > 0) result["column"] = column;

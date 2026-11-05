@@ -28,6 +28,20 @@ namespace NewModCompiler.Tests
             } catch (XmlException error) { return error; }
             throw new Exception("Malformed XML fixture unexpectedly parsed.");
         }
+        static XmlSchemaValidationException DomValidationFailure(string path)
+        {
+            var document = new XmlDocument();
+            using (var reader = XmlReader.Create(new StringReader("<Root Number='not-a-number'/>"), new XmlReaderSettings(), new Uri(path).AbsoluteUri))
+                document.Load(reader);
+            using (var reader = XmlReader.Create(new StringReader("<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'><xs:element name='Root'><xs:complexType><xs:attribute name='Number' type='xs:int'/></xs:complexType></xs:element></xs:schema>")))
+                document.Schemas.Add(null, reader);
+            XmlSchemaValidationException failure = null;
+            document.Validate((sender, args) => failure = args.Exception as XmlSchemaValidationException);
+            Require(failure != null, "invalid DOM attribute must fail schema validation");
+            Require(!string.IsNullOrEmpty(failure.SourceUri) && failure.LineNumber == 0 && failure.LinePosition == 0,
+                "DOM validation fixture retains SourceUri but has no reader coordinates");
+            return failure;
+        }
         sealed class Recorder : IBuildEventSink
         {
             internal readonly List<IDictionary<string, object>> Values = new List<IDictionary<string, object>>();
@@ -73,6 +87,14 @@ namespace NewModCompiler.Tests
             Require(absent.Count == 0, "error message text must never create a source location or asset identity");
             var zero = DiagnosticSource.FromException(new XmlException("No reliable location"));
             Require(!zero.ContainsKey("line") && !zero.ContainsKey("column"), "zero XML coordinates omitted");
+            var domFailure = DomValidationFailure(xmlPath);
+            var domWrapper = new Exception("Core has a known source node", domFailure);
+            domWrapper.Data["NewSdk.SourceFile"] = xmlPath;
+            domWrapper.Data["NewSdk.SourceLine"] = 7;
+            domWrapper.Data["NewSdk.SourceColumn"] = 11;
+            var domLocation = DiagnosticSource.FromException(domWrapper);
+            Require((string)domLocation["file"] == xmlPath && Convert.ToInt32(domLocation["line"]) == 7 && Convert.ToInt32(domLocation["column"]) == 11,
+                "same-file DOM validation with zero coordinates must retain the known source node location");
 
             var known = new Exception("Plugin rejected this asset without a source row.");
             known.Data["NewSdk.SourceFile"] = xmlPath;
@@ -99,6 +121,19 @@ namespace NewModCompiler.Tests
             Require((string)schemaLocation["file"] == schemaPath, "SDK XSD failure keeps its real source file");
             Require(Convert.ToInt32(schemaLocation["line"]) == schemaError.LineNumber, "SDK XSD line retained");
             Require(!schemaLocation.ContainsKey("assetId"), "schema failure does not invent a MOD asset");
+            var schemaWrapper = new Exception("Enclosing MOD document", schemaError);
+            schemaWrapper.Data["NewSdk.SourceFile"] = xmlPath;
+            schemaWrapper.Data["NewSdk.SourceLine"] = 37;
+            schemaWrapper.Data["NewSdk.SourceColumn"] = 29;
+            SameLocation(schemaLocation, DiagnosticSource.FromException(schemaWrapper), "actual SDK schema replaces parent MOD coordinates");
+            var otherDomFailure = DomValidationFailure(schemaPath);
+            var otherDomWrapper = new Exception("Enclosing MOD document", otherDomFailure);
+            otherDomWrapper.Data["NewSdk.SourceFile"] = xmlPath;
+            otherDomWrapper.Data["NewSdk.SourceLine"] = 37;
+            otherDomWrapper.Data["NewSdk.SourceColumn"] = 29;
+            var otherDomLocation = DiagnosticSource.FromException(otherDomWrapper);
+            Require((string)otherDomLocation["file"] == xmlPath && Convert.ToInt32(otherDomLocation["line"]) == 37 && Convert.ToInt32(otherDomLocation["column"]) == 29,
+                "DOM container URI without coordinates must not replace a known included-node source location");
             string missingPath = Path.Combine(sdk, "builtmods", "missing.manifest");
             var missing = DiagnosticSource.FromException(new FileNotFoundException("Missing SDK manifest", missingPath));
             Require((string)missing["file"] == missingPath && !missing.ContainsKey("line") && !missing.ContainsKey("column"),
