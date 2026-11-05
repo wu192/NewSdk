@@ -59,11 +59,11 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Cannot establish changed-file scope' }
           $manual = $env:MANUAL_RUN -eq 'true'
           $render = $manual -or [bool]($changed -match '^vscode-extension/(webview/fx/|src/fx/(editorProvider|previewSession|assetResolver|resourceService|texture|compiledTexture|capabilities)|test/(renderFx|fxUi|fxRender|fxStress))')
-          $host = $manual -or [bool]($changed -match '^vscode-extension/(src/(compiler|buildProtocol|project|diagnostics|workbench|fx/build)|test/(host/(index|fxAcceptance|compilerFixture)|runHost|realCancellation))')
+          $runCompilerHost = $manual -or [bool]($changed -match '^vscode-extension/(src/(compiler|buildProtocol|project|diagnostics|workbench|fx/build)|test/(host/(index|fxAcceptance|compilerFixture)|runHost|realCancellation))')
           "render=$($render.ToString().ToLower())" >> $env:GITHUB_OUTPUT
-          "host=$($host.ToString().ToLower())" >> $env:GITHUB_OUTPUT
-          "package=$(($host -or $manual).ToString().ToLower())" >> $env:GITHUB_OUTPUT
-          "Scope: unit + XML/Skill integration; FX browser=$render; compiler host=$host; full=$env:FULL_ACCEPTANCE" >> $env:GITHUB_STEP_SUMMARY
+          "host=$($runCompilerHost.ToString().ToLower())" >> $env:GITHUB_OUTPUT
+          "package=$(($runCompilerHost -or $manual).ToString().ToLower())" >> $env:GITHUB_OUTPUT
+          "Scope: unit + XML/Skill integration; FX browser=$render; compiler host=$runCompilerHost; full=$env:FULL_ACCEPTANCE" >> $env:GITHUB_STEP_SUMMARY
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
