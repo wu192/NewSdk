@@ -57,4 +57,4 @@ Windows 本地可信工作区中，打开 MOD XML，运行“NewSdk: 预览当�
 
 能力清单为 `src/fx/capabilities.ts`；固定样例在 `test/fixtures/fx`。CPU、附属事件、soft particle 场景深度、复杂对象/骨骼、任意 shader/几何留在第二轮或既定范围外。预览采用固定局部初态；同系矩阵推导和未作游戏截图对照的差异会显式提示，不能据此声称实机像素一致。超出已实现 Include/继承合同的节点保留原文并报告。
 
-验证：`npm test`；`npm run test:render`；Windows 上 `npm run test:host`。浏览器测试使用固定 Chromium 软件 GPU，只用于画面与生命周期回归，不代表用户 GPU 帧率。`npm run package` 输出 `NewSdk-Mod-Tools-FX-Round1.vsix`。Actions 默认从本仓库固定源码构建实际编译器验收，也可配置编译器下载地址；证据保留 3 天，手动构建的 VSIX 保留 1 天。
+验证：`npm test`；`npm run test:render`；Windows 上 `npm run test:host`。浏览器测试使用固定 Chromium 软件 GPU，只用于画面与生命周期回归，不代表用户 GPU 帧率。`npm run package` 输出 `NewSdk-Mod-Tools-FX-Round1.vsix`。Actions 默认从本仓库固定源码构建实际编译器验收，也可配置编译器下载地址；成功只保留小型 JSON 摘要 1 天，失败仅保留有界日志及差异图 1 天；手动构建的 VSIX 保留 1 天，不使用依赖缓存，不上传 SDK/MOD 或缓存整包。

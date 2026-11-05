@@ -455,7 +455,7 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
         const fxMembers = await bigMembers(fxBig.path);
         const fxAssets = manifestAssets(fxMembers,'data\\mod.manifest');
         for (const asset of ['FXParticleSystemTemplate:Flash','FXParticleSystemTemplate:Smoke','FXParticleSystemTemplate:Sparks','FXParticleSystemTemplate:Aura','FXParticleSystemTemplate:InheritedFlash','FXList:MultiLayerAura','Texture:FxFixtureTexture']) {
-            assert.ok(fxAssets.includes(asset), `Compiled FX fixture omitted ${asset}`);
+            assert.ok(fxAssets.includes(asset), `Compiled FX fixture omitted ${asset}: ${fxAssets.join(", ")}`);
         }
         assert.deepEqual(await inventory(fxCase.mod),beforeFx,'FX compiler must preserve original XML and source texture');
         results.push({name:'RealFx',status:'passed',buildId:fxBuilt.buildId,assets:fxAssets,contracts:['GPU modules','FXList','TGA Texture','ordinary inheritance']});

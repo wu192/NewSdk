@@ -80,7 +80,7 @@ exports.activate = function () {
             NEWSDK_ACCEPTANCE: process.env.NEWSDK_ACCEPTANCE ?? 'smoke' };
         delete env.ELECTRON_RUN_AS_NODE;
         await launchWindow(executable, [workspace, '--new-window', '--wait', '--disable-extensions', '--disable-workspace-trust',
-            '--skip-welcome', '--skip-release-notes', '--verbose',
+            '--skip-welcome', '--skip-release-notes',
             `--extensionDevelopmentPath=${extensionDevelopmentPath}`, `--extensionDevelopmentPath=${driver}`,
             '--user-data-dir', path.join(root, 'user-data'), '--extensions-dir', path.join(root, 'extensions')], env);
         const result = JSON.parse(await fs.readFile(resultPath, 'utf8')) as { passed: boolean; error?: string };
