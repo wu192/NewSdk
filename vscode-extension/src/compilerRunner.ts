@@ -42,6 +42,7 @@ export class CompilerRunner implements vscode.Disposable {
     private execution?: vscode.TaskExecution;
     private physicalLock?: PhysicalProjectLock;
     private lockUpdates: Promise<void> = Promise.resolve();
+    private successfulDoctorSignature?: string;
     private readonly completions = new Map<string, TaskCompletion>();
     private readonly subscriptions: vscode.Disposable[];
 
@@ -83,7 +84,7 @@ export class CompilerRunner implements vscode.Disposable {
             physicalLock = await acquirePhysicalProjectLock(identity);
             this.physicalLock = physicalLock;
             this.update({ config, message: '正在检查 SDK 环境；原始诊断见任务终端。' });
-            const exitCode = await this.runTask('doctor', config);
+            const exitCode = await this.runDoctor(config);
             const succeeded = exitCode === 0 && !this.forced;
             this.update({
                 status: this.forced || exitCode === undefined ? 'interrupted' : succeeded ? 'succeeded' : 'failed',
@@ -92,6 +93,7 @@ export class CompilerRunner implements vscode.Disposable {
             });
             return succeeded;
         } catch (error) {
+            this.successfulDoctorSignature = undefined;
             this.update({ status: this.forced ? 'interrupted' : 'failed', message: errorMessage(error) });
             return false;
         } finally {
@@ -175,17 +177,20 @@ export class CompilerRunner implements vscode.Disposable {
             const paths = diagnosticPaths(operation, config.outputDirectory);
             this.update({ config, paths });
             if (operation === 'build') {
-                this.update({ message: '正在检查 SDK 环境；通过后开始编译。' });
-                const doctorExit = await this.runTask('doctor', config);
-                if (doctorExit !== 0 || this.forced) {
-                    const result: BuildResult = {
-                        ...protocol.snapshot(), status: this.forced || doctorExit === undefined ? 'interrupted' : 'failed',
-                        exitCode: doctorExit,
-                        reason: this.forced ? 'SDK 环境检查已强制中断，未开始构建。' : `SDK 环境检查失败（退出码 ${doctorExit ?? '未知'}）；未开始构建，原始诊断见任务终端。`,
-                        artifacts: [],
-                    };
-                    this.setResult(result);
-                    return result;
+                const signature = await doctorSignature(config);
+                if (!signature || signature !== this.successfulDoctorSignature) {
+                    this.update({ message: '正在检查 SDK 环境；通过后开始编译。' });
+                    const doctorExit = await this.runDoctor(config, signature);
+                    if (doctorExit !== 0 || this.forced) {
+                        const result: BuildResult = {
+                            ...protocol.snapshot(), status: this.forced || doctorExit === undefined ? 'interrupted' : 'failed',
+                            exitCode: doctorExit,
+                            reason: this.forced ? 'SDK 环境检查已强制中断，未开始构建。' : `SDK 环境检查失败（退出码 ${doctorExit ?? '未知'}）；未开始构建，原始诊断见任务终端。`,
+                            artifacts: [],
+                        };
+                        this.setResult(result);
+                        return result;
+                    }
                 }
             }
             if (this.forced) {
@@ -318,6 +323,17 @@ export class CompilerRunner implements vscode.Disposable {
         }
     }
 
+    /** Manual checks always execute; only an unchanged successful toolchain can be reused by build. */
+    private async runDoctor(config: RunConfiguration, signature?: string): Promise<number | undefined> {
+        this.successfulDoctorSignature = undefined;
+        const before = signature ?? await doctorSignature(config);
+        const exitCode = await this.runTask('doctor', config);
+        if (exitCode === 0 && !this.forced && before && before === await doctorSignature(config)) {
+            this.successfulDoctorSignature = before;
+        }
+        return exitCode;
+    }
+
     private completeTask(runId: unknown, exitCode: number | undefined): void {
         if (typeof runId !== 'string') return;
         const completion = this.completions.get(runId);
@@ -351,6 +367,35 @@ export class CompilerRunner implements vscode.Disposable {
         this.execution = undefined;
         this.update({ elapsedMs: Date.now() - started });
         if (this.disposed) this.subscriptions.forEach(subscription => subscription.dispose());
+    }
+}
+
+/** Metadata only: no source/schema hashing and no persistent compiler-check cache. */
+async function doctorSignature(config: RunConfiguration): Promise<string | undefined> {
+    try {
+        const directory = path.dirname(config.compilerPath);
+        const entries = await fs.readdir(directory, { withFileTypes: true });
+        if (entries.length > 512) return undefined;
+        const basename = path.basename(config.compilerPath, path.extname(config.compilerPath));
+        const files = new Set([config.compilerPath, `${config.compilerPath}.config`,
+            path.join(directory, `${basename}.runtimeconfig.json`), path.join(directory, `${basename}.deps.json`),
+            path.join(config.sdkRoot, 'tools', 'BinaryAssetBuilder.exe.config'),
+            ...entries.filter(entry => (entry.isFile() || entry.isSymbolicLink()) && /\.dll$/i.test(entry.name))
+                .map(entry => path.join(directory, entry.name))]);
+        const stamps = await Promise.all([...files].sort().map(async file => {
+            try {
+                const physical = await canonicalPath(file);
+                const stat = await fs.stat(physical);
+                return [pathIdentity(physical), stat.size, stat.mtimeMs, stat.ctimeMs, stat.ino, stat.dev];
+            } catch (error) {
+                if ((error as NodeJS.ErrnoException).code === 'ENOENT') return [pathIdentity(file), 'missing'];
+                throw error;
+            }
+        }));
+        return JSON.stringify([pathIdentity(config.compilerPath), pathIdentity(config.sdkRoot), stamps]);
+    } catch {
+        // Metadata that cannot be observed must never authorize skipping doctor.
+        return undefined;
     }
 }
 

@@ -309,6 +309,103 @@ test('task lifecycle rejects doctor failure and stale evidence, and forced stop 
     }
 });
 
+test('doctor is reused only after success for the same observed toolchain; manual checks always execute', async () => {
+    const actualPlatform = Object.getOwnPropertyDescriptor(process, 'platform')!;
+    Object.defineProperty(process, 'platform', { value: 'win32', configurable: true });
+    const temporary = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-doctor-'));
+    const { CompilerRunner } = loadRunnerWithMock();
+    const runner = new CompilerRunner();
+    const config: RunConfiguration = { compilerPath: path.join(temporary, 'compiler', 'NewModCompiler.exe'),
+        sdkRoot: path.join(temporary, 'sdk'), modRoot: path.join(temporary, 'mod'),
+        outputDirectory: path.join(temporary, 'output'), modVersion: '1.0' };
+    const sdkConfig = path.join(config.sdkRoot, 'tools', 'BinaryAssetBuilder.exe.config');
+    const compilerConfig = `${config.compilerPath}.config`;
+    const sidecar = path.join(path.dirname(config.compilerPath), 'antlr.runtime.dll');
+    const succeed = async (execution: MockExecution): Promise<void> => {
+        if (execution.task.definition.operation !== 'doctor') await writeSuccessfulEvidence(execution.task);
+        endExecution(execution, 0);
+    };
+    async function operations(action: () => Promise<unknown>): Promise<string[]> {
+        const first = launchedTasks.length;
+        await action();
+        return launchedTasks.slice(first).map(task => task.definition.operation);
+    }
+    try {
+        await Promise.all([fs.mkdir(path.dirname(config.compilerPath), { recursive: true }),
+            fs.mkdir(path.dirname(sdkConfig), { recursive: true }), fs.mkdir(config.modRoot)]);
+        await Promise.all([fs.writeFile(config.compilerPath, 'fixture'), fs.writeFile(compilerConfig, 'configuration'),
+            fs.writeFile(sidecar, 'runtime'), fs.writeFile(sdkConfig, 'sdk-configuration')]);
+        taskBehavior = succeed;
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build']);
+        assert.deepEqual(await operations(() => runner.build(config)), ['build']);
+        assert.deepEqual(await operations(() => runner.plan(config)), ['plan']);
+        assert.deepEqual(await operations(() => runner.doctor(config)), ['doctor']);
+        assert.deepEqual(await operations(() => runner.doctor(config)), ['doctor'], 'Manual doctor never reuses a previous result');
+        assert.deepEqual(await operations(() => runner.build(config)), ['build']);
+
+        for (const file of [config.compilerPath, compilerConfig, sdkConfig, sidecar]) {
+            await fs.appendFile(file, '-changed');
+            assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], `Changed toolchain file: ${file}`);
+            assert.deepEqual(await operations(() => runner.build(config)), ['build']);
+        }
+        const addedSidecar = path.join(path.dirname(config.compilerPath), 'NewProvider.dll');
+        await fs.writeFile(addedSidecar, 'new-provider');
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'New side libraries invalidate the environment check');
+        await fs.unlink(addedSidecar);
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'Removing a side library also invalidates it');
+
+        const secondSdk = path.join(temporary, 'second-sdk');
+        await fs.mkdir(path.join(secondSdk, 'tools'), { recursive: true });
+        await fs.writeFile(path.join(secondSdk, 'tools', 'BinaryAssetBuilder.exe.config'), 'configuration');
+        const second = { ...config, sdkRoot: secondSdk };
+        assert.deepEqual(await operations(() => runner.build(second)), ['doctor', 'build'], 'Changing the SDK root requires a new check');
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build']);
+        await fs.writeFile(path.join(config.modRoot, 'Mod.xml'), '<AssetDeclaration/>');
+        assert.deepEqual(await operations(() => runner.build(config)), ['build'], 'MOD source changes do not invalidate toolchain validation');
+
+        taskBehavior = async execution => endExecution(execution, 3);
+        assert.equal(await runner.doctor(config), false);
+        taskBehavior = succeed;
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'A failed manual check must not preserve old success');
+        await fs.appendFile(sdkConfig, '-new-environment');
+        taskBehavior = async execution => endExecution(execution, 3);
+        assert.deepEqual(await operations(async () => assert.equal((await runner.build(config)).status, 'failed')), ['doctor']);
+        taskBehavior = succeed;
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'A failed preflight must retry doctor');
+
+        await fs.appendFile(compilerConfig, '-before-check');
+        let changedDuringDoctor = false;
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'doctor' && !changedDuringDoctor) {
+                changedDuringDoctor = true;
+                await fs.appendFile(compilerConfig, '-during-check');
+            }
+            await succeed(execution);
+        };
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build']);
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'A check of a changing toolchain is never cached');
+        assert.deepEqual(await operations(() => runner.build(config)), ['build']);
+
+        await fs.appendFile(sidecar, '-interrupt-check');
+        let doctorStarted!: () => void;
+        const started = new Promise<void>(resolve => { doctorStarted = resolve; });
+        taskBehavior = async execution => { assert.equal(execution.task.definition.operation, 'doctor'); doctorStarted(); };
+        const interrupted = runner.build(config);
+        await started; runner.stop();
+        assert.equal((await interrupted).status, 'interrupted');
+        taskBehavior = succeed;
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'An interrupted check cannot authorize a skip');
+        taskBehavior = async execution => { assert.equal(execution.task.definition.operation, 'build'); endExecution(execution, 3); };
+        assert.equal((await runner.build(config)).status, 'failed');
+        taskBehavior = succeed;
+        assert.deepEqual(await operations(() => runner.build(config)), ['build'], 'Source compilation failure does not erase a successful environment check');
+    } finally {
+        runner.dispose();
+        Object.defineProperty(process, 'platform', actualPlatform);
+        await fs.rm(temporary, { recursive: true, force: true });
+    }
+});
+
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 

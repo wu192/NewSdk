@@ -5,11 +5,21 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import {DocumentStore} from '../src/ra3xml/index/documentStore';
 import {AssetIndex} from '../src/ra3xml/index/assetIndex';
-import {AssetService} from '../src/ra3xml/services/assetService';
+import {AssetService, acquireAssetService, disposeAssetServices} from '../src/ra3xml/services/assetService';
 import {scanW3xDeclarations} from '../src/ra3xml/core/w3xDeclarations';
 const ns='uri:ea.com:eala:asset';
 const xml=(contents:string)=>`<AssetDeclaration xmlns="${ns}">${contents}</AssetDeclaration>`;
 async function temporary(t:{after:(fn:()=>Promise<unknown>)=>void}):Promise<string>{const root=await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(),'newsdk-xml-core-')));t.after(()=>fs.rm(root,{recursive:true,force:true}));return root;}
+
+test('switching projects releases shared source records and a later session rebuilds safely',async t=>{
+    const root=await temporary(t),file=path.join(root,'entry.xml'),options={roots:[root],modRoot:root};
+    await fs.writeFile(file,xml('<GameObject id="A"/>'));
+    const first=acquireAssetService(options);await first.getScope(file);await first.whenComplete();
+    const view=first.createView();await view.load(file);view.dispose();disposeAssetServices();
+    assert.equal(first.documents.statistics.documents,0);assert.equal(first.index.shared.graphs.size,0);
+    const next=acquireAssetService(options);assert.notEqual(next,first);await next.getScope(file);
+    assert.equal(next.findAssets({type:'GameObject',id:'A'}).length,1);await next.whenComplete();disposeAssetServices();
+});
 
 test('shared entry views reuse one parsed record and concurrent entries retain their own scope',async t=>{
     const root=await temporary(t);const a=path.join(root,'a.xml'),b=path.join(root,'b.xml');

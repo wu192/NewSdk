@@ -52,6 +52,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     let commandInProgress = false;
     let fx: FxApi | undefined;
     let xmlProviders: XmlProviders | undefined;
+    let xmlProjectKey: string | undefined;
     const workbench = new NewSdkWorkbench(context.extensionUri, (command, value) => {
         // The webview only passes command names and an artifact index/version.
         void vscode.commands.executeCommand(command, value);
@@ -112,7 +113,16 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     }
     async function refresh(): Promise<void> {
         if (project) settings = await resolveProjectSettings(project.root, savedProjects()[project.identity], globals());
+        refreshXmlProject();
         render();
+    }
+    function refreshXmlProject(): void {
+        const key = JSON.stringify([project?.identity, settings?.sdkRoot]);
+        if (key === xmlProjectKey) return;
+        fx?.refreshProject();
+        xmlProviders?.refresh();
+        disposeAssetServices();
+        xmlProjectKey = key;
     }
     async function saveProject(patch: Partial<ProjectSettings>): Promise<void> {
         ensureIdle();
@@ -129,8 +139,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         ensureIdle();
         project = next;
         settings = resolved;
-        fx?.refreshProject();
-        xmlProviders?.refresh();
+        refreshXmlProject();
         localMessage = undefined;
         diagnostics.clear();
         await context.globalState.update(lastProjectKey, next.root);
@@ -420,7 +429,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     register('newsdk.openArtifact', openArtifact);
     context.subscriptions.push(runner.onDidChange(() => { localMessage = undefined; render(); }));
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(event => {
-        if (event.affectsConfiguration('newsdk')) { fx?.refreshProject(); xmlProviders?.refresh(); void refresh().catch(error => { localMessage = message(error); render(); }); }
+        if (event.affectsConfiguration('newsdk')) { fx?.refreshProject(); void refresh().then(() => xmlProviders?.refresh()).catch(error => { localMessage = message(error); render(); }); }
     }));
 
     xmlProviders = registerXmlProviders(context, { getService: document => {

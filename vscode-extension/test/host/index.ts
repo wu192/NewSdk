@@ -312,13 +312,17 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
     // This gate is enabled only for a verified compiler build/release with the
     // optional source-diagnostic capability. Custom older releases stay valid.
     const expectSourceDiagnostics = process.env.NEWSDK_EXPECT_SOURCE_DIAGNOSTICS === '1';
+    let doctorTaskCount = 0;
+    const doctorTasks = vscode.tasks.onDidStartTaskProcess(event => {
+        if (event.execution.task.definition.type === 'newsdk' && event.execution.task.definition.operation === 'doctor') doctorTaskCount++;
+    });
     const results: Array<Record<string, unknown>> = [];
     const scope = full
         ? 'Provided Win32/net48 release compiler through real VS Code ProcessExecution; real base, file-backed SDK APT business assets, MapMetaData, BIG/SKUDEF, Additional, errors, cancellation/retry, source and SDK input preservation. No in-game playback or full Upheaval performance claim.'
         : 'Provided Win32/net48 release compiler through real VS Code ProcessExecution; real base stream, BIG/SKUDEF, source and SDK input preservation, SDK-owned cache retention. Full content/error/cancellation matrix is separate.';
     const summaryPath = path.join(evidence, 'real-compiler.json');
     async function summary(status: string, error?: unknown): Promise<void> {
-        await fs.writeFile(summaryPath, JSON.stringify({ status, scope, mode: full ? 'full' : 'smoke', expectSourceDiagnostics, cases: results,
+        await fs.writeFile(summaryPath, JSON.stringify({ status, scope, mode: full ? 'full' : 'smoke', expectSourceDiagnostics, doctorTaskCount, cases: results,
             error: error instanceof Error ? error.message : error,
             pending: full ? [] : ['Full content/error/cancellation matrix requires full_acceptance dispatch'] }, null, 2));
     }
@@ -378,7 +382,8 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
     async function locatedFailure(result: Result, file: string, expectedLine?: number): Promise<Record<string, unknown> | undefined> {
         if (!expectSourceDiagnostics) return undefined;
         assert.ok(result.report, 'Source diagnostics require the current build report');
-        const physicalFile = (await fs.realpath(file)).toLowerCase();
+        const physicalPath = await fs.realpath(file);
+        const physicalFile = physicalPath.toLowerCase();
         const sameFile = (value: unknown): boolean => typeof value === 'string' && path.resolve(value).toLowerCase() === physicalFile;
         const event = result.events.find(item => item.eventType === 'Diagnostic' && item.level === 'error'
             && sameFile(item.payload?.file) && Number.isSafeInteger(item.payload?.line) && Number(item.payload?.line) > 0);
@@ -407,8 +412,10 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
         const parsed = result.diagnostics.find(item => item.code === event.diagnosticCode && item.message === event.message
             && sameFile(item.file) && item.line === payload.line && item.column === payload.column);
         assert.ok(parsed, 'The plugin protocol adapter must preserve the compiler location');
-        const problem = vscode.languages.getDiagnostics(vscode.Uri.file(file)).find(item =>
+        const matchingProblem = (): vscode.Diagnostic | undefined => vscode.languages.getDiagnostics(vscode.Uri.file(physicalPath)).find(item =>
             item.source === 'NewSdk Compiler' && item.code === event.diagnosticCode && item.message === event.message);
+        await waitFor(() => Boolean(matchingProblem()));
+        const problem = matchingProblem();
         assert.ok(problem, 'A reliable compiler position must appear in Problems');
         assert.equal(problem.range.start.line, Number(payload.line) - 1);
         assert.equal(problem.range.start.character, Number(payload.column) - 1);
@@ -423,6 +430,7 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
         assert.equal(result.exitCode, 0);
         assert.equal(result.report.exitCode, 0);
         assert.equal(result.report.status, 'succeeded');
+        assert.equal(doctorTaskCount, 1, 'All builds of this unchanged compiler/SDK must reuse one successful doctor task');
         assert.equal(result.artifacts.length, 2, 'Current report must confirm one BIG/SKUDEF pair');
         const big = result.artifacts.find(item => item.kind === 'package.big');
         const sku = result.artifacts.find(item => item.kind === 'package.skudef');
@@ -603,9 +611,14 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
             results.push({ name: 'real-normal-CtrlBreak-and-retry', status: 'passed', cancellation: cancelled, retryBuildId: normalRetry.buildId });
         }
         assert.deepEqual(await inventory(sdkRoot, ['SuperCompilerCache']), sdkInputs);
+        assert.equal(doctorTaskCount, 1, 'Source errors, cache activity and retries must not add repeated doctor tasks');
+        results.push({ name: 'unchanged-toolchain-reuses-doctor', status: 'passed', doctorTaskCount,
+            scope: 'Actual Windows ProcessExecution doctor task count across the executed real-compiler cases' });
         await summary('passed');
     } catch (error) {
         await summary('failed', error);
         throw error;
+    } finally {
+        doctorTasks.dispose();
     }
 }

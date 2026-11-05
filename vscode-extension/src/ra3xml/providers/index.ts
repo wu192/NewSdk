@@ -470,7 +470,12 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
         }
     }
     const api: XmlProviders = {
-        refresh() {diagnostics.clear(); snapshots.clear(); scopes.clear(); lensesChanged.fire(); for (const document of vscode.workspace.textDocuments) schedule(document);},
+        refresh() {
+            for (const timer of timers.values()) clearTimeout(timer); timers.clear(); generations.clear();
+            observedServices.forEach(subscription => subscription.dispose()); observedServices.clear();
+            diagnostics.clear(); snapshots.clear(); scopes.clear(); lensesChanged.fire();
+            for (const document of vscode.workspace.textDocuments) schedule(document);
+        },
         dispose() {disposed = true; for (const timer of timers.values()) clearTimeout(timer); timers.clear(); generations.clear(); snapshots.clear(); scopes.clear();
             observedServices.forEach(subscription => subscription.dispose()); observedServices.clear(); subscriptions.forEach(subscription => subscription.dispose());},
     };

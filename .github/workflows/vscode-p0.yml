@@ -33,7 +33,7 @@ jobs:
       NEWSDK_COMPILER_SHA256: ${{ secrets.NEWSDK_COMPILER_SHA256 }}
       NEWSDK_COMPILER_AUTHORIZATION: ${{ secrets.NEWSDK_COMPILER_AUTHORIZATION }}
       NEWSDK_ACCEPTANCE: ${{ (inputs.full_acceptance || github.head_ref == 'codex/xml-fx-compiler-integration') && 'full' || 'smoke' }}
-      NEWSDK_FX_STRESS: ${{ inputs.full_acceptance && 'full' || 'smoke' }}
+      NEWSDK_FX_STRESS: ${{ (inputs.full_acceptance || github.head_ref == 'codex/xml-fx-compiler-integration') && 'full' || 'smoke' }}
       NEWSDK_TEST_EVIDENCE: ${{ github.workspace }}/vscode-extension/test-results
     steps:
       - uses: actions/checkout@v4
@@ -76,8 +76,8 @@ jobs:
         if: env.NEWSDK_COMPILER_URL == ''
         uses: actions/checkout@v4
         with:
-          repository: wu162/NewSdk
-          ref: d19e0138cf60e5025dff45a99864dd326324409a
+          repository: wu192/NewSdk
+          ref: e8858529b9dd90a7c3ffed26ddec917811ceb610
           path: .compiler-source
           persist-credentials: false
           sparse-checkout-cone-mode: false
@@ -119,7 +119,7 @@ jobs:
           $executable = Join-Path $destination 'bin/NewModCompiler.exe'
           if (-not (Test-Path $executable)) { throw 'Compiler source build did not produce NewModCompiler.exe' }
           "NEWSDK_COMPILER_PATH=$executable" >> $env:GITHUB_ENV
-          'NEWSDK_COMPILER_SOURCE_REF=d19e0138cf60e5025dff45a99864dd326324409a' >> $env:GITHUB_ENV
+          'NEWSDK_COMPILER_SOURCE_REF=e8858529b9dd90a7c3ffed26ddec917811ceb610' >> $env:GITHUB_ENV
       - name: Real Windows VS Code host, task lifecycle and actual compiler
         env:
           NEWSDK_TEST_ROOT: ${{ runner.temp }}/newsdk-p0-host
