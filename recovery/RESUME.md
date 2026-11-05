@@ -1,4 +1,22 @@
-# 当前：compiler-main CI 五工作流通过，PR #1 待审
+# 当前：新功能集成分支与原生推土机 XML（2026-11-06）
+
+用户指定配套分支 [`feature/integration`](https://github.com/wu192/NewSdk/tree/feature/integration)，
+从 `compiler-main` / `d7f788b8` 创建；后续新功能集成于此，`compiler-main` 未合入新功能。
+运行时为 [EnhancerCorona 同名分支](https://github.com/wu192/EnhancerCorona/tree/feature/integration)，
+原推土机 PR #1 已合入其集成分支。
+
+当前支持真实 `AI/DozerAIUpdate` 的 schema、marshal/tokenizer/endian，以及直属
+`EnhancerSettings DozerConstruction`。五项对象级 JSON 配置移至 XML，仅保留全局开关；
+未使用扩展的根表保持原字节路径。协议、源码、复现命令见
+[DOZER_XML_EXTENSIONS.md](docs/DOZER_XML_EXTENSIONS.md)。
+
+生产检查点 `34b76761`：真实 x86 GCC O0/O2 Native harness、完整 XSD 及编译结果到
+运行时 parser 的互操作通过。首轮 [Windows 42131081594](https://github.com/wu192/NewSdk/actions/runs/42131081594)
+失败，修复验证中；不能计为通过。Windows 原生与 C++/CLI 组件需以工作流 receipt 为准；
+未运行完整 SDK/MOD、Enhancer DLL 或游戏内验收。后续文档提交不改变已有验证输入。
+禁止强推；上游合入仍遵循 PR 和用户批准规则。
+
+# 此前：compiler-main CI 五工作流通过，PR #1 待审
 
 [PR #1](https://github.com/wu192/NewSdk/pull/1)，`fix/compiler-main-ci` 基于 `72aa8f0c`。
 验证分支头 `12b0cd99`，PR 检出源码 `1ac655d5`：

@@ -39,7 +39,7 @@ foreach ($mode in @('Od', 'O2')) {
     & cl /nologo /clr /LD /MD /EHa /std:c++17 /utf-8 /fp:precise "/$mode" "/AI$out" "/Fo$bridgeObjects/" "/Fe$dll" @native recovery/src/Bridge/GameObjectCompiler.cpp *> "$out/bridge-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/bridge-build.log"; throw "XML bridge compilation failed: $mode" }
     $smoke = Join-Path $out 'GameObjectDozerSmoke.exe'
-    & $csc /nologo /platform:x86 "/r:$dll" "/r:$out/BinaryAssetBuilder.Core.dll" /r:System.Xml.dll "/out:$smoke" recovery/tests/PluginSchemaBoundary.cs recovery/tests/GameObjectDozerSmoke.cs *> "$out/smoke-build.log"
+    & $csc /nologo /platform:x86 "/r:$dll" "/r:$out/BinaryAssetBuilder.Core.dll" /r:System.Xml.dll "/out:$smoke" (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs').Path (Resolve-Path 'recovery/tests/GameObjectDozerSmoke.cs').Path *> "$out/smoke-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/smoke-build.log"; throw "Managed smoke compilation failed: $mode" }
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$smoke.config"
     & $smoke $fixtures *> "$out/bridge-test.log"

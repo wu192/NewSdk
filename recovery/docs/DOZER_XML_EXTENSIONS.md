@@ -90,7 +90,8 @@ g++ -m32 -std=c++14 -O0 -Irecovery/tests/native-host -Irecovery/src/Native -o Ga
 及 `BinaryAssetBuilder.Core.dll`，连同 `PluginSchemaBoundary.cs` 编译；可选
 命令行参数为 fixture 输出目录。
 
-本阶段本地证据：GCC 14 `-m32 -O0` + QEMU 的完整 Native harness 通过；
+本阶段本地证据：GCC 14 `-m32 -O0/-O2` + QEMU 的完整 Native harness 均通过，
+两种优化的全部十二个 `.bin/.relo` 产物逐字节相同；
 完整 CnC3Types XSD 的四个合法与五个拒绝文档通过（Linux lxml 验证时仅在内存
 中规整既有 Windows 路径及 QName 尾部空格）。Native fixture 已被 Enhancer
 真实侧表 parser 读取验证。MSVC/C++/CLI、真实 SDK 发布链及游戏内结果必须分别
