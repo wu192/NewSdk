@@ -24,6 +24,8 @@ Tactical/
 
 AS继续由FLA的相对include读取。公共代码在 `Common/Scripts/` 维护一份，私有代码在各组件自己的Scripts目录。脚本文件名保留真实元件、帧、事件或函数信息。
 
+建筑断电工具按钮的独立AS、EnhancerCorona本地协议及单电影BIG发布入口见 [POWER_TOGGLE.md](POWER_TOGGLE.md)。
+
 **发布配置由 project.json 控制。** 各组件的舞台尺寸、FPS、背景、导出别名和依赖清单均独立保存；改主FLA的总舞台属性不会自动改这些配置。新增/改名库项、AS文件或导出Linkage时，需要同步更新相应清单。普通位置、颜色、文字、时间轴和现有AS内容的修改直接来自主FLA/源AS。
 
 这里的project.json参与实际发布，与旧工程中仅供追溯/修改测试使用的script-map.json用途不同。

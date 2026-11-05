@@ -1,3 +1,5 @@
+#include "../powerButton/PowerModeControl.as"
+
 function GetSellButton()
 {
    return Pointer.encode(sellButton);
@@ -12,6 +14,15 @@ function GetPauseButton()
 }
 function onUnload()
 {
+   UnloadPowerButton();
+   delete GetPowerButton;
+   delete SetPowerModeState;
+   delete InitializePowerButton;
+   delete FinishPowerButtonInitialization;
+   delete UnloadPowerButton;
+   delete UpdatePowerButtonVisuals;
+   delete ShowPowerButtonHelp;
+   delete HidePowerButtonHelp;
    delete GetSellButton;
    delete GetRepairButton;
    delete GetPauseButton;
@@ -24,5 +35,6 @@ if(!initialized)
    pauseButton.helpSite = helpSite;
    initialized = true;
    fscommand(qualifyName(this,"OnInitialized"),"");
+   InitializePowerButton();
 }
 stop();

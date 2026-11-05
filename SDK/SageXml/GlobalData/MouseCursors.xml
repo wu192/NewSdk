@@ -12,6 +12,9 @@
 	<MouseCursor id="CantSellJapan" File="RA3CantSellJapanese"/>
 	<MouseCursor id="ToggleRepair" File="RA3Repair"/>
 	<MouseCursor id="CantToggleRepair" File="RA3CantRepair"/>
+	<!-- Power mode reuses shipped cursor artwork; no loose cursor files required. -->
+	<MouseCursor id="PowerToggle" File="RA3ChargeDefenses"/>
+	<MouseCursor id="CantPowerToggle" File="RA3Stop"/>
 	<MouseCursor id="TelestratorDraw" File="RA3Telestrator"/>
 	<MouseCursor id="ExplosiveCharge" File="RA3ExplosiveCharge"/>
 	<MouseCursor id="ClearGarrison" File="RA3ClearGarrison"/>

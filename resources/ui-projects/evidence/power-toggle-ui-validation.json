@@ -1,0 +1,151 @@
+{
+  "baseCommit": "4053e5bcfe4ab9ecb6e15b7ad647d85ba788299a",
+  "sourceState": "feat/power-toggle working-tree UI change; source hashes identify the tested inputs",
+  "compiler": "UiProject.Build Release net8.0; .NET SDK 8.0.427; no compiler production-source changes",
+  "sourceFiles": [
+    {
+      "path": "resources/ui-projects/Tactical/Scripts/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_frame_0001_define_GetSellButton.as",
+      "sha256": "26c650cec2bbb8af4ff020baf941556175135922ce53d62646dbbb54c1a48968"
+    },
+    {
+      "path": "resources/ui-projects/Tactical/Scripts/TacticalHUDCommandModeBar/powerButton/PowerModeControl.as",
+      "sha256": "89d6689bb078072ecc2b1f7e0a35a94b732ce77fbd3be250728b9c4e2ab6b1e2"
+    },
+    {
+      "path": "resources/ui-projects/Tactical/project.json",
+      "sha256": "5db6094e2ef2d9127be96e5b554264fd97930912d1b4beb37d97c40d1796fd54"
+    }
+  ],
+  "masterFlaSha256": "491db50a3ed7efe87b2edde0a55eb94eccf0969274c123101051057f2f129d3f",
+  "masterFlaUnchanged": true,
+  "movieCompile": {
+    "baselinePassed": 39,
+    "modifiedBatchPassed": 39,
+    "latestPowerMovieRepublished": true,
+    "failed": 0,
+    "changedMovies": [
+      "TacticalHUDCommandModeBar"
+    ],
+    "unchangedMovies": [
+      "TacticalEndGameDialog",
+      "TacticalHUD",
+      "TacticalHUDBeaconStage",
+      "TacticalHUDBuildQueuePage",
+      "TacticalHUDCoOpAIOrderPanel",
+      "TacticalHUDCommandListBox",
+      "TacticalHUDEnergyMeter",
+      "TacticalHUDExperiencePanel",
+      "TacticalHUDMainCommandBar",
+      "TacticalHUDObjectiveIndicatorStage",
+      "TacticalHUDObserverControlPanel",
+      "TacticalHUDPlayerPowersBar",
+      "TacticalHUDRadar",
+      "TacticalHUDSelectionDetails",
+      "TacticalHUDSelectionRefinementPage",
+      "TacticalHUDSpecialPowerTimers",
+      "TacticalHUDTelestratorControlPanel",
+      "TacticalMissionHotSpotPopUp",
+      "TacticalMpBeaconDialog",
+      "TacticalObjectiveIcon",
+      "TacticalObjectiveIndicatorPopUp",
+      "TacticalObjectiveIntroPopUp",
+      "TacticalPlayerPowerCommandButton",
+      "TacticalPlayerStatusDialog",
+      "TacticalQuickChatDialog",
+      "TacticalTextChatDialog",
+      "ig_DrawableOverlayStage",
+      "igm_GadgetFlashStage",
+      "HelpBox",
+      "HUDTickerPanel",
+      "igm_replayControlPanel",
+      "HUDVoiceChatControlPanel",
+      "VerticalScrollBar",
+      "ig_RadarObjectivesLayer",
+      "ig_RadarCoOpAITargetLayer",
+      "ig_missionMapHotSpotLayer",
+      "ig_RadarBridgeLayer",
+      "InGameCheckbox"
+    ],
+    "fourStreamSetsCompared": 39,
+    "identicalUnaffectedStreams": 152
+  },
+  "powerMovie": {
+    "assets": 66,
+    "linkedStreamChecksumsAndSizes": "passed",
+    "streams": {
+      "manifest": {
+        "bytes": 6127,
+        "sha256": "8534858c666a994d15e0fd638f502bcbce2b65eec134332c77cd1d4b87f80a29"
+      },
+      "bin": {
+        "bytes": 294028,
+        "sha256": "ce6af497224531bdaff28594e29f591b38f57b28f054fc6010d612aee1b27ff7"
+      },
+      "relo": {
+        "bytes": 532,
+        "sha256": "919668f7c9ccb46e9678226b34699e17c639826b2c8e94f1185a0a498a852143"
+      },
+      "imp": {
+        "bytes": 4,
+        "sha256": "5ed7804f69bdd4db2085b6fa8f9c24612861a138071ee7b9894bd3ec23a9c1aa"
+      }
+    },
+    "layout": {
+      "powerButtonLocalPosition": [
+        -40,
+        0
+      ],
+      "tooltipLocalPosition": [
+        -40,
+        27
+      ],
+      "reason": "Existing upperSidebar commandModeBar tx=-222, resourceDisplay tx=-112 and y=227; place the new control left of repair rather than over the resource counter."
+    }
+  },
+  "package": {
+    "file": "PowerToggleUI.big",
+    "bytes": 300973,
+    "sha256": "e283a5cb37d96d2be356f6c4ea3f0b3de79148924459f79acc39b96202142b3b",
+    "entries": [
+      {
+        "name": "data\\aptui\\tacticalhudcommandmodebar.bin",
+        "bytes": 294028
+      },
+      {
+        "name": "data\\aptui\\tacticalhudcommandmodebar.imp",
+        "bytes": 4
+      },
+      {
+        "name": "data\\aptui\\tacticalhudcommandmodebar.manifest",
+        "bytes": 6127
+      },
+      {
+        "name": "data\\aptui\\tacticalhudcommandmodebar.relo",
+        "bytes": 532
+      },
+      {
+        "name": "data\\aptui\\tacticalhudcommandmodebar.version",
+        "bytes": 3
+      }
+    ]
+  },
+  "bigMemberRoundTrip": "5/5 byte-identical payloads; version is space+CRLF",
+  "compiledHelperAvm1Smoke": {
+    "status": "passed",
+    "interpreter": "existing ui/tests/Avm1Machine.cs and RuntimeFixture.cs, with scratch delete-opcode support",
+    "nativeAndRendering": "mocked, not engine playback",
+    "cases": [
+      "default hidden/disabled; Ready once",
+      "native enabled/active feedback",
+      "press changes visual state only; one Toggle per enabled release",
+      "hover tooltip enter/leave",
+      "disabled release emits no Toggle",
+      "Unload emitted once",
+      "deferred attachMovie frame1 initialization",
+      "teardown before deferred initialization finishes"
+    ]
+  },
+  "knownPriorIssue": "TacticalPlayerStatusDialog original missing ShellButtons dependency remains unchanged; both batches report it.",
+  "runtimeTestsPerformed": false,
+  "boundaries": "No Flash GUI/game playback, native DLL integration, multiplayer, replay or save/load verification in these UI checks."
+}

@@ -887,7 +887,11 @@
         "Components/HUDCommandModeBar/HUDCommandModeBar_Symbol_55",
         "Components/HUDCommandModeBar/HUDCommandModeBar_Symbol_56",
         "Common/Common_SharedPart_06",
-        "Common/Common_SharedPart_07"
+        "Common/Common_SharedPart_07",
+        "Common/Common_SharedPart_05",
+        "Common/Common_WhiteRectangle",
+        "Components/HelpBox/HelpBox_Symbol_64",
+        "Components/HelpBox/HelpBox_titleText_part_2"
       ],
       "mediaOrder": [
         "HUDCommandModeBar_Bitmap_11.png",
@@ -908,7 +912,8 @@
         "HUDCommandModeBar_Bitmap_48.png",
         "HUDCommandModeBar_Bitmap_50.png",
         "HUDCommandModeBar_Bitmap_6.png",
-        "HUDCommandModeBar_Bitmap_8.png"
+        "HUDCommandModeBar_Bitmap_8.png",
+        "HelpBox_Bitmap_62.png"
       ],
       "linkages": [
         {
@@ -956,6 +961,30 @@
         {
           "itemName": "Common/Common_HelpBoxSite",
           "identifier": "HelpBoxSite",
+          "className": "",
+          "flags": 1
+        },
+        {
+          "itemName": "Components/HUDCommandModeBar/HUDCommandModeBar_Symbol_56",
+          "identifier": "EnhancerPowerButton",
+          "className": "",
+          "flags": 1
+        },
+        {
+          "itemName": "Common/Common_WhiteRectangle",
+          "identifier": "EnhancerPowerSurface",
+          "className": "",
+          "flags": 1
+        },
+        {
+          "itemName": "Components/HelpBox/HelpBox_Symbol_64",
+          "identifier": "EnhancerPowerIcon",
+          "className": "",
+          "flags": 1
+        },
+        {
+          "itemName": "Components/HelpBox/HelpBox_titleText_part_2",
+          "identifier": "EnhancerPowerHintText",
           "className": "",
           "flags": 1
         }
@@ -1021,7 +1050,8 @@
         "Scripts/TacticalHUDCommandModeBar/pauseButton/pauseButton_frame_0001_construct.as",
         "Scripts/TacticalHUDCommandModeBar/repairButton/repairButton_frame_0001_construct.as",
         "Scripts/TacticalHUDCommandModeBar/sellButton/sellButton_frame_0001_construct.as",
-        "Scripts/TacticalHUDCommandModeBar/sellButton/sellButton_frame_0001_define_SetState.as"
+        "Scripts/TacticalHUDCommandModeBar/sellButton/sellButton_frame_0001_define_SetState.as",
+        "Scripts/TacticalHUDCommandModeBar/powerButton/PowerModeControl.as"
       ],
       "originalSourceIssues": {
         "staticLibraryDependencyState": "closed",
