@@ -7,3 +7,4 @@ export * from './cpu';
 export * from './runtime';
 export * from './world';
 export * from './sourceMotion';
+export * from './special';

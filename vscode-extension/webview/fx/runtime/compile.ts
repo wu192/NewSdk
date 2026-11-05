@@ -1,4 +1,4 @@
-import type { AlphaKey, ColorKey, FxNode, ParticleConfig, Range, RuntimeIssue, Vec3 } from './types';
+import type { AlphaKey, ColorKey, FxNode, LightningRandomSet, ParticleConfig, Range, RuntimeIssue, Vec3 } from './types';
 
 const local = (name: string): string => name.split(':').pop()!;
 const child = (node: FxNode | undefined, name: string): FxNode | undefined => node?.children.find(c => local(c.name) === name);
@@ -48,8 +48,9 @@ export function compileParticle(root: FxNode): { config?: ParticleConfig; issues
         const node = child(parent, name); check(node, ['x', 'y', 'z'], [], path);
         return ['x', 'y', 'z'].map(a => scalar(node, a, 0, `${path}/@${a}`)) as Vec3;
     };
-    const module = (name: string, supported: string[]): FxNode | undefined => {
+    const module = (name: string, supported: string[], allowEmpty = false): FxNode | undefined => {
         const parent = child(root, name);
+        if (allowEmpty && parent && parent.children.length === 0) { check(parent, [], [], name); return undefined; }
         if (!parent || parent.children.length !== 1) { issue(name, `需要一个 ${name} 模块`); return undefined; }
         check(parent, [], supported, name);
         const node = parent.children[0];
@@ -60,9 +61,13 @@ export function compileParticle(root: FxNode): { config?: ParticleConfig; issues
         'SortLevel', 'IsGroundAligned', 'IsEmitAboveGroundOnly', 'IsParticleUpTowardsEmitter', 'UseMaximumHeight',
         'Drawable', 'SlaveSystem', 'PerParticleAttachedSystem', 'EmitterSound'],
     ['Lifetime', 'InitialDelay', 'BurstDelay', 'BurstCount', 'Size', 'StartSizeRate', 'Physics', 'Draw', 'Volume', 'Velocity', 'Update', 'Colors', 'Alphas', 'Wind', 'Event'], '');
-    const backend = (root.attributes.Type ?? 'PARTICLE') === 'PARTICLE' ? 'CPU' : 'GPU';
-    if (!['PARTICLE', 'GPU_PARTICLE'].includes(root.attributes.Type ?? 'PARTICLE')) issue('@Type', `Type=${root.attributes.Type} 尚无普通 CPU/GPU 合同`);
-    const shader = root.attributes.Shader ?? 'ADDITIVE';
+    const family = (root.attributes.Type ?? 'PARTICLE') as NonNullable<ParticleConfig['family']>;
+    const special = ['TRAIL', 'STREAK', 'SWARM'].includes(family);
+    const backend = family === 'GPU_PARTICLE' ? 'GPU' : 'CPU';
+    if (!['PARTICLE', 'GPU_PARTICLE', 'TRAIL', 'STREAK', 'SWARM'].includes(family)) issue('@Type', `Type=${root.attributes.Type} 尚无预览实现`);
+    const rawShader = root.attributes.Shader ?? 'ADDITIVE';
+    const alphaTest = special && ['ADDITIVE_ALPHA_TEST', 'ALPHA_TEST'].includes(rawShader);
+    const shader = alphaTest ? rawShader === 'ALPHA_TEST' ? 'ALPHA' : 'ADDITIVE' : rawShader;
     if (!['ADDITIVE', 'ALPHA', 'MULTIPLY'].includes(shader)) issue('@Shader', `尚未支持材质 profile ${shader}`);
     for (const a of ['Drawable', 'SlaveSystem', 'EmitterSound']) {
         if (root.attributes[a]) issue(`@${a}`, `${a} 需要本轮以外的运行分支`);
@@ -70,20 +75,64 @@ export function compileParticle(root: FxNode): { config?: ParticleConfig; issues
     for (const a of ['IsEmitAboveGroundOnly', 'IsParticleUpTowardsEmitter', 'UseMaximumHeight']) {
         if (bool(root, a)) issue(`@${a}`, `${a} 需要额外地形/朝向上下文`);
     }
-    const physics = module('Physics', ['Default']);
-    const draw = module('Draw', backend === 'CPU' ? ['Default'] : ['Gpu']);
+    const physics = module('Physics', special ? ['Default', 'Swarm'] : ['Default'], special);
+    const draw = module('Draw', special ? ['Default', 'Trail', 'Lightning', 'Swarm'] : backend === 'CPU' ? ['Default'] : ['Gpu']);
+    const drawModule = local(draw?.name ?? (backend === 'CPU' ? 'Default' : 'Gpu')) as NonNullable<ParticleConfig['drawModule']>;
+    const swarmPhysics = local(physics?.name ?? '') === 'Swarm';
     if (backend !== 'CPU' && root.attributes.PerParticleAttachedSystem) issue('@PerParticleAttachedSystem', 'GPU 的逐粒子附属生命周期尚无已证合同');
-    const volume = module('Volume', ['Point', 'Line', 'Box', 'Cylinder', 'Sphere']);
-    const velocity = module('Velocity', ['Ortho', 'Cylindrical', 'Spherical', 'Outward']);
+    const volume = module('Volume', special ? ['Point', 'Line', 'Box', 'Cylinder', 'Sphere', 'Lightning'] : ['Point', 'Line', 'Box', 'Cylinder', 'Sphere']);
+    if (local(volume?.name ?? '') === 'Lightning' && drawModule !== 'Lightning') issue('Volume/Lightning', 'Lightning 出生区域需要 Draw/Lightning 的起终点');
+    const velocity = module('Velocity', ['Ortho', 'Cylindrical', 'Spherical', 'Outward'], special);
     const updateParent = child(root, 'Update');
-    const update = updateParent ? module('Update', backend === 'GPU' ? ['Default', 'RenderObject'] : ['Default']) : undefined;
-    if (backend === 'CPU' && !update) issue('Update', 'CPU Default 路径需要 Update/Default');
-    check(physics, ['Gravity', 'Swirly', 'ParticlesAttachToBone'], ['VelocityDamping', 'DriftVelocity'], 'Physics/Default');
-    for (const a of ['Swirly', 'ParticlesAttachToBone']) if (bool(physics, a)) issue(`Physics/Default/@${a}`, `${a} 尚未播放`);
-    const drawPath = backend === 'CPU' ? 'Draw/Default' : 'Draw/Gpu';
+    const update = updateParent ? module('Update', backend === 'GPU' ? ['Default', 'RenderObject'] : ['Default'], special) : undefined;
+    if (backend === 'CPU' && !special && !update) issue('Update', 'CPU Default 路径需要 Update/Default');
+    check(physics, swarmPhysics ? ['AttractStrength'] : ['Gravity', 'Swirly', 'ParticlesAttachToBone'], swarmPhysics ? [] : ['VelocityDamping', 'DriftVelocity'], swarmPhysics ? 'Physics/Swarm' : 'Physics/Default');
+    if (!swarmPhysics) for (const a of ['Swirly', 'ParticlesAttachToBone']) if (bool(physics, a)) issue(`Physics/Default/@${a}`, `${a} 尚未播放`);
+    const drawPath = `Draw/${drawModule}`;
     const geometryType = draw?.attributes.GeometryType ?? 'SIMPLE_QUAD';
     const shaderFile = (draw?.attributes.Shader ?? 'GPUParticle.fx').toLowerCase();
-    if (backend === 'CPU') check(draw, [], [], drawPath);
+    let trail: ParticleConfig['trail'], lightning: ParticleConfig['lightning'], swarm: ParticleConfig['swarm'];
+    const bounded = (value: number, path: string, maximum = 1e6): number => {
+        if (Math.abs(value) > maximum) issue(path, `参数超过特殊粒子预览预算 ${maximum}`, 'error', 'value');
+        return value;
+    };
+    if (drawModule === 'Trail') {
+        check(draw, ['TrailLife', 'UTile', 'VTile', 'UScrollRate', 'VScrollRate'], [], drawPath);
+        const life = scalar(draw, 'TrailLife', 30, `${drawPath}/@TrailLife`);
+        if (!Number.isInteger(life) || life < 1 || life > 600) issue(`${drawPath}/@TrailLife`, '拖尾寿命须为 1～600 帧整数，历史点超过预算时暂停预览', 'error', 'value');
+        trail = { life, uTile: bounded(scalar(draw, 'UTile', 1, `${drawPath}/@UTile`), `${drawPath}/@UTile`), vTile: bounded(scalar(draw, 'VTile', 1, `${drawPath}/@VTile`), `${drawPath}/@VTile`),
+            uScrollRate: bounded(scalar(draw, 'UScrollRate', 0, `${drawPath}/@UScrollRate`), `${drawPath}/@UScrollRate`), vScrollRate: bounded(scalar(draw, 'VScrollRate', 0, `${drawPath}/@VScrollRate`), `${drawPath}/@VScrollRate`) };
+    } else if (drawModule === 'Lightning') {
+        const names = ['StartAmplitude', 'EndAmplitudeChange', 'StartFrequency', 'EndFrequencyChange', 'StartPhase', 'EndPhaseChange'] as const;
+        check(draw, [], ['StartPoint', 'EndPoint', 'RandomSet'], drawPath);
+        for (const name of ['StartPoint', 'EndPoint']) {
+            if (!child(draw, name)) issue(`${drawPath}/${name}`, `闪电缺少必需 ${name}`, 'error', 'value');
+            if (draw?.children.filter(node => local(node.name) === name).length !== 1) issue(`${drawPath}/${name}`, `闪电需要且只能有一个 ${name}`, 'error', 'value');
+        }
+        const randomSets = draw?.children.filter(node => local(node.name) === 'RandomSet') ?? [];
+        if (randomSets.length !== 2) issue(`${drawPath}/RandomSet`, '闪电需要两组 RandomSet 波形参数', 'error', 'value');
+        lightning = { start: vector(draw, 'StartPoint', `${drawPath}/StartPoint`), end: vector(draw, 'EndPoint', `${drawPath}/EndPoint`),
+            randomSets: randomSets.slice(0, 2).map((node, index) => {
+                const path = `${drawPath}/RandomSet[${index + 1}]`; check(node, [], [...names], path);
+                const result = {} as LightningRandomSet;
+                for (const name of names) {
+                    if (node.children.filter(c => local(c.name) === name).length > 1) issue(`${path}/${name}`, '波形参数不能重复', 'error', 'value');
+                    const value = range(node, name, 0, `${path}/${name}`);
+                    bounded(value.low, `${path}/${name}/@Low`); bounded(value.high, `${path}/${name}/@High`);
+                    result[`${name[0].toLowerCase()}${name.slice(1)}` as keyof LightningRandomSet] = value;
+                }
+                return result;
+            }) };
+        for (const [name, point] of [['StartPoint', lightning.start], ['EndPoint', lightning.end]] as const)
+            point.forEach((value, axis) => bounded(value, `${drawPath}/${name}/@${['x', 'y', 'z'][axis]}`));
+    } else if (drawModule === 'Swarm') {
+        check(draw, ['OpaqueSpeed', 'TransparentSpeed', 'SpeedStretchAmount', 'AttractStrength', 'EnvironmentTexture'], [], drawPath);
+        swarm = { opaqueSpeed: bounded(scalar(draw, 'OpaqueSpeed', 0, `${drawPath}/@OpaqueSpeed`), `${drawPath}/@OpaqueSpeed`),
+            transparentSpeed: bounded(scalar(draw, 'TransparentSpeed', 100, `${drawPath}/@TransparentSpeed`), `${drawPath}/@TransparentSpeed`),
+            speedStretchAmount: bounded(scalar(draw, 'SpeedStretchAmount', 1, `${drawPath}/@SpeedStretchAmount`), `${drawPath}/@SpeedStretchAmount`),
+            attractStrength: bounded(scalar(draw, 'AttractStrength', 0, `${drawPath}/@AttractStrength`), `${drawPath}/@AttractStrength`), environmentTexture: draw?.attributes.EnvironmentTexture ?? '' };
+        if (swarm.opaqueSpeed < 0 || swarm.transparentSpeed < 0 || swarm.speedStretchAmount < 0) issue(drawPath, '群粒子速度阈值和拉伸量须为非负数', 'error', 'value');
+    } else if (backend === 'CPU') check(draw, [], [], drawPath);
     else {
         check(draw, ['Shader', 'GeometryType', 'FramesPerRow', 'TotalFrames', 'SingleRow', 'RandTex', 'SpeedMultiplier',
             'SortParticles', 'EnableSoftParticles', 'MiscValue1', 'MiscValue2', 'MiscValue3', 'MiscValue4', 'DetailTexture'], [], drawPath);
@@ -135,7 +184,8 @@ export function compileParticle(root: FxNode): { config?: ParticleConfig; issues
     check(wind, ['Motion', 'Strength', 'FullStrengthDist', 'ZeroStrengthDist', 'AngleChangeMin', 'AngleChangeMax',
         'PingPongStartAngleMin', 'PingPongStartAngleMax', 'PingPongEndAngleMin', 'PingPongEndAngleMax', 'TurbulenceAmplitude', 'TurbulenceFrequency'], [], 'Wind');
     if (wind && (wind.attributes.Motion ?? 'NOT_USED') !== 'NOT_USED') issue('Wind/@Motion', '风场尚未播放');
-    check(volume, ['IsHollow', 'Radius', 'RadiusRate', 'Length'], ['StartPoint', 'EndPoint', 'HalfSize', 'Offset'], 'Volume');
+    if (local(volume?.name ?? '') === 'Lightning') check(volume, ['IsHollow'], [], 'Volume/Lightning');
+    else check(volume, ['IsHollow', 'Radius', 'RadiusRate', 'Length'], ['StartPoint', 'EndPoint', 'HalfSize', 'Offset'], 'Volume');
     check(velocity, [], ['Position', 'Radial', 'Normal', 'Speed', 'OtherSpeed'], 'Velocity');
     const position = child(velocity, 'Position'); check(position, [], ['x', 'y', 'z'], 'Velocity/Ortho/Position');
     const age = (node: FxNode, path: string): number => {
@@ -174,7 +224,9 @@ export function compileParticle(root: FxNode): { config?: ParticleConfig; issues
         if (backend === 'GPU') issue('Alphas/Alpha/@RelativeAge', '此 GPU 路径由颜色槽控制 RGBA 时间；Alpha 时间保留但不消费', 'warning', 'alpha-time');
     }
     const config: ParticleConfig = {
-        backend, geometryUpdate, geometryType: geometryType as ParticleConfig['geometryType'],
+        backend, family, drawModule, trail, lightning, swarm, alphaTest,
+        swarmPhysics: swarmPhysics ? { attractStrength: bounded(scalar(physics, 'AttractStrength', 0, 'Physics/Swarm/@AttractStrength'), 'Physics/Swarm/@AttractStrength') } : undefined,
+        geometryUpdate, geometryType: geometryType as ParticleConfig['geometryType'],
         shaderProfile: backend === 'CPU' ? 'CPU_DEFAULT' : shaderFile === 'gpuparticleperpendicularbottom.fx' ? 'GPU_PERPENDICULAR_BOTTOM' : 'GPU_STANDARD',
         softParticles: backend === 'GPU' && bool(draw, 'EnableSoftParticles', true),
         attachedSystem: backend === 'CPU' ? root.attributes.PerParticleAttachedSystem : undefined, events,
@@ -207,7 +259,10 @@ export function compileParticle(root: FxNode): { config?: ParticleConfig; issues
     if (Math.min(...config.volume.halfSize, config.volume.radius, config.volume.length) < 0) issue('Volume', '本轮体积合同仅支持非负有限尺寸', 'error', 'value');
     if (backend === 'GPU' && (config.startSizeRate.low !== 0 || config.startSizeRate.high !== 0)) issue('StartSizeRate', '此普通 GPU 路径不消费出生尺寸累加；保留随机采样与系统累加，不将其误作 SizeRate', 'warning', 'gpu-unused');
     if (!Number.isInteger(config.atlas.singleRow) || !Number.isInteger(config.atlas.randTex) || config.atlas.speedMultiplier < 0) issue('Draw/Gpu', 'Atlas 行/模式须为整数，播放速度需非负', 'error', 'value');
-    if (backend === 'CPU') {
+    if (special) {
+        issue('Draw', '特殊粒子使用重建预览模型，尚未与游戏画面对照；运动、波形和材质可能有差异', 'warning', 'special-preview');
+    }
+    if (backend === 'CPU' && !special) {
         if (alphas && !alphas[1].time) issue(alphaOrigins[1] ? `Alphas/Alpha[${alphaOrigins[1]}]/@RelativeAge` : 'Alphas', 'CPU Alpha 第二槽时间为零时原生当前初值依赖分配器复用，未证分支暂停播放', 'error', 'cpu-alpha-initial');
         for (const [name, keys] of [['Colors', colors], ['Alphas', alphas]] as const) {
             if (keys?.some(key => key.time < 0)) issue(name, 'CPU 负时间的无符号帧间隔分支尚未闭合', 'error', 'cpu-key-time');

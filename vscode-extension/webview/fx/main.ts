@@ -1,4 +1,5 @@
 import { defaultScene } from '../../src/fx/previewProtocol';
+import { fxPresets } from '../../src/fx/templates';
 import type { FxClientMessage, FxEnvelope, FxHostMessage, FxNode, FxScene, FxSystem, FxTextureTransfer, PreviewIR } from '../../src/fx/previewProtocol';
 import { compileParticle, ParticleWorld } from './runtime';
 import type { WorldSystem } from './runtime';
@@ -52,7 +53,7 @@ function showError(error:unknown):void {status(error instanceof Error?error.mess
 const app=el('main','fx-app');app.id='fx-app';
 const header=el('header','app-header'),brand=el('strong','brand','NewSdk · 特效');
 const assetSelect=el('select','asset-select');assetSelect.id='asset-select';assetSelect.setAttribute('aria-label','当前特效');assetSelect.addEventListener('change',()=>{cancelDraft();send({type:'select',assetKey:assetSelect.value});});
-const newSelect=el('select','new-select');newSelect.setAttribute('aria-label','新建特效');newSelect.append(option('','新建特效…'));for(const name of ['闪光','烟雾','喷射火花','持续光环'])newSelect.append(option(name,name));newSelect.addEventListener('change',()=>{if(newSelect.value)send({type:'new',preset:newSelect.value});newSelect.value='';});
+const newSelect=el('select','new-select');newSelect.setAttribute('aria-label','新建特效');newSelect.append(option('','新建特效…'));for(const name of fxPresets)newSelect.append(option(name,name));newSelect.addEventListener('change',()=>{if(newSelect.value)send({type:'new',preset:newSelect.value});newSelect.value='';});
 const copyButton=button('复制为独立资源','预览要插入的资产和引用，确认后作为一个可撤销编辑',()=>{if(ir)send({type:'copy',assetKey:ir.assetKey});});
 const buildButton=button('保存并编译','保存当前构建涉及的修改并调用 NewSdk 编译器',()=>{commitPendingField();send({type:'saveAndBuild'});},'primary');buildButton.id='save-build';
 const reloadButton=button('重载资源','取消旧加载并按新 generation 重读文件',()=>send({type:'reload',resetRenderer:true}));
@@ -93,9 +94,9 @@ function renderLayers():void {
         const choose=button(system.name,`调用实例；共享模板 ${system.templateKey}`,()=>{cancelDraft();state.selected=system.key;renderLayers();renderInspector();persist();},'layer-name');
         const visible=el('input');visible.type='checkbox';visible.checked=!state.hidden.includes(system.key);visible.title='显示此图层';visible.setAttribute('aria-label',`显示 ${system.name}`);visible.addEventListener('change',()=>{state.hidden=state.hidden.filter(k=>k!==system.key);if(!visible.checked)state.hidden.push(system.key);draw();persist();});
         const solo=button('独',state.solo===system.key?'取消独显':'只绘制该图层；其他图层继续逻辑运行',()=>{state.solo=state.solo===system.key?undefined:system.key;renderLayers();draw();persist();},'solo-button');solo.classList.toggle('selected',state.solo===system.key);
-        row.append(visible,choose,solo);const detail=el('small','layer-detail',!system.triggered?'未触发':system.config?`${system.config.backend??'GPU'} · ${system.config.geometryType??'普通贴片'}`:'暂未播放');detail.title=system.issues.map(i=>i.message).join('\n');row.append(detail);layerList.append(row);
+        row.append(visible,choose,solo);const detail=el('small','layer-detail',!system.triggered?'未触发':system.config?system.config.drawModule&&['Trail','Lightning','Swarm'].includes(system.config.drawModule)?`${system.config.family} · ${system.config.drawModule}`:`${system.config.backend??'GPU'} · ${system.config.geometryType??'普通贴片'}`:'暂未播放');detail.title=system.issues.map(i=>i.message).join('\n');row.append(detail);layerList.append(row);
     }
-    if(!ir?.systems.length)layerList.append(el('p','hint','此资产没有可播放的普通 GPU / CPU 子系统；可继续查看 XML。'));
+    if(!ir?.systems.length)layerList.append(el('p','hint','此资产没有可播放的粒子子系统；可继续查看 XML 和具体诊断。'));
 }
 const actions:FieldActions={draft:queueDraft,commit:commitEdits,cancel:cancelDraft,locate:key=>{if(key)send({type:'locate',key});},openSource:key=>send({type:'openFieldSource',key}),override:edit=>send({type:'overrideField',...edit})};
 function renderInspector():void {
@@ -156,7 +157,7 @@ function sourcePosition(scene:FxScene,frame:number):[number,number,number] {
     return [scene.source[0]+offset[0],scene.source[1]+offset[1],scene.source[2]+offset[2]];
 }
 function renderCapabilities():void {
-    inspectorBody.append(el('h2','','能力与当前差异'),el('p','hint','普通 GPU / CPU Default；几何与 shader 必须匹配能力合同。材质采用公开 profile；尚无游戏实机截图对照。'));
+    inspectorBody.append(el('h2','','能力与当前差异'),el('p','hint','支持普通 GPU / CPU 和 Trail、Lightning、Swarm 预览。特殊类型采用重建模型，尚无游戏实机画面对照；拖尾保留范围为 1～600 帧。未支持的模块会列出具体诊断。'));
     const issues=ir?.issues??[];
     for(const system of allSystems(ir))for(const [index,issue] of system.issues.entries()){if(issues.some(root=>root.code===issue.code&&root.uri===issue.uri&&root.start===issue.start))continue;const row=el('div',`issue ${issue.severity}`);row.append(el('strong','',`${system.name} · ${issue.code}`),el('p','',issue.message),button('XML ↗','定位系统问题源码',()=>send({type:'locate',key:`issue:${system.key}:${index}`})));inspectorBody.append(row);}
     if(!issues.length)inspectorBody.append(el('p','success','当前资产未发现阻止播放的问题。'));
@@ -169,7 +170,7 @@ function frameLabel(frame:number):void {state.frame=frame;seekInput.value=String
 function renderLayerData():RenderLayer[] {
     const current=draftIr??ir;
     const sources=allSystems(current);
-    return (world?.systems??[]).map(s=>{const system=sources.find(x=>x.key===s.id||x.key===s.sourceId)||sources.find(x=>x.templateKey===s.templateKey);const owner=system?.key??s.id;return {id:s.id,config:s.runtime.config,births:s.runtime.particles,alphaSamples:s.runtime.alphaSamples,sample:(birth,frame)=>s.runtime.sample(birth,frame),textureKey:system?.textureKey,visible:!state.hidden.includes(owner)&&!state.hidden.includes(s.id)&&(!state.solo||state.solo===owner||state.solo===s.id)};});
+    return (world?.systems??[]).map(s=>{const system=sources.find(x=>x.key===s.id||x.key===s.sourceId)||sources.find(x=>x.templateKey===s.templateKey);const owner=system?.key??s.id;return {id:s.id,config:s.runtime.config,births:s.runtime.particles,alphaSamples:s.runtime.alphaSamples,sample:(birth,frame)=>s.runtime.sample(birth,frame),textureKey:system?.textureKey,environmentTextureKey:system?.environmentTextureKey,visible:!state.hidden.includes(owner)&&!state.hidden.includes(s.id)&&(!state.solo||state.solo===owner||state.solo===s.id)};});
 }
 function ensureRenderer():void {
     if(renderer||rendererFailed||disposed||!active||!documentVisible)return;
@@ -250,19 +251,29 @@ function queueDraft(edits:EditValue[]):void {
 }
 async function applyDraft(edits:EditValue[]):Promise<void> {
     if(!ir||!active||!documentVisible||disposed)return;
+    if(edits.some(edit=>allSystems(ir).some(system=>system.fields.some(field=>field.key===edit.key&&['ParticleTexture','File'].includes(field.attribute))))){status('贴图引用将在提交后加载并更新预览','draft');return;}
     const original=ir,originalVersion=version;
-    const current=structuredClone(ir);let changed=false;
+    const current=structuredClone(ir);let changed=false,environmentPending=false;
     for(const system of [...current.systems,...(current.dynamic?.templates??[]),...(current.dynamic?.fxLists.flatMap(list=>list.systems)??[])]){
         if(!system.definition)continue;let systemChanged=false;
         for(const edit of edits){const field=system.fields.find(f=>f.key===edit.key);if(!field?.previewPath||field.readonly)continue;
             let node:FxNode|undefined=system.definition;for(const index of field.previewPath)node=node?.children[index];
-            if(node){node.attributes[field.attribute]=edit.value;changed=true;systemChanged=true;}
+            if(node){
+                node.attributes[field.attribute]=edit.value;changed=true;systemChanged=true;
+                if(field.attribute==='EnvironmentTexture'){
+                    const name=edit.value.trim(),matches=name?current.textures.filter(texture=>texture.name===name):[];
+                    // A draft may only reuse one already resolved resource. New or
+                    // ambiguous references wait for the host's scoped resolution.
+                    system.environmentTextureKey=matches.length===1?matches[0].key:undefined;
+                    if(name&&matches.length!==1)environmentPending=true;
+                }
+            }
         }
         if(systemChanged){const compiled=compileParticle(system.definition);if(!compiled.config){status(`草稿尚未应用：${compiled.issues.map(i=>i.message).join('；')}`,'warning');return;}system.config=compiled.config;}
     }
     if(!changed){status('调节中 · 此调用参数将在提交后重建预览','draft');return;}
     if(ir!==original||version!==originalVersion)return;
-    draftIr=current;await rebuild(current,Math.max(0,state.frame));showPreviewStatus();
+    draftIr=current;await rebuild(current,Math.max(0,state.frame));if(environmentPending)status('调节中 · 新环境贴图将在提交后加载；当前使用基础粒子贴图','draft');else showPreviewStatus();
 }
 function commitEdits(edits:EditValue[]):void {
     if(pendingCommit)return;
@@ -302,7 +313,7 @@ async function receive(message:FxHostMessage):Promise<void> {
     identity.textContent=`正在编辑 ${fileName(editingUri)} / 正在预览 ${ir.name}`;identity.title=`编辑：${editingUri}\n预览入口：${ir.entry}`;
     stageContext.textContent=`${ir.scene.sourceMotion?`合成轨迹 · ${motionPlaybackLabels[ir.scene.sourceMotion.playback]}`:'源位置固定'} · ${ir.scene.terrain==='land'?'陆地':'水面'} · ${ir.scene.dispatch==='object'?'对象触发':'位置触发'} · 标准高质量数学 · ${ir.textures.some(t=>t.source==='compiled')?'编译结果 / 版本见能力列表':'源贴图预览'}`;
     renderLayers();renderInspector();ensureRenderer();
-    renderer?.setLayers(ir.systems.filter(s=>s.config).map(s=>({id:s.key,config:s.config!,births:[],alphaSamples:[],textureKey:s.textureKey,visible:true})),ir.textures.map(texture=>texture.key));
+    renderer?.setLayers(ir.systems.filter(s=>s.config).map(s=>({id:s.key,config:s.config!,births:[],alphaSamples:[],textureKey:s.textureKey,environmentTextureKey:s.environmentTextureKey,visible:true})),ir.textures.map(texture=>texture.key));
     for(const texture of ir.textures){try{if(renderer&&(texture.pixels||texture.pixelsBase64)){renderer.uploadTexture(texture);uploadedTextureKeys.add(texture.key);textureGpuErrors.delete(texture.key);}}catch(error){textureFailure(texture.key,error);showError(error);}delete texture.pixels;delete texture.pixelsBase64;}
     await rebuild(ir,Math.max(0,state.frame));
     if(hadDraft)status('内容已更新，预览已与当前文档同步；如有冲突请重新应用该项。');else showPreviewStatus();
@@ -326,7 +337,7 @@ function receiveTextureState(message:Extract<FxHostMessage,{type:'textureState'}
         const location=metadata.location??preview.textures[index].location;
         preview.textures[index]={...metadata};
         if(message.texture.status==='ready'&&location)preview.issues=preview.issues.filter(issue=>issue.code!=='texture-resource'||issue.uri!==location.uri||issue.start!==location.start);
-        for(const system of preview.systems)if(system.textureKey===message.previousKey)system.textureKey=metadata.key;
+        for(const system of allSystems(preview)){if(system.textureKey===message.previousKey)system.textureKey=metadata.key;if(system.environmentTextureKey===message.previousKey)system.environmentTextureKey=metadata.key;}
         if(message.issue){const issueIndex=preview.issues.findIndex(issue=>issue.code===message.issue!.code&&issue.uri===message.issue!.uri&&issue.start===message.issue!.start);if(issueIndex<0)preview.issues.push(message.issue);else preview.issues[issueIndex]=message.issue;}
     };
     update(ir);if(draftIr)update(draftIr);

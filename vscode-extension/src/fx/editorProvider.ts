@@ -574,7 +574,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         if (!model.valid || !root || root.selfClosing) throw new Error('需要完整的、带结束标签的 AssetDeclaration 文档。');
         preset ??= await vscode.window.showQuickPick([...fxPresets], { title: '新建特效' }) as FxPreset | undefined;
         if (!preset) return;
-        const id = await vscode.window.showInputBox({ title: '新特效 id', value: `New${['Flash', 'Smoke', 'Spark', 'Halo'][fxPresets.indexOf(preset)]}`,
+        const id = await vscode.window.showInputBox({ title: '新特效 id', value: `New${['Flash', 'Smoke', 'Spark', 'Halo', 'Trail', 'Lightning', 'Swarm'][fxPresets.indexOf(preset)]}`,
             validateInput: value => !/^[A-Za-z_][A-Za-z0-9_.-]*$/.test(value) ? '使用字母、数字、下划线、点或连字符。' : model.elements.some(e => e.attributes.id === value) ? '此 id 已存在。' : undefined });
         if (!id) return;
         const textures = state?.index.listAssets().filter(a => a.type === 'Texture') ?? [];

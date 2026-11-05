@@ -23,6 +23,7 @@ export function fieldRow(field:FxField,actions:FieldActions):HTMLElement {
     });
     const code=button('↗','定位此参数在原生 XML 中的位置',()=>actions.locate(field.key),'code-button');code.setAttribute('aria-label',`定位 ${field.label}`);
     row.append(name,input,code);
+    if(['ParticleTexture','EnvironmentTexture','File'].includes(field.attribute))row.append(el('small','field-source','引用提交后加载'));
     if(field.readonly||field.inherited){const badge=el('small','field-source',field.readonly?'SDK / 只读':`继承自 ${field.sourceAsset??'父定义'}`);badge.title=field.uri;row.append(badge);}
     if(field.defaulted)row.append(el('small','field-source','默认值；首次编辑会按原位置插入属性'));
     if(field.inherited){const source=el('div','inherited-actions');source.append(button('修改父定义','将可视编辑器和原生 XML 切到该共享定义',()=>actions.openSource?.(field.key)),button('在本资产覆盖','预览并确认新覆盖节点，保留父定义原文',()=>actions.override?.({key:field.key,value:input.value,expectedValue:field.value})));row.append(source);}

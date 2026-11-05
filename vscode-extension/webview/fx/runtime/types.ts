@@ -9,10 +9,26 @@ export interface RuntimeIssue { code: string; path: string; message: string; sev
 export interface ColorKey { time: number; value: Vec3; }
 export interface AlphaKey { time: number; range: Range; }
 export interface AtlasConfig { framesPerRow: number; totalFrames: number; singleRow: number; randTex: number; speedMultiplier: number; }
-export interface VolumeConfig { type: 'Point' | 'Line' | 'Box' | 'Cylinder' | 'Sphere'; hollow: boolean; start: Vec3; end: Vec3; halfSize: Vec3; radius: number; radiusRate: number; length: number; offset: Vec3; }
+export interface VolumeConfig { type: 'Point' | 'Line' | 'Box' | 'Cylinder' | 'Sphere' | 'Lightning'; hollow: boolean; start: Vec3; end: Vec3; halfSize: Vec3; radius: number; radiusRate: number; length: number; offset: Vec3; }
 export interface VelocityConfig { type: 'Ortho' | 'Cylindrical' | 'Spherical' | 'Outward'; x: Range; y: Range; z: Range; radial: Range; normal: Range; speed: Range; otherSpeed: Range; }
+export interface TrailConfig { life: number; uTile: number; vTile: number; uScrollRate: number; vScrollRate: number; }
+export interface LightningRandomSet {
+    startAmplitude: Range; endAmplitudeChange: Range; startFrequency: Range; endFrequencyChange: Range; startPhase: Range; endPhaseChange: Range;
+}
+export interface LightningConfig { start: Vec3; end: Vec3; randomSets: LightningRandomSet[]; }
+export interface LightningRandomState {
+    startAmplitude: number; endAmplitudeChange: number; startFrequency: number; endFrequencyChange: number; startPhase: number; endPhaseChange: number;
+}
+export interface LightningState { start: Vec3; end: Vec3; randomSets: LightningRandomState[]; }
+export interface SwarmConfig { opaqueSpeed: number; transparentSpeed: number; speedStretchAmount: number; attractStrength: number; environmentTexture: string; }
+export interface TrailPoint { frame: number; position: Vec3; size: number; color: Vec4; }
 export interface ParticleConfig {
     backend?: 'GPU' | 'CPU';
+    family?: 'PARTICLE' | 'GPU_PARTICLE' | 'TRAIL' | 'STREAK' | 'SWARM';
+    drawModule?: 'Default' | 'Gpu' | 'Trail' | 'Lightning' | 'Swarm';
+    trail?: TrailConfig; lightning?: LightningConfig; swarm?: SwarmConfig;
+    swarmPhysics?: { attractStrength: number };
+    alphaTest?: boolean;
     geometryType?: 'SIMPLE_QUAD' | 'CENTERED_QUAD' | 'TWO_CONCENTRIC_QUADS' | 'TWO_QUADS';
     shaderProfile?: 'GPU_STANDARD' | 'GPU_PERPENDICULAR_BOTTOM' | 'CPU_DEFAULT';
     geometryUpdate?: GeometryUpdate;
@@ -34,6 +50,8 @@ export interface BirthRecord {
     id: number; position: Vec3; velocity: Vec3; life: number;
     creationFrame: number; seed: number;
     cpu?: CpuParticleState;
+    trail?: TrailPoint[];
+    lightning?: LightningState;
     events?: ParticleEventState[];
 }
 export interface GeometryUpdate {

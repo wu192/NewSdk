@@ -13,7 +13,10 @@ export interface TexturePipelineOptions {
 
 function bindKey(ir: PreviewIR, texture: FxTexture, key: string): string {
     const previous = texture.key; texture.key = key;
-    for (const system of ir.systems) if (system.textureKey === previous) system.textureKey = key;
+    for (const system of [...ir.systems,...(ir.dynamic?.templates??[]),...(ir.dynamic?.fxLists.flatMap(list=>list.systems)??[])]) {
+        if (system.textureKey === previous) system.textureKey = key;
+        if (system.environmentTextureKey === previous) system.environmentTextureKey = key;
+    }
     return previous;
 }
 

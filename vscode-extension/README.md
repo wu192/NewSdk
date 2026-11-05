@@ -1,6 +1,6 @@
 # NewSdk Mod Tools 0.3.1
 
-在 Windows 本地、可信的 VS Code 1.96+ 工作区中编译 MOD、预览和编辑普通 CPU/GPU 特效。远程窗口、WSL、容器及其他系统不在运行支持范围内。
+在 Windows 本地、可信的 VS Code 1.96+ 工作区中编译 MOD、预览和编辑 CPU/GPU 以及 Trail、Lightning、Swarm 特效。远程窗口、WSL、容器及其他系统不在运行支持范围内。
 
 ## 使用
 
@@ -15,6 +15,7 @@
 
 - CPU：`PARTICLE / Physics.Default / Draw.Default / Update.Default`，独立 RGB/Alpha 八槽、逐帧递推、普通 EventFX 和附属系统排空/解绑。
 - GPU：`GPU_PARTICLE / Default / Gpu`，`SIMPLE_QUAD`、`CENTERED_QUAD`、`TWO_CONCENTRIC_QUADS` 对应 `GPUParticle.fx`；`TWO_QUADS` 对应 `GpuParticlePerpendicularBottom.fx` 与 `Update/RenderObject`。
+- 特殊粒子：`TRAIL / Draw.Trail` 带状拖尾、`STREAK / Draw.Lightning / Volume.Lightning` 双组随机波形闪电，以及 `SWARM / Draw.Swarm` 速度拉伸/透明度和可选环境贴图；`Physics.Swarm` 独立支持，也可与 `Draw.Trail` 组合。新建菜单提供“拖尾”“闪电”“群粒子”，参数修改与原生 XML 共用撤销和保存。
 - 常用出生区域、初速、Atlas、六种材质，CPU/GPU 独立颜色路径、排序、合成平地深度的 soft particle；普通源/目标对象、矩阵与已支持条件分派。
 - 类型化引用、Include/xi:include、继承及已核实的数值表达式；TGA、DDS（DXT1/3/5、掩码 RGBA、mip）按需解码。字段、单位、来源与具体限制见面板及 [能力清单](src/fx/capabilities.ts)。
 
@@ -22,7 +23,7 @@
 
 可显式导入 MOD、SDK 或已配置输出目录内的 DDS，选择源贴图或编译结果。导入只建立引用，不复制文件；编译结果初始标为“未核实”，输入变化后标为“过期”，不能据路径相同认定与当前 XML 一致。`newsdk.fxTextureBudgetMiB` 默认 32；4K 完整 mip DDS 的压缩与解码副本约 96 MiB，可显式设为 128。预算不足时暂停加载，不改 XML。
 
-播放、单步、时间轴和可取消重放使用有界状态/快照；隐藏停算、关闭释放 Worker 和 GPU 资源。骨骼、任意 ObjectFilter、自定义 shader/几何、未核实表达式和特殊原生边界只给出具体诊断。合成上下文支持静止源或显式发射源轨迹、水平地面和已列质量路径；任意地面法线与阵营色未实现。未做游戏截图对照，不能据此声称实机像素一致。
+播放、单步、时间轴和可取消重放使用有界状态/快照；隐藏停算、关闭释放 Worker 和 GPU 资源。骨骼、任意 ObjectFilter、自定义 shader/几何、未核实表达式和特殊原生边界只给出具体诊断。合成上下文支持静止源或显式发射源轨迹、水平地面和已列质量路径；任意地面法线与阵营色未实现。Trail、Lightning、Swarm 使用重建的预览模型：SDK 仅有对应编译 shader，没有原 shader 源码；吸引运动、波形、环境反射和透明度不代表已核实的游戏算法。TrailLife 预览范围为 1～600 帧，超出预算明确暂停。依赖骨骼绑定、Swirly、未支持的 Update 旋转、地形发射条件或非正粒子寿命的 SDK 样例仍会阻止预览。普通 CPU/GPU 继续使用原有路径。未做游戏截图对照，不能据此声称实机像素一致。
 
 轨迹在“预览场景”中设置：可用直线往返、闭合环形或自定义时间点；坐标相对源位置，按 30 Hz 采样，支持单次、循环和往返。轨迹只驱动新生粒子的发射位置，已出生粒子仍在世界坐标中运动，不自动继承源速度；源朝向沿用场景设置。它是显式合成输入，不代表普通 FXList 在游戏中自动绑定移动对象。配置仅保存到 VS Code 会话。
 

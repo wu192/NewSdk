@@ -20,6 +20,10 @@ const labels: Record<string, string> = {
     X: 'X', Y: 'Y', Z: 'Z', x: 'X', y: 'Y', z: 'Z', FramesPerRow: 'Atlas 每行格数', TotalFrames: 'Atlas 总帧',
     SingleRow: 'Atlas 指定行', RandTex: 'Atlas 随机模式', SpeedMultiplier: 'Atlas 播放倍率', GeometryType: '几何类型',
     File: '源贴图文件', OnlyIfOnLand: '仅陆地触发', OnlyIfOnWater: '仅水面触发', StopIfPlayed: '执行槽调用后停止后续项',
+    TrailLife: '拖尾保留帧数', UTile: 'U 方向平铺', VTile: 'V 方向平铺', UScrollRate: 'U 滚动速度', VScrollRate: 'V 滚动速度',
+    OpaqueSpeed: '完全不透明速度', TransparentSpeed: '完全透明速度', SpeedStretchAmount: '速度拉伸倍率', AttractStrength: '吸引强度', EnvironmentTexture: '环境贴图资源',
+    StartAmplitude: '初始振幅', EndAmplitudeChange: '振幅变化', StartFrequency: '初始频率', EndFrequencyChange: '频率变化', StartPhase: '初始相位', EndPhaseChange: '相位变化',
+    StartPoint: '起点', EndPoint: '终点',
 };
 const editableAttributes = new Set(['Low','High','Distribution','RelativeAge','r','g','b','X','Y','Z','x','y','z','Radius','Length','RadiusRate',
     'HalfSize','IsHollow','Gravity','IsOneShot','SystemLifetime','Shader','ParticleTexture','IsGroundAligned','SortLevel','SortParticles',
@@ -27,7 +31,8 @@ const editableAttributes = new Set(['Low','High','Distribution','RelativeAge','r
     'UseTarget','CreateAtGroundHeight','OrientToObject','TargetCoeff','File','GeometryType','ShaderName','Motion', 'Type', 'PerParticleAttachedSystem',
     'EventFX','PerParticle','KillAfterEvent','OrientFXToTerrain','EnableSoftParticles','Rotation','PlayIfSourceIsStealthed','Weather','PlayEvenIfShrouded',
     'CullTracking','CullTrackingMin','CullTrackingMax','RequiredSourceModelConditions','ExcludedSourceModelConditions','RequiredSecondaryModelConditions','ExcludedSecondaryModelConditions',
-    'Ricochet','SetTargetMatrix','Swirly','ParticlesAttachToBone','SizeX','SizeY','SizeZ']);
+    'Ricochet','SetTargetMatrix','Swirly','ParticlesAttachToBone','SizeX','SizeY','SizeZ',
+    'TrailLife','UTile','VTile','UScrollRate','VScrollRate','OpaqueSpeed','TransparentSpeed','SpeedStretchAmount','AttractStrength','EnvironmentTexture']);
 const booleanAttributes = new Set(['IsOneShot','IsHollow','IsGroundAligned','SortParticles','OnlyIfOnLand','OnlyIfOnWater','StopIfPlayed','UseTarget','CreateAtGroundHeight','OrientToObject',
     'PerParticle','KillAfterEvent','OrientFXToTerrain','EnableSoftParticles','PlayIfSourceIsStealthed','PlayEvenIfShrouded','Ricochet','SetTargetMatrix','Swirly','ParticlesAttachToBone']);
 const modelConditionAttributes = new Set(['RequiredSourceModelConditions','ExcludedSourceModelConditions','RequiredSecondaryModelConditions','ExcludedSecondaryModelConditions']);
@@ -134,7 +139,7 @@ export class AssetResolver {
         }
         for (const incoming of child.children) {
             const childAction = this.joinAction(incoming,issues,action); if (!childAction) continue;
-            const multiple = (child.name === 'Colors' && incoming.name === 'Color') || (child.name === 'Alphas' && incoming.name === 'Alpha') || child.name === 'NuggetList' || child.name === 'Event' || incoming.name === 'SourceMustNotHaveBeenDisabledThisFrameByType';
+            const multiple = (child.name === 'Colors' && incoming.name === 'Color') || (child.name === 'Alphas' && incoming.name === 'Alpha') || (child.name === 'Lightning' && incoming.name === 'RandomSet') || child.name === 'NuggetList' || child.name === 'Event' || incoming.name === 'SourceMustNotHaveBeenDisabledThisFrameByType';
             const choice = ['Physics','Draw','Volume','Velocity','Update'].includes(child.name);
             const matching = result.children.map((node,index) => ({node,index})).filter(value => multiple
                 ? !!incoming.attributes.id && value.node.attributes.id === incoming.attributes.id
@@ -219,30 +224,34 @@ export class AssetResolver {
         }
         for (const child of node.children) this.expandExpressions(child, symbols, issues);
     }
-    private fields(node: EffectiveNode, selectedAsset: AssetRecord, prefix: number[] = [], group = node.name): FxField[] {
+    private fields(node: EffectiveNode, selectedAsset: AssetRecord, prefix: number[] = [], group = node.name, family = node.attributes.Type ?? 'PARTICLE'): FxField[] {
         const result: FxField[] = [];
-        const atlasDefaults: Record<string,string> = node.name === 'Gpu' ? {FramesPerRow:'1',TotalFrames:'1',SingleRow:'0',RandTex:'0',SpeedMultiplier:'1.0'} : {};
-        for (const [attribute, value] of Object.entries({...atlasDefaults, ...node.attributes})) {
+        const defaults: Record<string,string> = node.name === 'Gpu' ? {FramesPerRow:'1',TotalFrames:'1',SingleRow:'0',RandTex:'0',SpeedMultiplier:'1.0'}
+            : node.name === 'Trail' && group === 'Draw' ? {TrailLife:'30',UTile:'1.0',VTile:'1.0',UScrollRate:'0.0',VScrollRate:'0.0'}
+            : node.name === 'Swarm' && group === 'Draw' ? {OpaqueSpeed:'0',TransparentSpeed:'100.0',SpeedStretchAmount:'1.0',AttractStrength:'0.0',EnvironmentTexture:''}
+            : node.name === 'Swarm' && group === 'Physics' ? {AttractStrength:'0.0'} : {};
+        for (const [attribute, value] of Object.entries({...defaults, ...node.attributes})) {
             const origin = node.attributeOrigins[attribute] ?? node.origin;
-            const token = origin.node.attributeTokens[attribute]; const defaulted = !token && Object.hasOwn(atlasDefaults,attribute); if (!token && !defaulted) continue;
+            const token = origin.node.attributeTokens[attribute]; const defaulted = !token && Object.hasOwn(defaults,attribute); if (!token && !defaulted) continue;
             let choices: string[] | undefined;
-            if (attribute === 'Shader' && node.name === 'FXParticleSystemTemplate') choices = ['ADDITIVE','ALPHA','MULTIPLY'];
+            if (attribute === 'Shader' && node.name === 'FXParticleSystemTemplate') choices = ['ADDITIVE','ALPHA','MULTIPLY', ...(['TRAIL','STREAK','SWARM'].includes(node.attributes.Type) ? ['ADDITIVE_ALPHA_TEST','ALPHA_TEST'] : [])];
             if (attribute === 'Shader' && node.name === 'Gpu') choices = ['GPUParticle.fx','GpuParticlePerpendicularBottom.fx'];
             if (attribute === 'Rotation') choices = ['ROTATION_OFF','ROTATE_AROUND_VELOCITY','ROTATE_IN_WORLD_SPACE'];
             if (attribute === 'RandTex') choices = ['0','1','2'];
             if (attribute === 'Distribution') choices = ['CONSTANT','UNIFORM'];
-            if (attribute === 'Type' && ['InitialDelay','BurstDelay','BurstCount','Lifetime','Size','EventTime','HeightOffset'].includes(node.name)) choices = ['CONSTANT','UNIFORM'];
-            if (attribute === 'Type' && node.name === 'FXParticleSystemTemplate') choices = ['GPU_PARTICLE','PARTICLE'];
+            if (attribute === 'Type' && ['InitialDelay','BurstDelay','BurstCount','Lifetime','Size','EventTime','HeightOffset','StartAmplitude','EndAmplitudeChange','StartFrequency','EndFrequencyChange','StartPhase','EndPhaseChange'].includes(node.name)) choices = ['CONSTANT','UNIFORM'];
+            if (attribute === 'Type' && node.name === 'FXParticleSystemTemplate') choices = ['GPU_PARTICLE','PARTICLE','TRAIL','STREAK','SWARM'];
             if (attribute === 'GeometryType') choices = ['SIMPLE_QUAD','CENTERED_QUAD','TWO_CONCENTRIC_QUADS','TWO_QUADS'];
             if (attribute === 'Weather') choices = weatherNames;
             const inherited = origin.asset.key !== selectedAsset.key || origin.uri !== selectedAsset.uri;
             const location = token ? source(origin, attribute) : {...source(origin), start:origin.node.openEnd-(origin.node.selfClosing?2:1), end:origin.node.openEnd-(origin.node.selfClosing?2:1)};
             result.push({...location, defaulted, key: JSON.stringify([origin.uri, origin.node.path, attribute]), attribute,
-                label: labels[attribute] ?? attribute, value: token?.value ?? value, readonly: this.index.isReadonly(origin.uri) || !editableAttributes.has(attribute) || metadata.has(attribute),
-                inherited, sourceAsset: origin.asset.key, previewPath: prefix, group: labels[group] ?? group,
+                label: ['Low','High'].includes(attribute) && labels[node.name] ? `${labels[node.name]} · ${labels[attribute]}` : labels[attribute] ?? attribute, value: token?.value ?? value, readonly: this.index.isReadonly(origin.uri) || !editableAttributes.has(attribute) || metadata.has(attribute),
+                inherited, sourceAsset: origin.asset.key, previewPath: prefix, group: group === 'Colors' && family !== 'GPU_PARTICLE' ? '颜色曲线（八槽）' : group === 'Alphas' && family !== 'GPU_PARTICLE' ? '透明度曲线（八槽）' : labels[group] ?? group,
                 kind: choices ? 'enum' : booleanAttributes.has(attribute) ? 'boolean' : /^[-+\d.=$]/.test(value.trim()) ? 'number' : 'text', choices});
         }
-        node.children.forEach((child, i) => result.push(...this.fields(child, selectedAsset, [...prefix, i], prefix.length === 0 ? child.name : group)));
+        node.children.forEach((child, i) => result.push(...this.fields(child, selectedAsset, [...prefix, i],
+            node.name === 'Lightning' && child.name === 'RandomSet' ? `闪电波形 ${node.children.slice(0,i+1).filter(c => c.name === 'RandomSet').length}` : prefix.length === 0 ? child.name : group, family)));
         return result;
     }
     private runtimeIssues(diagnostics: ReturnType<typeof compileParticle>['issues'], node: EffectiveNode): FxIssue[] {
@@ -260,12 +269,12 @@ export class AssetResolver {
             return problem(diagnostic.code, diagnostic.message, attribute ? current.attributeOrigins[attribute] ?? current.origin : current.origin, attribute, diagnostic.severity);
         });
     }
-    private async texture(template: AssetRecord, node: EffectiveNode, issues: FxIssue[]): Promise<FxTexture> {
-        const name = node.attributes.ParticleTexture ?? '';
+    private async texture(template: AssetRecord, node: EffectiveNode, issues: FxIssue[], attribute = 'ParticleTexture'): Promise<FxTexture> {
+        const name = node.attributes[attribute] ?? '';
         let key = `texture:${template.key}:${name}`;
-        let location = source(node.attributeOrigins.ParticleTexture ?? node.origin, 'ParticleTexture');
-        if (!name) return {key, name, location, source:'source', status:'empty-reference', message:'ParticleTexture 尚未选择贴图'};
-        const declaration = this.select('Texture', name, template, issues, node.attributeOrigins.ParticleTexture ?? node.origin, 'ParticleTexture');
+        let location = source(node.attributeOrigins[attribute] ?? node.origin, attribute);
+        if (!name) return {key, name, location, source:'source', status:'empty-reference', message:`${attribute} 尚未选择贴图`};
+        const declaration = this.select('Texture', name, template, issues, node.attributeOrigins[attribute] ?? node.origin, attribute);
         if (!declaration) return {key, name, location, source:'source', status:'missing-declaration', message:`Texture 声明不存在或有多个候选：${name}`};
         key = `texture:${declaration.key}`;
         const resolved = this.effective(declaration, issues);
@@ -369,9 +378,15 @@ export class AssetResolver {
             if (texture && texture.status !== 'pending' && !textureIssues.length) textureIssues.push({...texture.location!,code:`texture-${texture.status}`,message:texture.message ?? texture.status,severity:'warning'});
             localIssues.push(...textureIssues.map(issue => ({...issue,severity:'warning' as const})));
             if (texture && !textures.some(value => value.key === texture.key)) textures.push(texture);
+            const swarmDraw = definition && find(definition,'Draw')?.children.find(node => node.name === 'Swarm');
+            const environmentIssues: FxIssue[] = [];
+            const environmentTexture = swarmDraw?.attributes.EnvironmentTexture?.trim() ? await this.texture(record,swarmDraw,environmentIssues,'EnvironmentTexture') : undefined;
+            if (environmentTexture && environmentTexture.status !== 'pending' && !environmentIssues.length) environmentIssues.push({...environmentTexture.location!,code:`environment-texture-${environmentTexture.status}`,message:environmentTexture.message ?? environmentTexture.status,severity:'warning'});
+            localIssues.push(...environmentIssues.map(issue => ({...issue,severity:'warning' as const,message:`环境贴图：${issue.message}；继续使用基础粒子贴图预览`})));
+            if (environmentTexture && !textures.some(value => value.key === environmentTexture.key)) textures.push(environmentTexture);
             const config = compiled?.config;
             const value: FxSystem = {key:record.key,name:record.id,templateKey:record.key,source:source(this.origin(record)),definition:definition ? plain(definition):undefined,
-                config,fields:definition ? this.fields(definition,record):[],issues:localIssues,offset:[0,0,0],rotation:0,startFrame:0,textureKey:texture?.key,triggered:true};
+                config,fields:definition ? this.fields(definition,record):[],issues:localIssues,offset:[0,0,0],rotation:0,startFrame:0,textureKey:texture?.key,environmentTextureKey:environmentTexture?.key,triggered:true};
             templates.set(record.key,value); // Register before following references; cycles remain graph edges.
             if (definition) {
                 const attached = definition.attributes.PerParticleAttachedSystem;

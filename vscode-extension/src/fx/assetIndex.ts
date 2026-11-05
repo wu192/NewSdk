@@ -381,6 +381,7 @@ export class AssetIndex {
                 if (node.localName === 'ParticleSystem' && node.attributes.Particle) refs.push(['FXParticleSystemTemplate', node.attributes.Particle]);
                 if (node.attributes.PerParticleAttachedSystem) refs.push(['FXParticleSystemTemplate',node.attributes.PerParticleAttachedSystem]);
                 if (node.attributes.EventFX) refs.push(['FXList',node.attributes.EventFX]);
+                if (node.localName === 'Swarm' && node.parent?.localName === 'Draw' && node.attributes.EnvironmentTexture) refs.push(['Texture',node.attributes.EnvironmentTexture]);
                 if (node.localName === 'FXListAtBonePos' && node.attributes.FX) refs.push(['FXList',node.attributes.FX]);
                 for (const child of node.children) walk(child,uri,stack);
             }; walk(asset.node);

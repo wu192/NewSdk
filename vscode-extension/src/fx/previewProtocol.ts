@@ -19,7 +19,7 @@ export interface FxSystem {
     key: string; name: string; templateKey: string; source: SourceLocation;
     definition?: FxNode; config?: ParticleConfig; fields: FxField[]; issues: FxIssue[];
     offset: [number, number, number]; rotation: number; rotationXYZ?: [number, number, number]; rotationMatrix?: number[]; startFrame: number;
-    systemLifeFrames?: number; initialDelayOverrideMs?: {low:number;high:number;type:'CONSTANT'|'UNIFORM'}; textureKey?: string; triggered: boolean;
+    systemLifeFrames?: number; initialDelayOverrideMs?: {low:number;high:number;type:'CONSTANT'|'UNIFORM'}; textureKey?: string; environmentTextureKey?: string; triggered: boolean;
     /** Dynamic descriptors use an offset relative to the event/parent particle. */
     createAtGroundHeight?: boolean; orientToObject?: boolean; target?: [number, number, number];
 }

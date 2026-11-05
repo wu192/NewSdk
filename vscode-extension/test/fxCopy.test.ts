@@ -38,6 +38,22 @@ test('copy rejects missing or ambiguous Texture declarations before producing a 
     assert.throws(() => planAssetCopy({...request,visibleAssets:[...visible,...visible]}), /唯一可见/);
 });
 
+test('copying a Swarm requires its optional environment declaration to remain uniquely visible in the MOD', () => {
+    const source = parseXml(declaration('<FXParticleSystemTemplate id="Swarm" Type="SWARM" ParticleTexture="SharedTexture"><Draw><Swarm EnvironmentTexture="Environment"/></Draw></FXParticleSystemTemplate>'),'SDK/Swarm.xml');
+    const target = parseXml(declaration(''),'MOD/A.xml');
+    const request = {source,sourcePath:source.elements.find(node=>node.attributes.id==='Swarm')!.path,target};
+    const environment = {type:'Texture',id:'Environment',namespace:ns};
+    assert.throws(()=>planAssetCopy({...request,visibleAssets:visible}),/Texture:Environment/);
+    assert.throws(()=>planAssetCopy({...request,visibleAssets:[...visible,environment,environment]}),/唯一可见.*Texture:Environment/);
+    const plan = planAssetCopy({...request,visibleAssets:[...visible,environment]});
+    assert.deepEqual(plan.dependencies,[...visible,environment]);
+    const updated = parseXml(applyTextPatches(target.text,plan.patches));
+    assert.equal(updated.valid,true);
+    assert.equal(updated.elements.find(node=>node.localName==='Swarm')?.attributes.EnvironmentTexture,'Environment');
+    assert.equal(updated.elements.some(node=>node.localName==='Texture'),false,'shared declarations remain explicit dependencies, not copied game assets');
+    assert.equal(source.text.includes('Swarm_Copy'),false);
+});
+
 test('copy refuses unresolved inheritance, cycles and unsupported dependent systems', () => {
     const target = parseXml(declaration(''), 'MOD/A.xml');
     for (const [xml, reason] of [

@@ -64,7 +64,7 @@ export function planAssetCopy(options: AssetCopyOptions): AssetCopyPlan {
         for (const name of ['SlaveSystem', 'PerParticleAttachedSystem', 'Drawable', 'EmitterSound']) if (node.attributes[name]) throw new Error(`${name} 的附属资源复制尚未实现，请先在 XML 中明确依赖。`);
         if (node.localName === 'Event' && node.children.length) throw new Error('带 Event 子系统的依赖复制尚未实现，请使用 XML。');
         if (selected.localName === 'FXList' && node.localName === 'NuggetList' && node.children.some(child => child.localName !== 'ParticleSystem')) throw new Error('此组合含普通 ParticleSystem 之外的依赖，暂不能自动复制。');
-        for (const name of ['ParticleTexture', 'DetailTexture']) if (node.attributes[name]) {
+        for (const name of ['ParticleTexture', 'DetailTexture', 'EnvironmentTexture']) if (node.attributes[name]) {
             const dependency: CopyDependency = { type: 'Texture', id: node.attributes[name], namespace: selected.namespaceUri };
             dependencies.set(`${dependency.type}:${dependency.id}`, dependency);
         }
