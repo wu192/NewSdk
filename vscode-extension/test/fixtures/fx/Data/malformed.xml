@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <FXParticleSystemTemplate id="Broken" Type="GPU_PARTICLE">
+    <Lifetime Low="30" High="30"

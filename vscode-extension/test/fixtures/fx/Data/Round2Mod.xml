@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <Includes>
+    <Include type="instance" source="flash.xml"/>
+    <Include type="instance" source="smoke.xml"/>
+    <Include type="instance" source="sparks.xml"/>
+    <Include type="instance" source="aura.xml"/>
+    <Include type="instance" source="inherit.xml"/>
+    <Include type="instance" source="cpu.xml"/>
+    <Include type="instance" source="geometry.xml"/>
+    <Include type="all" source="events.xml"/>
+  </Includes>
+  <FXList id="Round2Acceptance"><NuggetList>
+    <ParticleSystem Particle="CpuDefault" SystemLife="1s"><Offset x="-30" y="0" z="12"/></ParticleSystem>
+    <ParticleSystem Particle="CenteredFlash" SystemLife="1s"><Offset x="-10" y="0" z="12"/></ParticleSystem>
+    <ParticleSystem Particle="ConcentricFlash" SystemLife="1s"><Offset x="10" y="0" z="12"/></ParticleSystem>
+    <ParticleSystem Particle="PerpendicularFlash" SystemLife="1s"><Offset x="30" y="0" z="12"/></ParticleSystem>
+    <ParticleSystem Particle="EventEmitter" SystemLife="1s"><Offset x="-20" y="0" z="12"/></ParticleSystem>
+    <ParticleSystem Particle="AttachedEmitter" SystemLife="1s"><Offset x="20" y="0" z="12"/></ParticleSystem>
+  </NuggetList></FXList>
+  <FXList id="ObjectAcceptance"><NuggetList><ParticleSystem Particle="Flash" RequiredSourceModelConditions="MOVING" UseTarget="true" TargetCoeff="0.5"><TargetOffset x="2" y="0" z="0"/></ParticleSystem></NuggetList></FXList>
+</AssetDeclaration>

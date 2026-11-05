@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Synthetic fixtures use the existing tiny test texture, never game art. -->
+  <Includes><Include type="instance" source="texture.xml"/></Includes>
+  <FXParticleSystemTemplate id="SpecialTrail" Type="TRAIL" Shader="ALPHA" ParticleTexture="FxFixtureTexture" SystemLifetime="12">
+    <Lifetime Low="30" High="30"/><Size Low="2" High="2"/><BurstDelay Low="2" High="2"/><BurstCount Low="1" High="1"/>
+    <Alphas><Alpha Frame="1" RelativeAge="0" Low="1" High="1"/><Alpha Frame="2" RelativeAge="100" Low="1" High="1"/></Alphas>
+    <Colors><Color Frame="1" RelativeAge="0"><Color r="1" g="0.6" b="0.2"/></Color><Color Frame="2" RelativeAge="100"><Color r="1" g="0.6" b="0.2"/></Color></Colors>
+    <Physics><Default Gravity="0.025"><VelocityDamping Low="1" High="1"/></Default></Physics>
+    <Draw><Trail TrailLife="12" UTile="2" VTile="1" UScrollRate="0.03" VScrollRate="0"/></Draw>
+    <Volume><Point/></Volume><Velocity><Ortho><Position><x Low="1.5" High="1.5"/><y Low="0.5" High="0.5"/><z Low="0.2" High="0.2"/></Position></Ortho></Velocity>
+    <Update><Default/></Update>
+  </FXParticleSystemTemplate>
+  <FXParticleSystemTemplate id="SpecialAttractedTrail" Type="TRAIL" Shader="ADDITIVE" ParticleTexture="FxFixtureTexture" SystemLifetime="12">
+    <Lifetime Low="30" High="30"/><Size Low="1.5" High="1.5"/><BurstDelay Low="2" High="2"/><BurstCount Low="2" High="2"/>
+    <Physics><Swarm AttractStrength="0.04"/></Physics><Draw><Trail TrailLife="8"/></Draw>
+    <Volume><Sphere IsHollow="true" Radius="10"/></Volume><Velocity><Ortho><Position><x Low="1" High="1"/><z Low="0.3" High="0.3"/></Position></Ortho></Velocity><Update><Default/></Update>
+  </FXParticleSystemTemplate>
+  <FXParticleSystemTemplate id="SpecialLightning" Type="STREAK" Shader="ADDITIVE_ALPHA_TEST" ParticleTexture="FxFixtureTexture" SystemLifetime="1">
+    <Lifetime Low="90" High="90"/><Size Low="1.5" High="1.5"/><BurstCount Low="2" High="2"/>
+    <Physics/>
+    <Draw><Lightning><StartPoint x="-25" y="0" z="10"/><EndPoint x="25" y="0" z="10"/>
+      <RandomSet><StartAmplitude Low="4" High="7" Type="UNIFORM"/><EndAmplitudeChange Low="0.01" High="0.01"/><StartFrequency Low="2" High="3" Type="UNIFORM"/><StartPhase Low="0" High="6" Type="UNIFORM"/><EndPhaseChange Low="0.2" High="0.2"/></RandomSet>
+      <RandomSet><StartAmplitude Low="1" High="2" Type="UNIFORM"/><StartFrequency Low="8" High="12" Type="UNIFORM"/><StartPhase Low="0" High="6" Type="UNIFORM"/><EndPhaseChange Low="0.05" High="0.05"/></RandomSet>
+    </Lightning></Draw>
+    <Volume><Lightning/></Volume><Velocity/><Update><Default/></Update>
+  </FXParticleSystemTemplate>
+  <FXParticleSystemTemplate id="SpecialSwarm" Type="SWARM" Shader="ALPHA" ParticleTexture="FxFixtureTexture" SystemLifetime="1">
+    <Lifetime Low="90" High="90"/><Size Low="2" High="2"/><BurstCount Low="24" High="24"/>
+    <Physics/>
+    <Draw><Swarm AttractStrength="0.06" OpaqueSpeed="0" TransparentSpeed="100" SpeedStretchAmount="2" EnvironmentTexture="FxFixtureTexture"/></Draw>
+    <Volume><Sphere IsHollow="true" Radius="12"/></Volume>
+    <Velocity><Ortho><Position><x Low="-1.2" High="1.2" Type="UNIFORM"/><y Low="-1.2" High="1.2" Type="UNIFORM"/><z Low="-0.3" High="0.3" Type="UNIFORM"/></Position></Ortho></Velocity><Update/>
+  </FXParticleSystemTemplate>
+</AssetDeclaration>

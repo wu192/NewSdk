@@ -1,4 +1,4 @@
-name: NewSdk VS Code P0
+name: NewSdk VS Code and FX
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       full_acceptance:
-        description: '运行真实编译器的完整 P0 验收组合'
+        description: '完整 FX 长运行压力及编译器验收'
         type: boolean
         default: false
 
@@ -18,12 +18,12 @@ permissions:
 
 concurrency:
   group: vscode-p0-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   windows-extension:
     runs-on: windows-2022
-    timeout-minutes: 35
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: vscode-extension
@@ -33,6 +33,7 @@ jobs:
       NEWSDK_COMPILER_SHA256: ${{ secrets.NEWSDK_COMPILER_SHA256 }}
       NEWSDK_COMPILER_AUTHORIZATION: ${{ secrets.NEWSDK_COMPILER_AUTHORIZATION }}
       NEWSDK_ACCEPTANCE: ${{ inputs.full_acceptance && 'full' || 'smoke' }}
+      NEWSDK_FX_STRESS: ${{ inputs.full_acceptance && 'full' || 'smoke' }}
       NEWSDK_TEST_EVIDENCE: ${{ github.workspace }}/vscode-extension/test-results
     steps:
       - uses: actions/checkout@v4
@@ -41,19 +42,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
-          cache-dependency-path: vscode-extension/package-lock.json
       - name: Install extension dependencies
         run: npm ci
       - name: Resolve provided compiler release
         run: |
           $release = Get-Content compiler-release.json -Raw | ConvertFrom-Json
-          if (-not $env:NEWSDK_COMPILER_URL) {
-            "NEWSDK_COMPILER_URL=$($release.url)" >> $env:GITHUB_ENV
-            if (-not $env:NEWSDK_COMPILER_SHA256) {
-              "NEWSDK_COMPILER_SHA256=$($release.sha256)" >> $env:GITHUB_ENV
-            }
-          } elseif ($env:NEWSDK_COMPILER_URL -eq $release.url -and -not $env:NEWSDK_COMPILER_SHA256) {
+          if ($env:NEWSDK_COMPILER_URL -eq $release.url -and -not $env:NEWSDK_COMPILER_SHA256) {
             "NEWSDK_COMPILER_SHA256=$($release.sha256)" >> $env:GITHUB_ENV
           }
       - name: Compile and run protocol, configuration and ZIP boundary tests
@@ -61,11 +55,64 @@ jobs:
           New-Item -ItemType Directory -Force test-results | Out-Null
           npm test 2>&1 | Tee-Object test-results/unit-tests.log
           if ($LASTEXITCODE -ne 0) { throw 'Extension unit tests failed' }
+      - name: Install fixed browser for FX regression
+        run: npx playwright install chromium
+      - name: Fixed-frame WebGL2, editor gestures and lifecycle regression
+        run: npm run test:render
+      - name: Bounded CPU/GPU, event and long replay acceptance
+        run: npm run test:stress
       - name: Package installable VSIX without bundling compiler
         run: |
           npm run package 2>&1 | Tee-Object test-results/package.log
           if ($LASTEXITCODE -ne 0) { throw 'VSIX packaging failed' }
-      - name: Real Windows VS Code host, task lifecycle and optional packaged compiler
+      - name: Checkout fixed compiler source from this public repository
+        if: env.NEWSDK_COMPILER_URL == ''
+        uses: actions/checkout@v4
+        with:
+          ref: a75840ef7d0351cedc11c91b1b4510d295b911a7
+          path: .compiler-source
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.gitattributes
+            /recovery/src/
+            /recovery/build/
+            /recovery/scripts/BuildCompiler.ps1
+            /recovery/scripts/BuildManagedFoundation.ps1
+            /recovery/scripts/BuildCompilerNative.ps1
+            /recovery/scripts/RestoreUiDependencies.ps1
+            /ui/
+            /SDK/tools/antlr.runtime.dll
+            /SDK/tools/BinaryAssetBuilder.Utility.dll
+            /SDK/tools/BinaryAssetBuilder.Core.dll
+      - name: Setup compiler build SDK
+        if: env.NEWSDK_COMPILER_URL == ''
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Setup compiler native x86 toolchain
+        if: env.NEWSDK_COMPILER_URL == ''
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Build actual compiler from fixed source
+        if: env.NEWSDK_COMPILER_URL == ''
+        working-directory: .compiler-source
+        run: |
+          $destination = Join-Path $env:RUNNER_TEMP 'newsdk-actual-compiler'
+          $buildLog = Join-Path $env:GITHUB_WORKSPACE 'vscode-extension/test-results/compiler-build.log'
+          try {
+            ./recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory $destination *> $buildLog
+            if ($LASTEXITCODE -ne 0) { throw 'Compiler source build failed' }
+          } catch {
+            Get-Content $buildLog -Tail 80
+            throw
+          }
+          $executable = Join-Path $destination 'bin/NewModCompiler.exe'
+          if (-not (Test-Path $executable)) { throw 'Compiler source build did not produce NewModCompiler.exe' }
+          "NEWSDK_COMPILER_PATH=$executable" >> $env:GITHUB_ENV
+          'NEWSDK_COMPILER_SOURCE_REF=a75840ef7d0351cedc11c91b1b4510d295b911a7' >> $env:GITHUB_ENV
+      - name: Real Windows VS Code host, task lifecycle and actual compiler
         env:
           NEWSDK_TEST_ROOT: ${{ runner.temp }}/newsdk-p0-host
         run: |
@@ -74,7 +121,9 @@ jobs:
       - name: Record compiler availability and acceptance scope
         if: always()
         run: |
-          if ($env:NEWSDK_COMPILER_URL) {
+          if ($env:NEWSDK_COMPILER_PATH) {
+            "Actual compiler built from fixed public source $env:NEWSDK_COMPILER_SOURCE_REF. See compiler-source.json and real-compiler.json." >> $env:GITHUB_STEP_SUMMARY
+          } elseif ($env:NEWSDK_COMPILER_URL) {
             'Packaged compiler URL supplied. See real-compiler.json for the actual executed cases.' >> $env:GITHUB_STEP_SUMMARY
           } else {
             'Real compiler tests SKIPPED: NEWSDK_COMPILER_URL is not configured. Protocol and extension-host checks do not establish P0 completion.' >> $env:GITHUB_STEP_SUMMARY
@@ -82,17 +131,53 @@ jobs:
           'See real-compiler.json and cancellation evidence for the actual executed scope. Smoke success alone does not establish complete P0 acceptance.' >> $env:GITHUB_STEP_SUMMARY
       - name: Save installable VSIX
         uses: actions/upload-artifact@v4
-        if: always()
+        if: github.event_name == 'workflow_dispatch'
         with:
-          name: NewSdk-Mod-Tools-P0-VSIX-${{ github.run_id }}-${{ github.run_attempt }}
-          path: vscode-extension/NewSdk-Mod-Tools-P0.vsix
+          retention-days: 1
+          name: NewSdk-Mod-Tools-FX-VSIX-${{ github.run_id }}-${{ github.run_attempt }}
+          path: vscode-extension/NewSdk-Mod-Tools-FX.vsix
           if-no-files-found: warn
-      - name: Save protocol evidence and failure logs
+      - name: Collect small acceptance summaries
+        if: always()
+        run: |
+          New-Item -ItemType Directory -Force test-results/summary | Out-Null
+          @{ commit = $env:GITHUB_SHA; run = $env:GITHUB_RUN_ID } | ConvertTo-Json | Set-Content test-results/summary/run.json
+          $files = @('fx-render.json', 'fx-render-round2.json', 'fx-ui-round2.json', 'fx-special.json', 'fx-stress.json', 'fx-host.json', 'extension-host.json', 'driver-exercise.json', 'driver-reopen.json', 'compiler-source.json', 'real-compiler.json', 'persistence.json')
+          foreach ($name in $files) {
+            $file = Join-Path 'test-results' $name
+            if ((Test-Path $file) -and (Get-Item $file).Length -le 131072) { Copy-Item $file test-results/summary/ }
+          }
+      - name: Save small acceptance summaries
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: NewSdk-Mod-Tools-P0-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            vscode-extension/test-results/
-            ${{ runner.temp }}/newsdk-p0-host/user-data/logs/
-          if-no-files-found: warn
+          name: NewSdk-FX-summary-${{ github.run_id }}-${{ github.run_attempt }}
+          path: vscode-extension/test-results/summary/
+          retention-days: 1
+          compression-level: 9
+          if-no-files-found: ignore
+      - name: Collect bounded failure evidence
+        if: failure()
+        run: |
+          New-Item -ItemType Directory -Force test-results/failure | Out-Null
+          foreach ($name in @('unit-tests.log', 'package.log', 'extension-host.log', 'compiler-build.log')) {
+            $file = Join-Path 'test-results' $name
+            if (Test-Path $file) {
+              $tail = Get-Content $file -Tail 500 | Out-String
+              if ($tail.Length -gt 65536) { $tail = '[truncated to final 64K characters]' + $tail.Substring($tail.Length - 65536) }
+              $tail | Set-Content (Join-Path 'test-results/failure' $name)
+            }
+          }
+          foreach ($name in @('fx-render-failure.png', 'fx-render-round2-failure.png', 'fx-ui-round2-failure.png')) {
+            $image = Join-Path 'test-results' $name
+            if ((Test-Path $image) -and (Get-Item $image).Length -le 2097152) { Copy-Item $image test-results/failure/ }
+          }
+      - name: Save failure evidence only
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: NewSdk-FX-failure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: vscode-extension/test-results/failure/
+          retention-days: 1
+          compression-level: 9
+          if-no-files-found: ignore

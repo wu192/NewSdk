@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <FXParticleSystemTemplate id="MissingTexture" Type="GPU_PARTICLE" Shader="ADDITIVE" ParticleTexture="NotDeclared" SystemLifetime="1">
+    <Lifetime Low="30" High="30"/>
+    <Size Low="12" High="12"/>
+    <StartSizeRate Low="0" High="0"/>
+    <BurstDelay Low="0" High="0"/>
+    <BurstCount Low="1" High="1"/>
+    <InitialDelay Low="0" High="0"/>
+    <Alphas><Alpha Frame="1" RelativeAge="0" Low="1" High="1"/><Alpha Frame="2" RelativeAge="100" Low="0" High="0"/></Alphas>
+    <Colors><Color Frame="1" RelativeAge="0"><Color r="1" g="0.6" b="0.2"/></Color><Color Frame="2" RelativeAge="100"><Color r="0.2" g="0.1" b="0.05"/></Color><ColorScale Low="1" High="1"/></Colors>
+    <Physics><Default Gravity="0"><VelocityDamping Low="1" High="1"/></Default></Physics>
+    <Draw><Gpu Shader="GPUParticle.fx" GeometryType="SIMPLE_QUAD" EnableSoftParticles="false" FramesPerRow="1" TotalFrames="1" SingleRow="0" RandTex="0" SpeedMultiplier="1"/></Draw>
+    <Volume><Point/></Volume>
+    <Velocity><Ortho><Position><x Low="0" High="0"/><y Low="0" High="0"/><z Low="0" High="0"/></Position></Ortho></Velocity>
+    <Event/>
+    <Update><Default><SizeRate Low="0.02" High="0.02"/><SizeRateDamping Low="1" High="1"/><AngleZ Low="0" High="0"/><AngularRateZ Low="0" High="0"/></Default></Update>
+  </FXParticleSystemTemplate>
+</AssetDeclaration>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <Includes><Include type="instance" source="texture.xml"/></Includes>
+  <FXParticleSystemTemplate id="CenteredFlash" Type="GPU_PARTICLE" Shader="ADDITIVE" ParticleTexture="FxFixtureTexture" SystemLifetime="1">
+    <Lifetime Low="15" High="15"/>
+    <Size Low="24" High="24"/>
+    <StartSizeRate Low="0" High="0"/>
+    <BurstDelay Low="0" High="0"/>
+    <BurstCount Low="1" High="1"/>
+    <InitialDelay Low="0" High="0"/>
+    <Alphas><Alpha Frame="1" RelativeAge="0" Low="1" High="1"/><Alpha Frame="2" RelativeAge="100" Low="0" High="0"/></Alphas>
+    <Colors><Color Frame="1" RelativeAge="0"><Color r="1" g="0.6" b="0.2"/></Color><Color Frame="2" RelativeAge="100"><Color r="0.2" g="0.1" b="0.05"/></Color><ColorScale Low="1" High="1"/></Colors>
+    <Physics><Default Gravity="0"><VelocityDamping Low="1" High="1"/></Default></Physics>
+    <Draw><Gpu Shader="GPUParticle.fx" GeometryType="CENTERED_QUAD" EnableSoftParticles="true" FramesPerRow="1" TotalFrames="1" SingleRow="0" RandTex="0" SpeedMultiplier="1"/></Draw>
+    <Volume><Point/></Volume>
+    <Velocity><Ortho><Position><x Low="0" High="0"/><y Low="0" High="0"/><z Low="0" High="0"/></Position></Ortho></Velocity>
+    <Event/>
+    <Update><Default><SizeRate Low="0.02" High="0.02"/><SizeRateDamping Low="1" High="1"/><AngleZ Low="0" High="0"/><AngularRateZ Low="0" High="0"/></Default></Update>
+  </FXParticleSystemTemplate>
+  <FXParticleSystemTemplate id="ConcentricFlash" Type="GPU_PARTICLE" Shader="ADDITIVE" ParticleTexture="FxFixtureTexture" SystemLifetime="1">
+    <Lifetime Low="15" High="15"/>
+    <Size Low="24" High="24"/>
+    <StartSizeRate Low="0" High="0"/>
+    <BurstDelay Low="0" High="0"/>
+    <BurstCount Low="1" High="1"/>
+    <InitialDelay Low="0" High="0"/>
+    <Alphas><Alpha Frame="1" RelativeAge="0" Low="1" High="1"/><Alpha Frame="2" RelativeAge="100" Low="0" High="0"/></Alphas>
+    <Colors><Color Frame="1" RelativeAge="0"><Color r="1" g="0.6" b="0.2"/></Color><Color Frame="2" RelativeAge="100"><Color r="0.2" g="0.1" b="0.05"/></Color><ColorScale Low="1" High="1"/></Colors>
+    <Physics><Default Gravity="0"><VelocityDamping Low="1" High="1"/></Default></Physics>
+    <Draw><Gpu Shader="GPUParticle.fx" GeometryType="TWO_CONCENTRIC_QUADS" EnableSoftParticles="true" FramesPerRow="1" TotalFrames="1" SingleRow="0" RandTex="0" SpeedMultiplier="1"/></Draw>
+    <Volume><Point/></Volume>
+    <Velocity><Ortho><Position><x Low="0" High="0"/><y Low="0" High="0"/><z Low="0" High="0"/></Position></Ortho></Velocity>
+    <Event/>
+    <Update><Default><SizeRate Low="0.02" High="0.02"/><SizeRateDamping Low="1" High="1"/><AngleZ Low="0" High="0"/><AngularRateZ Low="0" High="0"/></Default></Update>
+  </FXParticleSystemTemplate>
+  <FXParticleSystemTemplate id="PerpendicularFlash" Type="GPU_PARTICLE" Shader="ADDITIVE" ParticleTexture="FxFixtureTexture" SystemLifetime="1">
+    <Lifetime Low="15" High="15"/>
+    <Size Low="24" High="24"/>
+    <StartSizeRate Low="0" High="0"/>
+    <BurstDelay Low="0" High="0"/>
+    <BurstCount Low="1" High="1"/>
+    <InitialDelay Low="0" High="0"/>
+    <Alphas><Alpha Frame="1" RelativeAge="0" Low="1" High="1"/><Alpha Frame="2" RelativeAge="100" Low="0" High="0"/></Alphas>
+    <Colors><Color Frame="1" RelativeAge="0"><Color r="1" g="0.6" b="0.2"/></Color><Color Frame="2" RelativeAge="100"><Color r="0.2" g="0.1" b="0.05"/></Color><ColorScale Low="1" High="1"/></Colors>
+    <Physics><Default Gravity="0"><VelocityDamping Low="1" High="1"/></Default></Physics>
+    <Draw><Gpu Shader="GpuParticlePerpendicularBottom.fx" GeometryType="TWO_QUADS" EnableSoftParticles="true" FramesPerRow="1" TotalFrames="1" SingleRow="0" RandTex="0" SpeedMultiplier="1"/></Draw>
+    <Volume><Point/></Volume>
+    <Velocity><Ortho><Position><x Low="0" High="0"/><y Low="0" High="0"/><z Low="0" High="0"/></Position></Ortho></Velocity>
+    <Event/>
+    <Update><RenderObject><AngleX Low="0" High="0"/><AngularRateX Low="0" High="0"/><AngleY Low="0" High="0"/><AngularRateY Low="0" High="0"/><AngleZ Low="0" High="0"/><AngularRateZ Low="0" High="0"/><AngularDamping Low="1" High="1"/><StartSize><x Low="8" High="8"/><y Low="8" High="8"/><z Low="8" High="8"/></StartSize><SizeRate><x Low="0" High="0"/><y Low="0" High="0"/><z Low="0" High="0"/></SizeRate><SizeDamping><x Low="1" High="1"/><y Low="1" High="1"/><z Low="1" High="1"/></SizeDamping></RenderObject></Update>
+  </FXParticleSystemTemplate>
+</AssetDeclaration>

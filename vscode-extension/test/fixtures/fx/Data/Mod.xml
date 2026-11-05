@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <Includes>
+    <Include type="instance" source="flash.xml"/>
+    <Include type="instance" source="smoke.xml"/>
+    <Include type="instance" source="sparks.xml"/>
+    <Include type="instance" source="aura.xml"/>
+    <Include type="instance" source="inherit.xml"/>
+  </Includes>
+  <FXList id="MultiLayerAura"><NuggetList>
+    <ParticleSystem Particle="Aura" Count="2" SystemLife="2s"><Offset x="-12" y="0" z="0"/></ParticleSystem>
+    <ParticleSystem Particle="Flash"><InitialDelay Low="200" High="200"/></ParticleSystem>
+    <ParticleSystem Particle="Sparks"><Rotate X="0d" Y="0d" Z="30d"/><InitialDelay Low="100" High="100"/></ParticleSystem>
+    <ParticleSystem Particle="Smoke" SystemLife="3s"><Offset x="12" y="0" z="0"/></ParticleSystem>
+    <ParticleSystem Particle="InheritedFlash"><InitialDelay Low="300" High="300"/></ParticleSystem>
+  </NuggetList></FXList>
+</AssetDeclaration>

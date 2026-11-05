@@ -5,9 +5,11 @@ import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import * as vscode from 'vscode';
-import { installCompiler } from '../../src/compilerInstaller';
+import { installCompiler, validateCompilerExecutable } from '../../src/compilerInstaller';
 import type { BuildEvent, BuildResult } from '../../src/buildProtocol';
 import { runNormalCancellation } from '../realCancellation';
+import { runFxAcceptance } from './fxAcceptance';
+import type { FxApi } from '../../src/fx/editorProvider';
 
 type Result = BuildResult;
 interface State {
@@ -27,6 +29,8 @@ interface ExtensionApi {
     plan(): Promise<Result | undefined>;
     stop(): void;
     showWorkbench(): void;
+    fx: FxApi;
+    saveAndBuild(uris?: vscode.Uri[]): Promise<Result>;
 }
 
 const execute = promisify(execFile);
@@ -160,6 +164,9 @@ async function runSuite(): Promise<void> {
     assert.ok((result ?? api.getState().result)?.artifacts?.length);
     assert.deepEqual(await inventory(basic), source, 'Extension and task must leave MOD source bytes unchanged');
     cases.push({ name: 'plan-build-artifacts-source-readonly', status: 'passed' });
+    const fxMod = await select('MockFx');
+    checkpoint('fx-editor-acceptance');
+    await runFxAcceptance(api.fx, fxMod, evidence, uris => api.saveAndBuild(uris));
     await select('MockFailure');
     checkpoint('compiler-failure');
     result = await timed(api.build());
@@ -201,18 +208,27 @@ async function runSuite(): Promise<void> {
     await fs.writeFile(path.join(evidence, 'extension-host.json'), JSON.stringify({ succeeded: true, vscodeVersion: vscode.version,
         scope: 'Real VS Code extension host and Windows ProcessExecution with a synthetic protocol fixture; not real compiler acceptance', cases }, null, 2));
 
-    if (process.env.NEWSDK_COMPILER_URL) {
-        const installed = await installCompiler({ url: process.env.NEWSDK_COMPILER_URL,
-            expectedSha256: process.env.NEWSDK_COMPILER_SHA256 || undefined,
-            headers: process.env.NEWSDK_COMPILER_AUTHORIZATION ? { Authorization: process.env.NEWSDK_COMPILER_AUTHORIZATION } : undefined,
-            storageDirectory: path.join(root, 'provided-compiler') });
-        const release = JSON.parse(await fs.readFile(path.resolve(__dirname, '../../../compiler-release.json'), 'utf8')) as { sha256: string };
-        await fs.writeFile(path.join(evidence, 'compiler-source.json'), JSON.stringify({ ...installed,
-            release: installed.sha256.toLowerCase() === release.sha256.toLowerCase() ? release : undefined,
-            executableSha256: createHash('sha256').update(await fs.readFile(installed.executablePath)).digest('hex') }, null, 2));
-        await realCompilerCases(api, root, evidence, installed.executablePath);
+    if (process.env.NEWSDK_COMPILER_PATH || process.env.NEWSDK_COMPILER_URL) {
+        let executablePath: string;
+        let source: Record<string, unknown>;
+        if (process.env.NEWSDK_COMPILER_PATH) {
+            executablePath = (await validateCompilerExecutable(process.env.NEWSDK_COMPILER_PATH)).executablePath;
+            source = {mode:'fixed-source-build', repository:'wu192/NewSdk', ref:process.env.NEWSDK_COMPILER_SOURCE_REF};
+        } else {
+            const installed = await installCompiler({ url: process.env.NEWSDK_COMPILER_URL!,
+                expectedSha256: process.env.NEWSDK_COMPILER_SHA256 || undefined,
+                headers: process.env.NEWSDK_COMPILER_AUTHORIZATION ? { Authorization: process.env.NEWSDK_COMPILER_AUTHORIZATION } : undefined,
+                storageDirectory: path.join(root, 'provided-compiler') });
+            executablePath = installed.executablePath;
+            const release = JSON.parse(await fs.readFile(path.resolve(__dirname, '../../../compiler-release.json'), 'utf8')) as { sha256: string };
+            source = {...installed, mode:'provided-release', release: installed.sha256.toLowerCase() === release.sha256.toLowerCase() ? release : undefined};
+        }
+        await fs.writeFile(path.join(evidence, 'compiler-source.json'), JSON.stringify({...source,
+            executableSha256: createHash('sha256').update(await fs.readFile(executablePath)).digest('hex')}, null, 2));
+        await realCompilerCases(api, root, evidence, executablePath);
     } else {
-        await fs.writeFile(path.join(evidence, 'real-compiler.json'), JSON.stringify({ status: 'skipped', reason: 'NEWSDK_COMPILER_URL 尚未提供，未运行真实编译器。' }, null, 2));
+        await fs.writeFile(path.join(evidence, 'real-compiler.json'), JSON.stringify({ status: 'skipped', reason: '没有提供编译器路径或下载地址，未运行真实编译器。' }, null, 2));
+        if (process.env.GITHUB_ACTIONS === 'true') throw new Error('Actions 必须执行实际编译器验收。');
     }
     // Leave the synthetic working project selected for the reopen persistence check.
     await select('MockBasic');
@@ -425,6 +441,29 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
                 assert.deepEqual(await inventory(cache), cacheBefore, 'Viewing a plan must leave existing compiler cache untouched');
                 results.push({ name: 'plan-preserves-sdk-cache', status: 'passed', cacheRoot: cache });
             }
+            await summary('running');
+        }
+        for (const fxLayout of [
+            {name:'RealFx',entry:'Mod.xml',list:'MultiLayerAura',assets:['Flash','Smoke','Sparks','Aura','InheritedFlash'],contracts:['GPU modules','FXList','TGA Texture','ordinary inheritance']},
+            {name:'RealFxRound2',entry:'Round2Mod.xml',list:'Round2Acceptance',assets:['CpuDefault','CenteredFlash','ConcentricFlash','PerpendicularFlash','EventEmitter','AttachedEmitter','AttachGlow'],contracts:['CPU Default','GPU geometry/shader combinations','EventFX','attached systems','eight CPU slots']},
+        ]) {
+            const fxCase = await selected(fxLayout.name);
+            await fs.mkdir(path.join(fxCase.mod, 'Data'), {recursive:true});
+            await fs.cp(path.resolve(__dirname, '../../../test/fixtures/fx/Data'), path.join(fxCase.mod,'Data'), {recursive:true});
+            if (fxLayout.entry !== 'Mod.xml') await fs.copyFile(path.join(fxCase.mod,'Data',fxLayout.entry),path.join(fxCase.mod,'Data/Mod.xml'));
+            const beforeFx = await inventory(fxCase.mod);
+            checkpoint(`real-${fxLayout.name}-build`);
+            const fxBuilt = final(await timed(api.build(),180000));
+            await preserve(fxCase.output,fxLayout.name,fxBuilt);
+            assert.equal(fxBuilt.status,'succeeded', JSON.stringify({reason:fxBuilt.reason,diagnostics:fxBuilt.diagnostics}));
+            const fxBig = fxBuilt.artifacts.find(a=>a.kind==='package.big'); assert.ok(fxBig);
+            const fxMembers = await bigMembers(fxBig.path);
+            const fxAssets = manifestAssets(fxMembers,'data\\mod.manifest');
+            for (const asset of [...fxLayout.assets.map(name=>`FXParticleSystemTemplate:${name}`),`FXList:${fxLayout.list}`,'Texture:FxFixtureTexture']) {
+                assert.ok(fxAssets.includes(asset), `Compiled FX fixture omitted ${asset}: ${fxAssets.join(", ")}`);
+            }
+            assert.deepEqual(await inventory(fxCase.mod),beforeFx,'FX compiler must preserve original XML and source texture');
+            results.push({name:fxLayout.name,status:'passed',buildId:fxBuilt.buildId,assets:fxAssets,contracts:fxLayout.contracts});
             await summary('running');
         }
         if (full) {

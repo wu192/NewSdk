@@ -4,3 +4,5 @@ vscode-extension/.vscode-test/
 vscode-extension/*.vsix
 vscode-extension/test-results/
 work/
+vscode-extension/media/fx-editor.js
+vscode-extension/media/fx.css
