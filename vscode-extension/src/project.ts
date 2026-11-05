@@ -1,5 +1,6 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
+import { compilerOptionArguments, CompilerOptionOverrides } from './compilerArguments';
 
 /** Global VS Code user settings. Project values belong in extension storage. */
 export interface GlobalSettings {
@@ -11,10 +12,12 @@ export interface ProjectSettings {
     root: string;
     outputDirectory?: string;
     modVersion?: string;
+    compilerOptions?: CompilerOptionOverrides;
 }
 
 export interface ResolvedProjectSettings extends ProjectSettings, GlobalSettings {
     identity: string;
+    presetOptions: Readonly<Record<string, string>>;
 }
 
 export interface ProjectPreset {
@@ -154,12 +157,12 @@ const aliases: Readonly<Record<string, string>> = {
     bcd: 'build-cache-directory', bcp: 'build-cache-directory',
 };
 const presetKeys = new Set([
-    'jobs', 'profile', 'sdk-root', 'out', 'package-content', 'package-format',
+    'jobs', 'profile', 'sdk-root', 'game-root', 'out', 'package-content', 'package-format',
     'include-additional', 'fix-neutral-assets', 'mod-version', 'game-version',
     'skudef-name', 'tp', 'ss', 'pc', 'slowclean', 'sc', 'bc', 'csc', 'psc',
     'fsc', 'atc', 'session-cache-directory', 'build-cache-directory', 'iod',
 ]);
-const presetPathKeys = new Set(['sdk-root', 'out', 'session-cache-directory', 'build-cache-directory', 'iod']);
+const presetPathKeys = new Set(['sdk-root', 'game-root', 'out', 'session-cache-directory', 'build-cache-directory', 'iod']);
 
 /** Read the compiler's flat scalar-option format, without writing to the MOD. */
 export async function readProjectPreset(root: string): Promise<ProjectPreset> {
@@ -218,16 +221,21 @@ export function validateModVersion(value: string): string {
 }
 
 /** Explicit extension settings override the read-only compiler preset. */
-export async function resolveProjectSettings(root: string, saved?: Partial<ProjectSettings>, globals: GlobalSettings = {}): Promise<ResolvedProjectSettings> {
+export async function resolveProjectSettings(root: string, saved?: Partial<ProjectSettings>, globals: GlobalSettings = {},
+    explicit: Partial<ProjectSettings> = {}): Promise<ResolvedProjectSettings> {
     const physicalRoot = await requireDirectory(root, 'MOD');
     const preset = await readProjectPreset(physicalRoot);
+    const compilerOptions = { ...saved?.compilerOptions, ...explicit.compilerOptions };
+    compilerOptionArguments(compilerOptions);
     return {
         root: physicalRoot,
         identity: pathIdentity(physicalRoot),
         compilerPath: globals.compilerPath,
         sdkRoot: globals.sdkRoot ?? preset.sdkRoot,
-        outputDirectory: saved?.outputDirectory ?? preset.outputDirectory,
-        modVersion: saved?.modVersion ?? preset.modVersion,
+        outputDirectory: explicit.outputDirectory ?? saved?.outputDirectory ?? preset.outputDirectory,
+        modVersion: explicit.modVersion ?? saved?.modVersion ?? preset.modVersion,
+        compilerOptions,
+        presetOptions: preset.options,
     };
 }
 

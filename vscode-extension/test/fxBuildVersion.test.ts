@@ -11,3 +11,11 @@ test('saved build distinguishes memory-only changes from changed disk inputs', (
     assert.equal(tracker.result(), 'inputs-changed');
     tracker.begin(); assert.equal(tracker.result(), 'current');
 });
+
+test('compiling saved content with preexisting dirty documents remains explicitly stale', () => {
+    const tracker = new BuildVersionTracker();
+    tracker.memory('a.xml', 2); tracker.begin(true);
+    assert.equal(tracker.result(), 'previous-saved');
+    tracker.disk(); assert.equal(tracker.result(), 'inputs-changed');
+    tracker.begin(); assert.equal(tracker.result(), 'current');
+});

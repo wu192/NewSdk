@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import * as assert from 'node:assert/strict';
-import { acquirePhysicalProjectLock, compilerArguments, diagnosticPaths, physicalProjectLockPath, ProjectRunLocks, RunConfiguration } from '../src/compilerArguments';
+import { acquirePhysicalProjectLock, compilerArguments, diagnosticPaths, physicalProjectLockPath, ProjectRunLocks, requiresModVersion, RunConfiguration } from '../src/compilerArguments';
 
 const configuration: RunConfiguration = {
     compilerPath: 'C:\\Compiler folder\\NewModCompiler.exe',
@@ -16,18 +16,49 @@ test('build and plan preserve hostile-looking paths as single argv values and ex
         assert.equal(args[args.indexOf('--mod') + 1], configuration.modRoot);
         assert.equal(args[args.indexOf('--sdk-root') + 1], configuration.sdkRoot);
         assert.equal(args[args.indexOf('--mod-version') + 1], '1.0');
-        assert.equal(args[args.indexOf('--package-content') + 1], 'auto');
-        assert.equal(args[args.indexOf('--package-format') + 1], 'big');
-        assert.ok(args.includes('--include-additional=true'));
+        assert.ok(!args.includes('--package-content'), 'compiler/project chooses content');
+        assert.ok(!args.includes('--package-format'), 'compiler/project chooses package format');
+        assert.ok(!args.some(value => value.startsWith('--include-additional')), 'compiler/project chooses Additional');
         assert.ok(!args.includes('--events -'));
         assert.ok(!args.includes('--jobs'));
         assert.ok(!args.includes('/ss'));
     }
 });
 
+test('preset-only paths and advanced options retain compiler ownership; only explicit overrides enter argv', () => {
+    const presetOptions = { 'sdk-root': configuration.sdkRoot, out: configuration.outputDirectory,
+        'package-format': 'loose', 'include-additional': 'false', jobs: '8', ss: 'false' };
+    const args = compilerArguments('build', { ...configuration, presetOptions });
+    for (const key of ['sdk-root', 'out', 'package-format', 'include-additional', 'jobs', 'ss']) {
+        assert.ok(!args.some(value => value === `--${key}` || value.startsWith(`--${key}=`)), key);
+    }
+    assert.equal(args[args.indexOf('--mod-version') + 1], '1.0', 'BIG version remains explicit even when in a preset');
+    const overridden = compilerArguments('plan', { ...configuration, presetOptions,
+        compilerOptions: { 'package-content': 'apt,global-metadata', 'package-format': 'big', 'include-additional': false, ss: false, jobs: 2 } });
+    assert.equal(overridden[overridden.indexOf('--package-content') + 1], 'apt,global-metadata');
+    assert.ok(overridden.includes('--include-additional=false'));
+    assert.ok(overridden.includes('--ss=false'));
+    assert.ok(!overridden.includes('false'), 'standalone booleans are positional errors in the real CLI');
+    assert.equal(overridden[overridden.indexOf('--jobs') + 1], '2');
+    assert.throws(() => compilerArguments('build', { ...configuration, compilerOptions: { events: 'bad-path' } }), /不支持/);
+    assert.throws(() => compilerArguments('build', { ...configuration, compilerOptions: { 'include-additional': '0' } }), /true.*false/);
+});
+
 test('doctor requires only SDK, and cannot accidentally compile a MOD', () => {
     assert.deepEqual(compilerArguments('doctor', { ...configuration, modRoot: '', outputDirectory: '', modVersion: '' }),
         ['doctor', '--sdk-root', configuration.sdkRoot]);
+});
+
+test('known loose plans can omit a version, while explicit BIG keeps the CLI requirement', () => {
+    const loose = { ...configuration, modVersion: '', presetOptions: { 'package-format': 'loose' } };
+    assert.equal(requiresModVersion(loose), false);
+    assert.ok(!compilerArguments('plan', loose).includes('--mod-version'));
+    assert.equal(requiresModVersion({ compilerOptions: { profile: 'development' } }), false);
+    assert.ok(!compilerArguments('build', { ...configuration, modVersion: '', compilerOptions: { profile: 'development' } }).includes('--mod-version'));
+    const big = { ...loose, compilerOptions: { 'package-format': 'big' } };
+    assert.equal(requiresModVersion(big), true);
+    assert.throws(() => compilerArguments('build', big), /MOD 版本/);
+    assert.equal(requiresModVersion({ compilerOptions: { profile: 'development' }, presetOptions: { 'package-format': 'big' } }), true);
 });
 
 test('plan and build diagnostics never overwrite one another', () => {
@@ -87,6 +118,12 @@ const taskProcessStarted = new MockEmitter<{ execution: MockExecution; processId
 const taskProcessEnded = new MockEmitter<{ execution: MockExecution; exitCode?: number }>();
 const taskEnded = new MockEmitter<{ execution: MockExecution }>();
 const launchedTasks: MockTask[] = [];
+interface MockUri { scheme: string; fsPath: string; }
+interface MockDocument { uri: MockUri; version: number; isDirty: boolean; }
+const documentChanged = new MockEmitter<{document: MockDocument; contentChanges: unknown[]}>();
+const documentSaved = new MockEmitter<MockDocument>();
+const diskChanged = new MockEmitter<MockUri>();
+const liveWatchers = new Set<unknown>();
 let taskBehavior: (execution: MockExecution) => Promise<void> = async () => undefined;
 const mockVscode = {
     EventEmitter: MockEmitter,
@@ -96,7 +133,16 @@ const mockVscode = {
     TaskRevealKind: { Always: 1 },
     TaskPanelKind: { Dedicated: 1 },
     env: {},
-    workspace: { isTrusted: true },
+    RelativePattern: class { constructor(readonly base: string, readonly pattern: string) {} },
+    workspace: { isTrusted: true, textDocuments: [] as MockDocument[],
+        onDidChangeTextDocument: documentChanged.event,
+        onDidSaveTextDocument: documentSaved.event,
+        createFileSystemWatcher: () => {
+            const watcher = { onDidChange: diskChanged.event, onDidCreate: diskChanged.event, onDidDelete: diskChanged.event,
+                dispose: () => liveWatchers.delete(watcher) };
+            liveWatchers.add(watcher); return watcher;
+        },
+    },
     tasks: {
         onDidStartTaskProcess: taskProcessStarted.event,
         onDidEndTaskProcess: taskProcessEnded.event,
@@ -170,7 +216,62 @@ test('task lifecycle rejects doctor failure and stale evidence, and forced stop 
             if (execution.task.definition.operation === 'build') await writeSuccessfulEvidence(execution.task);
             endExecution(execution, 0);
         };
-        assert.equal((await runner.build(config)).status, 'succeeded');
+        const current = await runner.build(config);
+        assert.equal(current.status, 'succeeded');
+        assert.equal(current.inputState, 'current');
+        assert.equal(liveWatchers.size, 0, 'source listeners are released after completion');
+
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'build') {
+                documentChanged.fire({ document: { uri: { scheme: 'file', fsPath: path.join(config.modRoot, 'Data', 'Mod.xml') },
+                    version: 2, isDirty: true }, contentChanges: [{}] });
+                await writeSuccessfulEvidence(execution.task);
+            }
+            endExecution(execution, 0);
+        };
+        const changedMemory = await runner.build(config);
+        assert.equal(changedMemory.status, 'succeeded', 'source changes do not rewrite compiler success');
+        assert.equal(changedMemory.inputState, 'previous-saved');
+        assert.match(runner.state.message!, /上一保存版本/);
+
+        const modAlias = path.join(temporary, 'mod-alias');
+        await fs.symlink(config.modRoot, modAlias, actualPlatform.value === 'win32' ? 'junction' : 'dir');
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'build') {
+                documentChanged.fire({ document: { uri: { scheme: 'file', fsPath: path.join(modAlias, 'Data', 'Mod.xml') },
+                    version: 3, isDirty: true }, contentChanges: [{}] });
+                await writeSuccessfulEvidence(execution.task);
+            }
+            endExecution(execution, 0);
+        };
+        assert.equal((await runner.build(config)).inputState, 'previous-saved', 'TextDocument aliases must resolve to the physical compiler input');
+
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'build') {
+                diskChanged.fire({ scheme: 'file', fsPath: path.join(modAlias, 'Data', 'New.xml') });
+                await writeSuccessfulEvidence(execution.task);
+            }
+            endExecution(execution, 0);
+        };
+        assert.equal((await runner.build(config)).inputState, 'inputs-changed', 'Create/delete paths under a junction must retain the physical input root');
+
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'build') {
+                diskChanged.fire({ scheme: 'file', fsPath: path.join(config.sdkRoot, 'SuperCompilerCache', 'mod', 'session.xml') });
+                await writeSuccessfulEvidence(execution.task);
+            }
+            endExecution(execution, 0);
+        };
+        assert.equal((await runner.build(config)).inputState, 'current', 'compiler cache writes are not source changes');
+
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'build') {
+                diskChanged.fire({ scheme: 'file', fsPath: path.join(config.modRoot, 'Data', 'Mod.xml') });
+                await writeSuccessfulEvidence(execution.task);
+            }
+            endExecution(execution, 0);
+        };
+        assert.equal((await runner.build(config)).inputState, 'inputs-changed');
 
         // Startup exits before replacing diagnostics: the old report still says
         // succeeded, but must never certify this new invocation.
@@ -201,6 +302,103 @@ test('task lifecycle rejects doctor failure and stale evidence, and forced stop 
         const retry = await runner.build(config);
         assert.equal(retry.status, 'succeeded');
         assert.equal(runner.active, false);
+    } finally {
+        runner.dispose();
+        Object.defineProperty(process, 'platform', actualPlatform);
+        await fs.rm(temporary, { recursive: true, force: true });
+    }
+});
+
+test('doctor is reused only after success for the same observed toolchain; manual checks always execute', async () => {
+    const actualPlatform = Object.getOwnPropertyDescriptor(process, 'platform')!;
+    Object.defineProperty(process, 'platform', { value: 'win32', configurable: true });
+    const temporary = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-doctor-'));
+    const { CompilerRunner } = loadRunnerWithMock();
+    const runner = new CompilerRunner();
+    const config: RunConfiguration = { compilerPath: path.join(temporary, 'compiler', 'NewModCompiler.exe'),
+        sdkRoot: path.join(temporary, 'sdk'), modRoot: path.join(temporary, 'mod'),
+        outputDirectory: path.join(temporary, 'output'), modVersion: '1.0' };
+    const sdkConfig = path.join(config.sdkRoot, 'tools', 'BinaryAssetBuilder.exe.config');
+    const compilerConfig = `${config.compilerPath}.config`;
+    const sidecar = path.join(path.dirname(config.compilerPath), 'antlr.runtime.dll');
+    const succeed = async (execution: MockExecution): Promise<void> => {
+        if (execution.task.definition.operation !== 'doctor') await writeSuccessfulEvidence(execution.task);
+        endExecution(execution, 0);
+    };
+    async function operations(action: () => Promise<unknown>): Promise<string[]> {
+        const first = launchedTasks.length;
+        await action();
+        return launchedTasks.slice(first).map(task => task.definition.operation);
+    }
+    try {
+        await Promise.all([fs.mkdir(path.dirname(config.compilerPath), { recursive: true }),
+            fs.mkdir(path.dirname(sdkConfig), { recursive: true }), fs.mkdir(config.modRoot)]);
+        await Promise.all([fs.writeFile(config.compilerPath, 'fixture'), fs.writeFile(compilerConfig, 'configuration'),
+            fs.writeFile(sidecar, 'runtime'), fs.writeFile(sdkConfig, 'sdk-configuration')]);
+        taskBehavior = succeed;
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build']);
+        assert.deepEqual(await operations(() => runner.build(config)), ['build']);
+        assert.deepEqual(await operations(() => runner.plan(config)), ['plan']);
+        assert.deepEqual(await operations(() => runner.doctor(config)), ['doctor']);
+        assert.deepEqual(await operations(() => runner.doctor(config)), ['doctor'], 'Manual doctor never reuses a previous result');
+        assert.deepEqual(await operations(() => runner.build(config)), ['build']);
+
+        for (const file of [config.compilerPath, compilerConfig, sdkConfig, sidecar]) {
+            await fs.appendFile(file, '-changed');
+            assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], `Changed toolchain file: ${file}`);
+            assert.deepEqual(await operations(() => runner.build(config)), ['build']);
+        }
+        const addedSidecar = path.join(path.dirname(config.compilerPath), 'NewProvider.dll');
+        await fs.writeFile(addedSidecar, 'new-provider');
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'New side libraries invalidate the environment check');
+        await fs.unlink(addedSidecar);
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'Removing a side library also invalidates it');
+
+        const secondSdk = path.join(temporary, 'second-sdk');
+        await fs.mkdir(path.join(secondSdk, 'tools'), { recursive: true });
+        await fs.writeFile(path.join(secondSdk, 'tools', 'BinaryAssetBuilder.exe.config'), 'configuration');
+        const second = { ...config, sdkRoot: secondSdk };
+        assert.deepEqual(await operations(() => runner.build(second)), ['doctor', 'build'], 'Changing the SDK root requires a new check');
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build']);
+        await fs.writeFile(path.join(config.modRoot, 'Mod.xml'), '<AssetDeclaration/>');
+        assert.deepEqual(await operations(() => runner.build(config)), ['build'], 'MOD source changes do not invalidate toolchain validation');
+
+        taskBehavior = async execution => endExecution(execution, 3);
+        assert.equal(await runner.doctor(config), false);
+        taskBehavior = succeed;
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'A failed manual check must not preserve old success');
+        await fs.appendFile(sdkConfig, '-new-environment');
+        taskBehavior = async execution => endExecution(execution, 3);
+        assert.deepEqual(await operations(async () => assert.equal((await runner.build(config)).status, 'failed')), ['doctor']);
+        taskBehavior = succeed;
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'A failed preflight must retry doctor');
+
+        await fs.appendFile(compilerConfig, '-before-check');
+        let changedDuringDoctor = false;
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'doctor' && !changedDuringDoctor) {
+                changedDuringDoctor = true;
+                await fs.appendFile(compilerConfig, '-during-check');
+            }
+            await succeed(execution);
+        };
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build']);
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'A check of a changing toolchain is never cached');
+        assert.deepEqual(await operations(() => runner.build(config)), ['build']);
+
+        await fs.appendFile(sidecar, '-interrupt-check');
+        let doctorStarted!: () => void;
+        const started = new Promise<void>(resolve => { doctorStarted = resolve; });
+        taskBehavior = async execution => { assert.equal(execution.task.definition.operation, 'doctor'); doctorStarted(); };
+        const interrupted = runner.build(config);
+        await started; runner.stop();
+        assert.equal((await interrupted).status, 'interrupted');
+        taskBehavior = succeed;
+        assert.deepEqual(await operations(() => runner.build(config)), ['doctor', 'build'], 'An interrupted check cannot authorize a skip');
+        taskBehavior = async execution => { assert.equal(execution.task.definition.operation, 'build'); endExecution(execution, 3); };
+        assert.equal((await runner.build(config)).status, 'failed');
+        taskBehavior = succeed;
+        assert.deepEqual(await operations(() => runner.build(config)), ['build'], 'Source compilation failure does not erase a successful environment check');
     } finally {
         runner.dispose();
         Object.defineProperty(process, 'platform', actualPlatform);

@@ -84,6 +84,19 @@ test('missing preset is optional; malformed or conflicting presets fail explicit
     }
 }));
 
+test('UI and saved compiler overrides are independent of advanced preset values', async () => fixture(async root => {
+    const file = path.join(root, 'newmodcompiler.json');
+    const text = JSON.stringify({ 'package-format': 'loose', 'include-additional': false, 'game-root': '../game', jobs: 8 });
+    await fs.writeFile(file, text);
+    const resolved = await resolveProjectSettings(root, { compilerOptions: { jobs: 2, 'include-additional': true } }, {},
+        { compilerOptions: { jobs: 1 }, modVersion: 'ui-version' });
+    assert.deepEqual(resolved.compilerOptions, { jobs: 1, 'include-additional': true });
+    assert.equal(resolved.presetOptions['package-format'], 'loose');
+    assert.equal(resolved.presetOptions['game-root'], path.resolve(root, '../game'));
+    assert.equal(resolved.modVersion, 'ui-version');
+    assert.equal(await fs.readFile(file, 'utf8'), text);
+}));
+
 test('discovery accepts APT-only, global-only and Additional-only folders without synthesizing inputs', async () => fixture(async root => {
     await fs.mkdir(path.join(root, 'Data', 'AptUI'), { recursive: true });
     await fs.writeFile(path.join(root, 'Data', 'AptUI', 'Menu.xml'), '<AssetDeclaration/>');

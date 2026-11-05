@@ -1,8 +1,8 @@
 {
   "name": "newsdk-mod-tools",
   "displayName": "NewSdk Mod Tools",
-  "description": "在 Windows 本地 VS Code 中编译 MOD、预览和编辑 CPU/GPU、Trail、Lightning、Swarm 特效。",
-  "version": "0.3.1",
+  "description": "共享 XML/XSD 智能编辑、编译工作台和 CPU/GPU、Trail、Lightning、Swarm 特效编辑。",
+  "version": "0.4.0",
   "publisher": "wu162",
   "license": "UNLICENSED",
   "repository": {
@@ -171,6 +171,22 @@
       {
         "command": "newsdk.buildSaved",
         "title": "NewSdk: 编译已保存内容（可能与预览不同）"
+      },
+      {
+        "command": "newsdk.configureBuildOptions",
+        "title": "NewSdk: 设置项目编译选项"
+      },
+      {
+        "command": "newsdk.xml.impact",
+        "title": "NewSdk XML: 查看资产影响范围"
+      },
+      {
+        "command": "newsdk.xml.references",
+        "title": "NewSdk XML: 查看资产引用"
+      },
+      {
+        "command": "newsdk.xml.copyToMod",
+        "title": "NewSdk XML: 复制 SDK 资产到 MOD"
       }
     ],
     "viewsContainers": {

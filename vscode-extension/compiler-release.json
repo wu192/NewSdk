@@ -1,7 +1,7 @@
 {
-  "tag": "compiler-2026.11.01",
-  "url": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01/NewModCompiler-Win32-Release.zip",
-  "sha256": "1ac1e6fac89aeab0e12035b7894760c2ac243fef17506c9f7f40f3acde8d18e6",
-  "binarySourceCommit": "a75840ef7d0351cedc11c91b1b4510d295b911a7",
-  "manifestUrl": "https://github.com/wu162/NewSdk/releases/download/compiler-2026.11.01/NewModCompiler-Win32-Release.manifest.json"
+  "tag": "compiler-2026.11.05-xml-81d5304",
+  "url": "https://github.com/wu192/NewSdk/releases/download/compiler-2026.11.05-xml-81d5304/NewModCompiler-Win32-Release.zip",
+  "sha256": "b5265e42cdd33bc3bbad2f3a14fd166a984e6576a1f5815aa5fd2c910305d376",
+  "binarySourceCommit": "81d53046bc4b97eaa2bbfc5d3a5ef6dc58b0f60d",
+  "manifestUrl": "https://github.com/wu192/NewSdk/releases/download/compiler-2026.11.05-xml-81d5304/NewModCompiler-Win32-Release.manifest.json"
 }

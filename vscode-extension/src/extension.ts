@@ -9,9 +9,11 @@ import { NewSdkSidebar, UiModel } from './sidebar';
 import { NewSdkWorkbench } from './workbench';
 import { NewSdkDiagnostics } from './diagnostics';
 import { registerFx, FxApi } from './fx/editorProvider';
-import { BuildVersionTracker } from './fx/buildVersion';
 import { collectBuildInputs } from './fx/buildInputs';
 import { pathIdentity } from './project';
+import { CompilerOptionOverrides, requiresModVersion } from './compilerArguments';
+import { acquireAssetService, disposeAssetServices } from './ra3xml/services/assetService';
+import { registerXmlProviders, XmlProviders } from './ra3xml/providers';
 
 const projectStorageKey = 'newsdk.projects.v1';
 const lastProjectKey = 'newsdk.lastProject';
@@ -21,6 +23,7 @@ export interface ConfigurationValues {
     sdkRoot: string;
     outputDirectory: string;
     modVersion: string;
+    compilerOptions?: CompilerOptionOverrides;
 }
 
 /** Public automation surface also exercised inside a real VS Code extension host. */
@@ -48,6 +51,8 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     let localMessage: string | undefined;
     let commandInProgress = false;
     let fx: FxApi | undefined;
+    let xmlProviders: XmlProviders | undefined;
+    let xmlProjectKey: string | undefined;
     const workbench = new NewSdkWorkbench(context.extensionUri, (command, value) => {
         // The webview only passes command names and an artifact index/version.
         void vscode.commands.executeCommand(command, value);
@@ -108,7 +113,16 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     }
     async function refresh(): Promise<void> {
         if (project) settings = await resolveProjectSettings(project.root, savedProjects()[project.identity], globals());
+        refreshXmlProject();
         render();
+    }
+    function refreshXmlProject(): void {
+        const key = JSON.stringify([project?.identity, settings?.sdkRoot]);
+        if (key === xmlProjectKey) return;
+        fx?.refreshProject();
+        xmlProviders?.refresh();
+        disposeAssetServices();
+        xmlProjectKey = key;
     }
     async function saveProject(patch: Partial<ProjectSettings>): Promise<void> {
         ensureIdle();
@@ -125,7 +139,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         ensureIdle();
         project = next;
         settings = resolved;
-        fx?.refreshProject();
+        refreshXmlProject();
         localMessage = undefined;
         diagnostics.clear();
         await context.globalState.update(lastProjectKey, next.root);
@@ -232,6 +246,36 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         if (version === undefined) return;
         await saveProject({ modVersion: validateModVersion(version) });
     }
+    async function chooseBuildOptions(): Promise<void> {
+        ensureSupported(); ensureIdle();
+        if (!project) await chooseProject();
+        if (!project) return;
+        const choices = [
+            { label: '打包内容', key: 'package-content' },
+            { label: '输出格式', key: 'package-format' },
+            { label: '包含 Additional 文件', key: 'include-additional' },
+            { label: '恢复全部项目编译选项为预设值', key: 'reset' },
+        ];
+        const selected = await vscode.window.showQuickPick(choices, { title: '项目编译选项', placeHolder: '未覆盖的选项由 newmodcompiler.json 和编译器默认值决定' });
+        if (!selected) return;
+        const overrides = { ...settings?.compilerOptions };
+        if (selected.key === 'reset') { await saveProject({ compilerOptions: {} }); return; }
+        let values: { label: string; value?: string | boolean }[];
+        if (selected.key === 'package-content') values = [
+            { label: '跟随项目预设' }, { label: '自动选择有效内容', value: 'auto' },
+            { label: 'Base', value: 'base' }, { label: 'APT', value: 'apt' }, { label: 'Global', value: 'maps' },
+            { label: 'Base + APT + Global', value: 'base,apt,maps' },
+        ];
+        else if (selected.key === 'package-format') values = [
+            { label: '跟随项目预设' }, { label: 'BIG / SKUDEF', value: 'big' }, { label: '散文件', value: 'loose' },
+        ];
+        else values = [{ label: '跟随项目预设' }, { label: '包含', value: true }, { label: '不包含', value: false }];
+        const choice = await vscode.window.showQuickPick(values, { title: selected.label });
+        if (!choice) return;
+        if (choice.value === undefined) delete overrides[selected.key];
+        else overrides[selected.key] = choice.value;
+        await saveProject({ compilerOptions: overrides });
+    }
     async function configureInteractive(): Promise<void> {
         ensureSupported(); ensureIdle();
         if (!project) await chooseProject();
@@ -242,23 +286,24 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         if (!settings?.sdkRoot) return;
         await chooseOutput();
         if (!settings?.outputDirectory) return;
-        await setVersion();
-        if (settings?.modVersion) await runner.doctor(await runConfiguration(false));
+        if (settings && (requiresModVersion(settings) || settings.modVersion)) await setVersion();
+        if (settings && (!requiresModVersion(settings) || settings.modVersion)) await runner.doctor(await runConfiguration(false));
     }
     async function runConfiguration(prompt: boolean): Promise<RunConfiguration> {
         ensureSupported(); ensureIdle();
         if (!project && prompt) await chooseProject();
         await refresh();
-        if (prompt && (!settings?.compilerPath || !settings.sdkRoot || !settings.outputDirectory || !settings.modVersion)) {
+        if (prompt && (!settings?.compilerPath || !settings.sdkRoot || !settings.outputDirectory || (requiresModVersion(settings) && !settings.modVersion))) {
             await configureInteractive();
         }
-        if (!project || !settings?.compilerPath || !settings.sdkRoot || !settings.outputDirectory || !settings.modVersion) {
+        if (!project || !settings?.compilerPath || !settings.sdkRoot || !settings.outputDirectory || (requiresModVersion(settings) && !settings.modVersion)) {
             throw new Error('请先配置编译器、SDK、输出目录和 MOD 版本。');
         }
         const compiler = await validateCompilerExecutable(settings.compilerPath);
         return { compilerPath: compiler.executablePath, sdkRoot: settings.sdkRoot, modRoot: project.root,
             outputDirectory: await validateOutputDirectory(settings.outputDirectory, project.root, settings.sdkRoot),
-            modVersion: validateModVersion(settings.modVersion) };
+            modVersion: settings.modVersion ? validateModVersion(settings.modVersion) : '',
+            compilerOptions: settings.compilerOptions, presetOptions: settings.presetOptions };
     }
     async function configure(values: ConfigurationValues): Promise<void> {
         ensureSupported(); ensureIdle();
@@ -266,11 +311,13 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         const compiler = await validateCompilerExecutable(values.compilerPath);
         const sdk = await canonicalPath(values.sdkRoot);
         const output = await validateOutputDirectory(values.outputDirectory, project.root, sdk);
-        const version = validateModVersion(values.modVersion);
+        const version = values.modVersion ? validateModVersion(values.modVersion) : '';
+        if (!version && requiresModVersion({compilerOptions: values.compilerOptions ?? settings?.compilerOptions, presetOptions: settings?.presetOptions})) validateModVersion(version);
         const config = vscode.workspace.getConfiguration('newsdk');
         await config.update('compilerPath', compiler.executablePath, vscode.ConfigurationTarget.Global);
         await config.update('sdkRoot', sdk, vscode.ConfigurationTarget.Global);
-        await saveProject({ outputDirectory: output, modVersion: version });
+        await saveProject({ outputDirectory: output, modVersion: version,
+            ...(values.compilerOptions ? {compilerOptions: values.compilerOptions} : {}) });
     }
     async function buildSaved(): ReturnType<CompilerRunner['build']> {
         const config = await runConfiguration(true);
@@ -291,8 +338,6 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
             }});
         const scope = inputs.complete ? new Set([...inputs.files, ...(uris ?? []).map(uri => uri.fsPath)].map(file => pathIdentity(file))) : undefined;
         const inMod = (uri: vscode.Uri) => uri.scheme === 'file' && containsPath(config.modRoot, uri.fsPath);
-        const relevant = (uri: vscode.Uri) => uri.scheme === 'file'
-            && (containsPath(config.modRoot, uri.fsPath) || containsPath(config.sdkRoot, uri.fsPath));
         let dirty = vscode.workspace.textDocuments.filter(doc => doc.isDirty && inMod(doc.uri)
             && (scope ? scope.has(pathIdentity(doc.uri.fsPath)) : /\.xml$/i.test(doc.uri.fsPath)));
         if (!scope && dirty.length) {
@@ -311,29 +356,15 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         }
         if (!unchanged()) throw new Error('保存时文档发生修改，请重新编译以确认依赖范围。');
         if (dirty.some(doc => doc.isDirty)) throw new Error('保存后文档又被修改，未启动编译。');
-        const tracker = new BuildVersionTracker();
-        for (const doc of vscode.workspace.textDocuments) if (relevant(doc.uri)) tracker.memory(doc.uri.toString(), doc.version);
-        const watchers = [config.modRoot, config.sdkRoot].map(root => vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(root, '**/*')));
-        const subscriptions: vscode.Disposable[] = [
-            vscode.workspace.onDidChangeTextDocument(event => { if (relevant(event.document.uri)) tracker.memory(event.document.uri.toString(), event.document.version); }),
-            vscode.workspace.onDidSaveTextDocument(doc => { if (relevant(doc.uri)) tracker.disk(); }),
-        ];
-        for (const watcher of watchers) for (const event of [watcher.onDidChange, watcher.onDidCreate, watcher.onDidDelete]) {
-            subscriptions.push(event(uri => { if (relevant(uri) && !/[\\/]SuperCompilerCache[\\/]/i.test(uri.fsPath)) tracker.disk(); }));
-        }
-        tracker.begin();
         localMessage = undefined;
         workbench.show();
-        try {
-            const result = await runner.build(config);
-            const state = tracker.result();
-            if (state === 'inputs-changed') localMessage = '输入在编译中变化，需重新编译。';
-            else if (result.status === 'succeeded') localMessage = state === 'previous-saved'
-                ? '上一保存版本编译成功；当前预览包含未保存修改。' : '已保存版本编译成功。';
-            log.appendLine(localMessage ?? `构建结果：${result.status}`);
-            render();
-            return result;
-        } finally { subscriptions.forEach(item => item.dispose()); watchers.forEach(item => item.dispose()); }
+        const result = await runner.build(config);
+        if (result.inputState === 'inputs-changed') localMessage = '输入在编译中变化，结果对应上一保存版本；需重新编译。';
+        else if (result.status === 'succeeded') localMessage = result.inputState === 'previous-saved'
+            ? '上一保存版本编译成功；当前预览包含未保存修改。' : '已保存版本编译成功。';
+        log.appendLine(localMessage ?? `构建结果：${result.status}`);
+        render();
+        return result;
     }
     async function build(): ReturnType<CompilerRunner['build']> { return saveAndBuild(); }
     async function plan(): ReturnType<CompilerRunner['plan']> {
@@ -383,6 +414,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     register('newsdk.configureSdk', () => exclusive(chooseSdk));
     register('newsdk.configureOutput', () => exclusive(chooseOutput));
     register('newsdk.setVersion', value => exclusive(() => setVersion(value)));
+    register('newsdk.configureBuildOptions', () => exclusive(chooseBuildOptions));
     register('newsdk.build', () => exclusive(build));
     register('newsdk.buildSaved', () => exclusive(buildSaved));
     register('newsdk.saveAndBuild', () => exclusive(() => saveAndBuild()));
@@ -397,9 +429,20 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     register('newsdk.openArtifact', openArtifact);
     context.subscriptions.push(runner.onDidChange(() => { localMessage = undefined; render(); }));
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(event => {
-        if (event.affectsConfiguration('newsdk')) { fx?.refreshProject(); void refresh().catch(error => { localMessage = message(error); render(); }); }
+        if (event.affectsConfiguration('newsdk')) { fx?.refreshProject(); void refresh().then(() => xmlProviders?.refresh()).catch(error => { localMessage = message(error); render(); }); }
     }));
 
+    xmlProviders = registerXmlProviders(context, { getService: document => {
+        if (!project || document.uri.scheme !== 'file' || !vscode.workspace.isTrusted) return undefined;
+        const roots = [project.root, ...(settings?.sdkRoot ? [settings.sdkRoot] : [])];
+        return acquireAssetService({ roots, modRoot: project.root, sdkRoot: settings?.sdkRoot,
+            storagePath: path.join(context.globalStorageUri.fsPath, 'xml-index'),
+            readText: async file => {
+                const open = vscode.workspace.textDocuments.find(doc => doc.uri.scheme === 'file' && pathIdentity(doc.uri.fsPath) === pathIdentity(file));
+                return open ? { text: open.getText(), version: open.version } : { text: await fs.readFile(file, 'utf8'), version: 0 };
+            } });
+    } });
+    context.subscriptions.push(xmlProviders, { dispose: disposeAssetServices });
     fx = registerFx(context, { getProject: () => project, getConfiguration: () => settings,
         saveAndBuild: uris => exclusive(() => saveAndBuild(uris)) });
     context.subscriptions.push(fx);

@@ -18,7 +18,7 @@ export class NewSdkDiagnostics implements vscode.Disposable {
       const severity = source.level.toLowerCase() === 'error' ? vscode.DiagnosticSeverity.Error :
         source.level.toLowerCase() === 'warning' ? vscode.DiagnosticSeverity.Warning : vscode.DiagnosticSeverity.Information;
       const diagnostic = new vscode.Diagnostic(new vscode.Range(line, column, line, column), source.message, severity);
-      diagnostic.source = 'NewSdk';
+      diagnostic.source = 'NewSdk Compiler';
       diagnostic.code = source.code;
       const entries = byFile.get(file) ?? [];
       entries.push(diagnostic);

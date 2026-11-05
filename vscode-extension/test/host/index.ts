@@ -9,6 +9,7 @@ import { installCompiler, validateCompilerExecutable } from '../../src/compilerI
 import type { BuildEvent, BuildResult } from '../../src/buildProtocol';
 import { runNormalCancellation } from '../realCancellation';
 import { runFxAcceptance } from './fxAcceptance';
+import { runXmlAcceptance } from './xmlAcceptance';
 import type { FxApi } from '../../src/fx/editorProvider';
 
 type Result = BuildResult;
@@ -308,13 +309,20 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
     await fs.writeFile(path.join(evidence, 'sdk-inputs.json'), JSON.stringify({ checkoutCommit: process.env.GITHUB_SHA,
         sourceSdk, temporarySdk: sdkRoot, inputs: sdkInputs }, null, 2));
     const full = process.env.NEWSDK_ACCEPTANCE === 'full';
+    // This gate is enabled only for a verified compiler build/release with the
+    // optional source-diagnostic capability. Custom older releases stay valid.
+    const expectSourceDiagnostics = process.env.NEWSDK_EXPECT_SOURCE_DIAGNOSTICS === '1';
+    let doctorTaskCount = 0;
+    const doctorTasks = vscode.tasks.onDidStartTaskProcess(event => {
+        if (event.execution.task.definition.type === 'newsdk' && event.execution.task.definition.operation === 'doctor') doctorTaskCount++;
+    });
     const results: Array<Record<string, unknown>> = [];
     const scope = full
         ? 'Provided Win32/net48 release compiler through real VS Code ProcessExecution; real base, file-backed SDK APT business assets, MapMetaData, BIG/SKUDEF, Additional, errors, cancellation/retry, source and SDK input preservation. No in-game playback or full Upheaval performance claim.'
         : 'Provided Win32/net48 release compiler through real VS Code ProcessExecution; real base stream, BIG/SKUDEF, source and SDK input preservation, SDK-owned cache retention. Full content/error/cancellation matrix is separate.';
     const summaryPath = path.join(evidence, 'real-compiler.json');
     async function summary(status: string, error?: unknown): Promise<void> {
-        await fs.writeFile(summaryPath, JSON.stringify({ status, scope, mode: full ? 'full' : 'smoke', cases: results,
+        await fs.writeFile(summaryPath, JSON.stringify({ status, scope, mode: full ? 'full' : 'smoke', expectSourceDiagnostics, doctorTaskCount, cases: results,
             error: error instanceof Error ? error.message : error,
             pending: full ? [] : ['Full content/error/cancellation matrix requires full_acceptance dispatch'] }, null, 2));
     }
@@ -368,6 +376,59 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
         assert.ok(result);
         return result;
     }
+    function record(value: unknown): Record<string, unknown> | undefined {
+        return value !== null && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : undefined;
+    }
+    async function locatedFailure(result: Result, file: string, expectedLine?: number): Promise<Record<string, unknown> | undefined> {
+        if (!expectSourceDiagnostics) return undefined;
+        assert.ok(result.report, 'Source diagnostics require the current build report');
+        const physicalPath = await fs.realpath(file);
+        const physicalFile = physicalPath.toLowerCase();
+        const sameFile = (value: unknown): boolean => typeof value === 'string' && path.resolve(value).toLowerCase() === physicalFile;
+        const event = result.events.find(item => item.eventType === 'Diagnostic' && item.level === 'error'
+            && sameFile(item.payload?.file) && Number.isSafeInteger(item.payload?.line) && Number(item.payload?.line) > 0);
+        const observed = result.events.filter(item => item.eventType === 'Diagnostic' && item.level === 'error').slice(-8)
+            .map(item => ({code: item.diagnosticCode, streamId: item.streamId, stageId: item.stageId,
+                file: item.payload?.file, line: item.payload?.line, column: item.payload?.column, source: item.payload?.source}));
+        assert.ok(event, `Expected a real source-located Diagnostic event for ${file}; observed locations: ${JSON.stringify(observed)}`);
+        const payload = event.payload!;
+        const source = record(payload.source);
+        assert.ok(source, 'New diagnostic events must carry structured source metadata');
+        assert.ok(sameFile(source.file));
+        assert.equal(source.line, payload.line, 'source.line and legacy line must retain the same 1-based meaning');
+        assert.equal(source.column, payload.column);
+        assert.ok(Number.isSafeInteger(payload.column) && Number(payload.column) > 0, 'The real XML reader provides a positive column for this fixture');
+        if (expectedLine !== undefined) assert.equal(payload.line, expectedLine, 'Schema validation must point at the invalid asset, not a fabricated first line');
+        else {
+            const lines = (await fs.readFile(file, 'utf8')).split(/\r?\n/);
+            assert.ok(Number(payload.line) > 1 && Number(payload.line) <= lines.length, 'Malformed multiline XML must retain its actual reader position');
+        }
+        const plannedStream = result.plan?.tasks.find(task => sameFile(task.inputPath));
+        assert.ok(plannedStream, 'The diagnostic source entry must belong to a task in the current compiler plan');
+        assert.equal(plannedStream.content, 'base');
+        assert.equal(event.streamId, plannedStream.id, 'Diagnostics must retain the compiler plan stream identity');
+        assert.equal(event.stageId, 'compile');
+        const reported = result.report.diagnostics.map(record).find(item => item && item.code === event.diagnosticCode
+            && item.message === event.message && sameFile(item.file) && item.line === payload.line && item.column === payload.column);
+        assert.ok(reported, 'The final report must contain the same source-located diagnostic as JSONL');
+        assert.equal(reported.streamId, event.streamId);
+        assert.equal(reported.stageId, event.stageId);
+        assert.deepEqual(reported.source, source, 'JSONL and report source metadata must agree');
+        for (const field of ['assetType', 'assetId'] as const) assert.equal(reported[field], payload[field]);
+        const parsed = result.diagnostics.find(item => item.code === event.diagnosticCode && item.message === event.message
+            && sameFile(item.file) && item.line === payload.line && item.column === payload.column);
+        assert.ok(parsed, 'The plugin protocol adapter must preserve the compiler location');
+        const matchingProblem = (): vscode.Diagnostic | undefined => vscode.languages.getDiagnostics(vscode.Uri.file(physicalPath)).find(item =>
+            item.source === 'NewSdk Compiler' && item.code === event.diagnosticCode && item.message === event.message);
+        await waitFor(() => Boolean(matchingProblem()));
+        const problem = matchingProblem();
+        assert.ok(problem, 'A reliable compiler position must appear in Problems');
+        assert.equal(problem.range.start.line, Number(payload.line) - 1);
+        assert.equal(problem.range.start.character, Number(payload.column) - 1);
+        return { file: payload.file, line: payload.line, column: payload.column, code: event.diagnosticCode,
+            assetType: payload.assetType, assetId: payload.assetId, streamId: event.streamId, stageId: event.stageId,
+            eventReportSourceAgreement: true, problemsLocationVerified: true };
+    }
     async function verifySuccess(result: Result, mod: string, output: string, content: string[]): Promise<void> {
         assert.equal(result.status, 'succeeded', result.reason);
         assert.ok(result.report, 'A successful real build requires its current final report');
@@ -375,6 +436,7 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
         assert.equal(result.exitCode, 0);
         assert.equal(result.report.exitCode, 0);
         assert.equal(result.report.status, 'succeeded');
+        assert.equal(doctorTaskCount, 1, 'All builds of this unchanged compiler/SDK must reuse one successful doctor task');
         assert.equal(result.artifacts.length, 2, 'Current report must confirm one BIG/SKUDEF pair');
         const big = result.artifacts.find(item => item.kind === 'package.big');
         const sku = result.artifacts.find(item => item.kind === 'package.skudef');
@@ -415,6 +477,7 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
     }
     await summary('running');
     try {
+        await runXmlAcceptance(api, root, evidence, compilerPath, sdkRoot);
         const layouts = [{ name: 'RealBase', content: ['base'] }, ...(full ? [
             { name: 'RealAptBusiness', content: ['apt'] }, { name: 'RealGlobalMetadata', content: ['maps'] },
             { name: 'RealComplete', content: ['base', 'apt', 'maps', 'additional'] }] : [])];
@@ -479,7 +542,7 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
             results.push({ name: 'additional-only-PLAN_NO_INPUTS', status: 'passed', buildId: noInputs.buildId });
 
             const malformed = await fixture('RealMalformed', ['base']);
-            await write(malformed.mod, 'Data/Mod.xml', '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><broken');
+            await write(malformed.mod, 'Data/Mod.xml', '<?xml version="1.0"?>\n<AssetDeclaration xmlns="uri:ea.com:eala:asset">\n  <broken');
             const malformedBefore = await inventory(malformed.mod);
             checkpoint('real-malformed-xml-error');
             const invalid = final(await timed(api.build(), 180000));
@@ -487,8 +550,26 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
             assert.equal(invalid.status, 'failed');
             assert.ok(invalid.diagnostics.some(item => item.level === 'error' && item.message));
             assert.equal(invalid.artifacts.length, 0);
+            const malformedLocation = await locatedFailure(invalid, path.join(malformed.mod, 'Data', 'Mod.xml'));
             assert.deepEqual(await inventory(malformed.mod), malformedBefore);
-            results.push({ name: 'malformed-XML-real-error', status: 'passed', buildId: invalid.buildId });
+            assert.deepEqual(await inventory(sdkRoot, ['SuperCompilerCache']), sdkInputs, 'XML errors must preserve SDK inputs');
+            results.push({ name: 'malformed-XML-real-error', status: 'passed', buildId: invalid.buildId,
+                sourceDiagnostics: expectSourceDiagnostics ? malformedLocation : 'optional capability not required for this compiler' });
+
+            const schemaInvalid = await fixture('RealSchemaInvalidArmor', ['base']);
+            await write(schemaInvalid.mod, 'Data/Mod.xml', '<AssetDeclaration xmlns="uri:ea.com:eala:asset">\n  <ArmorTemplate id="BrokenArmor" Default="not-a-number"/>\n</AssetDeclaration>');
+            const schemaBefore = await inventory(schemaInvalid.mod);
+            checkpoint('real-schema-invalid-armor-error');
+            const schemaFailure = final(await timed(api.build(), 180000));
+            await preserve(schemaInvalid.output, 'RealSchemaInvalidArmor', schemaFailure);
+            assert.equal(schemaFailure.status, 'failed');
+            assert.ok(schemaFailure.diagnostics.some(item => item.level === 'error' && item.message));
+            assert.equal(schemaFailure.artifacts.length, 0);
+            const schemaLocation = await locatedFailure(schemaFailure, path.join(schemaInvalid.mod, 'Data', 'Mod.xml'), 2);
+            assert.deepEqual(await inventory(schemaInvalid.mod), schemaBefore, 'Schema diagnostics must not rewrite invalid MOD source');
+            assert.deepEqual(await inventory(sdkRoot, ['SuperCompilerCache']), sdkInputs, 'Schema diagnostics must not write SDK schema/configuration inputs');
+            results.push({ name: 'schema-invalid-ArmorTemplate-real-error', status: 'passed', buildId: schemaFailure.buildId,
+                sourceDiagnostics: expectSourceDiagnostics ? schemaLocation : 'optional capability not required for this compiler' });
 
             async function cancellationFixture(name: string, count: number): Promise<{ mod: string; output: string }> {
                 const { mod, output } = await fixture(name, ['base']);
@@ -536,9 +617,14 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
             results.push({ name: 'real-normal-CtrlBreak-and-retry', status: 'passed', cancellation: cancelled, retryBuildId: normalRetry.buildId });
         }
         assert.deepEqual(await inventory(sdkRoot, ['SuperCompilerCache']), sdkInputs);
+        assert.equal(doctorTaskCount, 1, 'Source errors, cache activity and retries must not add repeated doctor tasks');
+        results.push({ name: 'unchanged-toolchain-reuses-doctor', status: 'passed', doctorTaskCount,
+            scope: 'Actual Windows ProcessExecution doctor task count across the executed real-compiler cases' });
         await summary('passed');
     } catch (error) {
         await summary('failed', error);
         throw error;
+    } finally {
+        doctorTasks.dispose();
     }
 }

@@ -8,6 +8,9 @@ const presentation = require(path.resolve(__dirname, '../../media/workbench.js')
   phaseLabel(phase: string | undefined, operation?: string, status?: string): string;
   contentStatus(task: { id: string }, model: unknown): string;
   resultText(model: unknown): string;
+  contentLabel(value: string): string;
+  optionRows(model: unknown): Array<{key: string; value: string; source: string}>;
+  metricRows(model: unknown): Array<{key: string; value: string}>;
 };
 
 test('a successful plan never presents its input streams as compiled', () => {
@@ -45,4 +48,17 @@ test('compiler stage names are translated with unknown phases preserved', () => 
   assert.equal(presentation.phaseLabel('package', 'build', 'running'), '打包');
   assert.equal(presentation.phaseLabel('publish', 'build', 'running'), '发布');
   assert.equal(presentation.phaseLabel('future-stage', 'build', 'running'), 'future-stage');
+});
+
+test('workbench presents compiler configuration origins and observed stale results', () => {
+  const model = { operation: 'build', result: { status: 'succeeded', reason: 'confirmed', inputState: 'inputs-changed',
+    effectiveOptions: { 'package-format': { value: 'loose', source: 'project' }, jobs: { value: 'auto', source: 'default' } },
+    report: { cache: { status: 'Used', hits: 5, nested: { ignored: true } } } } };
+  assert.match(presentation.resultText(model), /上一保存版本/);
+  assert.deepEqual(presentation.optionRows(model), [
+    { key: 'jobs', value: 'auto', source: '编译器默认' }, { key: 'package-format', value: 'loose', source: '项目预设' },
+  ]);
+  assert.deepEqual(presentation.metricRows(model), [{ key: '缓存 · status', value: 'Used' }, { key: '缓存 · hits', value: '5' }]);
+  assert.equal(presentation.contentLabel('maps'), 'Global');
+  assert.deepEqual(presentation.optionRows({}), []);
 });

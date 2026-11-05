@@ -20,6 +20,10 @@ const statusNames: Record<string, string> = {
   cancelled: '已取消', interrupted: '已中断 / 结果不完整', stopping: '正在停止',
 };
 
+function contentLabel(value: string): string {
+  return ({ base: 'Base', apt: 'APT', maps: 'Global', 'global-metadata': 'Global' } as Record<string, string>)[value.toLowerCase()] ?? value;
+}
+
 export function statusLabel(status: string, operation?: UiModel['operation']): string {
   if (operation === 'doctor') {
     if (status === 'succeeded') return '环境检查通过';
@@ -58,11 +62,8 @@ export class NewSdkSidebar implements vscode.TreeDataProvider<SidebarItem>, vsco
     const config = m.config;
     const plan = m.plan ?? m.progress?.plan;
     const content: SidebarItem[] = plan ? [
-      ...plan.tasks.map(task => new SidebarItem(task.content, [], 'newsdk.openWorkbench', task.inputPath, 'file-code')),
-      ...plan.skipped.map(task => new SidebarItem(task.content, [], 'newsdk.openWorkbench', `跳过：${task.reason}`, 'circle-slash')),
-      ...(![...plan.tasks, ...plan.skipped].some(task => task.content.toLowerCase().includes('additional'))
-        ? [new SidebarItem('Additional', [], 'newsdk.openWorkbench', m.project?.contents?.additional
-          ? '检测到目录，按编译器规则处理' : '未检测到目录', 'folder')] : []),
+      ...plan.tasks.map(task => new SidebarItem(contentLabel(task.content), [], 'newsdk.openWorkbench', task.inputPath, 'file-code')),
+      ...plan.skipped.map(task => new SidebarItem(contentLabel(task.content), [], 'newsdk.openWorkbench', `跳过：${task.reason}`, 'circle-slash')),
     ] : [
       ...(['base', 'apt', 'globalMetadata', 'additional'] as const).map(key => new SidebarItem(
         { base: '基础数据', apt: 'APT UI', globalMetadata: '全局元数据', additional: 'Additional' }[key], [],
@@ -74,6 +75,8 @@ export class NewSdkSidebar implements vscode.TreeDataProvider<SidebarItem>, vsco
       d.level.toLowerCase() === 'error' ? 'error' : 'warning'));
     const artifacts = (m.result?.artifacts ?? []).map((artifact, index) =>
       new SidebarItem(artifact.kind, [], 'newsdk.openArtifact', artifact.path, 'package', [index]));
+    const effective = Object.entries(m.progress?.effectiveOptions ?? m.result?.effectiveOptions ?? {}).map(([key, option]) =>
+      new SidebarItem(key, [], 'newsdk.openWorkbench', `${option.value}（${option.source}）`));
     return [
       new SidebarItem(m.project?.name ?? '选择 MOD 文件夹', [], 'newsdk.selectProject', m.project?.root, 'root-folder'),
       new SidebarItem(`MOD 版本：${config?.modVersion || '未设置'}`, [], 'newsdk.setVersion', undefined, 'versions'),
@@ -86,6 +89,7 @@ export class NewSdkSidebar implements vscode.TreeDataProvider<SidebarItem>, vsco
         new SidebarItem('输出目录', [], 'newsdk.configure', config?.outputDirectory ?? '未配置', 'folder-opened'),
       ]),
       new SidebarItem('项目内容', content),
+      ...(effective.length ? [new SidebarItem('实际生效配置', effective)] : []),
       new SidebarItem('快捷入口', [
         new SidebarItem('打开编译工作台', [], 'newsdk.openWorkbench', undefined, 'layout'),
         new SidebarItem('查看编译计划', [], 'newsdk.plan', undefined, 'list-tree'),

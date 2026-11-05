@@ -29,9 +29,31 @@ const NewSdkPresentation = (() => {
   function resultText(model) {
     if (model.operation === 'doctor') return model.message ?? statusLabel(model.status, model.operation);
     if (model.operation === 'plan') return model.result ? `${statusLabel(model.result.status, 'plan')} · ${model.result.reason}` : model.active ? '正在解析编译计划。' : '尚无本轮计划结果。';
-    return model.result ? `${statusLabel(model.result.status, 'build')} · ${model.result.reason}` : model.active ? '构建进行中，等待本轮报告确认结果。' : '尚无本轮构建结果。';
+    const stale = model.result?.inputState === 'inputs-changed' ? ' · 编译期间输入文件已变化，结果对应上一保存版本。'
+      : model.result?.inputState === 'previous-saved' ? ' · 结果对应上一保存版本，未包含当前未保存修改。' : '';
+    return model.result ? `${statusLabel(model.result.status, 'build')} · ${model.result.reason}${stale}` : model.active ? '构建进行中，等待本轮报告确认结果。' : '尚无本轮构建结果。';
   }
-  return { statusLabel, phaseLabel, contentStatus, resultText };
+  function contentLabel(value) {
+    return { base: 'Base', apt: 'APT', maps: 'Global', 'global-metadata': 'Global' }[String(value).toLowerCase()] ?? value;
+  }
+  function optionRows(model) {
+    const options = model.progress?.effectiveOptions ?? model.result?.effectiveOptions ?? {};
+    const origins = { project: '项目预设', commandLine: '显式覆盖', default: '编译器默认', applicationConfig: '编译器配置' };
+    return Object.entries(options).sort(([a], [b]) => a.localeCompare(b)).map(([key, option]) => ({ key, value: option.value, source: origins[option.source] ?? option.source }));
+  }
+  function metricRows(model) {
+    const report = model.result?.report;
+    const result = [];
+    for (const [group, label] of [['cache', '缓存'], ['performance', '性能']]) {
+      const data = report?.[group];
+      if (!data || typeof data !== 'object' || Array.isArray(data)) continue;
+      for (const [key, value] of Object.entries(data).slice(0, 32)) {
+        if (typeof value === 'string' || typeof value === 'boolean' || typeof value === 'number') result.push({ key: `${label} · ${key}`, value: String(value) });
+      }
+    }
+    return result;
+  }
+  return { statusLabel, phaseLabel, contentStatus, resultText, contentLabel, optionRows, metricRows };
 })();
 if (typeof module !== 'undefined' && module.exports) module.exports = NewSdkPresentation;
 
@@ -86,9 +108,8 @@ if (typeof document !== 'undefined') (() => {
     const contents = $('contents'); contents.replaceChildren();
     if (plan) {
       text('planNote', plan.kind ? `编译器计划：${plan.kind}` : '以下内容由编译器 plan 确认。');
-      for (const task of plan.tasks) contents.append(row(task.content, NewSdkPresentation.contentStatus(task, model), task.inputPath));
-      for (const task of plan.skipped) contents.append(row(task.content, '跳过', task.reason));
-      if (![...plan.tasks, ...plan.skipped].some(task => task.content.toLowerCase().includes('additional'))) contents.append(row('Additional', model.project?.contents?.additional ? '检测到目录，按编译器规则处理' : '未检测到目录'));
+      for (const task of plan.tasks) contents.append(row(NewSdkPresentation.contentLabel(task.content), NewSdkPresentation.contentStatus(task, model), task.inputPath));
+      for (const task of plan.skipped) contents.append(row(NewSdkPresentation.contentLabel(task.content), '跳过', task.reason));
       if (!plan.tasks.length && !plan.skipped.length) contents.append(node('p', '计划没有可编译输入。', 'muted'));
     } else {
       text('planNote', '目录检测仅供参考，实际输入以编译器 plan 为准。');
@@ -103,10 +124,18 @@ if (typeof document !== 'undefined') (() => {
     for (const item of diagnostics) {
       const element = node('div', undefined, `issue ${String(item.level).toLowerCase() === 'error' ? 'error' : ''}`);
       element.append(node('strong', `${item.level} · ${item.code}`), node('p', item.message, 'raw'));
-      if (item.file && Number.isSafeInteger(item.line) && item.line > 0) element.append(node('p', `${item.file}:${item.line}${item.column ? `:${item.column}` : ''}`, 'path'));
+      if (item.file) element.append(node('p', `${item.file}${Number.isSafeInteger(item.line) && item.line > 0 ? `:${item.line}${item.column ? `:${item.column}` : ''}` : ''}`, 'path'));
+      if (item.assetId || item.assetType) element.append(node('p', `${item.assetType ?? ''}:${item.assetId ?? ''}`, 'path'));
+      if (item.streamId || item.stageId) element.append(node('p', [item.streamId, item.stageId].filter(Boolean).join(' · '), 'muted'));
       issues.append(element);
     }
     const result = model.result;
+    const options = $('effectiveOptions'); options.replaceChildren();
+    const optionRows = NewSdkPresentation.optionRows(model);
+    for (const option of optionRows) options.append(row(option.key, option.source, option.value));
+    if (!optionRows.length) options.append(node('p', '等待本轮编译器确认生效配置。', 'muted'));
+    const metrics = $('compilerMetrics'); metrics.replaceChildren();
+    for (const metric of NewSdkPresentation.metricRows(model)) metrics.append(row(metric.key, metric.value));
     text('result', NewSdkPresentation.resultText(model));
     const artifacts = $('artifacts'); artifacts.replaceChildren();
     for (const [index, artifact] of (result?.artifacts ?? []).entries()) {

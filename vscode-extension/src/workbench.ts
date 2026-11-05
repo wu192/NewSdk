@@ -66,6 +66,7 @@ export class NewSdkWorkbench implements vscode.Disposable {
   <div class="columns"><section class="card"><div class="section-title"><h2>编译内容</h2><button data-command="newsdk.plan" class="secondary small" data-idle>查看计划</button></div><p id="planNote" class="muted">由编译器 plan 确认实际输入。</p><div id="contents" class="rows"></div></section>
   <section class="card"><div class="section-title"><h2>环境配置</h2><button data-command="newsdk.doctor" class="secondary small" data-idle>环境检查</button></div><dl id="configuration"></dl></section></div>
   <section class="card"><div class="section-title"><h2>本轮问题 <span id="issueCount" class="muted">0</span></h2></div><p class="muted">保留诊断代码和原始消息；有真实源码位置的诊断同时显示在 Problems 面板。</p><div id="issues" aria-live="polite"></div></section>
+  <section class="card"><div class="section-title"><h2>实际生效配置</h2></div><p class="muted">由本轮编译器事件或报告确认，包含每项配置的来源。</p><div id="effectiveOptions" class="rows"></div><div id="compilerMetrics" class="rows"></div></section>
   <section class="card"><div class="section-title"><h2>本轮结果与产物</h2><button data-command="newsdk.openOutput" class="secondary small">打开输出目录</button></div><p id="result">尚无本轮构建结果。</p><div id="artifacts" class="rows"></div><nav aria-label="编译日志与报告"><button data-command="newsdk.openLog" class="secondary">build.log</button><button data-command="newsdk.openEvents" class="secondary">完整 JSONL</button><button data-command="newsdk.openReport" class="secondary">构建报告</button></nav></section>
 </main><script nonce="${nonce}" src="${script}"></script></body></html>`;
   }
