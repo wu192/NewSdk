@@ -8,7 +8,11 @@ import { TextPatch, EditConflictError, applyTextPatches } from '../core/editTran
 import { XsdModel } from '../model/xsdModel';
 import { ManifestIndex } from '../index/manifestIndex';
 import { SemanticCache } from '../index/cache';
-export interface AssetServiceOptions extends AssetIndexOptions { storagePath?:string; schema?:XsdModel; }
+import { AssetSearchIndex, AssetSearchQuery, AssetSearchPage, AssetSearchResult } from '../index/assetSearchIndex';
+export type { AssetSearchQuery, AssetSearchPage, AssetSearchResult, AssetSource } from '../index/assetSearchIndex';
+export interface AssetServiceOptions extends AssetIndexOptions { storagePath?:string; schema?:XsdModel; includeSdkXml?:boolean; }
+export interface XmlIndexReport {indexVersion:number;completeness:'partial'|'complete';files:number;assets:number;references:number;pending:number;lastDurationMs?:number;lastIndexedAt?:string;issues:string[];sdkXmlIncluded:boolean;}
+export interface UnreferencedAsset extends AssetSearchResult {usage:'not-statically-referenced';warnings:string[];}
 export interface SemanticEditIntent {uri:string;documentVersion:number;start:number;end:number;expected:string;text:string;}
 export interface EffectiveField {name:string;value:string;source:AssetRecord;nodePath:string;attribute?:string;start:number;end:number;inherited:boolean;certainty?:'effective'|'source';}
 export interface AssetQuery {type?:string;id?:string;scopeUri?:string;}
@@ -32,6 +36,17 @@ export class AssetService {
     private scanGeneration=0;
     private viewId=0;
     private readonly dirtyEntries=new Set<string>();
+    private readonly searchIndex=new AssetSearchIndex();
+    private versionStamp='';
+    private version=0;
+    private searchVersion=-1;
+    private searchRecords:AssetSearchResult[]=[];
+    private unreferencedVersion=-1;
+    private unreferencedRecords:UnreferencedAsset[]=[];
+    private readonly unreferencedSearchIndex=new AssetSearchIndex();
+    private lastDurationMs?:number;
+    private lastIndexedAt?:string;
+    private rebuilding?:Promise<void>;
     constructor(readonly options:AssetServiceOptions){
         this.schema=options.schema;this.scanIncomplete=!options.schema&&!options.sdkRoot;
         this.documents=options.documentStore??new DocumentStore({readText:options.readText,maxBytes:options.maxSourceBytes});
@@ -40,6 +55,12 @@ export class AssetService {
     }
     onDidChange(listener:()=>void):{dispose():void}{this.listeners.add(listener);return{dispose:()=>this.listeners.delete(listener)};}
     private changed():void{for(const listener of this.listeners)listener();}
+    /** Monotonic for document edits, graph changes and index completeness changes. */
+    get indexVersion():number {
+        const stamp=JSON.stringify([this.documents.epoch,this.completeness,this.schema?.version,this.manifests?.entries.length,
+            this.index.shared.graphs.revision,this.dirtyEntries.size]);
+        if(stamp!==this.versionStamp){this.versionStamp=stamp;this.version++;}return this.version;
+    }
     private initialize():Promise<void>{
         return this.initialization??=(async()=>{
             if(this.options.sdkRoot){
@@ -75,9 +96,9 @@ export class AssetService {
         const metadata=this.schema?.files.includes(file)||this.manifests?.files.includes(file)
             ||relative!==undefined&&(/^(?:schemas\/.*\.xsd|builtmods\/.*\.manifest)$/.test(relative));
         const profile=relative==='tools/binaryassetbuilder.exe.config';
-        if(!known&&/\.xml$/i.test(file)&&relative===undefined){
-            this.scanning=undefined;this.scanFinished=false;this.completeness='partial';this.scanGeneration++;this.dirtyEntries.add(file);
-        }
+        const managedNew=!known&&/\.xml$/i.test(file)&&(relative===undefined||this.options.includeSdkXml&&/^(?:sagexml|art)\//i.test(relative));
+        if(managedNew)this.dirtyEntries.add(file);
+        if(known||managedNew)this.completeness='partial';
         for(const [entry,graph]of this.index.shared.graphs)if(graph.dependencies.includes(file)||graph.includes.some(edge=>edge.to===file))this.dirtyEntries.add(entry);
         if(metadata||profile){
             this.scanning=undefined;this.scanFinished=false;this.completeness='partial';this.scanGeneration++;
@@ -87,11 +108,27 @@ export class AssetService {
         }
         this.index.invalidate(file);this.changed();
     }
-    async getScope(uri:string,_documentVersion?:number):Promise<AssetGraph>{return this.ensure(uri);}
+    async getScope(uri:string,_documentVersion?:number):Promise<AssetGraph>{
+        const primary=await this.ensure(uri),file=this.documents.normalize(uri);
+        return primary.documents.has(file)?primary:[...this.index.shared.graphs.values()].find(graph=>graph.documents.has(file))??primary;
+    }
+    private async refreshDirtyEntries():Promise<void>{
+        for(const dirty of [...this.dirtyEntries]){
+            try{await fs.access(dirty);}catch(error){
+                if((error as NodeJS.ErrnoException).code==='ENOENT'&&!this.documents.hasOverlay(dirty)){
+                    this.index.shared.graphs.delete(dirty);this.entries.get(dirty)?.dispose();this.entries.delete(dirty);this.dirtyEntries.delete(dirty);continue;
+                }
+            }
+            const view=this.entries.get(dirty)??this.index.createView();
+            try{await view.load(dirty);this.entries.set(dirty,view);}catch{/* Failed inputs stay absent from current query results. */}
+            this.dirtyEntries.delete(dirty);
+        }
+        this.updateCompleteness();
+    }
     async ensure(uri:string):Promise<AssetGraph>{
         await this.initialize();if(this.closed)throw new Error('AssetService disposed');
         const file=await this.index.checkedFile(uri);
-        for(const dirty of [...this.dirtyEntries]){try{await fs.access(dirty);}catch(error){if((error as NodeJS.ErrnoException).code==='ENOENT'&&!this.documents.hasOverlay(dirty)){this.index.shared.graphs.delete(dirty);this.entries.get(dirty)?.dispose();this.entries.delete(dirty);this.dirtyEntries.delete(dirty);continue;}}const view=this.entries.get(dirty)??this.index.createView();try{await view.load(dirty);this.entries.set(dirty,view);}catch{/* Failed inputs stay absent from current query results. */}this.dirtyEntries.delete(dirty);}
+        await this.refreshDirtyEntries();
         let entry=file;
         if(this.options.modRoot){const candidate=path.join(filePath(this.options.modRoot),'Data','Mod.xml');try{await fs.access(candidate);entry=candidate;}catch{/* A standalone document still has local semantics. */}}
         const primary=this.entries.get(entry)??this.index.createView();this.entries.set(entry,primary);
@@ -103,9 +140,33 @@ export class AssetService {
     private schedulePersist():void{if(this.persistTimer)clearTimeout(this.persistTimer);this.persistTimer=setTimeout(()=>{this.persistTimer=undefined;void this.persistCache().catch(()=>undefined);},500);}
     async persistCache():Promise<void>{await this.cache?.write({files:this.cacheFiles,documents:this.documents.exportRecords()});}
     async whenComplete():Promise<void>{if(this.scanning)await this.scanning;}
+    /** Start the existing shared scanner, including when no editor has opened yet. */
+    async startIndexing():Promise<void>{
+        await this.initialize();if(this.closed)throw new Error('AssetService disposed');
+        await this.refreshDirtyEntries();
+        if(!this.scanning)this.scanning=this.scanProject().catch(()=>{this.scanIncomplete=true;this.completeness='partial';this.changed();});
+        await this.scanning;
+    }
+    /** Explicit rebuild only: ordinary edits retain the existing incremental path. */
+    reindex():Promise<void>{return this.rebuilding??=(async()=>{
+        await this.initialize();if(this.scanning)await this.scanning;
+        await Promise.allSettled([...this.index.shared.pending.values()]);
+        if(this.closed)throw new Error('AssetService disposed');
+        for(const graph of this.index.shared.graphs.values())for(const file of graph.documents.keys())this.documents.invalidate(file);
+        // Views returned to FX remain valid; their next load selects rebuilt shared graphs.
+        for(const [key,entry]of this.entries)if(!key.startsWith('view:')){entry.dispose();this.entries.delete(key);}this.dirtyEntries.clear();
+        this.index.shared.graphs.clear();this.index.shared.graphEpochs.clear();
+        this.scanFinished=false;this.scanGeneration++;this.scanIncomplete=!this.schema||!this.schema.complete||!!this.options.sdkRoot&&!this.manifests?.complete;
+        this.scanning=undefined;this.completeness='partial';this.changed();await this.startIndexing();
+    })().finally(()=>{this.rebuilding=undefined;});}
+    async clearCacheAndRebuild():Promise<void>{
+        await this.initialize();if(this.persistTimer){clearTimeout(this.persistTimer);this.persistTimer=undefined;}
+        if(this.scanning)await this.scanning;
+        await this.cache?.clear();this.cacheFiles=[];await this.reindex();
+    }
     private updateCompleteness():void{if(!this.scanFinished)return;const incomplete=[...this.index.shared.graphs.values()].some(graph=>graph.issues.some(issue=>['source-budget','include-read','xml-syntax','include-path','include-contract','xinclude-contract'].includes(issue.code)));this.completeness=this.scanIncomplete||incomplete?'partial':'complete';}
     private async scanProject():Promise<void>{
-        const generation=this.scanGeneration;const files=new Set<string>();const root=this.options.modRoot&&filePath(this.options.modRoot);
+        const started=Date.now();const generation=this.scanGeneration;const files=new Set<string>();const root=this.options.modRoot&&filePath(this.options.modRoot);
         const walk=async(directory:string):Promise<void>=>{
             if(this.closed)return;for(const entry of await fs.readdir(directory,{withFileTypes:true})){
                 if(files.size>=(this.options.maxDocuments??5000)){this.scanIncomplete=true;return;}
@@ -116,15 +177,67 @@ export class AssetService {
             }
         };
         if(root)await walk(root);
+        if(this.options.includeSdkXml&&this.options.sdkRoot){
+            const sdk=filePath(this.options.sdkRoot);for(const name of await fs.readdir(sdk)){if(/^(?:sagexml|art)$/i.test(name)){const directory=path.join(sdk,name);if((await fs.lstat(directory)).isDirectory())await walk(directory);}}
+        }
         for(const file of files){
             if(this.closed)return;
-            if(root){const relative=path.relative(root,file);if(relative.startsWith('..')||path.isAbsolute(relative))continue;}
-            if([...this.entries.values()].some(index=>index.graph.documents.has(file)))continue;
+            if([...this.index.shared.graphs.values()].some(graph=>graph.documents.has(file)))continue;
             try{const index=this.index.createView();await index.load(file);this.entries.set(file,index);}catch{this.scanIncomplete=true;}
         }
         if(generation!==this.scanGeneration)return;
         this.scanFinished=true;this.updateCompleteness();
+        this.lastDurationMs=Date.now()-started;this.lastIndexedAt=new Date().toISOString();
         if(!this.closed){this.cacheFiles=[...files];await this.persistCache().catch(()=>undefined);this.changed();}
+    }
+    private refreshSearch():void {
+        const version=this.indexVersion;if(this.searchVersion===version)return;
+        const references=this.getReferences();const incoming=new Map<string,Set<string>>();
+        for(const reference of references)for(const key of [...reference.targets,...(reference.manifestTargets??[]).map(asset=>asset.key)]){
+            const set=incoming.get(key)??new Set<string>();set.add(JSON.stringify([reference.uri,reference.start,reference.end]));incoming.set(key,set);
+        }
+        const relative=(file:string,source:'mod'|'sdk-xml'|'manifest'):string=>{
+            const root=source==='mod'?this.options.modRoot:this.options.sdkRoot;
+            return (root?path.relative(this.index.shared.physicalPaths.get(filePath(root))??filePath(root),file):path.basename(file)).replace(/\\/g,'/');
+        };
+        const records=new Map<string,AssetSearchResult>();
+        for(const asset of this.findAssets()){
+            const source=asset.readonly?'sdk-xml':'mod';const token=asset.node.attributeTokens.id;
+            records.set(asset.key,{key:asset.key,type:asset.type,id:asset.id,uri:asset.uri,source,relativePath:relative(asset.uri,source),readonly:asset.readonly,
+                referenceCount:incoming.get(asset.key)?.size??0,location:{start:token?.valueStart??asset.node.start,end:token?.valueEnd??asset.node.openEnd}});
+        }
+        for(const asset of this.manifests?.list()??[])records.set(asset.key,{key:asset.key,type:asset.type,id:asset.id,uri:asset.uri,source:'manifest',relativePath:relative(asset.uri,'manifest'),readonly:true,referenceCount:incoming.get(asset.key)?.size??0});
+        this.searchRecords=[...records.values()];this.searchIndex.reset(this.searchRecords);this.searchVersion=version;
+    }
+    searchAssets(query:AssetSearchQuery={}):AssetSearchPage {
+        this.refreshSearch();return {...this.searchIndex.query(query),indexVersion:this.indexVersion,completeness:this.completeness};
+    }
+    getIndexReport():XmlIndexReport {
+        this.refreshSearch();const files=new Set<string>();const issues=new Set<string>();
+        for(const graph of this.index.shared.graphs.values()){for(const file of graph.documents.keys())files.add(file);for(const issue of graph.issues)issues.add(`${issue.code}: ${issue.message}`);}
+        for(const file of this.manifests?.files??[])files.add(file);
+        for(const issue of this.manifests?.issues??[])issues.add(issue);
+        if(!this.schema)issues.add('未配置 XSD；类型与引用覆盖可能不完整。');
+        return {indexVersion:this.indexVersion,completeness:this.completeness,files:files.size,assets:this.searchRecords.length,references:this.getReferences().length,
+            pending:this.dirtyEntries.size+this.index.shared.pending.size+(!this.scanFinished&&!!this.scanning?1:0),lastDurationMs:this.lastDurationMs,lastIndexedAt:this.lastIndexedAt,issues:[...issues].slice(0,100),sdkXmlIncluded:!!this.options.includeSdkXml};
+    }
+    getUnreferencedAssets(query:AssetSearchQuery={}):Omit<AssetSearchPage,'items'>&{items:UnreferencedAsset[]} {
+        this.refreshSearch();if(this.unreferencedVersion!==this.searchVersion){
+            const dynamic=this.getReferences().some(reference=>reference.dynamic);const counts=new Map<string,number>();
+            // xi:include aliases share one physical declaration; an incoming edge to any alias counts as usage.
+            const physical=(asset:AssetSearchResult)=>JSON.stringify([asset.uri,asset.type,asset.id,asset.location?.start]);
+            for(const asset of this.searchRecords)counts.set(physical(asset),(counts.get(physical(asset))??0)+asset.referenceCount);
+            this.unreferencedRecords=this.searchRecords.filter(asset=>asset.source==='mod'&&counts.get(physical(asset))===0).map(asset=>{
+                const warnings=['仅表示当前没有已知静态入边；运行时按名称查找可能存在，不能据此判断可以删除。'];
+                if(dynamic)warnings.push('项目存在动态引用，静态关系可能无法覆盖。');
+                if(this.completeness!=='complete')warnings.push('索引尚未完整，引用数量可能增加。');
+                if(asset.type==='FXList')warnings.push('FXList 可能由脚本、游戏或外部内容按名称调用。');
+                if(/^(?:GameObject|PlayerTemplate|SkirmishAIData|ObjectCreationList|MapMetaData|AudioSettings|GameData)$/.test(asset.type))warnings.push('此类型可能作为入口资源被游戏加载。');
+                return {...asset,usage:'not-statically-referenced' as const,warnings};
+            });this.unreferencedSearchIndex.reset(this.unreferencedRecords);this.unreferencedVersion=this.searchVersion;
+        }
+        const allowed=new Map(this.unreferencedRecords.map(asset=>[asset.key,asset]));
+        const page=this.unreferencedSearchIndex.query({...query,source:'mod'});return {...page,items:page.items.map(asset=>allowed.get(asset.key)!),indexVersion:this.indexVersion,completeness:this.completeness};
     }
     findAssets(query:AssetQuery={}):AssetRecord[]{
         const records=new Map<string,AssetRecord>();

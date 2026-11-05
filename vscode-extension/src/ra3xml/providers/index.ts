@@ -5,11 +5,12 @@ import type { AssetService } from '../services/assetService';
 import type { AssetGraph, AssetRecord } from '../index/assetIndex';
 import type { ReferenceRecord } from '../index/referenceIndex';
 import { createAttributeInsertionPatch, createAttributePatch } from '../core/editTransaction';
-import { completionAt, completePaths, assetAt, schemaIssues, defineIssues, prepareAssetRename, type SourceIssue } from './languageFeatures';
+import { completionAt, completePaths, assetAt, schemaIssues, defineIssues, prepareAssetRename, unresolvedReferenceSeverity, type SourceIssue } from './languageFeatures';
 import { canonicalPath, containsPath, pathIdentity } from '../../project';
 import { planCopyToMod } from '../core/copyAsset';
 import { applyTextPatches } from '../core/editTransaction';
 import { parseXml } from '../core/xmlDocument';
+import { completionField, valueCompletionState, defineDeclarations, defineNameAt, visibleDefineDocuments, documentOutline, semanticRanges } from './editorFeatures';
 
 export interface XmlProviderServices { getService(document: vscode.TextDocument): AssetService | undefined }
 export interface XmlProviders extends vscode.Disposable { refresh(): void }
@@ -38,6 +39,7 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
     const diagnostics = vscode.languages.createDiagnosticCollection('newsdk-xml');
     subscriptions.push(diagnostics);
     const lensesChanged = new vscode.EventEmitter<void>(); subscriptions.push(lensesChanged);
+    const semanticChanged = new vscode.EventEmitter<void>(); subscriptions.push(semanticChanged);
     const timers = new Map<string, ReturnType<typeof setTimeout>>();
     const generations = new Map<string, number>();
     const observedServices = new Map<AssetService, vscode.Disposable>();
@@ -58,6 +60,7 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
         if (!observedServices.has(service)) {
             const owned: vscode.Disposable[] = [service.onDidChange(() => {
                 lensesChanged.fire();
+                semanticChanged.fire();
                 for (const open of vscode.workspace.textDocuments) if (eligible(open) && services.getService(open) === service) schedule(open);
             })];
             for (const root of new Set(service.options.roots)) {
@@ -107,9 +110,10 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
             const offset = document.offsetAt(position); const current = completionAt(source, offset); if (!current) return undefined;
             const schema = service.schema; const items: vscode.CompletionItem[] = [];
             let replacementStart = current.start;
+            let replacementEnd = offset;
             const add = (label: string, kind: vscode.CompletionItemKind, detail?: string, insertText?: string) => {
                 const item = new vscode.CompletionItem(label, kind); item.detail = detail; item.insertText = insertText ?? label;
-                item.range = range(document, replacementStart, offset); items.push(item); return item;
+                item.range = range(document, replacementStart, replacementEnd); items.push(item); return item;
             };
             if (current.kind === 'element' && schema) {
                 const fields = current.parent ? schema.getChildren(current.parent) : [...schema.elements.values()];
@@ -127,12 +131,10 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
                     item.sortText = `${field.required ? '0' : '1'}${field.name}`;
                 }
             } else if (current.kind === 'value' && current.value && current.node) {
-                const field = current.value.attribute ? schema?.getAttributes(current.node).find(field => field.name === current.value!.attribute)
-                    : schema?.getChildren(current.node.parent ?? current.node).find(field => field.name === current.node!.localName);
-                const list = field?.list || schema?.isReferenceList(current.node, current.value.attribute);
-                const valuePrefix = list ? /[^\s]*$/.exec(current.prefix)![0] : current.prefix;
-                if (list) replacementStart = offset - valuePrefix.length;
-                for (const value of field?.enumValues ?? []) add(value, vscode.CompletionItemKind.EnumMember, field?.type);
+                const field = completionField(schema, current);
+                const state = valueCompletionState(current, offset, field);
+                const valuePrefix = state.prefix; replacementStart = state.start; replacementEnd = state.end;
+                for (const value of state.values) add(value, vscode.CompletionItemKind.EnumMember, field?.type);
                 if (field?.default !== undefined && !field.enumValues.includes(field.default)) add(field.default, vscode.CompletionItemKind.Value, 'XSD 默认值');
                 const own = service.findAssets({}).find(asset => pathIdentity(asset.uri) === pathIdentity(service.documents.normalize(document.uri.fsPath)) && asset.node.start <= offset && offset < asset.node.end);
                 const type = current.value.attribute === 'inheritFrom' ? own?.type : schema?.getReferenceType(current.node, current.value.attribute);
@@ -159,11 +161,61 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
         },
     }, '<', ' ', '"', "'", ':', '/', '\\'));
 
+    subscriptions.push(vscode.languages.registerDocumentSymbolProvider(selector, {
+        async provideDocumentSymbols(document, token) {
+            const service = await serviceFor(document, token); if (!service) return [];
+            const source = service.getDocument(document.uri.fsPath); if (!source) return [];
+            const entries = documentOutline(source);
+            const symbols = entries.map(entry => ({entry, symbol: new vscode.DocumentSymbol(entry.name, entry.detail,
+                entry.kind === 'define' ? vscode.SymbolKind.Constant : vscode.SymbolKind.Object,
+                range(document, entry.start, entry.end), range(document, entry.selectionStart, entry.selectionEnd))}));
+            if (entries.filter(entry => entry.kind === 'asset').length < 2) return symbols.map(value => value.symbol);
+            const groups = new Map<string, typeof symbols>();
+            for (const value of symbols) {const key = value.entry.type ?? '$DEFINE'; const values = groups.get(key) ?? []; values.push(value); groups.set(key, values);}
+            return [...groups].map(([name, values]) => {
+                const start = values.reduce((start, value) => Math.min(start, value.entry.start), document.getText().length);
+                const end = values.reduce((end, value) => Math.max(end, value.entry.end), 0);
+                const group = new vscode.DocumentSymbol(name, `${values.length} 项`, vscode.SymbolKind.Namespace,
+                    range(document, start, end), values[0].symbol.selectionRange);
+                group.children = values.map(value => value.symbol); return group;
+            });
+        },
+    }));
+    const semanticLegend = new vscode.SemanticTokensLegend(['newsdkAsset', 'newsdkReference', 'newsdkDefine', 'newsdkInclude', 'newsdkResource'], ['declaration']);
+    subscriptions.push(vscode.languages.registerDocumentSemanticTokensProvider(selector, {
+        onDidChangeSemanticTokens: semanticChanged.event,
+        async provideDocumentSemanticTokens(document, token) {
+            const service = await serviceFor(document, token); if (!service) return undefined;
+            const source = service.getDocument(document.uri.fsPath); if (!source) return undefined;
+            const builder = new vscode.SemanticTokensBuilder(semanticLegend);
+            for (const item of semanticRanges(source, service.findAssets(), service.getReferences(document.uri.fsPath))) {
+                // Semantic tokens are single-line UTF-16 ranges, even when XML values wrap.
+                let start = item.start;
+                while (start < item.end) {
+                    const position = document.positionAt(start), end = Math.min(item.end, document.offsetAt(document.lineAt(position.line).range.end));
+                    if (end > start) builder.push(range(document, start, end), item.type, item.declaration ? ['declaration'] : []);
+                    const next = document.offsetAt(new vscode.Position(position.line + 1, 0));
+                    if (end >= item.end || next <= start) break;
+                    start = next;
+                }
+            }
+            return builder.build();
+        },
+    }, semanticLegend));
+
     subscriptions.push(vscode.languages.registerDefinitionProvider(selector, {
         async provideDefinition(document, position, token) {
             const service = await serviceFor(document, token); if (!service) return undefined;
             const source = service.getDocument(document.uri.fsPath); if (!source) return undefined;
             const offset = document.offsetAt(position); const current = completionAt(source, offset);
+            const define = defineNameAt(source, offset);
+            if (define) {
+                const graph = scopes.get(document.uri.toString());
+                const visible = visibleDefineDocuments(source.uri, graph?.documents.values() ?? [source], graph?.includes ?? []);
+                return Promise.all(defineDeclarations(visible).filter(record => record.name === define.name).map(async record => {
+                    const target = await openKnownDocument(record.uri, service); return new vscode.Location(target.uri, range(target, record.start, record.end));
+                }));
+            }
             if (current?.value && includeValue(current.value.node, current.value.attribute)) {
                 try { const target = await service.index.resolveFile(document.uri.fsPath, current.value.value); return new vscode.Location(uri(target), new vscode.Position(0, 0)); }
                 catch { return undefined; }
@@ -182,6 +234,16 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
             const service = await serviceFor(document, token); if (!service) return undefined;
             const offset = document.offsetAt(position); const selected = selection(service, document, offset);
             const markdown = new vscode.MarkdownString();
+            const source = service.getDocument(document.uri.fsPath), define = source && defineNameAt(source, offset);
+            if (define && source) {
+                const graph = scopes.get(document.uri.toString());
+                const records = defineDeclarations(visibleDefineDocuments(source.uri, graph?.documents.values() ?? [source], graph?.includes ?? [])).filter(record => record.name === define.name);
+                markdown.appendCodeblock(`$${define.name}`, 'text');
+                if (!records.length) markdown.appendText('当前 Include 作用域未确认此定义；表达式由编译器核实。');
+                for (const record of records) markdown.appendText(`${record.value ?? '（无值）'} ← ${record.uri}\n\n`);
+                if (records.length > 1) markdown.appendText('存在多个可见来源；转到定义可选择来源。');
+                return new vscode.Hover(markdown, range(document, define.start, define.end));
+            }
             if (selected.asset) {
                 const asset = selected.asset;
                 markdown.appendCodeblock(`${asset.type} ${asset.id}`, 'text');
@@ -197,14 +259,20 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
                     markdown.appendMarkdown(`[打开 manifest 文件](<${uri(asset.uri).toString()}>)`);
                 }
             } else if (selected.reference) {
-                markdown.appendText(selected.reference.dynamic ? '动态引用：无法静态确认目标。' : selected.reference.ambiguous ? '存在多个可见目标，请先消除歧义。' : '尚未确认引用目标。');
+                markdown.appendText(selected.reference.dynamic ? '动态引用：无法静态确认目标。' : selected.reference.ambiguous ? '存在多个可见目标，转到定义可选择来源。' : '尚未确认引用目标。');
+                if (selected.reference.ambiguous) for (const asset of service.findAssets().filter(asset => selected.reference!.targets.includes(asset.key))) markdown.appendText(`\n\n${asset.type}:${asset.id} · ${asset.readonly ? 'SDK' : 'MOD'} · ${asset.uri}`);
             } else {
-                const source = service.getDocument(document.uri.fsPath); const node = source?.elementAt(offset);
+                const node = source?.elementAt(offset);
                 if (!node) return undefined;
                 const attribute = Object.values(node.attributeTokens).find(token => token.start <= offset && offset <= token.end)?.name;
                 const field = attribute ? service.schema?.getAttributes(node).find(field => field.name === attribute) : undefined;
                 if (field) {markdown.appendCodeblock(`${field.name}: ${fieldDetail(field)}`, 'text'); if (field.documentation) markdown.appendText(field.documentation);}
-                else return undefined;
+                else {
+                    const element = service.schema?.getElement(node); if (!element) return undefined;
+                    markdown.appendCodeblock(`${element.name}: ${fieldDetail(element)}`, 'text');
+                    if (element.documentation) markdown.appendText(element.documentation);
+                    if (element.sourceUri) markdown.appendText(`\n\nXSD：${element.sourceUri}`);
+                }
             }
             return new vscode.Hover(markdown);
         },
@@ -413,15 +481,21 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
             const version = document.version; const service = await serviceFor(document); if (!service) {diagnostics.delete(document.uri); return;}
             const source = service.getDocument(document.uri.fsPath); if (!source) return;
             const graph = scopes.get(key);
-            const problems: SourceIssue[] = [...schemaIssues(source, service.schema), ...defineIssues(source, graph?.documents.values() ?? [source])];
+            const visibleDefines = visibleDefineDocuments(source.uri, graph?.documents.values() ?? [source], graph?.includes ?? []);
+            const problems: SourceIssue[] = [...schemaIssues(source, service.schema), ...defineIssues(source, visibleDefines)];
             for (const issue of scopes.get(key)?.issues ?? []) if (issue.uri && pathIdentity(issue.uri) === pathIdentity(source.uri)) problems.push({uri: source.uri, start: issue.start ?? 0, end: issue.end ?? (issue.start ?? 0) + 1,
                 code: issue.code, message: issue.message, severity: issue.severity});
             for (const reference of service.getReferences(document.uri.fsPath)) {
                 if (reference.dynamic || !reference.ambiguous && (reference.targets.length || reference.manifestTargets?.length)) continue;
                 const pending = service.completeness !== 'complete';
-                problems.push({uri: reference.uri, start: reference.start, end: reference.end, code: reference.ambiguous ? 'xml.ambiguous-reference' : 'xml.unresolved-reference',
-                    message: reference.ambiguous ? `引用 ${reference.type}:${reference.value} 有多个可见定义。` : `${pending ? '待确认：' : ''}尚未找到 ${reference.type}:${reference.value}。`,
-                    severity: pending ? 'information' : 'warning'});
+                const prefix = reference.value.includes(':') ? reference.value.slice(0, reference.value.indexOf(':')) : undefined;
+                const incompatible = !!prefix && !!service.schema && prefix !== reference.type && !service.schema.isAssignable(prefix, reference.type);
+                const severity = reference.ambiguous || incompatible ? pending ? 'information' : 'warning'
+                    : unresolvedReferenceSeverity(service.completeness, vscode.workspace.getConfiguration('newsdk', document.uri).get<string>('xml.unknownReferenceSeverity', 'warning'));
+                if (!severity) continue;
+                problems.push({uri: reference.uri, start: reference.start, end: reference.end, code: reference.ambiguous ? 'xml.ambiguous-reference' : incompatible ? 'xml.reference-type' : 'xml.unresolved-reference',
+                    message: reference.ambiguous ? `引用 ${reference.type}:${reference.value} 有多个可见定义。` : incompatible ? `引用指定类型 ${prefix}，字段要求 ${reference.type}。` : `${pending ? '待确认：' : ''}尚未找到 ${reference.type}:${reference.value}。`,
+                    severity});
             }
             const declarations = service.findAssets({}).filter(asset => pathIdentity(asset.uri) === pathIdentity(source.uri));
             const seen = new Map<string, AssetRecord>();
@@ -445,6 +519,9 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
         timers.set(key, setTimeout(() => {timers.delete(key); void updateDiagnostics(document);}, 180));
     }
     subscriptions.push(vscode.workspace.onDidOpenTextDocument(schedule));
+    subscriptions.push(vscode.workspace.onDidChangeConfiguration(event => {
+        if (event.affectsConfiguration('newsdk.xml.unknownReferenceSeverity')) for (const document of vscode.workspace.textDocuments) schedule(document);
+    }));
     subscriptions.push(vscode.workspace.onDidChangeTextDocument(event => {
         if (!eligible(event.document)) return;
         schedule(event.document);
@@ -474,7 +551,7 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
         refresh() {
             for (const timer of timers.values()) clearTimeout(timer); timers.clear(); generations.clear();
             observedServices.forEach(subscription => subscription.dispose()); observedServices.clear();
-            diagnostics.clear(); snapshots.clear(); scopes.clear(); lensesChanged.fire();
+            diagnostics.clear(); snapshots.clear(); scopes.clear(); lensesChanged.fire(); semanticChanged.fire();
             for (const document of vscode.workspace.textDocuments) schedule(document);
         },
         dispose() {disposed = true; for (const timer of timers.values()) clearTimeout(timer); timers.clear(); generations.clear(); snapshots.clear(); scopes.clear();

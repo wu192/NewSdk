@@ -2,7 +2,7 @@
   "name": "newsdk-mod-tools",
   "displayName": "NewSdk Mod Tools",
   "description": "共享 XML/XSD 智能编辑、编译工作台和 CPU/GPU、Trail、Lightning、Swarm 特效编辑。",
-  "version": "0.4.0",
+  "version": "0.5.1",
   "publisher": "wu162",
   "license": "UNLICENSED",
   "repository": {
@@ -37,8 +37,9 @@
     "test": "npm run compile && node --test out/test/*.test.js",
     "test:host": "npm run compile && node out/test/runHost.js",
     "package": "vsce package --allow-missing-repository --out NewSdk-Mod-Tools-FX.vsix",
-    "test:render": "npm run compile && node test/renderFx.cjs && node test/renderFxRound2.cjs && node test/fxUiRound2.cjs && node test/renderFxSpecial.cjs",
-    "test:stress": "npm run compile && node --expose-gc test/fxStress.cjs"
+    "test:render": "npm run compile && node test/renderFx.cjs && node test/renderFxRound2.cjs && node test/fxUiRound2.cjs && node test/renderFxSpecial.cjs && node test/fxAuthoringUi.cjs",
+    "test:stress": "npm run compile && node --expose-gc test/fxStress.cjs",
+    "test:languageHost": "npm run compile && node out/test/runLanguageHost.js"
   },
   "dependencies": {
     "https-proxy-agent": "^7.0.6",
@@ -187,6 +188,90 @@
       {
         "command": "newsdk.xml.copyToMod",
         "title": "NewSdk XML: 复制 SDK 资产到 MOD"
+      },
+      {
+        "command": "newsdk.xml.searchAssets",
+        "title": "NewSdk XML: 查找资产",
+        "icon": "$(search)"
+      },
+      {
+        "command": "newsdk.xml.unreferenced",
+        "title": "NewSdk XML: 查找未引用资产（所有类型）"
+      },
+      {
+        "command": "newsdk.xml.unreferencedType",
+        "title": "NewSdk XML: 查找未引用资产（当前资产类型）"
+      },
+      {
+        "command": "newsdk.xml.reindex",
+        "title": "NewSdk XML: 重新索引工作区"
+      },
+      {
+        "command": "newsdk.xml.indexReport",
+        "title": "NewSdk XML: 查看索引报告"
+      },
+      {
+        "command": "newsdk.xml.clearIndex",
+        "title": "NewSdk XML: 清除 XML 索引缓存并重建"
+      },
+      {
+        "command": "newsdk.fx.importSkill",
+        "title": "NewSdk FX: 导入/更新创作 Skill"
+      },
+      {
+        "command": "newsdk.fx.installSkill",
+        "title": "NewSdk FX: 安装到 AI 助手"
+      },
+      {
+        "command": "newsdk.fx.openSkill",
+        "title": "NewSdk FX: 打开 Skill 文档"
+      },
+      {
+        "command": "newsdk.fx.copySkillPrompt",
+        "title": "NewSdk FX: 复制 Skill 聊天提示词"
+      },
+      {
+        "command": "newsdk.fx.restoreSkill",
+        "title": "NewSdk FX: 恢复 Skill 版本"
+      },
+      {
+        "command": "newsdk.fx.uninstallSkill",
+        "title": "NewSdk FX: 卸载本次 Skill 安装"
+      },
+      {
+        "command": "newsdk.fx.aiNew",
+        "title": "NewSdk FX: AI 新建特效",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "newsdk.fx.aiModify",
+        "title": "NewSdk FX: AI 修改当前特效",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "newsdk.fx.check",
+        "title": "NewSdk FX: 检查当前特效",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "newsdk.fx.importResult",
+        "title": "NewSdk FX: 导入 AI 结果"
+      },
+      {
+        "command": "newsdk.fx.copyPrompt",
+        "title": "NewSdk FX: 复制当前特效创作提示词"
+      },
+      {
+        "command": "newsdk.agent.start",
+        "title": "NewSdk AI: 启动本地只读 MCP"
+      },
+      {
+        "command": "newsdk.agent.stop",
+        "title": "NewSdk AI: 停止本地只读 MCP"
+      },
+      {
+        "command": "newsdk.agent.copyConfiguration",
+        "title": "NewSdk AI: 复制 MCP 连接配置"
       }
     ],
     "viewsContainers": {
@@ -238,6 +323,46 @@
           "command": "newsdk.reloadFx",
           "when": "view == newsdk.fx",
           "group": "navigation@2"
+        },
+        {
+          "command": "newsdk.xml.searchAssets",
+          "when": "view == newsdk.sidebar",
+          "group": "newsdk.xml"
+        },
+        {
+          "command": "newsdk.xml.unreferenced",
+          "when": "view == newsdk.sidebar",
+          "group": "newsdk.xml"
+        },
+        {
+          "command": "newsdk.xml.indexReport",
+          "when": "view == newsdk.sidebar",
+          "group": "newsdk.xml"
+        },
+        {
+          "command": "newsdk.fx.aiNew",
+          "when": "view == newsdk.fx",
+          "group": "newsdk.authoring"
+        },
+        {
+          "command": "newsdk.fx.aiModify",
+          "when": "view == newsdk.fx",
+          "group": "newsdk.authoring"
+        },
+        {
+          "command": "newsdk.fx.check",
+          "when": "view == newsdk.fx",
+          "group": "newsdk.authoring"
+        },
+        {
+          "command": "newsdk.fx.importSkill",
+          "when": "view == newsdk.fx",
+          "group": "newsdk.authoring"
+        },
+        {
+          "command": "newsdk.fx.installSkill",
+          "when": "view == newsdk.fx",
+          "group": "newsdk.authoring"
         }
       ],
       "editor/title": [
@@ -258,6 +383,33 @@
         {
           "command": "newsdk.newFx",
           "when": "resourceExtname == .xml"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "newsdk.xml.searchAssets",
+          "when": "editorLangId == xml",
+          "group": "newsdk.xml"
+        },
+        {
+          "command": "newsdk.xml.unreferencedType",
+          "when": "editorLangId == xml",
+          "group": "newsdk.xml"
+        },
+        {
+          "command": "newsdk.xml.indexReport",
+          "when": "editorLangId == xml",
+          "group": "newsdk.xml"
+        },
+        {
+          "command": "newsdk.fx.aiModify",
+          "when": "editorLangId == xml",
+          "group": "newsdk.fx"
+        },
+        {
+          "command": "newsdk.fx.check",
+          "when": "editorLangId == xml",
+          "group": "newsdk.fx"
         }
       ]
     },
@@ -282,6 +434,33 @@
           "minimum": 16,
           "maximum": 256,
           "description": "特效CPU贴图缓存与解码预算（MiB）；4K完整mip贴图建议128，超预算暂停加载。"
+        },
+        "newsdk.xml.includeSdkXml": {
+          "type": "boolean",
+          "default": false,
+          "description": "将 SDK SageXML/Art 中的 XML 纳入同一索引。关闭时仍保留 Include 可见的 SDK XML 及 manifest 元数据。"
+        },
+        "newsdk.xml.unknownReferenceSeverity": {
+          "type": "string",
+          "enum": [
+            "warning",
+            "information",
+            "off"
+          ],
+          "default": "warning",
+          "description": "完整索引中未解析静态引用的提示级别。索引未完成时始终标记待确认，动态表达式不视为确定错误。"
+        },
+        "newsdk.fxPythonPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Python 3 可执行文件完整路径；留空使用系统 python。仅在运行配方、Skill 检查或 V2 XSD 校验时调用。"
+        },
+        "newsdk.fxSchemaPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "FX V2 校验的 XSD 入口覆盖路径；留空自动使用所选 SDK 的编译器 schema 设置或 Schemas/xsd/CnC3Types.xsd。未配置 SDK 且未覆盖时跳过；需要 Python lxml。"
         }
       }
     },
@@ -295,6 +474,55 @@
           }
         ],
         "priority": "option"
+      }
+    ],
+    "semanticTokenTypes": [
+      {
+        "id": "newsdkAsset",
+        "superType": "variable",
+        "description": "NewSdk 资产 ID"
+      },
+      {
+        "id": "newsdkReference",
+        "superType": "variable",
+        "description": "NewSdk 类型引用"
+      },
+      {
+        "id": "newsdkDefine",
+        "superType": "macro",
+        "description": "NewSdk 宏"
+      },
+      {
+        "id": "newsdkInclude",
+        "superType": "string",
+        "description": "NewSdk Include 路径"
+      },
+      {
+        "id": "newsdkResource",
+        "superType": "string",
+        "description": "NewSdk 资源路径"
+      }
+    ],
+    "semanticTokenScopes": [
+      {
+        "language": "xml",
+        "scopes": {
+          "newsdkAsset": [
+            "variable.other.constant"
+          ],
+          "newsdkReference": [
+            "variable.other"
+          ],
+          "newsdkDefine": [
+            "entity.name.function.preprocessor"
+          ],
+          "newsdkInclude": [
+            "string.quoted"
+          ],
+          "newsdkResource": [
+            "string.quoted"
+          ]
+        }
       }
     ]
   }

@@ -17,13 +17,19 @@ import { createFxTemplate, escapeXml, FxPreset, fxPresets } from './templates';
 import { prepareTextureState, streamPreviewTextures, UploadedTexture } from './texturePipeline';
 import { planAssetCopy } from './copyAsset';
 import { FxCompiledTextureService, FxTextureInputVersion } from './compiledTextureService';
+import { FxSkillManager } from './skillManager';
+import { SkillRunner } from './skillRunner';
+import { FxAuthoringController, AuthoringHost } from './authoringController';
+import { FxAuthoringAction } from './skillIntent';
 
 const viewType = 'newsdk.fxEditor';
 const sourceLimit = 4 * 1024 * 1024;
 const defaultTextureBudget = 32 * 1024 * 1024;
 const textureChunkBytes = 256 * 1024;
 type HostPayload = { [K in FxHostMessage['type']]: Omit<Extract<FxHostMessage, { type: K }>, keyof FxEnvelope> }[FxHostMessage['type']];
-interface FxServices {
+export interface FxServices {
+    skillManager?: FxSkillManager;
+    skillRunner?: SkillRunner;
     getProject(): DiscoveredProject | undefined;
     getConfiguration(): ResolvedProjectSettings | undefined;
     saveAndBuild(uris?: vscode.Uri[]): Promise<unknown>;
@@ -40,6 +46,8 @@ interface EditorState {
 }
 export interface FxApi extends vscode.Disposable {
     refreshProject(): void;
+    openAuthoring(mode?: 'new' | 'edit'): Promise<void>;
+    checkCurrent(): Promise<void>;
     open(uri: vscode.Uri, assetKey?: string): Promise<void>;
     openShared(uri: string, systemKey: string): Promise<void>;
     copy(uri: string, assetKey: string, systemKey?: string): Promise<void>;
@@ -91,7 +99,9 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
     private compiledRoot?: string;
     private watchers: vscode.Disposable[] = [];
     private closed = false;
+    private readonly authoring: FxAuthoringController;
     constructor(private readonly context: vscode.ExtensionContext, private readonly services: FxServices) {
+        this.authoring = new FxAuthoringController(services.skillManager, ()=>services.skillRunner);
         this.subscriptions.push(vscode.window.registerCustomEditorProvider(viewType, this, {
             webviewOptions: { retainContextWhenHidden: false }, supportsMultipleEditorsPerDocument: false,
         }));
@@ -110,6 +120,11 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             if (state?.ir && systems(state.ir).some(system => system.key === systemKey)) await this.post(state, {type:'focusSystem', key:systemKey});
         });
         command('newsdk.searchFx', () => this.search());
+        command('newsdk.fx.aiNew', () => this.openAuthoring('new'));
+        command('newsdk.fx.aiModify', () => this.openAuthoring('edit'));
+        command('newsdk.fx.check', () => this.checkCurrent());
+        command('newsdk.fx.importResult', async () => { await this.openAuthoring('edit'); const state=this.current(); if(state)await this.authoring.action(this.authoringHost(state),{action:'import',mode:'edit'}); });
+        command('newsdk.fx.copyPrompt', async () => { await this.openAuthoring('edit'); const description=await vscode.window.showInputBox({title:'描述特效修改要求'}); const state=this.current();if(state&&description)await this.authoring.action(this.authoringHost(state),{action:'copyPrompt',mode:'edit',description}); });
         command('newsdk.reloadFx', () => this.reload());
         command('newsdk.newFx', () => this.newPreset(this.current()));
         command('newsdk.openFxXml', () => { const state = this.current(); return state ? this.locate(state) : undefined; });
@@ -185,7 +200,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
     }
     private async newIndex(): Promise<AssetIndex> {
         const semantic=getAssetService({ storagePath:this.context.globalStorageUri.fsPath, roots: this.roots, modRoot: this.services.getProject()?.root ?? this.roots[0],
-            sdkRoot: this.services.getConfiguration()?.sdkRoot,
+            sdkRoot: this.services.getConfiguration()?.sdkRoot, includeSdkXml: vscode.workspace.getConfiguration('newsdk').get<boolean>('xml.includeSdkXml', false),
             readText: async file => {
                 const physical = await this.allowed(file);
                 let open = vscode.workspace.textDocuments.find(d => d.uri.scheme === 'file' && sameFile(d.uri.fsPath, physical));
@@ -309,6 +324,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                     || state.index.graph.includes.some(edge => sameFile(edge.to, file))));
             if (!relevant) continue;
             state.textureInputs++;
+            void this.authoring.publish(this.authoringHost(state));
             void this.post(state, { type: 'invalidateDraft', message: '内容已更新，临时调节已取消；请依据当前文档重新应用。' });
             if (!state.indexReleased) state.index.invalidate(file);
             this.schedule(state);
@@ -333,6 +349,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         this.tree.update(assets, state.ir);
         if (!selected) { await this.status(state, '此入口未找到 FXList 或 FXParticleSystemTemplate。'); return; }
         if (!state.previewKey) state.assetKey = selected.key;
+        await this.authoring.publish(this.authoringHost(state));
         const ir = await state.resolver.resolve(selected.key, state.scene, signal); if (!state.session.current(requestId)) return;
         state.compiled.applySelection(ir, this.textureInput(state));
         state.inputFiles = [...new Set([...ir.dependencies, ...ir.textures.flatMap(texture => [texture.file, texture.sourceFile, texture.compiled?.path].filter((file): file is string => !!file))])].slice(0, 16384);
@@ -412,7 +429,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         const type = value && typeof value === 'object' ? (value as Record<string, unknown>).type : undefined;
         const run = (): Promise<void> => this.receive(state, value).catch(error => this.status(state, err(error), type === 'edit' || type === 'overrideField'));
         // Texture ACKs bypass document actions, which may themselves await uploads.
-        return ['edit','save','saveAndBuild','undo','redo','new','copy','overrideField','select','openShared','openFieldSource'].includes(String(type))
+        return ['edit','save','saveAndBuild','undo','redo','new','copy','overrideField','select','openShared','openFieldSource','authoring'].includes(String(type))
             ? state.session.enqueueDocumentAction(run) : run();
     }
     private async receive(state: EditorState, value: unknown): Promise<void> {
@@ -425,12 +442,16 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         }
         const message = value as FxClientMessage;
         switch (message.type) {
+            case 'authoring':
+                if (!state.session.acceptMutation(message.requestId)) return;
+                if (!message.value || typeof message.value !== 'object' || typeof message.value.action !== 'string') return;
+                await this.authoring.action(this.authoringHost(state), message.value); break;
             case 'ready':
                 if (!state.panel.visible) return;
                 state.s3tc = message.s3tc === true;
                 if (state.panel.active || !this.active.hasActive || this.active.owns(state.session)) this.active.activate(state.session, () => this.stopCanvas(state));
                 else { state.session.suspend(); this.stopCanvas(state); return; }
-                state.uploadedTextures.clear(); await this.rebuild(state); break;
+                state.uploadedTextures.clear(); await this.rebuild(state); await this.authoring.publish(this.authoringHost(state)); break;
             case 'reload': await this.reload(state, message.resetRenderer === true); break;
             case 'undo': case 'redo':
                 if (!state.session.acceptMutation(message.requestId)) return;
@@ -781,6 +802,20 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             if (editing) await this.locate(editing);
         } finally { targetIndex.dispose(); }
     }
+    private authoringHost(state: EditorState): AuthoringHost {
+        return {get disposed(){return state.disposed;},document:state.document,get target(){const asset=state.index.getAsset(state.assetKey ?? '');return asset&&sameFile(asset.uri,state.document.uri.fsPath)?{type:asset.type,id:asset.id}:undefined;},
+            modRoot:this.services.getProject()?.root ?? this.roots[0],sdkRoot:this.services.getConfiguration()?.sdkRoot,semantic:this.semantic,
+            editable:async()=>{if(state.disposed)throw new Error('编辑器已关闭。');await this.allowed(state.document.uri.fsPath,true);},
+            publish:view=>this.post(state,{type:'authoring',view}),preview:async(target)=>{if(target){state.index.invalidate(state.document.uri.fsPath);await state.index.load(state.entry);const selected=state.index.listAssets().find(candidate=>sameFile(candidate.uri,state.document.uri.fsPath)&&candidate.type===target.type&&candidate.id===target.id);if(selected){state.assetKey=selected.key;state.previewKey=undefined;}}await this.rebuild(state);}};
+    }
+    async openAuthoring(mode: 'new' | 'edit' = 'edit'): Promise<void> {
+        let state=this.current();
+        if(!state){let uri=vscode.window.activeTextEditor?.document.uri;
+            if(!uri||uri.scheme!=='file'||!/\.xml$/i.test(uri.fsPath))uri=(await vscode.window.showOpenDialog({title:'选择创作目标 MOD XML',canSelectMany:false,filters:{XML:['xml']}}))?.[0];
+            if(!uri)return;await this.open(uri);state=this.current();}
+        if(state)await this.authoring.action(this.authoringHost(state),{action:'open',mode});
+    }
+    async checkCurrent(): Promise<void> {await this.openAuthoring('edit');const state=this.current();if(state)await this.authoring.action(this.authoringHost(state),{action:'check'});}
     getSnapshot(uri?: string): ReturnType<FxApi['getSnapshot']> {
         const state = uri ? [...this.editors].find(s => sameFile(s.document.uri.fsPath, uri)) : this.current();
         return { sessionCount: this.editors.size, activeCount: [...this.editors].filter(s => s.session.visible && !s.session.signal.aborted).length,
@@ -797,6 +832,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         if (state.timer) clearTimeout(state.timer);
         this.active.release(state.session); state.session.dispose(); state.index.dispose();
         for (const subscription of state.subscriptions) subscription.dispose(); state.subscriptions = [];
+        this.authoring.release(state.document.uri.toString());
         state.compiled.dispose(); state.uploadedTextures.clear(); state.ir = undefined; this.diagnostics.remove(state.session.id); this.editors.delete(state);
         if (!this.editors.size) this.resources?.clear();
     }
@@ -809,7 +845,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
     }
     dispose(): void {
         this.closed = true; for (const state of [...this.editors]) { state.panel.dispose(); this.close(state); }
-        this.active.dispose(); this.resources?.dispose(); this.diagnostics.dispose(); this.tree.dispose();
+        this.authoring.dispose(); this.active.dispose(); this.resources?.dispose(); this.diagnostics.dispose(); this.tree.dispose();
         for (const watcher of this.watchers) watcher.dispose(); for (const subscription of this.subscriptions) subscription.dispose();
         this.pending.clear();
     }

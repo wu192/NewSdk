@@ -32,19 +32,50 @@ jobs:
       NEWSDK_COMPILER_URL: ${{ secrets.NEWSDK_COMPILER_URL }}
       NEWSDK_COMPILER_SHA256: ${{ secrets.NEWSDK_COMPILER_SHA256 }}
       NEWSDK_COMPILER_AUTHORIZATION: ${{ secrets.NEWSDK_COMPILER_AUTHORIZATION }}
-      NEWSDK_ACCEPTANCE: ${{ (inputs.full_acceptance || github.head_ref == 'codex/xml-fx-compiler-integration') && 'full' || 'smoke' }}
-      NEWSDK_FX_STRESS: ${{ (inputs.full_acceptance || github.head_ref == 'codex/xml-fx-compiler-integration') && 'full' || 'smoke' }}
+      NEWSDK_ACCEPTANCE: ${{ inputs.full_acceptance && 'full' || 'smoke' }}
+      NEWSDK_FX_STRESS: ${{ inputs.full_acceptance && 'full' || 'smoke' }}
       NEWSDK_TEST_EVIDENCE: ${{ github.workspace }}/vscode-extension/test-results
+      NEWSDK_REQUIRE_LXML: '1'
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+          fetch-depth: 2
+      - name: Select relevant acceptance scope
+        id: scope
+        env:
+          FULL_ACCEPTANCE: ${{ inputs.full_acceptance }}
+          MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' }}
+          PUSH_BASE: ${{ github.event.before }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          $base = 'HEAD^'
+          if ($env:EVENT_NAME -eq 'push' -and $env:PUSH_BASE -match '^[a-f0-9]{40}$' -and $env:PUSH_BASE -notmatch '^0+$') {
+            git fetch --no-tags --depth=1 origin $env:PUSH_BASE
+            if ($LASTEXITCODE -ne 0) { throw 'Cannot establish changed-file scope' }
+            $base = $env:PUSH_BASE
+          }
+          $changed = @(git diff --name-only $base HEAD)
+          if ($LASTEXITCODE -ne 0) { throw 'Cannot establish changed-file scope' }
+          $manual = $env:MANUAL_RUN -eq 'true'
+          $render = $manual -or [bool]($changed -match '^vscode-extension/(webview/fx/|src/fx/(editorProvider|previewSession|assetResolver|resourceService|texture|compiledTexture|capabilities)|test/(renderFx|fxUi|fxRender|fxStress))')
+          $runCompilerHost = $manual -or [bool]($changed -match '^vscode-extension/(src/(compiler|buildProtocol|project|diagnostics|workbench|fx/build)|test/(host/(index|fxAcceptance|compilerFixture)|runHost|realCancellation))')
+          "render=$($render.ToString().ToLower())" >> $env:GITHUB_OUTPUT
+          "host=$($runCompilerHost.ToString().ToLower())" >> $env:GITHUB_OUTPUT
+          "package=$(($runCompilerHost -or $manual).ToString().ToLower())" >> $env:GITHUB_OUTPUT
+          "Scope: unit + XML/Skill integration; FX browser=$render; compiler host=$runCompilerHost; full=$env:FULL_ACCEPTANCE" >> $env:GITHUB_STEP_SUMMARY
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - name: Install extension dependencies
         run: npm ci
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install XSD validation dependency
+        run: python -m pip install --disable-pip-version-check --no-cache-dir lxml==6.0.2
       - name: Resolve provided compiler release
+        if: steps.scope.outputs.host == 'true'
         run: |
           $release = Get-Content compiler-release.json -Raw | ConvertFrom-Json
           if (-not $env:NEWSDK_COMPILER_URL) {
@@ -62,18 +93,27 @@ jobs:
           New-Item -ItemType Directory -Force test-results | Out-Null
           npm test 2>&1 | Tee-Object test-results/unit-tests.log
           if ($LASTEXITCODE -ne 0) { throw 'Extension unit tests failed' }
+          'Unit and bounded XML/Skill/MCP integration tests passed; private Skill packages are never fetched by this workflow.' >> $env:GITHUB_STEP_SUMMARY
+      - name: Small XML and MCP extension host integration without compiler
+        run: |
+          node out/test/runLanguageHost.js 2>&1 | Tee-Object test-results/language-host.log
+          if ($LASTEXITCODE -ne 0) { throw 'XML/MCP extension-host integration failed' }
       - name: Install fixed browser for FX regression
+        if: steps.scope.outputs.render == 'true'
         run: npx playwright install chromium
       - name: Fixed-frame WebGL2, editor gestures and lifecycle regression
+        if: steps.scope.outputs.render == 'true'
         run: npm run test:render
       - name: Bounded CPU/GPU, event and long replay acceptance
+        if: steps.scope.outputs.render == 'true'
         run: npm run test:stress
       - name: Package installable VSIX without bundling compiler
+        if: steps.scope.outputs.package == 'true'
         run: |
           npm run package 2>&1 | Tee-Object test-results/package.log
           if ($LASTEXITCODE -ne 0) { throw 'VSIX packaging failed' }
       - name: Checkout fixed compiler source from this public repository
-        if: env.NEWSDK_COMPILER_URL == ''
+        if: steps.scope.outputs.host == 'true' && env.NEWSDK_COMPILER_URL == ''
         uses: actions/checkout@v4
         with:
           repository: wu192/NewSdk
@@ -94,17 +134,17 @@ jobs:
             /SDK/tools/BinaryAssetBuilder.Utility.dll
             /SDK/tools/BinaryAssetBuilder.Core.dll
       - name: Setup compiler build SDK
-        if: env.NEWSDK_COMPILER_URL == ''
+        if: steps.scope.outputs.host == 'true' && env.NEWSDK_COMPILER_URL == ''
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
       - name: Setup compiler native x86 toolchain
-        if: env.NEWSDK_COMPILER_URL == ''
+        if: steps.scope.outputs.host == 'true' && env.NEWSDK_COMPILER_URL == ''
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x86
       - name: Build actual compiler from fixed source
-        if: env.NEWSDK_COMPILER_URL == ''
+        if: steps.scope.outputs.host == 'true' && env.NEWSDK_COMPILER_URL == ''
         working-directory: .compiler-source
         run: |
           $destination = Join-Path $env:RUNNER_TEMP 'newsdk-actual-compiler'
@@ -121,13 +161,14 @@ jobs:
           "NEWSDK_COMPILER_PATH=$executable" >> $env:GITHUB_ENV
           'NEWSDK_COMPILER_SOURCE_REF=81d53046bc4b97eaa2bbfc5d3a5ef6dc58b0f60d' >> $env:GITHUB_ENV
       - name: Real Windows VS Code host, task lifecycle and actual compiler
+        if: steps.scope.outputs.host == 'true'
         env:
           NEWSDK_TEST_ROOT: ${{ runner.temp }}/newsdk-p0-host
         run: |
           npm run test:host 2>&1 | Tee-Object test-results/extension-host.log
           if ($LASTEXITCODE -ne 0) { throw 'Windows extension-host tests failed' }
       - name: Record compiler availability and acceptance scope
-        if: always()
+        if: always() && steps.scope.outputs.host == 'true'
         run: |
           if ($env:NEWSDK_COMPILER_PATH) {
             "Actual compiler built from fixed public source $env:NEWSDK_COMPILER_SOURCE_REF. See compiler-source.json and real-compiler.json." >> $env:GITHUB_STEP_SUMMARY
@@ -150,7 +191,7 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force test-results/summary | Out-Null
           @{ commit = $env:GITHUB_SHA; run = $env:GITHUB_RUN_ID } | ConvertTo-Json | Set-Content test-results/summary/run.json
-          $files = @('xml-host.json', 'fx-render.json', 'fx-render-round2.json', 'fx-ui-round2.json', 'fx-special.json', 'fx-stress.json', 'fx-host.json', 'extension-host.json', 'driver-exercise.json', 'driver-reopen.json', 'compiler-source.json', 'real-compiler.json', 'persistence.json')
+          $files = @('language-host.json', 'xml-host.json', 'fx-render.json', 'fx-render-round2.json', 'fx-ui-round2.json', 'fx-special.json', 'fx-stress.json', 'fx-host.json', 'extension-host.json', 'driver-exercise.json', 'driver-reopen.json', 'compiler-source.json', 'real-compiler.json', 'persistence.json')
           foreach ($name in $files) {
             $file = Join-Path 'test-results' $name
             if ((Test-Path $file) -and (Get-Item $file).Length -le 131072) {
@@ -164,7 +205,7 @@ jobs:
         if: failure()
         run: |
           New-Item -ItemType Directory -Force test-results/failure | Out-Null
-          foreach ($name in @('unit-tests.log', 'package.log', 'extension-host.log', 'compiler-build.log')) {
+          foreach ($name in @('unit-tests.log', 'language-host.log', 'package.log', 'extension-host.log', 'compiler-build.log')) {
             $file = Join-Path 'test-results' $name
             if (Test-Path $file) {
               $tail = Get-Content $file -Tail 500 | Out-String

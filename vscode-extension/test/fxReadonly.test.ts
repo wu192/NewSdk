@@ -20,7 +20,7 @@ class MockUri {
 }
 const mockVscode = {
     Uri: MockUri, EventEmitter: MockEmitter,
-    workspace: { isTrusted: true, onDidChangeTextDocument: () => disposable, onDidCloseTextDocument: () => disposable },
+    workspace: { registerTextDocumentContentProvider: () => disposable, isTrusted: true, onDidChangeTextDocument: () => disposable, onDidCloseTextDocument: () => disposable },
     window: {
         registerCustomEditorProvider: () => disposable, createTreeView: () => disposable,
         onDidChangeTextEditorSelection: () => disposable,
