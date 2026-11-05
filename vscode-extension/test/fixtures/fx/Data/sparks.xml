@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <Includes><Include type="instance" source="texture.xml"/></Includes>
+  <FXParticleSystemTemplate id="Sparks" Type="GPU_PARTICLE" Shader="ADDITIVE" ParticleTexture="FxFixtureTexture" SystemLifetime="30">
+    <Lifetime Low="30" High="30"/>
+    <Size Low="2" High="2"/>
+    <StartSizeRate Low="0" High="0"/>
+    <BurstDelay Low="5" High="5"/>
+    <BurstCount Low="8" High="8"/>
+    <InitialDelay Low="0" High="0"/>
+    <Alphas><Alpha Frame="1" RelativeAge="0" Low="1" High="1"/><Alpha Frame="2" RelativeAge="100" Low="0" High="0"/></Alphas>
+    <Colors><Color Frame="1" RelativeAge="0"><Color r="1" g="0.6" b="0.2"/></Color><Color Frame="2" RelativeAge="100"><Color r="0.2" g="0.1" b="0.05"/></Color><ColorScale Low="1" High="1"/></Colors>
+    <Physics><Default Gravity="-0.02"><VelocityDamping Low="1" High="1"/></Default></Physics>
+    <Draw><Gpu Shader="GPUParticle.fx" GeometryType="SIMPLE_QUAD" EnableSoftParticles="false" FramesPerRow="1" TotalFrames="1" SingleRow="0" RandTex="0" SpeedMultiplier="1"/></Draw>
+    <Volume><Sphere Radius="2"/></Volume>
+    <Velocity><Outward><Speed Low="0.6" High="1.2"/><OtherSpeed Low="0" High="0"/></Outward></Velocity>
+    <Event/>
+    <Update><Default><SizeRate Low="0.02" High="0.02"/><SizeRateDamping Low="1" High="1"/><AngleZ Low="0" High="0"/><AngularRateZ Low="0" High="0"/></Default></Update>
+  </FXParticleSystemTemplate>
+</AssetDeclaration>

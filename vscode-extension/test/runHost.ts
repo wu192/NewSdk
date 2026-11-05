@@ -37,7 +37,7 @@ async function main(): Promise<void> {
     await fs.mkdir(workspace, { recursive: true });
     const evidence = process.env.NEWSDK_TEST_EVIDENCE ?? path.join(extensionDevelopmentPath, 'test-results');
     await fs.mkdir(evidence, { recursive: true });
-    const installation = await runVSCodeCommand(['--install-extension', path.join(extensionDevelopmentPath, 'NewSdk-Mod-Tools-P0.vsix'),
+    const installation = await runVSCodeCommand(['--install-extension', path.join(extensionDevelopmentPath, 'NewSdk-Mod-Tools-FX-Round1.vsix'),
         '--force', '--user-data-dir', path.join(root, 'install-user-data'), '--extensions-dir', path.join(root, 'install-extensions')]);
     await fs.writeFile(path.join(evidence, 'vsix-install.log'), `${installation.stdout}\n${installation.stderr}`);
     const executable = await downloadAndUnzipVSCode();

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <Includes><Include type="instance" source="flash.xml"/></Includes>
+  <FXParticleSystemTemplate id="InheritedFlash" inheritFrom="Flash"><Size Low="18" High="18"/></FXParticleSystemTemplate>
+</AssetDeclaration>

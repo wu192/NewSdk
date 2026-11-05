@@ -8,6 +8,10 @@ import { canonicalPath, discoverProject, DiscoveredProject, GlobalSettings, Proj
 import { NewSdkSidebar, UiModel } from './sidebar';
 import { NewSdkWorkbench } from './workbench';
 import { NewSdkDiagnostics } from './diagnostics';
+import { registerFx, FxApi } from './fx/editorProvider';
+import { BuildVersionTracker } from './fx/buildVersion';
+import { collectBuildInputs } from './fx/buildInputs';
+import { pathIdentity } from './project';
 
 const projectStorageKey = 'newsdk.projects.v1';
 const lastProjectKey = 'newsdk.lastProject';
@@ -30,6 +34,8 @@ export interface NewSdkApi {
     plan(): ReturnType<CompilerRunner['plan']>;
     stop(): void;
     showWorkbench(): void;
+    readonly fx: FxApi;
+    saveAndBuild(uris?: vscode.Uri[]): ReturnType<CompilerRunner['build']>;
 }
 
 export async function activate(context: vscode.ExtensionContext): Promise<NewSdkApi> {
@@ -41,6 +47,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     let settings: ResolvedProjectSettings | undefined;
     let localMessage: string | undefined;
     let commandInProgress = false;
+    let fx: FxApi | undefined;
     const workbench = new NewSdkWorkbench(context.extensionUri, (command, value) => {
         // The webview only passes command names and an artifact index/version.
         void vscode.commands.executeCommand(command, value);
@@ -118,6 +125,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         ensureIdle();
         project = next;
         settings = resolved;
+        fx?.refreshProject();
         localMessage = undefined;
         diagnostics.clear();
         await context.globalState.update(lastProjectKey, next.root);
@@ -264,12 +272,70 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         await config.update('sdkRoot', sdk, vscode.ConfigurationTarget.Global);
         await saveProject({ outputDirectory: output, modVersion: version });
     }
-    async function build(): ReturnType<CompilerRunner['build']> {
+    async function buildSaved(): ReturnType<CompilerRunner['build']> {
         const config = await runConfiguration(true);
         localMessage = undefined;
         workbench.show();
         return runner.build(config);
     }
+    async function saveAndBuild(uris?: vscode.Uri[]): ReturnType<CompilerRunner['build']> {
+        const config = await runConfiguration(true);
+        const scannedVersions = new Map<vscode.TextDocument, number>();
+        const inputs = await collectBuildInputs({modRoot: config.modRoot, sdkRoot: config.sdkRoot,
+            readText: async file => {
+                const open = vscode.workspace.textDocuments.find(doc => pathIdentity(doc.uri.fsPath) === pathIdentity(file));
+                if (open) { scannedVersions.set(open, open.version); return {text: open.getText(), version: open.version}; }
+                const stat = await fs.stat(file);
+                if (stat.size > 4 * 1024 * 1024) throw new Error('XML 超过构建输入扫描预算。');
+                return {text: await fs.readFile(file, 'utf8'), version: 0};
+            }});
+        const scope = inputs.complete ? new Set([...inputs.files, ...(uris ?? []).map(uri => uri.fsPath)].map(file => pathIdentity(file))) : undefined;
+        const inMod = (uri: vscode.Uri) => uri.scheme === 'file' && containsPath(config.modRoot, uri.fsPath);
+        const relevant = (uri: vscode.Uri) => uri.scheme === 'file'
+            && (containsPath(config.modRoot, uri.fsPath) || containsPath(config.sdkRoot, uri.fsPath));
+        let dirty = vscode.workspace.textDocuments.filter(doc => doc.isDirty && inMod(doc.uri)
+            && (scope ? scope.has(pathIdentity(doc.uri.fsPath)) : /\.xml$/i.test(doc.uri.fsPath)));
+        if (!scope && dirty.length) {
+            const picked = await vscode.window.showQuickPick(dirty.map(doc => ({label: path.relative(config.modRoot, doc.uri.fsPath),
+                description: '未保存 XML', picked: true, document: doc})), {canPickMany: true,
+                title: '依赖范围未确定：选择本次编译前保存的 MOD XML'});
+            if (!picked) throw new Error('已取消保存，未启动编译。');
+            dirty = picked.map(item => item.document);
+        }
+        const unchanged = () => [...scannedVersions].every(([doc, version]) => doc.version === version);
+        if (!unchanged()) throw new Error('构建输入在扫描中更新，请重新编译。');
+        for (const doc of dirty) {
+            const physical = await canonicalPath(doc.uri.fsPath);
+            if (!containsPath(config.modRoot, physical)) throw new Error('待保存文档位于 MOD 物理路径之外。');
+            if (!await doc.save()) throw new Error(`保存失败，未启动编译：${path.basename(doc.uri.fsPath)}`);
+        }
+        if (!unchanged()) throw new Error('保存时文档发生修改，请重新编译以确认依赖范围。');
+        if (dirty.some(doc => doc.isDirty)) throw new Error('保存后文档又被修改，未启动编译。');
+        const tracker = new BuildVersionTracker();
+        for (const doc of vscode.workspace.textDocuments) if (relevant(doc.uri)) tracker.memory(doc.uri.toString(), doc.version);
+        const watchers = [config.modRoot, config.sdkRoot].map(root => vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(root, '**/*')));
+        const subscriptions: vscode.Disposable[] = [
+            vscode.workspace.onDidChangeTextDocument(event => { if (relevant(event.document.uri)) tracker.memory(event.document.uri.toString(), event.document.version); }),
+            vscode.workspace.onDidSaveTextDocument(doc => { if (relevant(doc.uri)) tracker.disk(); }),
+        ];
+        for (const watcher of watchers) for (const event of [watcher.onDidChange, watcher.onDidCreate, watcher.onDidDelete]) {
+            subscriptions.push(event(uri => { if (relevant(uri) && !/[\\/]SuperCompilerCache[\\/]/i.test(uri.fsPath)) tracker.disk(); }));
+        }
+        tracker.begin();
+        localMessage = undefined;
+        workbench.show();
+        try {
+            const result = await runner.build(config);
+            const state = tracker.result();
+            if (state === 'inputs-changed') localMessage = '输入在编译中变化，需重新编译。';
+            else if (result.status === 'succeeded') localMessage = state === 'previous-saved'
+                ? '上一保存版本编译成功；当前预览包含未保存修改。' : '已保存版本编译成功。';
+            log.appendLine(localMessage ?? `构建结果：${result.status}`);
+            render();
+            return result;
+        } finally { subscriptions.forEach(item => item.dispose()); watchers.forEach(item => item.dispose()); }
+    }
+    async function build(): ReturnType<CompilerRunner['build']> { return saveAndBuild(); }
     async function plan(): ReturnType<CompilerRunner['plan']> {
         const config = await runConfiguration(true);
         localMessage = undefined;
@@ -318,6 +384,8 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     register('newsdk.configureOutput', () => exclusive(chooseOutput));
     register('newsdk.setVersion', value => exclusive(() => setVersion(value)));
     register('newsdk.build', () => exclusive(build));
+    register('newsdk.buildSaved', () => exclusive(buildSaved));
+    register('newsdk.saveAndBuild', () => exclusive(() => saveAndBuild()));
     register('newsdk.plan', () => exclusive(plan));
     register('newsdk.doctor', () => exclusive(async () => runner.doctor(await runConfiguration(true))));
     register('newsdk.stop', () => runner.stop());
@@ -329,8 +397,12 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     register('newsdk.openArtifact', openArtifact);
     context.subscriptions.push(runner.onDidChange(() => { localMessage = undefined; render(); }));
     context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(event => {
-        if (event.affectsConfiguration('newsdk')) void refresh().catch(error => { localMessage = message(error); render(); });
+        if (event.affectsConfiguration('newsdk')) { fx?.refreshProject(); void refresh().catch(error => { localMessage = message(error); render(); }); }
     }));
+
+    fx = registerFx(context, { getProject: () => project, getConfiguration: () => settings,
+        saveAndBuild: uris => exclusive(() => saveAndBuild(uris)) });
+    context.subscriptions.push(fx);
 
     // Restoring a selection only reads source files; configuration is never written into the MOD.
     const folders = vscode.workspace.workspaceFolders ?? [];
@@ -346,7 +418,8 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     return { getState: () => runner.state, getProject: () => project, getConfiguration: () => settings ? { ...settings } : undefined,
         selectProject: root => exclusive(() => selectProject(root)), configure: values => exclusive(() => configure(values)),
         build: () => exclusive(build), plan: () => exclusive(plan),
-        stop: () => runner.stop(), showWorkbench: () => workbench.show() };
+        stop: () => runner.stop(), showWorkbench: () => workbench.show(), fx,
+        saveAndBuild: uris => exclusive(() => saveAndBuild(uris)) };
 }
 
 function message(error: unknown): string { return error instanceof Error ? error.message : String(error); }

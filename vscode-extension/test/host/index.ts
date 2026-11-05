@@ -8,6 +8,8 @@ import * as vscode from 'vscode';
 import { installCompiler } from '../../src/compilerInstaller';
 import type { BuildEvent, BuildResult } from '../../src/buildProtocol';
 import { runNormalCancellation } from '../realCancellation';
+import { runFxAcceptance } from './fxAcceptance';
+import type { FxApi } from '../../src/fx/editorProvider';
 
 type Result = BuildResult;
 interface State {
@@ -27,6 +29,8 @@ interface ExtensionApi {
     plan(): Promise<Result | undefined>;
     stop(): void;
     showWorkbench(): void;
+    fx: FxApi;
+    saveAndBuild(uris?: vscode.Uri[]): Promise<Result>;
 }
 
 const execute = promisify(execFile);
@@ -160,6 +164,9 @@ async function runSuite(): Promise<void> {
     assert.ok((result ?? api.getState().result)?.artifacts?.length);
     assert.deepEqual(await inventory(basic), source, 'Extension and task must leave MOD source bytes unchanged');
     cases.push({ name: 'plan-build-artifacts-source-readonly', status: 'passed' });
+    const fxMod = await select('MockFx');
+    checkpoint('fx-editor-acceptance');
+    await runFxAcceptance(api.fx, fxMod, evidence, uris => api.saveAndBuild(uris));
     await select('MockFailure');
     checkpoint('compiler-failure');
     result = await timed(api.build());
@@ -427,6 +434,23 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
             }
             await summary('running');
         }
+        const fxCase = await selected('RealFx');
+        await fs.mkdir(path.join(fxCase.mod, 'Data'), {recursive:true});
+        await fs.cp(path.resolve(__dirname, '../../../test/fixtures/fx/Data'), path.join(fxCase.mod,'Data'), {recursive:true});
+        const beforeFx = await inventory(fxCase.mod);
+        checkpoint('real-fx-gpu-texture-inheritance-build');
+        const fxBuilt = final(await timed(api.build(),180000));
+        await preserve(fxCase.output,'RealFx',fxBuilt);
+        assert.equal(fxBuilt.status,'succeeded', JSON.stringify({reason:fxBuilt.reason,diagnostics:fxBuilt.diagnostics}));
+        const fxBig = fxBuilt.artifacts.find(a=>a.kind==='package.big'); assert.ok(fxBig);
+        const fxMembers = await bigMembers(fxBig.path);
+        const fxAssets = manifestAssets(fxMembers,'data\\mod.manifest');
+        for (const asset of ['FXParticleSystemTemplate:Flash','FXParticleSystemTemplate:Smoke','FXParticleSystemTemplate:Sparks','FXParticleSystemTemplate:Aura','FXParticleSystemTemplate:InheritedFlash','FXList:MultiLayerAura','Texture:FxFixtureTexture']) {
+            assert.ok(fxAssets.includes(asset), `Compiled FX fixture omitted ${asset}`);
+        }
+        assert.deepEqual(await inventory(fxCase.mod),beforeFx,'FX compiler must preserve original XML and source texture');
+        results.push({name:'RealFx',status:'passed',buildId:fxBuilt.buildId,assets:fxAssets,contracts:['GPU modules','FXList','TGA Texture','ordinary inheritance']});
+        await summary('running');
         if (full) {
             const additional = await fixture('RealAdditionalOnly', ['additional']);
             const additionalBefore = await inventory(additional.mod);

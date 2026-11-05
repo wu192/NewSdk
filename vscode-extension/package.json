@@ -1,75 +1,277 @@
 {
   "name": "newsdk-mod-tools",
   "displayName": "NewSdk Mod Tools",
-  "description": "在 Windows 本地 VS Code 中配置、编译和检查 NewSdk MOD。",
-  "version": "0.1.0",
+  "description": "在 Windows 本地 VS Code 中编译 MOD、预览与编辑普通 GPU 特效。",
+  "version": "0.2.0",
   "publisher": "wu162",
   "license": "UNLICENSED",
-  "repository": { "type": "git", "url": "https://github.com/wu162/NewSdk.git", "directory": "vscode-extension" },
-  "engines": { "vscode": "^1.96.0" },
-  "categories": ["Other"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wu192/NewSdk.git",
+    "directory": "vscode-extension"
+  },
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
   "main": "./out/src/extension.js",
-  "extensionKind": ["ui"],
-  "capabilities": { "untrustedWorkspaces": { "supported": false }, "virtualWorkspaces": { "supported": false } },
-  "activationEvents": ["onStartupFinished"],
+  "extensionKind": [
+    "ui"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false
+    },
+    "virtualWorkspaces": {
+      "supported": false
+    }
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "scripts": {
-    "compile": "tsc -p .",
+    "compile": "tsc -p . && node scripts/build-fx.cjs",
     "vscode:prepublish": "npm run compile",
     "test": "npm run compile && node --test out/test/*.test.js",
     "test:host": "npm run compile && node out/test/runHost.js",
-    "package": "vsce package --allow-missing-repository --out NewSdk-Mod-Tools-P0.vsix"
+    "package": "vsce package --allow-missing-repository --out NewSdk-Mod-Tools-FX-Round1.vsix",
+    "test:render": "npm run compile && node test/renderFx.cjs"
   },
-  "dependencies": { "https-proxy-agent": "^7.0.6", "yauzl": "^3.2.0" },
+  "dependencies": {
+    "https-proxy-agent": "^7.0.6",
+    "yauzl": "^3.2.0"
+  },
   "devDependencies": {
+    "@playwright/test": "1.56.1",
     "@types/node": "^22.10.0",
     "@types/vscode": "1.96.0",
     "@types/yauzl": "^2.10.3",
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.2.0",
+    "esbuild": "0.25.12",
     "typescript": "^5.7.2"
   },
   "contributes": {
-    "taskDefinitions": [{
-      "type": "newsdk",
-      "required": ["runId", "operation"],
-      "properties": {
-        "runId": { "type": "string", "description": "扩展创建的本轮任务标识。" },
-        "operation": { "type": "string", "enum": ["doctor", "plan", "build"] }
+    "taskDefinitions": [
+      {
+        "type": "newsdk",
+        "required": [
+          "runId",
+          "operation"
+        ],
+        "properties": {
+          "runId": {
+            "type": "string",
+            "description": "扩展创建的本轮任务标识。"
+          },
+          "operation": {
+            "type": "string",
+            "enum": [
+              "doctor",
+              "plan",
+              "build"
+            ]
+          }
+        }
       }
-    }],
-    "commands": [
-      { "command": "newsdk.openWorkbench", "title": "NewSdk: 打开编译工作台" },
-      { "command": "newsdk.selectProject", "title": "NewSdk: 选择 MOD 目录" },
-      { "command": "newsdk.configure", "title": "NewSdk: 配置编译环境" },
-      { "command": "newsdk.configureCompiler", "title": "NewSdk: 选择或下载编译器" },
-      { "command": "newsdk.configureSdk", "title": "NewSdk: 设置 SDK 目录" },
-      { "command": "newsdk.configureOutput", "title": "NewSdk: 设置输出目录" },
-      { "command": "newsdk.setVersion", "title": "NewSdk: 设置 MOD 版本" },
-      { "command": "newsdk.build", "title": "NewSdk: 编译 MOD", "icon": "$(play)" },
-      { "command": "newsdk.stop", "title": "NewSdk: 停止编译（强制中断）", "icon": "$(debug-stop)" },
-      { "command": "newsdk.plan", "title": "NewSdk: 查看编译计划" },
-      { "command": "newsdk.doctor", "title": "NewSdk: 检查编译环境" },
-      { "command": "newsdk.openLog", "title": "NewSdk: 查看编译日志" },
-      { "command": "newsdk.openEvents", "title": "NewSdk: 查看完整事件 JSONL" },
-      { "command": "newsdk.openReport", "title": "NewSdk: 查看构建报告" },
-      { "command": "newsdk.openOutput", "title": "NewSdk: 打开输出目录" },
-      { "command": "newsdk.openArtifact", "title": "NewSdk: 打开产物位置" }
     ],
-    "viewsContainers": { "activitybar": [{ "id": "newsdk", "title": "NewSdk", "icon": "media/icon.svg" }] },
-    "views": { "newsdk": [{ "id": "newsdk.sidebar", "name": "MOD 编译", "contextualTitle": "NewSdk" }] },
+    "commands": [
+      {
+        "command": "newsdk.openWorkbench",
+        "title": "NewSdk: 打开编译工作台"
+      },
+      {
+        "command": "newsdk.selectProject",
+        "title": "NewSdk: 选择 MOD 目录"
+      },
+      {
+        "command": "newsdk.configure",
+        "title": "NewSdk: 配置编译环境"
+      },
+      {
+        "command": "newsdk.configureCompiler",
+        "title": "NewSdk: 选择或下载编译器"
+      },
+      {
+        "command": "newsdk.configureSdk",
+        "title": "NewSdk: 设置 SDK 目录"
+      },
+      {
+        "command": "newsdk.configureOutput",
+        "title": "NewSdk: 设置输出目录"
+      },
+      {
+        "command": "newsdk.setVersion",
+        "title": "NewSdk: 设置 MOD 版本"
+      },
+      {
+        "command": "newsdk.build",
+        "title": "NewSdk: 编译 MOD",
+        "icon": "$(play)"
+      },
+      {
+        "command": "newsdk.stop",
+        "title": "NewSdk: 停止编译（强制中断）",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "newsdk.plan",
+        "title": "NewSdk: 查看编译计划"
+      },
+      {
+        "command": "newsdk.doctor",
+        "title": "NewSdk: 检查编译环境"
+      },
+      {
+        "command": "newsdk.openLog",
+        "title": "NewSdk: 查看编译日志"
+      },
+      {
+        "command": "newsdk.openEvents",
+        "title": "NewSdk: 查看完整事件 JSONL"
+      },
+      {
+        "command": "newsdk.openReport",
+        "title": "NewSdk: 查看构建报告"
+      },
+      {
+        "command": "newsdk.openOutput",
+        "title": "NewSdk: 打开输出目录"
+      },
+      {
+        "command": "newsdk.openArtifact",
+        "title": "NewSdk: 打开产物位置"
+      },
+      {
+        "command": "newsdk.previewFx",
+        "title": "NewSdk: 预览当前特效",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "newsdk.searchFx",
+        "title": "NewSdk: 搜索特效"
+      },
+      {
+        "command": "newsdk.reloadFx",
+        "title": "NewSdk: 重载特效资源",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "newsdk.newFx",
+        "title": "NewSdk: 新建特效"
+      },
+      {
+        "command": "newsdk.saveAndBuild",
+        "title": "NewSdk: 保存并编译",
+        "icon": "$(save-all)"
+      },
+      {
+        "command": "newsdk.buildSaved",
+        "title": "NewSdk: 编译已保存内容（可能与预览不同）"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "newsdk",
+          "title": "NewSdk",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "newsdk": [
+        {
+          "id": "newsdk.sidebar",
+          "name": "MOD 编译",
+          "contextualTitle": "NewSdk"
+        },
+        {
+          "id": "newsdk.fx",
+          "name": "特效",
+          "contextualTitle": "NewSdk"
+        }
+      ]
+    },
     "menus": {
       "view/title": [
-        { "command": "newsdk.openWorkbench", "when": "view == newsdk.sidebar", "group": "navigation@1" },
-        { "command": "newsdk.build", "when": "view == newsdk.sidebar && !newsdk.running", "group": "navigation@2" },
-        { "command": "newsdk.stop", "when": "view == newsdk.sidebar && newsdk.running", "group": "navigation@2" }
+        {
+          "command": "newsdk.openWorkbench",
+          "when": "view == newsdk.sidebar",
+          "group": "navigation@1"
+        },
+        {
+          "command": "newsdk.build",
+          "when": "view == newsdk.sidebar && !newsdk.running",
+          "group": "navigation@2"
+        },
+        {
+          "command": "newsdk.stop",
+          "when": "view == newsdk.sidebar && newsdk.running",
+          "group": "navigation@2"
+        },
+        {
+          "command": "newsdk.searchFx",
+          "when": "view == newsdk.fx",
+          "group": "navigation@1"
+        },
+        {
+          "command": "newsdk.reloadFx",
+          "when": "view == newsdk.fx",
+          "group": "navigation@2"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "newsdk.previewFx",
+          "when": "resourceExtname == .xml",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "newsdk.previewFx",
+          "when": "resourceExtname == .xml",
+          "group": "newsdk"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "newsdk.newFx",
+          "when": "resourceExtname == .xml"
+        }
       ]
     },
     "configuration": {
       "title": "NewSdk Mod Tools",
       "properties": {
-        "newsdk.compilerPath": { "type": "string", "default": "", "scope": "machine", "description": "NewModCompiler.exe 的完整路径。只保存到用户设置。" },
-        "newsdk.sdkRoot": { "type": "string", "default": "", "scope": "machine", "description": "SDK 根目录。只保存到用户设置；未配置时读取已有项目预设。" }
+        "newsdk.compilerPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "NewModCompiler.exe 的完整路径。只保存到用户设置。"
+        },
+        "newsdk.sdkRoot": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "SDK 根目录。只保存到用户设置；未配置时读取已有项目预设。"
+        }
       }
-    }
+    },
+    "customEditors": [
+      {
+        "viewType": "newsdk.fxEditor",
+        "displayName": "NewSdk 特效工作区",
+        "selector": [
+          {
+            "filenamePattern": "*.xml"
+          }
+        ],
+        "priority": "option"
+      }
+    ]
   }
 }
