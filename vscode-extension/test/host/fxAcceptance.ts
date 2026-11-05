@@ -3,7 +3,8 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import * as vscode from 'vscode';
 import type { FxApi } from '../../src/fx/editorProvider';
-import { pathIdentity } from '../../src/project';
+import { containsPath, pathIdentity } from '../../src/project';
+import { captureFxMemory, fxMemoryReport } from './fxMemory';
 
 async function waitFor(predicate: () => boolean, label: string): Promise<void> {
     const until = Date.now() + 20000;
@@ -16,6 +17,10 @@ async function waitFor(predicate: () => boolean, label: string): Promise<void> {
 export async function runFxAcceptance(fx: FxApi, modRoot: string, evidence: string,
     saveAndBuild: (uris?: vscode.Uri[]) => Promise<{status: string}>): Promise<void> {
     const cases: string[] = [];
+    await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+    await waitFor(() => fx.getSnapshot().sessionCount === 0, 'memory baseline closes previews');
+    await new Promise(resolve => setTimeout(resolve, 250));
+    const memoryBaseline = await captureFxMemory();
     const data = path.join(modRoot, 'Data');
     await fs.cp(path.resolve(__dirname, '../../../test/fixtures/fx/Data'), data, {recursive: true});
     const flash = vscode.Uri.file(path.join(data, 'flash.xml'));
@@ -81,13 +86,13 @@ export async function runFxAcceptance(fx: FxApi, modRoot: string, evidence: stri
     cases.push('A references B / edit actual B / undo and save actual B');
 
     await fx.open(auraUri);
-    await waitFor(() => !!fx.getSnapshot(auraUri.fsPath).ir?.systems.some(s => s.fields.some(f => f.uri === auraUri.fsPath)), 'B edit/save queue ready');
+    await waitFor(() => !!fx.getSnapshot(auraUri.fsPath).ir?.systems.some(s => s.fields.some(f => pathIdentity(f.uri) === pathIdentity(auraUri.fsPath))), 'B edit/save queue ready');
     // Exercise the exact production message dispatcher with the version a webview sees
     // before blur submits an edit and Ctrl+S immediately submits Save.
     const boundary = fx as unknown as { current(): {document: vscode.TextDocument; session: {id: string}}; dispatch(state: unknown, message: unknown): Promise<void> };
-    const queueState = boundary.current(); assert.equal(queueState.document.uri.toString(), auraUri.toString());
+    const queueState = boundary.current(); assert.equal(pathIdentity(queueState.document.uri.fsPath), pathIdentity(auraUri.fsPath));
     const queueSnap = fx.getSnapshot(auraUri.fsPath);
-    const queuedField = queueSnap.ir!.systems.flatMap(s => s.fields).find(f => f.uri === auraUri.fsPath && f.attribute === 'Low' && /Lifetime/.test(f.nodePath))!;
+    const queuedField = queueSnap.ir!.systems.flatMap(s => s.fields).find(f => pathIdentity(f.uri) === pathIdentity(auraUri.fsPath) && f.attribute === 'Low' && /Lifetime/.test(f.nodePath))!;
     const oldVersion = auraDoc.version;
     const envelope = {sessionId:queueState.session.id, documentVersion:oldVersion};
     const write = boundary.dispatch(queueState, {...envelope, requestId:1000001, type:'edit', edits:[{key:queuedField.key, expectedValue:queuedField.value, value:'51'}]});
@@ -103,12 +108,20 @@ export async function runFxAcceptance(fx: FxApi, modRoot: string, evidence: stri
 
     await fx.open(flash);
     await waitFor(() => !!fx.getSnapshot(flash.fsPath).ir, 'save and compile');
+    await new Promise(resolve => setTimeout(resolve, 250));
+    const memoryOpened = await captureFxMemory();
     const result = await saveAndBuild([entry]);
     assert.equal(result.status,'succeeded'); cases.push('save and compile through shared compiler service');
-    for (const doc of vscode.workspace.textDocuments) if (doc.uri.fsPath.startsWith(modRoot) && doc.isDirty) await doc.save();
+    for (const doc of vscode.workspace.textDocuments) if (containsPath(modRoot, doc.uri.fsPath) && doc.isDirty) await doc.save();
     await vscode.commands.executeCommand('workbench.action.closeAllEditors');
     await waitFor(() => fx.getSnapshot().sessionCount===0,'dispose all sessions');
     assert.equal(fx.getSnapshot().activeCount,0);
     cases.push('close releases all active host sessions');
-    await fs.writeFile(path.join(evidence,'fx-host.json'),JSON.stringify({passed:true,cases,vscode:vscode.version},null,2));
+    await new Promise(resolve => setTimeout(resolve, 250));
+    const memoryClosed = await captureFxMemory();
+    const memory = fxMemoryReport(memoryBaseline, memoryOpened, memoryClosed);
+    const summary = JSON.stringify({passed:true,cases,vscode:vscode.version,memory},null,2);
+    assert.ok(Buffer.byteLength(summary,'utf8') <= 128 * 1024, 'FX host summary exceeds 128 KiB');
+    await fs.writeFile(path.join(evidence,'fx-host.json'),summary);
+    console.log('FX host memory: ' + JSON.stringify(memory));
 }

@@ -25,7 +25,8 @@ export const fxCapabilities = {
         'custom compiler providers/stream configurations beyond the pinned source-data profile','cross-document inheritFrom for non-BaseInheritable FX/Texture is compiler-invalid',
         'object bone lookup and arbitrary ObjectFilter','Radius/Height FXList placement','custom shader/geometry and special particle families',
         'CPU shader fields outside Default, complete event families and arbitrary map terrain','TargetCoeff is not read by the pinned ordinary particle execution path',
-        'Wind/house-color/full-game postprocessing','compiled DDS provenance does not prove current game compiler output','game screenshot comparison unavailable'],
+        'synthetic context uses a static source and horizontal ground; moving paths and arbitrary ground normals are not implemented',
+        'low-quality shader branches/Wind/house-color/full-game postprocessing','compiled DDS provenance does not prove current game compiler output','game screenshot comparison unavailable'],
 } as const;
 
 /** Pinned SDK ModelState.xsd enum; unknown model flags must fail visibly. */
