@@ -1,11 +1,15 @@
 import * as vscode from 'vscode';
+import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import type { AssetService } from '../services/assetService';
 import type { AssetGraph, AssetRecord } from '../index/assetIndex';
 import type { ReferenceRecord } from '../index/referenceIndex';
 import { createAttributeInsertionPatch, createAttributePatch } from '../core/editTransaction';
 import { completionAt, completePaths, assetAt, schemaIssues, defineIssues, prepareAssetRename, type SourceIssue } from './languageFeatures';
-import { pathIdentity } from '../../project';
+import { canonicalPath, containsPath, pathIdentity } from '../../project';
+import { planCopyToMod } from '../core/copyAsset';
+import { applyTextPatches } from '../core/editTransaction';
+import { parseXml } from '../core/xmlDocument';
 
 export interface XmlProviderServices { getService(document: vscode.TextDocument): AssetService | undefined }
 export interface XmlProviders extends vscode.Disposable { refresh(): void }
@@ -15,6 +19,13 @@ function uri(file: string): vscode.Uri { return file.startsWith('file:') ? vscod
 function range(document: vscode.TextDocument, start: number, end: number): vscode.Range { return new vscode.Range(document.positionAt(start), document.positionAt(Math.max(start, end))); }
 function fieldDetail(field: {type: string; required: boolean; default?: string}): string {
     return `${field.type}${field.required ? ' · 必填' : ''}${field.default !== undefined ? ` · 默认 ${field.default}` : ''}`;
+}
+async function checkedDocument(service: AssetService, raw: string): Promise<string> {
+    const normalized = service.documents.normalize(raw);
+    const physical = normalized !== path.resolve(raw) ? normalized : await canonicalPath(raw);
+    const checked = await service.index.checkedFile(physical);
+    service.documents.alias(raw, checked);
+    return checked;
 }
 function includeValue(node: {localName: string; namespaceUri: string; parent?: {localName: string}}, attribute?: string): boolean {
     return node.localName === 'Include' && node.parent?.localName === 'Includes' && attribute === 'source'
@@ -33,41 +44,58 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
     const snapshots = new Map<string, {service: AssetService; version: number}>();
     const scopes = new Map<string, AssetGraph>();
     let disposed = false;
+    const openKnownDocument = (file: string, service: AssetService): Thenable<vscode.TextDocument> | Promise<vscode.TextDocument> => {
+        const identity = pathIdentity(service.documents.normalize(file));
+        const open = vscode.workspace.textDocuments.find(document => document.uri.scheme === 'file'
+            && pathIdentity(service.documents.normalize(document.uri.fsPath)) === identity);
+        return open ? Promise.resolve(open) : vscode.workspace.openTextDocument(uri(file));
+    };
     const serviceFor = async (document: vscode.TextDocument, token?: vscode.CancellationToken): Promise<AssetService | undefined> => {
         if (disposed || !vscode.workspace.isTrusted || !eligible(document) || token?.isCancellationRequested) return undefined;
         const service = services.getService(document); if (!service) return undefined;
-        if (!observedServices.has(service)) observedServices.set(service, service.onDidChange(() => {
-            lensesChanged.fire();
-            for (const open of vscode.workspace.textDocuments) if (eligible(open) && services.getService(open) === service) schedule(open);
-        }));
+        let currentFile: string;
+        try {currentFile = await checkedDocument(service, document.uri.fsPath);} catch {return undefined;}
+        if (!observedServices.has(service)) {
+            const owned: vscode.Disposable[] = [service.onDidChange(() => {
+                lensesChanged.fire();
+                for (const open of vscode.workspace.textDocuments) if (eligible(open) && services.getService(open) === service) schedule(open);
+            })];
+            for (const root of new Set(service.options.roots)) {
+                const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(root, '**/*.{xml,w3x,xsd,manifest,config}'));
+                const changed = (uri: vscode.Uri) => {void fileChanged(uri, service);};
+                owned.push(watcher, watcher.onDidChange(changed), watcher.onDidCreate(changed), watcher.onDidDelete(changed));
+            }
+            observedServices.set(service, {dispose() {owned.forEach(subscription => subscription.dispose());}});
+        }
         const version = document.version;
         // Recovered disk records must never hide another already-open dirty document.
         const openDocuments = new Set([...vscode.workspace.textDocuments.filter(eligible), document]);
         for (const open of openDocuments) {
             if (services.getService(open) !== service) continue;
             const previous = snapshots.get(open.uri.toString());
-            if (previous?.service !== service || previous.version !== open.version) {
-                service.setDocument(open.uri.fsPath, open.getText(), open.version);
-                snapshots.set(open.uri.toString(), {service, version: open.version});
-            }
+            if (previous?.service === service && previous.version === open.version) continue;
+            let checked: string;
+            try {checked = open === document ? currentFile : await checkedDocument(service, open.uri.fsPath);} catch {continue;}
+            service.setDocument(checked, open.getText(), open.version);
+            snapshots.set(open.uri.toString(), {service, version: open.version});
         }
-        const graph = await service.getScope(document.uri.fsPath, version);
+        const graph = await service.getScope(currentFile, version);
         scopes.set(document.uri.toString(), graph);
         return token?.isCancellationRequested || document.version !== version ? undefined : service;
     };
-    const definitionLocation = async (asset: AssetRecord): Promise<vscode.Location> => {
-        const target = await vscode.workspace.openTextDocument(uri(asset.uri));
+    const definitionLocation = async (asset: AssetRecord, service: AssetService): Promise<vscode.Location> => {
+        const target = await openKnownDocument(asset.uri, service);
         const token = asset.node.attributeTokens.id;
         return new vscode.Location(target.uri, range(target, token?.valueStart ?? asset.node.start, token?.valueEnd ?? asset.node.openEnd));
     };
-    const referenceLocation = async (reference: ReferenceRecord): Promise<vscode.Location> => {
-        const target = await vscode.workspace.openTextDocument(uri(reference.uri));
+    const referenceLocation = async (reference: ReferenceRecord, service: AssetService): Promise<vscode.Location> => {
+        const target = await openKnownDocument(reference.uri, service);
         return new vscode.Location(target.uri, range(target, reference.start, reference.end));
     };
     const selection = (service: AssetService, document: vscode.TextDocument, offset: number): {asset?: AssetRecord; reference?: ReferenceRecord} => {
         const reference = service.resolveReference(document.uri.fsPath, offset);
         const assets = service.findAssets({});
-        const declared = assetAt(assets, document.uri.fsPath, offset);
+        const declared = assetAt(assets, service.documents.normalize(document.uri.fsPath), offset);
         const resolved = reference?.targets.length === 1 ? assets.find(asset => asset.key === reference.targets[0]) : undefined;
         return {asset: declared ?? resolved, reference};
     };
@@ -106,7 +134,7 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
                 if (list) replacementStart = offset - valuePrefix.length;
                 for (const value of field?.enumValues ?? []) add(value, vscode.CompletionItemKind.EnumMember, field?.type);
                 if (field?.default !== undefined && !field.enumValues.includes(field.default)) add(field.default, vscode.CompletionItemKind.Value, 'XSD 默认值');
-                const own = service.findAssets({}).find(asset => pathIdentity(asset.uri) === pathIdentity(document.uri.fsPath) && asset.node.start <= offset && offset < asset.node.end);
+                const own = service.findAssets({}).find(asset => pathIdentity(asset.uri) === pathIdentity(service.documents.normalize(document.uri.fsPath)) && asset.node.start <= offset && offset < asset.node.end);
                 const type = current.value.attribute === 'inheritFrom' ? own?.type : schema?.getReferenceType(current.node, current.value.attribute);
                 if (type) {
                     const seen = new Set<string>();
@@ -143,9 +171,9 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
             const selected = selection(service, document, offset);
             if (selected.reference) {
                 const assets = service.findAssets({});
-                return Promise.all(assets.filter(asset => selected.reference!.targets.includes(asset.key)).map(definitionLocation));
+                return Promise.all(assets.filter(asset => selected.reference!.targets.includes(asset.key)).map(asset => definitionLocation(asset, service)));
             }
-            return selected.asset ? definitionLocation(selected.asset) : undefined;
+            return selected.asset ? definitionLocation(selected.asset, service) : undefined;
         },
     }));
 
@@ -186,8 +214,8 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
         async provideReferences(document, position, options, token) {
             const service = await serviceFor(document, token); if (!service) return undefined;
             const selected = selection(service, document, document.offsetAt(position)); if (!selected.asset) return [];
-            const locations = await Promise.all(service.findReferences(selected.asset).map(referenceLocation));
-            if (options.includeDeclaration) locations.unshift(await definitionLocation(selected.asset));
+            const locations = await Promise.all(service.findReferences(selected.asset).map(reference => referenceLocation(reference, service)));
+            if (options.includeDeclaration) locations.unshift(await definitionLocation(selected.asset, service));
             return locations;
         },
     }));
@@ -213,7 +241,7 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
             const prepared = prepareAssetRename(service, asset, newName);
             const change = new vscode.WorkspaceEdit();
             for (const [file, patches] of prepared) {
-                const target = await vscode.workspace.openTextDocument(uri(file));
+                const target = await openKnownDocument(file, service);
                 const expected = service.getDocument(file);
                 if (!expected || target.getText() !== expected.text) throw new Error('文档在预览前已更新，请重新重命名。');
                 const replacements = patches.map(patch => ({range: range(target, patch.start, patch.end), newText: patch.text}));
@@ -230,7 +258,7 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
         onDidChangeCodeLenses: lensesChanged.event,
         async provideCodeLenses(document, token) {
             const service = await serviceFor(document, token); if (!service) return [];
-            return service.findAssets({}).filter(asset => pathIdentity(asset.uri) === pathIdentity(document.uri.fsPath)).slice(0, 256).flatMap(asset => {
+            return service.findAssets({}).filter(asset => pathIdentity(asset.uri) === pathIdentity(service.documents.normalize(document.uri.fsPath))).slice(0, 256).flatMap(asset => {
                 const id = asset.node.attributeTokens.id; const at = range(document, id.valueStart, id.valueEnd);
                 const references = service.findReferences(asset); const dependents = service.getPotentialDependents(asset);
                 const suffix = service.completeness === 'partial' ? '（已知）' : '';
@@ -250,7 +278,7 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
         const input = commandInput(target, offset); if (!input) return; target = input.target; offset = input.offset;
         const document = await vscode.workspace.openTextDocument(target); const service = await serviceFor(document); if (!service) return;
         const asset = selection(service, document, offset).asset; if (!asset) return;
-        const locations = await Promise.all(service.findReferences(asset).map(referenceLocation));
+        const locations = await Promise.all(service.findReferences(asset).map(reference => referenceLocation(reference, service)));
         await vscode.commands.executeCommand('editor.action.showReferences', target, document.positionAt(offset), locations);
     }));
     subscriptions.push(vscode.commands.registerCommand('newsdk.xml.impact', async (target?: vscode.Uri, offset?: number) => {
@@ -259,14 +287,93 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
         const asset = selection(service, document, offset).asset; if (!asset) return;
         const items = service.getPotentialDependents(asset).filter(dependent => dependent.key !== asset.key).map(dependent => ({label: `${dependent.type}:${dependent.id}`, description: path.basename(dependent.uri), detail: dependent.uri, asset: dependent}));
         const picked = await vscode.window.showQuickPick(items, {title: `修改 ${asset.type}:${asset.id} 的已知影响`, placeHolder: '源码关系仅提示潜在影响；实际重编译由编译器缓存决定'});
-        if (picked) {const location = await definitionLocation(picked.asset); await vscode.window.showTextDocument(location.uri, {selection: location.range, preview: true});}
+        if (picked) {const location = await definitionLocation(picked.asset, service); await vscode.window.showTextDocument(location.uri, {selection: location.range, preview: true});}
+    }));
+    subscriptions.push(vscode.commands.registerCommand('newsdk.xml.copyToMod', async (target?: vscode.Uri, offset?: number) => {
+        try {
+            const input = commandInput(target, offset); if (!input) return;
+            const document = await vscode.workspace.openTextDocument(input.target); const service = await serviceFor(document); if (!service) return;
+            const selected = selection(service, document, input.offset);
+            if (!selected.asset?.readonly || selected.reference?.dynamic || selected.reference?.ambiguous) throw new Error('请选择唯一解析到 SDK XML 定义的引用或资产；仅 manifest 声明没有可复制的 XML 源码。');
+            const source = selected.asset, modRoot = service.options.modRoot; if (!modRoot) throw new Error('请先选择 MOD。');
+            const sourceEditor = await openKnownDocument(source.uri, service);
+            service.setDocument(source.uri, sourceEditor.getText(), sourceEditor.version); await service.getScope(source.uri);
+            const newId = await vscode.window.showInputBox({title: `复制 ${source.type}:${source.id} 到 MOD`, value: `${source.id}_Copy`,
+                prompt: '新资产 ID；复制后可在 MOD XML 中修改。', validateInput: value => !/^[0-9A-Za-z_.-]{1,512}$/.test(value)
+                    ? '仅支持英文字母、数字、下划线、点和连字符。' : service.findAssets({type: source.type, id: value}).length || service.manifests?.find(source.type, value).length ? '该类型已有同名资产。' : undefined});
+            if (!newId) return;
+            const destinations = new Map<string, vscode.Uri>();
+            for (const open of vscode.workspace.textDocuments) if (eligible(open) && containsPath(modRoot, open.uri.fsPath) && !service.index.isReadonly(open.uri.fsPath)) destinations.set(open.uri.toString(), open.uri);
+            const entry = vscode.Uri.file(path.join(modRoot, 'Data', 'Mod.xml'));
+            try {await fs.access(entry.fsPath); destinations.set(entry.toString(), entry);} catch { /* A new MOD may not yet have an entry. */ }
+            const choices = [...destinations.values()].map(target => ({label: path.basename(target.fsPath), description: target.fsPath, mode: 'existing', target}));
+            const choice = await vscode.window.showQuickPick([...choices, {label: '选择已有 MOD XML…', description: '', mode: 'pick', target: undefined},
+                {label: '新建 MOD XML…', description: '', mode: 'new', target: undefined}], {title: '选择复制目标'});
+            if (!choice) return;
+            let destination = choice.target, isNew = choice.mode === 'new';
+            if (choice.mode === 'pick') destination = (await vscode.window.showOpenDialog({title: '选择已有 MOD XML', canSelectMany: false,
+                filters: {XML: ['xml']}, defaultUri: vscode.Uri.file(modRoot)}))?.[0];
+            else if (isNew) destination = await vscode.window.showSaveDialog({title: '新建资产 XML', filters: {XML: ['xml']},
+                defaultUri: vscode.Uri.file(path.join(modRoot, 'Data', `${newId}.xml`))});
+            if (!destination || destination.scheme !== 'file') return;
+            const physical = await checkedDocument(service, destination.fsPath);
+            if (!containsPath(modRoot, physical) || service.index.isReadonly(physical)) throw new Error('目标必须位于当前 MOD 的物理路径内。');
+            let targetDocument: vscode.TextDocument | undefined;
+            if (isNew) {
+                try {await fs.access(physical); throw new Error('该文件已存在，请选择“已有 MOD XML”。');} catch (error) {if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;}
+            } else targetDocument = await openKnownDocument(physical, service);
+            if (targetDocument) {await serviceFor(targetDocument);}
+            const model = targetDocument ? service.getDocument(physical) : parseXml(`<AssetDeclaration xmlns="${source.namespace}"></AssetDeclaration>`, physical, 0);
+            if (!model) throw new Error('目标 XML 尚未完成索引。');
+            const reference = selected.reference && !service.index.isReadonly(selected.reference.uri) ? selected.reference : undefined;
+            let includeIn;
+            if (!reference && pathIdentity(physical) !== pathIdentity(service.documents.normalize(entry.fsPath))) {
+                let entryDocument: vscode.TextDocument;
+                try {entryDocument = await openKnownDocument(entry.fsPath, service);} catch {throw new Error('当前 MOD 缺少入口，请将 Data/Mod.xml 选为复制目标。');}
+                await serviceFor(entryDocument); includeIn = service.getDocument(entry.fsPath);
+                if (!includeIn) throw new Error('MOD 入口尚未完成索引。');
+            }
+            const plan = await planCopyToMod({service, source, target: model, targetIsNew: isNew, newId, reference, includeIn});
+            const confirmed = await vscode.window.showInformationMessage(`复制 ${source.type}:${source.id} 为 ${newId}，写入 ${path.basename(physical)}${reference ? '并修改当前 MOD 引用' : ''}`,
+                {modal: true, detail: `SDK 依赖通过 reference Include 保留。\n\n${plan.preview}`}, '复制');
+            if (confirmed !== '复制') return;
+            const opened = new Map<string, vscode.TextDocument>();
+            const sourceDocument = await openKnownDocument(plan.source.uri, service);
+            for (const [file, change] of plan.changes) if (!change.isNew) opened.set(file, await openKnownDocument(file, service));
+            for (const file of plan.changes.keys()) {
+                const checked = await checkedDocument(service, file);
+                if (!containsPath(modRoot, checked) || service.index.isReadonly(checked)) throw new Error('复制目标的物理路径已变化，请重试。');
+            }
+            // All asynchronous reads are complete before this atomic preflight.
+            if (sourceDocument.version !== plan.source.version || sourceDocument.getText() !== plan.source.text) throw new Error('SDK 来源已更新，请重新复制。');
+            for (const [file, current] of opened) {
+                const expected = plan.changes.get(file)!.document;
+                if (current.version !== expected.version || current.getText() !== expected.text) throw new Error('目标或引用文档已更新，请重新复制。');
+            }
+            const preflight = [...plan.changes].filter(([, change]) => !change.isNew).flatMap(([file, change]) => change.patches.map(patch => ({uri: file,
+                documentVersion: change.document.version, ...patch})));
+            if (preflight.length) service.prepareEdits(preflight);
+            const edit = new vscode.WorkspaceEdit();
+            for (const [file, change] of plan.changes) {
+                if (change.isNew) {edit.createFile(uri(file), {overwrite: false, ignoreIfExists: false}); edit.insert(uri(file), new vscode.Position(0, 0), applyTextPatches(change.document.text, change.patches));}
+                else for (const patch of change.patches) edit.replace(opened.get(file)!.uri, range(opened.get(file)!, patch.start, patch.end), patch.text);
+            }
+            if (!await vscode.workspace.applyEdit(edit, {isRefactoring: true})) throw new Error('复制未能应用。');
+            await vscode.window.showTextDocument(uri(physical), {preview: false});
+        } catch (error) {void vscode.window.showErrorMessage(`NewSdk XML：${error instanceof Error ? error.message : String(error)}`);}
     }));
 
     subscriptions.push(vscode.languages.registerCodeActionsProvider(selector, {
         async provideCodeActions(document, _selection, actionContext, token) {
-            const service = await serviceFor(document, token); if (!service || service.index.isReadonly(document.uri.fsPath)) return [];
+            const service = await serviceFor(document, token); if (!service) return [];
             const source = service.getDocument(document.uri.fsPath); if (!source?.valid || !service.schema) return [];
             const actions: vscode.CodeAction[] = [];
+            const selected = selection(service, document, document.offsetAt(_selection.start));
+            if (selected.asset?.readonly && !selected.reference?.dynamic && !selected.reference?.ambiguous) {
+                const action = new vscode.CodeAction('复制 SDK 资产到 MOD 并修改当前引用…', vscode.CodeActionKind.RefactorRewrite);
+                action.command = {title: action.title, command: 'newsdk.xml.copyToMod', arguments: [document.uri, document.offsetAt(_selection.start)]}; actions.push(action);
+            }
+            if (service.index.isReadonly(document.uri.fsPath)) return actions;
             for (const diagnostic of actionContext.diagnostics.filter(diagnostic => diagnostic.source === 'NewSdk XML' && diagnostic.code === 'xml.required-attribute')) {
                 const issue = schemaIssues(source, service.schema).find(issue => issue.code === 'xml.required-attribute' && issue.defaultValue !== undefined && range(document, issue.start, issue.end).isEqual(diagnostic.range));
                 if (!issue?.attribute || issue.defaultValue === undefined || !issue.nodePath) continue;
@@ -340,25 +447,28 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
     subscriptions.push(vscode.workspace.onDidOpenTextDocument(schedule));
     subscriptions.push(vscode.workspace.onDidChangeTextDocument(event => {
         if (!eligible(event.document)) return;
-        const service = services.getService(event.document); service?.setDocument(event.document.uri.fsPath, event.document.getText(), event.document.version);
         schedule(event.document);
     }));
     subscriptions.push(vscode.workspace.onDidCloseTextDocument(document => {
         const key = document.uri.toString(); const timer = timers.get(key); if (timer) clearTimeout(timer); timers.delete(key); generations.delete(key);
-        snapshots.delete(key);
+        const tracked = snapshots.get(key); snapshots.delete(key);
         scopes.delete(key);
-        services.getService(document)?.closeDocument(document.uri.fsPath); diagnostics.delete(document.uri);
+        tracked?.service.closeDocument(document.uri.fsPath); diagnostics.delete(document.uri);
     }));
-    const watcher = vscode.workspace.createFileSystemWatcher('**/*.{xml,w3x,xsd,manifest}'); subscriptions.push(watcher);
-    const fileChanged = (changed: vscode.Uri) => {
+    async function fileChanged(changed: vscode.Uri, onlyService?: AssetService): Promise<void> {
         const servicesSeen = new Set<AssetService>();
+        if (onlyService) {
+            try {const checked = await checkedDocument(onlyService, changed.fsPath); onlyService.invalidate(checked); servicesSeen.add(onlyService);} catch {return;}
+        }
         for (const document of vscode.workspace.textDocuments.filter(eligible)) {
-            const service = services.getService(document); if (!service) continue;
-            if (!servicesSeen.has(service)) {service.invalidate(changed.fsPath); servicesSeen.add(service);}
+            const service = services.getService(document); if (!service || onlyService && service !== onlyService) continue;
+            if (!servicesSeen.has(service)) {
+                try {const checked = await checkedDocument(service, changed.fsPath); service.invalidate(checked);} catch {continue;}
+                servicesSeen.add(service);
+            }
             schedule(document);
         }
-    };
-    subscriptions.push(watcher.onDidChange(fileChanged), watcher.onDidCreate(fileChanged), watcher.onDidDelete(fileChanged));
+    }
     const api: XmlProviders = {
         refresh() {diagnostics.clear(); snapshots.clear(); scopes.clear(); lensesChanged.fire(); for (const document of vscode.workspace.textDocuments) schedule(document);},
         dispose() {disposed = true; for (const timer of timers.values()) clearTimeout(timer); timers.clear(); generations.clear(); snapshots.clear(); scopes.clear();
@@ -366,4 +476,3 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
     };
     context.subscriptions.push(api); api.refresh(); return api;
 }
-

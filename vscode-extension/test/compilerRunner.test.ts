@@ -234,6 +234,27 @@ test('task lifecycle rejects doctor failure and stale evidence, and forced stop 
         assert.equal(changedMemory.inputState, 'previous-saved');
         assert.match(runner.state.message!, /上一保存版本/);
 
+        const modAlias = path.join(temporary, 'mod-alias');
+        await fs.symlink(config.modRoot, modAlias, actualPlatform.value === 'win32' ? 'junction' : 'dir');
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'build') {
+                documentChanged.fire({ document: { uri: { scheme: 'file', fsPath: path.join(modAlias, 'Data', 'Mod.xml') },
+                    version: 3, isDirty: true }, contentChanges: [{}] });
+                await writeSuccessfulEvidence(execution.task);
+            }
+            endExecution(execution, 0);
+        };
+        assert.equal((await runner.build(config)).inputState, 'previous-saved', 'TextDocument aliases must resolve to the physical compiler input');
+
+        taskBehavior = async execution => {
+            if (execution.task.definition.operation === 'build') {
+                diskChanged.fire({ scheme: 'file', fsPath: path.join(modAlias, 'Data', 'New.xml') });
+                await writeSuccessfulEvidence(execution.task);
+            }
+            endExecution(execution, 0);
+        };
+        assert.equal((await runner.build(config)).inputState, 'inputs-changed', 'Create/delete paths under a junction must retain the physical input root');
+
         taskBehavior = async execution => {
             if (execution.task.definition.operation === 'build') {
                 diskChanged.fire({ scheme: 'file', fsPath: path.join(config.sdkRoot, 'SuperCompilerCache', 'mod', 'session.xml') });

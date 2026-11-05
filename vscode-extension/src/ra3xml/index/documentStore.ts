@@ -38,13 +38,13 @@ export class DocumentStore {
     get statistics(): { reads: number; parses: number; documents: number; bytes: number } {
         return {reads:this.reads,parses:this.parses,documents:this.records.size,bytes:this.cachedBytes};
     }
-    async read(uri: string): Promise<XmlDocument> {
+    async read(uri: string, verifyContent = false): Promise<XmlDocument> {
         const file = this.normalize(uri); const revision = this.revisions.get(file) ?? 0; const overlay = this.overlays.get(file);
         let stamp = overlay ? `overlay:${overlay.version}` : '';
-        if (!overlay) { try { const stat=await fs.stat(file); stamp=`${stat.mtimeMs}:${stat.ctimeMs}:${stat.size}`;
-            if (!/\.w3x$/i.test(file) && stat.size > (this.options.maxDocumentBytes ?? 16*1024*1024)) throw new Error('XML 超过单文档解析预算。'); } catch(error) {if(!this.options.readText || (error as NodeJS.ErrnoException).code!=='ENOENT')throw error;stamp=`virtual:${revision}`;} }
+        if (!overlay) { try { const stat=await fs.stat(file,{bigint:true}); stamp=`${stat.mtimeNs}:${stat.ctimeNs}:${stat.size}`;
+            if (!/\.w3x$/i.test(file) && stat.size > BigInt(this.options.maxDocumentBytes ?? 16*1024*1024)) throw new Error('XML 超过单文档解析预算。'); } catch(error) {if(!this.options.readText || (error as NodeJS.ErrnoException).code!=='ENOENT')throw error;stamp=`virtual:${revision}`;} }
         const previous=this.records.get(file);
-        if(previous && previous.revision===revision && previous.stamp===stamp) return previous.document;
+        if(previous && previous.revision===revision && previous.stamp===stamp && (!verifyContent || !!overlay)) return previous.document;
         if(!overlay&&/\.w3x$/i.test(file)){this.reads++;this.parses++;const document=await scanW3xDeclarations(file,revision);const bytes=Buffer.byteLength(document.text);if(this.cachedBytes-(previous?.bytes??0)+bytes>(this.options.maxBytes??48*1024*1024))throw new Error('XML 项目源码记录预算已达上限。');this.cachedBytes+=bytes-(previous?.bytes??0);this.records.set(file,{document,stamp,revision,bytes});return document;}
         let snapshot:TextSnapshot;
         if(overlay) snapshot=overlay;

@@ -289,7 +289,10 @@ export class AssetIndex {
                 const remaining = (this.options.maxSourceBytes ?? 48 * 1024 * 1024) - sourceBytes;
                 try { if (!/\.w3x$/i.test(file) && (await fs.stat(file)).size > remaining) throw new Error('源码/CST 预算已达上限（读取前拦截）'); }
                 catch (error) { if ((error as NodeJS.ErrnoException).code !== 'ENOENT' || !this.options.readText) throw error; }
-                document = await this.shared.documents.read(file);
+                // Explicit standalone reloads cannot rely on watcher invalidation or
+                // filesystem timestamp granularity. Recheck text, retaining the
+                // same parsed record when its content/version is unchanged.
+                document = await this.shared.documents.read(file,!this.options.trustInvalidation);
                 sourceBytes += Buffer.byteLength(document.text,'utf8');
                 if(sourceBytes > (this.options.maxSourceBytes??48*1024*1024))throw new Error('XML 源码/CST 预算已达上限');
                 graph.documents.set(file, document); graph.dependencies.push(file);

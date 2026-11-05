@@ -59,9 +59,34 @@ export class AssetService {
     getDocument(uri:string):XmlDocument|undefined{return this.documents.get(uri);}
     setDocument(uri:string,text:string,version:number):void{if(this.documents.set(uri,text,version))this.invalidate(uri);}
     closeDocument(uri:string):void{this.documents.close(uri);this.invalidate(uri);}
-    invalidate(uri:string):void{const file=this.documents.normalize(uri);const known=[...this.index.shared.graphs.values()].some(graph=>graph.dependencies.includes(file));if(!known&&/\.xml$/i.test(file)){this.scanning=undefined;this.scanFinished=false;this.completeness='partial';this.scanGeneration++;this.dirtyEntries.add(file);}for(const [entry,graph]of this.index.shared.graphs)if(graph.dependencies.includes(file)||graph.includes.some(edge=>edge.to===file))this.dirtyEntries.add(entry);
-        if(this.schema?.files.includes(file)||this.manifests?.files.includes(file)){this.initialization=undefined;this.scanning=undefined;this.scanFinished=false;this.completeness='partial';this.scanGeneration++;this.schema=this.options.schema;this.manifests=undefined;this.scanIncomplete=false;for(const entry of this.index.shared.graphs.keys())this.dirtyEntries.add(entry);this.index.shared.graphs.clear();}
-        this.index.invalidate(file);this.changed();}
+    private sdkRelative(file:string):string|undefined {
+        if(!this.options.sdkRoot)return;
+        const selected=filePath(this.options.sdkRoot),physical=this.index.shared.physicalPaths.get(selected)??selected;
+        for(const root of [selected,physical]){
+            const relative=path.relative(root,file);
+            if(relative!==".."&&!relative.startsWith(`..${path.sep}`)&&!path.isAbsolute(relative))return relative.replace(/\\/g,'/').toLowerCase();
+        }
+        return;
+    }
+    invalidate(uri:string):void {
+        const file=this.documents.normalize(uri);
+        const known=[...this.index.shared.graphs.values()].some(graph=>graph.dependencies.includes(file));
+        const relative=this.sdkRelative(file);
+        const metadata=this.schema?.files.includes(file)||this.manifests?.files.includes(file)
+            ||relative!==undefined&&(/^(?:schemas\/.*\.xsd|builtmods\/.*\.manifest)$/.test(relative));
+        const profile=relative==='tools/binaryassetbuilder.exe.config';
+        if(!known&&/\.xml$/i.test(file)&&relative===undefined){
+            this.scanning=undefined;this.scanFinished=false;this.completeness='partial';this.scanGeneration++;this.dirtyEntries.add(file);
+        }
+        for(const [entry,graph]of this.index.shared.graphs)if(graph.dependencies.includes(file)||graph.includes.some(edge=>edge.to===file))this.dirtyEntries.add(entry);
+        if(metadata||profile){
+            this.scanning=undefined;this.scanFinished=false;this.completeness='partial';this.scanGeneration++;
+            if(metadata){this.initialization=undefined;this.schema=this.options.schema;this.manifests=undefined;this.scanIncomplete=false;}
+            for(const entry of this.index.shared.graphs.keys())this.dirtyEntries.add(entry);
+            this.index.shared.graphs.clear();
+        }
+        this.index.invalidate(file);this.changed();
+    }
     async getScope(uri:string,_documentVersion?:number):Promise<AssetGraph>{return this.ensure(uri);}
     async ensure(uri:string):Promise<AssetGraph>{
         await this.initialize();if(this.closed)throw new Error('AssetService disposed');
@@ -75,7 +100,7 @@ export class AssetService {
         if(!this.scanning)this.scanning=this.scanProject().catch(()=>{this.scanIncomplete=true;this.completeness='partial';this.changed();});
         this.updateCompleteness();this.schedulePersist();return graph;
     }
-    private schedulePersist():void{if(this.persistTimer)clearTimeout(this.persistTimer);this.persistTimer=setTimeout(()=>{this.persistTimer=undefined;void this.persistCache();},500);}
+    private schedulePersist():void{if(this.persistTimer)clearTimeout(this.persistTimer);this.persistTimer=setTimeout(()=>{this.persistTimer=undefined;void this.persistCache().catch(()=>undefined);},500);}
     async persistCache():Promise<void>{await this.cache?.write({files:this.cacheFiles,documents:this.documents.exportRecords()});}
     async whenComplete():Promise<void>{if(this.scanning)await this.scanning;}
     private updateCompleteness():void{if(!this.scanFinished)return;const incomplete=[...this.index.shared.graphs.values()].some(graph=>graph.issues.some(issue=>['source-budget','include-read','xml-syntax','include-path','include-contract','xinclude-contract'].includes(issue.code)));this.completeness=this.scanIncomplete||incomplete?'partial':'complete';}
@@ -99,7 +124,7 @@ export class AssetService {
         }
         if(generation!==this.scanGeneration)return;
         this.scanFinished=true;this.updateCompleteness();
-        if(!this.closed){this.cacheFiles=[...files];await this.persistCache();this.changed();}
+        if(!this.closed){this.cacheFiles=[...files];await this.persistCache().catch(()=>undefined);this.changed();}
     }
     findAssets(query:AssetQuery={}):AssetRecord[]{
         const records=new Map<string,AssetRecord>();

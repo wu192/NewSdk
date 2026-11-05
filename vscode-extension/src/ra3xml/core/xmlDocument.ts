@@ -203,4 +203,3 @@ export function textContent(element: XmlElement): string {
     const tokens: { start: number; value: string }[] = [...element.textTokens, ...element.children.map(node => ({ start: node.start, value: textContent(node) }))];
     return tokens.sort((a, b) => a.start - b.start).map(token => token.value).join('');
 }
-

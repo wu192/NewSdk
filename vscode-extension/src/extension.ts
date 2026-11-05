@@ -277,8 +277,8 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         if (!settings?.sdkRoot) return;
         await chooseOutput();
         if (!settings?.outputDirectory) return;
-        await setVersion();
-        if (settings?.modVersion) await runner.doctor(await runConfiguration(false));
+        if (settings && (requiresModVersion(settings) || settings.modVersion)) await setVersion();
+        if (settings && (!requiresModVersion(settings) || settings.modVersion)) await runner.doctor(await runConfiguration(false));
     }
     async function runConfiguration(prompt: boolean): Promise<RunConfiguration> {
         ensureSupported(); ensureIdle();
@@ -426,7 +426,6 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     xmlProviders = registerXmlProviders(context, { getService: document => {
         if (!project || document.uri.scheme !== 'file' || !vscode.workspace.isTrusted) return undefined;
         const roots = [project.root, ...(settings?.sdkRoot ? [settings.sdkRoot] : [])];
-        if (!roots.some(root => containsPath(root, document.uri.fsPath))) return undefined;
         return acquireAssetService({ roots, modRoot: project.root, sdkRoot: settings?.sdkRoot,
             storagePath: path.join(context.globalStorageUri.fsPath, 'xml-index'),
             readText: async file => {

@@ -29,6 +29,7 @@ export async function scanW3xDeclarations(uri:string,version=0):Promise<XmlDocum
     }
     if(depth!==0||!root||buffer.includes('<'))throw new Error('W3X 顶层 XML 声明不完整。');
     const rootName=/^<([^\s/>]+)/.exec(root)?.[1];if(!rootName)throw new Error('W3X 缺少根元素。');
+    if(/\/\s*>$/.test(root))return{...parseXml(root,uri,version),shallow:true,sourceBytes:total};
     const opens=declarations.map(value=>value.open.replace(/\/?\s*>$/, '/>'));
     const skeleton=root+opens.join('')+`</${rootName}>`;const document=parseXml(skeleton,uri,version);
     const rootNode=document.roots[0];

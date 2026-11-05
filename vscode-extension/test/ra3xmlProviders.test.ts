@@ -5,6 +5,7 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import {parseXml} from '../src/ra3xml/core/xmlDocument';
 import {applyTextPatches} from '../src/ra3xml/core/editTransaction';
+import {planCopyToMod} from '../src/ra3xml/core/copyAsset';
 import {XsdModel} from '../src/ra3xml/model/xsdModel';
 import {AssetService} from '../src/ra3xml/services/assetService';
 import {completionAt, completePaths, schemaIssues, defineIssues, prepareAssetRename} from '../src/ra3xml/providers/languageFeatures';
@@ -17,7 +18,7 @@ const schemaText = `<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns
 <xs:element name="AssetDeclaration"><xs:complexType><xs:choice minOccurs="0" maxOccurs="unbounded"><xs:element name="GameObject" type="GameObject"/><xs:element name="Texture" type="Texture"/><xs:element name="Includes"><xs:complexType><xs:sequence><xs:element name="Include" minOccurs="0" maxOccurs="unbounded"><xs:complexType><xs:attribute name="type"/><xs:attribute name="source"/></xs:complexType></xs:element></xs:sequence></xs:complexType></xs:element></xs:choice></xs:complexType></xs:element>
 </xs:schema>`;
 async function fixture() {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-language-'));
+    const root = await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-language-')));
     await fs.writeFile(path.join(root, 'CnC3Types.xsd'), schemaText);
     const schema = await XsdModel.load(root);
     return {root, schema, cleanup: () => fs.rm(root, {recursive: true, force: true})};
@@ -120,4 +121,30 @@ test('$DEFINE diagnostics preserve source offsets and keep uncertain expressions
     assert.equal(issues.filter(issue => issue.code === 'xml.duplicate-define').length, 1);
     const missing = issues.find(issue => issue.code === 'xml.unresolved-define'); assert.ok(missing);
     assert.equal(text.slice(missing.start, missing.end), '$UNKNOWN'); assert.equal(missing.severity, 'information');
+});
+
+test('generic SDK copy creates valid XML in a self-closing MOD target and changes only the confirmed MOD call', async t => {
+    const fixtureData = await fixture(); t.after(fixtureData.cleanup);
+    const modRoot = path.join(fixtureData.root, 'mod'), sdkRoot = path.join(fixtureData.root, 'sdk');
+    const data = path.join(modRoot, 'Data'); await fs.mkdir(data, {recursive: true}); await fs.mkdir(path.join(sdkRoot, 'builtmods'), {recursive: true});
+    const manifest = Buffer.alloc(48); manifest.writeUInt16LE(6, 2); await fs.writeFile(path.join(sdkRoot, 'builtmods', 'empty.manifest'), manifest);
+    const sourceFile = path.join(sdkRoot, 'Base.xml'), caller = path.join(data, 'Mod.xml'), targetFile = path.join(data, 'Copied.xml');
+    const sourceText = '<AssetDeclaration xmlns="uri:ea.com:eala:asset"><GameObject id="SdkOld" Quality="High"/></AssetDeclaration>';
+    await fs.writeFile(sourceFile, sourceText);
+    await fs.writeFile(caller, `<AssetDeclaration xmlns="uri:ea.com:eala:asset"><Includes><Include type="reference" source="${sourceFile}"/></Includes><GameObject id="User" Target="SdkOld" Image="OtherType"/></AssetDeclaration>`);
+    const service = new AssetService({roots: [modRoot, sdkRoot], modRoot, sdkRoot, schema: fixtureData.schema}); t.after(() => service.dispose());
+    await service.ensure(caller); await service.whenComplete();
+    const source = service.findAssets({type: 'GameObject', id: 'SdkOld'})[0]; assert.equal(source.readonly, true);
+    const reference = service.findReferences(source)[0]; assert.ok(reference);
+    const target = parseXml('<AssetDeclaration xmlns="uri:ea.com:eala:asset"/>', targetFile, 0);
+    const plan = await planCopyToMod({service, source, target, targetIsNew: true, newId: 'CopiedGameObject', reference});
+    assert.deepEqual([...plan.changes.keys()].sort(), [caller, targetFile].sort());
+    const copied = applyTextPatches(target.text, plan.changes.get(targetFile)!.patches);
+    assert.equal(parseXml(copied).valid, true); assert.match(copied, /id="CopiedGameObject"/); assert.match(copied, /type="reference"/);
+    const updated = applyTextPatches(service.getDocument(caller)!.text, plan.changes.get(caller)!.patches);
+    assert.match(updated, /Target="CopiedGameObject" Image="OtherType"/); assert.match(updated, /type="all"/);
+    assert.equal(await fs.readFile(sourceFile, 'utf8'), sourceText, 'Planning must never write SDK source');
+    const stale = {...reference, documentVersion: reference.documentVersion - 1};
+    await assert.rejects(planCopyToMod({service, source, target, targetIsNew: true, newId: 'AnotherCopy', reference: stale}), /引用内容已更新/);
+    await assert.rejects(planCopyToMod({service, source, target: service.getDocument(sourceFile)!, newId: 'Forbidden'}), /当前 MOD/);
 });

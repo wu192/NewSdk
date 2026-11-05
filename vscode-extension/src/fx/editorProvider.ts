@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { randomBytes } from 'node:crypto';
-import { getAssetService } from '../ra3xml/services/assetService';
+import { AssetService, getAssetService } from '../ra3xml/services/assetService';
 import { AssetIndex, AssetRecord } from './assetIndex';
 import { AssetResolver } from './assetResolver';
 import { ResourceReady, ResourceService } from './resourceService';
@@ -84,6 +84,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
     private readonly tree = new FxTreeProvider();
     private readonly subscriptions: vscode.Disposable[] = [];
     private resources?: ResourceService;
+    private semantic?:AssetService;
     private rootKey = '';
     private textureBudget = defaultTextureBudget;
     private roots: string[] = [];
@@ -114,7 +115,14 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         command('newsdk.openFxXml', () => { const state = this.current(); return state ? this.locate(state) : undefined; });
         this.subscriptions.push(vscode.workspace.onDidChangeTextDocument(event => {
             if (!event.contentChanges.length) return;
-            this.changed(event.document.uri.fsPath);
+            const file=event.document.uri.fsPath;
+            const normalized=this.semantic?.documents.normalize(file);
+            if(normalized&&this.roots.some(root=>containsPath(root,normalized)))this.semantic?.setDocument(normalized,event.document.getText(),event.document.version);
+            this.changed(file);
+            void this.primeDocument(event.document).then(physical=>{if(physical&&!sameFile(file,physical))this.changed(physical);});
+        }));
+        this.subscriptions.push(vscode.workspace.onDidCloseTextDocument(document=>{
+            if(document.uri.scheme==='file'&&this.semantic?.documents.hasOverlay(document.uri.fsPath))this.semantic.closeDocument(document.uri.fsPath);
         }));
         this.subscriptions.push(vscode.window.onDidChangeTextEditorSelection(event => {
             for (const state of this.editors) if (state.followCursor && state.panel.visible && sameFile(state.document.uri.fsPath, event.textEditor.document.uri.fsPath)) {
@@ -174,8 +182,8 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             throw new Error('编译贴图不在当前 MOD / SDK / 已配置输出目录中。');
         return physical;
     }
-    private newIndex(): AssetIndex {
-        return getAssetService({ storagePath:this.context.globalStorageUri.fsPath, roots: this.roots, modRoot: this.services.getProject()?.root ?? this.roots[0],
+    private async newIndex(): Promise<AssetIndex> {
+        const semantic=getAssetService({ storagePath:this.context.globalStorageUri.fsPath, roots: this.roots, modRoot: this.services.getProject()?.root ?? this.roots[0],
             sdkRoot: this.services.getConfiguration()?.sdkRoot,
             readText: async file => {
                 const physical = await this.allowed(file);
@@ -190,7 +198,21 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                 }
                 const stat = await fs.stat(physical); if (stat.size > sourceLimit) throw new Error('XML 超过单文档 4 MiB 解析预算。');
                 return { text: await fs.readFile(physical, 'utf8'), version: 0 };
-            } }).createView();
+            } });
+        this.semantic=semantic;
+        await Promise.all(vscode.workspace.textDocuments.map(document=>this.primeDocument(document)));
+        if(this.semantic!==semantic)throw new Error('MOD 项目已切换，请重新打开特效。');
+        return semantic.createView();
+    }
+    private async primeDocument(document:vscode.TextDocument):Promise<string|undefined>{
+        const semantic=this.semantic;
+        if(!semantic||document.isClosed||document.uri.scheme!=='file'||!/\.xml$/i.test(document.uri.fsPath))return;
+        try{
+            const physical=await semantic.index.checkedFile(await canonicalPath(document.uri.fsPath));
+            semantic.documents.alias(document.uri.fsPath,physical);
+            if(document.isClosed||this.semantic!==semantic)return;
+            semantic.setDocument(physical,document.getText(),document.version);return physical;
+        }catch{return;}
     }
     async open(uri?: vscode.Uri, assetKey?: string): Promise<void> {
         if (!uri || uri.scheme !== 'file' || !/\.xml$/i.test(uri.fsPath)) throw new Error('请打开本地 XML 文件，或从特效树选择资产。');
@@ -207,7 +229,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         const mod = this.services.getProject()?.root ?? this.roots[0];
         const candidate = path.join(mod, 'Data', 'Mod.xml');
         try { if (!suppliedAsset) { await fs.access(candidate); entry = candidate; } } catch { /* Standalone XML remains a useful explicit entry. */ }
-        const probe = this.newIndex();
+        const probe = await this.newIndex();
         try {
             await probe.load(entry);
             let assets = probe.listAssets().filter(a => sameFile(a.uri, file) && (a.type === 'FXList' || a.type === 'FXParticleSystemTemplate'));
@@ -231,7 +253,8 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         await this.configureRoots(document.uri); await this.allowed(document.uri.fsPath);
         if (token.isCancellationRequested || this.closed) return;
         const request = this.pending.get(document.uri.toString()); this.pending.delete(document.uri.toString());
-        const session = new PreviewSession(document.version); const index = this.newIndex();
+        const session = new PreviewSession(document.version); const index = await this.newIndex();
+        if(token.isCancellationRequested||this.closed){session.dispose();index.dispose();return;}
         const stored = safeUiState(this.context.workspaceState.get(`newsdk.fx:${document.uri.toString()}`, {}));
         const state: EditorState = { document, panel, session, index, resolver: new AssetResolver(index),
             entry: request?.entry ?? document.uri.fsPath, assetKey: request?.assetKey, previewKey: request?.previewKey,
@@ -292,9 +315,10 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
     }
     private async rebuild(state: EditorState): Promise<void> {
         if (state.disposed || !state.panel.visible || (this.active.hasActive && !this.active.owns(state.session))) return;
-        if (state.indexReleased) { state.index = this.newIndex(); state.resolver = new AssetResolver(state.index); state.indexReleased = false; }
+        if (state.indexReleased) { const index=await this.newIndex();if(state.disposed){index.dispose();return;}state.index=index;state.resolver = new AssetResolver(state.index); state.indexReleased = false; }
         const { requestId, signal } = state.session.renew(state.document.version);
         try {
+        if(Buffer.byteLength(state.document.getText(),'utf8')>sourceLimit)throw new Error('XML 超过单文档 4 MiB FX 解析预算。');
         state.index.documentStore.set(state.document.uri.fsPath,state.document.getText(),state.document.version);
         const model = await state.index.documentStore.read(state.document.uri.fsPath);
         if (!model.valid) {
@@ -560,7 +584,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         const uri = vscode.window.activeTextEditor?.document.uri;
         await this.configureRoots(uri);
         const entry = path.join(this.services.getProject()?.root ?? this.roots[0], 'Data', 'Mod.xml');
-        const index = this.newIndex();
+        const index = await this.newIndex();
         try {
             await index.load(entry); const assets = index.listAssets().filter(a => a.type === 'FXList' || a.type === 'FXParticleSystemTemplate'); this.tree.update(assets);
             const selected = await vscode.window.showQuickPick(assets.map(asset => ({ label: asset.id, description: asset.type, asset })), { title: '搜索当前入口的特效' });
@@ -727,7 +751,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         await this.allowed(targetUri.fsPath, true);
         const target = await vscode.workspace.openTextDocument(targetUri);
         const targetModel = parseXml(target.getText(), target.uri.fsPath, target.version);
-        const targetIndex = this.newIndex();
+        const targetIndex = await this.newIndex();
         let entry = rootIr.entry;
         try {
             if (!containsPath(this.services.getProject()?.root ?? this.roots[0], entry)) entry = path.join(this.services.getProject()?.root ?? this.roots[0], 'Data', 'Mod.xml');
@@ -762,7 +786,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             dependencies: state?.ir?.dependencies ?? [], ir: state?.ir, documentVersion: state?.document.version, sessionId: state?.session.id };
     }
     refreshProject(): void {
-        this.rootKey = ''; this.resources?.dispose(); this.resources = undefined;
+        this.rootKey = ''; this.semantic=undefined; this.resources?.dispose(); this.resources = undefined;
         for (const watcher of this.watchers) watcher.dispose(); this.watchers = [];
         for (const state of [...this.editors]) { state.panel.dispose(); this.close(state); }
         this.tree.update([]); this.diagnostics.clear();

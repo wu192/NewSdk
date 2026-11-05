@@ -183,6 +183,10 @@
       {
         "command": "newsdk.xml.references",
         "title": "NewSdk XML: 查看资产引用"
+      },
+      {
+        "command": "newsdk.xml.copyToMod",
+        "title": "NewSdk XML: 复制 SDK 资产到 MOD"
       }
     ],
     "viewsContainers": {

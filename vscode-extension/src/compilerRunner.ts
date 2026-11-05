@@ -161,7 +161,7 @@ export class CompilerRunner implements vscode.Disposable {
         let polling: Promise<void> | undefined;
         let poll: (() => Promise<void>) | undefined;
         let protocolError: string | undefined;
-        let inputObservation: ReturnType<typeof observeInputs> | undefined;
+        let inputObservation: Awaited<ReturnType<typeof observeInputs>> | undefined;
         try {
             timer = setInterval(() => {
                 this.update({ elapsedMs: Date.now() - started });
@@ -196,7 +196,7 @@ export class CompilerRunner implements vscode.Disposable {
             // Capture old build IDs before launching. No old success event/report
             // may certify this invocation, even when startup fails before truncation.
             const tail = await JsonlTail.capture(paths.events);
-            if (operation === 'build') inputObservation = observeInputs(config);
+            if (operation === 'build') inputObservation = await observeInputs(config);
             poll = () => {
                 if (polling) return polling;
                 polling = (async () => {
@@ -223,14 +223,14 @@ export class CompilerRunner implements vscode.Disposable {
                 exitCode, report, forced: this.forced,
                 protocolError: problems.length ? problems.join('\n') : undefined,
             });
-            if (inputObservation) result.inputState = inputObservation.tracker.result();
+            if (inputObservation) { await inputObservation.settle(); result.inputState = inputObservation.tracker.result(); }
             this.setResult(result);
             return result;
         } catch (error) {
             const result = protocol.finish({
                 exitCode: undefined, forced: this.forced, protocolError: errorMessage(error),
             });
-            if (inputObservation) result.inputState = inputObservation.tracker.result();
+            if (inputObservation) { await inputObservation.settle(); result.inputState = inputObservation.tracker.result(); }
             // Startup and configuration failures must remain clear even without
             // a compiler session or a structured report.
             if (!this.forced && !result.buildId) {
@@ -355,26 +355,56 @@ export class CompilerRunner implements vscode.Disposable {
 }
 
 /** Observe source changes during this invocation; never scan/hash the SDK or its compiler caches. */
-function observeInputs(config: RunConfiguration): { tracker: BuildVersionTracker; dispose(): void } {
+async function observeInputs(config: RunConfiguration): Promise<{ tracker: BuildVersionTracker; settle(): Promise<void>; dispose(): void }> {
     const tracker = new BuildVersionTracker();
     const cacheRoot = path.join(config.sdkRoot, 'SuperCompilerCache');
     // SDK resource paths may be customized in BinaryAssetBuilder.exe.config.
     // Observe changes conservatively, while excluding the compiler's own cache.
-    const relevant = (uri: vscode.Uri): boolean => uri.scheme === 'file' && !containsPath(cacheRoot, uri.fsPath)
-        && (containsPath(config.modRoot, uri.fsPath) || containsPath(config.sdkRoot, uri.fsPath));
+    const relevant = (file: string): boolean => !containsPath(cacheRoot, file)
+        && (containsPath(config.modRoot, file) || containsPath(config.sdkRoot, file));
+    const physicalPaths = new Map<string, string>();
+    const sourceFile = async (uri: vscode.Uri): Promise<string | undefined> => {
+        if (uri.scheme !== 'file') return undefined;
+        if (containsPath(cacheRoot, uri.fsPath)) return undefined;
+        const spelling = pathIdentity(uri.fsPath);
+        let physical = physicalPaths.get(spelling);
+        if (!physical) {
+            // TextDocument URIs and watcher events can retain a junction or an
+            // 8.3 spelling even though prepare() canonicalized the build roots.
+            try { physical = await canonicalPath(uri.fsPath); }
+            catch { return relevant(uri.fsPath) ? spelling : undefined; }
+            physicalPaths.set(spelling, physical);
+        }
+        return relevant(physical) ? pathIdentity(physical) : undefined;
+    };
+    let pending: Promise<void> = Promise.resolve();
+    const enqueue = (uri: vscode.Uri, apply: (file: string) => void): void => {
+        pending = pending.then(async () => { const file = await sourceFile(uri); if (file) apply(file); });
+    };
+    const settle = async (): Promise<void> => {
+        let observed: Promise<void>;
+        do { observed = pending; await observed; } while (observed !== pending);
+    };
     const subscriptions: vscode.Disposable[] = [];
     for (const root of new Set([config.modRoot, config.sdkRoot])) {
         const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(root, '**/*'));
-        const changed = (uri: vscode.Uri): void => { if (relevant(uri)) tracker.disk(); };
+        const changed = (uri: vscode.Uri): void => enqueue(uri, () => tracker.disk());
         subscriptions.push(watcher, watcher.onDidChange(changed), watcher.onDidCreate(changed), watcher.onDidDelete(changed));
     }
     subscriptions.push(vscode.workspace.onDidChangeTextDocument(event => {
-        if (relevant(event.document.uri) && event.contentChanges.length) tracker.memory(pathIdentity(event.document.uri.fsPath), event.document.version);
-    }), vscode.workspace.onDidSaveTextDocument(document => { if (relevant(document.uri)) tracker.disk(); }));
-    const documents = vscode.workspace.textDocuments.filter(document => relevant(document.uri));
-    for (const document of documents) tracker.memory(pathIdentity(document.uri.fsPath), document.version);
-    tracker.begin(documents.some(document => document.isDirty));
-    return { tracker, dispose: () => subscriptions.forEach(subscription => subscription.dispose()) };
+        if (event.contentChanges.length) {
+            const version = event.document.version;
+            enqueue(event.document.uri, file => tracker.memory(file, version));
+        }
+    }), vscode.workspace.onDidSaveTextDocument(document => enqueue(document.uri, () => tracker.disk())));
+    let unsaved = false;
+    for (const document of vscode.workspace.textDocuments) {
+        const file = await sourceFile(document.uri);
+        if (file) { tracker.memory(file, document.version); unsaved ||= document.isDirty; }
+    }
+    await settle();
+    tracker.begin(unsaved);
+    return { tracker, settle, dispose: () => subscriptions.forEach(subscription => subscription.dispose()) };
 }
 
 function errorMessage(error: unknown): string {

@@ -69,3 +69,35 @@ test('project source record budget applies across independently indexed document
     const root=await temporary(t),a=path.join(root,'a.xml'),b=path.join(root,'b.xml');const source=xml('<GameObject id="A"/>');await fs.writeFile(a,source);await fs.writeFile(b,source);
     const documents=new DocumentStore({maxBytes:Buffer.byteLength(source)+1});await documents.read(a);await assert.rejects(documents.read(b),/项目源码记录预算/);assert.ok(documents.statistics.bytes<=Buffer.byteLength(source)+1);
 });
+
+test('canonical file aliases migrate pending editor overlays into the shared source version',async t=>{
+    const root=await temporary(t),file=path.join(root,'source.xml'),alias=path.join(root,'alias.xml');await fs.writeFile(file,xml('<Texture id="Disk"/>'));
+    try{await fs.symlink(file,alias);}catch(error){if((error as NodeJS.ErrnoException).code==='EPERM'){t.skip('Symlink privilege is unavailable');return;}throw error;}
+    const service=new AssetService({roots:[root],modRoot:root});service.setDocument(alias,xml('<Texture id="Overlay"/>'),9);await service.ensure(alias);assert.equal(service.getDocument(alias)?.version,9);assert.equal(service.findAssets({id:'Overlay'}).length,1);assert.equal(service.findAssets({id:'Disk'}).length,0);service.dispose();
+});
+
+test('explicit index reload rechecks text when source metadata is unchanged and reuses identical CST records',async t=>{
+    const root=await temporary(t),file=path.join(root,'entry.xml');await fs.writeFile(file,xml('<Texture id="First"/>'));
+    // A text source can change within one filesystem timestamp tick. Keep the
+    // physical file untouched to exercise an exact stat collision deterministically.
+    let source=xml('<Texture id="First"/>');const index=new AssetIndex({roots:[root],readText:async()=>({text:source,version:0})});
+    await index.load(file);const first=index.getDocument(file);assert.equal(index.listAssets()[0].id,'First');
+    source=xml('<Texture id="Other"/>');await index.load(file);assert.equal(index.listAssets()[0].id,'Other');assert.notEqual(index.getDocument(file),first);const parses=index.documentStore.statistics.parses;const current=index.getDocument(file);
+    await index.load(file);assert.equal(index.getDocument(file),current);assert.equal(index.documentStore.statistics.parses,parses);index.dispose();
+});
+
+test('new SDK schemas/manifests and source profile changes invalidate existing semantic sessions',async t=>{
+    const root=await temporary(t),mod=path.join(root,'mod'),sdk=path.join(root,'sdk');
+    await fs.mkdir(path.join(mod,'Data'),{recursive:true});await fs.mkdir(path.join(sdk,'Schemas'),{recursive:true});await fs.mkdir(path.join(sdk,'builtmods'),{recursive:true});await fs.mkdir(path.join(sdk,'tools'),{recursive:true});await fs.mkdir(path.join(sdk,'Sources1'));await fs.mkdir(path.join(sdk,'Sources2'));
+    const schema=(name:string)=>`<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="${name}" type="xs:string"/></xs:schema>`;
+    await fs.writeFile(path.join(sdk,'Schemas','Base.xsd'),schema('InitialType'));
+    const empty=Buffer.alloc(48);empty.set([0,1,6,0]);await fs.writeFile(path.join(sdk,'builtmods','empty.manifest'),empty);
+    await fs.writeFile(path.join(sdk,'Sources1','Static.xml'),xml('<Texture id="FirstSource"/>'));await fs.writeFile(path.join(sdk,'Sources2','Static.xml'),xml('<Texture id="OtherSource"/>'));
+    const config=path.join(sdk,'tools','BinaryAssetBuilder.exe.config');const profile=(folder:string)=>`<configuration><assetbuilder defaultDataPaths="${folder}"/></configuration>`;await fs.writeFile(config,profile('Sources1'));
+    const entry=path.join(mod,'Data','Mod.xml');await fs.writeFile(entry,xml('<Includes><Include type="reference" source="DATA:Static.xml"/></Includes>'));
+    const service=new AssetService({roots:[mod,sdk],modRoot:mod,sdkRoot:sdk});await service.ensure(entry);await service.whenComplete();assert.equal(service.completeness,'complete');assert.ok(service.findAssets({id:'FirstSource'}).length);
+    const addedSchema=path.join(sdk,'Schemas','Added.xsd');await fs.writeFile(addedSchema,schema('NewType'));service.invalidate(addedSchema);assert.equal(service.completeness,'partial');await service.ensure(entry);await service.whenComplete();assert.ok(service.schema?.getElement('NewType'));
+    const names=Buffer.from('Texture:NewManifestAsset\0'),manifest=Buffer.alloc(96+names.length);manifest.set([0,1,6,0]);manifest.writeUInt32LE(1,12);manifest.writeUInt32LE(names.length,40);names.copy(manifest,96);
+    const addedManifest=path.join(sdk,'builtmods','added.manifest');await fs.writeFile(addedManifest,manifest);service.invalidate(addedManifest);assert.equal(service.completeness,'partial');await service.ensure(entry);await service.whenComplete();assert.equal(service.manifests?.find('Texture','NewManifestAsset').length,1);
+    await fs.writeFile(config,profile('Sources2'));service.invalidate(config);assert.equal(service.completeness,'partial');await service.ensure(entry);await service.whenComplete();assert.equal(service.findAssets({id:'FirstSource'}).length,0);assert.equal(service.findAssets({id:'OtherSource'}).length,1);service.dispose();
+});
