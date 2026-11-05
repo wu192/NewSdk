@@ -29,7 +29,7 @@ function layers() { return (world?.systems??[]).map(s=> { const d=descriptors.fi
 function load(value: PreviewIR) {
     close(); ir=value; renderer=new FxRenderer(canvas,message=>errors.push(message));
     descriptors=[...value.systems,...(value.dynamic?.templates??[]),...(value.dynamic?.fxLists.flatMap(l=>l.systems)??[])];
-    world=new ParticleWorld(value.systems.filter(s=>s.config&&s.triggered).map(definition),value.scene.seed,32768,18000,value.dynamic?{...value.dynamic,templates:value.dynamic.templates.filter(s=>s.config).map(definition),fxLists:value.dynamic.fxLists.map(l=>({...l,systems:l.systems.filter(s=>s.config&&s.triggered).map(definition)})),groundHeight:value.scene.ground}:undefined);
+    world=new ParticleWorld(value.systems.filter(s=>s.config&&s.triggered).map(definition),value.scene.seed,32768,18000,{...value.dynamic,templates:value.dynamic?.templates.filter(s=>s.config).map(definition),fxLists:value.dynamic?.fxLists.map(l=>({...l,systems:l.systems.filter(s=>s.config&&s.triggered).map(definition)})),groundHeight:value.scene.ground,sourceMotion:value.scene.sourceMotion});
     renderer.setLayers(layers(),value.textures.map(t=>t.key));
     for(const texture of value.textures)renderer.uploadTexture(texture);
     return seek(0);

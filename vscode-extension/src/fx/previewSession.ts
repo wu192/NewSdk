@@ -1,5 +1,6 @@
 import { randomBytes } from 'node:crypto';
 import type { FxScene } from './previewProtocol';
+import { parseSourceMotion } from '../../webview/fx/runtime/sourceMotion';
 
 export function parseFxScene(value: unknown): FxScene | undefined {
     if (!value || typeof value !== 'object' || Array.isArray(value)) return undefined;
@@ -9,6 +10,11 @@ export function parseFxScene(value: unknown): FxScene | undefined {
         || typeof o.ground !== 'number' || !Number.isFinite(o.ground) || Math.abs(o.ground) > 1e6
         || !Number.isSafeInteger(o.seed) || (o.seed as number) < 0 || (o.seed as number) > 0xffffffff) return undefined;
     const scene: FxScene = { source: [...o.source], target: [...o.target], terrain: o.terrain, ground: o.ground, seed: o.seed as number };
+    if (o.sourceMotion !== undefined) {
+        const motion = parseSourceMotion(o.sourceMotion);
+        if (!motion) return undefined;
+        scene.sourceMotion = motion;
+    }
     const words=(value:unknown):value is string[]=>Array.isArray(value)&&value.length<=128&&value.every(s=>typeof s==='string'&&s.length<=128&&/^[A-Za-z0-9_]+$/.test(s));
     if(o.dispatch!==undefined){if(o.dispatch!=='position'&&o.dispatch!=='object')return undefined;scene.dispatch=o.dispatch;}
     if(o.sourceRotation!==undefined){if(!vec(o.sourceRotation))return undefined;scene.sourceRotation=[...o.sourceRotation];}

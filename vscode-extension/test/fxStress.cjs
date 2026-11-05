@@ -8,7 +8,7 @@ const {ParticleWorld}=require('../out/webview/fx/runtime');
 const full=process.env.NEWSDK_FX_STRESS==='full';
 const definition=s=>({id:s.key,templateKey:s.templateKey,sourceId:s.key,orientToObject:s.orientToObject,createAtGroundHeight:s.createAtGroundHeight,config:s.config,options:{offset:s.offset,rotation:s.rotation,rotationXYZ:s.rotationXYZ,rotationMatrix:s.rotationMatrix,startFrame:s.startFrame,systemLifeFrames:s.systemLifeFrames,initialDelayOverrideMs:s.initialDelayOverrideMs,createAtGroundHeight:s.createAtGroundHeight}});
 const percentile=(values,p)=>values.slice().sort((a,b)=>a-b)[Math.min(values.length-1,Math.floor(values.length*p))];
-function create(ir){return new ParticleWorld(ir.systems.filter(s=>s.config&&s.triggered).map(definition),ir.scene.seed,32768,18000,{...ir.dynamic,templates:ir.dynamic.templates.filter(s=>s.config).map(definition),fxLists:ir.dynamic.fxLists.map(l=>({...l,systems:l.systems.filter(s=>s.config&&s.triggered).map(definition)})),groundHeight:ir.scene.ground,snapshotBytes:16*1024*1024});}
+function create(ir){return new ParticleWorld(ir.systems.filter(s=>s.config&&s.triggered).map(definition),ir.scene.seed,32768,18000,{...ir.dynamic,templates:ir.dynamic.templates.filter(s=>s.config).map(definition),fxLists:ir.dynamic.fxLists.map(l=>({...l,systems:l.systems.filter(s=>s.config&&s.triggered).map(definition)})),groundHeight:ir.scene.ground,sourceMotion:ir.scene.sourceMotion,snapshotBytes:16*1024*1024});}
 function signature(world){return JSON.stringify(world.systems.map(s=>({id:s.id,frame:s.runtime.frame,random:s.runtime.random.calls,particles:s.runtime.particles.map(p=>({id:p.id,sample:s.runtime.sample(p,world.frame)}))})));}
 (async()=>{
  const output=path.resolve(__dirname,'../test-results');await fs.mkdir(output,{recursive:true});
@@ -36,9 +36,15 @@ function signature(world){return JSON.stringify(world.systems.map(s=>({id:s.id,f
   const independent=create(ir);independent.seek(12);assert.equal(signature(world),signature(independent));independent.dispose();
   report.checks.push('superseded seek cancellation keeps latest state');
   world.dispose();assert.equal(world.systems.length,0);assert.equal(world.attachmentHandles.size,0);assert.equal(world.snapshotBytes,0);
+  const moving=structuredClone(ir);moving.scene.sourceMotion={playback:'pingPong',points:[{frame:0,offset:[0,0,0]},{frame:150,offset:[60,30,5]}]};
+  world=create(moving);await world.seekAsync(60);const movingState=signature(world);
+  assert.ok(world.systems.some(s=>!s.dynamic&&s.runtime.options.offset[0]!==ir.systems.find(d=>d.key===s.sourceId)?.offset[0]));
+  await world.seekAsync(full?18000:3600);await world.seekAsync(60);assert.equal(signature(world),movingState);
+  assert.equal(world.budgetExceeded,undefined);world.dispose();
+  report.checks.push('source trajectory mixed CPU/GPU, event and attached world replays deterministically');
   if(global.gc)global.gc();const baseline=process.memoryUsage();const seekTimes=[];
   for(let i=0;i<100;i++){
-   world=create(ir);const start=performance.now();await world.seekAsync(120+(i%5));seekTimes.push(performance.now()-start);
+   world=create(i%2?moving:ir);const start=performance.now();await world.seekAsync(120+(i%5));seekTimes.push(performance.now()-start);
    assert.equal(world.budgetExceeded,undefined);world.dispose();assert.equal(world.systems.length,0);assert.equal(world.snapshotBytes,0);assert.equal(world.attachmentHandles.size,0);
    if(i%10===0&&global.gc)global.gc();
   }

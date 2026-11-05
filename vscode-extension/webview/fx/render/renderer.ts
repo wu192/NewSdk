@@ -1,5 +1,5 @@
 import type { FxScene, FxTexture, FxTextureTransfer } from '../../../src/fx/previewProtocol';
-import { RANDOM_TABLE, integrateDamping, sampleParticle, tableSample } from '../runtime';
+import { RANDOM_TABLE, integrateDamping, sampleParticle, tableSample, sampleSourceMotion } from '../runtime';
 import { sampleCpuParticle } from '../runtime/cpu';
 import type { BirthRecord, ParticleConfig, ParticleSample, Range, Vec3 } from '../runtime/types';
 import { cameraMatrices, CameraState, CameraMatrices, project, CAMERA_NEAR, CAMERA_FAR, CAMERA_FOV_SCALE } from './camera';
@@ -31,6 +31,10 @@ export class FxRenderer {
     private depthStamp='';
     private sceneStamp='';
     private sceneLineCount=0;
+    private scenePathMotion:FxScene['sourceMotion'];
+    private scenePathOrigin='';
+    private scenePath:Vec3[]=[];
+    private scenePathRevision=0;
     private uploads=0;
     private uploadedBytes=0;
     private lineBuffer:WebGLBuffer|null=null;
@@ -328,7 +332,7 @@ export class FxRenderer {
         gl.clearColor(rgb[0],rgb[1],rgb[2],1);gl.colorMask(true,true,true,true);gl.depthMask(true);gl.clearDepth(1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.depthMask(false);
         const matrices=cameraMatrices(camera,width/height);this.matrix=matrices.matrix;
         if(showGround)this.syntheticGround(matrices,width,height,scene.ground);
-        this.drawScene(scene,showGround);
+        this.drawScene(scene,showGround,frame);
         let particles=0,draws=0;
         const initializedPrograms=new Set<WebGLProgram>();
         const factors={ONE:gl.ONE,ZERO:gl.ZERO,SRC_ALPHA:gl.SRC_ALPHA,ONE_MINUS_SRC_ALPHA:gl.ONE_MINUS_SRC_ALPHA,ONE_MINUS_SRC_COLOR:gl.ONE_MINUS_SRC_COLOR,DST_COLOR:gl.DST_COLOR};
@@ -360,8 +364,15 @@ export class FxRenderer {
         this.statsValue={particles,draws,gpuBytes:[...this.buffers.values()].reduce((n,b)=>n+b.capacity,0)+[...this.textures.values()].reduce((n,t)=>n+t.bytes,0)+[...this.geometries.values()].reduce((n,g)=>n+g.bytes,0)+this.sceneLineCount*7*4+width*height*8+(this.depth?this.depth.width*this.depth.height*4:0),canvasPixels:width*height,instanceUploads:this.uploads,uploadedBytes:this.uploadedBytes,softParticles:showGround&&softParticles};
         return this.statsValue;
     }
-    private drawScene(scene:FxScene,ground:boolean):void {
-        const gl=this.gl,stamp=`${ground}:${scene.ground}:${scene.source.join(',')}:${scene.target.join(',')}`;
+    private drawScene(scene:FxScene,ground:boolean,frame:number):void {
+        const origin=scene.source.join(',');
+        if(this.scenePathMotion!==scene.sourceMotion||this.scenePathOrigin!==origin){
+            this.scenePathMotion=scene.sourceMotion;this.scenePathOrigin=origin;this.scenePathRevision++;
+            this.scenePath=scene.sourceMotion?.points.map(point=>point.offset.map((v,i)=>v+scene.source[i]) as Vec3)??[];
+        }
+        const displacement=sampleSourceMotion(scene.sourceMotion,frame);
+        const source=scene.source.map((v,i)=>v+displacement[i]) as Vec3;
+        const gl=this.gl,stamp=`${ground}:${scene.ground}:${source.join(',')}:${scene.target.join(',')}:${this.scenePathRevision}`;
         this.use(this.lineProgram!);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.enable(gl.BLEND);gl.blendEquation(gl.FUNC_ADD);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);
         gl.uniformMatrix4fv(this.uniform('viewProjection'),false,this.matrix);gl.bindVertexArray(this.lineVao);
         if(stamp!==this.sceneStamp){
@@ -370,10 +381,11 @@ export class FxRenderer {
                 const c=[0.17,0.19,0.22,i===0?0.8:0.5];
                 line([i*10,-100,scene.ground],[i*10,100,scene.ground],c);line([-100,i*10,scene.ground],[100,i*10,scene.ground],c);
             }
-            for(const [point,color] of [[scene.source,[0.2,0.85,0.7,1]],[scene.target,[1,0.6,0.2,1]]] as [Vec3,number[]][]){
+            for(let i=1;i<this.scenePath.length;i++)line(this.scenePath[i-1],this.scenePath[i],[0.2,0.85,0.7,0.45]);
+            for(const [point,color] of [[source,[0.2,0.85,0.7,1]],[scene.target,[1,0.6,0.2,1]]] as [Vec3,number[]][]){
                 for(let axis=0;axis<3;axis++){const a=[...point] as Vec3,b=[...point] as Vec3;a[axis]-=3;b[axis]+=3;line(a,b,color);}
             }
-            line(scene.source,scene.target,[0.45,0.45,0.5,0.4]);
+            line(source,scene.target,[0.45,0.45,0.5,0.4]);
             gl.bindBuffer(gl.ARRAY_BUFFER,this.lineBuffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(vertices),gl.DYNAMIC_DRAW);this.sceneStamp=stamp;this.sceneLineCount=vertices.length/7;
         }
         gl.drawArrays(gl.LINES,0,this.sceneLineCount);
@@ -410,6 +422,7 @@ export class FxRenderer {
             gl.deleteProgram(this.program);gl.deleteProgram(this.cpuProgram);gl.deleteProgram(this.lineProgram);gl.deleteProgram(this.groundProgram);
         }
         this.buffers.clear();this.textures.clear();this.geometries.clear();this.uniforms.clear();this.parameterStates.clear();this.depth=null;this.depthStamp='';this.sceneStamp='';
+        this.scenePath=[];this.scenePathMotion=undefined;this.scenePathOrigin='';this.sceneLineCount=0;
         this.lineBuffer=null;this.lineVao=null;this.program=null;this.cpuProgram=null;this.lineProgram=null;this.groundProgram=null;this.activeProgram=null;
     }
     dispose():void {

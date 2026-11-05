@@ -436,7 +436,15 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                     else { state.assetKey = asset.key; state.previewKey = undefined; await this.rebuild(state); }
                 }
                 break;
-            case 'scene': { const scene = parseFxScene(message.scene); if (scene) { state.scene = scene; await this.rebuild(state); } break; }
+            case 'scene': {
+                const scene = parseFxScene(message.scene);
+                if (scene) {
+                    state.scene = scene;
+                    await this.context.workspaceState.update(`newsdk.fx:${state.document.uri.toString()}`, { ...state.state, scene });
+                    await this.rebuild(state);
+                }
+                break;
+            }
             case 'openShared': {
                 const system = state.ir && systems(state.ir).find(s => s.key === message.systemKey); const asset = system && state.index.getAsset(system.templateKey);
                 if (asset) await this.openSharedAsset(state, asset, true); break;

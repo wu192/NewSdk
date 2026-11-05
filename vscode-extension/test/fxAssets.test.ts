@@ -279,6 +279,6 @@ test('absent Atlas defaults expose authorized insertion fields at the real Gpu n
 });
 
 test('versioned capabilities identify required fixture families and explicit unsupported modules', () => {
-    assert.equal(fxCapabilities.version,2); assert.ok(fxCapabilities.fixtures.includes('smoke.xml'));
+    assert.equal(fxCapabilities.version,3); assert.ok(fxCapabilities.fixtures.includes('smoke.xml'));
     assert.ok(fxCapabilities.supported.volume.includes('Sphere')); assert.ok(fxCapabilities.explicitGaps.some(gap=>gap.includes('CPU')));
 });

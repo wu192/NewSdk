@@ -64,4 +64,18 @@ function workload(frames=5){
     const result={particles:stats.particles,draws:stats.draws,canvasPixels:stats.canvasPixels,gpuBytes:stats.gpuBytes,p95Ms:sorted[Math.min(sorted.length-1,Math.floor(sorted.length*.95))],samples:times.length,renderer:'Chromium SwiftShader',referenceHardware:false,error:gl.getError()};
     renderer!.dispose();canvas.style.width='640px';canvas.style.height='360px';return result;
 }
-Object.assign(window,{fxRound2:{load,draw,contextCycle,budget,workload,close:()=>renderer?.dispose(),counts}});
+function motionOverlay(frame:number,enabled=true){
+    renderer!.setLayers([]);
+    const overlay:FxScene={...scene,source:[0,0,6],target:[100000,100000,100000],sourceMotion:enabled?{playback:'once',points:[{frame:0,offset:[0,0,0]},{frame:30,offset:[12,0,0]}]}:undefined};
+    renderer!.render(frame,camera,overlay,'#203040',false,false,false);
+    const pixels=new Uint8Array(canvas.width*canvas.height*4);gl.readPixels(0,0,canvas.width,canvas.height,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
+    const green=(point:Vec3)=>{
+        const p=project(point,cameraMatrices(camera,canvas.width/canvas.height).matrix,canvas.width,canvas.height);
+        const x=Math.floor(p[0]),y=Math.floor(canvas.height-p[1]);let value=0;
+        for(let dy=-2;dy<=2;dy++)for(let dx=-2;dx<=2;dx++)if(x+dx>=0&&x+dx<canvas.width&&y+dy>=0&&y+dy<canvas.height)value=Math.max(value,pixels[((y+dy)*canvas.width+x+dx)*4+1]);
+        return value;
+    };
+    let hash=2166136261;for(const p of pixels)hash=Math.imul(hash^p,16777619)>>>0;
+    return {originGreen:green([0,0,6]),endGreen:green([12,0,6]),hash,error:gl.getError()};
+}
+Object.assign(window,{fxRound2:{load,draw,contextCycle,budget,workload,motionOverlay,close:()=>renderer?.dispose(),counts}});

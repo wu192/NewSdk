@@ -108,6 +108,32 @@ export async function runFxAcceptance(fx: FxApi, modRoot: string, evidence: stri
 
     await fx.open(flash);
     await waitFor(() => !!fx.getSnapshot(flash.fsPath).ir, 'save and compile');
+    const motionScene = structuredClone(fx.getSnapshot(flash.fsPath).ir!.scene);
+    motionScene.sourceMotion = {playback:'pingPong',points:[{frame:0,offset:[0,0,0]},{frame:90,offset:[60,20,5]}]};
+    const applyScene = async (scene: typeof motionScene, requestId: number) => {
+        const current = boundary.current();
+        await boundary.dispatch(current,{sessionId:current.session.id,documentVersion:current.document.version,requestId,type:'scene',scene});
+    };
+    const beforeMotionText = document.getText(), beforeMotionDisk = await fs.readFile(flash.fsPath,'utf8');
+    await applyScene(motionScene,1000010);
+    assert.deepEqual(fx.getSnapshot(flash.fsPath).ir!.scene.sourceMotion,motionScene.sourceMotion);
+    const invalidMotionScene = structuredClone(motionScene); invalidMotionScene.sourceMotion!.points[1].frame = 0;
+    await applyScene(invalidMotionScene,1000011);
+    assert.deepEqual(fx.getSnapshot(flash.fsPath).ir!.scene.sourceMotion,motionScene.sourceMotion,'Invalid path must retain last valid scene');
+    await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+    await waitFor(() => fx.getSnapshot().sessionCount===0,'close motion editor');
+    await fx.open(flash);
+    await waitFor(() => !!fx.getSnapshot(flash.fsPath).ir,'restore motion scene');
+    assert.deepEqual(fx.getSnapshot(flash.fsPath).ir!.scene.sourceMotion,motionScene.sourceMotion,'Reopen must restore host-persisted motion');
+    delete motionScene.sourceMotion; await applyScene(motionScene,1000012);
+    await vscode.commands.executeCommand('workbench.action.closeAllEditors');
+    await waitFor(() => fx.getSnapshot().sessionCount===0,'close disabled motion editor');
+    await fx.open(flash);
+    await waitFor(() => !!fx.getSnapshot(flash.fsPath).ir,'restore stationary source');
+    assert.equal(fx.getSnapshot(flash.fsPath).ir!.scene.sourceMotion,undefined);
+    assert.equal(document.getText(),beforeMotionText); assert.equal(document.isDirty,false);
+    assert.equal(await fs.readFile(flash.fsPath,'utf8'),beforeMotionDisk,'Scene trajectory must not modify XML');
+    cases.push('source trajectory scene validation, close/reopen persistence, disable and unchanged XML');
     await new Promise(resolve => setTimeout(resolve, 250));
     const memoryOpened = await captureFxMemory();
     const result = await saveAndBuild([entry]);

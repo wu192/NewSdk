@@ -134,8 +134,8 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         with:
           retention-days: 1
-          name: NewSdk-Mod-Tools-FX-Round2-VSIX-${{ github.run_id }}-${{ github.run_attempt }}
-          path: vscode-extension/NewSdk-Mod-Tools-FX-Round2.vsix
+          name: NewSdk-Mod-Tools-FX-VSIX-${{ github.run_id }}-${{ github.run_attempt }}
+          path: vscode-extension/NewSdk-Mod-Tools-FX.vsix
           if-no-files-found: warn
       - name: Collect small acceptance summaries
         if: always()

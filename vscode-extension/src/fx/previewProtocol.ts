@@ -1,4 +1,5 @@
 import type { ParticleConfig } from '../../webview/fx/runtime';
+import type { SourceMotion } from '../../webview/fx/runtime/sourceMotion';
 
 export interface FxNode { name: string; attributes: Record<string, string>; children: FxNode[]; }
 export interface SourceLocation { uri: string; nodePath: string; start: number; end: number; }
@@ -32,6 +33,8 @@ export interface FxDynamicGraph {
 }
 export interface FxScene {
     source: [number, number, number]; target: [number, number, number];
+    /** Explicit synthetic preview input; root births follow these relative offsets. */
+    sourceMotion?: SourceMotion;
     terrain: 'land' | 'water'; ground: number; seed: number;
     dispatch?: 'position' | 'object'; sourceRotation?: [number, number, number];
     sourceModelConditions?: string[]; targetModelConditions?: string[]; targetObject?: boolean;

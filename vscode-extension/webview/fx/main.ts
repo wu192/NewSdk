@@ -10,6 +10,8 @@ import { button,el,label,option } from './ui/dom';
 import { fieldsPanel } from './ui/fields';
 import type { EditValue,FieldActions } from './ui/fields';
 import { atlasPanel,curvesPanel } from './ui/curves';
+import { sourceMotionPanel, motionPlaybackLabels } from './ui/sourceMotion';
+import { sampleSourceMotion, type SourceMotion } from './runtime/sourceMotion';
 
 declare function acquireVsCodeApi(): {postMessage(message:unknown):void;getState():unknown;setState(value:unknown):void;};
 declare global {interface Window {__FX_BOOTSTRAP__?:FxEnvelope&{state?:Partial<SessionState>};__FX_TEST__?:boolean;__fxTest?:Record<string,unknown>;}}
@@ -22,16 +24,19 @@ let ir:PreviewIR|undefined,draftIr:PreviewIR|undefined,world:ParticleWorld|undef
 let editingUri='',disposed=false,active=true,documentVisible=!document.hidden,rendererFailed=false;
 let raf:number|undefined,draftRaf:number|undefined,lastTime:number|undefined,accumulator=0,seekAbort:AbortController|undefined;
 let pendingDraft:EditValue[]|undefined;
-let viewRevision=0,textureBudgetBytes=32*1024*1024,runtimeLayerSignature='',pendingCommit=false;
+let viewRevision=0,textureBudgetBytes=32*1024*1024,runtimeLayerSignature='',pendingCommit=false,pendingSceneCommit=false;
 interface TextureAssembly {descriptor:FxTextureTransfer;levels:Uint8Array[];received:number[];version:number;discard:boolean;}
 const transfers=new Map<string,TextureAssembly>();
 const uploadedTextureKeys=new Set<string>();
 const textureGpuErrors=new Map<string,string>();
 
-interface SessionState {frame:number;playing:boolean;speed:number;endFrame:number;selected:string;hidden:string[];solo?:string;background:string;ground:boolean;softParticles:boolean;lowResolution:boolean;followCursor:boolean;camera:CameraState;}
+interface SessionState {frame:number;playing:boolean;speed:number;endFrame:number;selected:string;hidden:string[];solo?:string;background:string;ground:boolean;softParticles:boolean;lowResolution:boolean;followCursor:boolean;camera:CameraState;scene?:FxScene;}
 const saved=vscode.getState();
 const validSaved=saved&&typeof saved==='object'?saved as Partial<SessionState>:bootstrap.state??{};
 const state:SessionState={frame:validNumber(validSaved.frame,0,0,18000),playing:validSaved.playing!==false,speed:validNumber(validSaved.speed,1,0.1,4),endFrame:validNumber(validSaved.endFrame,300,1,18000),selected:typeof validSaved.selected==='string'?validSaved.selected:'',hidden:Array.isArray(validSaved.hidden)?validSaved.hidden.filter(s=>typeof s==='string'):[],solo:typeof validSaved.solo==='string'?validSaved.solo:undefined,background:/^#[0-9a-f]{6}$/i.test(validSaved.background??'')?validSaved.background!:'#10141b',ground:validSaved.ground!==false,softParticles:validSaved.softParticles!==false,lowResolution:!!validSaved.lowResolution,followCursor:!!validSaved.followCursor,camera:validCamera(validSaved.camera)};
+// Retain the last host scene while waiting for the first preview after a reload.
+// Simulation only consumes the validated scene returned in a host preview.
+if(validSaved.scene)state.scene=structuredClone(validSaved.scene);
 function validNumber(value:unknown,fallback:number,min:number,max:number):number{return typeof value==='number'&&Number.isFinite(value)?Math.max(min,Math.min(max,value)):fallback;}
 function validCamera(camera:unknown):CameraState {
     if(!camera||typeof camera!=='object')return structuredClone(defaultCamera);
@@ -40,7 +45,7 @@ function validCamera(camera:unknown):CameraState {
 }
 type ClientPayload=FxClientMessage extends infer T?T extends FxClientMessage?Omit<T,keyof FxEnvelope>:never:never;
 function send(payload:ClientPayload):void {if(!disposed)vscode.postMessage({...payload,sessionId,documentVersion:version,requestId:++requestId});}
-function persist(host=false):void {vscode.setState({...state,frame:Math.max(0,world?.frame??state.frame)});if(host)send({type:'state',state:{...state}});}
+function persist(host=false):void {if(ir)state.scene=structuredClone(ir.scene);const snapshot={...state,frame:Math.max(0,world?.frame??state.frame)};vscode.setState(snapshot);if(host)send({type:'state',state:snapshot});}
 function status(message:string,kind=''):void {statusBar.textContent=message;statusBar.className=`status ${kind}`;}
 function showError(error:unknown):void {status(error instanceof Error?error.message:String(error),'error');}
 
@@ -65,7 +70,7 @@ toolbar.append(playButton,replayButton,stepButton,label('速度',speed),seekInpu
 const workspace=el('div','workspace'),layers=el('aside','layers'),layerTitle=el('h2','','图层 / 调用实例'),layerList=el('div','layer-list');layerList.id='layer-list';
 layers.append(layerTitle,el('p','hint','隐藏 / 独显只影响显示，各层仍按原顺序运行。'),layerList);
 const stage=el('section','stage'),canvas=el('canvas','preview-canvas');canvas.id='fx-canvas';canvas.tabIndex=0;canvas.setAttribute('aria-label','特效三维预览；拖动旋转、滚轮缩放、点击选择系统');
-const stageHint=el('div','stage-hint','静止源 · 平地 · 位置触发 · 标准高质量数学 · 源贴图预览');
+const stageHint=el('div','stage-hint'),stageContext=el('span'),sourcePositionText=document.createTextNode('');stageHint.append(stageContext,el('br'),sourcePositionText);
 const noGpu=el('div','no-gpu');noGpu.hidden=true;
 const stats=el('output','render-stats');stats.id='render-stats';
 stage.append(canvas,stageHint,noGpu,stats);
@@ -124,6 +129,7 @@ function renderScene():void {
         const vector=el('fieldset','vector');vector.append(el('legend','',name));
         for(let axis=0;axis<3;axis++){const input=el('input');input.type='number';input.step='1';input.value=String(scene[key][axis]);input.setAttribute('aria-label',`${name} ${'XYZ'[axis]}`);input.addEventListener('change',()=>{const next=structuredClone(scene);next[key][axis]=Number(input.value);if(Number.isFinite(next[key][axis]))send({type:'scene',scene:next});});vector.append(label('XYZ'[axis],input));}inspectorBody.append(vector);
     }
+    inspectorBody.append(sourceMotionPanel(scene,applySourceMotion));
     const terrain=el('select');terrain.append(option('land','陆地'),option('water','水面'));terrain.value=scene.terrain;terrain.addEventListener('change',()=>send({type:'scene',scene:{...scene,terrain:terrain.value as FxScene['terrain']}}));inspectorBody.append(label('表面条件',terrain));
     for(const [key,name,step] of [['ground','地面高度','1'],['seed','固定预览初态','1']] as const){const input=el('input');input.type='number';input.step=step;input.value=String(scene[key]);input.addEventListener('change',()=>{const value=Number(input.value);if(Number.isFinite(value))send({type:'scene',scene:{...scene,[key]:value}});});inspectorBody.append(label(name,input));}
     const rotation=el('fieldset','vector');rotation.append(el('legend','','源朝向（弧度）'));for(let axis=0;axis<3;axis++){const input=el('input');input.type='number';input.step='0.1';input.value=String(scene.sourceRotation?.[axis]??0);input.setAttribute('aria-label',`源朝向 ${'XYZ'[axis]}`);input.addEventListener('change',()=>{const next=structuredClone(scene);next.sourceRotation??=[0,0,0];next.sourceRotation[axis]=Number(input.value);if(Number.isFinite(next.sourceRotation[axis]))send({type:'scene',scene:next});});rotation.append(label('XYZ'[axis],input));}inspectorBody.append(rotation);
@@ -131,7 +137,23 @@ function renderScene():void {
     const targetObject=el('input');targetObject.type='checkbox';targetObject.checked=scene.targetObject!==false;targetObject.disabled=scene.dispatch!=='object';targetObject.addEventListener('change',()=>send({type:'scene',scene:{...scene,targetObject:targetObject.checked}}));inspectorBody.append(label('对象触发提供目标对象',targetObject));
     const weather=el('input');weather.type='text';weather.value=scene.weather??'';weather.addEventListener('change',()=>send({type:'scene',scene:{...scene,weather:weather.value.trim()}}));inspectorBody.append(label('天气条件',weather));
     for(const [key,name] of [['sourceStealthState','源 StealthState（原生值）'],['sourceVisibility','源可见性（原生查询值）'],['positionVisibility','位置可见性（原生查询值）']] as const){const input=el('input');input.type='number';input.step='1';input.value=scene[key]===undefined?'':String(scene[key]);input.placeholder='未提供';input.addEventListener('change',()=>{const next={...scene};if(input.value==='')delete next[key];else if(Number.isSafeInteger(Number(input.value)))next[key]=Number(input.value);send({type:'scene',scene:next});});inspectorBody.append(label(name,input));}
-    inspectorBody.append(button('重置相机' ,'固定预览相机，不影响粒子逻辑',()=>{state.camera=structuredClone(defaultCamera);draw();persist();}),el('p','hint','默认静止源与标准高质量数学。位置触发不提供源 / 目标对象条件；对象触发使用上述条件。未实现的骨骼、对象筛选和环境分支会列出具体差异。'));
+    inspectorBody.append(button('重置相机' ,'固定预览相机，不影响粒子逻辑',()=>{state.camera=structuredClone(defaultCamera);draw();persist();}),el('p','hint','使用标准高质量数学。位置触发不提供源 / 目标对象条件；对象触发使用上述条件。未实现的骨骼、对象筛选和环境分支会列出具体差异。'));
+    if(pendingSceneCommit)disableSceneControls();
+}
+function disableSceneControls():void {for(const control of Array.from(inspectorBody.querySelectorAll<HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement|HTMLButtonElement>('input,select,textarea,button')))control.disabled=true;}
+function applySourceMotion(motion:SourceMotion|undefined):void {
+    if(!ir)return;
+    // Freeze the displayed time until the host returns the newly validated scene.
+    discardDraft();stopFrame();
+    const scene=structuredClone(ir.scene);if(motion)scene.sourceMotion=structuredClone(motion);else delete scene.sourceMotion;
+    // Other scene controls captured the previous scene. Wait for the new preview
+    // before accepting another scene change so it cannot restore the old path.
+    pendingSceneCommit=true;if(activeTab==='scene')disableSceneControls();status('正在更新预览场景…');
+    send({type:'scene',scene});
+}
+function sourcePosition(scene:FxScene,frame:number):[number,number,number] {
+    const offset=sampleSourceMotion(scene.sourceMotion,Math.max(0,frame));
+    return [scene.source[0]+offset[0],scene.source[1]+offset[1],scene.source[2]+offset[2]];
 }
 function renderCapabilities():void {
     inspectorBody.append(el('h2','','能力与当前差异'),el('p','hint','普通 GPU / CPU Default；几何与 shader 必须匹配能力合同。材质采用公开 profile；尚无游戏实机截图对照。'));
@@ -166,6 +188,7 @@ function renderNow(renderFrame?:number):void {
     const current=draftIr??ir;
     if(!current||!world)return;
     try {
+        sourcePositionText.data=`当前源位置 (${sourcePosition(current.scene,renderFrame??world.frame).map(value=>value.toFixed(1)).join(', ')})`;
         if(renderer){renderer.setLayers(renderLayerData(),current.textures.map(texture=>texture.key));const result=renderer.render(renderFrame??world.frame,state.camera,current.scene,state.background,state.ground,state.lowResolution,state.softParticles&&state.ground);stats.textContent=`${result.particles.toLocaleString()} 粒子 · ${result.draws} 批 · GPU ${(result.gpuBytes/1048576).toFixed(1)} MiB`;}
         const signature=world.systems.map(s=>s.id).join('\0');if(signature!==runtimeLayerSignature){runtimeLayerSignature=signature;renderLayers();}
         frameLabel(Math.max(0,world.frame));
@@ -206,7 +229,7 @@ function definitions(current:PreviewIR):WorldSystem[] {
 function worldDefinition(s:FxSystem):WorldSystem {return {id:s.key,templateKey:s.templateKey,sourceId:s.key,orientToObject:s.orientToObject,createAtGroundHeight:s.createAtGroundHeight,config:s.config!,options:{offset:s.offset,rotation:s.rotation,rotationXYZ:s.rotationXYZ,rotationMatrix:s.rotationMatrix,startFrame:s.startFrame,systemLifeFrames:s.systemLifeFrames,initialDelayOverrideMs:s.initialDelayOverrideMs,createAtGroundHeight:s.createAtGroundHeight}};}
 async function rebuild(current:PreviewIR,frame:number):Promise<void> {
     if(!active||!documentVisible||disposed)return;
-    const selected=definitions(current);viewRevision++;seekAbort?.abort();world?.dispose();world=new ParticleWorld(selected,current.scene.seed,32768,18000,current.dynamic?{...current.dynamic,templates:current.dynamic.templates.filter(s=>s.config).map(worldDefinition),fxLists:current.dynamic.fxLists.map(list=>({...list,systems:list.systems.filter(s=>s.config&&s.triggered).map(worldDefinition)})),groundHeight:current.scene.ground}:undefined);
+    const selected=definitions(current);viewRevision++;seekAbort?.abort();world?.dispose();world=new ParticleWorld(selected,current.scene.seed,32768,18000,{...(current.dynamic?{...current.dynamic,templates:current.dynamic.templates.filter(s=>s.config).map(worldDefinition),fxLists:current.dynamic.fxLists.map(list=>({...list,systems:list.systems.filter(s=>s.config&&s.triggered).map(worldDefinition)}))}:{}),groundHeight:current.scene.ground,sourceMotion:current.scene.sourceMotion});
     stopFrame();const revision=viewRevision;await seek(frame);if(revision===viewRevision&&state.playing)draw();
 }
 function showPreviewStatus():void {
@@ -257,27 +280,27 @@ function cancelDraft():void {
 async function receive(message:FxHostMessage):Promise<void> {
     if(!message||typeof message!=='object'||message.sessionId!==sessionId||disposed)return;
     if(!Number.isSafeInteger(message.documentVersion)||!Number.isSafeInteger(message.requestId))return;
-    if(message.type==='invalidateDraft'){version=Math.max(version,message.documentVersion);requestId=Math.max(requestId,message.requestId);discardDraft();if(ir&&active&&documentVisible)void rebuild(ir,Math.max(0,state.frame));status(message.message,'warning');return;}
+    if(message.type==='invalidateDraft'){version=Math.max(version,message.documentVersion);requestId=Math.max(requestId,message.requestId);discardDraft();if(pendingSceneCommit){pendingSceneCommit=false;renderInspector();}if(ir&&active&&documentVisible)void rebuild(ir,Math.max(0,state.frame));status(message.message,'warning');return;}
     if(message.type==='dispose'){dispose();return;}
     if(message.type==='active'){setActivity(message.active);return;}
     if(message.documentVersion<version)return;
     if(message.type==='focusField'){focusField(message.key);return;}
     if(message.type==='focusSystem'){if(allSystems(ir).some(system=>system.key===message.key)){cancelDraft();state.selected=message.key;activeTab='parameters';for(const child of Array.from(tabs.children))child.classList.toggle('selected',(child as HTMLElement).dataset.tab==='parameters');renderLayers();renderInspector();persist();}return;}
     if(message.type==='resetRenderer'){resetRenderer();return;}
-    if(message.type==='status'){if(message.stale){pendingCommit=false;app.classList.remove('editing-pending');if(draftIr){discardDraft();if(ir)void rebuild(ir,Math.max(0,state.frame));}renderInspector();}status(message.message,message.stale?'warning':'');return;}
+    if(message.type==='status'){const scenePending=pendingSceneCommit;pendingSceneCommit=false;if(message.stale){pendingCommit=false;app.classList.remove('editing-pending');if(draftIr){discardDraft();if(ir)void rebuild(ir,Math.max(0,state.frame));}renderInspector();}else if(scenePending&&activeTab==='scene')renderInspector();status(message.message,message.stale?'warning':'');return;}
     if(message.type==='textureState'){receiveTextureState(message);return;}
     if(message.type==='textureBegin'||message.type==='textureChunk'||message.type==='textureEnd'){receiveTexture(message);return;}
     if(message.type!=='preview'||message.requestId<lastPreviewRequest||message.ir?.schemaVersion!==1)return;
     textureBudgetBytes=validNumber(message.textureBudgetBytes,32*1048576,16*1048576,256*1048576);
     lastPreviewRequest=message.requestId;version=message.documentVersion;requestId=Math.max(requestId,message.requestId);
-    pendingCommit=false;app.classList.remove('editing-pending');const hadDraft=!!draftIr;draftIr=undefined;pendingDraft=undefined;if(draftRaf!==undefined){cancelAnimationFrame(draftRaf);draftRaf=undefined;}
+    pendingCommit=false;pendingSceneCommit=false;app.classList.remove('editing-pending');const hadDraft=!!draftIr;draftIr=undefined;pendingDraft=undefined;if(draftRaf!==undefined){cancelAnimationFrame(draftRaf);draftRaf=undefined;}
     const editingChanged=editingUri!==message.editingUri;transfers.clear();ir=message.ir;editingUri=message.editingUri;
     const currentTextureKeys=new Set(ir.textures.map(texture=>texture.key));for(const key of uploadedTextureKeys)if(!currentTextureKeys.has(key))uploadedTextureKeys.delete(key);for(const key of textureGpuErrors.keys())if(!currentTextureKeys.has(key))textureGpuErrors.delete(key);
     for(const texture of ir.textures){const failure=textureGpuErrors.get(texture.key);if(failure){texture.status='gpu-error';texture.message=failure;}}
     assetSelect.replaceChildren();for(const asset of message.assets)assetSelect.append(option(asset.key,`${asset.name} · ${asset.type==='FXList'?'组合':'模板'}`));assetSelect.value=ir.assetKey;
     if(editingChanged||!allSystems(ir).some(s=>s.key===state.selected))state.selected=ir.systems.find(s=>s.fields.some(f=>f.uri===editingUri))?.key??ir.systems[0]?.key??'';
     identity.textContent=`正在编辑 ${fileName(editingUri)} / 正在预览 ${ir.name}`;identity.title=`编辑：${editingUri}\n预览入口：${ir.entry}`;
-    stageHint.textContent=`静止源 · ${ir.scene.terrain==='land'?'陆地':'水面'} · ${ir.scene.dispatch==='object'?'对象触发':'位置触发'} · 标准高质量数学 · ${ir.textures.some(t=>t.source==='compiled')?'编译结果 / 版本见能力列表':'源贴图预览'}`;
+    stageContext.textContent=`${ir.scene.sourceMotion?`合成轨迹 · ${motionPlaybackLabels[ir.scene.sourceMotion.playback]}`:'源位置固定'} · ${ir.scene.terrain==='land'?'陆地':'水面'} · ${ir.scene.dispatch==='object'?'对象触发':'位置触发'} · 标准高质量数学 · ${ir.textures.some(t=>t.source==='compiled')?'编译结果 / 版本见能力列表':'源贴图预览'}`;
     renderLayers();renderInspector();ensureRenderer();
     renderer?.setLayers(ir.systems.filter(s=>s.config).map(s=>({id:s.key,config:s.config!,births:[],alphaSamples:[],textureKey:s.textureKey,visible:true})),ir.textures.map(texture=>texture.key));
     for(const texture of ir.textures){try{if(renderer&&(texture.pixels||texture.pixelsBase64)){renderer.uploadTexture(texture);uploadedTextureKeys.add(texture.key);textureGpuErrors.delete(texture.key);}}catch(error){textureFailure(texture.key,error);showError(error);}delete texture.pixels;delete texture.pixelsBase64;}
@@ -355,10 +378,10 @@ function fileName(value:string):string {return value.replace(/\\/g,'/').split('/
 window.addEventListener('message',event=>{void receive(event.data as FxHostMessage).catch(showError);});
 function setActivity(value:boolean):void {
     if(active===value)return;active=value;
-    if(!value){pendingCommit=false;app.classList.remove('editing-pending');discardDraft();stopFrame();seekAbort?.abort();persist(true);transfers.clear();uploadedTextureKeys.clear();textureGpuErrors.clear();renderer?.dispose();renderer=undefined;world?.dispose();world=undefined;}
+    if(!value){pendingCommit=false;pendingSceneCommit=false;app.classList.remove('editing-pending');discardDraft();stopFrame();seekAbort?.abort();persist(true);transfers.clear();uploadedTextureKeys.clear();textureGpuErrors.clear();renderer?.dispose();renderer=undefined;world?.dispose();world=undefined;}
     else if(ir){ensureRenderer();send({type:'reload'});}
 }
-document.addEventListener('visibilitychange',()=>{documentVisible=!document.hidden;if(!documentVisible){pendingCommit=false;app.classList.remove('editing-pending');discardDraft();stopFrame();seekAbort?.abort();persist(true);transfers.clear();uploadedTextureKeys.clear();textureGpuErrors.clear();renderer?.dispose();renderer=undefined;world?.dispose();world=undefined;}else if(active&&ir){ensureRenderer();send({type:'reload'});}});
+document.addEventListener('visibilitychange',()=>{documentVisible=!document.hidden;if(!documentVisible){pendingCommit=false;pendingSceneCommit=false;app.classList.remove('editing-pending');discardDraft();stopFrame();seekAbort?.abort();persist(true);transfers.clear();uploadedTextureKeys.clear();textureGpuErrors.clear();renderer?.dispose();renderer=undefined;world?.dispose();world=undefined;}else if(active&&ir){ensureRenderer();send({type:'reload'});}});
 const resize=new ResizeObserver(()=>draw());resize.observe(stage);
 let orbit:{x:number;y:number;yaw:number;pitch:number;moved:boolean}|undefined;
 canvas.addEventListener('pointerdown',event=>{orbit={x:event.clientX,y:event.clientY,yaw:state.camera.yaw,pitch:state.camera.pitch,moved:false};canvas.setPointerCapture(event.pointerId);});
@@ -374,6 +397,7 @@ window.addEventListener('keydown',event=>{
     const key=event.key.toLowerCase();
     if(key==='s'){event.preventDefault();event.stopPropagation();commitPendingField();send({type:'save'});return;}
     if(key==='z'||key==='y'){
+        if(event.target instanceof HTMLTextAreaElement)return;
         event.preventDefault();event.stopPropagation();cancelDraft();
         const fields=[...(ir?.fields??[]),...(ir?.systems.flatMap(s=>s.fields)??[])];
         for(const row of Array.from(inspectorBody.querySelectorAll<HTMLElement>('.field-row'))){const field=fields.find(f=>f.key===row.dataset.fieldKey),input=row.querySelector('input,select');if(field&&(input instanceof HTMLInputElement||input instanceof HTMLSelectElement)){input.value=field.value;input.classList.remove('draft');}}
@@ -383,7 +407,7 @@ window.addEventListener('keydown',event=>{
 window.addEventListener('pagehide',dispose);
 if(window.__FX_TEST__)window.__fxTest={
     receive:(message:FxHostMessage)=>receive(message),seek:(frame:number)=>seek(frame),pause:()=>setPlaying(false),play:()=>setPlaying(true),dispose,
-    stats:()=>({frame:world?.frame,playing:state.playing,raf:raf!==undefined,systems:world?.systems.length??0,active,disposed,gpu:renderer?.stats??null,issues:ir?.issues.length??0}),
+    stats:()=>({frame:world?.frame,playing:state.playing,raf:raf!==undefined,systems:world?.systems.length??0,active,disposed,gpu:renderer?.stats??null,issues:ir?.issues.length??0,sourcePosition:ir?sourcePosition(ir.scene,world?.frame??state.frame):undefined,particlePositions:world?.systems.flatMap(system=>system.runtime.particles.slice(0,16).map(particle=>system.runtime.sample(particle,world!.frame)).filter(sample=>sample.alive).map(sample=>sample.position)).slice(0,64)??[]}),
     renderer:()=>renderer,world:()=>world,
 };
 playButton.textContent=state.playing?'暂停':'播放';ensureRenderer();send({type:'ready',s3tc:renderer?.supportsS3tc??false});

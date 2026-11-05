@@ -1,6 +1,6 @@
 /** Versioned scope, shared by diagnostics and acceptance fixtures. */
 export const fxCapabilities = {
-    version: 2,
+    version: 3,
     fixtures: ['flash.xml','smoke.xml','sparks.xml','aura.xml','Mod.xml','missing.xml','malformed.xml','inherit.xml','cpu.xml','geometry.xml','events.xml','Round2Mod.xml'],
     evidence: ['compiler a75840e: document scopes, NodeJoiner, XIncludingReader, Time initializer',
         '34-fx-dispatch-context: object/position slots and source-condition reuse', '20-eventfx-lifecycle: queued creation and attached drain/unbind',
@@ -16,6 +16,7 @@ export const fxCapabilities = {
             'FXListAtBonePos position slot is a no-op'],
         events: ['Life/Collision ordinary position EventFX','bounded queued reference graph','CPU PerParticleAttachedSystem drain/unbind',
             'CullTracking signed integer quotient and raw f32 Time window (no automatic *30)'],
+        sourceMotion: ['explicit synthetic emitter translation','bounded timed polyline; once/closed-loop/pingPong','30Hz deterministic replay; world-space born particles; event/attachment rules unchanged'],
         assets: ['entry-scoped all/instance/reference Include','local-over-reference definitions','XML xi:include before instance collection with physical field sources',
             'same logical-document pre-XSD inheritance for FX/Texture','Append(default)/Replace/Remove; repeated records match id only','ModelCondition +/- enum-list override',
             'document-local Self/All/Tentative/External references','ART two-character buckets; explicit MOD/SDK search order','numeric Defines/arithmetic and literal Time/Angle suffixes'],
@@ -25,7 +26,7 @@ export const fxCapabilities = {
         'custom compiler providers/stream configurations beyond the pinned source-data profile','cross-document inheritFrom for non-BaseInheritable FX/Texture is compiler-invalid',
         'object bone lookup and arbitrary ObjectFilter','Radius/Height FXList placement','custom shader/geometry and special particle families',
         'CPU shader fields outside Default, complete event families and arbitrary map terrain','TargetCoeff is not read by the pinned ordinary particle execution path',
-        'synthetic context uses a static source and horizontal ground; moving paths and arbitrary ground normals are not implemented',
+        'synthetic source motion does not imply native moving-object binding; arbitrary ground normals are not implemented',
         'low-quality shader branches/Wind/house-color/full-game postprocessing','compiled DDS provenance does not prove current game compiler output','game screenshot comparison unavailable'],
 } as const;
 

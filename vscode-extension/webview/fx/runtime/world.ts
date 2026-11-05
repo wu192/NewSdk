@@ -1,6 +1,7 @@
 import { FxRandom } from './random';
 import { localRotationMatrix, transformVector } from './math';
 import { ParticleRuntime, runtimeSnapshotBytes, type RuntimeSnapshot } from './runtime';
+import { parseSourceMotion, sampleSourceMotion, type SourceMotion } from './sourceMotion';
 import type { BirthRecord, ParticleConfig, RuntimeEventTrigger, RuntimeOptions, Vec3 } from './types';
 export interface WorldSystem { id: string; config: ParticleConfig; options?: RuntimeOptions; templateKey?: string; sourceId?: string; createAtGroundHeight?: boolean; orientToObject?: boolean; }
 export interface WorldEventList {
@@ -9,6 +10,7 @@ export interface WorldEventList {
 export interface WorldSchedulingOptions {
     templates?: readonly WorldSystem[]; fxLists?: readonly WorldEventList[];
     initialFxLists?: readonly string[];
+    sourceMotion?: SourceMotion;
     maxSystems?: number; maxEventsPerFrame?: number; maxDepth?: number; maxCullRecords?: number; snapshotBytes?: number; maxStateBytes?: number; groundHeight?: number;
 }
 export interface WorldActiveSystem {
@@ -44,10 +46,13 @@ export class ParticleWorld {
     private nextId = 0;
     private eventsThisFrame = 0;
     private snapshots: WorldSnapshot[] = [];
+    private motionBytes = 0;
     readonly scheduling: Required<Pick<WorldSchedulingOptions, 'maxSystems' | 'maxEventsPerFrame' | 'maxDepth' | 'maxCullRecords' | 'snapshotBytes' | 'maxStateBytes' | 'groundHeight'>> & WorldSchedulingOptions;
     constructor(readonly definitions: readonly WorldSystem[], readonly seed = 1,
         readonly maxParticles = 100_000, readonly maxFrames = 18_000, scheduling: WorldSchedulingOptions = {}) {
-        this.scheduling = { ...scheduling, maxSystems: scheduling.maxSystems ?? Math.max(128, definitions.length),
+        const sourceMotion = parseSourceMotion(scheduling.sourceMotion);
+        if (scheduling.sourceMotion !== undefined && !sourceMotion) throw new Error('发射源轨迹无效或超过预览预算');
+        this.scheduling = { ...scheduling, sourceMotion, maxSystems: scheduling.maxSystems ?? Math.max(128, definitions.length),
             maxEventsPerFrame: scheduling.maxEventsPerFrame ?? 256, maxDepth: scheduling.maxDepth ?? 16,
             maxCullRecords: scheduling.maxCullRecords ?? 4096, snapshotBytes: scheduling.snapshotBytes ?? 16 * 1024 * 1024,
             maxStateBytes: scheduling.maxStateBytes ?? 16 * 1024 * 1024, groundHeight: scheduling.groundHeight ?? 0 };
@@ -59,7 +64,10 @@ export class ParticleWorld {
         for (const s of [...this.systems, ...this.pending]) s.runtime.dispose();
         this.random = new FxRandom(this.seed); this.systems = []; this.pending = []; this.definitionsById.clear(); this.cull.clear();
         this.attachmentHandles.clear(); this.nextId = 0; this.frame = -1; this.budgetExceeded = undefined; this.snapshots = [];
-        if (this.definitions.length > this.scheduling.maxSystems || this.definitions.reduce((n, d) => n + systemStateBytes(d.config), 0) > this.scheduling.maxStateBytes) { this.limit('系统实例超过 World 预览预算'); return; }
+        this.motionBytes = 0;
+        const motionBytes = this.scheduling.sourceMotion ? 128 + this.scheduling.sourceMotion.points.length * 128 : 0;
+        if (this.definitions.length > this.scheduling.maxSystems || motionBytes + this.definitions.reduce((n, d) => n + systemStateBytes(d.config), 0) > this.scheduling.maxStateBytes) { this.limit('系统实例超过 World 预览预算'); return; }
+        this.motionBytes = motionBytes;
         this.frame = 0;
         for (const key of this.scheduling.initialFxLists ?? []) {
             const list = this.scheduling.fxLists?.find(list => list.key === key);
@@ -156,8 +164,14 @@ export class ParticleWorld {
         if (this.budgetExceeded) return;
         if (this.frame >= this.maxFrames) { this.limit('时间轴达到预览重放预算'); return; }
         this.frame++; this.eventsThisFrame = 0;
+        const sourceOffset = this.scheduling.sourceMotion ? sampleSourceMotion(this.scheduling.sourceMotion, this.frame) : undefined;
         let total = this.systems.reduce((sum, s) => sum + s.runtime.particles.length, 0);
         for (const s of this.systems.slice()) {
+            if (!s.dynamic && sourceOffset) {
+                const definition = this.definitionsById.get(s.id)!;
+                s.runtime.options.offset = sourceOffset.map((value, axis) => value + (definition.options?.offset?.[axis] ?? 0)) as Vec3;
+                if (definition.createAtGroundHeight || definition.options?.createAtGroundHeight) s.runtime.options.offset[2] = this.scheduling.groundHeight;
+            }
             if (s.parent) {
                 const parent = this.systems.find(p => p.id === s.parent!.systemId)?.runtime.particles.find(p => p.id === s.parent!.particleId);
                 if (parent) s.runtime.options.offset = [...parent.position];
@@ -207,7 +221,7 @@ export class ParticleWorld {
         const particleBytes = all.reduce((n, s) => n + s.runtime.particleBytes, 0);
         const cullRecords = [...this.cull.values()].reduce((n, times) => n + times.length, 0);
         return { particles: all.reduce((n, s) => n + s.runtime.particles.length, 0), particleBytes,
-            stateBytes: particleBytes + all.reduce((n, s) => n + systemStateBytes(s.runtime.config) + s.runtime.events.length * 160, 0)
+            stateBytes: this.motionBytes + particleBytes + all.reduce((n, s) => n + systemStateBytes(s.runtime.config) + s.runtime.events.length * 160, 0)
                 + this.attachmentHandles.size * 256 + cullRecords * 16 + this.cull.size * 128,
             snapshotBytes: this.snapshotBytes, systems: this.systems.length, pending: this.pending.length, attachmentHandles: this.attachmentHandles.size, cullRecords };
     }
@@ -239,5 +253,6 @@ export class ParticleWorld {
     dispose(): void {
         this.request++; for (const s of [...this.systems, ...this.pending]) s.runtime.dispose();
         this.systems.length = this.pending.length = this.snapshots.length = 0; this.definitionsById.clear(); this.cull.clear(); this.attachmentHandles.clear();
+        this.motionBytes = 0;
     }
 }
