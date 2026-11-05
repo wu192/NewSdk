@@ -387,7 +387,10 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
         const sameFile = (value: unknown): boolean => typeof value === 'string' && path.resolve(value).toLowerCase() === physicalFile;
         const event = result.events.find(item => item.eventType === 'Diagnostic' && item.level === 'error'
             && sameFile(item.payload?.file) && Number.isSafeInteger(item.payload?.line) && Number(item.payload?.line) > 0);
-        assert.ok(event, `Expected a real source-located Diagnostic event for ${file}`);
+        const observed = result.events.filter(item => item.eventType === 'Diagnostic' && item.level === 'error').slice(-8)
+            .map(item => ({code: item.diagnosticCode, streamId: item.streamId, stageId: item.stageId,
+                file: item.payload?.file, line: item.payload?.line, column: item.payload?.column, source: item.payload?.source}));
+        assert.ok(event, `Expected a real source-located Diagnostic event for ${file}; observed locations: ${JSON.stringify(observed)}`);
         const payload = event.payload!;
         const source = record(payload.source);
         assert.ok(source, 'New diagnostic events must carry structured source metadata');

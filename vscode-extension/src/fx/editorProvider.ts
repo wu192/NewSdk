@@ -129,7 +129,8 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                 const offset = event.textEditor.document.offsetAt(event.selections[0].active);
                 const field = state.ir && fields(state.ir).filter(f => sameFile(f.uri, event.textEditor.document.uri.fsPath) && offset >= f.start && offset <= f.end).sort((a, b) => (a.end - a.start) - (b.end - b.start))[0];
                 if (field) { void this.post(state, { type: 'focusField', key: field.key }); continue; }
-                const asset = state.index.listAssets().find(a => sameFile(a.uri, state.document.uri.fsPath) && offset >= a.node.start && offset <= a.node.end);
+                const asset = state.index.listAssets().find(a => (a.type === 'FXList' || a.type === 'FXParticleSystemTemplate')
+                    && sameFile(a.uri, state.document.uri.fsPath) && offset >= a.node.start && offset <= a.node.end);
                 if (asset && asset.key !== state.assetKey && !state.previewKey) { state.assetKey = asset.key; this.schedule(state, 0); }
             }
         }));
