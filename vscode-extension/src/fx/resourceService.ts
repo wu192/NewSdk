@@ -15,6 +15,8 @@ export interface ResourceServiceOptions {
     transientBytes?: number;
     maxDimension?: number;
     maxPending?: number;
+    /** Bounds metadata even when thousands of tiny textures fit the pixel budget. */
+    cacheEntries?: number;
 }
 export interface ResourceReady {
     status: 'ready'; key: string; path: string; generation: number; texture: DecodedTexture;
@@ -33,8 +35,8 @@ export class ResourceService {
     private readonly roots: Promise<string[]>;
     private readonly entries = new Map<string, Entry>();
     private readonly latest = new Map<string, string>();
-    private readonly generations = new Map<string, number>();
     private readonly aliases = new Map<string, string>();
+    private inflight?: { identity: string; invalidated: boolean };
     private queue: Promise<void> = Promise.resolve();
     private pending = 0;
     private tick = 0;
@@ -58,10 +60,12 @@ export class ResourceService {
         void this.roots.catch(() => undefined);
     }
     get stats(): { bytes: number; entries: number; references: number; pending: number; generation: number;
-        workerCount: number; workerStarts: number; workerRestarts: number; disposed: boolean } {
+        trackedFiles: number; aliases: number; workerCount: number; workerStarts: number; workerRestarts: number; disposed: boolean } {
         return { bytes: this.bytes, entries: this.entries.size,
             references: [...this.entries.values()].reduce((sum, entry) => sum + entry.refs, 0),
-            pending: this.pending, generation: this.epoch, workerCount: this.worker ? 1 : 0,
+            pending: this.pending, generation: this.epoch,
+            trackedFiles: new Set([...this.entries.values()].map(entry => entry.identity).concat(this.inflight?.identity ?? [])).size,
+            aliases: this.aliases.size, workerCount: this.worker ? 1 : 0,
             workerStarts: this.workerStarts, workerRestarts: this.workerRestarts, disposed: this.disposed };
     }
     load(file: string, options: { signal?: AbortSignal } = {}): Promise<ResourceResult> {
@@ -83,7 +87,11 @@ export class ResourceService {
     /** File-watch events and explicit reloads call this even if size and mtime are unchanged. */
     invalidate(file: string): void {
         const alias = pathIdentity(path.resolve(file)), identity = this.aliases.get(alias) ?? alias;
-        this.generations.set(identity, ++this.epoch);
+        ++this.epoch;
+        if (this.inflight?.identity === identity) this.inflight.invalidated = true;
+        this.retire(identity);
+    }
+    private retire(identity: string): void {
         this.latest.delete(identity);
         for (const [key, entry] of this.entries) if (entry.identity === identity) {
             entry.stale = true;
@@ -93,10 +101,10 @@ export class ResourceService {
     clear(): void {
         ++this.epoch;
         ++this.resetVersion;
+        if (this.inflight) this.inflight.invalidated = true;
         if (this.worker) { void this.worker.terminate(); this.worker = undefined; }
         this.latest.clear();
         for (const [key, entry] of this.entries) {
-            this.generations.set(entry.identity, this.epoch);
             entry.stale = true;
             if (!entry.refs) this.remove(key);
         }
@@ -105,11 +113,24 @@ export class ResourceService {
         this.disposed = true;
         ++this.epoch;
         ++this.resetVersion;
-        this.entries.clear(); this.latest.clear(); this.aliases.clear(); this.generations.clear(); this.bytes = 0;
+        if (this.inflight) this.inflight.invalidated = true;
+        this.entries.clear(); this.latest.clear(); this.aliases.clear(); this.bytes = 0;
         if (this.worker) { void this.worker.terminate(); this.worker = undefined; }
     }
     private failure(status: ResourceFailureStatus, file: string, message: string, identity?: string): ResourceFailure {
-        return { status, path: file, message, generation: this.generations.get(identity ?? file) ?? this.epoch };
+        return { status, path: file, message, generation: this.epoch };
+    }
+    private trackAlias(alias: string, identity: string): boolean {
+        if (alias === identity) return true;
+        if (this.aliases.get(alias) === identity) return true;
+        // Refuse excess aliases explicitly rather than silently losing event invalidation for an older alias.
+        if ([...this.aliases.values()].filter(value => value === identity).length >= 16) return false;
+        this.aliases.set(alias, identity);
+        return true;
+    }
+    private pruneIdentity(identity: string): void {
+        if (this.inflight?.identity === identity || [...this.entries.values()].some(entry => entry.identity === identity)) return;
+        for (const [alias, value] of this.aliases) if (value === identity) this.aliases.delete(alias);
     }
     private remove(key: string): void {
         const entry = this.entries.get(key);
@@ -117,15 +138,16 @@ export class ResourceService {
         this.bytes -= entry.result.texture.byteLength;
         this.entries.delete(key);
         if (this.latest.get(entry.identity) === key) this.latest.delete(entry.identity);
+        this.pruneIdentity(entry.identity);
     }
     private evict(required: number): boolean {
         const candidates = [...this.entries.entries()].filter(([, entry]) => entry.refs === 0)
             .sort((a, b) => a[1].touched - b[1].touched);
         for (const [key] of candidates) {
-            if (this.bytes + required <= this.capacity) break;
+            if (this.bytes + required <= this.capacity && this.entries.size < (this.options.cacheEntries ?? 256)) break;
             this.remove(key);
         }
-        return this.bytes + required <= this.capacity;
+        return this.bytes + required <= this.capacity && this.entries.size < (this.options.cacheEntries ?? 256);
     }
     /** The service's serial queue owns one reusable worker. Large decodes do not block the extension host. */
     private decode(bytes: Uint8Array, options: TextureDecodeOptions, signal?: AbortSignal): Promise<DecodedTexture> {
@@ -171,12 +193,14 @@ export class ResourceService {
             return this.failure('outside-roots', file, '贴图必须是已解析的 MOD/SDK 内绝对路径。');
         }
         let physical = file, identity = '';
+        let operation: { identity: string; invalidated: boolean } | undefined;
         try {
             const roots = await this.roots;
             physical = await canonicalPath(file);
             identity = pathIdentity(physical);
             if (!roots.some(root => containsPath(root, physical))) return this.failure('outside-roots', file, '贴图位于允许的 MOD/SDK 资源根之外。', identity);
-            this.aliases.set(pathIdentity(path.resolve(file)), identity);
+            operation = { identity, invalidated: false }; this.inflight = operation;
+            if (!this.trackAlias(pathIdentity(path.resolve(file)), identity)) return this.failure('budget', file, '同一贴图的路径别名超过 16 个，请使用规范路径。');
             const stat = await fs.stat(physical);
             if (!stat.isFile()) return this.failure('missing', physical, '贴图路径不是文件。', identity);
             if (stat.size === 0) return this.failure('empty', physical, '贴图文件为空。', identity);
@@ -185,13 +209,14 @@ export class ResourceService {
             if (stat.size >= sourceLimit) return this.failure('budget', physical, '源贴图文件超过读取/暂存预算。', identity);
             const cachedKey = this.latest.get(identity), cached = cachedKey ? this.entries.get(cachedKey) : undefined;
             if (cached && cached.mtimeMs === stat.mtimeMs && cached.size === stat.size && !cached.stale) {
-                if (cancelled()) return this.failure('cancelled', file, '资源任务已取消。', identity);
+                if (cancelled() || operation.invalidated || operationReset !== this.resetVersion) return this.failure('cancelled', file, '资源任务已取消。', identity);
                 cached.refs++; cached.touched = ++this.tick;
                 return cached.result;
             }
-            if (cached) this.invalidate(physical);
-            const generation = this.generations.get(identity) ?? 0;
-            const resetVersion = this.resetVersion;
+            if (cached) this.retire(identity);
+            // Every newly decoded upload has a unique generation, even after its CPU entry was evicted.
+            // A GPU texture or host.sentTextures may still remember that previous key.
+            const generation = ++this.epoch;
             const handle = await fs.open(physical, 'r');
             let source: Uint8Array;
             try {
@@ -210,7 +235,7 @@ export class ResourceService {
                     read += chunk.bytesRead;
                 }
             } finally { await handle.close(); }
-            if (cancelled() || resetVersion !== this.resetVersion || generation !== (this.generations.get(identity) ?? 0)) {
+            if (cancelled() || operation.invalidated || operationReset !== this.resetVersion) {
                 return this.failure('cancelled', file, '资源在加载时变化，请重试。', identity);
             }
             // Re-check a symlink/rename after I/O before accepting bytes for an allowed resource.
@@ -227,7 +252,7 @@ export class ResourceService {
                 .reduce((sum, entry) => sum + entry.result.texture.byteLength, 0);
             if (available <= 0) return this.failure('budget', physical, '已引用贴图占满 CPU 缓存预算。', identity);
             const texture = await this.decode(source, { maxBytes: Math.min(limit, available), maxDimension: this.options.maxDimension }, signal);
-            if (cancelled() || resetVersion !== this.resetVersion || generation !== (this.generations.get(identity) ?? 0)) {
+            if (cancelled() || operation.invalidated || operationReset !== this.resetVersion) {
                 return this.failure('cancelled', file, '资源任务已取消。', identity);
             }
             if (!this.evict(texture.byteLength)) return this.failure('budget', physical, '贴图缓存预算不足；请释放其他预览。', identity);
@@ -252,6 +277,9 @@ export class ResourceService {
                 return this.failure('missing', physical, '贴图文件不存在。', identity);
             }
             return this.failure('decode-error', physical, error instanceof Error ? error.message : String(error), identity);
+        } finally {
+            if (operation && this.inflight === operation) this.inflight = undefined;
+            if (identity) this.pruneIdentity(identity);
         }
     }
 }

@@ -37,7 +37,7 @@ export interface FxTextureTransfer {
 export type FxClientMessage = FxEnvelope & (
     {type: 'ready'; s3tc?: boolean} | {type: 'edit'; edits: {key: string; value: string; expectedValue: string}[]}
     | {type: 'locate'; key: string} | {type: 'select'; assetKey: string}
-    | {type: 'scene'; scene: FxScene} | {type: 'reload'} | {type: 'saveAndBuild'}
+    | {type: 'scene'; scene: FxScene} | {type: 'reload'; resetRenderer?: boolean} | {type: 'saveAndBuild'}
     | {type: 'openShared'; systemKey: string} | {type: 'new'; preset: string}
     | {type: 'openFieldSource'; key: string} | {type: 'overrideField'; key: string; value: string; expectedValue: string}
     | {type: 'copy'; assetKey: string} | {type: 'state'; state: Record<string, unknown>}
@@ -48,7 +48,8 @@ export type FxHostMessage = FxEnvelope & (
     {type: 'preview'; ir: PreviewIR; assets: {key: string; name: string; type: string}[]; editingUri: string}
     | {type: 'status'; message: string; stale?: boolean}
     | {type: 'active'; active: boolean} | {type: 'dispose'}
-    | {type: 'focusField'; key: string}
+    | {type: 'focusField'; key: string} | {type: 'resetRenderer'}
+    | {type: 'textureState'; previousKey: string; texture: FxTexture; issue?: FxIssue}
     | {type: 'textureBegin'; texture: FxTextureTransfer}
     | {type: 'textureChunk'; key: string; transferId: string; level: number; offset: number; total: number; pixelsBase64: string}
     | {type: 'textureEnd'; key: string; transferId: string}

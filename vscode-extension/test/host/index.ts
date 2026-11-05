@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import * as vscode from 'vscode';
-import { installCompiler } from '../../src/compilerInstaller';
+import { installCompiler, validateCompilerExecutable } from '../../src/compilerInstaller';
 import type { BuildEvent, BuildResult } from '../../src/buildProtocol';
 import { runNormalCancellation } from '../realCancellation';
 import { runFxAcceptance } from './fxAcceptance';
@@ -208,18 +208,27 @@ async function runSuite(): Promise<void> {
     await fs.writeFile(path.join(evidence, 'extension-host.json'), JSON.stringify({ succeeded: true, vscodeVersion: vscode.version,
         scope: 'Real VS Code extension host and Windows ProcessExecution with a synthetic protocol fixture; not real compiler acceptance', cases }, null, 2));
 
-    if (process.env.NEWSDK_COMPILER_URL) {
-        const installed = await installCompiler({ url: process.env.NEWSDK_COMPILER_URL,
-            expectedSha256: process.env.NEWSDK_COMPILER_SHA256 || undefined,
-            headers: process.env.NEWSDK_COMPILER_AUTHORIZATION ? { Authorization: process.env.NEWSDK_COMPILER_AUTHORIZATION } : undefined,
-            storageDirectory: path.join(root, 'provided-compiler') });
-        const release = JSON.parse(await fs.readFile(path.resolve(__dirname, '../../../compiler-release.json'), 'utf8')) as { sha256: string };
-        await fs.writeFile(path.join(evidence, 'compiler-source.json'), JSON.stringify({ ...installed,
-            release: installed.sha256.toLowerCase() === release.sha256.toLowerCase() ? release : undefined,
-            executableSha256: createHash('sha256').update(await fs.readFile(installed.executablePath)).digest('hex') }, null, 2));
-        await realCompilerCases(api, root, evidence, installed.executablePath);
+    if (process.env.NEWSDK_COMPILER_PATH || process.env.NEWSDK_COMPILER_URL) {
+        let executablePath: string;
+        let source: Record<string, unknown>;
+        if (process.env.NEWSDK_COMPILER_PATH) {
+            executablePath = (await validateCompilerExecutable(process.env.NEWSDK_COMPILER_PATH)).executablePath;
+            source = {mode:'fixed-source-build', repository:'wu192/NewSdk', ref:process.env.NEWSDK_COMPILER_SOURCE_REF};
+        } else {
+            const installed = await installCompiler({ url: process.env.NEWSDK_COMPILER_URL!,
+                expectedSha256: process.env.NEWSDK_COMPILER_SHA256 || undefined,
+                headers: process.env.NEWSDK_COMPILER_AUTHORIZATION ? { Authorization: process.env.NEWSDK_COMPILER_AUTHORIZATION } : undefined,
+                storageDirectory: path.join(root, 'provided-compiler') });
+            executablePath = installed.executablePath;
+            const release = JSON.parse(await fs.readFile(path.resolve(__dirname, '../../../compiler-release.json'), 'utf8')) as { sha256: string };
+            source = {...installed, mode:'provided-release', release: installed.sha256.toLowerCase() === release.sha256.toLowerCase() ? release : undefined};
+        }
+        await fs.writeFile(path.join(evidence, 'compiler-source.json'), JSON.stringify({...source,
+            executableSha256: createHash('sha256').update(await fs.readFile(executablePath)).digest('hex')}, null, 2));
+        await realCompilerCases(api, root, evidence, executablePath);
     } else {
-        await fs.writeFile(path.join(evidence, 'real-compiler.json'), JSON.stringify({ status: 'skipped', reason: 'NEWSDK_COMPILER_URL 尚未提供，未运行真实编译器。' }, null, 2));
+        await fs.writeFile(path.join(evidence, 'real-compiler.json'), JSON.stringify({ status: 'skipped', reason: '没有提供编译器路径或下载地址，未运行真实编译器。' }, null, 2));
+        if (process.env.GITHUB_ACTIONS === 'true') throw new Error('Actions 必须执行实际编译器验收。');
     }
     // Leave the synthetic working project selected for the reopen persistence check.
     await select('MockBasic');

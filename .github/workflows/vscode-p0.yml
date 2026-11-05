@@ -48,12 +48,7 @@ jobs:
       - name: Resolve provided compiler release
         run: |
           $release = Get-Content compiler-release.json -Raw | ConvertFrom-Json
-          if (-not $env:NEWSDK_COMPILER_URL) {
-            "NEWSDK_COMPILER_URL=$($release.url)" >> $env:GITHUB_ENV
-            if (-not $env:NEWSDK_COMPILER_SHA256) {
-              "NEWSDK_COMPILER_SHA256=$($release.sha256)" >> $env:GITHUB_ENV
-            }
-          } elseif ($env:NEWSDK_COMPILER_URL -eq $release.url -and -not $env:NEWSDK_COMPILER_SHA256) {
+          if ($env:NEWSDK_COMPILER_URL -eq $release.url -and -not $env:NEWSDK_COMPILER_SHA256) {
             "NEWSDK_COMPILER_SHA256=$($release.sha256)" >> $env:GITHUB_ENV
           }
       - name: Compile and run protocol, configuration and ZIP boundary tests
@@ -69,7 +64,48 @@ jobs:
         run: |
           npm run package 2>&1 | Tee-Object test-results/package.log
           if ($LASTEXITCODE -ne 0) { throw 'VSIX packaging failed' }
-      - name: Real Windows VS Code host, task lifecycle and optional packaged compiler
+      - name: Checkout fixed compiler source from this public repository
+        if: env.NEWSDK_COMPILER_URL == ''
+        uses: actions/checkout@v4
+        with:
+          ref: a75840ef7d0351cedc11c91b1b4510d295b911a7
+          path: .compiler-source
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.gitattributes
+            /recovery/src/
+            /recovery/build/
+            /recovery/scripts/BuildCompiler.ps1
+            /recovery/scripts/BuildManagedFoundation.ps1
+            /recovery/scripts/BuildCompilerNative.ps1
+            /recovery/scripts/RestoreUiDependencies.ps1
+            /ui/
+            /SDK/tools/antlr.runtime.dll
+            /SDK/tools/BinaryAssetBuilder.Utility.dll
+            /SDK/tools/BinaryAssetBuilder.Core.dll
+      - name: Setup compiler build SDK
+        if: env.NEWSDK_COMPILER_URL == ''
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Setup compiler native x86 toolchain
+        if: env.NEWSDK_COMPILER_URL == ''
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Build actual compiler from fixed source
+        if: env.NEWSDK_COMPILER_URL == ''
+        working-directory: .compiler-source
+        run: |
+          $destination = Join-Path $env:RUNNER_TEMP 'newsdk-actual-compiler'
+          ./recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory $destination 2>&1 | Tee-Object ../vscode-extension/test-results/compiler-build.log
+          if ($LASTEXITCODE -ne 0) { throw 'Compiler source build failed' }
+          $executable = Join-Path $destination 'bin/NewModCompiler.exe'
+          if (-not (Test-Path $executable)) { throw 'Compiler source build did not produce NewModCompiler.exe' }
+          "NEWSDK_COMPILER_PATH=$executable" >> $env:GITHUB_ENV
+          'NEWSDK_COMPILER_SOURCE_REF=a75840ef7d0351cedc11c91b1b4510d295b911a7' >> $env:GITHUB_ENV
+      - name: Real Windows VS Code host, task lifecycle and actual compiler
         env:
           NEWSDK_TEST_ROOT: ${{ runner.temp }}/newsdk-p0-host
         run: |
@@ -78,7 +114,9 @@ jobs:
       - name: Record compiler availability and acceptance scope
         if: always()
         run: |
-          if ($env:NEWSDK_COMPILER_URL) {
+          if ($env:NEWSDK_COMPILER_PATH) {
+            "Actual compiler built from fixed public source $env:NEWSDK_COMPILER_SOURCE_REF. See compiler-source.json and real-compiler.json." >> $env:GITHUB_STEP_SUMMARY
+          } elseif ($env:NEWSDK_COMPILER_URL) {
             'Packaged compiler URL supplied. See real-compiler.json for the actual executed cases.' >> $env:GITHUB_STEP_SUMMARY
           } else {
             'Real compiler tests SKIPPED: NEWSDK_COMPILER_URL is not configured. Protocol and extension-host checks do not establish P0 completion.' >> $env:GITHUB_STEP_SUMMARY

@@ -114,7 +114,10 @@ async function fixture(file, id) {
     const originalKey = texture.key; texture.key += ':chunk';
     delete texture.pixelsBase64; delete texture.pixels;
     transferIr.systems.forEach(s=>{if(s.textureKey===originalKey)s.textureKey=texture.key;});
-    await page.evaluate(ir => window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:2,type:'preview',ir,assets:[{key:ir.assetKey,name:ir.name,type:'FXParticleSystemTemplate'}],editingUri:ir.documentUri}),transferIr);
+    const beforeTextureFrame=await page.evaluate(()=>{window.fxBeforeTextureWorld=window.__fxTest.world();return window.__fxTest.stats().frame;});
+    await page.evaluate(({previousKey,texture})=>window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:2,type:'textureState',previousKey,texture}),{previousKey:originalKey,texture});
+    assert.equal(await page.evaluate(()=>window.__fxTest.world()===window.fxBeforeTextureWorld),true,'Texture metadata must not rebuild the simulation');
+    assert.equal((await page.evaluate(()=>window.__fxTest.stats())).frame,beforeTextureFrame);
     const descriptor = {key:texture.key,transferId:'chunk-test',width:texture.width,height:texture.height,format:'RGBA8',levels:[{width:texture.width,height:texture.height,byteLength:pixelBytes.length}]};
     await page.evaluate(texture => window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:2,type:'textureBegin',texture}),descriptor);
     const split = Math.floor(pixelBytes.length/2);
@@ -128,6 +131,11 @@ async function fixture(file, id) {
     await page.evaluate(()=>window.__fxTest.seek(3));
     assert.ok((await page.evaluate(()=>window.__fxTest.stats())).gpu.gpuBytes>0,'Chunk texture must reach GPU');
     if(process.env.NEWSDK_FX_PREVIEW)await page.screenshot({path:process.env.NEWSDK_FX_PREVIEW,fullPage:true});
+    await page.getByRole('button',{name:'重载资源',exact:true}).click();
+    assert.equal(await page.evaluate(()=>window.fxMessages.filter(m=>m.type==='reload').at(-1)?.resetRenderer),true);
+    await page.evaluate(()=>{window.fxBeforeResetRenderer=window.__fxTest.renderer();return window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:2,type:'resetRenderer'});});
+    assert.equal(await page.evaluate(()=>window.__fxTest.world()===window.fxBeforeTextureWorld),true,'Manual renderer recovery must preserve simulation state');
+    assert.equal(await page.evaluate(()=>window.__fxTest.renderer()!==window.fxBeforeResetRenderer),true);
     await page.evaluate(()=>window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:2,type:'active',active:false}));
     await page.waitForTimeout(80);
     const inactive=await page.evaluate(()=>window.__fxTest.stats());

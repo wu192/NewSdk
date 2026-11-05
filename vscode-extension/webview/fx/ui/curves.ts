@@ -73,8 +73,9 @@ export function curvesPanel(system:FxSystem,actions:FieldActions):HTMLElement {
     panel.append(el('p','hint',alphaRandom?'Alpha 含随机范围；白线为区间中值，实际取样由局部回放决定。':'Alpha 常量模式：编辑下方 Low/High，设常量将同时写入两端。'));
     if(system.definition){
         const alphaPath=childPath(system.definition,[],['Alphas']);const alphaNodes=alphaPath?at(system.definition,alphaPath)!.children:[];
+        const effectiveAlpha=new Map<number,{node:FxNode;index:number}>();alphaNodes.forEach((node,index)=>{const slot=Number(node.attributes.Frame);if(localName(node.name)==='Alpha'&&slot>=1&&slot<=4)effectiveAlpha.set(slot,{node,index});});
         const alphaBox=el('div','alpha-tools');
-        alphaNodes.forEach((node,index)=>{const slot=Number(node.attributes.Frame);if(slot<1||slot>4)return;
+        effectiveAlpha.forEach(({node,index})=>{const slot=Number(node.attributes.Frame);
             const path=[...alphaPath!,index],low=fieldAt(system.fields,path,'Low'),high=fieldAt(system.fields,path,'High');if(!low||!high)return;
             const input=el('input');input.type='number';input.step='0.05';input.value=low.value;input.disabled=!!low.readonly||!!high.readonly;
             const b=button(`槽 ${slot} 设常量`,'将同一数值写入 Alpha Low 与 High',()=>actions.commit([{key:low.key,value:input.value,expectedValue:low.value},{key:high.key,value:input.value,expectedValue:high.value}]));b.disabled=input.disabled;
@@ -82,7 +83,7 @@ export function curvesPanel(system:FxSystem,actions:FieldActions):HTMLElement {
         });panel.append(alphaBox);
         const sync=button('同步 Alpha 时间…','提交前确认将前四个 Alpha 时间同步为颜色时间',()=>{
             const changes:EditValue[]=[];
-            alphaNodes.forEach((node,index)=>{const slot=Number(node.attributes.Frame);if(slot<1||slot>4)return;const f=fieldAt(system.fields,[...alphaPath!,index],'RelativeAge');if(f&&!f.readonly)changes.push({key:f.key,value:percentLexical(f.value,times[slot-1].time*100),expectedValue:f.value});});
+            effectiveAlpha.forEach(({node,index})=>{const slot=Number(node.attributes.Frame);const f=fieldAt(system.fields,[...alphaPath!,index],'RelativeAge');if(f&&!f.readonly)changes.push({key:f.key,value:percentLexical(f.value,times[slot-1].time*100),expectedValue:f.value});});
             if(!changes.length)return;
             const existing=panel.querySelector('.sync-review');if(existing)existing.remove();
             const review=el('div','sync-review');review.append(el('strong','','确认同步 Alpha 时间'));

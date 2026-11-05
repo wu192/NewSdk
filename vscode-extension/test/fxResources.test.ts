@@ -134,7 +134,7 @@ test('resource cache generations invalidate same-size/same-mtime updates and ret
         await fs.writeFile(file, tga(1, 1, [0, 255, 0])); await fs.utimes(file, stat.atime, stat.mtime);
         service.invalidate(file);
         const next = ready(await service.load(file));
-        assert.notEqual(next.key, first.key); assert.equal(next.generation, 1);
+        assert.notEqual(next.key, first.key); assert.ok(next.generation > first.generation);
         assert.deepEqual([...first.texture.pixels], [255, 0, 0, 255]);
         assert.deepEqual([...next.texture.pixels], [0, 255, 0, 255]);
         assert.equal(service.stats.bytes, 8);
@@ -155,6 +155,54 @@ test('resource LRU evicts only unreferenced pixels and reports budgets rather th
         const second = ready(await service.load(b));
         assert.equal(service.stats.entries, 1); assert.equal(service.stats.bytes, 4);
         service.release(second);
+    } finally { service.dispose(); }
+}));
+
+test('watcher metadata is bounded and an evicted GPU-visible generation is never reused on reload', async () => fixture(async root => {
+    const a = path.join(root, 'a'), b = path.join(root, 'b');
+    await Promise.all([fs.writeFile(a, tga(1, 1, [0, 0, 255])), fs.writeFile(b, tga(1, 1, [4, 5, 6]))]);
+    const stat = await fs.stat(a), service = new ResourceService({ roots: [root], cacheBytes: 4 });
+    try {
+        const original = ready(await service.load(a)); service.release(original);
+        const other = ready(await service.load(b)); service.release(other); // evicts a's CPU pixels; its old GPU key can still exist.
+        for (let i = 0; i < 10000; i++) service.invalidate(path.join(root, `unloaded-sdk-file-${i}`));
+        assert.equal(service.stats.trackedFiles, 1); assert.equal(service.stats.aliases, 0);
+        await fs.writeFile(a, tga(1, 1, [0, 255, 0])); await fs.utimes(a, stat.atime, stat.mtime);
+        service.invalidate(a);
+        const reloaded = ready(await service.load(a));
+        assert.ok(reloaded.generation > original.generation); assert.notEqual(reloaded.key, original.key);
+        assert.deepEqual([...reloaded.texture.pixels], [0, 255, 0, 255]);
+        service.release(reloaded); service.clear();
+        assert.equal(service.stats.trackedFiles, 0); assert.equal(service.stats.aliases, 0);
+    } finally { service.dispose(); }
+}));
+
+test('the entry limit bounds tiny-texture metadata independently of the pixel-byte budget', async () => fixture(async root => {
+    const service = new ResourceService({ roots: [root], cacheBytes: 1024, cacheEntries: 2 });
+    try {
+        for (let i = 0; i < 4; i++) {
+            const file = path.join(root, `image-${i}`); await fs.writeFile(file, tga(1, 1, [i, 2, 3]));
+            service.release(ready(await service.load(file)));
+        }
+        assert.equal(service.stats.entries, 2); assert.equal(service.stats.trackedFiles, 2); assert.equal(service.stats.bytes, 8);
+    } finally { service.dispose(); }
+}));
+
+test('unrelated watcher traffic does not cancel an in-flight decode or retain path metadata', async () => fixture(async root => {
+    const file = path.join(root, 'active');
+    const packets = new Uint8Array(1024 * 1024 / 128 * 2);
+    for (let i = 0; i < packets.length; i += 2) { packets[i] = 255; packets[i + 1] = 99; }
+    await fs.writeFile(file, tga(1024, 1024, [...packets], 11, 8));
+    const service = new ResourceService({ roots: [root] });
+    try {
+        const pending = service.load(file);
+        for (let i = 0; i < 10000 && !service.stats.workerCount; i++) await new Promise<void>(resolve => setImmediate(resolve));
+        assert.equal(service.stats.pending, 1);
+        for (let i = 0; i < 1000; i++) service.invalidate(path.join(root, `unrelated-${i}`));
+        const image = ready(await pending);
+        assert.deepEqual([...image.texture.pixels.subarray(0, 4)], [99, 99, 99, 255]);
+        assert.equal(service.stats.trackedFiles, 1); assert.equal(service.stats.aliases, 0);
+        service.release(image);
     } finally { service.dispose(); }
 }));
 

@@ -16,17 +16,18 @@ const GPU_INSTANCE_BUDGET=32*1024*1024;
 
 export class FxRenderer {
     private gl:WebGL2RenderingContext;
-    private program!:WebGLProgram;
-    private lineProgram!:WebGLProgram;
-    private corners!:WebGLBuffer;
-    private indices!:WebGLBuffer;
-    private lineBuffer!:WebGLBuffer;
-    private lineVao!:WebGLVertexArrayObject;
+    private program:WebGLProgram|null=null;
+    private lineProgram:WebGLProgram|null=null;
+    private corners:WebGLBuffer|null=null;
+    private indices:WebGLBuffer|null=null;
+    private lineBuffer:WebGLBuffer|null=null;
+    private lineVao:WebGLVertexArrayObject|null=null;
     private buffers=new Map<string,BufferRecord>();
     private textures=new Map<string,TextureRecord>();
     private uniforms=new Map<string,WebGLUniformLocation|null>();
     private matrix:Float32Array=new Float32Array(16);
     private lost=false;
+    private contextResourcesLost=false;
     private disposed=false;
     private restoreAttempted=false;
     private layers:RenderLayer[]=[];
@@ -41,12 +42,12 @@ export class FxRenderer {
         canvas.addEventListener('webglcontextrestored',this.contextRestored);
         try {this.initialize();} catch(error){this.dispose();throw error;}
     }
-    private contextLost=(event:Event)=>{event.preventDefault();this.lost=true;this.status('GPU 上下文丢失，等待恢复；文档和编辑状态已保留。');};
+    private contextLost=(event:Event)=>{event.preventDefault();this.lost=true;this.contextResourcesLost=true;this.status('GPU 上下文丢失，等待恢复；文档和编辑状态已保留。');};
     private contextRestored=()=>{
         if(this.disposed||this.restoreAttempted)return;
         this.restoreAttempted=true;
-        try {this.buffers.clear();this.textures.clear();this.uniforms.clear();this.initialize();this.lost=false;this.status('GPU 上下文已重建，请重载资源恢复贴图。');}
-        catch(error){this.status(`GPU 重建失败：${String(error)}。请重载预览。`);}
+        try {this.releaseGraphicsResources();this.contextResourcesLost=false;this.uniforms.clear();this.initialize();this.lost=false;this.status('GPU 上下文已重建，请重载资源恢复贴图。');}
+        catch(error){this.releaseGraphicsResources();this.status(`GPU 重建失败：${String(error)}。请重载预览。`);}
     };
     private shader(type:number,source:string):WebGLShader {
         const gl=this.gl,shader=gl.createShader(type);
@@ -80,15 +81,15 @@ export class FxRenderer {
         gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL,false);gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL,gl.NONE);
     }
     private uniform(name:string):WebGLUniformLocation|null {
-        if(!this.uniforms.has(name))this.uniforms.set(name,this.gl.getUniformLocation(this.program,name));
+        if(!this.uniforms.has(name))this.uniforms.set(name,this.gl.getUniformLocation(this.program!,name));
         return this.uniforms.get(name)!;
     }
-    setLayers(layers:RenderLayer[]):void {
+    setLayers(layers:RenderLayer[],resourceKeys?:readonly string[]):void {
         this.layers=layers;
         const ids=new Set(layers.map(l=>l.id));
-        for(const [id,b] of this.buffers)if(!ids.has(id)){this.gl.deleteVertexArray(b.vao);this.gl.deleteBuffer(b.buffer);this.buffers.delete(id);}
-        const textureKeys=new Set(layers.map(l=>l.textureKey));
-        for(const [key,t] of this.textures)if(!textureKeys.has(key)){this.gl.deleteTexture(t.texture);this.textures.delete(key);}
+        for(const [id,b] of this.buffers)if(!ids.has(id)){if(!this.contextResourcesLost){this.gl.deleteVertexArray(b.vao);this.gl.deleteBuffer(b.buffer);}this.buffers.delete(id);}
+        const textureKeys=new Set(resourceKeys??layers.map(l=>l.textureKey));
+        for(const [key,t] of this.textures)if(!textureKeys.has(key)){if(!this.contextResourcesLost)this.gl.deleteTexture(t.texture);this.textures.delete(key);}
     }
     get supportsS3tc():boolean{return !!this.gl.getExtension('WEBGL_compressed_texture_s3tc');}
     uploadTexture(texture:FxTexture):void {
@@ -240,7 +241,7 @@ export class FxRenderer {
         }
         line(scene.source,scene.target,[0.45,0.45,0.5,0.4]);
         gl.useProgram(this.lineProgram);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);
-        gl.uniformMatrix4fv(gl.getUniformLocation(this.lineProgram,'viewProjection'),false,this.matrix);
+        gl.uniformMatrix4fv(gl.getUniformLocation(this.lineProgram!,'viewProjection'),false,this.matrix);
         gl.bindVertexArray(this.lineVao);gl.bindBuffer(gl.ARRAY_BUFFER,this.lineBuffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(vertices),gl.DYNAMIC_DRAW);gl.drawArrays(gl.LINES,0,vertices.length/7);
     }
     pick(clientX:number,clientY:number,frame:number):string|undefined {
@@ -254,13 +255,20 @@ export class FxRenderer {
         return chosen;
     }
     get stats():RenderStats{return {...this.statsValue};}
-    dispose():void {
-        if(this.disposed)return;this.disposed=true;
+    private releaseGraphicsResources():void {
         const gl=this.gl;
-        for(const b of this.buffers.values()){gl.deleteVertexArray(b.vao);gl.deleteBuffer(b.buffer);}this.buffers.clear();
-        for(const t of this.textures.values())gl.deleteTexture(t.texture);this.textures.clear();
-        gl.deleteBuffer(this.corners);gl.deleteBuffer(this.indices);gl.deleteBuffer(this.lineBuffer);gl.deleteVertexArray(this.lineVao);
-        gl.deleteProgram(this.program);gl.deleteProgram(this.lineProgram);
+        // Context loss already destroys its objects. Deleting those objects after restore is invalid.
+        if(!this.contextResourcesLost){
+            for(const b of this.buffers.values()){gl.deleteVertexArray(b.vao);gl.deleteBuffer(b.buffer);}
+            for(const t of this.textures.values())gl.deleteTexture(t.texture);
+            gl.deleteBuffer(this.corners);gl.deleteBuffer(this.indices);gl.deleteBuffer(this.lineBuffer);gl.deleteVertexArray(this.lineVao);
+            gl.deleteProgram(this.program);gl.deleteProgram(this.lineProgram);
+        }
+        this.buffers.clear();this.textures.clear();
+        this.corners=null;this.indices=null;this.lineBuffer=null;this.lineVao=null;this.program=null;this.lineProgram=null;
+    }
+    dispose():void {
+        if(this.disposed)return;this.disposed=true;this.releaseGraphicsResources();
         this.canvas.removeEventListener('webglcontextlost',this.contextLost);this.canvas.removeEventListener('webglcontextrestored',this.contextRestored);
     }
 }

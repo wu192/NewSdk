@@ -35,7 +35,22 @@ function problem(code: string, message: string, origin: Origin, attribute?: stri
     return {...source(origin, attribute), code, message, severity};
 }
 function bool(value: string | undefined): boolean { return value?.toLowerCase() === 'true' || value === '1'; }
-function isMetadata(name: string): boolean { return name === 'xmlns' || name.startsWith('xmlns:') || name.endsWith(':joinAction') || name === 'inheritFrom' || name === 'buildRule' || name === 'typeHashCode'; }
+const instanceNamespace = 'uri:ea.com:eala:asset:instance';
+function instanceAttribute(node: XmlElement, localName: string): [string,string] | undefined {
+    for (const [name,value] of Object.entries(node.attributes)) {
+        const colon = name.indexOf(':'); if (colon < 0 || name.slice(colon+1) !== localName) continue;
+        const declaration = `xmlns:${name.slice(0,colon)}`;
+        let ancestor: XmlElement | undefined = node;
+        while (ancestor) {
+            if (Object.hasOwn(ancestor.attributes,declaration)) { if (ancestor.attributes[declaration] === instanceNamespace) return [name,value]; break; }
+            ancestor = ancestor.parent;
+        }
+    }
+    return undefined;
+}
+function isMetadata(name: string, node: XmlElement): boolean { return name === 'xmlns' || name.startsWith('xmlns:')
+    || instanceAttribute(node,'joinAction')?.[0] === name || instanceAttribute(node,'insertPosition')?.[0] === name
+    || name === 'inheritFrom' || name === 'buildRule' || name === 'typeHashCode'; }
 
 /** Resolves only the chosen asset's typed references; unknown branches stay visible. */
 export class AssetResolver {
@@ -43,22 +58,18 @@ export class AssetResolver {
     private origin(asset: AssetRecord, node = asset.node, uri = asset.uri): Origin { return {asset, node, uri}; }
     private issueAtAsset(code: string, message: string, asset: AssetRecord): FxIssue { return problem(code, message, this.origin(asset)); }
     private select(type: string, reference: string, from: AssetRecord, issues: FxIssue[], origin = this.origin(from), attribute?: string): AssetRecord | undefined {
-        let candidates = this.index.candidates(type, reference, from.namespace);
-        // A local instance intentionally replaces a reference-stream definition. Two
-        // concrete definitions remain ambiguous; filesystem order is never precedence.
-        const concrete = candidates.filter(candidate => candidate.includeType !== 'reference');
-        if (concrete.length) candidates = concrete;
+        const candidates = this.index.candidates(type, reference, from.namespace, from.uri);
         if (candidates.length !== 1) {
             issues.push(problem(candidates.length ? 'asset-ambiguous' : 'asset-missing', candidates.length
                 ? `${type}:${reference} 有多个候选来源：${candidates.map(a => a.uri).join('、')}`
-                : `在当前入口找不到 ${type}:${reference}`, origin, attribute));
+                : `在定义文档 ${from.uri} 的可见依赖中找不到 ${type}:${reference}`, origin, attribute));
             return undefined;
         }
         return candidates[0];
     }
     private fromXml(asset: AssetRecord, node: XmlElement, issues: FxIssue[], uri = asset.uri, includeStack: string[] = []): EffectiveNode {
         const origin = this.origin(asset, node, uri); const attributes: Record<string, string> = {}; const attributeOrigins: Record<string, Origin> = {};
-        for (const [name, value] of Object.entries(node.attributes)) if (!isMetadata(name)) { attributes[name] = value; attributeOrigins[name] = origin; }
+        for (const [name, value] of Object.entries(node.attributes)) if (!isMetadata(name,node)) { attributes[name] = value; attributeOrigins[name] = origin; }
         const children: EffectiveNode[] = [];
         for (const child of node.children) {
             const edge = this.index.graph.includes.find(e => e.mode === 'xml' && e.from === uri && e.source.nodePath === child.path);
@@ -72,32 +83,44 @@ export class AssetResolver {
         }
         return {name: node.localName, attributes, attributeOrigins, children, origin};
     }
-    private merge(parent: EffectiveNode, child: EffectiveNode, issues: FxIssue[]): EffectiveNode {
-        const result = clone(parent);
-        result.origin = child.origin;
+    private joinAction(node: EffectiveNode, issues: FxIssue[], fallback: 'Append'|'Replace'|'Remove' = 'Append'): 'Append'|'Replace'|'Remove' | undefined {
+        const entry = instanceAttribute(node.origin.node,'joinAction'); if (!entry) return fallback;
+        const action = entry[1].toLowerCase();
+        if (action === 'append') return 'Append'; if (action === 'replace' || action === 'overwrite') return 'Replace'; if (action === 'remove') return 'Remove';
+        issues.push(problem('inherit-join-action', `xai:joinAction=${entry[1]} 无效；编译器只支持 Append、Replace、Remove`, node.origin, entry[0])); return undefined;
+    }
+    /** a75840e recovery/src/Managed/Core/.../NodeJoiner.cs: defaults to Append,
+     * singleton sequences match names, choices replace their only branch, repeated
+     * sequences match id only. Frame is a payload slot, never an inheritance key.
+     */
+    private merge(parent: EffectiveNode | undefined, child: EffectiveNode, issues: FxIssue[], action: 'Append'|'Replace' = 'Append'): EffectiveNode {
+        const result = parent && action !== 'Replace' ? clone(parent) : {...child,attributes:{},attributeOrigins:{},children:[]};
+        result.origin = child.origin; result.name = child.name;
         Object.assign(result.attributes, child.attributes); Object.assign(result.attributeOrigins, child.attributeOrigins);
-        const key = (node: EffectiveNode): string => `${node.name}:${node.attributes.id ?? ''}`;
         for (const incoming of child.children) {
-            const actionEntry = Object.entries(incoming.origin.node.attributes).find(([name]) => name.endsWith(':joinAction'));
-            const action = actionEntry?.[1] ?? 'Merge';
-            const matching = result.children.map((node, index) => ({node, index})).filter(value => key(value.node) === key(incoming));
-            if (!['Merge','Replace','Remove','Append'].includes(action)) {
-                issues.push(problem('inherit-join-action', `尚不支持 xai:joinAction=${action}`, incoming.origin, actionEntry?.[0])); continue;
+            const childAction = this.joinAction(incoming,issues,action); if (!childAction) continue;
+            const multiple = (child.name === 'Colors' && incoming.name === 'Color') || (child.name === 'Alphas' && incoming.name === 'Alpha') || child.name === 'NuggetList';
+            const choice = ['Physics','Draw','Volume','Velocity','Update'].includes(child.name);
+            const matching = result.children.map((node,index) => ({node,index})).filter(value => multiple
+                ? !!incoming.attributes.id && value.node.attributes.id === incoming.attributes.id
+                : choice && result.children.length === 1 || value.node.name === incoming.name);
+            if (matching.length > 1) { issues.push(problem('inherit-ambiguous', `继承节点 ${incoming.name} 无法确定唯一合并目标`, incoming.origin)); continue; }
+            const existing = matching[0];
+            if (childAction === 'Remove') {
+                if (existing) result.children.splice(existing.index,1);
+                else issues.push(problem('inherit-remove', `删除的父节点 ${incoming.name} 不存在（多值序列须使用 id 匹配）`, incoming.origin));
+                continue;
             }
-            if (action === 'Append') { result.children.push(clone(incoming)); continue; }
-            const repeatedSequence = (parent.name === 'Colors' && incoming.name === 'Color') || (parent.name === 'Alphas' && incoming.name === 'Alpha') || parent.name === 'NuggetList';
-            if (repeatedSequence && !incoming.attributes.id && matching.length) {
-                issues.push(problem('inherit-sequence-contract', `继承 ${parent.name}/${incoming.name} 的无 id 序列合并合同尚未验证；请显式 Replace 整个 ${parent.name}`, incoming.origin)); continue;
+            const replacement = this.merge(existing?.node.name === incoming.name ? existing.node : undefined,incoming,issues,childAction);
+            if (existing) result.children[existing.index] = replacement;
+            else {
+                const position = instanceAttribute(incoming.origin.node,'insertPosition');
+                if (position && !['top','bottom'].includes(position[1].toLowerCase())) { issues.push(problem('inherit-insert-position', `insertPosition=${position[1]} 无效`, incoming.origin,position[0])); continue; }
+                if (position?.[1].toLowerCase() === 'top') result.children.unshift(replacement); else result.children.push(replacement);
             }
-            if (matching.length > 1) {
-                issues.push(problem('inherit-ambiguous', `继承节点 ${incoming.name} 缺少唯一 id，无法确定合并目标`, incoming.origin)); continue;
-            }
-            if (action === 'Remove') {
-                if (matching.length) result.children.splice(matching[0].index, 1);
-                else issues.push(problem('inherit-remove', `删除的父节点 ${incoming.name} 不存在`, incoming.origin));
-            } else if (!matching.length) result.children.push(clone(incoming));
-            else result.children[matching[0].index] = action === 'Replace' ? clone(incoming) : this.merge(matching[0].node, incoming, issues);
         }
+        if (['Colors','Alphas'].includes(result.name) && result.children.filter(node => node.name === (result.name === 'Colors'?'Color':'Alpha')).length > 8)
+            issues.push(problem('inherit-max-occurs', `${result.name} 合并后超过 XSD 的 8 个节点上限`, child.origin));
         return result;
     }
     private effective(asset: AssetRecord, issues: FxIssue[], stack: string[] = []): EffectiveNode | undefined {
@@ -108,34 +131,46 @@ export class AssetResolver {
         if (!asset.node.attributes.inheritFrom) return own;
         const parent = this.select(asset.type, asset.node.attributes.inheritFrom, asset, issues, this.origin(asset), 'inheritFrom');
         if (!parent) return undefined;
+        // a75840e InstanceDeclaration.cs:228-240 removes inheritFrom before XSD;
+        // AssetDeclarationDocument.cs:1153 forbids non-BaseInheritableAsset sources
+        // unless FindLocation.Self. FXList/particle/Texture are BaseAssetType.
+        if (parent.uri !== asset.uri) { issues.push(problem('inherit-cross-document', `${asset.type} 非 BaseInheritableAsset，只支持同文档 inheritFrom`, this.origin(asset),'inheritFrom')); return undefined; }
+        const rootAction = this.joinAction(own,issues); if (!rootAction) return undefined;
+        if (rootAction === 'Remove') { issues.push(problem('inherit-remove-root','编译器不支持删除顶层资产',this.origin(asset))); return undefined; }
         const inherited = this.effective(parent, issues, [...stack, asset.key]);
-        return inherited ? this.merge(inherited, own, issues) : undefined;
+        return inherited ? this.merge(inherited, own, issues,rootAction) : undefined;
     }
-    private symbols(issues: FxIssue[]): Record<string, number> {
-        const definitions = new Map<string, {value: string; origin: Origin; override: boolean}[]>();
-        const fallbackAsset = this.index.listAssets()[0];
-        if (!fallbackAsset) return {};
-        for (const [uri, document] of this.index.graph.documents) for (const node of document.elements) {
-            if (node.localName !== 'Define' || node.parent?.localName !== 'Defines') continue;
-            const name = node.attributes.name; if (!name) continue;
-            const list = definitions.get(name) ?? []; list.push({value: node.attributes.value ?? '', origin: this.origin(fallbackAsset, node, uri), override: bool(node.attributes.override)}); definitions.set(name, list);
-        }
-        const pending = new Map<string, {value: string; origin: Origin}>(); const symbols: Record<string, number> = {};
-        for (const [name, values] of definitions) {
-            const overrides = values.filter(d => d.override); const chosen = overrides.length ? overrides : values;
-            if (new Set(chosen.map(d => d.value)).size !== 1) { issues.push(problem('define-conflict', `宏 ${name} 有冲突来源，不能按文件遍历顺序覆盖`, chosen[0].origin)); continue; }
-            pending.set(name, chosen[0]);
-        }
-        for (let pass = 0; pass < 32 && pending.size; pass++) {
+    private symbols(issues: FxIssue[], documentUri: string): Record<string, number> {
+        type Definition = {value:string;origin:Origin;override:boolean};
+        const fallbackAsset = this.index.listAssets()[0]; if (!fallbackAsset) return {};
+        const cache = new Map<string,Map<string,Definition>>();
+        const collect = (file: string): Map<string,Definition> => {
+            const cached = cache.get(file); if (cached) return cached;
+            const definitions = new Map<string,Definition>(); cache.set(file,definitions);
+            for (const edge of this.index.graph.includes.filter(edge => edge.from === file)) for (const [name,definition] of collect(edge.to)) {
+                const existing = definitions.get(name);
+                if (existing && existing.origin.uri !== definition.origin.uri) issues.push(problem('define-conflict', `宏 ${name} 经两个不同定义文档导入，编译器禁止此冲突`, definition.origin));
+                else definitions.set(name,definition);
+            }
+            const own = new Set<string>();
+            for (const node of this.index.getDocument(file)?.elements ?? []) {
+                if (node.localName !== 'Define' || node.parent?.localName !== 'Defines' || !node.attributes.name) continue;
+                const name = node.attributes.name; const definition = {value:node.attributes.value ?? '',origin:this.origin(fallbackAsset,node,file),override:node.attributes.override === 'true'};
+                if (own.has(name) || definitions.has(name) && !definition.override) issues.push(problem('define-conflict', `宏 ${name} 重复；覆盖导入宏必须显式 override=true`, definition.origin));
+                else definitions.set(name,definition);
+                own.add(name);
+            }
+            return definitions;
+        };
+        const pending = new Map(collect(documentUri)); const symbols: Record<string,number> = {};
+        for (let pass=0;pass<32 && pending.size;pass++) {
             let changed = false;
-            for (const [name, definition] of pending) {
-                const value = evaluateExpression(definition.value, symbols);
-                if (value.status === 'evaluated') { symbols[name] = value.value; symbols[`$${name}`] = value.value; pending.delete(name); changed = true; }
+            for (const [name,definition] of pending) {
+                const result = evaluateExpression(definition.value,symbols);
+                if (result.status === 'evaluated') { symbols[name]=result.value; symbols[`$${name}`]=result.value; pending.delete(name); changed=true; }
             }
             if (!changed) break;
         }
-        // Unused string/object defines do not stop an unrelated particle; unresolved
-        // references produce precise issues when a selected field consumes them.
         return symbols;
     }
     private expandExpressions(node: EffectiveNode, symbols: Record<string, number>, issues: FxIssue[]): void {
@@ -182,11 +217,12 @@ export class AssetResolver {
     }
     private async texture(template: AssetRecord, node: EffectiveNode, issues: FxIssue[]): Promise<FxTexture> {
         const name = node.attributes.ParticleTexture ?? '';
-        const key = `texture:${template.key}:${name}`;
+        let key = `texture:${template.key}:${name}`;
         let location = source(node.attributeOrigins.ParticleTexture ?? node.origin, 'ParticleTexture');
         if (!name) return {key, name, location, source:'source', status:'empty-reference', message:'ParticleTexture 尚未选择贴图'};
         const declaration = this.select('Texture', name, template, issues, node.attributeOrigins.ParticleTexture ?? node.origin, 'ParticleTexture');
         if (!declaration) return {key, name, location, source:'source', status:'missing-declaration', message:`Texture 声明不存在或有多个候选：${name}`};
+        key = `texture:${declaration.key}`;
         const resolved = this.effective(declaration, issues);
         if (!resolved) return {key, name, location, source:'source', status:'invalid-declaration', message:'Texture 继承无法解析'};
         const file = resolved.attributes.File;
@@ -211,8 +247,8 @@ export class AssetResolver {
         const scene: FxScene = {...defaultScene, ...sceneValues, source: [...(sceneValues.source ?? defaultScene.source)], target: [...(sceneValues.target ?? defaultScene.target)]};
         if (![...scene.source, ...scene.target, scene.ground, scene.seed].every(Number.isFinite)) throw new Error('预览场景数值必须有限');
         const issues = [...this.index.graph.issues]; const systems: FxSystem[] = []; const textures: FxTexture[] = [];
-        const symbols = this.symbols(issues);
         const rootIssueStart = issues.length;
+        const symbols = this.symbols(issues,asset.uri);
         const effective = this.effective(asset, issues);
         const rootResolutionFailed = issues.slice(rootIssueStart).some(issue => issue.severity === 'error');
         if (effective) this.expandExpressions(effective, symbols, issues);
@@ -220,7 +256,7 @@ export class AssetResolver {
         const addSystem = async (template: AssetRecord, call: EffectiveNode | undefined, instance: number, callIndex: number): Promise<void> => {
             if (signal?.aborted) throw new Error('FX preview cancelled');
             const systemIssues: FxIssue[] = [];
-            const definition = this.effective(template, systemIssues); if (definition) this.expandExpressions(definition, symbols, systemIssues);
+            const definition = this.effective(template, systemIssues); if (definition) this.expandExpressions(definition, this.symbols(systemIssues,template.uri), systemIssues);
             const compiled = definition ? compileParticle(plain(definition)) : undefined;
             if (compiled && definition) systemIssues.push(...this.runtimeIssues(compiled.issues, definition));
             const textureIssues: FxIssue[] = [];

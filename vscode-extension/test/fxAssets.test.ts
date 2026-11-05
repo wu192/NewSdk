@@ -35,7 +35,7 @@ test('entry scopes preserve namespace/type/source identity and do not leak same-
 test('include kinds retain their contract and invalidate changed dependency despite unchanged timestamp/size', async t => {
     const root = await temporary(t);
     await fs.writeFile(path.join(root,'entry.xml'),wrap('<Includes><Include type="instance" source="particle.xml"/><Include type="reference" source="texture.xml"/></Includes>'));
-    await fs.writeFile(path.join(root,'particle.xml'),wrap('<FXParticleSystemTemplate id="P" Type="GPU_PARTICLE" ParticleTexture="T"/>'));
+    await fs.writeFile(path.join(root,'particle.xml'),wrap('<Includes><Include type="reference" source="texture.xml"/></Includes><FXParticleSystemTemplate id="P" Type="GPU_PARTICLE" ParticleTexture="T"/>'));
     await fs.writeFile(path.join(root,'texture.xml'),wrap('<Texture id="T" File="a.tga"/>'));
     const index = new AssetIndex({roots:[root]}); await index.load(path.join(root,'entry.xml'));
     const template = index.listAssets().find(a=>a.id==='P')!; const texture = index.listAssets().find(a=>a.id==='T')!;
@@ -61,6 +61,8 @@ test('include cycles identify shortest active path, path escape and alias loops 
     const index = new AssetIndex({roots:[root]}); await index.load(path.join(root,'a.xml'));
     assert.equal(index.graph.documents.size,2); assert.match(index.graph.issues.find(i=>i.code==='include-cycle')!.message,/a\.xml.*b\.xml.*a\.xml/);
     await assert.rejects(index.resolveFile(path.join(root,'a.xml'),'../outside.xml'),/资源根之外/);
+    await assert.rejects(index.resolveFile(path.join(root,'a.xml'),'DATA:http://example.com/file.xml'),/第二个冒号/);
+    await assert.rejects(index.resolveFile(path.join(root,'a.xml'),'source.xml:extra'),/非法别名/);
     await fs.symlink(root,path.join(root,'alias'), process.platform==='win32'?'junction':'dir');
     await fs.writeFile(path.join(root,'a.xml'),wrap('<Includes><Include type="all" source="alias/a.xml"/></Includes>'));
     await index.load(path.join(root,'a.xml')); assert.ok(index.graph.issues.some(i=>i.code==='include-cycle'));
@@ -99,13 +101,13 @@ test('invalid FXList numeric and boolean inputs never fall back to a fabricated 
 
 test('ordinary inheritance merges unique children, preserves parent provenance and resolves safe numeric defines', async t => {
     const root = await temporary(t); const parent = (await templateXml()).replace('id="Flash"','id="Parent"');
-    await fs.writeFile(path.join(root,'parent.xml'),wrap(parent));
-    await fs.writeFile(path.join(root,'child.xml'),wrap('<Includes><Include type="all" source="parent.xml"/></Includes><Defines><Define name="SIZE" value="12*2"/></Defines><FXParticleSystemTemplate id="Child" inheritFrom="Parent"><Size Low="= $SIZE" High="= $SIZE"/></FXParticleSystemTemplate>'));
+    await fs.writeFile(path.join(root,'child.xml'),wrap('<Defines><Define name="SIZE" value="12*2"/></Defines>'+parent+'<FXParticleSystemTemplate id="Child" inheritFrom="Parent"><Size Low="= $SIZE" High="= $SIZE"/></FXParticleSystemTemplate>'));
     const index = new AssetIndex({roots:[root]}); await index.load(path.join(root,'child.xml'));
     const ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Child')!.key);
     assert.equal(ir.systems[0].config?.size.low,24);
     const lifetime = ir.fields.find(f=>f.group==='粒子寿命（逻辑帧）' && f.attribute==='Low')!;
-    assert.equal(lifetime.uri,path.join(root,'parent.xml')); assert.equal(lifetime.inherited,true);
+    assert.equal(lifetime.uri,path.join(root,'child.xml')); assert.equal(lifetime.inherited,true);
+    assert.equal(index.getAsset(lifetime.sourceAsset!)?.id,'Parent');
     const size = ir.fields.find(f=>f.group==='尺寸' && f.attribute==='Low')!;
     assert.equal(size.value,'= $SIZE'); assert.equal(size.inherited,false);
     assert.equal(ir.systems[0].definition?.children.find(n=>n.name==='Size')?.attributes.Low,'24');
@@ -126,15 +128,95 @@ test('duplicate concrete definitions, inheritance cycles and unresolved expressi
     assert.ok(expression.issues.some(i=>i.code==='expression-unresolved')); assert.equal(expression.systems[0].config,undefined);
 });
 
-test('inherited unkeyed color sequences stop with a precise capability issue; explicit parent Replace is supported', async t => {
+test('non-BaseInheritable FX assets allow pre-XSD same-document inheritance and reject cross-document sources', async t => {
     const root = await temporary(t); const parent = (await templateXml()).replace('id="Flash"','id="Parent"');
-    const child = '<FXParticleSystemTemplate id="Child" inheritFrom="Parent"><Colors><Color Frame="2" RelativeAge="80"><Color r="1" g="1" b="1"/></Color></Colors></FXParticleSystemTemplate>';
+    await fs.writeFile(path.join(root,'parent.xml'),wrap(parent));
+    await fs.writeFile(path.join(root,'child.xml'),wrap('<Includes><Include type="instance" source="parent.xml"/></Includes><FXParticleSystemTemplate id="Child" inheritFrom="Parent"><Size Low="7" High="7"/></FXParticleSystemTemplate>'));
+    const index = new AssetIndex({roots:[root]}); await index.load(path.join(root,'child.xml'));
+    const ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Child')!.key);
+    assert.equal(ir.systems.length,0); assert.ok(ir.issues.some(i=>i.code==='inherit-cross-document' && i.nodePath.includes('FXParticleSystemTemplate')));
+});
+
+test('compiler NodeJoiner appends unkeyed records, merges explicit Append singletons, replaces choices and rejects Merge', async t => {
+    const root = await temporary(t); const parent = (await templateXml()).replace('id="Flash"','id="Parent"');
+    const child = '<FXParticleSystemTemplate id="Child" inheritFrom="Parent"><Size xai:joinAction="Append" Low="7"/><Colors><Color Frame="3" RelativeAge="90"><Color r="1" g="1" b="1"/></Color></Colors><Volume><Sphere Radius="2"/></Volume></FXParticleSystemTemplate>';
     await fs.writeFile(path.join(root,'entry.xml'),wrap(parent+child)); const index = new AssetIndex({roots:[root]}); await index.load(path.join(root,'entry.xml'));
     let ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Child')!.key);
-    assert.equal(ir.systems[0].config,undefined); assert.ok(ir.issues.some(i=>i.code==='inherit-sequence-contract'));
+    assert.ok(ir.systems[0].config); assert.equal(ir.systems[0].config.size.low,7); assert.equal(ir.systems[0].config.size.high,24);
+    assert.equal(ir.systems[0].config.volume.type,'Sphere');
+    assert.equal(ir.systems[0].definition?.children.find(n=>n.name==='Colors')?.children.filter(n=>n.name==='Color').length,3);
+    // Recovered provider walks ChildNodes, writes records in order, then native
+    // loading overwrites a repeated Frame slot with the later compiled record.
+    await fs.writeFile(path.join(root,'entry.xml'),wrap(parent+child.replace('Frame="3"','Frame="2"'))); await index.load(path.join(root,'entry.xml'));
+    ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Child')!.key);
+    assert.deepEqual(ir.systems[0].config?.colors?.[1].value,[1,1,1]); assert.equal(ir.systems[0].config?.colors?.[1].time,0.9);
     await fs.writeFile(path.join(root,'entry.xml'),wrap(parent+child.replace('<Colors>','<Colors xai:joinAction="Replace">'))); await index.load(path.join(root,'entry.xml'));
     ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Child')!.key);
     assert.ok(ir.systems[0].config); assert.equal(ir.systems[0].definition?.children.find(n=>n.name==='Colors')?.children.length,1);
+    await fs.writeFile(path.join(root,'entry.xml'),wrap(parent+child.replace('joinAction="Append"','joinAction="Merge"'))); await index.load(path.join(root,'entry.xml'));
+    ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Child')!.key);
+    assert.equal(ir.systems[0].config,undefined); assert.ok(ir.issues.some(i=>i.code==='inherit-join-action'));
+});
+
+test('definition-local references obey Instance versus All reference propagation and do not leak sibling assets or parent defines', async t => {
+    const root = await temporary(t); const template = await templateXml();
+    await fs.writeFile(path.join(root,'library.xml'),wrap(template));
+    await fs.writeFile(path.join(root,'bundle.xml'),wrap('<Includes><Include type="reference" source="library.xml"/></Includes>'));
+    const calls = '<FXList id="Calls"><NuggetList><ParticleSystem Particle="Flash"/></NuggetList></FXList>';
+    const index = new AssetIndex({roots:[root]});
+    await fs.writeFile(path.join(root,'entry.xml'),wrap('<Includes><Include type="instance" source="bundle.xml"/></Includes>'+calls)); await index.load(path.join(root,'entry.xml'));
+    let ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Calls')!.key);
+    assert.equal(ir.systems.length,0); assert.ok(ir.issues.some(i=>i.code==='asset-missing'));
+    await fs.writeFile(path.join(root,'entry.xml'),wrap('<Includes><Include type="all" source="bundle.xml"/></Includes>'+calls)); await index.load(path.join(root,'entry.xml'));
+    ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Calls')!.key); assert.equal(ir.systems.length,1);
+    await fs.writeFile(path.join(root,'texture.xml'),wrap('<Texture id="FxFixtureTexture" File="sibling.tga"/>'));
+    await fs.writeFile(path.join(root,'entry.xml'),wrap('<Includes><Include type="all" source="library.xml"/><Include type="all" source="texture.xml"/></Includes>'+calls)); await index.load(path.join(root,'entry.xml'));
+    ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Calls')!.key);
+    assert.equal(ir.textures[0].status,'missing-declaration'); // Texture visible to entry, absent in Flash's defining document.
+    await fs.writeFile(path.join(root,'library.xml'),wrap(template.replace('Low="24"','Low="= $ROOT_ONLY"')));
+    await fs.writeFile(path.join(root,'entry.xml'),wrap('<Includes><Include type="all" source="library.xml"/></Includes><Defines><Define name="ROOT_ONLY" value="999"/></Defines>'+calls)); await index.load(path.join(root,'entry.xml'));
+    ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Calls')!.key);
+    assert.equal(ir.systems[0].config,undefined); assert.ok(ir.issues.some(i=>i.code==='expression-unresolved'));
+});
+
+test('ART basename resolution uses compiler two-character buckets with bounded case-insensitive matching', async t => {
+    const root = await temporary(t); const mod = path.join(root,'mod'); const sdk = path.join(root,'sdk');
+    await fs.mkdir(path.join(mod,'Data'),{recursive:true}); await fs.mkdir(path.join(sdk,'Art','FX'),{recursive:true});
+    const empty = path.join(sdk,'Art','FX','fxlenzflare01.xml'); await fs.writeFile(empty,wrap(''));
+    const index = new AssetIndex({roots:[mod,sdk],modRoot:mod,sdkRoot:sdk});
+    assert.equal(await index.resolveFile(path.join(mod,'Data','entry.xml'),'art:fxlenzflare01.xml'),empty);
+    assert.equal(await index.resolveFile(path.join(mod,'Data','entry.xml'),'ART:FX/FXLENZFLARE01.XML'),empty);
+    await fs.mkdir(path.join(mod,'Art','FX'),{recursive:true}); const local = path.join(mod,'Art','FX','fxlenzflare01.xml'); await fs.writeFile(local,wrap(''));
+    assert.equal(await index.resolveFile(path.join(mod,'Data','entry.xml'),'art:fxlenzflare01.xml'),local);
+    await fs.writeFile(path.join(mod,'Data','entry.xml'),wrap('<Includes><Include type="all" source="art:fxlenzflare01.xml"/></Includes>'));
+    await index.load(path.join(mod,'Data','entry.xml')); assert.equal(index.listAssets().length,0); assert.equal(index.graph.documents.size,2);
+});
+
+test('NewModCompiler source profile preserves SDK configuration order and never substitutes a full fallback for an existing empty stub', async t => {
+    const root = await temporary(t); const mod = path.join(root,'mod'); const sdk = path.join(root,'sdk');
+    await fs.mkdir(path.join(mod,'Data'),{recursive:true}); await fs.mkdir(path.join(sdk,'tools'),{recursive:true}); await fs.mkdir(path.join(sdk,'SageXml'),{recursive:true});
+    const config = path.join(sdk,'tools','BinaryAssetBuilder.exe.config');
+    const configuration = (dataPaths:string) => `<configuration><assetbuilder defaultDataPaths="${dataPaths}" defaultArtPaths=".\\Art" defaultAudioPaths=".\\Audio"/></configuration>`;
+    await fs.writeFile(config,configuration('.;.\\Mods;.\\SageXml'));
+    await fs.writeFile(path.join(sdk,'Static.xml'),wrap(''));
+    await fs.writeFile(path.join(sdk,'SageXml','Static.xml'),wrap('<Texture id="MustNotBeSubstituted" File="old.tga"/>'));
+    const entry = path.join(mod,'Data','Mod.xml'); await fs.writeFile(entry,wrap('<Includes><Include type="reference" source="DATA:static.xml"/></Includes>'));
+    const index = new AssetIndex({roots:[mod,sdk],modRoot:mod,sdkRoot:sdk}); await index.load(entry);
+    assert.equal(index.listAssets().length,0); assert.ok(index.graph.documents.has(path.join(sdk,'Static.xml')));
+    assert.deepEqual(index.sourceDataProfile?.dataPaths,[path.join(mod,'Data'),sdk,path.join(sdk,'Mods'),path.join(sdk,'SageXml')]);
+    assert.match(index.sourceDataProfile!.source,/mod-prepend\+sdk-config/); assert.ok(index.graph.dependencies.includes(config));
+    assert.equal(await index.resolveFile(entry,'ROOT:Static.xml'),path.join(sdk,'Static.xml'));
+    await fs.mkdir(path.join(sdk,'CustomData')); await fs.writeFile(path.join(sdk,'CustomData','static.xml'),wrap('<Texture id="ConfiguredSource" File="new.tga"/>'));
+    await fs.writeFile(config,configuration('CustomData;.;SageXml')); assert.ok(index.invalidate(config).has(entry)); await index.load(entry);
+    assert.equal(index.listAssets()[0].id,'ConfiguredSource');
+});
+
+test('two templates sharing one typed Texture declaration produce one transferable/GPU texture key', async t => {
+    const root = await temporary(t); const template = await templateXml(); const second = template.replace('id="Flash"','id="SecondFlash"');
+    await fs.writeFile(path.join(root,'entry.xml'),wrap('<Texture id="FxFixtureTexture" File="shared.tga"/>'+template+second+'<FXList id="Both"><NuggetList><ParticleSystem Particle="Flash"/><ParticleSystem Particle="SecondFlash"/></NuggetList></FXList>'));
+    const index = new AssetIndex({roots:[root]}); await index.load(path.join(root,'entry.xml'));
+    const ir = await new AssetResolver(index).resolve(index.listAssets().find(asset=>asset.id==='Both')!.key);
+    assert.equal(ir.systems.length,2); assert.equal(ir.textures.length,1); assert.equal(ir.systems[0].textureKey,ir.systems[1].textureKey);
 });
 
 test('texture resolution separates no declaration, empty declaration, missing/empty File and actual File', async t => {

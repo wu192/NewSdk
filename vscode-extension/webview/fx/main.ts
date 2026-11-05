@@ -24,6 +24,8 @@ let raf:number|undefined,draftRaf:number|undefined,lastTime:number|undefined,acc
 let pendingDraft:EditValue[]|undefined;
 interface TextureAssembly {descriptor:FxTextureTransfer;levels:Uint8Array[];received:number[];version:number;discard:boolean;}
 const transfers=new Map<string,TextureAssembly>();
+const uploadedTextureKeys=new Set<string>();
+const textureGpuErrors=new Map<string,string>();
 const MAX_TRANSFER_BYTES=32*1024*1024;
 interface SessionState {frame:number;playing:boolean;speed:number;endFrame:number;selected:string;hidden:string[];solo?:string;background:string;ground:boolean;lowResolution:boolean;followCursor:boolean;camera:CameraState;}
 const saved=vscode.getState();
@@ -47,7 +49,7 @@ const assetSelect=el('select','asset-select');assetSelect.id='asset-select';asse
 const newSelect=el('select','new-select');newSelect.setAttribute('aria-label','新建特效');newSelect.append(option('','新建特效…'));for(const name of ['闪光','烟雾','喷射火花','持续光环'])newSelect.append(option(name,name));newSelect.addEventListener('change',()=>{if(newSelect.value)send({type:'new',preset:newSelect.value});newSelect.value='';});
 const copyButton=button('复制为独立资源','预览要插入的资产和引用，确认后作为一个可撤销编辑',()=>{if(ir)send({type:'copy',assetKey:ir.assetKey});});
 const buildButton=button('保存并编译','保存当前构建涉及的修改并调用 NewSdk 编译器',()=>{commitPendingField();send({type:'saveAndBuild'});},'primary');buildButton.id='save-build';
-const reloadButton=button('重载资源','取消旧加载并按新 generation 重读文件',()=>send({type:'reload'}));
+const reloadButton=button('重载资源','取消旧加载并按新 generation 重读文件',()=>send({type:'reload',resetRenderer:true}));
 header.append(brand,assetSelect,newSelect,copyButton,reloadButton,buildButton);
 const identity=el('div','identity');identity.id='editing-identity';
 const toolbar=el('nav','playback');toolbar.setAttribute('aria-label','播放与时间轴');
@@ -134,8 +136,14 @@ function renderLayerData():RenderLayer[] {
 }
 function ensureRenderer():void {
     if(renderer||rendererFailed||disposed||!active||!documentVisible)return;
-    try {renderer=new FxRenderer(canvas,message=>{if(message.startsWith('GPU 上下文丢失'))setPlaying(false);status(message,'warning');if(message.startsWith('GPU 上下文已重建'))send({type:'reload'});});noGpu.hidden=true;}
+    try {uploadedTextureKeys.clear();textureGpuErrors.clear();renderer=new FxRenderer(canvas,message=>{if(message.startsWith('GPU 上下文丢失'))setPlaying(false);status(message,'warning');if(message.startsWith('GPU 上下文已重建')){uploadedTextureKeys.clear();send({type:'reload'});}});noGpu.hidden=true;}
     catch(error){rendererFailed=true;state.playing=false;playButton.textContent='播放';playButton.disabled=true;replayButton.disabled=true;stepButton.disabled=true;stopFrame();noGpu.textContent=error instanceof Error?error.message:String(error);noGpu.hidden=false;status(noGpu.textContent,'warning');}
+}
+function resetRenderer():void {
+    stopFrame();transfers.clear();uploadedTextureKeys.clear();textureGpuErrors.clear();
+    renderer?.dispose();renderer=undefined;rendererFailed=false;
+    playButton.disabled=false;replayButton.disabled=false;stepButton.disabled=false;
+    noGpu.hidden=true;ensureRenderer();showPreviewStatus();draw();
 }
 function renderNow(renderFrame?:number):void {
     if(disposed||!active||!documentVisible)return;
@@ -143,7 +151,7 @@ function renderNow(renderFrame?:number):void {
     const current=draftIr??ir;
     if(!current||!world)return;
     try {
-        if(renderer){renderer.setLayers(renderLayerData());const result=renderer.render(renderFrame??world.frame,state.camera,current.scene,state.background,state.ground,state.lowResolution);stats.textContent=`${result.particles.toLocaleString()} 粒子 · ${result.draws} 批 · GPU ${(result.gpuBytes/1048576).toFixed(1)} MiB`;}
+        if(renderer){renderer.setLayers(renderLayerData(),current.textures.map(texture=>texture.key));const result=renderer.render(renderFrame??world.frame,state.camera,current.scene,state.background,state.ground,state.lowResolution);stats.textContent=`${result.particles.toLocaleString()} 粒子 · ${result.draws} 批 · GPU ${(result.gpuBytes/1048576).toFixed(1)} MiB`;}
         frameLabel(Math.max(0,world.frame));
         if(world.budgetExceeded){setPlaying(false);status(`预览预算已达上限：${world.budgetExceeded}。时间轴可退回；不会修改 XML。`,'warning');}
     }catch(error){setPlaying(false);showError(error);}
@@ -185,9 +193,12 @@ async function rebuild(current:PreviewIR,frame:number):Promise<void> {
 function showPreviewStatus():void {
     if(rendererFailed){status(noGpu.textContent??'无可用 WebGL2，结构编辑仍可用。','warning');return;}
     if(draftIr){status('调节中 · 松手 / 回车提交一次文档编辑，Esc 取消','draft');return;}
+    const gpuFailure=(ir?.textures??[]).map(texture=>textureGpuErrors.get(texture.key)).find(Boolean);
+    if(gpuFailure){status(`部分显示 · ${gpuFailure}；可重载资源后重试。`,'warning');return;}
     const issues=ir?.issues??[];
     const blocked=issues.filter(i=>i.severity==='error').length;
-    status(blocked?`部分显示 · ${blocked} 个问题；详情可在“能力 / 问题”或 Problems 查看。`:issues.length?`预览可用 · ${issues.length} 条能力 / 资源提示。`:'预览可用 · 固定局部初态 · 源贴图预览',blocked?'warning':'');
+    const incompleteTextures=(ir?.textures??[]).filter(texture=>texture.status!=='ready'||!uploadedTextureKeys.has(texture.key)).length;
+    status(blocked||incompleteTextures?`部分显示 · ${blocked} 个问题，${incompleteTextures} 个素材尚不可用；详情可在“能力 / 问题”或 Problems 查看。`:issues.length?`预览可用 · ${issues.length} 条能力 / 资源提示。`:'预览可用 · 固定局部初态 · 源贴图预览',blocked||incompleteTextures?'warning':'');
 }
 function queueDraft(edits:EditValue[]):void {
     pendingDraft=edits;
@@ -225,19 +236,23 @@ async function receive(message:FxHostMessage):Promise<void> {
     if(message.type==='active'){setActivity(message.active);return;}
     if(message.documentVersion<version)return;
     if(message.type==='focusField'){focusField(message.key);return;}
+    if(message.type==='resetRenderer'){resetRenderer();return;}
     if(message.type==='status'){status(message.message,message.stale?'warning':'');return;}
+    if(message.type==='textureState'){receiveTextureState(message);return;}
     if(message.type==='textureBegin'||message.type==='textureChunk'||message.type==='textureEnd'){receiveTexture(message);return;}
     if(message.type!=='preview'||message.requestId<lastPreviewRequest||message.ir?.schemaVersion!==1)return;
     lastPreviewRequest=message.requestId;version=message.documentVersion;requestId=Math.max(requestId,message.requestId);
     const hadDraft=!!draftIr;draftIr=undefined;pendingDraft=undefined;if(draftRaf!==undefined){cancelAnimationFrame(draftRaf);draftRaf=undefined;}
     transfers.clear();ir=message.ir;editingUri=message.editingUri;
+    const currentTextureKeys=new Set(ir.textures.map(texture=>texture.key));for(const key of uploadedTextureKeys)if(!currentTextureKeys.has(key))uploadedTextureKeys.delete(key);for(const key of textureGpuErrors.keys())if(!currentTextureKeys.has(key))textureGpuErrors.delete(key);
+    for(const texture of ir.textures){const failure=textureGpuErrors.get(texture.key);if(failure){texture.status='gpu-error';texture.message=failure;}}
     assetSelect.replaceChildren();for(const asset of message.assets)assetSelect.append(option(asset.key,`${asset.name} · ${asset.type==='FXList'?'组合':'模板'}`));assetSelect.value=ir.assetKey;
     if(!ir.systems.some(s=>s.key===state.selected))state.selected=ir.systems[0]?.key??'';
     identity.textContent=`正在编辑 ${fileName(editingUri)} / 正在预览 ${ir.name}`;identity.title=`编辑：${editingUri}\n预览入口：${ir.entry}`;
     stageHint.textContent=`静止源 · ${ir.scene.terrain==='land'?'陆地':'水面'} · 位置触发 · 标准高质量数学 · 源贴图预览`;
     renderLayers();renderInspector();ensureRenderer();
-    renderer?.setLayers(ir.systems.filter(s=>s.config).map(s=>({id:s.key,config:s.config!,births:[],alphaSamples:[],textureKey:s.textureKey,visible:true})));
-    for(const texture of ir.textures){try{renderer?.uploadTexture(texture);}catch(error){showError(error);}delete texture.pixels;delete texture.pixelsBase64;}
+    renderer?.setLayers(ir.systems.filter(s=>s.config).map(s=>({id:s.key,config:s.config!,births:[],alphaSamples:[],textureKey:s.textureKey,visible:true})),ir.textures.map(texture=>texture.key));
+    for(const texture of ir.textures){try{if(renderer&&(texture.pixels||texture.pixelsBase64)){renderer.uploadTexture(texture);uploadedTextureKeys.add(texture.key);textureGpuErrors.delete(texture.key);}}catch(error){textureFailure(texture.key,error);showError(error);}delete texture.pixels;delete texture.pixelsBase64;}
     await rebuild(ir,Math.max(0,state.frame));
     if(hadDraft)status('内容已更新，预览已与当前文档同步；如有冲突请重新应用该项。');else showPreviewStatus();
 }
@@ -248,12 +263,34 @@ function focusField(key:string):void {
     const row=Array.from(inspectorBody.querySelectorAll<HTMLElement>('[data-field-key]')).find(r=>r.dataset.fieldKey===key);
     if(row){let parent=row.parentElement;while(parent&&parent!==inspectorBody){if(parent instanceof HTMLDetailsElement)parent.open=true;parent=parent.parentElement;}row.classList.add('follow-highlight');row.scrollIntoView({block:'nearest'});setTimeout(()=>row.classList.remove('follow-highlight'),1400);}
 }
+function receiveTextureState(message:Extract<FxHostMessage,{type:'textureState'}>):void {
+    if(!active||!documentVisible||!ir||message.documentVersion!==version||message.requestId<lastPreviewRequest)return;
+    const current=ir.textures.find(texture=>texture.key===message.previousKey);
+    if(!current||!message.texture||typeof message.texture.key!=='string'||!message.texture.key)return;
+    const metadata={...message.texture};delete metadata.pixels;delete metadata.pixelsBase64;
+    const failure=textureGpuErrors.get(metadata.key);if(failure){metadata.status='gpu-error';metadata.message=failure;}
+    const update=(preview:PreviewIR)=>{
+        const index=preview.textures.findIndex(texture=>texture.key===message.previousKey);
+        if(index<0)return;
+        const location=metadata.location??preview.textures[index].location;
+        preview.textures[index]={...metadata};
+        if(message.texture.status==='ready'&&location)preview.issues=preview.issues.filter(issue=>issue.code!=='texture-resource'||issue.uri!==location.uri||issue.start!==location.start);
+        for(const system of preview.systems)if(system.textureKey===message.previousKey)system.textureKey=metadata.key;
+        if(message.issue){const issueIndex=preview.issues.findIndex(issue=>issue.code===message.issue!.code&&issue.uri===message.issue!.uri&&issue.start===message.issue!.start);if(issueIndex<0)preview.issues.push(message.issue);else preview.issues[issueIndex]=message.issue;}
+    };
+    update(ir);if(draftIr)update(draftIr);
+    if(message.previousKey!==metadata.key){transfers.delete(message.previousKey);uploadedTextureKeys.delete(message.previousKey);textureGpuErrors.delete(message.previousKey);}
+    // Keep the existing simulation/RNG/time. Only resource identity and render bindings change.
+    if(world)renderer?.setLayers(renderLayerData(),(draftIr??ir).textures.map(texture=>texture.key));
+    if(activeTab==='capabilities')renderInspector();showPreviewStatus();draw();
+}
 type TextureMessage=Extract<FxHostMessage,{type:'textureBegin'|'textureChunk'|'textureEnd'}>;
 function receiveTexture(message:TextureMessage):void {
-    if(!active||!documentVisible||message.requestId<lastPreviewRequest)return;
+    if(!active||!documentVisible||message.documentVersion!==version||message.requestId<lastPreviewRequest)return;
     if(message.type==='textureBegin'){
         const descriptor=message.texture;
-        if(!descriptor||!ir?.textures.some(t=>t.key===descriptor.key)||typeof descriptor.transferId!=='string'||!Array.isArray(descriptor.levels)||descriptor.levels.length<1||descriptor.levels.length>16)throw new Error('未知或无效的贴图传输。');
+        if(!descriptor||typeof descriptor.transferId!=='string'||!Array.isArray(descriptor.levels)||descriptor.levels.length<1||descriptor.levels.length>16)throw new Error('未知或无效的贴图传输。');
+        if(!ir?.textures.some(texture=>texture.key===descriptor.key))return;
         if(!['RGBA8','DXT1','DXT3','DXT5'].includes(descriptor.format)||!Number.isInteger(descriptor.width)||!Number.isInteger(descriptor.height)||descriptor.width<1||descriptor.height<1||descriptor.width>16384||descriptor.height>16384)throw new Error('贴图传输的格式或尺寸无效。');
         if(descriptor.levels.length>Math.floor(Math.log2(Math.max(descriptor.width,descriptor.height)))+1)throw new Error('贴图传输 mip 层数过多。');
         transfers.delete(descriptor.key);
@@ -277,18 +314,23 @@ function receiveTexture(message:TextureMessage):void {
     }
     try {
         if(transfer.received.some((n,i)=>n!==transfer.descriptor.levels[i].byteLength))throw new Error('贴图传输未完整，保留缺素材状态。');
-        if(!transfer.discard)renderer?.uploadTransfer(transfer.descriptor,transfer.levels);
-    }finally{transfers.delete(message.key);}
-    draw();
+        if(!transfer.discard&&renderer){renderer.uploadTransfer(transfer.descriptor,transfer.levels);uploadedTextureKeys.add(message.key);textureGpuErrors.delete(message.key);for(const preview of [ir,draftIr]){const texture=preview?.textures.find(t=>t.key===message.key);if(texture?.status==='gpu-error'){texture.status='ready';delete texture.message;}}}
+    }catch(error){textureFailure(message.key,error);throw error;}finally{transfers.delete(message.key);}
+    if(activeTab==='capabilities')renderInspector();showPreviewStatus();draw();
+}
+function textureFailure(key:string,error:unknown):void {
+    const message=error instanceof Error?error.message:String(error);textureGpuErrors.set(key,message);uploadedTextureKeys.delete(key);
+    for(const preview of [ir,draftIr]){const texture=preview?.textures.find(t=>t.key===key);if(texture){texture.status='gpu-error';texture.message=message;}}
+    if(activeTab==='capabilities')renderInspector();
 }
 function fileName(value:string):string {return value.replace(/\\/g,'/').split('/').at(-1)??value;}
 window.addEventListener('message',event=>{void receive(event.data as FxHostMessage).catch(showError);});
 function setActivity(value:boolean):void {
     active=value;
-    if(!value){stopFrame();seekAbort?.abort();persist(true);transfers.clear();renderer?.dispose();renderer=undefined;world?.dispose();world=undefined;}
+    if(!value){stopFrame();seekAbort?.abort();persist(true);transfers.clear();uploadedTextureKeys.clear();textureGpuErrors.clear();renderer?.dispose();renderer=undefined;world?.dispose();world=undefined;}
     else if(ir){ensureRenderer();send({type:'reload'});}
 }
-document.addEventListener('visibilitychange',()=>{documentVisible=!document.hidden;if(!documentVisible){stopFrame();seekAbort?.abort();persist(true);transfers.clear();renderer?.dispose();renderer=undefined;world?.dispose();world=undefined;}else if(active&&ir){ensureRenderer();send({type:'reload'});}});
+document.addEventListener('visibilitychange',()=>{documentVisible=!document.hidden;if(!documentVisible){stopFrame();seekAbort?.abort();persist(true);transfers.clear();uploadedTextureKeys.clear();textureGpuErrors.clear();renderer?.dispose();renderer=undefined;world?.dispose();world=undefined;}else if(active&&ir){ensureRenderer();send({type:'reload'});}});
 const resize=new ResizeObserver(()=>draw());resize.observe(stage);
 let orbit:{x:number;y:number;yaw:number;pitch:number;moved:boolean}|undefined;
 canvas.addEventListener('pointerdown',event=>{orbit={x:event.clientX,y:event.clientY,yaw:state.camera.yaw,pitch:state.camera.pitch,moved:false};canvas.setPointerCapture(event.pointerId);});
@@ -297,7 +339,7 @@ canvas.addEventListener('pointerup',event=>{if(!orbit)return;if(!orbit.moved){co
 canvas.addEventListener('pointercancel',()=>{orbit=undefined;});
 canvas.addEventListener('wheel',event=>{event.preventDefault();state.camera.distance=Math.max(5,Math.min(10000,state.camera.distance*Math.exp(event.deltaY*0.001)));draw();persist();},{passive:false});
 function dispose():void {
-    if(disposed)return;persist();disposed=true;stopFrame();if(draftRaf!==undefined)cancelAnimationFrame(draftRaf);seekAbort?.abort();world?.dispose();world=undefined;renderer?.dispose();renderer=undefined;transfers.clear();resize.disconnect();ir=undefined;draftIr=undefined;
+    if(disposed)return;persist();disposed=true;stopFrame();if(draftRaf!==undefined)cancelAnimationFrame(draftRaf);seekAbort?.abort();world?.dispose();world=undefined;renderer?.dispose();renderer=undefined;transfers.clear();uploadedTextureKeys.clear();textureGpuErrors.clear();resize.disconnect();ir=undefined;draftIr=undefined;
 }
 window.addEventListener('keydown',event=>{
     if(event.isComposing||!event.ctrlKey&&!event.metaKey)return;

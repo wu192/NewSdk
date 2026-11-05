@@ -13,6 +13,7 @@ import { FxTreeProvider } from './treeProvider';
 import { FxClientMessage, FxEnvelope, FxField, FxHostMessage, FxScene, PreviewIR, defaultScene } from './previewProtocol';
 import { canonicalPath, containsPath, DiscoveredProject, pathIdentity, ResolvedProjectSettings } from '../project';
 import { createFxTemplate, escapeXml, FxPreset, fxPresets } from './templates';
+import { prepareTextureState, streamPreviewTextures, UploadedTexture } from './texturePipeline';
 
 const viewType = 'newsdk.fxEditor';
 const sourceLimit = 4 * 1024 * 1024;
@@ -29,7 +30,7 @@ interface EditorState {
     document: vscode.TextDocument; panel: vscode.WebviewPanel; session: PreviewSession;
     index: AssetIndex; resolver: AssetResolver; entry: string; assetKey?: string; previewKey?: string;
     ir?: PreviewIR; scene: FxScene; timer?: ReturnType<typeof setTimeout>; disposed: boolean;
-    followCursor: boolean; sentTextures: Set<string>; subscriptions: vscode.Disposable[];
+    followCursor: boolean; uploadedTextures: Map<string, UploadedTexture>; subscriptions: vscode.Disposable[];
     indexReleased: boolean;
     s3tc: boolean; transfer?: {key: string; transferId: string; level: number; offset: number; resolve: (accepted: boolean) => void};
     state: Record<string, unknown>;
@@ -139,6 +140,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(root, '**/*'));
             const changed = (file: vscode.Uri): void => {
                 if (/[\\/](?:SuperCompilerCache|node_modules|\.git)[\\/]/i.test(file.fsPath)) return;
+                for (const state of this.editors) for (const resource of state.uploadedTextures.keys()) if (sameFile(resource, file.fsPath)) state.uploadedTextures.delete(resource);
                 this.resources?.invalidate(file.fsPath); this.changed(file.fsPath);
             };
             this.watchers.push(watcher, watcher.onDidChange(changed), watcher.onDidCreate(changed), watcher.onDidDelete(changed));
@@ -215,7 +217,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         const state: EditorState = { document, panel, session, index, resolver: new AssetResolver(index),
             entry: request?.entry ?? document.uri.fsPath, assetKey: request?.assetKey, previewKey: request?.previewKey,
             scene: sceneValue(stored.scene) ?? { ...defaultScene, source: [...defaultScene.source], target: [...defaultScene.target] },
-            disposed: false, followCursor: stored.followCursor === true, state: stored, sentTextures: new Set(), subscriptions: [], s3tc: false, indexReleased: false };
+            disposed: false, followCursor: stored.followCursor === true, state: stored, uploadedTextures: new Map(), subscriptions: [], s3tc: false, indexReleased: false };
         this.editors.add(state);
         panel.webview.options = { enableScripts: true, localResourceRoots: [vscode.Uri.joinPath(this.context.extensionUri, 'media')] };
         panel.webview.html = this.html(panel.webview, session, stored);
@@ -228,7 +230,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                 if (session.signal.aborted || state.indexReleased || !state.ir) this.schedule(state, 0);
                 void this.post(state, { type: 'active', active: true });
             } else if (!panel.visible) {
-                this.active.release(session); state.sentTextures.clear();
+                this.active.release(session); state.uploadedTextures.clear();
                 if (state.timer) { clearTimeout(state.timer); state.timer = undefined; }
             }
         }));
@@ -239,7 +241,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
     }
     private stopCanvas(state: EditorState): void {
         void this.post(state, { type: 'active', active: false });
-        state.sentTextures.clear();
+        state.uploadedTextures.clear();
         state.index.dispose(); state.indexReleased = true; state.ir = undefined;
         this.diagnostics.remove(state.session.id);
     }
@@ -286,43 +288,22 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         if (!selected) { await this.status(state, '此入口未找到 FXList 或 FXParticleSystemTemplate。'); return; }
         if (!state.previewKey) state.assetKey = selected.key;
         const ir = await state.resolver.resolve(selected.key, state.scene, signal); if (!state.session.current(requestId)) return;
-        for (const texture of ir.textures) {
-            if (!texture.file || !this.resources) continue;
-            const loaded = await this.resources.load(texture.file, { signal });
-            if (!state.session.current(requestId)) { if (loaded.status === 'ready') this.resources.release(loaded); return; }
-            texture.status = loaded.status;
-            if (loaded.status === 'ready') {
-                texture.width = loaded.texture.width; texture.height = loaded.texture.height;
-                const key = `${texture.key}:${loaded.generation}`; texture.key = key;
-                for (const system of ir.systems) if (system.textureKey && key.startsWith(`${system.textureKey}:`)) system.textureKey = key;
-                if (loaded.texture.byteLength > textureTransferLimit) { texture.status = 'budget'; texture.message = '单贴图超过 32 MiB CPU 预览预算，请选择低分辨率源图。'; }
-                this.resources.release(loaded);
-            } else texture.message = loaded.message;
-            if (texture.status !== 'ready' && texture.location) {
-                const code = `texture-${texture.status}`;
-                if (!ir.issues.some(issue => issue.code === code && sameFile(issue.uri, texture.location!.uri) && issue.start === texture.location!.start)) {
-                    ir.issues.push({ ...texture.location, code, severity: 'warning', message: texture.message ?? `贴图状态：${texture.status}` });
-                }
-            }
-        }
-        if (!state.session.current(requestId)) return;
+        prepareTextureState(ir, state.uploadedTextures);
         state.ir = ir; state.scene = ir.scene;
         state.panel.title = state.previewKey ? `特效 · 编辑 ${path.basename(state.document.uri.fsPath)} / 预览 ${ir.name}` : `特效 · ${ir.name}`;
         this.tree.update(assets, ir);
         await this.diagnostics.update(state.session.id, [...ir.issues, ...ir.systems.flatMap(system => system.issues)]);
         if (!state.session.current(requestId)) return;
         await this.post(state, { type: 'preview', ir, assets: assets.map(a => ({ key: a.key, name: a.id, type: a.type })), editingUri: state.document.uri.fsPath });
-        for (const texture of ir.textures) {
-            if (texture.status !== 'ready' || !texture.file || state.sentTextures.has(texture.key) || !this.resources) continue;
-            if (!state.session.current(requestId)) return;
-            const loaded = await this.resources.load(texture.file, { signal });
-            if (loaded.status !== 'ready') continue;
-            try {
+        const resources = this.resources;
+        if (resources) await streamPreviewTextures(ir, resources, { uploaded: state.uploadedTextures, signal, maxBytes: textureTransferLimit,
+            current: () => state.session.current(requestId),
+            transfer: (key, loaded) => this.sendTexture(state, key, loaded, requestId, signal),
+            publish: async (previousKey, texture, issue) => {
                 if (!state.session.current(requestId)) return;
-                if (!texture.key.endsWith(`:${loaded.generation}`)) { this.schedule(state, 0); return; }
-                if (await this.sendTexture(state, texture.key, loaded, requestId, signal)) state.sentTextures.add(texture.key);
-            } finally { this.resources.release(loaded); }
-        }
+                await this.post(state, { type: 'textureState', previousKey, texture, issue });
+                if (issue && state.session.current(requestId)) await this.diagnostics.update(state.session.id, [...ir.issues, ...ir.systems.flatMap(system => system.issues)]);
+            } });
         } catch (error) {
             // A later ready/change/activation owns the state; cancellation is normal.
             if (!state.session.current(requestId)) return;
@@ -375,8 +356,8 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                 state.s3tc = message.s3tc === true;
                 if (state.panel.active || !this.active.hasActive || this.active.owns(state.session)) this.active.activate(state.session, () => this.stopCanvas(state));
                 else { state.session.suspend(); this.stopCanvas(state); return; }
-                state.sentTextures.clear(); await this.rebuild(state); break;
-            case 'reload': await this.reload(state); break;
+                state.uploadedTextures.clear(); await this.rebuild(state); break;
+            case 'reload': await this.reload(state, message.resetRenderer === true); break;
             case 'undo': case 'redo': if (state.panel.active) await vscode.commands.executeCommand(message.type); break;
             case 'saveAndBuild': await this.services.saveAndBuild(state.ir?.dependencies.map(asUri)); break;
             case 'edit':
@@ -474,10 +455,11 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         await vscode.commands.executeCommand('vscode.openWith', uri, viewType, { viewColumn: vscode.ViewColumn.One, preview: false });
         const opened = [...this.editors].find(s => sameFile(s.document.uri.fsPath, asset.uri)); if (opened) await this.locate(opened);
     }
-    private async reload(state = this.current()): Promise<void> {
+    private async reload(state = this.current(), resetRenderer = true): Promise<void> {
         if (!state) { await this.search(); return; }
+        if (resetRenderer) await this.post(state, { type: 'resetRenderer' });
         this.resources?.clear();
-        for (const editor of this.editors) editor.sentTextures.clear();
+        for (const editor of this.editors) editor.uploadedTextures.clear();
         for (const file of state.ir?.dependencies ?? [state.entry]) state.index.invalidate(file);
         await this.rebuild(state);
     }
@@ -646,7 +628,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         if (state.timer) clearTimeout(state.timer);
         this.active.release(state.session); state.session.dispose(); state.index.dispose();
         for (const subscription of state.subscriptions) subscription.dispose(); state.subscriptions = [];
-        state.sentTextures.clear(); state.ir = undefined; this.diagnostics.remove(state.session.id); this.editors.delete(state);
+        state.uploadedTextures.clear(); state.ir = undefined; this.diagnostics.remove(state.session.id); this.editors.delete(state);
         if (!this.editors.size) this.resources?.clear();
     }
     private html(webview: vscode.Webview, session: PreviewSession, state: Record<string, unknown>): string {
