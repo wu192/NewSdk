@@ -98,7 +98,7 @@ function sizeTrend(config:ParticleConfig):HTMLElement {
     const canvas=el('canvas','size-canvas');canvas.width=600;canvas.height=90;const ctx=canvas.getContext('2d');
     if(ctx){ctx.fillStyle='#11151c';ctx.fillRect(0,0,600,90);const life=(config.lifetime.low+config.lifetime.high)/2,initial=(config.size.low+config.size.high)/2,rate=(config.sizeRate.low+config.sizeRate.high)/2,d=(config.sizeRateDamping.low+config.sizeRateDamping.high)/2;
         const values=Array.from({length:101},(_,i)=>initial+rate*integrateDamping(d,i/100*life));const max=Math.max(1,...values.map(Math.abs));ctx.strokeStyle='#e7b767';ctx.beginPath();values.forEach((v,i)=>{const x=10+i*5.8,y=76-v/max*60;if(i)ctx.lineTo(x,y);else ctx.moveTo(x,y);});ctx.stroke();}
-    block.append(canvas,el('p','hint','由 Size、StartSizeRate、SizeRate 与 SizeRateDamping 计算；不写入额外曲线节点。'));return block;
+    block.append(canvas,el('p','hint','按 Size、SizeRate、SizeRateDamping 的均值参数计算；此 GPU 路径不消费 StartSizeRate。'));return block;
 }
 export function atlasPanel(system:FxSystem,actions:FieldActions):HTMLElement {
     const box=el('section','atlas-panel');box.append(el('h3','','Atlas 动画'));

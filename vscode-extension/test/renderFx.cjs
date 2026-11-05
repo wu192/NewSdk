@@ -105,6 +105,8 @@ async function fixture(file, id) {
     assert.equal(await page.evaluate(()=>window.fxMessages.filter(m=>m.type==='edit').length),1,'A gesture must submit once');
     await page.locator('#step-button').click();
     assert.ok((await page.locator('#time-label').textContent()).includes('帧'));
+    await page.getByLabel('新建特效',{exact:true}).selectOption('闪光');
+    assert.equal(await page.evaluate(()=>window.fxMessages.find(m=>m.type==='new')?.preset),'闪光','New-preset intent must match the host capability whitelist');
     await page.locator('#save-build').click();
     assert.equal(await page.evaluate(()=>window.fxMessages.filter(m=>m.type==='saveAndBuild').length),1);
     const transferIr = structuredClone(uiIr), texture = transferIr.textures[0];

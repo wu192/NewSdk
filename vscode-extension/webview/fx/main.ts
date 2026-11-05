@@ -44,7 +44,7 @@ function showError(error:unknown):void {status(error instanceof Error?error.mess
 const app=el('main','fx-app');app.id='fx-app';
 const header=el('header','app-header'),brand=el('strong','brand','NewSdk · 特效');
 const assetSelect=el('select','asset-select');assetSelect.id='asset-select';assetSelect.setAttribute('aria-label','当前特效');assetSelect.addEventListener('change',()=>{cancelDraft();send({type:'select',assetKey:assetSelect.value});});
-const newSelect=el('select','new-select');newSelect.setAttribute('aria-label','新建特效');newSelect.append(option('','新建特效…'));for(const [key,name] of [['flash','闪光'],['smoke','烟雾'],['sparks','喷射火花'],['halo','持续光环']])newSelect.append(option(key,name));newSelect.addEventListener('change',()=>{if(newSelect.value)send({type:'new',preset:newSelect.value});newSelect.value='';});
+const newSelect=el('select','new-select');newSelect.setAttribute('aria-label','新建特效');newSelect.append(option('','新建特效…'));for(const name of ['闪光','烟雾','喷射火花','持续光环'])newSelect.append(option(name,name));newSelect.addEventListener('change',()=>{if(newSelect.value)send({type:'new',preset:newSelect.value});newSelect.value='';});
 const copyButton=button('复制为独立资源','预览要插入的资产和引用，确认后作为一个可撤销编辑',()=>{if(ir)send({type:'copy',assetKey:ir.assetKey});});
 const buildButton=button('保存并编译','保存当前构建涉及的修改并调用 NewSdk 编译器',()=>{commitPendingField();send({type:'saveAndBuild'});},'primary');buildButton.id='save-build';
 const reloadButton=button('重载资源','取消旧加载并按新 generation 重读文件',()=>send({type:'reload'}));
