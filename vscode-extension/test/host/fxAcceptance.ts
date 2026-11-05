@@ -3,6 +3,7 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import * as vscode from 'vscode';
 import type { FxApi } from '../../src/fx/editorProvider';
+import { pathIdentity } from '../../src/project';
 
 async function waitFor(predicate: () => boolean, label: string): Promise<void> {
     const until = Date.now() + 20000;
@@ -70,7 +71,7 @@ export async function runFxAcceptance(fx: FxApi, modRoot: string, evidence: stri
     await waitFor(() => !!fx.getSnapshot(auraUri.fsPath).ir, 'shared definition B');
     assert.equal(fx.getSnapshot(auraUri.fsPath).ir!.assetKey, root.assetKey, 'Preview A must stay pinned when editing B');
     const shared = fx.getSnapshot(auraUri.fsPath);
-    const auraField = shared.ir!.systems.flatMap(s => s.fields).find(f => f.uri === auraUri.fsPath && f.attribute==='Low' && /Lifetime/.test(f.nodePath));
+    const auraField = shared.ir!.systems.flatMap(s => s.fields).find(f => pathIdentity(f.uri) === pathIdentity(auraUri.fsPath) && f.attribute==='Low' && /Lifetime/.test(f.nodePath));
     assert.ok(auraField);
     const auraDoc = await vscode.workspace.openTextDocument(auraUri), beforeAura = auraDoc.getText();
     assert.equal(await fx.applyEdits(auraUri.fsPath,[{key:auraField.key, expectedValue:auraField.value, value:'48'}],auraDoc.version),true);
