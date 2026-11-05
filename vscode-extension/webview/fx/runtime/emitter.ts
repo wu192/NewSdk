@@ -4,7 +4,8 @@ const multiply = (v: Vec3, s: number): Vec3 => v.map(x => Math.fround(x * s)) as
 const normalize = (v: Vec3): Vec3 => { const n = Math.hypot(...v); return n === 0 ? [0, 0, 0] : multiply(v, Math.fround(1 / n)); };
 export function sampleVolume(v: VolumeConfig, rng: FxRandom, runtimeRadius = v.radius): Vec3 {
     switch (v.type) {
-        case 'Point': return [0, 0, 0];
+        // Lightning's span belongs to Draw/Lightning; its empty volume emits at the origin.
+        case 'Point': case 'Lightning': return [0, 0, 0];
         case 'Line': {
             const q = rng.range(0, 1);
             return v.start.map((a, i) => Math.fround(a + (v.end[i] - a) * q)) as Vec3;
@@ -42,7 +43,7 @@ export function sampleVelocity(config: ParticleConfig, p: Vec3, rng: FxRandom): 
         case 'Outward': {
             const speed = rng.sample(v.speed), other = rng.sample(v.otherSpeed);
             switch (config.volume.type) {
-                case 'Point': return multiply(rng.direction(), speed);
+                case 'Point': case 'Lightning': return multiply(rng.direction(), speed);
                 case 'Box': case 'Sphere': return multiply(normalize(p), speed);
                 case 'Cylinder': {
                     const length2 = p[0] * p[0] + p[1] * p[1];

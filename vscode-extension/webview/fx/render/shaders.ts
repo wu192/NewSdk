@@ -247,3 +247,52 @@ export const lineFragmentShader = `#version 300 es
 precision highp float;
 in vec4 lineColor;out vec4 outputColor;
 void main(){outputColor=lineColor;}`;
+
+
+/** Reconstructed special families upload bounded world-space ribbons and stretched sprites. */
+export const specialVertexShader = `#version 300 es
+precision highp float;
+layout(location=0) in vec3 position;
+layout(location=1) in vec2 vertexUv;
+layout(location=2) in vec4 vertexColor;
+layout(location=3) in vec2 vertexEnvironmentUv;
+uniform mat4 viewProjection;
+out vec2 texCoord;
+out vec2 environmentUv;
+out vec4 particleColor;
+void main() {
+    gl_Position=viewProjection*vec4(position,1.0);
+    texCoord=vertexUv;environmentUv=vertexEnvironmentUv;particleColor=vertexColor;
+}`;
+export const specialFragmentShader = `#version 300 es
+precision highp float;
+uniform sampler2D particleTexture;
+uniform sampler2D environmentTexture;
+uniform bool missingTexture;
+uniform bool hasEnvironment;
+uniform bool repeatUv;
+uniform int blendMode;
+uniform float alphaTestReference;
+in vec2 texCoord;
+in vec2 environmentUv;
+in vec4 particleColor;
+out vec4 outputColor;
+void main() {
+    vec2 uv=repeatUv?fract(texCoord):texCoord;
+    vec4 texel;
+    if(missingTexture) {
+        vec2 local=fract(uv*8.0);
+        if(min(min(local.x,1.0-local.x),min(local.y,1.0-local.y))>0.08)discard;
+        texel=vec4(0.9,0.25,0.7,0.6);
+    } else texel=texture(particleTexture,uv);
+    // Special materials use the mutable CPU path's texture-to-linear then tint order.
+    texel.rgb=pow(max(texel.rgb,vec3(0.0)),vec3(2.2));
+    if(hasEnvironment) {
+        vec3 environment=pow(max(texture(environmentTexture,vec2(fract(environmentUv.x),clamp(environmentUv.y,0.0,1.0))).rgb,vec3(0.0)),vec3(2.2));
+        texel.rgb=mix(texel.rgb,environment,0.35);
+    }
+    outputColor=texel*particleColor;
+    if(alphaTestReference>=0.0&&outputColor.a<alphaTestReference)discard;
+    if(blendMode==0)outputColor.rgb*=outputColor.a;
+    else if(blendMode==2)outputColor.rgb=mix(vec3(1.0),outputColor.rgb,clamp(outputColor.a,0.0,1.0));
+}`;

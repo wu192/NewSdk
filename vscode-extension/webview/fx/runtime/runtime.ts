@@ -2,6 +2,7 @@ import { FxRandom } from './random';
 import { localRotationMatrix, sampleParticle, transformVector } from './math';
 import { sampleVelocity, sampleVolume } from './emitter';
 import { createCpuState, sampleCpuParticle, updateCpuParticle } from './cpu';
+import { createSpecialState, expireTrail, isSpecialParticle, recordTrail, specialAcceleration, specialParticleCapacity, storedSpecialParticleBytes } from './special';
 import type { BirthRecord, ParticleConfig, ParticleEventState, ParticleSample, RuntimeEventTrigger, RuntimeOptions, Vec3 } from './types';
 
 export interface RuntimeSnapshot {
@@ -11,10 +12,11 @@ export interface RuntimeSnapshot {
 }
 const clone = <T>(value: T): T => structuredClone(value);
 /** Conservative JS state accounting includes the nested eight-slot arrays, objects and event records. */
-export const particleStateBytes = (config: ParticleConfig): number => config.backend === 'CPU'
-    ? 640 + (config.colors ? 1152 : 0) + (config.alphas ? 1024 : 0) + (config.events?.filter(e => e.perParticle).length ?? 0) * 96 : 192;
-const storedParticleBytes = (p: BirthRecord): number => p.cpu
-    ? 640 + (p.cpu.color ? 1152 : 0) + (p.cpu.alpha ? 1024 : 0) + (p.events?.length ?? 0) * 96 : 192;
+export const particleStateBytes = (config: ParticleConfig): number => (config.backend === 'CPU'
+    ? 640 + (config.colors ? 1152 : 0) + (config.alphas || isSpecialParticle(config) ? 1024 : 0) + (config.events?.filter(e => e.perParticle).length ?? 0) * 96 : 192)
+    + specialParticleCapacity(config);
+const storedParticleBytes = (p: BirthRecord): number => (p.cpu
+    ? 640 + (p.cpu.color ? 1152 : 0) + (p.cpu.alpha ? 1024 : 0) + (p.events?.length ?? 0) * 96 : 192) + storedSpecialParticleBytes(p);
 export const runtimeSnapshotBytes = (s: RuntimeSnapshot): number => 640 + s.eventStates.length * 96
     + s.particles.reduce((n, p) => n + storedParticleBytes(p), 0);
 
@@ -155,6 +157,9 @@ export class ParticleRuntime {
                     const cpu = c.backend === 'CPU' ? createCpuState(c, life, this.accumulator, this.random) : undefined;
                     const particle: BirthRecord = { id: this.nextId++, position, velocity, life, creationFrame: frame,
                         seed: cpu ? 0 : this.random.range(0, 15), ...(cpu ? { cpu, events: this.makeEvents(true) } : {}) };
+                    createSpecialState(particle, c, this.random, this.rotationMatrix);
+                    // The birth-to-first-update interval is visible even for a one-frame moving head.
+                    if (particle.cpu && particle.trail) recordTrail(particle, c, frame - 1, sampleCpuParticle(particle));
                     this.trackedParticleBytes += particleStateBytes(c);
                     this.particles.push(particle); this.births.push(particle); this.onBirth?.(particle);
                     if (this.budgetExceeded) return;
@@ -170,15 +175,22 @@ export class ParticleRuntime {
         write = 0;
         for (const p of this.particles) {
             if (p.cpu) {
-                if (!updateCpuParticle(p, c)) { this.budgetExceeded = 'CPU 递推超过有限 float32 运算预算；保留上一有效状态'; return; }
+                expireTrail(p, c, frame);
+                if (p.cpu.remaining <= 0) {
+                    if (p.trail?.length) this.particles[write++] = p;
+                    continue;
+                }
+                if (!updateCpuParticle(p, c, specialAcceleration(p, c, this.options.offset))) { this.budgetExceeded = 'CPU 递推超过有限 float32 运算预算；保留上一有效状态'; return; }
                 this.updateEvents(p.events ?? [], p.position, frame - p.creationFrame, p);
                 if (this.budgetExceeded) return;
+                recordTrail(p, c, frame, sampleCpuParticle(p));
                 p.cpu.remaining--;
-                if (p.cpu.remaining <= 0) { this.retire(p); continue; }
+                if (p.cpu.remaining <= 0) { this.retire(p); if (!p.trail?.length) continue; }
             }
             this.particles[write++] = p;
         }
         this.particles.length = write;
+        if (isSpecialParticle(c)) this.trackedParticleBytes = this.particles.length * particleStateBytes(c);
         if (c.systemLifetime !== 0 && this.remaining !== 0) this.remaining--;
         this.previousOffset = [...this.options.offset];
         if (c.alphas && this.particles.length > 0) for (let i = 0; i < 4; i++) this.alphaSamples[i] = this.random.sample(c.alphas[i].range);
@@ -198,7 +210,7 @@ export class ParticleRuntime {
         this.stopped = s.stopped; this.activeStart = s.activeStart; this.eventStates = clone(s.eventStates); this.options.offset = [...s.offset];
         this.previousOffset = [...s.previousOffset]; this.hasEmitted = s.hasEmitted;
         this.particles.length = 0; for (const p of clone(s.particles)) this.particles.push(p);
-        this.trackedParticleBytes = s.particles.reduce((n, p) => n + storedParticleBytes(p), 0);
+        this.trackedParticleBytes = s.particles.length * particleStateBytes(this.config);
         this.births.length = this.deaths.length = this.events.length = 0; this.budgetExceeded = undefined;
     }
     private saveSnapshot(): void {

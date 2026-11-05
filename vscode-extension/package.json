@@ -1,7 +1,7 @@
 {
   "name": "newsdk-mod-tools",
   "displayName": "NewSdk Mod Tools",
-  "description": "在 Windows 本地 VS Code 中编译 MOD、预览和编辑普通 CPU/GPU 特效。",
+  "description": "在 Windows 本地 VS Code 中编译 MOD、预览和编辑 CPU/GPU、Trail、Lightning、Swarm 特效。",
   "version": "0.3.1",
   "publisher": "wu162",
   "license": "UNLICENSED",
@@ -37,7 +37,7 @@
     "test": "npm run compile && node --test out/test/*.test.js",
     "test:host": "npm run compile && node out/test/runHost.js",
     "package": "vsce package --allow-missing-repository --out NewSdk-Mod-Tools-FX.vsix",
-    "test:render": "npm run compile && node test/renderFx.cjs && node test/renderFxRound2.cjs && node test/fxUiRound2.cjs",
+    "test:render": "npm run compile && node test/renderFx.cjs && node test/renderFxRound2.cjs && node test/fxUiRound2.cjs && node test/renderFxSpecial.cjs",
     "test:stress": "npm run compile && node --expose-gc test/fxStress.cjs"
   },
   "dependencies": {

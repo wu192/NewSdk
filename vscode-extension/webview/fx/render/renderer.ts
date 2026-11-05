@@ -4,14 +4,16 @@ import { sampleCpuParticle } from '../runtime/cpu';
 import type { BirthRecord, ParticleConfig, ParticleSample, Range, Vec3 } from '../runtime/types';
 import { cameraMatrices, CameraState, CameraMatrices, project, CAMERA_NEAR, CAMERA_FAR, CAMERA_FOV_SCALE } from './camera';
 import { geometryContract, geometryCornerPosition, materialProfile } from './contracts';
-import { cpuVertexShader, fragmentShader, groundFragmentShader, groundVertexShader, lineFragmentShader, lineVertexShader, vertexShader } from './shaders';
+import { buildSpecialGeometry } from './specialGeometry';
+import { specialVertexShader, specialFragmentShader, cpuVertexShader, fragmentShader, groundFragmentShader, groundVertexShader, lineFragmentShader, lineVertexShader, vertexShader } from './shaders';
 
 export interface RenderLayer {
     id: string; config: ParticleConfig; births: readonly BirthRecord[]; alphaSamples: readonly number[];
-    textureKey?: string; visible: boolean;
+    textureKey?: string; environmentTextureKey?: string; visible: boolean;
     sample?: (birth: BirthRecord, frame: number) => ParticleSample;
 }
 interface BufferRecord { vao:WebGLVertexArrayObject; buffer:WebGLBuffer; capacity:number; stamp:string; count:number; births?:readonly BirthRecord[]; config?:ParticleConfig; staging:Float32Array; geometry:string; order?:readonly BirthRecord[]; }
+interface SpecialBufferRecord { vao:WebGLVertexArrayObject; buffer:WebGLBuffer; capacity:number; stamp:string; count:number; particles:number; births?:readonly BirthRecord[]; first?:BirthRecord; last?:BirthRecord; config?:ParticleConfig; }
 interface GeometryRecord { vertices:WebGLBuffer; indices:WebGLBuffer; count:number; bytes:number; }
 interface DepthRecord { framebuffer:WebGLFramebuffer; texture:WebGLTexture; width:number; height:number; }
 interface TextureRecord { texture:WebGLTexture; bytes:number; }
@@ -24,6 +26,7 @@ export class FxRenderer {
     private program:WebGLProgram|null=null;
     private lineProgram:WebGLProgram|null=null;
     private cpuProgram:WebGLProgram|null=null;
+    private specialProgram:WebGLProgram|null=null;
     private groundProgram:WebGLProgram|null=null;
     private activeProgram:WebGLProgram|null=null;
     private geometries=new Map<string,GeometryRecord>();
@@ -40,11 +43,13 @@ export class FxRenderer {
     private lineBuffer:WebGLBuffer|null=null;
     private lineVao:WebGLVertexArrayObject|null=null;
     private buffers=new Map<string,BufferRecord>();
+    private specialBuffers=new Map<string,SpecialBufferRecord>();
     private textures=new Map<string,TextureRecord>();
     private uniforms=new Map<WebGLProgram,Map<string,WebGLUniformLocation|null>>();
     private parameterStates=new Map<WebGLProgram,{config:ParticleConfig;alpha:string}>();
     private curveCache=new WeakMap<ParticleConfig,{alpha:string;times:Float32Array;slopes:Float32Array;intercepts:Float32Array}>();
     private matrix:Float32Array=new Float32Array(16);
+    private cameraBasis:CameraMatrices|undefined;
     private lost=false;
     private contextResourcesLost=false;
     private disposed=false;
@@ -89,6 +94,8 @@ export class FxRenderer {
     private initialize():void {
         const gl=this.gl;
         this.program=this.link(vertexShader,fragmentShader);this.cpuProgram=this.link(cpuVertexShader,fragmentShader);
+        this.specialProgram=this.link(specialVertexShader,specialFragmentShader);
+        this.use(this.specialProgram);gl.uniform1i(this.uniform('particleTexture'),0);gl.uniform1i(this.uniform('environmentTexture'),2);
         this.lineProgram=this.link(lineVertexShader,lineFragmentShader);this.groundProgram=this.link(groundVertexShader,groundFragmentShader);
         this.lineBuffer=gl.createBuffer()!;this.lineVao=gl.createVertexArray()!;
         gl.bindVertexArray(this.lineVao);gl.bindBuffer(gl.ARRAY_BUFFER,this.lineBuffer);
@@ -125,9 +132,11 @@ export class FxRenderer {
     }
     setLayers(layers:RenderLayer[],resourceKeys?:readonly string[]):void {
         this.layers=layers;
-        const ids=new Set(layers.map(l=>l.id));
+        const special=(layer:RenderLayer)=>['Trail','Lightning','Swarm'].includes(layer.config.drawModule??'');
+        const ids=new Set(layers.filter(l=>!special(l)).map(l=>l.id)),specialIds=new Set(layers.filter(special).map(l=>l.id));
         for(const [id,b] of this.buffers)if(!ids.has(id)){if(!this.contextResourcesLost){this.gl.deleteVertexArray(b.vao);this.gl.deleteBuffer(b.buffer);}this.buffers.delete(id);}
-        const textureKeys=new Set(resourceKeys??layers.map(l=>l.textureKey));
+        for(const [id,b] of this.specialBuffers)if(!specialIds.has(id)){if(!this.contextResourcesLost){this.gl.deleteVertexArray(b.vao);this.gl.deleteBuffer(b.buffer);}this.specialBuffers.delete(id);}
+        const textureKeys=new Set(resourceKeys??layers.flatMap(l=>[l.textureKey,l.environmentTextureKey]));
         for(const [key,t] of this.textures)if(!textureKeys.has(key)){if(!this.contextResourcesLost)this.gl.deleteTexture(t.texture);this.textures.delete(key);}
     }
     get supportsS3tc():boolean{return !!this.gl.getExtension('WEBGL_compressed_texture_s3tc');}
@@ -226,7 +235,7 @@ export class FxRenderer {
             const needed=births.length*36;
             if(needed>record.capacity){
                 const capacity=Math.max(36*128,Math.ceil(needed/4096)*4096);
-                const total=[...this.buffers.values()].reduce((n,b)=>n+b.capacity,0)-record.capacity+capacity;
+                const total=this.instanceBufferBytes-record.capacity+capacity;
                 if(total>GPU_INSTANCE_BUDGET)throw new Error('预览 GPU 实例缓冲预算已达 32 MiB。');
                 gl.bindBuffer(gl.ARRAY_BUFFER,record.buffer);gl.bufferData(gl.ARRAY_BUFFER,capacity,gl.DYNAMIC_DRAW);record.capacity=capacity;record.staging=new Float32Array(Math.ceil(capacity/4));
             }
@@ -243,6 +252,59 @@ export class FxRenderer {
             this.uploads++;this.uploadedBytes+=needed;record.stamp=stamp;record.births=births;record.config=layer.config;record.count=births.length;record.order=cpu?undefined:ordered.slice();
         }
         return record;
+    }
+    private get instanceBufferBytes():number {
+        return [...this.buffers.values(),...this.specialBuffers.values()].reduce((n,b)=>n+b.capacity,0);
+    }
+    private specialBuffer(layer:RenderLayer,frame:number,matrices:CameraMatrices):SpecialBufferRecord {
+        const gl=this.gl;
+        let record=this.specialBuffers.get(layer.id);
+        if(!record){
+            const buffer=gl.createBuffer(),vao=gl.createVertexArray();
+            if(!buffer||!vao){if(buffer)gl.deleteBuffer(buffer);if(vao)gl.deleteVertexArray(vao);throw new Error('无法分配特殊粒子网格缓冲。');}
+            record={vao,buffer,capacity:0,stamp:'',count:0,particles:0};this.specialBuffers.set(layer.id,record);
+            gl.bindVertexArray(vao);gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
+            for(const [index,size,offset] of [[0,3,0],[1,2,12],[2,4,20],[3,2,36]]){
+                gl.enableVertexAttribArray(index);gl.vertexAttribPointer(index,size,gl.FLOAT,false,44,offset);
+            }
+        }
+        const stamp=`${frame}:${Array.from(matrices.matrix).join(',')}:${layer.births.length}:${layer.births[0]?.id}:${layer.births.at(-1)?.id}`;
+        if(record.stamp!==stamp||record.births!==layer.births||record.first!==layer.births[0]||record.last!==layer.births.at(-1)||record.config!==layer.config){
+            const available=GPU_INSTANCE_BUDGET-this.instanceBufferBytes+record.capacity;
+            const maxVertices=Math.min(500000,Math.floor(available/44/3)*3);
+            const geometry=buildSpecialGeometry(layer.config,layer.births,frame,matrices,(birth,at)=>this.sample(layer,birth,at),maxVertices);
+            const needed=geometry.vertices.byteLength;
+            if(needed>record.capacity){
+                // Capacity stays within the same aggregate bound as ordinary instance buffers.
+                const rounded=Math.max(4096,Math.ceil(needed/4096)*4096),capacity=Math.min(available,rounded);
+                if(capacity<needed||this.instanceBufferBytes-record.capacity+capacity>GPU_INSTANCE_BUDGET)throw new Error('预览 GPU 特殊网格缓冲预算已达 32 MiB。');
+                gl.bindBuffer(gl.ARRAY_BUFFER,record.buffer);gl.bufferData(gl.ARRAY_BUFFER,capacity,gl.DYNAMIC_DRAW);record.capacity=capacity;
+            }
+            if(needed){gl.bindBuffer(gl.ARRAY_BUFFER,record.buffer);gl.bufferSubData(gl.ARRAY_BUFFER,0,geometry.vertices);this.uploads++;this.uploadedBytes+=needed;}
+            record.count=geometry.vertices.length/11;record.particles=geometry.particles;
+            record.stamp=stamp;record.births=layer.births;record.first=layer.births[0];record.last=layer.births.at(-1);record.config=layer.config;
+        }
+        return record;
+    }
+    private drawSpecial(layer:RenderLayer,frame:number,matrices:CameraMatrices):{particles:number;draws:number} {
+        const gl=this.gl,c=layer.config,buffer=this.specialBuffer(layer,frame,matrices);
+        if(!buffer.count)return {particles:0,draws:0};
+        this.use(this.specialProgram!);
+        gl.uniformMatrix4fv(this.uniform('viewProjection'),false,matrices.matrix);
+        gl.enable(gl.BLEND);gl.disable(gl.CULL_FACE);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.depthMask(false);gl.blendEquation(gl.FUNC_ADD);
+        if(c.shader==='ADDITIVE')gl.blendFunc(gl.ONE,gl.ONE);
+        else if(c.shader==='ALPHA')gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+        else gl.blendFunc(gl.DST_COLOR,gl.ZERO);
+        gl.uniform1i(this.uniform('blendMode'),c.shader==='ADDITIVE'?0:c.shader==='ALPHA'?1:2);
+        gl.uniform1f(this.uniform('alphaTestReference'),c.alphaTest?96/255:-1);
+        gl.uniform1i(this.uniform('repeatUv'),c.drawModule==='Trail'?1:0);
+        const texture=this.textures.get(layer.textureKey??''),environment=c.drawModule==='Swarm'?this.textures.get(layer.environmentTextureKey??''):undefined;
+        gl.uniform1i(this.uniform('missingTexture'),texture?0:1);
+        gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texture?.texture??null);
+        gl.uniform1i(this.uniform('hasEnvironment'),environment?1:0);
+        gl.activeTexture(gl.TEXTURE2);gl.bindTexture(gl.TEXTURE_2D,environment?.texture??null);
+        gl.bindVertexArray(buffer.vao);gl.drawArrays(gl.TRIANGLES,0,buffer.count);
+        return {particles:buffer.particles,draws:1};
     }
     private range(name:string,r:Range):void {this.gl.uniform2f(this.uniform(name),r.low,r.high-r.low);}
     private ranges(name:string,ranges:readonly Range[],spread=false):void {this.gl.uniform3fv(this.uniform(name),ranges.map(r=>spread?r.high-r.low:r.low));}
@@ -330,7 +392,7 @@ export class FxRenderer {
         gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,width,height);
         const rgb=/^#[0-9a-f]{6}$/i.test(background)?[1,3,5].map(i=>parseInt(background.slice(i,i+2),16)/255):[0.025,0.03,0.04];
         gl.clearColor(rgb[0],rgb[1],rgb[2],1);gl.colorMask(true,true,true,true);gl.depthMask(true);gl.clearDepth(1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.depthMask(false);
-        const matrices=cameraMatrices(camera,width/height);this.matrix=matrices.matrix;
+        const matrices=cameraMatrices(camera,width/height);this.matrix=matrices.matrix;this.cameraBasis=matrices;
         if(showGround)this.syntheticGround(matrices,width,height,scene.ground);
         this.drawScene(scene,showGround,frame);
         let particles=0,draws=0;
@@ -339,6 +401,9 @@ export class FxRenderer {
         const layers=this.layers.slice().sort((a,b)=>a.config.sortLevel-b.config.sortLevel);
         for(const layer of layers){
             if(!layer.visible||!layer.births.length)continue;
+            if(['Trail','Lightning','Swarm'].includes(layer.config.drawModule??'')){
+                const special=this.drawSpecial(layer,frame,matrices);particles+=special.particles;draws+=special.draws;continue;
+            }
             const c=layer.config,cpu=c.backend==='CPU',buffer=this.buffer(layer,frame,camera);
             const profile=materialProfile(cpu?'CPU':'GPU',c.shader,c.sortParticles,c.shaderProfile);
             this.use(cpu?this.cpuProgram!:this.program!);
@@ -361,7 +426,7 @@ export class FxRenderer {
             particles+=buffer.count;draws++;
         }
         gl.bindVertexArray(null);
-        this.statsValue={particles,draws,gpuBytes:[...this.buffers.values()].reduce((n,b)=>n+b.capacity,0)+[...this.textures.values()].reduce((n,t)=>n+t.bytes,0)+[...this.geometries.values()].reduce((n,g)=>n+g.bytes,0)+this.sceneLineCount*7*4+width*height*8+(this.depth?this.depth.width*this.depth.height*4:0),canvasPixels:width*height,instanceUploads:this.uploads,uploadedBytes:this.uploadedBytes,softParticles:showGround&&softParticles};
+        this.statsValue={particles,draws,gpuBytes:this.instanceBufferBytes+[...this.textures.values()].reduce((n,t)=>n+t.bytes,0)+[...this.geometries.values()].reduce((n,g)=>n+g.bytes,0)+this.sceneLineCount*7*4+width*height*8+(this.depth?this.depth.width*this.depth.height*4:0),canvasPixels:width*height,instanceUploads:this.uploads,uploadedBytes:this.uploadedBytes,softParticles:showGround&&softParticles};
         return this.statsValue;
     }
     private drawScene(scene:FxScene,ground:boolean,frame:number):void {
@@ -393,7 +458,28 @@ export class FxRenderer {
     pick(clientX:number,clientY:number,frame:number):string|undefined {
         const rect=this.canvas.getBoundingClientRect(),x=clientX-rect.left,y=clientY-rect.top;
         let chosen:string|undefined,best=Infinity;
-        for(const layer of this.layers)if(layer.visible)for(const birth of layer.births){
+        for(const layer of this.layers)if(layer.visible){
+            if(['Trail','Lightning','Swarm'].includes(layer.config.drawModule??'')&&this.cameraBasis){
+                let mesh:ReturnType<typeof buildSpecialGeometry>;
+                try {mesh=buildSpecialGeometry(layer.config,layer.births,frame,this.cameraBasis,(birth,at)=>this.sample(layer,birth,at),Math.min(500000,Math.floor(GPU_INSTANCE_BUDGET/44/3)*3));}
+                catch(error){this.status(`特殊粒子选择已暂停：${error instanceof Error?error.message:String(error)}`);continue;}
+                const edgeDistance=(a:readonly number[],b:readonly number[]):number=>{
+                    const dx=b[0]-a[0],dy=b[1]-a[1],length=dx*dx+dy*dy;
+                    const t=length?Math.max(0,Math.min(1,((x-a[0])*dx+(y-a[1])*dy)/length)):0;
+                    return Math.hypot(x-a[0]-t*dx,y-a[1]-t*dy);
+                };
+                for(let i=0;i<mesh.vertices.length;i+=33){
+                    const points=[0,11,22].map(offset=>project(Array.from(mesh.vertices.subarray(i+offset,i+offset+3)) as Vec3,this.matrix,rect.width,rect.height));
+                    if(points.every(point=>point[2]<-1||point[2]>1))continue;
+                    const signs=points.map((a,k)=>{const b=points[(k+1)%3];return (x-a[0])*(b[1]-a[1])-(y-a[1])*(b[0]-a[0]);});
+                    const area=(points[1][0]-points[0][0])*(points[2][1]-points[0][1])-(points[1][1]-points[0][1])*(points[2][0]-points[0][0]);
+                    const inside=Math.abs(area)>1e-8&&(signs.every(sign=>sign>=0)||signs.every(sign=>sign<=0));
+                    const distance=inside?0:Math.min(...points.map((point,k)=>edgeDistance(point,points[(k+1)%3])));
+                    if(distance<=5&&distance<best){best=distance;chosen=layer.id;}
+                }
+                continue;
+            }
+            for(const birth of layer.births){
             const p=this.sample(layer,birth,frame),g=layer.config.geometryUpdate;
             if(g&&layer.config.shaderProfile==='GPU_PERPENDICULAR_BOTTOM'){
                 const age=frame-birth.creationFrame;
@@ -407,6 +493,7 @@ export class FxRenderer {
             const screen=project(p.position,this.matrix,rect.width,rect.height),distance=Math.hypot(screen[0]-x,screen[1]-y);
             if(p.alive&&screen[2]>-1&&screen[2]<1&&distance<Math.max(7,Math.abs(p.size)*2)&&distance<best){best=distance;chosen=layer.id;}
         }
+        }
         return chosen;
     }
     get stats():RenderStats{return {...this.statsValue};}
@@ -414,16 +501,16 @@ export class FxRenderer {
         const gl=this.gl;
         // Context loss already destroys its objects. Deleting those objects after restore is invalid.
         if(!this.contextResourcesLost){
-            for(const b of this.buffers.values()){gl.deleteVertexArray(b.vao);gl.deleteBuffer(b.buffer);}
+            for(const b of [...this.buffers.values(),...this.specialBuffers.values()]){gl.deleteVertexArray(b.vao);gl.deleteBuffer(b.buffer);}
             for(const t of this.textures.values())gl.deleteTexture(t.texture);
             for(const geometry of this.geometries.values()){gl.deleteBuffer(geometry.vertices);gl.deleteBuffer(geometry.indices);}
             if(this.depth){gl.deleteFramebuffer(this.depth.framebuffer);gl.deleteTexture(this.depth.texture);}
             gl.deleteBuffer(this.lineBuffer);gl.deleteVertexArray(this.lineVao);
-            gl.deleteProgram(this.program);gl.deleteProgram(this.cpuProgram);gl.deleteProgram(this.lineProgram);gl.deleteProgram(this.groundProgram);
+            gl.deleteProgram(this.program);gl.deleteProgram(this.cpuProgram);gl.deleteProgram(this.specialProgram);gl.deleteProgram(this.lineProgram);gl.deleteProgram(this.groundProgram);
         }
-        this.buffers.clear();this.textures.clear();this.geometries.clear();this.uniforms.clear();this.parameterStates.clear();this.depth=null;this.depthStamp='';this.sceneStamp='';
+        this.buffers.clear();this.specialBuffers.clear();this.textures.clear();this.geometries.clear();this.uniforms.clear();this.parameterStates.clear();this.depth=null;this.depthStamp='';this.sceneStamp='';
         this.scenePath=[];this.scenePathMotion=undefined;this.scenePathOrigin='';this.sceneLineCount=0;
-        this.lineBuffer=null;this.lineVao=null;this.program=null;this.cpuProgram=null;this.lineProgram=null;this.groundProgram=null;this.activeProgram=null;
+        this.lineBuffer=null;this.lineVao=null;this.program=null;this.cpuProgram=null;this.specialProgram=null;this.lineProgram=null;this.groundProgram=null;this.activeProgram=null;
     }
     dispose():void {
         if(this.disposed)return;this.disposed=true;this.releaseGraphicsResources();
