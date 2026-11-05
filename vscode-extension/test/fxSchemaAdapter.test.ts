@@ -78,7 +78,7 @@ test('Named public FX wrapper stays unchanged so the Skill can verify its proven
     const wrapper = path.join(schemas, 'public-fx-types-wrapper.xsd');
     await fs.writeFile(wrapper, entryXml);
     const snapshot = await adapter.prepare(wrapper);
-    assert.equal(snapshot.entryPath, wrapper); assert.equal(snapshot.normalized, false);
+    assert.equal(snapshot.entryPath, await fs.realpath(wrapper)); assert.equal(snapshot.normalized, false);
     assert.equal(await fs.readFile(wrapper, 'utf8'), entryXml);
 });
 
