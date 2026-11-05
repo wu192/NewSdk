@@ -12,8 +12,12 @@
 
 生产检查点 `34b76761`：真实 x86 GCC O0/O2 Native harness、完整 XSD 及编译结果到
 运行时 parser 的互操作通过。首轮 [Windows 42131081594](https://github.com/wu192/NewSdk/actions/runs/42131081594)
-失败，修复验证中；不能计为通过。Windows 原生与 C++/CLI 组件需以工作流 receipt 为准；
-未运行完整 SDK/MOD、Enhancer DLL 或游戏内验收。后续文档提交不改变已有验证输入。
+因 C# 相对源文件路径失败，终态保留。修复后的源码 `dc59e691`，
+[Windows 42132833206](https://github.com/wu192/NewSdk/actions/runs/42132833206) 全 success：
+MSVC Win32 `/Od`、`/O2` Native 与真实 C++/CLI XML bridge 新构建和执行通过，
+包含四平台 `0/1/2/99`、schema 拒绝与参数／默认值。
+精简来源收据见 [evidence/enhancer-xml](evidence/enhancer-xml)。
+未运行完整 SDK/MOD、Enhancer DLL 或游戏内验收。后续文档提交不改变上述生产输入。
 禁止强推；上游合入仍遵循 PR 和用户批准规则。
 
 # 此前：compiler-main CI 五工作流通过，PR #1 待审

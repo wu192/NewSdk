@@ -96,3 +96,12 @@ g++ -m32 -std=c++14 -O0 -Irecovery/tests/native-host -Irecovery/src/Native -o Ga
 中规整既有 Windows 路径及 QName 尾部空格）。Native fixture 已被 Enhancer
 真实侧表 parser 读取验证。MSVC/C++/CLI、真实 SDK 发布链及游戏内结果必须分别
 以对应执行证据为准，本地 host 测试不代替这些验收。
+
+Windows 组件新验收：[42132833206](https://github.com/wu192/NewSdk/actions/runs/42132833206)，
+源码 `dc59e691ddd142b4f5dd1336cafc87d28a367008`，MSVC Win32 `/Od`、`/O2`
+的真实 Native 序列化器与 C++/CLI XML bridge 构建、执行均成功；四平台
+`0/1/2/99`、schema 拒绝与参数／默认值通过。
+首轮 [42131081594](https://github.com/wu192/NewSdk/actions/runs/42131081594)
+因 framework C# 编译器误读相对源码路径失败，改用绝对路径后重验；保留原失败。
+[精简收据](../evidence/enhancer-xml) 记录输入、artifact 身份与互操作复核，
+后续文档不改变成功验证的生产输入。该组件范围不包含完整 SDK/MOD 或游戏验收。

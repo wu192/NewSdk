@@ -1,0 +1,114 @@
+{
+  "succeeded": true,
+  "sourceCommit": "dc59e691ddd142b4f5dd1336cafc87d28a367008",
+  "runId": 42132833206,
+  "runAttempt": 1,
+  "runUrl": "https://github.com/wu192/NewSdk/actions/runs/42132833206",
+  "jobId": 127613450048,
+  "artifact": {
+    "id": 13463643062,
+    "name": "enhancer-xml-component-42132833206",
+    "sizeInBytes": 115256,
+    "sha256": "4b6eee0d7a621036a34ae2b5bd2908250ebe5b8ba81eec6d2a912d644aa1b7ca",
+    "url": "https://github.com/wu192/NewSdk/actions/runs/42132833206/artifacts/13463643062",
+    "downloadedDigestVerified": true,
+    "allReceiptFixtureHashesVerified": true
+  },
+  "scope": "MSVC Win32 production Native serializer and C++/CLI XML bridge with full SDK schema validation; component acceptance only",
+  "native": {
+    "modes": [
+      "Od",
+      "O2"
+    ],
+    "endianness": [
+      "little",
+      "big"
+    ],
+    "checks": [
+      "native Dozer type 0x8D093323 and size 0x58",
+      "AIUpdate inherited token table, defaults, string and target chooser",
+      "three raw float tokens at 0x4C/0x50/0x54",
+      "EnhancerSettings true/false/default/omitted and independent bool data",
+      "unchanged original empty GameObject layout"
+    ]
+  },
+  "xmlBridge": {
+    "modes": [
+      "Od",
+      "O2"
+    ],
+    "platforms": [
+      0,
+      1,
+      2,
+      99
+    ],
+    "checks": [
+      "production GameObjectCompiler.ProcessInstance via XML",
+      "full SDK CnC3Types schema boundary",
+      "Dozer AI choice, raw float fields, inherited target chooser",
+      "EnhancerSettings absent/default/false/true",
+      "unknown attribute, invalid bool, duplicate container and unknown child rejection"
+    ],
+    "typeIdAnnotations": "component fixtures explicitly supply pipeline TypeId annotations; full Core preprocessing/build chain not exercised"
+  },
+  "comparisons": {
+    "OdVsO2AllFixtureFiles": 76,
+    "allByteIdentical": true,
+    "nativeFixtureFilesComparedWithGcc14X86O0AndO2": 12,
+    "nativeFixturesByteIdentical": true,
+    "bigEndianPlatforms1_2_99ByteIdentical": true,
+    "nativeTrueLittleEndianSha256": "56613dc0074f74ca457a6a20b730f881537e8040f35fc9d823e46c0a7af3ce5c"
+  },
+  "previousFailure": {
+    "runId": 42131081594,
+    "sourceCommit": "34b767616d5dda00041438b9081b0359d36b3875",
+    "url": "https://github.com/wu192/NewSdk/actions/runs/42131081594",
+    "cause": "Framework csc treated slash-separated relative source paths as options; CS1504 missing PluginSchemaBoundary.cs and GameObjectDozerSmoke.cs",
+    "fix": "Resolve both C# source inputs to absolute Windows paths",
+    "artifactId": 13462504396,
+    "artifactSha256": "4277ccb5486c569f75bc63687ec1b976257284b2c09a8935e17dbe647b67bf5d",
+    "preserved": true
+  },
+  "notValidated": [
+    "full SDK publishing/linking pipeline",
+    "full MOD/mymod acceptance",
+    "gameplay and save/load inside RA3"
+  ],
+  "runtimeInterop": {
+    "passed": true,
+    "runtimeRepository": "wu192/EnhancerCorona",
+    "runtimeCommit": "ca107f22b860d01f63c587124a45b0d5f5c63a55",
+    "parser": "production ext/EnhancerXmlExt.cpp through existing EnhancerXmlTests host harness",
+    "input": "actual MSVC /Od C++/CLI XML bridge outputs from this successful artifact",
+    "rootTokenOffset": 0,
+    "definitionLifetimeChecked": true,
+    "fixtures": [
+      {
+        "fixture": "xml-0-true.bin",
+        "sha256": "045fe37c49c91c3d8100f975386c2312be5e6373686a6a30307abedf20b245ef",
+        "expectedDozerConstruction": true,
+        "passed": true
+      },
+      {
+        "fixture": "xml-0-false.bin",
+        "sha256": "372f2d7077f1cc6ee2dd891dc3eefd4fba76dbe61d963ebb6c8174c3f9ed412d",
+        "expectedDozerConstruction": false,
+        "passed": true
+      },
+      {
+        "fixture": "xml-0-omitted.bin",
+        "sha256": "f2da93f6cb11c587e4f44e46b4d055b52b56790e87ebfb9ddcf92b4540c89044",
+        "expectedDozerConstruction": false,
+        "passed": true
+      },
+      {
+        "fixture": "xml-0-default.bin",
+        "sha256": "caff35e6d86bd9a9a5b591e8c379c0bd5d92d82f065a1ee8e05b995fbae8dab3",
+        "expectedDozerConstruction": false,
+        "passed": true
+      }
+    ],
+    "scope": "host production parser with controlled native callbacks; Windows x86 detours and game asset loader not exercised"
+  }
+}
