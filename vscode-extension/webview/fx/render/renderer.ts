@@ -93,6 +93,8 @@ export class FxRenderer {
     get supportsS3tc():boolean{return !!this.gl.getExtension('WEBGL_compressed_texture_s3tc');}
     uploadTexture(texture:FxTexture):void {
         if(!texture.width||!texture.height||!texture.pixels&&!texture.pixelsBase64)return;
+        const expected=texture.width*texture.height*4;
+        if(!Number.isSafeInteger(expected)||expected<4||expected>32*1024*1024||texture.pixelsBase64&&texture.pixelsBase64.length>Math.ceil(expected/3)*4)throw new Error('内联贴图超过 32 MiB 传输预算或尺寸不匹配。');
         const pixels=texture.pixelsBase64?decodeBase64(texture.pixelsBase64):new Uint8Array(texture.pixels!);
         this.uploadTransfer({key:texture.key,transferId:'inline',width:texture.width,height:texture.height,format:'RGBA8',levels:[{width:texture.width,height:texture.height,byteLength:pixels.byteLength}]},[pixels]);
     }
@@ -103,6 +105,7 @@ export class FxRenderer {
         const used=[...this.textures.entries()].reduce((sum,[key,t])=>sum+(key===descriptor.key?0:t.bytes),0);
         if(used+bytes>GPU_TEXTURE_BUDGET)throw new Error('预览 GPU 贴图预算已达 128 MiB，请减少活动素材或重载。');
         if(descriptor.width>gl.getParameter(gl.MAX_TEXTURE_SIZE)||descriptor.height>gl.getParameter(gl.MAX_TEXTURE_SIZE))throw new Error('贴图超过本设备支持的尺寸。');
+        if(descriptor.levels.length>Math.floor(Math.log2(Math.max(descriptor.width,descriptor.height)))+1)throw new Error('贴图 mip 层数超过完整链长度。');
         const ext=descriptor.format==='RGBA8'?null:gl.getExtension('WEBGL_compressed_texture_s3tc');
         if(descriptor.format!=='RGBA8'&&!ext)throw new Error('本设备不支持 S3TC 压缩纹理，请重载为 RGBA 预览。');
         const handle=gl.createTexture();if(!handle)throw new Error('无法分配 GPU 贴图。');

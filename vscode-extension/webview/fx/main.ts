@@ -255,6 +255,7 @@ function receiveTexture(message:TextureMessage):void {
         const descriptor=message.texture;
         if(!descriptor||!ir?.textures.some(t=>t.key===descriptor.key)||typeof descriptor.transferId!=='string'||!Array.isArray(descriptor.levels)||descriptor.levels.length<1||descriptor.levels.length>16)throw new Error('未知或无效的贴图传输。');
         if(!['RGBA8','DXT1','DXT3','DXT5'].includes(descriptor.format)||!Number.isInteger(descriptor.width)||!Number.isInteger(descriptor.height)||descriptor.width<1||descriptor.height<1||descriptor.width>16384||descriptor.height>16384)throw new Error('贴图传输的格式或尺寸无效。');
+        if(descriptor.levels.length>Math.floor(Math.log2(Math.max(descriptor.width,descriptor.height)))+1)throw new Error('贴图传输 mip 层数过多。');
         transfers.delete(descriptor.key);
         const size=descriptor.levels.reduce((n,l)=>n+l.byteLength,0);
         const used=[...transfers.values()].reduce((n,t)=>n+t.descriptor.levels.reduce((sum,l)=>sum+l.byteLength,0),0);
