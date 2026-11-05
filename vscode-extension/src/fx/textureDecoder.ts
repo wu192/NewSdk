@@ -17,6 +17,7 @@ export class TextureDecodeError extends Error {
     constructor(readonly code: TextureErrorCode, message: string) { super(message); this.name = 'TextureDecodeError'; }
 }
 export interface TextureDecodeOptions { maxBytes?: number; maxDimension?: number; keepCompressed?: boolean }
+export interface TextureMemoryEstimate { decodedBytes: number; rgbaBytes: number; compressedBytes: number; mipCount: number }
 
 function fail(code: TextureErrorCode, text: string): never { throw new TextureDecodeError(code, text); }
 function checkedSize(width: number, height: number, options: TextureDecodeOptions): number {
@@ -41,21 +42,39 @@ function result(mips: TextureMip[], format: DecodedTexture['format'], compressed
             + (compressedMips?.reduce((sum, mip) => sum + mip.bytes.byteLength, 0) ?? 0), source: 'source-texture' };
 }
 
-/** Header detection is authoritative; the filename extension is intentionally absent. */
-export function decodeTexture(bytes: Uint8Array, options: TextureDecodeOptions = {}): DecodedTexture {
+function validateOptions(options: TextureDecodeOptions): void {
     if (options.maxBytes !== undefined && (!Number.isSafeInteger(options.maxBytes) || options.maxBytes < 1)) {
         fail('budget', '贴图内存预算必须是正整数。');
     }
     if (options.maxDimension !== undefined && (!Number.isSafeInteger(options.maxDimension) || options.maxDimension < 1)) {
         fail('budget', '贴图尺寸预算必须是正整数。');
     }
-    if (bytes.length >= 4 && bytes[0] === 0x44 && bytes[1] === 0x44 && bytes[2] === 0x53 && bytes[3] === 0x20) {
+}
+function isDds(bytes: Uint8Array): boolean {
+    return bytes.length >= 4 && bytes[0] === 0x44 && bytes[1] === 0x44 && bytes[2] === 0x53 && bytes[3] === 0x20;
+}
+
+/** Exact retained allocation, before any pixel or compressed-block allocation. Source bytes are charged separately. */
+export function estimateTextureMemory(bytes: Uint8Array, options: TextureDecodeOptions = {}): TextureMemoryEstimate {
+    validateOptions(options);
+    if (isDds(bytes)) {
+        const plan = ddsLayout(bytes, options);
+        return { decodedBytes: plan.allocation, rgbaBytes: plan.rgbaBytes, compressedBytes: plan.allocation - plan.rgbaBytes, mipCount: plan.layouts.length };
+    }
+    const plan = tgaLayout(bytes, options);
+    return { decodedBytes: plan.size, rgbaBytes: plan.size, compressedBytes: 0, mipCount: 1 };
+}
+
+/** Header detection is authoritative; the filename extension is intentionally absent. */
+export function decodeTexture(bytes: Uint8Array, options: TextureDecodeOptions = {}): DecodedTexture {
+    validateOptions(options);
+    if (isDds(bytes)) {
         return decodeDds(bytes, options);
     }
     return decodeTga(bytes, options);
 }
 
-function decodeTga(bytes: Uint8Array, options: TextureDecodeOptions): DecodedTexture {
+function tgaLayout(bytes: Uint8Array, options: TextureDecodeOptions) {
     requireBytes(bytes, 0, 18);
     const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
     const type = bytes[2];
@@ -68,10 +87,15 @@ function decodeTga(bytes: Uint8Array, options: TextureDecodeOptions): DecodedTex
         fail('unsupported', `不支持的 TGA ${gray ? '灰度' : 'RGB'} ${bits} 位像素。`);
     }
     const size = checkedSize(width, height, options), stride = Math.ceil(bits / 8), count = width * height;
-    let offset = 18 + bytes[0];
+    const offset = 18 + bytes[0];
     requireBytes(bytes, 18, bytes[0]);
     if (!rle) requireBytes(bytes, offset, count * stride);
     else requireBytes(bytes, offset, stride + 1);
+    return { width, height, bits, gray, rle, size, stride, count, offset };
+}
+function decodeTga(bytes: Uint8Array, options: TextureDecodeOptions): DecodedTexture {
+    const { width, height, bits, gray, rle, size, stride, count, offset: initialOffset } = tgaLayout(bytes, options);
+    let offset = initialOffset;
     const pixels = new Uint8Array(size);
     const top = (bytes[17] & 0x20) !== 0, right = (bytes[17] & 0x10) !== 0;
     function write(index: number, source: number): void {
@@ -133,7 +157,7 @@ function colorTable(a: number, b: number, forceFour: boolean): number[][] {
     return [c0, c1, [0, 1, 2].map(i => Math.floor((c0[i] + c1[i]) / 2)).concat(255), [0, 0, 0, 0]];
 }
 
-function decodeDds(bytes: Uint8Array, options: TextureDecodeOptions): DecodedTexture {
+function ddsLayout(bytes: Uint8Array, options: TextureDecodeOptions) {
     requireBytes(bytes, 0, 128);
     const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
     const u32 = (offset: number): number => view.getUint32(offset, true);
@@ -169,17 +193,24 @@ function decodeDds(bytes: Uint8Array, options: TextureDecodeOptions): DecodedTex
     if (!compressed && headerPitch && headerPitch < firstTightPitch) fail('invalid-header', 'DDS 行跨度小于像素行。');
     const alignRows = headerPitch > firstTightPitch && headerPitch === Math.ceil(firstTightPitch / 4) * 4;
     const layouts: { width: number; height: number; offset: number; length: number; pitch: number }[] = [];
-    let offset = 128, w = width, h = height, allocation = 0;
+    let offset = 128, w = width, h = height, allocation = 0, rgbaBytes = 0;
     for (let level = 0; level < mipCount; level++) {
         const pitch = compressed ? Math.ceil(w / 4) * blockSize
             : level === 0 && headerPitch ? headerPitch : alignRows ? Math.ceil(w * bits / 8 / 4) * 4 : w * bits / 8;
         const length = pitch * (compressed ? Math.ceil(h / 4) : h);
         requireBytes(bytes, offset, length);
-        allocation += checkedSize(w, h, options) + (compressed && options.keepCompressed !== false ? length : 0);
+        rgbaBytes += checkedSize(w, h, options);
+        allocation += w * h * 4 + (compressed && options.keepCompressed !== false ? length : 0);
         if (allocation > (options.maxBytes ?? 32 * 1024 * 1024)) fail('budget', 'DDS mip 链与压缩块超过预览内存预算。');
         layouts.push({ width: w, height: h, offset, length, pitch }); offset += length;
         w = Math.max(1, Math.floor(w / 2)); h = Math.max(1, Math.floor(h / 2));
     }
+    return { layouts, format, channels, compressed, bits, blockSize, allocation, rgbaBytes };
+}
+function decodeDds(bytes: Uint8Array, options: TextureDecodeOptions): DecodedTexture {
+    const { layouts, format, channels, compressed, bits, blockSize } = ddsLayout(bytes, options);
+    const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    const u32 = (offset: number): number => view.getUint32(offset, true);
     const mips: TextureMip[] = [], compressedMips: CompressedTextureMip[] | undefined = compressed && options.keepCompressed !== false ? [] : undefined;
     for (const layout of layouts) {
         const pixels = new Uint8Array(layout.width * layout.height * 4);

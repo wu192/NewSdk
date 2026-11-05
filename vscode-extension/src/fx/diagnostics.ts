@@ -14,12 +14,12 @@ export interface FxProblem {
 export class FxDiagnostics implements vscode.Disposable {
     private readonly collection = vscode.languages.createDiagnosticCollection('newsdk-fx');
     private readonly owners = new Map<string, Map<string, vscode.Diagnostic[]>>();
-    private readonly revisions = new Map<string, number>();
+    private readonly revisions = new Map<string, symbol>();
     private disposed = false;
 
     async update(owner: string, problems: readonly FxProblem[]): Promise<void> {
         if (this.disposed) return;
-        const revision = (this.revisions.get(owner) ?? 0) + 1; this.revisions.set(owner, revision);
+        const revision = Symbol(owner); this.revisions.set(owner, revision);
         const files = new Map<string, vscode.Diagnostic[]>();
         for (const issue of problems) {
             const source = issue.source ?? issue;
@@ -30,7 +30,7 @@ export class FxDiagnostics implements vscode.Disposable {
                 const document = await vscode.workspace.openTextDocument(uri);
                 range = new vscode.Range(document.positionAt(source.start ?? 0), document.positionAt(source.end ?? (source.start ?? 0) + 1));
             } catch { /* Missing resources still get a navigable file diagnostic. */ }
-            const severity = issue.severity === 'error' ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning;
+            const severity = issue.severity === 'error' ? vscode.DiagnosticSeverity.Error : issue.severity === 'information' ? vscode.DiagnosticSeverity.Information : vscode.DiagnosticSeverity.Warning;
             const diagnostic = new vscode.Diagnostic(range, issue.message, severity);
             diagnostic.source = 'NewSdk FX'; diagnostic.code = issue.code;
             const key = uri.toString();

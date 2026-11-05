@@ -443,23 +443,29 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
             }
             await summary('running');
         }
-        const fxCase = await selected('RealFx');
-        await fs.mkdir(path.join(fxCase.mod, 'Data'), {recursive:true});
-        await fs.cp(path.resolve(__dirname, '../../../test/fixtures/fx/Data'), path.join(fxCase.mod,'Data'), {recursive:true});
-        const beforeFx = await inventory(fxCase.mod);
-        checkpoint('real-fx-gpu-texture-inheritance-build');
-        const fxBuilt = final(await timed(api.build(),180000));
-        await preserve(fxCase.output,'RealFx',fxBuilt);
-        assert.equal(fxBuilt.status,'succeeded', JSON.stringify({reason:fxBuilt.reason,diagnostics:fxBuilt.diagnostics}));
-        const fxBig = fxBuilt.artifacts.find(a=>a.kind==='package.big'); assert.ok(fxBig);
-        const fxMembers = await bigMembers(fxBig.path);
-        const fxAssets = manifestAssets(fxMembers,'data\\mod.manifest');
-        for (const asset of ['FXParticleSystemTemplate:Flash','FXParticleSystemTemplate:Smoke','FXParticleSystemTemplate:Sparks','FXParticleSystemTemplate:Aura','FXParticleSystemTemplate:InheritedFlash','FXList:MultiLayerAura','Texture:FxFixtureTexture']) {
-            assert.ok(fxAssets.includes(asset), `Compiled FX fixture omitted ${asset}: ${fxAssets.join(", ")}`);
+        for (const fxLayout of [
+            {name:'RealFx',entry:'Mod.xml',list:'MultiLayerAura',assets:['Flash','Smoke','Sparks','Aura','InheritedFlash'],contracts:['GPU modules','FXList','TGA Texture','ordinary inheritance']},
+            {name:'RealFxRound2',entry:'Round2Mod.xml',list:'Round2Acceptance',assets:['CpuDefault','CenteredFlash','ConcentricFlash','PerpendicularFlash','EventEmitter','AttachedEmitter','AttachGlow'],contracts:['CPU Default','GPU geometry/shader combinations','EventFX','attached systems','eight CPU slots']},
+        ]) {
+            const fxCase = await selected(fxLayout.name);
+            await fs.mkdir(path.join(fxCase.mod, 'Data'), {recursive:true});
+            await fs.cp(path.resolve(__dirname, '../../../test/fixtures/fx/Data'), path.join(fxCase.mod,'Data'), {recursive:true});
+            if (fxLayout.entry !== 'Mod.xml') await fs.copyFile(path.join(fxCase.mod,'Data',fxLayout.entry),path.join(fxCase.mod,'Data/Mod.xml'));
+            const beforeFx = await inventory(fxCase.mod);
+            checkpoint(`real-${fxLayout.name}-build`);
+            const fxBuilt = final(await timed(api.build(),180000));
+            await preserve(fxCase.output,fxLayout.name,fxBuilt);
+            assert.equal(fxBuilt.status,'succeeded', JSON.stringify({reason:fxBuilt.reason,diagnostics:fxBuilt.diagnostics}));
+            const fxBig = fxBuilt.artifacts.find(a=>a.kind==='package.big'); assert.ok(fxBig);
+            const fxMembers = await bigMembers(fxBig.path);
+            const fxAssets = manifestAssets(fxMembers,'data\\mod.manifest');
+            for (const asset of [...fxLayout.assets.map(name=>`FXParticleSystemTemplate:${name}`),`FXList:${fxLayout.list}`,'Texture:FxFixtureTexture']) {
+                assert.ok(fxAssets.includes(asset), `Compiled FX fixture omitted ${asset}: ${fxAssets.join(", ")}`);
+            }
+            assert.deepEqual(await inventory(fxCase.mod),beforeFx,'FX compiler must preserve original XML and source texture');
+            results.push({name:fxLayout.name,status:'passed',buildId:fxBuilt.buildId,assets:fxAssets,contracts:fxLayout.contracts});
+            await summary('running');
         }
-        assert.deepEqual(await inventory(fxCase.mod),beforeFx,'FX compiler must preserve original XML and source texture');
-        results.push({name:'RealFx',status:'passed',buildId:fxBuilt.buildId,assets:fxAssets,contracts:['GPU modules','FXList','TGA Texture','ordinary inheritance']});
-        await summary('running');
         if (full) {
             const additional = await fixture('RealAdditionalOnly', ['additional']);
             const additionalBefore = await inventory(additional.mod);

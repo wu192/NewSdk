@@ -5,6 +5,7 @@ import * as os from 'node:os';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { AssetIndex } from '../src/fx/assetIndex';
+import { PreviewSession } from '../src/fx/previewSession';
 
 const disposable = { dispose(): void {} };
 class MockEmitter<T> {
@@ -39,6 +40,8 @@ function loadProvider(): typeof import('../src/fx/editorProvider') {
 const { registerFx } = loadProvider();
 interface ProviderBoundary {
     roots: string[];
+    compiledRoot?: string;
+    allowedCompiled(file:string):Promise<string>;
     allowed(file: string, editable?: boolean): Promise<string>;
     dispose(): void;
 }
@@ -95,5 +98,35 @@ test('a MOD strictly inside the SDK may edit itself but not shared or sibling SD
             await assert.rejects(provider.allowed(readonly, true), /SDK.*只读/);
             await index.checkedFile(readonly); assert.equal(index.isReadonly(readonly), true);
         }
+    });
+}));
+
+
+test('production Save dispatch retains the dirty document when disk save fails', async () => {
+    const messages: {type: string; message?: string}[] = [];
+    const services = {getProject:()=>undefined,getConfiguration:()=>undefined,saveAndBuild:async()=>assert.fail('Save must not start a compiler')};
+    const provider = registerFx({} as Parameters<typeof registerFx>[0],services) as unknown as {dispatch(state: unknown,message: unknown): Promise<void>;dispose():void};
+    const session = new PreviewSession(3);
+    const document = {version:3,isDirty:true,save:async()=>false,uri:MockUri.file('/tmp/save-failure.xml')};
+    const state = {document,session,disposed:false,panel:{webview:{postMessage:async(message: {type: string;message?:string})=>{messages.push(message);return true;}}}};
+    try {
+        await provider.dispatch(state,{sessionId:session.id,documentVersion:2,requestId:1,type:'save'});
+        assert.equal(document.isDirty,true);assert.equal(messages.at(-1)?.type,'status');assert.match(messages.at(-1)?.message??'',/保存失败.*脏文档/);
+        document.save=async()=>{throw new Error('disk IO unavailable');};
+        await provider.dispatch(state,{sessionId:session.id,documentVersion:2,requestId:2,type:'save'});
+        assert.equal(document.isDirty,true);assert.match(messages.at(-1)?.message??'',/disk IO unavailable/);
+    } finally {session.dispose();provider.dispose();}
+});
+
+
+test('configured compiled output is readable only through the dedicated DDS boundary', async () => fixture(async root => {
+    const mod=path.join(root,'Mod'),sdk=path.join(root,'SDK'),output=path.join(root,'Output');
+    await file(mod,'Data/Mod.xml');await file(sdk,'source.xml');const compiled=await file(output,'particle.dds'),other=await file(root,'unrelated/particle.dds');
+    await boundary(mod,sdk,async(provider,index)=>{
+        provider.compiledRoot=await fs.realpath(output);
+        assert.equal(await provider.allowedCompiled(compiled),await fs.realpath(compiled));
+        await assert.rejects(provider.allowed(compiled),/MOD.*SDK/);
+        await assert.rejects(index.checkedFile(compiled),/根|目录|outside|root/i);
+        await assert.rejects(provider.allowedCompiled(other),/输出目录/);
     });
 }));

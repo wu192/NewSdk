@@ -60,34 +60,77 @@ export function compileParticle(root: FxNode): { config?: ParticleConfig; issues
         'SortLevel', 'IsGroundAligned', 'IsEmitAboveGroundOnly', 'IsParticleUpTowardsEmitter', 'UseMaximumHeight',
         'Drawable', 'SlaveSystem', 'PerParticleAttachedSystem', 'EmitterSound'],
     ['Lifetime', 'InitialDelay', 'BurstDelay', 'BurstCount', 'Size', 'StartSizeRate', 'Physics', 'Draw', 'Volume', 'Velocity', 'Update', 'Colors', 'Alphas', 'Wind', 'Event'], '');
-    if ((root.attributes.Type ?? 'PARTICLE') !== 'GPU_PARTICLE') issue('@Type', `Type=${root.attributes.Type ?? 'PARTICLE'} 暂未播放；第一轮仅普通 GPU`);
+    const backend = (root.attributes.Type ?? 'PARTICLE') === 'PARTICLE' ? 'CPU' : 'GPU';
+    if (!['PARTICLE', 'GPU_PARTICLE'].includes(root.attributes.Type ?? 'PARTICLE')) issue('@Type', `Type=${root.attributes.Type} 尚无普通 CPU/GPU 合同`);
     const shader = root.attributes.Shader ?? 'ADDITIVE';
     if (!['ADDITIVE', 'ALPHA', 'MULTIPLY'].includes(shader)) issue('@Shader', `尚未支持材质 profile ${shader}`);
-    for (const a of ['Drawable', 'SlaveSystem', 'PerParticleAttachedSystem', 'EmitterSound']) {
+    for (const a of ['Drawable', 'SlaveSystem', 'EmitterSound']) {
         if (root.attributes[a]) issue(`@${a}`, `${a} 需要本轮以外的运行分支`);
     }
     for (const a of ['IsEmitAboveGroundOnly', 'IsParticleUpTowardsEmitter', 'UseMaximumHeight']) {
         if (bool(root, a)) issue(`@${a}`, `${a} 需要额外地形/朝向上下文`);
     }
     const physics = module('Physics', ['Default']);
-    const draw = module('Draw', ['Gpu']);
+    const draw = module('Draw', backend === 'CPU' ? ['Default'] : ['Gpu']);
+    if (backend !== 'CPU' && root.attributes.PerParticleAttachedSystem) issue('@PerParticleAttachedSystem', 'GPU 的逐粒子附属生命周期尚无已证合同');
     const volume = module('Volume', ['Point', 'Line', 'Box', 'Cylinder', 'Sphere']);
     const velocity = module('Velocity', ['Ortho', 'Cylindrical', 'Spherical', 'Outward']);
     const updateParent = child(root, 'Update');
-    const update = updateParent ? module('Update', ['Default']) : undefined;
+    const update = updateParent ? module('Update', backend === 'GPU' ? ['Default', 'RenderObject'] : ['Default']) : undefined;
+    if (backend === 'CPU' && !update) issue('Update', 'CPU Default 路径需要 Update/Default');
     check(physics, ['Gravity', 'Swirly', 'ParticlesAttachToBone'], ['VelocityDamping', 'DriftVelocity'], 'Physics/Default');
     for (const a of ['Swirly', 'ParticlesAttachToBone']) if (bool(physics, a)) issue(`Physics/Default/@${a}`, `${a} 尚未播放`);
-    check(draw, ['Shader', 'GeometryType', 'FramesPerRow', 'TotalFrames', 'SingleRow', 'RandTex', 'SpeedMultiplier',
-        'SortParticles', 'EnableSoftParticles', 'MiscValue1', 'MiscValue2', 'MiscValue3', 'MiscValue4', 'DetailTexture'], [], 'Draw/Gpu');
-    if ((draw?.attributes.Shader ?? 'GPUParticle.fx').toLowerCase() !== 'gpuparticle.fx') issue('Draw/Gpu/@Shader', `尚未实现 shader ${draw?.attributes.Shader}`);
-    if ((draw?.attributes.GeometryType ?? 'SIMPLE_QUAD') !== 'SIMPLE_QUAD') issue('Draw/Gpu/@GeometryType', `几何 ${draw?.attributes.GeometryType} 留待第二轮`);
-    if (draw?.attributes.DetailTexture) issue('Draw/Gpu/@DetailTexture', 'DetailTexture 需要额外 shader 合同');
-    for (const a of ['MiscValue1', 'MiscValue2', 'MiscValue3', 'MiscValue4']) if (scalar(draw, a) !== 0) issue(`Draw/Gpu/@${a}`, '非零 MiscValue 需要对应 shader 合同');
-    if (bool(draw, 'EnableSoftParticles', true)) issue('Draw/Gpu/@EnableSoftParticles', '当前为源贴图/无场景深度预览；软粒子深度在第二轮实现', 'warning', 'context');
-    check(update, ['Rotation'], ['SizeRate', 'SizeRateDamping', 'AngleZ', 'AngularRateZ', 'AngularDamping', 'AngleXY', 'AngularRateXY', 'AngularDampingXY'], 'Update/Default');
-    if (update?.attributes.Rotation && update.attributes.Rotation !== 'ROTATION_OFF') issue('Update/Default/@Rotation', 'Rotation GeometryUpdate 变体暂未实现');
+    const drawPath = backend === 'CPU' ? 'Draw/Default' : 'Draw/Gpu';
+    const geometryType = draw?.attributes.GeometryType ?? 'SIMPLE_QUAD';
+    const shaderFile = (draw?.attributes.Shader ?? 'GPUParticle.fx').toLowerCase();
+    if (backend === 'CPU') check(draw, [], [], drawPath);
+    else {
+        check(draw, ['Shader', 'GeometryType', 'FramesPerRow', 'TotalFrames', 'SingleRow', 'RandTex', 'SpeedMultiplier',
+            'SortParticles', 'EnableSoftParticles', 'MiscValue1', 'MiscValue2', 'MiscValue3', 'MiscValue4', 'DetailTexture'], [], drawPath);
+        if (!['gpuparticle.fx', 'gpuparticleperpendicularbottom.fx'].includes(shaderFile)) issue(`${drawPath}/@Shader`, `尚未实现 shader ${draw?.attributes.Shader}`);
+        if (!['SIMPLE_QUAD', 'CENTERED_QUAD', 'TWO_CONCENTRIC_QUADS', 'TWO_QUADS'].includes(geometryType)) issue(`${drawPath}/@GeometryType`, `几何 ${geometryType} 尚无普通合同`);
+        if ((geometryType === 'TWO_QUADS') !== (shaderFile === 'gpuparticleperpendicularbottom.fx')) issue(drawPath, 'TWO_QUADS 需要 GpuParticlePerpendicularBottom.fx 和 GeometryUpdate 的对应组合');
+        if (draw?.attributes.DetailTexture) issue(`${drawPath}/@DetailTexture`, 'DetailTexture 需要额外 shader 合同');
+        for (const a of ['MiscValue1', 'MiscValue2', 'MiscValue3', 'MiscValue4']) if (scalar(draw, a) !== 0) issue(`${drawPath}/@${a}`, '非零 MiscValue 需要对应 shader 合同');
+    }
+    const geometry = local(update?.name ?? '') === 'RenderObject';
+    let geometryUpdate: ParticleConfig['geometryUpdate'];
+    if (geometry) {
+        check(update, ['Rotation'], ['AngleX', 'AngleY', 'AngleZ', 'AngularRateX', 'AngularRateY', 'AngularRateZ', 'AngularDamping', 'StartSize', 'SizeRate', 'SizeDamping'], 'Update/RenderObject');
+        const xyz = (name: string, fallback: number): [Range, Range, Range] => {
+            const node = child(update, name); check(node, [], ['x', 'y', 'z'], `Update/RenderObject/${name}`);
+            if (!node) issue(`Update/RenderObject/${name}`, 'GeometryUpdate 缺少必需三轴尺寸字段');
+            return ['x', 'y', 'z'].map(axis => range(node, axis, fallback, `Update/RenderObject/${name}/${axis}`)) as [Range, Range, Range];
+        };
+        const rotation = update?.attributes.Rotation ?? 'ROTATION_OFF';
+        if (!['ROTATION_OFF', 'ROTATE_AROUND_VELOCITY', 'ROTATE_IN_WORLD_SPACE'].includes(rotation)) issue('Update/RenderObject/@Rotation', `尚无旋转合同 ${rotation}`);
+        geometryUpdate = { sizeStart: xyz('StartSize', 0), sizeRate: xyz('SizeRate', 0), sizeDamping: xyz('SizeDamping', 1),
+            angle: ['X', 'Y', 'Z'].map(axis => range(update, `Angle${axis}`, 0, `Update/RenderObject/Angle${axis}`)) as [Range, Range, Range],
+            angleRate: ['X', 'Y', 'Z'].map(axis => range(update, `AngularRate${axis}`, 0, `Update/RenderObject/AngularRate${axis}`)) as [Range, Range, Range],
+            angleDamping: range(update, 'AngularDamping', 1, 'Update/RenderObject/AngularDamping'), rotation: rotation as NonNullable<ParticleConfig['geometryUpdate']>['rotation'] };
+        if (shaderFile !== 'gpuparticleperpendicularbottom.fx') issue('Update/RenderObject', '普通 GPUParticle.fx 不消费 RenderObject 三轴 GeometryUpdate');
+        if ([...geometryUpdate.sizeDamping, geometryUpdate.angleDamping].some(r => Math.min(r.low, r.high) <= 0)) issue('Update/RenderObject', 'GPU 解析三轴阻尼需要正数', 'error', 'value');
+    } else {
+        check(update, ['Rotation'], ['SizeRate', 'SizeRateDamping', 'AngleZ', 'AngularRateZ', 'AngularDamping', 'AngleXY', 'AngularRateXY', 'AngularDampingXY'], 'Update/Default');
+        if (update?.attributes.Rotation && update.attributes.Rotation !== 'ROTATION_OFF') issue('Update/Default/@Rotation', '普通 Default 的方向覆盖分支尚未闭合');
+        if (shaderFile === 'gpuparticleperpendicularbottom.fx' && backend === 'GPU') issue('Update', 'GpuParticlePerpendicularBottom.fx 需要 Update/RenderObject 三轴 GeometryUpdate');
+    }
     const event = child(root, 'Event');
-    if (event && (event.children.length || Object.keys(event.attributes).length)) issue('Event', 'Event 调度尚未播放');
+    check(event, [], ['Life', 'Collision'], 'Event');
+    const events: NonNullable<ParticleConfig['events']> = [];
+    const eventIndices = new Map<string, number>();
+    for (const node of event?.children ?? []) {
+        const type = local(node.name);
+        const index = (eventIndices.get(type) ?? 0) + 1; eventIndices.set(type, index);
+        const path = `Event/${type}[${index}]`;
+        check(node, ['EventFX', 'PerParticle', 'KillAfterEvent', ...(type === 'Collision' ? ['OrientFXToTerrain'] : [])],
+            [type === 'Life' ? 'EventTime' : 'HeightOffset'], path);
+        const perParticle = bool(node, 'PerParticle', false, `${path}/@PerParticle`);
+        if (backend === 'GPU' && perParticle) issue(`${path}/@PerParticle`, 'GPU 逐粒子事件缺少已证 Storage 合同');
+        const base = { fx: node.attributes.EventFX ?? '', perParticle, kill: bool(node, 'KillAfterEvent', false, `${path}/@KillAfterEvent`) };
+        if (type === 'Life') events.push({ ...base, type, eventTime: range(node, 'EventTime', 0, `${path}/EventTime`) });
+        else if (type === 'Collision') events.push({ ...base, type, heightOffset: range(node, 'HeightOffset', 0, `${path}/HeightOffset`), orientToTerrain: bool(node, 'OrientFXToTerrain', false, `${path}/@OrientFXToTerrain`) });
+    }
     const wind = child(root, 'Wind');
     check(wind, ['Motion', 'Strength', 'FullStrengthDist', 'ZeroStrengthDist', 'AngleChangeMin', 'AngleChangeMax',
         'PingPongStartAngleMin', 'PingPongStartAngleMax', 'PingPongEndAngleMin', 'PingPongEndAngleMax', 'TurbulenceAmplitude', 'TurbulenceFrequency'], [], 'Wind');
@@ -97,41 +140,49 @@ export function compileParticle(root: FxNode): { config?: ParticleConfig; issues
     const position = child(velocity, 'Position'); check(position, [], ['x', 'y', 'z'], 'Velocity/Ortho/Position');
     const age = (node: FxNode, path: string): number => {
         const raw = node.attributes.RelativeAge;
-        return number(raw?.replace(/%$/, ''), 0, `${path}/@RelativeAge`) / 100;
+        return Math.fround(Math.fround(number(raw?.replace(/%$/, ''), 0, `${path}/@RelativeAge`)) * Math.fround(0.01));
     };
     let colors: ColorKey[] | undefined, alphas: AlphaKey[] | undefined;
+    const alphaOrigins: (number | undefined)[] = Array(8).fill(undefined);
     const colorsNode = child(root, 'Colors'), alphasNode = child(root, 'Alphas');
     check(colorsNode, ['UseHouseColor', 'HouseColorSaturation'], ['Color', 'ColorScale'], 'Colors');
     check(alphasNode, [], ['Alpha'], 'Alphas');
     if (bool(colorsNode, 'UseHouseColor')) issue('Colors/@UseHouseColor', '阵营颜色需要显式对象颜色上下文');
     if (colorsNode) {
         colors = Array.from({ length: 8 }, () => ({ time: 0, value: [0, 0, 0] as Vec3 }));
-        for (const node of colorsNode.children.filter(n => local(n.name) === 'Color')) {
-            check(node, ['Frame', 'RelativeAge'], ['Color'], 'Colors/Color');
-            const frame = scalar(node, 'Frame', 1000, 'Colors/Color/@Frame');
-            if (frame < 1 || frame > 8 || !Number.isInteger(frame)) { issue('Colors/Color/@Frame', `槽 ${frame} 不参与合法八槽输入`, 'warning', 'slot'); continue; }
-            const color = child(node, 'Color'); check(color, ['r', 'g', 'b'], [], 'Colors/Color/Color');
-            if (!color) issue('Colors/Color/Color', '颜色槽缺少必需 Color 子节点', 'error', 'value');
-            colors[frame - 1] = { time: age(node, 'Colors/Color'), value: ['r', 'g', 'b'].map(a => scalar(color, a)) as Vec3 };
-            if (frame > 4) issue('Colors/Color/@Frame', `GPU 仅消费槽 1～4；保留槽 ${frame}`, 'warning', 'slot');
+        for (const [index, node] of colorsNode.children.filter(n => local(n.name) === 'Color').entries()) {
+            const path = `Colors/Color[${index + 1}]`;
+            check(node, ['Frame', 'RelativeAge'], ['Color'], path);
+            const frame = scalar(node, 'Frame', 1000, `${path}/@Frame`);
+            if (frame < 1 || frame > 8 || !Number.isInteger(frame)) { issue(`${path}/@Frame`, `槽 ${frame} 不参与合法八槽输入`, 'warning', 'slot'); continue; }
+            const color = child(node, 'Color'); check(color, ['r', 'g', 'b'], [], `${path}/Color`);
+            if (!color) issue(`${path}/Color`, '颜色槽缺少必需 Color 子节点', 'error', 'value');
+            colors[frame - 1] = { time: age(node, path), value: ['r', 'g', 'b'].map(a => scalar(color, a, 0, `${path}/Color/@${a}`)) as Vec3 };
+            if (backend === 'GPU' && frame > 4) issue(`${path}/@Frame`, `GPU 仅消费槽 1～4；保留槽 ${frame}`, 'warning', 'slot');
         }
     }
     if (alphasNode) {
         alphas = Array.from({ length: 8 }, () => ({ time: 0, range: constant(0) }));
-        for (const node of alphasNode.children) {
-            const frame = scalar(node, 'Frame', 1000, 'Alphas/Alpha/@Frame');
-            if (frame < 1 || frame > 8 || !Number.isInteger(frame)) { issue('Alphas/Alpha/@Frame', `槽 ${frame} 不参与合法八槽输入`, 'warning', 'slot'); continue; }
-            alphas[frame - 1] = { time: age(node, 'Alphas/Alpha'), range: range({ name: 'Alphas', attributes: {}, children: [node] }, local(node.name), 0, 'Alphas/Alpha') };
-            if (frame > 4) issue('Alphas/Alpha/@Frame', `GPU 仅消费槽 1～4；保留槽 ${frame}`, 'warning', 'slot');
+        for (const [index, node] of alphasNode.children.entries()) {
+            const path = `Alphas/Alpha[${index + 1}]`;
+            const frame = scalar(node, 'Frame', 1000, `${path}/@Frame`);
+            if (frame < 1 || frame > 8 || !Number.isInteger(frame)) { issue(`${path}/@Frame`, `槽 ${frame} 不参与合法八槽输入`, 'warning', 'slot'); continue; }
+            alphas[frame - 1] = { time: age(node, path), range: range({ name: 'Alphas', attributes: {}, children: [node] }, local(node.name), 0, path) };
+            alphaOrigins[frame - 1] = index + 1;
+            if (backend === 'GPU' && frame > 4) issue(`${path}/@Frame`, `GPU 仅消费槽 1～4；保留槽 ${frame}`, 'warning', 'slot');
         }
-        issue('Alphas/Alpha/@RelativeAge', '此 GPU 路径由颜色槽控制 RGBA 时间；Alpha 时间保留但不消费', 'warning', 'alpha-time');
+        if (backend === 'GPU') issue('Alphas/Alpha/@RelativeAge', '此 GPU 路径由颜色槽控制 RGBA 时间；Alpha 时间保留但不消费', 'warning', 'alpha-time');
     }
     const config: ParticleConfig = {
+        backend, geometryUpdate, geometryType: geometryType as ParticleConfig['geometryType'],
+        shaderProfile: backend === 'CPU' ? 'CPU_DEFAULT' : shaderFile === 'gpuparticleperpendicularbottom.fx' ? 'GPU_PERPENDICULAR_BOTTOM' : 'GPU_STANDARD',
+        softParticles: backend === 'GPU' && bool(draw, 'EnableSoftParticles', true),
+        attachedSystem: backend === 'CPU' ? root.attributes.PerParticleAttachedSystem : undefined, events,
         id: root.attributes.id ?? '', texture: root.attributes.ParticleTexture ?? '', shader: shader as ParticleConfig['shader'],
         lifetime: range(root, 'Lifetime'), initialDelay: range(root, 'InitialDelay'), burstDelay: range(root, 'BurstDelay'), burstCount: range(root, 'BurstCount'),
         size: range(root, 'Size'), startSizeRate: range(root, 'StartSizeRate'), systemLifetime: scalar(root, 'SystemLifetime'), isOneShot: bool(root, 'IsOneShot'),
         velocityDamping: range(physics, 'VelocityDamping', 1, 'Physics/Default/VelocityDamping'), gravity: scalar(physics, 'Gravity'), drift: vector(physics, 'DriftVelocity'),
-        sizeRate: range(update, 'SizeRate'), sizeRateDamping: range(update, 'SizeRateDamping', 1),
+        sizeRate: geometry ? constant(0) : range(update, 'SizeRate'), sizeRateDamping: range(update, 'SizeRateDamping', 1),
         angleZ: range(update, 'AngleZ'), angularRateZ: range(update, 'AngularRateZ'), angularDamping: range(update, 'AngularDamping', 1),
         angleXY: range(update, 'AngleXY'), angularRateXY: range(update, 'AngularRateXY'), angularDampingXY: range(update, 'AngularDampingXY', 1),
         colors, alphas, colorScale: range(colorsNode, 'ColorScale', 1),
@@ -151,10 +202,23 @@ export function compileParticle(root: FxNode): { config?: ParticleConfig; issues
     if (Math.min(config.lifetime.low, config.lifetime.high) < 1 || Math.max(config.lifetime.low, config.lifetime.high) > 0x7fffffff) issue('Lifetime', '本预览仅支持截断后为正的粒子寿命', 'error', 'value');
     if (!Number.isInteger(config.systemLifetime) || config.systemLifetime < 0 || config.systemLifetime > 0x7fffffff) issue('@SystemLifetime', '系统寿命应为非负 signed32 安全整数；0 为无限窗口', 'error', 'value');
     for (const name of ['velocityDamping', 'sizeRateDamping', 'angularDamping', 'angularDampingXY'] as const) {
-        if (Math.min(config[name].low, config[name].high) <= 0) issue(name, '解析阻尼需为正；保留原文且暂停受影响系统', 'error', 'value');
+        if (backend === 'GPU' && Math.min(config[name].low, config[name].high) <= 0) issue(name, '解析阻尼需为正；保留原文且暂停受影响系统', 'error', 'value');
     }
     if (Math.min(...config.volume.halfSize, config.volume.radius, config.volume.length) < 0) issue('Volume', '本轮体积合同仅支持非负有限尺寸', 'error', 'value');
-    if (config.startSizeRate.low !== 0 || config.startSizeRate.high !== 0) issue('StartSizeRate', '此普通 GPU 路径不消费出生尺寸累加；保留随机采样与系统累加，不将其误作 SizeRate', 'warning', 'gpu-unused');
+    if (backend === 'GPU' && (config.startSizeRate.low !== 0 || config.startSizeRate.high !== 0)) issue('StartSizeRate', '此普通 GPU 路径不消费出生尺寸累加；保留随机采样与系统累加，不将其误作 SizeRate', 'warning', 'gpu-unused');
     if (!Number.isInteger(config.atlas.singleRow) || !Number.isInteger(config.atlas.randTex) || config.atlas.speedMultiplier < 0) issue('Draw/Gpu', 'Atlas 行/模式须为整数，播放速度需非负', 'error', 'value');
+    if (backend === 'CPU') {
+        if (alphas && !alphas[1].time) issue(alphaOrigins[1] ? `Alphas/Alpha[${alphaOrigins[1]}]/@RelativeAge` : 'Alphas', 'CPU Alpha 第二槽时间为零时原生当前初值依赖分配器复用，未证分支暂停播放', 'error', 'cpu-alpha-initial');
+        for (const [name, keys] of [['Colors', colors], ['Alphas', alphas]] as const) {
+            if (keys?.some(key => key.time < 0)) issue(name, 'CPU 负时间的无符号帧间隔分支尚未闭合', 'error', 'cpu-key-time');
+        }
+        if (alphas) {
+            const life = Math.trunc(Math.min(config.lifetime.low, config.lifetime.high));
+            for (let i = 1; i < 8 && alphas[i].time !== 0; i++) {
+                if (Math.trunc(life * alphas[i].time) === Math.trunc(life * Math.max(0, alphas[i - 1].time)))
+                    issue(`Alphas/Alpha[${alphaOrigins[i]}]/@RelativeAge`, 'CPU Alpha 帧间隔为零会产生非有限斜率，暂停受影响系统', 'error', 'cpu-alpha-interval');
+            }
+        }
+    }
     return { config: issues.some(i => i.severity === 'error') ? undefined : config, issues };
 }

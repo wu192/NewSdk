@@ -71,7 +71,7 @@ export async function streamPreviewTextures(ir: PreviewIR, resources: Pick<Resou
                 texture.width = loaded.texture.width; texture.height = loaded.texture.height;
                 delete texture.message;
                 if (loaded.texture.byteLength > options.maxBytes) {
-                    texture.status = 'budget'; texture.message = '单贴图超过 CPU 预览预算，请选择低分辨率源图。';
+                    texture.status = 'budget'; texture.message = '单贴图的 RGBA/mip/压缩块超过 CPU 预览预算，请提高贴图预算或选择较小素材。';
                 }
             } else texture.message = loaded.message;
             const issue = recordProblem(ir, texture);

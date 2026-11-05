@@ -14,6 +14,9 @@ export interface AssetIndexOptions {
 export interface AssetRecord {
     key: string; id: string; type: string; namespace: string; uri: string; entry: string;
     node: XmlElement; readonly: boolean; includeType: IncludeMode;
+    /** xi:include is expanded before compiler instance collection. Keep the
+     * physical URI for edits, and this logical document for reference visibility. */
+    scopeUri?: string;
 }
 export interface SourceDataProfile { source: string; dataRoot?: string; dataPaths: string[]; artPaths: string[]; audioPaths: string[]; }
 interface AssetScope { self: AssetRecord[]; all: AssetRecord[]; tentative: AssetRecord[]; reference: AssetRecord[]; }
@@ -274,7 +277,7 @@ export class AssetIndex {
                         node, readonly: this.isReadonly(file), includeType: mode });
                 }
                 const isAssetInclude = node.localName === 'Include' && node.parent?.localName === 'Includes';
-                const isXmlInclude = node.localName === 'include' && (node.namespaceUri === XML_INCLUDE_NAMESPACE || node.name === 'xi:include');
+                const isXmlInclude = node.localName === 'include' && node.namespaceUri === XML_INCLUDE_NAMESPACE;
                 if (!isAssetInclude && !isXmlInclude) continue;
                 const reference = isXmlInclude ? node.attributes.href : node.attributes.source;
                 const childMode = isXmlInclude ? 'xml' : node.attributes.type;
@@ -296,6 +299,29 @@ export class AssetIndex {
         };
         await visit(entry, 'all'); stopped(signal);
         if (request !== this.epoch || this.disposed) throw new Error('FX asset request superseded');
+        // Compiler AssetDeclarationDocument.LoadXml loads an XIncludingReader
+        // before collecting instances. Inline fragments belong to the including
+        // definition document, while source tokens retain their physical URI.
+        const rawAssets = new Map([...graph.assets.values()].map(asset=>[asset.node,asset])); graph.assets.clear();
+        const assetDocuments = new Set([entry,...graph.includes.filter(edge=>edge.mode!=='xml').map(edge=>edge.to)]);
+        const insert = (scopeUri:string,uri:string,node:XmlElement,stack:string[],inlinePath=node.path):void => {
+            const edge=graph.includes.find(value=>value.mode==='xml'&&value.from===uri&&value.source.nodePath===node.path);
+            if(edge){
+                if(stack.includes(edge.to))return;
+                for(const root of graph.documents.get(edge.to)?.roots??[]) {
+                    if(root.localName==='AssetDeclaration') {graph.issues.push(issue('xinclude-nested-declaration','xi:include 内联整个根元素；AssetDeclaration 中不能嵌套 AssetDeclaration，请包含单资产 XML 片段',uri,node));continue;}
+                    insert(scopeUri,edge.to,root,[...stack,edge.to],`${inlinePath}/${root.path}`);
+                }
+                return;
+            }
+            const original=rawAssets.get(node);if(!original)return;
+            const record=scopeUri===uri?original:{...original,scopeUri,key:JSON.stringify([entry,original.namespace,original.type,original.id,uri,node.path,scopeUri,inlinePath]),includeType:modes.get(scopeUri)??'all'};
+            graph.assets.set(record.key,record);
+        };
+        for(const uri of assetDocuments)for(const root of graph.documents.get(uri)?.roots??[]) {
+            if(root.localName==='AssetDeclaration')for(const child of root.children)insert(uri,uri,child,[uri]);
+            else insert(uri,uri,root,[uri]);
+        }
         graph.sourceDataProfile = this.profile;
         for (const file of this.profileDependencies) if (!graph.dependencies.includes(file)) graph.dependencies.push(file);
         this.active = graph; this.scopes.clear(); this.graphs.clear(); this.graphs.set(entry, graph); this.invalidated.delete(entry);
@@ -308,7 +334,7 @@ export class AssetIndex {
      */
     private documentScope(uri: string): AssetScope {
         const file = filePath(uri); const cached = this.scopes.get(file); if (cached) return cached;
-        const scope: AssetScope = {self:[...this.active.assets.values()].filter(asset => asset.uri === file),all:[],tentative:[],reference:[]};
+        const scope: AssetScope = {self:[...this.active.assets.values()].filter(asset => (asset.scopeUri??asset.uri) === file),all:[],tentative:[],reference:[]};
         this.scopes.set(file,scope); // Include cycles are separately diagnosed and bounded.
         const add = (target: AssetRecord[], values: AssetRecord[]): void => {
             for (const asset of values) if (!target.some(existing => existing.key === asset.key)) target.push(asset);
@@ -349,11 +375,16 @@ export class AssetIndex {
             const refs: [string, string][] = [];
             if (asset.node.attributes.inheritFrom) refs.push([asset.type, asset.node.attributes.inheritFrom]);
             if (asset.type === 'FXParticleSystemTemplate' && asset.node.attributes.ParticleTexture) refs.push(['Texture', asset.node.attributes.ParticleTexture]);
-            const walk = (node: XmlElement): void => {
+            const walk = (node: XmlElement, uri=asset.uri, stack: string[]=[]): void => {
+                const edge=this.active.includes.find(edge=>edge.mode==='xml'&&edge.from===uri&&edge.source.nodePath===node.path);
+                if(edge){if(!stack.includes(edge.to))for(const root of this.getDocument(edge.to)?.roots??[])walk(root,edge.to,[...stack,edge.to]);return;}
                 if (node.localName === 'ParticleSystem' && node.attributes.Particle) refs.push(['FXParticleSystemTemplate', node.attributes.Particle]);
-                for (const child of node.children) walk(child);
+                if (node.attributes.PerParticleAttachedSystem) refs.push(['FXParticleSystemTemplate',node.attributes.PerParticleAttachedSystem]);
+                if (node.attributes.EventFX) refs.push(['FXList',node.attributes.EventFX]);
+                if (node.localName === 'FXListAtBonePos' && node.attributes.FX) refs.push(['FXList',node.attributes.FX]);
+                for (const child of node.children) walk(child,uri,stack);
             }; walk(asset.node);
-            for (const [type, ref] of refs) for (const target of this.candidates(type, ref, asset.namespace, asset.uri)) {
+            for (const [type, ref] of refs) for (const target of this.candidates(type, ref, asset.namespace, asset.scopeUri??asset.uri)) {
                 const dependents = this.reverseAssets.get(target.key) ?? new Set<string>(); dependents.add(asset.key); this.reverseAssets.set(target.key, dependents);
             }
         }

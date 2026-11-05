@@ -80,6 +80,27 @@ export async function runFxAcceptance(fx: FxApi, modRoot: string, evidence: stri
     assert.equal(auraDoc.getText(),beforeAura); await auraDoc.save();
     cases.push('A references B / edit actual B / undo and save actual B');
 
+    await fx.open(auraUri);
+    await waitFor(() => !!fx.getSnapshot(auraUri.fsPath).ir?.systems.some(s => s.fields.some(f => f.uri === auraUri.fsPath)), 'B edit/save queue ready');
+    // Exercise the exact production message dispatcher with the version a webview sees
+    // before blur submits an edit and Ctrl+S immediately submits Save.
+    const boundary = fx as unknown as { current(): {document: vscode.TextDocument; session: {id: string}}; dispatch(state: unknown, message: unknown): Promise<void> };
+    const queueState = boundary.current(); assert.equal(queueState.document.uri.toString(), auraUri.toString());
+    const queueSnap = fx.getSnapshot(auraUri.fsPath);
+    const queuedField = queueSnap.ir!.systems.flatMap(s => s.fields).find(f => f.uri === auraUri.fsPath && f.attribute === 'Low' && /Lifetime/.test(f.nodePath))!;
+    const oldVersion = auraDoc.version;
+    const envelope = {sessionId:queueState.session.id, documentVersion:oldVersion};
+    const write = boundary.dispatch(queueState, {...envelope, requestId:1000001, type:'edit', edits:[{key:queuedField.key, expectedValue:queuedField.value, value:'51'}]});
+    const save = boundary.dispatch(queueState, {...envelope, requestId:1000002, type:'save'});
+    await Promise.all([write, save]);
+    assert.ok(auraDoc.version > oldVersion); assert.equal(auraDoc.isDirty, false);
+    assert.equal(await fs.readFile(auraUri.fsPath,'utf8'), auraDoc.getText()); assert.ok(auraDoc.getText().includes('Low="51"'));
+    assert.equal(document.getText(), edited, 'B queued save must leave A unchanged');
+    await vscode.window.showTextDocument(auraDoc,{preview:false}); await vscode.commands.executeCommand('undo');
+    assert.equal(auraDoc.getText(),beforeAura,'queued save retains native B undo'); await auraDoc.save();
+    cases.push('production dispatcher: B edit then old-version Ctrl+S saves new B text / A unchanged / native B undo');
+
+
     await fx.open(flash);
     await waitFor(() => !!fx.getSnapshot(flash.fsPath).ir, 'save and compile');
     const result = await saveAndBuild([entry]);

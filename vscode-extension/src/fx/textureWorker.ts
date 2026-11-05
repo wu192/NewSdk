@@ -8,6 +8,8 @@ export type TextureDecodeReply = { texture: DecodedTexture } | { error: { code: 
 parentPort?.on('message', (job: TextureDecodeJob) => {
     try {
         const texture = decodeTexture(job.bytes, job.options);
+        // Do not keep the transferred source buffer reachable while the idle worker awaits its next job.
+        job.bytes = new Uint8Array(0);
         const buffers = new Set<ArrayBuffer>();
         for (const mip of texture.mips) buffers.add(mip.pixels.buffer as ArrayBuffer);
         for (const mip of texture.compressedMips ?? []) buffers.add(mip.bytes.buffer as ArrayBuffer);

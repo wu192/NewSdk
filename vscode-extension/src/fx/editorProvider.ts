@@ -6,8 +6,8 @@ import { AssetIndex, AssetRecord } from './assetIndex';
 import { AssetResolver } from './assetResolver';
 import { ResourceReady, ResourceService } from './resourceService';
 import { parseXml, XmlElement } from './xmlDocument';
-import { prepareFieldTransaction, prepareTransaction } from './editTransaction';
-import { ActivePreview, PreviewSession } from './previewSession';
+import { createAttributePatch, prepareFieldTransaction, prepareTransaction } from './editTransaction';
+import { ActivePreview, PreviewSession, parseFxScene } from './previewSession';
 import { FxDiagnostics } from './diagnostics';
 import { FxTreeProvider } from './treeProvider';
 import { FxClientMessage, FxEnvelope, FxField, FxHostMessage, FxScene, PreviewIR, defaultScene } from './previewProtocol';
@@ -15,10 +15,11 @@ import { canonicalPath, containsPath, DiscoveredProject, pathIdentity, ResolvedP
 import { createFxTemplate, escapeXml, FxPreset, fxPresets } from './templates';
 import { prepareTextureState, streamPreviewTextures, UploadedTexture } from './texturePipeline';
 import { planAssetCopy } from './copyAsset';
+import { FxCompiledTextureService, FxTextureInputVersion } from './compiledTextureService';
 
 const viewType = 'newsdk.fxEditor';
 const sourceLimit = 4 * 1024 * 1024;
-const textureTransferLimit = 32 * 1024 * 1024;
+const defaultTextureBudget = 32 * 1024 * 1024;
 const textureChunkBytes = 256 * 1024;
 type HostPayload = { [K in FxHostMessage['type']]: Omit<Extract<FxHostMessage, { type: K }>, keyof FxEnvelope> }[FxHostMessage['type']];
 interface FxServices {
@@ -26,13 +27,13 @@ interface FxServices {
     getConfiguration(): ResolvedProjectSettings | undefined;
     saveAndBuild(uris?: vscode.Uri[]): Promise<unknown>;
 }
-interface OpenRequest { assetKey?: string; entry?: string; previewKey?: string; }
+interface OpenRequest { assetKey?: string; entry?: string; previewKey?: string; scene?: FxScene; }
 interface EditorState {
     document: vscode.TextDocument; panel: vscode.WebviewPanel; session: PreviewSession;
     index: AssetIndex; resolver: AssetResolver; entry: string; assetKey?: string; previewKey?: string;
     ir?: PreviewIR; scene: FxScene; timer?: ReturnType<typeof setTimeout>; disposed: boolean;
     followCursor: boolean; uploadedTextures: Map<string, UploadedTexture>; subscriptions: vscode.Disposable[];
-    indexReleased: boolean;
+    indexReleased: boolean; inputFiles: string[]; textureInputs: number; compiled: FxCompiledTextureService;
     s3tc: boolean; transfer?: {key: string; transferId: string; level: number; offset: number; resolve: (accepted: boolean) => void};
     state: Record<string, unknown>;
 }
@@ -48,25 +49,17 @@ export interface FxApi extends vscode.Disposable {
 function asUri(file: string): vscode.Uri { return file.startsWith('file:') ? vscode.Uri.parse(file) : vscode.Uri.file(file); }
 function err(error: unknown): string { return error instanceof Error ? error.message : String(error); }
 function sameFile(a: string, b: string): boolean { return pathIdentity(asUri(a).fsPath) === pathIdentity(asUri(b).fsPath); }
+function systems(ir: PreviewIR) { return [...ir.systems, ...(ir.dynamic?.templates ?? []), ...(ir.dynamic?.fxLists.flatMap(list => list.systems) ?? [])]; }
 function fields(ir: PreviewIR): FxField[] {
     const map = new Map<string, FxField>();
-    for (const field of [...ir.fields, ...ir.systems.flatMap(system => system.fields)]) map.set(field.key, field);
+    for (const field of [...ir.fields, ...ir.systems.flatMap(system => system.fields), ...(ir.dynamic?.templates.flatMap(system => system.fields) ?? []), ...(ir.dynamic?.fxLists.flatMap(list => list.systems.flatMap(system => system.fields)) ?? [])]) map.set(field.key, field);
     return [...map.values()];
-}
-function sceneValue(value: unknown): FxScene | undefined {
-    if (!value || typeof value !== 'object') return undefined;
-    const o = value as Record<string, unknown>;
-    const vec = (v: unknown): v is [number, number, number] => Array.isArray(v) && v.length === 3 && v.every(n => typeof n === 'number' && Number.isFinite(n) && Math.abs(n) <= 1e6);
-    if (!vec(o.source) || !vec(o.target) || (o.terrain !== 'land' && o.terrain !== 'water')
-        || typeof o.ground !== 'number' || !Number.isFinite(o.ground) || Math.abs(o.ground) > 1e6
-        || !Number.isSafeInteger(o.seed) || (o.seed as number) < 0 || (o.seed as number) > 0xffffffff) return undefined;
-    return { source: [...o.source], target: [...o.target], terrain: o.terrain, ground: o.ground, seed: o.seed as number };
 }
 function safeUiState(value: unknown): Record<string, unknown> {
     const result: Record<string, unknown> = {};
     if (!value || typeof value !== 'object' || Array.isArray(value)) return result;
     const v = value as Record<string, unknown>;
-    for (const key of ['playing', 'followCursor', 'showGround', 'ground', 'lowResolution']) if (typeof v[key] === 'boolean') result[key] = v[key];
+    for (const key of ['playing', 'followCursor', 'showGround', 'ground', 'lowResolution', 'softParticles']) if (typeof v[key] === 'boolean') result[key] = v[key];
     for (const key of ['time', 'timeSeconds', 'speed', 'zoom', 'frame', 'endFrame']) if (typeof v[key] === 'number' && Number.isFinite(v[key]) && Math.abs(v[key] as number) <= 100000) result[key] = v[key];
     for (const key of ['selectedSystem', 'soloKey', 'background', 'selected', 'solo']) if (typeof v[key] === 'string' && (v[key] as string).length <= 256) result[key] = v[key];
     if (Array.isArray(v.hiddenKeys)) result.hiddenKeys = v.hiddenKeys.filter(x => typeof x === 'string' && x.length <= 256).slice(0, 128);
@@ -78,7 +71,7 @@ function safeUiState(value: unknown): Record<string, unknown> {
             result.camera = { yaw: camera.yaw, pitch: camera.pitch, distance: camera.distance, target: camera.target.slice() };
         }
     }
-    const scene = sceneValue(v.scene); if (scene) result.scene = scene;
+    const scene = parseFxScene(v.scene); if (scene) result.scene = scene;
     return result;
 }
 
@@ -91,7 +84,9 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
     private readonly subscriptions: vscode.Disposable[] = [];
     private resources?: ResourceService;
     private rootKey = '';
+    private textureBudget = defaultTextureBudget;
     private roots: string[] = [];
+    private compiledRoot?: string;
     private watchers: vscode.Disposable[] = [];
     private closed = false;
     constructor(private readonly context: vscode.ExtensionContext, private readonly services: FxServices) {
@@ -106,6 +101,12 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         };
         command('newsdk.previewFx', (uri, key) => this.open(uri instanceof vscode.Uri ? uri : vscode.window.activeTextEditor?.document.uri,
             typeof key === 'string' ? key : undefined));
+        command('newsdk.selectFxSystem', async (uri, key, systemKey) => {
+            if (!(uri instanceof vscode.Uri) || typeof key !== 'string' || typeof systemKey !== 'string') return;
+            await this.open(uri, key);
+            const state = [...this.editors].find(editor => sameFile(editor.document.uri.fsPath, uri.fsPath));
+            if (state?.ir && systems(state.ir).some(system => system.key === systemKey)) await this.post(state, {type:'focusSystem', key:systemKey});
+        });
         command('newsdk.searchFx', () => this.search());
         command('newsdk.reloadFx', () => this.reload());
         command('newsdk.newFx', () => this.newPreset(this.current()));
@@ -132,13 +133,18 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         if (!mod && uri) mod = vscode.workspace.getWorkspaceFolder(uri)?.uri.fsPath;
         if (!mod) throw new Error('请先选择 MOD 目录，或打开 MOD 工作区中的 XML。');
         const roots = await Promise.all([mod, config?.sdkRoot].filter((x): x is string => !!x).map(x => canonicalPath(x)));
-        const key = roots.map(x => pathIdentity(x)).join('|');
+        const compiledRoot = config?.outputDirectory ? await canonicalPath(config.outputDirectory) : undefined;
+        const resourceRoots = [...new Set([...roots, ...(compiledRoot ? [compiledRoot] : [])])];
+        const configuredBudget = vscode.workspace.getConfiguration('newsdk').get<number>('fxTextureBudgetMiB', 32);
+        this.textureBudget = (Number.isSafeInteger(configuredBudget) ? Math.max(16, Math.min(256, configuredBudget)) : 32) * 1024 * 1024;
+        const key = `${resourceRoots.map(x => pathIdentity(x)).join('|')}|${this.textureBudget}`;
         if (key === this.rootKey) return;
-        this.rootKey = key; this.roots = roots;
+        if (this.rootKey) for (const state of [...this.editors]) { state.panel.dispose(); this.close(state); }
+        this.rootKey = key; this.roots = roots; this.compiledRoot = compiledRoot;
         this.resources?.dispose();
-        this.resources = new ResourceService({ roots, cacheBytes: 32 * 1024 * 1024, decodeBudgetBytes: 64 * 1024 * 1024 });
+        this.resources = new ResourceService({ roots: resourceRoots, cacheBytes: this.textureBudget, decodeBudgetBytes: this.textureBudget * 2, transientBytes: this.textureBudget * 2, sourceBytes: this.textureBudget * 2 });
         for (const watcher of this.watchers) watcher.dispose(); this.watchers = [];
-        for (const root of roots) {
+        for (const root of resourceRoots) {
             const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(root, '**/*'));
             const changed = (file: vscode.Uri): void => {
                 if (/[\\/](?:SuperCompilerCache|node_modules|\.git)[\\/]/i.test(file.fsPath)) return;
@@ -159,6 +165,12 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             if (containsPath(sdkRoot, physical) && !(nestedMod && containsPath(modRoot, physical))) throw new Error('SDK 来源只读，请复制为 MOD 独立资源后编辑。');
         }
         if (editable && !vscode.workspace.isTrusted) throw new Error('信任此工作区后才能修改特效。');
+        return physical;
+    }
+    private async allowedCompiled(file: string): Promise<string> {
+        const physical = await canonicalPath(asUri(file).fsPath);
+        if (![...this.roots, ...(this.compiledRoot ? [this.compiledRoot] : [])].some(root => containsPath(root, physical)))
+            throw new Error('编译贴图不在当前 MOD / SDK / 已配置输出目录中。');
         return physical;
     }
     private newIndex(): AssetIndex {
@@ -222,14 +234,12 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         const stored = safeUiState(this.context.workspaceState.get(`newsdk.fx:${document.uri.toString()}`, {}));
         const state: EditorState = { document, panel, session, index, resolver: new AssetResolver(index),
             entry: request?.entry ?? document.uri.fsPath, assetKey: request?.assetKey, previewKey: request?.previewKey,
-            scene: sceneValue(stored.scene) ?? { ...defaultScene, source: [...defaultScene.source], target: [...defaultScene.target] },
-            disposed: false, followCursor: stored.followCursor === true, state: stored, uploadedTextures: new Map(), subscriptions: [], s3tc: false, indexReleased: false };
+            scene: request?.scene ?? parseFxScene(stored.scene) ?? { ...defaultScene, source: [...defaultScene.source], target: [...defaultScene.target] },
+            disposed: false, followCursor: stored.followCursor === true, state: stored, uploadedTextures: new Map(), subscriptions: [], s3tc: false, indexReleased: false, inputFiles: [], textureInputs: 0, compiled: new FxCompiledTextureService(this.resources!) };
         this.editors.add(state);
         panel.webview.options = { enableScripts: true, localResourceRoots: [vscode.Uri.joinPath(this.context.extensionUri, 'media')] };
         panel.webview.html = this.html(panel.webview, session, stored);
-        state.subscriptions.push(panel.webview.onDidReceiveMessage((value: unknown) => {
-            void this.receive(state, value).catch(error => this.status(state, err(error)));
-        }));
+        state.subscriptions.push(panel.webview.onDidReceiveMessage((value: unknown) => { void this.dispatch(state, value); }));
         state.subscriptions.push(panel.onDidChangeViewState(() => {
             if (panel.visible && panel.active) {
                 this.active.activate(session, () => this.stopCanvas(state));
@@ -250,6 +260,8 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         state.uploadedTextures.clear();
         state.index.dispose(); state.indexReleased = true; state.ir = undefined;
         this.diagnostics.remove(state.session.id);
+        // No host decoder worker remains alive while every canvas is suspended.
+        if (![...this.editors].some(editor => editor.session.visible && !editor.session.signal.aborted)) this.resources?.clear();
     }
     private async post(state: EditorState, message: HostPayload): Promise<void> {
         if (state.disposed) return;
@@ -266,14 +278,15 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
     }
     private changed(file: string): void {
         for (const state of this.editors) {
-            if (state.indexReleased) { if (sameFile(file, state.document.uri.fsPath)) this.schedule(state); continue; }
-            const relevant = sameFile(file, state.document.uri.fsPath)
-                || state.index.graph.dependencies.some(uri => sameFile(uri, file))
-                || state.index.graph.includes.some(edge => sameFile(edge.to, file))
-                || state.ir?.textures.some(texture => texture.file && sameFile(texture.file, file));
+            // Keep only bounded input identities when a hidden page releases its graph.
+            const relevant = sameFile(file, state.document.uri.fsPath) || state.inputFiles.some(uri => sameFile(uri, file))
+                || (!state.indexReleased && (state.index.graph.dependencies.some(uri => sameFile(uri, file))
+                    || state.index.graph.includes.some(edge => sameFile(edge.to, file))));
             if (!relevant) continue;
-            const affected = state.index.invalidate(file);
-            if (relevant || affected.size) this.schedule(state);
+            state.textureInputs++;
+            void this.post(state, { type: 'invalidateDraft', message: '内容已更新，临时调节已取消；请依据当前文档重新应用。' });
+            if (!state.indexReleased) state.index.invalidate(file);
+            this.schedule(state);
         }
     }
     private async rebuild(state: EditorState): Promise<void> {
@@ -294,21 +307,23 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         if (!selected) { await this.status(state, '此入口未找到 FXList 或 FXParticleSystemTemplate。'); return; }
         if (!state.previewKey) state.assetKey = selected.key;
         const ir = await state.resolver.resolve(selected.key, state.scene, signal); if (!state.session.current(requestId)) return;
+        state.compiled.applySelection(ir, this.textureInput(state));
+        state.inputFiles = [...new Set([...ir.dependencies, ...ir.textures.flatMap(texture => [texture.file, texture.sourceFile, texture.compiled?.path].filter((file): file is string => !!file))])].slice(0, 16384);
         prepareTextureState(ir, state.uploadedTextures);
         state.ir = ir; state.scene = ir.scene;
         state.panel.title = state.previewKey ? `特效 · 编辑 ${path.basename(state.document.uri.fsPath)} / 预览 ${ir.name}` : `特效 · ${ir.name}`;
         this.tree.update(assets, ir);
-        await this.diagnostics.update(state.session.id, [...ir.issues, ...ir.systems.flatMap(system => system.issues)]);
+        await this.diagnostics.update(state.session.id, [...ir.issues, ...systems(ir).flatMap(system => system.issues)]);
         if (!state.session.current(requestId)) return;
-        await this.post(state, { type: 'preview', ir, assets: assets.map(a => ({ key: a.key, name: a.id, type: a.type })), editingUri: state.document.uri.fsPath });
+        await this.post(state, { type: 'preview', ir, assets: assets.map(a => ({ key: a.key, name: a.id, type: a.type })), editingUri: state.document.uri.fsPath, textureBudgetBytes: this.textureBudget });
         const resources = this.resources;
-        if (resources) await streamPreviewTextures(ir, resources, { uploaded: state.uploadedTextures, signal, maxBytes: textureTransferLimit,
+        if (resources) await streamPreviewTextures(ir, resources, { uploaded: state.uploadedTextures, signal, maxBytes: this.textureBudget,
             current: () => state.session.current(requestId),
             transfer: (key, loaded) => this.sendTexture(state, key, loaded, requestId, signal),
             publish: async (previousKey, texture, issue) => {
                 if (!state.session.current(requestId)) return;
                 await this.post(state, { type: 'textureState', previousKey, texture, issue });
-                if (issue && state.session.current(requestId)) await this.diagnostics.update(state.session.id, [...ir.issues, ...ir.systems.flatMap(system => system.issues)]);
+                if (issue && state.session.current(requestId)) await this.diagnostics.update(state.session.id, [...ir.issues, ...systems(ir).flatMap(system => system.issues)]);
             } });
         } catch (error) {
             // A later ready/change/activation owns the state; cancellation is normal.
@@ -316,13 +331,30 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             throw error;
         }
     }
+    private textureInput(state: EditorState): FxTextureInputVersion {
+        return {documentUri: state.document.uri.toString(), documentVersion: state.document.version,
+            savedDocumentVersion: state.document.isDirty ? undefined : state.document.version, inputGeneration: state.textureInputs};
+    }
+    private async importCompiled(state: EditorState, key: string): Promise<void> {
+        const texture = state.ir?.textures.find(item => item.key === key);
+        if (!texture?.file) return;
+        const input = this.textureInput(state); const {requestId, signal} = state.session;
+        const files = await vscode.window.showOpenDialog({title:'从 MOD / SDK / 已配置输出目录导入 DDS 编译结果', canSelectMany:false,
+            defaultUri:asUri(texture.compiled?.path ?? texture.file), filters:{DDS:['dds']}});
+        if (!files?.[0] || !state.session.current(requestId)) return;
+        const file = await this.allowedCompiled(files[0].fsPath);
+        const result = await state.compiled.importResult(texture, file, input, {signal});
+        if (!state.session.current(requestId)) return;
+        if (result.status !== 'imported') { await this.status(state, result.message); return; }
+        await this.rebuild(state);
+    }
     private async sendTexture(state: EditorState, key: string, loaded: ResourceReady, requestId: number, signal: AbortSignal): Promise<boolean> {
         const image = loaded.texture;
         const transferId = randomBytes(12).toString('hex');
         const compressed = state.s3tc && image.compressedMips && (image.format === 'DXT1' || image.format === 'DXT3' || image.format === 'DXT5');
         const levels = compressed ? image.compressedMips!.map(mip => ({ width: mip.width, height: mip.height, bytes: mip.bytes }))
             : image.mips.map(mip => ({ width: mip.width, height: mip.height, bytes: mip.pixels }));
-        if (levels.reduce((n, level) => n + level.bytes.byteLength, 0) > textureTransferLimit) { await this.status(state, '贴图传输超过 32 MiB 预览预算。'); return false; }
+        if (levels.reduce((n, level) => n + level.bytes.byteLength, 0) > this.textureBudget) { await this.status(state, `贴图传输超过 ${this.textureBudget / 1048576} MiB 预览预算；可调整 newsdk.fxTextureBudgetMiB。`); return false; }
         await this.post(state, { type: 'textureBegin', texture: { key, transferId, width: image.width, height: image.height,
             format: compressed ? image.format as 'DXT1' | 'DXT3' | 'DXT5' : 'RGBA8', levels: levels.map(level => ({ width: level.width, height: level.height, byteLength: level.bytes.byteLength })) } });
         for (let level = 0; level < levels.length; level++) {
@@ -349,9 +381,18 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             if (signal.aborted) finish(false);
         });
     }
+    private dispatch(state: EditorState, value: unknown): Promise<void> {
+        const type = value && typeof value === 'object' ? (value as Record<string, unknown>).type : undefined;
+        const run = (): Promise<void> => this.receive(state, value).catch(error => this.status(state, err(error), type === 'edit' || type === 'overrideField'));
+        // Texture ACKs bypass document actions, which may themselves await uploads.
+        return ['edit','save','saveAndBuild','undo','redo','new','copy','overrideField','select','openShared','openFieldSource'].includes(String(type))
+            ? state.session.enqueueDocumentAction(run) : run();
+    }
     private async receive(state: EditorState, value: unknown): Promise<void> {
         const ready = !!value && typeof value === 'object' && (value as Record<string, unknown>).type === 'ready';
-        if (!state.session.accepts(value, !ready)) {
+        const type = value && typeof value === 'object' ? (value as Record<string, unknown>).type : undefined;
+        const requiresVersion = !ready && !['save','saveAndBuild','undo','redo','state','textureAck'].includes(String(type));
+        if (!state.session.accepts(value, requiresVersion)) {
             if (value && typeof value === 'object' && (value as Record<string, unknown>).sessionId === state.session.id) await this.status(state, '内容已更新，请重新应用。', !!state.ir);
             return;
         }
@@ -364,8 +405,17 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                 else { state.session.suspend(); this.stopCanvas(state); return; }
                 state.uploadedTextures.clear(); await this.rebuild(state); break;
             case 'reload': await this.reload(state, message.resetRenderer === true); break;
-            case 'undo': case 'redo': if (state.panel.active) await vscode.commands.executeCommand(message.type); break;
-            case 'saveAndBuild': await this.services.saveAndBuild(state.ir?.dependencies.map(asUri)); break;
+            case 'undo': case 'redo':
+                if (!state.session.acceptMutation(message.requestId)) return;
+                if (state.panel.active) await vscode.commands.executeCommand(message.type); break;
+            case 'save':
+                if (!state.session.acceptMutation(message.requestId)) return;
+                if (!await state.document.save()) await this.status(state, '保存失败或已取消；修改仍保留在脏文档中。');
+                else await this.status(state, `已保存 ${path.basename(state.document.uri.fsPath)}。`);
+                break;
+            case 'saveAndBuild':
+                if (!state.session.acceptMutation(message.requestId)) return;
+                await this.services.saveAndBuild(state.ir?.dependencies.map(asUri)); break;
             case 'edit':
                 if (!state.session.acceptMutation(message.requestId)) return;
                 await this.apply(state, message.edits, message.documentVersion); break;
@@ -373,7 +423,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                 if (state.ir && typeof message.key === 'string') {
                     if (/^issue:\d+$/.test(message.key)) await this.locate(state, state.ir.issues[Number(message.key.slice(6))]);
                     else if (message.key.startsWith('issue:')) {
-                        const at = message.key.lastIndexOf(':'); const system = state.ir.systems.find(s => s.key === message.key.slice(6, at));
+                        const at = message.key.lastIndexOf(':'); const system = systems(state.ir).find(s => s.key === message.key.slice(6, at));
                         const index = Number(message.key.slice(at + 1)); if (system && Number.isSafeInteger(index) && index >= 0) await this.locate(state, system.issues[index]);
                     } else await this.locate(state, fields(state.ir).find(f => f.key === message.key));
                 }
@@ -386,9 +436,9 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                     else { state.assetKey = asset.key; state.previewKey = undefined; await this.rebuild(state); }
                 }
                 break;
-            case 'scene': { const scene = sceneValue(message.scene); if (scene) { state.scene = scene; await this.rebuild(state); } break; }
+            case 'scene': { const scene = parseFxScene(message.scene); if (scene) { state.scene = scene; await this.rebuild(state); } break; }
             case 'openShared': {
-                const system = state.ir?.systems.find(s => s.key === message.systemKey); const asset = system && state.index.getAsset(system.templateKey);
+                const system = state.ir && systems(state.ir).find(s => s.key === message.systemKey); const asset = system && state.index.getAsset(system.templateKey);
                 if (asset) await this.openSharedAsset(state, asset, true); break;
             }
             case 'openFieldSource': {
@@ -405,6 +455,12 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             case 'state':
                 state.state = safeUiState(message.state); state.followCursor = state.state.followCursor === true;
                 await this.context.workspaceState.update(`newsdk.fx:${state.document.uri.toString()}`, { ...state.state, scene: state.scene }); break;
+            case 'textureSource': {
+                const texture = state.ir?.textures.find(t => t.key === message.key);
+                if (texture && (message.source === 'source' || message.source === 'compiled') && state.compiled.select(texture, message.source)) await this.rebuild(state);
+                break;
+            }
+            case 'importCompiledTexture': await this.importCompiled(state, message.key); break;
             case 'textureAck': {
                 const pending = state.transfer;
                 if (pending && pending.key === message.key && pending.transferId === message.transferId && pending.level === message.level && pending.offset === message.offset) pending.resolve(true);
@@ -419,7 +475,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
     }
     async openShared(uri: string, systemKey: string): Promise<void> {
         const state = [...this.editors].find(s => sameFile(s.document.uri.fsPath, uri));
-        const system = state?.ir?.systems.find(s => s.key === systemKey);
+        const system = state?.ir && systems(state.ir).find(s => s.key === systemKey);
         const asset = state && system && state.index.getAsset(system.templateKey);
         if (state && asset) await this.openSharedAsset(state, asset, true);
     }
@@ -432,7 +488,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         for (const edit of edits) {
             if (!edit || typeof edit.key !== 'string' || typeof edit.value !== 'string' || typeof edit.expectedValue !== 'string' || edit.value.length > 4096) return false;
             const field = registered.get(edit.key);
-            if (!field || field.readonly || !sameFile(field.uri, state.document.uri.fsPath)) { await this.status(state, '此字段来自共享或只读定义，请先打开实际定义。'); return false; }
+            if (!field || field.readonly || !sameFile(field.uri, state.document.uri.fsPath)) { await this.status(state, '此字段来自共享或只读定义，请先打开实际定义。', true); return false; }
             if (field.value !== edit.expectedValue) { await this.status(state, '内容已更新，请重新应用。', true); return false; }
             intents.push({ nodePath: field.nodePath, attribute: field.attribute, value: edit.value, expectedValue: field.defaulted ? undefined : edit.expectedValue, documentVersion: version });
         }
@@ -443,21 +499,34 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             new vscode.Range(state.document.positionAt(patch.start), state.document.positionAt(patch.end)), patch.text);
         if (state.document.version !== version) return false;
         const applied = await vscode.workspace.applyEdit(workspaceEdit);
-        if (!applied) await this.status(state, '未能应用字段修改；文档内容保留。');
+        if (!applied) await this.status(state, '未能应用字段修改；文档内容保留。', true);
         return applied;
     }
-    private async locate(state: EditorState, field?: Pick<FxField, 'uri' | 'start' | 'end'>): Promise<void> {
+    private async locate(state: EditorState, field?: Pick<FxField, 'uri' | 'start' | 'end'> & Partial<Pick<FxField, 'nodePath' | 'attribute' | 'value' | 'sourceAsset'>>): Promise<void> {
         const file = field?.uri ?? state.document.uri.fsPath; await this.allowed(file);
         const document = await vscode.workspace.openTextDocument(asUri(file));
         const editor = await vscode.window.showTextDocument(document, { viewColumn: vscode.ViewColumn.Beside, preserveFocus: true, preview: false });
-        if (field) { const range = new vscode.Range(document.positionAt(field.start), document.positionAt(field.end)); editor.selection = new vscode.Selection(range.start, range.end); editor.revealRange(range, vscode.TextEditorRevealType.InCenterIfOutsideViewport); }
+        if (field) {
+            let start = field.start, end = field.end;
+            if (field.nodePath) {
+                const model = parseXml(document.getText(), document.uri.fsPath, document.version), node = model.find(field.nodePath);
+                if (!node) { await this.status(state, '源码节点已更新，请等待面板同步后重新定位。', true); this.schedule(state, 0); return; }
+                const sourceAsset = field.sourceAsset && state.index.getAsset(field.sourceAsset);
+                let owning = node; while (owning.parent && !owning.attributes.id) owning = owning.parent;
+                if (sourceAsset && owning.attributes.id !== sourceAsset.id) { await this.status(state, '源码身份已更新，请等待面板同步后重新定位。', true); this.schedule(state, 0); return; }
+                const token = field.attribute && node.attributeTokens[field.attribute];
+                if (token && field.value !== undefined && token.value !== field.value) { await this.status(state, '字段已更新，请等待面板同步后重新定位。', true); this.schedule(state, 0); return; }
+                start = token ? token.valueStart : node.start; end = token ? token.valueEnd : node.openEnd;
+            }
+            const range = new vscode.Range(document.positionAt(start), document.positionAt(end)); editor.selection = new vscode.Selection(range.start, range.end); editor.revealRange(range, vscode.TextEditorRevealType.InCenterIfOutsideViewport);
+        }
     }
     private async openSharedAsset(state: EditorState, asset: AssetRecord, keepRoot: boolean): Promise<void> {
         await this.allowed(asset.uri);
         const uri = asUri(asset.uri);
         const existing = [...this.editors].find(s => sameFile(s.document.uri.fsPath, asset.uri));
-        if (existing) { existing.entry = state.entry; existing.assetKey = asset.key; existing.previewKey = keepRoot ? state.ir?.assetKey : undefined; existing.panel.reveal(); await this.rebuild(existing); await this.locate(existing); return; }
-        this.pending.set(uri.toString(), { entry: state.entry, assetKey: asset.key, previewKey: keepRoot ? state.ir?.assetKey : undefined });
+        if (existing) { existing.entry = state.entry; existing.assetKey = asset.key; existing.previewKey = keepRoot ? state.ir?.assetKey : undefined; if (keepRoot) existing.scene = structuredClone(state.scene); existing.panel.reveal(); await this.rebuild(existing); await this.locate(existing); return; }
+        this.pending.set(uri.toString(), { entry: state.entry, assetKey: asset.key, previewKey: keepRoot ? state.ir?.assetKey : undefined, scene: keepRoot ? structuredClone(state.scene) : undefined });
         await vscode.commands.executeCommand('vscode.openWith', uri, viewType, { viewColumn: vscode.ViewColumn.One, preview: false });
         const opened = [...this.editors].find(s => sameFile(s.document.uri.fsPath, asset.uri)); if (opened) await this.locate(opened);
     }
@@ -465,7 +534,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         if (!state) { await this.search(); return; }
         if (resetRenderer) await this.post(state, { type: 'resetRenderer' });
         this.resources?.clear();
-        for (const editor of this.editors) editor.uploadedTextures.clear();
+        for (const editor of this.editors) { editor.textureInputs++; editor.uploadedTextures.clear(); }
         for (const file of state.ir?.dependencies ?? [state.entry]) state.index.invalidate(file);
         await this.rebuild(state);
     }
@@ -506,7 +575,9 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         const version = document.version;
         const confirmed = await vscode.window.showInformationMessage(`向 ${path.basename(document.uri.fsPath)} 插入 ${id}${texture.id ? `，引用 ${texture.id}` : '（尚未选择贴图）'}`, { modal: true, detail: xml }, '插入');
         if (confirmed !== '插入') return;
-        if (version !== document.version) throw new Error('内容已更新，请重新新建。');
+        if (state?.disposed || version !== document.version) throw new Error('内容已更新，请重新新建。');
+        await this.allowed(document.uri.fsPath, true);
+        if (state?.disposed || version !== document.version) throw new Error('内容已更新，请重新新建。');
         const edit = new vscode.WorkspaceEdit(); edit.insert(document.uri, document.positionAt(root.closeStart), `\n${xml}\n`);
         if (!await vscode.workspace.applyEdit(edit)) throw new Error('未能插入特效，文档保留。');
         if (state) { state.previewKey = undefined; state.assetKey = undefined; await this.rebuild(state); }
@@ -549,7 +620,9 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             if (choice.has(target.localName) && target.children.length) throw new Error('当前模块选择与父定义不兼容，请在 XML 中明确切换模块。');
             const token = sourceNode.attributeTokens[field.attribute]; if (!token) throw new Error('继承来源没有可复制的属性 token。');
             let fragment = sourceDocument.getText().slice(missing.start, missing.end);
-            fragment = fragment.slice(0, token.valueStart - missing.start) + escapeXml(value) + fragment.slice(token.valueEnd - missing.start);
+            const replacement = createAttributePatch(sourceModel, {nodePath:sourceNode.path, attribute:field.attribute,
+                value, expectedValue:token.value, documentVersion:sourceModel.version});
+            fragment = fragment.slice(0, token.valueStart - missing.start) + replacement.text + fragment.slice(token.valueEnd - missing.start);
             fragment = this.withNamespaces(fragment, missing);
             const sequence: Record<string, string[]> = {
                 FXParticleSystemTemplate: ['SlavePosOffset','Lifetime','Size','StartSizeRate','BurstDelay','BurstCount','InitialDelay','Alphas','Colors','Wind','Physics','Draw','Volume','Velocity','Event','Update'],
@@ -558,7 +631,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                     : target.parent?.localName === 'Update' ? ['SizeRate','SizeRateDamping','AngleZ','AngularRateZ','AngularDamping','AngleXY','AngularRateXY','AngularDampingXY'] : [],
                 Point: [], Line: ['StartPoint','EndPoint'], Box: ['HalfSize'], Cylinder: ['Offset'],
                 Ortho: ['Position'], Position: ['x','y','z'], Cylindrical: ['Radial','Normal'], Spherical: ['Speed'], Outward: ['Speed','OtherSpeed'],
-                Physics: ['Default'], Draw: ['Gpu'], Volume: ['Point','Line','Box','Cylinder','Sphere'], Velocity: ['Ortho','Cylindrical','Spherical','Outward'], Update: ['Default'],
+                Physics: ['Default'], Draw: ['Gpu','Default'], Volume: ['Point','Line','Box','Cylinder','Sphere'], Velocity: ['Ortho','Cylindrical','Spherical','Outward'], Update: ['Default'],
             };
             const order = sequence[target.localName];
             if (!order?.includes(missing.localName)) throw new Error(`尚未实现 ${target.localName}/${missing.localName} 的安全插入顺序，请使用 XML。`);
@@ -575,7 +648,9 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         const version = state.document.version; const sourceVersion = sourceDocument.version;
         const confirmation = await vscode.window.showInformationMessage(`在 ${selected.id} 中覆盖 ${field.label}`, { modal: true, detail }, '应用覆盖');
         if (confirmation !== '应用覆盖') return;
-        if (state.document.version !== version || sourceDocument.version !== sourceVersion) throw new Error('内容已更新，请重新应用覆盖。');
+        if (state.disposed || state.document.version !== version || sourceDocument.version !== sourceVersion) throw new Error('内容已更新，请重新应用覆盖。');
+        await this.allowed(state.document.uri.fsPath, true);
+        if (state.disposed || state.document.version !== version || sourceDocument.version !== sourceVersion) throw new Error('内容已更新，请重新应用覆盖。');
         if (!await vscode.workspace.applyEdit(edit)) throw new Error('覆盖未能应用，文档保持原状。');
     }
     private withNamespaces(fragment: string, node: XmlElement): string {
@@ -685,7 +760,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         if (state.timer) clearTimeout(state.timer);
         this.active.release(state.session); state.session.dispose(); state.index.dispose();
         for (const subscription of state.subscriptions) subscription.dispose(); state.subscriptions = [];
-        state.uploadedTextures.clear(); state.ir = undefined; this.diagnostics.remove(state.session.id); this.editors.delete(state);
+        state.compiled.dispose(); state.uploadedTextures.clear(); state.ir = undefined; this.diagnostics.remove(state.session.id); this.editors.delete(state);
         if (!this.editors.size) this.resources?.clear();
     }
     private html(webview: vscode.Webview, session: PreviewSession, state: Record<string, unknown>): string {

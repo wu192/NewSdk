@@ -149,7 +149,7 @@ test('compiler NodeJoiner appends unkeyed records, merges explicit Append single
     // loading overwrites a repeated Frame slot with the later compiled record.
     await fs.writeFile(path.join(root,'entry.xml'),wrap(parent+child.replace('Frame="3"','Frame="2"'))); await index.load(path.join(root,'entry.xml'));
     ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Child')!.key);
-    assert.deepEqual(ir.systems[0].config?.colors?.[1].value,[1,1,1]); assert.equal(ir.systems[0].config?.colors?.[1].time,0.9);
+    assert.deepEqual(ir.systems[0].config?.colors?.[1].value,[1,1,1]); assert.equal(ir.systems[0].config?.colors?.[1].time,Math.fround(0.9));
     await fs.writeFile(path.join(root,'entry.xml'),wrap(parent+child.replace('<Colors>','<Colors xai:joinAction="Replace">'))); await index.load(path.join(root,'entry.xml'));
     ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Child')!.key);
     assert.ok(ir.systems[0].config); assert.equal(ir.systems[0].definition?.children.find(n=>n.name==='Colors')?.children.length,1);
@@ -279,6 +279,6 @@ test('absent Atlas defaults expose authorized insertion fields at the real Gpu n
 });
 
 test('versioned capabilities identify required fixture families and explicit unsupported modules', () => {
-    assert.equal(fxCapabilities.version,1); assert.ok(fxCapabilities.fixtures.includes('smoke.xml'));
+    assert.equal(fxCapabilities.version,2); assert.ok(fxCapabilities.fixtures.includes('smoke.xml'));
     assert.ok(fxCapabilities.supported.volume.includes('Sphere')); assert.ok(fxCapabilities.explicitGaps.some(gap=>gap.includes('CPU')));
 });

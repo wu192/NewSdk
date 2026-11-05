@@ -1,7 +1,7 @@
 import { FxRenderer } from '../webview/fx/render/renderer';
 import { defaultCamera } from '../webview/fx/render/camera';
-import { ParticleRuntime } from '../webview/fx/runtime';
-import type { PreviewIR } from '../src/fx/previewProtocol';
+import { ParticleWorld } from '../webview/fx/runtime';
+import type { PreviewIR, FxSystem } from '../src/fx/previewProtocol';
 
 const canvas = document.querySelector('canvas')!;
 const gl = canvas.getContext('webgl2')!;
@@ -20,23 +20,25 @@ for (const [create, remove, key] of [
 }
 let renderer: FxRenderer | undefined;
 let ir: PreviewIR;
-let runtimes: {key: string; runtime: ParticleRuntime; textureKey?: string}[] = [];
+let world: ParticleWorld | undefined;
+let descriptors: FxSystem[] = [];
 const errors: string[] = [];
-function close() { renderer?.dispose(); renderer = undefined; runtimes.forEach(r => r.runtime.dispose()); runtimes = []; }
+function close() { renderer?.dispose(); renderer = undefined; world?.dispose(); world = undefined; descriptors=[]; }
+function definition(s: FxSystem) { return {id:s.key,templateKey:s.templateKey,sourceId:s.key,orientToObject:s.orientToObject,createAtGroundHeight:s.createAtGroundHeight,config:s.config!,options:{offset:s.offset,rotation:s.rotation,rotationXYZ:s.rotationXYZ,rotationMatrix:s.rotationMatrix,startFrame:s.startFrame,systemLifeFrames:s.systemLifeFrames,initialDelayOverrideMs:s.initialDelayOverrideMs,createAtGroundHeight:s.createAtGroundHeight}}; }
+function layers() { return (world?.systems??[]).map(s=> { const d=descriptors.find(d=>d.key===s.sourceId)??descriptors.find(d=>d.templateKey===s.templateKey); return {id:s.id,config:s.runtime.config,births:s.runtime.particles,alphaSamples:s.runtime.alphaSamples,textureKey:d?.textureKey,visible:true,sample:s.runtime.sample.bind(s.runtime)}; }); }
 function load(value: PreviewIR) {
-    close(); ir = value; renderer = new FxRenderer(canvas, message => errors.push(message));
-    runtimes = value.systems.filter(s => s.config && s.triggered).map((s, i) => ({key: s.key,
-        textureKey: s.textureKey, runtime: new ParticleRuntime(s.config!, value.scene.seed + i,
-            {offset: s.offset, rotation: s.rotation, rotationXYZ: s.rotationXYZ, startFrame: s.startFrame, systemLifeFrames: s.systemLifeFrames})}));
-    renderer.setLayers(runtimes.map(r => ({id: r.key, config: r.runtime.config, births: r.runtime.particles, alphaSamples: r.runtime.alphaSamples, textureKey: r.textureKey, visible: true})));
-    for (const texture of value.textures) renderer.uploadTexture(texture);
+    close(); ir=value; renderer=new FxRenderer(canvas,message=>errors.push(message));
+    descriptors=[...value.systems,...(value.dynamic?.templates??[]),...(value.dynamic?.fxLists.flatMap(l=>l.systems)??[])];
+    world=new ParticleWorld(value.systems.filter(s=>s.config&&s.triggered).map(definition),value.scene.seed,32768,18000,value.dynamic?{...value.dynamic,templates:value.dynamic.templates.filter(s=>s.config).map(definition),fxLists:value.dynamic.fxLists.map(l=>({...l,systems:l.systems.filter(s=>s.config&&s.triggered).map(definition)})),groundHeight:value.scene.ground}:undefined);
+    renderer.setLayers(layers(),value.textures.map(t=>t.key));
+    for(const texture of value.textures)renderer.uploadTexture(texture);
     return seek(0);
 }
-function seek(frame: number) {
+function seek(frame: number, soft=true) {
     if (!renderer) throw new Error('Renderer is closed');
-    for (const r of runtimes) r.runtime.seek(frame);
-    renderer.setLayers(runtimes.map(r => ({id: r.key, config: r.runtime.config, births: r.runtime.particles, alphaSamples: r.runtime.alphaSamples, textureKey: r.textureKey, visible: true})));
-    const stats = renderer.render(frame, {...defaultCamera}, ir.scene, '#080a0c', false);
+    world!.seek(frame);
+    renderer.setLayers(layers(),ir.textures.map(t=>t.key));
+    const stats = renderer.render(frame, {...defaultCamera}, ir.scene, '#080a0c', false, false, soft);
     const pixels = new Uint8Array(canvas.width * canvas.height * 4);
     gl.readPixels(0, 0, canvas.width, canvas.height, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
     let hash = 2166136261, lit = 0;
@@ -45,6 +47,6 @@ function seek(frame: number) {
         hash = Math.imul(hash ^ pixels[i+1], 16777619) >>> 0;
         if (pixels[i] > 30 || pixels[i+1] > 30 || pixels[i+2] > 30) lit++;
     }
-    return {stats, hash, lit, counts: {...counts}, errors: errors.slice(), glError: gl.getError()};
+    return {stats, hash, lit, systems:world?.systems.length, snapshotBytes:world?.snapshotBytes, counts: {...counts}, errors: errors.slice(), glError: gl.getError()};
 }
 Object.assign(window, {fxHarness: {load, seek, close, counts}});

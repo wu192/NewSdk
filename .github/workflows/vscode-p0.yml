@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       full_acceptance:
-        description: '运行真实编译器的完整 P0 验收组合'
+        description: '完整 FX 长运行压力及编译器验收'
         type: boolean
         default: false
 
@@ -33,6 +33,7 @@ jobs:
       NEWSDK_COMPILER_SHA256: ${{ secrets.NEWSDK_COMPILER_SHA256 }}
       NEWSDK_COMPILER_AUTHORIZATION: ${{ secrets.NEWSDK_COMPILER_AUTHORIZATION }}
       NEWSDK_ACCEPTANCE: ${{ inputs.full_acceptance && 'full' || 'smoke' }}
+      NEWSDK_FX_STRESS: ${{ inputs.full_acceptance && 'full' || 'smoke' }}
       NEWSDK_TEST_EVIDENCE: ${{ github.workspace }}/vscode-extension/test-results
     steps:
       - uses: actions/checkout@v4
@@ -58,6 +59,8 @@ jobs:
         run: npx playwright install chromium
       - name: Fixed-frame WebGL2, editor gestures and lifecycle regression
         run: npm run test:render
+      - name: Bounded CPU/GPU, event and long replay acceptance
+        run: npm run test:stress
       - name: Package installable VSIX without bundling compiler
         run: |
           npm run package 2>&1 | Tee-Object test-results/package.log
@@ -131,15 +134,15 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         with:
           retention-days: 1
-          name: NewSdk-Mod-Tools-FX-Round1-VSIX-${{ github.run_id }}-${{ github.run_attempt }}
-          path: vscode-extension/NewSdk-Mod-Tools-FX-Round1.vsix
+          name: NewSdk-Mod-Tools-FX-Round2-VSIX-${{ github.run_id }}-${{ github.run_attempt }}
+          path: vscode-extension/NewSdk-Mod-Tools-FX-Round2.vsix
           if-no-files-found: warn
       - name: Collect small acceptance summaries
         if: always()
         run: |
           New-Item -ItemType Directory -Force test-results/summary | Out-Null
           @{ commit = $env:GITHUB_SHA; run = $env:GITHUB_RUN_ID } | ConvertTo-Json | Set-Content test-results/summary/run.json
-          $files = @('fx-render.json', 'fx-host.json', 'extension-host.json', 'driver-exercise.json', 'driver-reopen.json', 'compiler-source.json', 'real-compiler.json', 'persistence.json')
+          $files = @('fx-render.json', 'fx-render-round2.json', 'fx-ui-round2.json', 'fx-stress.json', 'fx-host.json', 'extension-host.json', 'driver-exercise.json', 'driver-reopen.json', 'compiler-source.json', 'real-compiler.json', 'persistence.json')
           foreach ($name in $files) {
             $file = Join-Path 'test-results' $name
             if ((Test-Path $file) -and (Get-Item $file).Length -le 131072) { Copy-Item $file test-results/summary/ }
@@ -165,8 +168,10 @@ jobs:
               $tail | Set-Content (Join-Path 'test-results/failure' $name)
             }
           }
-          $image = 'test-results/fx-render-failure.png'
-          if ((Test-Path $image) -and (Get-Item $image).Length -le 2097152) { Copy-Item $image test-results/failure/ }
+          foreach ($name in @('fx-render-failure.png', 'fx-render-round2-failure.png', 'fx-ui-round2-failure.png')) {
+            $image = Join-Path 'test-results' $name
+            if ((Test-Path $image) -and (Get-Item $image).Length -le 2097152) { Copy-Item $image test-results/failure/ }
+          }
       - name: Save failure evidence only
         uses: actions/upload-artifact@v4
         if: failure()

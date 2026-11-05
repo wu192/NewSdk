@@ -3,3 +3,5 @@
 .inherited-actions{grid-column:1/4;display:flex;gap:4px}.inherited-actions button{font-size:10px;padding:3px 5px}.follow-highlight{background:#a67f3044;outline:1px solid #bd985c;transition:background .2s}
 
 .sync-review{border:1px solid #b8975d;border-radius:3px;padding:9px;margin:8px 0}.sync-review button{margin-right:5px}.sync-review p{margin:2px 0}
+.curve-timeline{margin:8px 0 12px}.alpha-timeline{border-top:1px solid var(--line);padding-top:5px}.compiled-version{color:#dfb673}.texture-state select{max-width:100%;margin:4px 5px 4px 0}.inspector-body>.control input[type=text]{max-width:170px}.shared-tools{flex-wrap:wrap}
+.editing-pending .inspector-body{pointer-events:none;opacity:.8}.editing-pending .curve-canvas{cursor:wait}

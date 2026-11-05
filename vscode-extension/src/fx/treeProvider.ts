@@ -4,27 +4,27 @@ import type { AssetRecord } from './assetIndex';
 import type { PreviewIR } from './previewProtocol';
 
 type TreeAsset = Pick<AssetRecord, 'key' | 'id' | 'type' | 'namespace' | 'uri' | 'entry' | 'readonly'>;
-type FxTreeNode = { kind: 'asset'; asset: TreeAsset } | { kind: 'system'; key: string; name: string; asset: TreeAsset; issues: number };
+type FxTreeNode = { kind: 'asset'; asset: TreeAsset } | { kind: 'system'; key: string; name: string; asset: TreeAsset; issues: number; status: string };
 
 /** The tree distinguishes shared definitions from each call in the current preview. */
 export class FxTreeProvider implements vscode.TreeDataProvider<FxTreeNode>, vscode.Disposable {
     private readonly changed = new vscode.EventEmitter<FxTreeNode | undefined>();
     readonly onDidChangeTreeData = this.changed.event;
     private assets: TreeAsset[] = [];
-    private ir?: { assetKey: string; systems: {key: string; name: string; issues: number}[] };
+    private ir?: { assetKey: string; systems: {key: string; name: string; issues: number; status: string}[] };
     update(assets: AssetRecord[], ir?: PreviewIR): void {
         this.assets = assets.filter(a => a.type === 'FXList' || a.type === 'FXParticleSystemTemplate')
             .map(({key, id, type, namespace, uri, entry, readonly}) => ({key, id, type, namespace, uri, entry, readonly}));
-        this.ir = ir ? {assetKey: ir.assetKey, systems: ir.systems.map(s => ({key: s.key, name: s.name, issues: s.issues.length}))} : undefined;
+        this.ir = ir ? {assetKey: ir.assetKey, systems: ir.systems.map(s => ({key: s.key, name: s.name, issues: s.issues.length, status: !s.triggered ? '未触发' : s.config ? `${s.config.backend ?? 'GPU'} · 调用实例` : '暂未播放'}))} : undefined;
         this.changed.fire(undefined);
     }
     getTreeItem(node: FxTreeNode): vscode.TreeItem {
         if (node.kind === 'system') {
             const item = new vscode.TreeItem(node.name, vscode.TreeItemCollapsibleState.None);
-            item.description = node.issues ? `${node.issues} 项差异` : '调用实例';
+            item.description = node.issues ? `${node.status} · ${node.issues} 项差异` : node.status;
             item.tooltip = `${node.asset.id}\n${node.asset.uri}`;
             item.iconPath = new vscode.ThemeIcon(node.issues ? 'warning' : 'layers');
-            item.command = { command: 'newsdk.previewFx', title: '预览调用', arguments: [vscode.Uri.file(node.asset.uri), node.asset.key] };
+            item.command = { command: 'newsdk.selectFxSystem', title: '选择调用', arguments: [vscode.Uri.file(node.asset.uri), node.asset.key, node.key] };
             return item;
         }
         const { asset } = node;
@@ -41,7 +41,7 @@ export class FxTreeProvider implements vscode.TreeDataProvider<FxTreeNode>, vsco
     getChildren(node?: FxTreeNode): FxTreeNode[] {
         if (!node) return this.assets.map(asset => ({ kind: 'asset', asset }));
         if (node.kind !== 'asset' || this.ir?.assetKey !== node.asset.key) return [];
-        return this.ir.systems.map(system => ({ kind: 'system', key: system.key, name: system.name, asset: node.asset, issues: system.issues }));
+        return this.ir.systems.map(system => ({ kind: 'system', key: system.key, name: system.name, asset: node.asset, issues: system.issues, status: system.status }));
     }
     dispose(): void { this.assets = []; this.ir = undefined; this.changed.dispose(); }
 }

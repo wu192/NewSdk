@@ -12,6 +12,13 @@ export interface AtlasConfig { framesPerRow: number; totalFrames: number; single
 export interface VolumeConfig { type: 'Point' | 'Line' | 'Box' | 'Cylinder' | 'Sphere'; hollow: boolean; start: Vec3; end: Vec3; halfSize: Vec3; radius: number; radiusRate: number; length: number; offset: Vec3; }
 export interface VelocityConfig { type: 'Ortho' | 'Cylindrical' | 'Spherical' | 'Outward'; x: Range; y: Range; z: Range; radial: Range; normal: Range; speed: Range; otherSpeed: Range; }
 export interface ParticleConfig {
+    backend?: 'GPU' | 'CPU';
+    geometryType?: 'SIMPLE_QUAD' | 'CENTERED_QUAD' | 'TWO_CONCENTRIC_QUADS' | 'TWO_QUADS';
+    shaderProfile?: 'GPU_STANDARD' | 'GPU_PERPENDICULAR_BOTTOM' | 'CPU_DEFAULT';
+    geometryUpdate?: GeometryUpdate;
+    softParticles?: boolean;
+    attachedSystem?: string;
+    events?: ParticleEventConfig[];
     id: string; texture: string; shader: 'ADDITIVE' | 'ALPHA' | 'MULTIPLY';
     lifetime: Range; initialDelay: Range; burstDelay: Range; burstCount: Range;
     size: Range; startSizeRate: Range; systemLifetime: number; isOneShot: boolean;
@@ -26,12 +33,33 @@ export interface ParticleConfig {
 export interface BirthRecord {
     id: number; position: Vec3; velocity: Vec3; life: number;
     creationFrame: number; seed: number;
+    cpu?: CpuParticleState;
+    events?: ParticleEventState[];
 }
+export interface GeometryUpdate {
+    sizeStart: [Range, Range, Range]; sizeRate: [Range, Range, Range]; sizeDamping: [Range, Range, Range];
+    angle: [Range, Range, Range]; angleRate: [Range, Range, Range]; angleDamping: Range;
+    rotation: 'ROTATION_OFF' | 'ROTATE_AROUND_VELOCITY' | 'ROTATE_IN_WORLD_SPACE';
+}
+export type ParticleEventConfig = { type: 'Life'; fx: string; perParticle: boolean; kill: boolean; eventTime: Range }
+    | { type: 'Collision'; fx: string; perParticle: boolean; kill: boolean; heightOffset: Range; orientToTerrain: boolean };
+export interface ParticleEventState { index: number; armed: boolean; value: number; }
+export interface CpuCurveState { index: number; values: number[][]; times: number[]; current: number[]; delta: number[]; }
+export interface CpuParticleState {
+    remaining: number; size: number; sizeRate: number; sizeDamping: number;
+    angleZ: number; angleRateZ: number; angleDampingZ: number;
+    angleXY: number; angleRateXY: number; angleDampingXY: number;
+    velocityDamping: number; color?: CpuCurveState; alpha?: CpuCurveState;
+}
+export interface RuntimeEventTrigger { fx: string; position: Vec3; rotationXYZ: Vec3; particleId?: number; }
 export interface ParticleSample {
     alive: boolean; position: Vec3; size: number; angleZ: number; color: Vec4;
     atlas: { current: Vec2; next: Vec2; blend: number; scale: number };
 }
 export interface RuntimeOptions {
-    maxParticles?: number; maxFrames?: number; snapshotBytes?: number;
-    offset?: Vec3; rotation?: number; rotationXYZ?: Vec3; random?: FxRandom; initialDelayOverrideMs?: Range; startFrame?: number; systemLifeFrames?: number;
+    maxParticles?: number; maxFrames?: number; snapshotBytes?: number; maxParticleBytes?: number;
+    offset?: Vec3; rotation?: number; rotationXYZ?: Vec3; random?: FxRandom; initialDelayOverrideMs?: Range; startFrame?: number; creationFrame?: number; systemLifeFrames?: number;
+    /** Complete local-to-world rotation for composed event/attached transforms. */
+    rotationMatrix?: readonly number[];
+    groundHeight?: number; createAtGroundHeight?: boolean;
 }

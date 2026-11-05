@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <Includes><Include type="instance" source="texture.xml"/><Include type="instance" source="flash.xml"/></Includes>
+  <FXParticleSystemTemplate id="EventEmitter" Type="PARTICLE" Shader="ALPHA" ParticleTexture="FxFixtureTexture" SystemLifetime="1">
+    <Lifetime Low="24" High="36"/><Size Low="5" High="5"/><StartSizeRate Low="0.02" High="0.02"/><BurstDelay Low="2" High="2"/><BurstCount Low="2" High="2"/><InitialDelay Low="0" High="0"/>
+    <Alphas><Alpha Frame="1" RelativeAge="0" Low="1" High="1"/><Alpha Frame="2" RelativeAge="12" Low="0.95" High="0.95"/><Alpha Frame="3" RelativeAge="25" Low="0.8" High="0.8"/><Alpha Frame="4" RelativeAge="40" Low="0.65" High="0.65"/><Alpha Frame="5" RelativeAge="55" Low="0.5" High="0.5"/><Alpha Frame="6" RelativeAge="70" Low="0.35" High="0.35"/><Alpha Frame="7" RelativeAge="85" Low="0.2" High="0.2"/><Alpha Frame="8" RelativeAge="100" Low="0" High="0"/></Alphas><Colors><Color Frame="1" RelativeAge="0"><Color r="1" g="0.7" b="0.3"/></Color><Color Frame="2" RelativeAge="10"><Color r="1" g="0.5" b="0.2"/></Color><Color Frame="3" RelativeAge="25"><Color r="0.8" g="0.4" b="0.2"/></Color><Color Frame="4" RelativeAge="40"><Color r="0.6" g="0.3" b="0.2"/></Color><Color Frame="5" RelativeAge="55"><Color r="0.5" g="0.2" b="0.1"/></Color><Color Frame="6" RelativeAge="70"><Color r="0.4" g="0.1" b="0.1"/></Color><Color Frame="7" RelativeAge="85"><Color r="0.2" g="0.1" b="0.05"/></Color><Color Frame="8" RelativeAge="100"><Color r="0" g="0" b="0"/></Color><ColorScale Low="1" High="1"/></Colors>
+    <Physics><Default Gravity="-0.01"><VelocityDamping Low="0.98" High="0.98"/><DriftVelocity x="0.01" y="0" z="0"/></Default></Physics>
+    <Draw><Default/></Draw><Volume><Box><HalfSize x="2" y="2" z="1"/></Box></Volume>
+    <Velocity><Ortho><Position><x Low="0.05" High="0.05"/><y Low="0" High="0"/><z Low="0.4" High="0.4"/></Position></Ortho></Velocity><Event><Life EventFX="PulseEvent" PerParticle="true" KillAfterEvent="false"><EventTime Low="3" High="3"/></Life></Event>
+    <Update><Default><SizeRate Low="0.03" High="0.03"/><SizeRateDamping Low="0.99" High="0.99"/><AngleZ Low="0" High="0"/><AngularRateZ Low="0.02" High="0.02"/><AngularDamping Low="0.98" High="0.98"/><AngleXY Low="0" High="0"/><AngularRateXY Low="0.01" High="0.01"/><AngularDampingXY Low="0.99" High="0.99"/></Default></Update>
+  </FXParticleSystemTemplate>
+  <FXParticleSystemTemplate id="AttachedEmitter" Type="PARTICLE" PerParticleAttachedSystem="AttachGlow" Shader="ALPHA" ParticleTexture="FxFixtureTexture" SystemLifetime="2">
+    <Lifetime Low="24" High="36"/><Size Low="5" High="5"/><StartSizeRate Low="0.02" High="0.02"/><BurstDelay Low="2" High="2"/><BurstCount Low="2" High="2"/><InitialDelay Low="0" High="0"/>
+    <Alphas><Alpha Frame="1" RelativeAge="0" Low="1" High="1"/><Alpha Frame="2" RelativeAge="12" Low="0.95" High="0.95"/><Alpha Frame="3" RelativeAge="25" Low="0.8" High="0.8"/><Alpha Frame="4" RelativeAge="40" Low="0.65" High="0.65"/><Alpha Frame="5" RelativeAge="55" Low="0.5" High="0.5"/><Alpha Frame="6" RelativeAge="70" Low="0.35" High="0.35"/><Alpha Frame="7" RelativeAge="85" Low="0.2" High="0.2"/><Alpha Frame="8" RelativeAge="100" Low="0" High="0"/></Alphas><Colors><Color Frame="1" RelativeAge="0"><Color r="1" g="0.7" b="0.3"/></Color><Color Frame="2" RelativeAge="10"><Color r="1" g="0.5" b="0.2"/></Color><Color Frame="3" RelativeAge="25"><Color r="0.8" g="0.4" b="0.2"/></Color><Color Frame="4" RelativeAge="40"><Color r="0.6" g="0.3" b="0.2"/></Color><Color Frame="5" RelativeAge="55"><Color r="0.5" g="0.2" b="0.1"/></Color><Color Frame="6" RelativeAge="70"><Color r="0.4" g="0.1" b="0.1"/></Color><Color Frame="7" RelativeAge="85"><Color r="0.2" g="0.1" b="0.05"/></Color><Color Frame="8" RelativeAge="100"><Color r="0" g="0" b="0"/></Color><ColorScale Low="1" High="1"/></Colors>
+    <Physics><Default Gravity="-0.01"><VelocityDamping Low="0.98" High="0.98"/><DriftVelocity x="0.01" y="0" z="0"/></Default></Physics>
+    <Draw><Default/></Draw><Volume><Box><HalfSize x="2" y="2" z="1"/></Box></Volume>
+    <Velocity><Ortho><Position><x Low="0.05" High="0.05"/><y Low="0" High="0"/><z Low="0.4" High="0.4"/></Position></Ortho></Velocity><Event/>
+    <Update><Default><SizeRate Low="0.03" High="0.03"/><SizeRateDamping Low="0.99" High="0.99"/><AngleZ Low="0" High="0"/><AngularRateZ Low="0.02" High="0.02"/><AngularDamping Low="0.98" High="0.98"/><AngleXY Low="0" High="0"/><AngularRateXY Low="0.01" High="0.01"/><AngularDampingXY Low="0.99" High="0.99"/></Default></Update>
+  </FXParticleSystemTemplate>
+  <FXParticleSystemTemplate id="AttachGlow" Type="GPU_PARTICLE" Shader="ADDITIVE" ParticleTexture="FxFixtureTexture" SystemLifetime="0">
+    <Lifetime Low="8" High="8"/>
+    <Size Low="3" High="3"/>
+    <StartSizeRate Low="0" High="0"/>
+    <BurstDelay Low="2" High="2"/>
+    <BurstCount Low="1" High="1"/>
+    <InitialDelay Low="0" High="0"/>
+    <Alphas><Alpha Frame="1" RelativeAge="0" Low="1" High="1"/><Alpha Frame="2" RelativeAge="100" Low="0" High="0"/></Alphas>
+    <Colors><Color Frame="1" RelativeAge="0"><Color r="1" g="0.6" b="0.2"/></Color><Color Frame="2" RelativeAge="100"><Color r="0.2" g="0.1" b="0.05"/></Color><ColorScale Low="1" High="1"/></Colors>
+    <Physics><Default Gravity="0"><VelocityDamping Low="1" High="1"/></Default></Physics>
+    <Draw><Gpu Shader="GPUParticle.fx" GeometryType="SIMPLE_QUAD" EnableSoftParticles="false" FramesPerRow="1" TotalFrames="1" SingleRow="0" RandTex="0" SpeedMultiplier="1"/></Draw>
+    <Volume><Point/></Volume>
+    <Velocity><Ortho><Position><x Low="0" High="0"/><y Low="0" High="0"/><z Low="0" High="0"/></Position></Ortho></Velocity>
+    <Event/>
+    <Update><Default><SizeRate Low="0.02" High="0.02"/><SizeRateDamping Low="1" High="1"/><AngleZ Low="0" High="0"/><AngularRateZ Low="0" High="0"/></Default></Update>
+  </FXParticleSystemTemplate>
+  <FXList id="PulseEvent"><NuggetList><ParticleSystem Particle="Flash"/></NuggetList></FXList>
+</AssetDeclaration>

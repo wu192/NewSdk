@@ -30,3 +30,21 @@ test('opening a second canvas suspends the first and releases active callbacks o
     active.dispose(); assert.equal(stoppedB, 1);
     b.dispose(); active.activate(b, () => stoppedB++); assert.equal(b.visible, false);
 });
+
+test('document edit then save stays ordered across a version change and queue failures recover', async () => {
+    const session = new PreviewSession(1); const order: string[] = [];
+    let release: (() => void) | undefined;
+    const edited = session.enqueueDocumentAction(async () => {
+        await new Promise<void>(resolve => { release = resolve; });
+        session.renew(2); order.push('edit-v2');
+    });
+    const saved = session.enqueueDocumentAction(async () => {
+        assert.equal(session.documentVersion, 2); order.push('save-v2');
+    });
+    await Promise.resolve(); assert.equal(order.length, 0); release!();
+    await Promise.all([edited, saved]); assert.deepEqual(order, ['edit-v2', 'save-v2']);
+    await assert.rejects(session.enqueueDocumentAction(async () => { throw new Error('disk failure'); }), /disk failure/);
+    await session.enqueueDocumentAction(async () => { order.push('retry'); });
+    assert.equal(order.at(-1), 'retry');
+    session.dispose(); await session.enqueueDocumentAction(async () => { assert.fail('closed sessions cannot write'); });
+});

@@ -1,8 +1,10 @@
 import type { ParticleConfig } from '../../webview/fx/runtime';
 import { compileParticle } from '../../webview/fx/runtime';
+import { localRotationMatrix, transformVector } from '../../webview/fx/runtime/math';
 import { AssetIndex, AssetRecord, sourceOf } from './assetIndex';
+import { fxModelConditionNames } from './capabilities';
 import { evaluateExpression, parseScalar, XmlElement } from './xmlDocument';
-import { defaultScene, FxField, FxIssue, FxNode, FxScene, FxSystem, FxTexture, PreviewIR, SourceLocation } from './previewProtocol';
+import { defaultScene, FxEventList, FxField, FxIssue, FxNode, FxScene, FxSystem, FxTexture, PreviewIR, SourceLocation } from './previewProtocol';
 
 interface Origin { asset: AssetRecord; uri: string; node: XmlElement; }
 interface EffectiveNode { name: string; attributes: Record<string, string>; children: EffectiveNode[]; origin: Origin; attributeOrigins: Record<string, Origin>; }
@@ -22,8 +24,21 @@ const labels: Record<string, string> = {
 const editableAttributes = new Set(['Low','High','Distribution','RelativeAge','r','g','b','X','Y','Z','x','y','z','Radius','Length','RadiusRate',
     'HalfSize','IsHollow','Gravity','IsOneShot','SystemLifetime','Shader','ParticleTexture','IsGroundAligned','SortLevel','SortParticles',
     'FramesPerRow','TotalFrames','SingleRow','RandTex','SpeedMultiplier','Count','Particle','SystemLife','OnlyIfOnLand','OnlyIfOnWater','StopIfPlayed',
-    'UseTarget','CreateAtGroundHeight','OrientToObject','TargetCoeff','File','GeometryType','ShaderName','Motion']);
-const booleanAttributes = new Set(['IsOneShot','IsHollow','IsGroundAligned','SortParticles','OnlyIfOnLand','OnlyIfOnWater','StopIfPlayed','UseTarget','CreateAtGroundHeight','OrientToObject']);
+    'UseTarget','CreateAtGroundHeight','OrientToObject','TargetCoeff','File','GeometryType','ShaderName','Motion', 'Type', 'PerParticleAttachedSystem',
+    'EventFX','PerParticle','KillAfterEvent','OrientFXToTerrain','EnableSoftParticles','Rotation','PlayIfSourceIsStealthed','Weather','PlayEvenIfShrouded',
+    'CullTracking','CullTrackingMin','CullTrackingMax','RequiredSourceModelConditions','ExcludedSourceModelConditions','RequiredSecondaryModelConditions','ExcludedSecondaryModelConditions',
+    'Ricochet','SetTargetMatrix','Swirly','ParticlesAttachToBone','SizeX','SizeY','SizeZ']);
+const booleanAttributes = new Set(['IsOneShot','IsHollow','IsGroundAligned','SortParticles','OnlyIfOnLand','OnlyIfOnWater','StopIfPlayed','UseTarget','CreateAtGroundHeight','OrientToObject',
+    'PerParticle','KillAfterEvent','OrientFXToTerrain','EnableSoftParticles','PlayIfSourceIsStealthed','PlayEvenIfShrouded','Ricochet','SetTargetMatrix','Swirly','ParticlesAttachToBone']);
+const modelConditionAttributes = new Set(['RequiredSourceModelConditions','ExcludedSourceModelConditions','RequiredSecondaryModelConditions','ExcludedSecondaryModelConditions']);
+const weatherNames = ['NORMAL','CLOUDY','RAINY','CLOUDYRAINY','SUNNY','SNOWY','INVALID'];
+const disabledNames = ['DEFAULT','USER_PARALYZED','EMP','HELD','PARALYZED','UNMANNED','UNDERPOWERED','FREEFALL','TEMPORARILY_BUSY','SCRIPT_DISABLED','SCRIPT_UNDERPOWERED','INFILTRATED'];
+const integerAttributes = new Set(['Count','CullTrackingMin','CullTrackingMax']);
+const scalarLiterals = {
+    number: /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/,
+    time: /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?(?:ms|s)?$/,
+    angle: /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?(?:r|d)?$/,
+};
 function plain(node: EffectiveNode): FxNode { return { name: node.name, attributes: { ...node.attributes }, children: node.children.map(plain) }; }
 function clone(node: EffectiveNode): EffectiveNode { return { ...node, attributes: {...node.attributes}, attributeOrigins: {...node.attributeOrigins}, children: node.children.map(clone) }; }
 function find(node: EffectiveNode, name: string): EffectiveNode | undefined { return node.children.find(child => child.name === name); }
@@ -58,7 +73,7 @@ export class AssetResolver {
     private origin(asset: AssetRecord, node = asset.node, uri = asset.uri): Origin { return {asset, node, uri}; }
     private issueAtAsset(code: string, message: string, asset: AssetRecord): FxIssue { return problem(code, message, this.origin(asset)); }
     private select(type: string, reference: string, from: AssetRecord, issues: FxIssue[], origin = this.origin(from), attribute?: string): AssetRecord | undefined {
-        const candidates = this.index.candidates(type, reference, from.namespace, from.uri);
+        const candidates = this.index.candidates(type, reference, from.namespace, from.scopeUri??from.uri);
         if (candidates.length !== 1) {
             issues.push(problem(candidates.length ? 'asset-ambiguous' : 'asset-missing', candidates.length
                 ? `${type}:${reference} 有多个候选来源：${candidates.map(a => a.uri).join('、')}`
@@ -69,6 +84,7 @@ export class AssetResolver {
     }
     private fromXml(asset: AssetRecord, node: XmlElement, issues: FxIssue[], uri = asset.uri, includeStack: string[] = []): EffectiveNode {
         const origin = this.origin(asset, node, uri); const attributes: Record<string, string> = {}; const attributeOrigins: Record<string, Origin> = {};
+        if(node.namespaceUri && node.namespaceUri!==asset.namespace)issues.push(problem('node-namespace',`节点 ${node.name} 的命名空间 ${node.namespaceUri} 不属于该 FX 资产`,origin));
         for (const [name, value] of Object.entries(node.attributes)) if (!isMetadata(name,node)) { attributes[name] = value; attributeOrigins[name] = origin; }
         const children: EffectiveNode[] = [];
         for (const child of node.children) {
@@ -77,7 +93,7 @@ export class AssetResolver {
                 if (includeStack.includes(edge.to)) { issues.push(problem('xinclude-cycle', `xi:include 循环：${[...includeStack, edge.to].join(' → ')}`, this.origin(asset, child, uri))); continue; }
                 const target = this.index.getDocument(edge.to);
                 if (!target?.valid) { issues.push(problem('xinclude-missing', 'xi:include 目标尚不可用', this.origin(asset, child, uri))); continue; }
-                const roots = target.roots.flatMap(root => root.localName === 'AssetDeclaration' ? root.children : [root]);
+                const roots = target.roots;
                 for (const imported of roots) children.push(this.fromXml(asset, imported, issues, edge.to, [...includeStack, edge.to]));
             } else children.push(this.fromXml(asset, child, issues, uri, includeStack));
         }
@@ -96,10 +112,29 @@ export class AssetResolver {
     private merge(parent: EffectiveNode | undefined, child: EffectiveNode, issues: FxIssue[], action: 'Append'|'Replace' = 'Append'): EffectiveNode {
         const result = parent && action !== 'Replace' ? clone(parent) : {...child,attributes:{},attributeOrigins:{},children:[]};
         result.origin = child.origin; result.name = child.name;
-        Object.assign(result.attributes, child.attributes); Object.assign(result.attributeOrigins, child.attributeOrigins);
+        for (const [attribute,value] of Object.entries(child.attributes)) {
+            // NodeJoiner.ReplaceNodeAttributes applies +/- only to enum-list XSD
+            // attributes. Preserve its sequential substring behavior verbatim.
+            if (modelConditionAttributes.has(attribute) && /[+-]/.test(value)) {
+                let combined = result.attributes[attribute] ?? '';
+                for (const token of value.split(' ')) {
+                    const modifier = token[0], flag = token.slice(1);
+                    if (!flag || !fxModelConditionNames.has(flag) || !['+','-'].includes(modifier)) {
+                        issues.push(problem('inherit-bitflag', `非法 ModelConditions 覆盖 ${token}；每项需要 +标志 或 -标志`, child.attributeOrigins[attribute] ?? child.origin,attribute)); continue;
+                    }
+                    if (modifier === '+' && !combined.includes(flag)) combined += ` ${flag}`;
+                    if (modifier === '-') {
+                        if (!combined.includes(flag)) issues.push(problem('inherit-bitflag', `无法删除未继承的 ModelCondition ${flag}`,child.attributeOrigins[attribute] ?? child.origin,attribute));
+                        else combined = combined.split(flag).join('');
+                    }
+                }
+                result.attributes[attribute] = combined;
+            } else result.attributes[attribute] = value;
+            result.attributeOrigins[attribute] = child.attributeOrigins[attribute] ?? child.origin;
+        }
         for (const incoming of child.children) {
             const childAction = this.joinAction(incoming,issues,action); if (!childAction) continue;
-            const multiple = (child.name === 'Colors' && incoming.name === 'Color') || (child.name === 'Alphas' && incoming.name === 'Alpha') || child.name === 'NuggetList';
+            const multiple = (child.name === 'Colors' && incoming.name === 'Color') || (child.name === 'Alphas' && incoming.name === 'Alpha') || child.name === 'NuggetList' || child.name === 'Event' || incoming.name === 'SourceMustNotHaveBeenDisabledThisFrameByType';
             const choice = ['Physics','Draw','Volume','Velocity','Update'].includes(child.name);
             const matching = result.children.map((node,index) => ({node,index})).filter(value => multiple
                 ? !!incoming.attributes.id && value.node.attributes.id === incoming.attributes.id
@@ -134,7 +169,7 @@ export class AssetResolver {
         // a75840e InstanceDeclaration.cs:228-240 removes inheritFrom before XSD;
         // AssetDeclarationDocument.cs:1153 forbids non-BaseInheritableAsset sources
         // unless FindLocation.Self. FXList/particle/Texture are BaseAssetType.
-        if (parent.uri !== asset.uri) { issues.push(problem('inherit-cross-document', `${asset.type} 非 BaseInheritableAsset，只支持同文档 inheritFrom`, this.origin(asset),'inheritFrom')); return undefined; }
+        if ((parent.scopeUri??parent.uri) !== (asset.scopeUri??asset.uri)) { issues.push(problem('inherit-cross-document', `${asset.type} 非 BaseInheritableAsset，只支持同文档 inheritFrom`, this.origin(asset),'inheritFrom')); return undefined; }
         const rootAction = this.joinAction(own,issues); if (!rootAction) return undefined;
         if (rootAction === 'Remove') { issues.push(problem('inherit-remove-root','编译器不支持删除顶层资产',this.origin(asset))); return undefined; }
         const inherited = this.effective(parent, issues, [...stack, asset.key]);
@@ -175,8 +210,10 @@ export class AssetResolver {
     }
     private expandExpressions(node: EffectiveNode, symbols: Record<string, number>, issues: FxIssue[]): void {
         for (const [name, value] of Object.entries(node.attributes)) {
-            if (!/^\s*(?:=|\$)/.test(value)) continue;
-            const result = evaluateExpression(value, symbols);
+            // Pinned AssetDeclarationDocument.ProcessExpressionsInNode tests
+            // the very first character. A bare $name is not a compiler expression.
+            if (value[0] !== '=') continue;
+            const result = evaluateExpression(value,symbols);
             if (result.status === 'evaluated') node.attributes[name] = String(result.value);
             else issues.push(problem('expression-unresolved', `${name} 尚未求值：${result.reason}`, node.attributeOrigins[name] ?? node.origin, name));
         }
@@ -190,12 +227,18 @@ export class AssetResolver {
             const token = origin.node.attributeTokens[attribute]; const defaulted = !token && Object.hasOwn(atlasDefaults,attribute); if (!token && !defaulted) continue;
             let choices: string[] | undefined;
             if (attribute === 'Shader' && node.name === 'FXParticleSystemTemplate') choices = ['ADDITIVE','ALPHA','MULTIPLY'];
+            if (attribute === 'Shader' && node.name === 'Gpu') choices = ['GPUParticle.fx','GpuParticlePerpendicularBottom.fx'];
+            if (attribute === 'Rotation') choices = ['ROTATION_OFF','ROTATE_AROUND_VELOCITY','ROTATE_IN_WORLD_SPACE'];
             if (attribute === 'RandTex') choices = ['0','1','2'];
             if (attribute === 'Distribution') choices = ['CONSTANT','UNIFORM'];
+            if (attribute === 'Type' && ['InitialDelay','BurstDelay','BurstCount','Lifetime','Size','EventTime','HeightOffset'].includes(node.name)) choices = ['CONSTANT','UNIFORM'];
+            if (attribute === 'Type' && node.name === 'FXParticleSystemTemplate') choices = ['GPU_PARTICLE','PARTICLE'];
+            if (attribute === 'GeometryType') choices = ['SIMPLE_QUAD','CENTERED_QUAD','TWO_CONCENTRIC_QUADS','TWO_QUADS'];
+            if (attribute === 'Weather') choices = weatherNames;
             const inherited = origin.asset.key !== selectedAsset.key || origin.uri !== selectedAsset.uri;
             const location = token ? source(origin, attribute) : {...source(origin), start:origin.node.openEnd-(origin.node.selfClosing?2:1), end:origin.node.openEnd-(origin.node.selfClosing?2:1)};
             result.push({...location, defaulted, key: JSON.stringify([origin.uri, origin.node.path, attribute]), attribute,
-                label: labels[attribute] ?? attribute, value: token?.value ?? value, readonly: this.index.isReadonly(origin.uri) || !editableAttributes.has(attribute) || metadata.has(attribute) || (node.name === 'Gpu' && ['Shader','GeometryType'].includes(attribute)),
+                label: labels[attribute] ?? attribute, value: token?.value ?? value, readonly: this.index.isReadonly(origin.uri) || !editableAttributes.has(attribute) || metadata.has(attribute),
                 inherited, sourceAsset: origin.asset.key, previewPath: prefix, group: labels[group] ?? group,
                 kind: choices ? 'enum' : booleanAttributes.has(attribute) ? 'boolean' : /^[-+\d.=$]/.test(value.trim()) ? 'number' : 'text', choices});
         }
@@ -208,10 +251,12 @@ export class AssetResolver {
             let current = node; let attribute: string | undefined;
             for (const part of parts) {
                 if (part.startsWith('@')) { attribute = part.slice(1); break; }
-                const child = current.children.find(value => value.name === part.replace(/\[.*\]$/, ''));
+                const match = /^([^[]+)(?:\[(\d+)\])?$/.exec(part);
+                const child = current.children.filter(value => value.name === match?.[1])[Math.max(0,Number(match?.[2] ?? 1)-1)];
                 if (child) current = child;
                 else if (current.attributes[part] !== undefined) attribute = part;
             }
+            if (attribute && current.attributes[attribute] === undefined && current.children.length === 1 && current.children[0].attributes[attribute] !== undefined) current = current.children[0];
             return problem(diagnostic.code, diagnostic.message, attribute ? current.attributeOrigins[attribute] ?? current.origin : current.origin, attribute, diagnostic.severity);
         });
     }
@@ -238,104 +283,247 @@ export class AssetResolver {
     }
     private numeric(node: EffectiveNode, attribute: string, fallback: number, issues: FxIssue[], kind: 'number'|'time'|'angle' = 'number'): number {
         const lexical = node.attributes[attribute]; if (lexical === undefined) return fallback;
+        // Expressions have already passed the compiler's leading '=' gate.
+        // Never ask the general expression parser to interpret an unmarked
+        // literal such as Count="1+2" or SystemLife="1+2s". Prefix recovery by
+        // strtol/atof is outside this finite preview profile and is diagnosed.
+        const literal = integerAttributes.has(attribute) ? /^[+-]?\d+$/ : scalarLiterals[kind];
+        if (!literal.test(lexical.trim())) {
+            issues.push(problem('invalid-value', `${attribute}：需要完整数值${kind==='time'?'及可选 s/ms 后缀':kind==='angle'?'及可选 r/d 后缀':''}；算术表达式须以 = 开头，未实现编译器数值前缀容错`,node.attributeOrigins[attribute]??node.origin,attribute));
+            return fallback;
+        }
         const parsed = parseScalar(lexical, kind);
         if (parsed.status !== 'evaluated' || !Number.isFinite(parsed.value)) { issues.push(problem('invalid-value', `${attribute}：${parsed.status === 'evaluated' ? '数值必须有限' : parsed.reason}`, node.attributeOrigins[attribute] ?? node.origin, attribute)); return fallback; }
         return parsed.value;
     }
+    private predicate(nugget: EffectiveNode, scene: FxScene, issues: FxIssue[]): 'play'|'skip'|'context' {
+        const weather = nugget.attributes.Weather ?? 'INVALID';
+        if (!weatherNames.includes(weather)) { issues.push(problem('weather-invalid', `未知 Weather=${weather}`,nugget.origin,'Weather')); return 'context'; }
+        if (weather !== 'INVALID' && weather !== (scene.weather ?? 'NORMAL')) {
+            issues.push(problem('condition-not-triggered', `Weather=${weather} 与当前 ${scene.weather ?? 'NORMAL'} 不符`,nugget.origin,'Weather','information')); return 'skip';
+        }
+        const flags = (attribute: string): string[] => (nugget.attributes[attribute] ?? '').trim().split(/\s+/).filter(Boolean);
+        for (const attribute of modelConditionAttributes) for (const flag of flags(attribute)) if (!fxModelConditionNames.has(flag)) {
+            issues.push(problem('model-condition-invalid', `未知 ModelCondition ${flag}`,nugget.attributeOrigins[attribute] ?? nugget.origin,attribute)); return 'context';
+        }
+        // 520BA0 receives NULL,NULL on position dispatch; object filters and
+        // ModelConditions are not evaluated in that context. XSD enum validity
+        // above still applies to the original declaration.
+        if (scene.dispatch !== 'object') return 'play';
+        for (const filter of nugget.children.filter(node => ['SourceObjectFilter','SecondaryObjectFilter'].includes(node.name))) {
+            if (filter.name === 'SecondaryObjectFilter' && scene.targetObject === false) continue;
+            issues.push(problem('object-filter-context', `${filter.name} 需要任意 ObjectFilter 解释器；当前对象分支暂停`,filter.origin)); return 'context';
+        }
+        const required = flags('RequiredSourceModelConditions').filter(flag => flag !== 'INVALID');
+        const excluded = flags('ExcludedSourceModelConditions').filter(flag => flag !== 'INVALID');
+        for (const attribute of ['RequiredSecondaryModelConditions','ExcludedSecondaryModelConditions']) if(flags(attribute).some(flag=>flag!=='INVALID')) issues.push(problem('predicate-descriptor-unused',`${attribute} 未被固定 520BA0 共用 predicate 读取；目标对象仍使用 Source 条件`,nugget.attributeOrigins[attribute]??nugget.origin,attribute,'information'));
+        const matches = (actual: readonly string[]): boolean => {
+            const set = new Set(actual.filter(flag => flag !== 'INVALID'));
+            const has = (flag: string): boolean => set.has('ALL') || set.has(flag);
+            return required.every(has) && !excluded.some(flag => flag === 'ALL' ? set.size > 0 : has(flag));
+        };
+        // Native 520BA0 intentionally reuses Source required/excluded for both
+        // objects. Secondary descriptors are compiled but not read here.
+        if (!matches(scene.sourceModelConditions ?? []) || scene.targetObject !== false && !matches(scene.targetModelConditions ?? [])) {
+            issues.push(problem('condition-not-triggered','源/目标对象不满足 SourceModelConditions（原生 predicate 对双方复用此字段）',nugget.origin,undefined,'information')); return 'skip';
+        }
+        if (scene.sourceStealthState === 5 && !bool(nugget.attributes.PlayIfSourceIsStealthed)) {
+            issues.push(problem('condition-not-triggered','源 Drawable 状态字节为 5，PlayIfSourceIsStealthed=false',nugget.origin,undefined,'information')); return 'skip';
+        }
+        for (const node of nugget.children.filter(child => child.name === 'SourceMustNotHaveBeenDisabledThisFrameByType')) {
+            const value = node.origin.node.textTokens.map(token => token.value).join('').trim();
+            if (!disabledNames.includes(value)) { issues.push(problem('disabled-type-invalid', `未知 DisabledType ${value}`,node.origin)); return 'context'; }
+            if (scene.sourceDisabledTypesThisFrame?.includes(value)) { issues.push(problem('condition-not-triggered', `源本逻辑帧被 ${value} 禁用`,node.origin,undefined,'information')); return 'skip'; }
+        }
+        return 'play';
+    }
     async resolve(assetKey: string, sceneValues: Partial<FxScene> = {}, signal?: AbortSignal): Promise<PreviewIR> {
         const asset = this.index.getAsset(assetKey); if (!asset) throw new Error('所选 FX 资产不属于当前入口，请重新选择');
-        const scene: FxScene = {...defaultScene, ...sceneValues, source: [...(sceneValues.source ?? defaultScene.source)], target: [...(sceneValues.target ?? defaultScene.target)]};
-        if (![...scene.source, ...scene.target, scene.ground, scene.seed].every(Number.isFinite)) throw new Error('预览场景数值必须有限');
-        const issues = [...this.index.graph.issues]; const systems: FxSystem[] = []; const textures: FxTexture[] = [];
-        const rootIssueStart = issues.length;
-        const symbols = this.symbols(issues,asset.uri);
-        const effective = this.effective(asset, issues);
-        const rootResolutionFailed = issues.slice(rootIssueStart).some(issue => issue.severity === 'error');
-        if (effective) this.expandExpressions(effective, symbols, issues);
-        const fields = effective ? this.fields(effective, asset) : [];
-        const addSystem = async (template: AssetRecord, call: EffectiveNode | undefined, instance: number, callIndex: number): Promise<void> => {
-            if (signal?.aborted) throw new Error('FX preview cancelled');
-            const systemIssues: FxIssue[] = [];
-            const definition = this.effective(template, systemIssues); if (definition) this.expandExpressions(definition, this.symbols(systemIssues,template.uri), systemIssues);
-            const compiled = definition ? compileParticle(plain(definition)) : undefined;
-            if (compiled && definition) systemIssues.push(...this.runtimeIssues(compiled.issues, definition));
-            const textureIssues: FxIssue[] = [];
-            const texture = definition ? await this.texture(template, definition, textureIssues) : undefined;
-            if (texture && texture.status !== 'pending' && !textureIssues.length) textureIssues.push({...texture.location!,code:`texture-${texture.status}`,message:texture.message ?? texture.status,severity:'warning'});
-            systemIssues.push(...textureIssues.map(issue => ({...issue,severity:'warning' as const})));
-            if (texture && !textures.some(t => t.key === texture.key)) textures.push(texture);
-            let triggered = true; const offset: [number,number,number] = [...scene.source]; let rotation = 0; let rotationXYZ: [number,number,number] | undefined;
-            let systemLifeFrames: number | undefined; let initialDelayOverrideMs: FxSystem['initialDelayOverrideMs']; let config: ParticleConfig | undefined = compiled?.config;
-            if (call) {
-                const supportedAttributes = new Set(['Particle','Count','SystemLife','OnlyIfOnLand','OnlyIfOnWater','StopIfPlayed','Weather','OrientToObject','CreateAtGroundHeight','UseTarget','Ricochet','SetTargetMatrix','TargetCoeff']);
-                for (const [name,value] of Object.entries(call.attributes)) if (!supportedAttributes.has(name) && value && !metadata.has(name)) systemIssues.push(problem('nugget-context', `ParticleSystem.${name} 尚无已实现的调用上下文`, call.attributeOrigins[name] ?? call.origin, name));
-                for (const name of ['OrientToObject','UseTarget','Ricochet','SetTargetMatrix']) if (bool(call.attributes[name])) systemIssues.push(problem('nugget-context', `ParticleSystem.${name} 需要对象/目标矩阵上下文，本轮普通位置预览未播放此分支`, call.attributeOrigins[name] ?? call.origin, name));
-                if (call.attributes.TargetCoeff !== undefined && this.numeric(call,'TargetCoeff',1,systemIssues) !== 1) systemIssues.push(problem('nugget-context','TargetCoeff 需要目标分支上下文',call.origin,'TargetCoeff'));
-                if (call.attributes.Weather && call.attributes.Weather !== 'INVALID') systemIssues.push(problem('weather-context', `需要 Weather=${call.attributes.Weather} 上下文`, call.origin, 'Weather'));
-                const placement = find(call,'Offset'); if (placement) ['x','y','z'].forEach((axis,i) => { offset[i] += this.numeric(placement,axis,0,systemIssues); });
-                if (bool(call.attributes.CreateAtGroundHeight)) offset[2] = scene.ground + (placement ? this.numeric(placement,'z',0,systemIssues) : 0);
-                const rotate = find(call,'Rotate'); if (rotate) {
-                    rotationXYZ = ['X','Y','Z'].map(axis => this.numeric(rotate,axis,0,systemIssues,'angle')) as [number,number,number];
-                    rotation = rotationXYZ[2];
-                    if (rotationXYZ[0] !== 0 || rotationXYZ[1] !== 0) systemIssues.push(problem('rotate-contract', 'Rotate XYZ 采用 EA 同系矩阵合同 Rx·Ry·Rz，尚无 RA3 实机画面对照', rotate.origin, undefined, 'warning'));
-                }
-                const delay = find(call,'InitialDelay'); if (delay && config) {
-                    const low = this.numeric(delay,'Low',-1,systemIssues); const high = this.numeric(delay,'High',-1,systemIssues);
-                    const type = delay.attributes.Type ?? 'CONSTANT';
-                    if (!['CONSTANT','UNIFORM'].includes(type)) systemIssues.push(problem('nugget-delay-type', `InitialDelay.Type=${type} 尚未实现`, delay.origin, 'Type'));
-                    if (low >= 0 && high >= low && ['CONSTANT','UNIFORM'].includes(type)) initialDelayOverrideMs = {low,high,type:type as 'CONSTANT'|'UNIFORM'};
-                    else if (!(low === -1 && high === -1)) systemIssues.push(problem('nugget-delay', 'InitialDelay 需非负毫秒范围或默认 -1,-1', delay.origin));
-                }
-                const lifetime = this.numeric(call,'SystemLife',-1,systemIssues,'time');
-                if (lifetime >= 0) systemLifeFrames = Math.ceil(lifetime*30);
-                else if (lifetime !== -1) systemIssues.push(problem('nugget-lifetime','SystemLife 只支持非负 Time 或默认 -1s',call.origin,'SystemLife'));
-                for (const child of call.children) if (!['Rotate','Offset','InitialDelay'].includes(child.name)) systemIssues.push(problem('nugget-module', `ParticleSystem/${child.name} 暂未实现`, child.origin));
-                if (bool(call.attributes.OnlyIfOnLand) && scene.terrain === 'water' || bool(call.attributes.OnlyIfOnWater) && scene.terrain === 'land') {
-                    triggered = false; systemIssues.push(problem('condition-not-triggered', '当前陆地/水面条件不满足，未触发', call.origin, undefined, 'information'));
-                }
-            }
-            if (systemIssues.some(i => i.severity === 'error')) config = undefined;
-            const system: FxSystem = {key:`${asset.key}/call/${callIndex}/${instance}`, name:`${template.id}${call ? ` · 调用 ${callIndex+1}.${instance+1}`:''}`,
-                templateKey:template.key, source:call ? source(call.origin):source(this.origin(template)), definition:definition ? plain(definition):undefined,
-                config, fields:definition ? this.fields(definition, template):[], issues:systemIssues, offset, rotation, rotationXYZ, startFrame:0, systemLifeFrames, initialDelayOverrideMs,
-                textureKey:texture?.key, triggered};
-            systems.push(system); issues.push(...systemIssues);
+        const scene: FxScene = {...defaultScene,...sceneValues,source:[...(sceneValues.source ?? defaultScene.source)],target:[...(sceneValues.target ?? defaultScene.target)]};
+        if (scene.source.length!==3 || scene.target.length!==3 || scene.sourceRotation && scene.sourceRotation.length!==3 || ![...scene.source,...scene.target,...(scene.sourceRotation ?? []),scene.ground,scene.seed,scene.positionVisibility??1,scene.sourceVisibility??1,scene.sourceStealthState??0].every(Number.isFinite)) throw new Error('预览场景坐标需三个有限值，其余场景数值必须有限');
+        if (scene.dispatch && !['position','object'].includes(scene.dispatch)) throw new Error('未知 FXList 分派上下文');
+        if (!weatherNames.includes(scene.weather??'NORMAL')) throw new Error(`未知场景 Weather ${scene.weather}`);
+        if (scene.sourceDisabledTypesThisFrame?.some(name=>!disabledNames.includes(name))) throw new Error('未知场景 DisabledType');
+        for (const flag of [...(scene.sourceModelConditions ?? []),...(scene.targetModelConditions ?? [])]) if (!fxModelConditionNames.has(flag)) throw new Error(`未知场景 ModelCondition ${flag}`);
+        const issues = [...this.index.graph.issues], textures: FxTexture[] = [], systems: FxSystem[] = [];
+        const templates = new Map<string,FxSystem>(), fxLists = new Map<string,FxEventList>();
+        const pending: AssetRecord[] = [], queued = new Set<string>(); let hasDynamic = false, dynamicDescriptors = 0;
+        const enqueue = (target: AssetRecord, origin: Origin, targetIssues: FxIssue[]): boolean => {
+            hasDynamic = true;
+            if (queued.has(target.key)) return true;
+            if (queued.size >= 128) { targetIssues.push(problem('reference-budget','事件/附属引用图已达 128 个资产上限，停止展开此引用',origin)); return false; }
+            queued.add(target.key); pending.push(target); return true;
         };
-        if (effective && asset.type === 'FXParticleSystemTemplate') await addSystem(asset,undefined,0,0);
-        else if (effective && asset.type === 'FXList' && !rootResolutionFailed) {
-            const list = find(effective,'NuggetList');
-            if (!list) issues.push(this.issueAtAsset('nugget-list-missing','FXList 缺少 NuggetList',asset));
-            let callIndex = 0;
-            for (const nugget of list?.children ?? []) {
-                if (signal?.aborted) throw new Error('FX preview cancelled');
-                if (nugget.name !== 'ParticleSystem') {
-                    issues.push(problem('nugget-unsupported', `${nugget.name} 节点保留在 XML 中，当前未播放`, nugget.origin, undefined, 'warning'));
-                    if (bool(nugget.attributes.StopIfPlayed)) { issues.push(problem('dispatch-stop-context', `${nugget.name} 执行槽尚未实现，无法可靠继续 StopIfPlayed 调度`, nugget.origin)); break; }
-                    continue;
+        const multiply = (a: readonly number[],b: readonly number[]): number[] => Array.from({length:9},(_,index) => {
+            const row = Math.floor(index/3), col = index%3; return a[row*3]*b[col]+a[row*3+1]*b[col+3]+a[row*3+2]*b[col+6];
+        });
+        const template = async (record: AssetRecord): Promise<FxSystem> => {
+            const cached = templates.get(record.key); if (cached) return cached;
+            if (signal?.aborted) throw new Error('FX preview cancelled');
+            const localIssues: FxIssue[] = [];
+            const definition = this.effective(record,localIssues);
+            if (definition) this.expandExpressions(definition,this.symbols(localIssues,record.scopeUri??record.uri),localIssues);
+            const compiled = definition ? compileParticle(plain(definition)) : undefined;
+            if (compiled && definition) localIssues.push(...this.runtimeIssues(compiled.issues,definition));
+            const textureIssues: FxIssue[] = [], texture = definition ? await this.texture(record,definition,textureIssues) : undefined;
+            if (texture && texture.status !== 'pending' && !textureIssues.length) textureIssues.push({...texture.location!,code:`texture-${texture.status}`,message:texture.message ?? texture.status,severity:'warning'});
+            localIssues.push(...textureIssues.map(issue => ({...issue,severity:'warning' as const})));
+            if (texture && !textures.some(value => value.key === texture.key)) textures.push(texture);
+            const config = compiled?.config;
+            const value: FxSystem = {key:record.key,name:record.id,templateKey:record.key,source:source(this.origin(record)),definition:definition ? plain(definition):undefined,
+                config,fields:definition ? this.fields(definition,record):[],issues:localIssues,offset:[0,0,0],rotation:0,startFrame:0,textureKey:texture?.key,triggered:true};
+            templates.set(record.key,value); // Register before following references; cycles remain graph edges.
+            if (definition) {
+                const attached = definition.attributes.PerParticleAttachedSystem;
+                if (attached) {
+                    const target = this.select('FXParticleSystemTemplate',attached,record,localIssues,definition.attributeOrigins.PerParticleAttachedSystem ?? definition.origin,'PerParticleAttachedSystem');
+                    if (target && enqueue(target,definition.origin,localIssues) && config) config.attachedSystem = target.key;
                 }
-                const invalidBoolean = Object.entries(nugget.attributes).find(([name,value]) => booleanAttributes.has(name) && !/^(?:[Tt]rue|[Ff]alse|0|1)$/.test(value));
-                if (invalidBoolean) {
-                    issues.push(problem('invalid-boolean', `${invalidBoolean[0]} 不是合法 SageBool`, nugget.origin, invalidBoolean[0]));
-                    if (invalidBoolean[0] === 'StopIfPlayed') break;
-                    continue;
+                const events = find(definition,'Event')?.children ?? [];
+                for (let i=0;i<events.length;i++) {
+                    const event = events[i], reference = event.attributes.EventFX;
+                    if (!reference || !['Life','Collision'].includes(event.name)) continue;
+                    const target = this.select('FXList',reference,record,localIssues,event.attributeOrigins.EventFX ?? event.origin,'EventFX');
+                    if (target && enqueue(target,event.origin,localIssues) && config?.events?.[i]) config.events[i].fx = target.key;
                 }
-                const countIssueStart = issues.length;
-                const count = this.numeric(nugget,'Count',1,issues);
-                if (issues.slice(countIssueStart).some(issue => issue.severity === 'error')) continue;
-                if (!Number.isInteger(count)) { issues.push(problem('nugget-count','Count 必须为整数系统实例数',nugget.origin,'Count')); continue; }
-                if (count > 128 || systems.length + Math.max(count,0) > 128) { issues.push(problem('system-budget','预览系统实例预算已达上限（128）',nugget.origin,'Count')); continue; }
-                const particle = nugget.attributes.Particle ?? '';
-                const template = particle ? this.select('FXParticleSystemTemplate',particle,asset,issues,nugget.origin,'Particle'):undefined;
-                if (!particle) issues.push(problem('particle-reference-empty','ParticleSystem.Particle 为空，未创建系统',nugget.origin,'Particle','information'));
-                if (template) for (let i=0; i<count; i++) await addSystem(template,nugget,i,callIndex);
-                callIndex++;
-                // Land/water are backend checks after the execution slot; they do
-                // not prevent StopIfPlayed from ending the parent traversal.
-                if (bool(nugget.attributes.StopIfPlayed) && (!nugget.attributes.Weather || nugget.attributes.Weather === 'INVALID')) break;
             }
-        } else if (effective && asset.type !== 'FXList') issues.push(this.issueAtAsset('asset-not-previewable', `${asset.type} 只提供结构与资源查看`, asset));
-        const document = this.index.getDocument(asset.uri);
-        return {schemaVersion:1,entry:asset.entry,assetKey:asset.key,name:asset.id,documentUri:asset.uri,documentVersion:document?.version ?? 0,
-            generation:this.index.generation,systems,fields,textures,issues,dependencies:[...this.index.graph.dependencies],scene};
+            if (localIssues.some(issue => issue.severity === 'error')) value.config = undefined;
+            issues.push(...localIssues); return value;
+        };
+        const instantiate = async (record: AssetRecord,call: EffectiveNode | undefined,instance: number,callIndex: number,context: FxScene,listKey: string,relative=false): Promise<FxSystem> => {
+            const base = await template(record), localIssues: FxIssue[] = [...base.issues], inheritedIssueCount = localIssues.length;
+            const value: FxSystem = {...base,key:`${listKey}/call/${callIndex}/${instance}`,name:`${record.id}${call ? ` · 调用 ${callIndex+1}.${instance+1}`:''}`,
+                source:call ? source(call.origin):base.source,issues:localIssues,offset:[...context.source],triggered:true};
+            const inputAngles: [number,number,number] = context.dispatch === 'object' ? [...(context.sourceRotation ?? [0,0,0])] : [0,0,0];
+            if (!call) {if(context.dispatch==='object')value.rotationMatrix=[...localRotationMatrix(inputAngles)];return value;}
+            const supportedAttributes = new Set(['Particle','Count','SystemLife','OnlyIfOnLand','OnlyIfOnWater','StopIfPlayed','Weather','OrientToObject','CreateAtGroundHeight','UseTarget','Ricochet','SetTargetMatrix','TargetCoeff','CreateOverrideBone','TargetOverrideBone','PlayIfSourceIsStealthed',...modelConditionAttributes]);
+            for (const name of Object.keys(call.attributes)) if (!supportedAttributes.has(name) && !metadata.has(name)) localIssues.push(problem('nugget-context',`ParticleSystem.${name} 尚无已实现的调用合同`,call.attributeOrigins[name] ?? call.origin,name));
+            for (const name of ['CreateOverrideBone','TargetOverrideBone']) if (call.attributes[name]) localIssues.push(problem('bone-context',`ParticleSystem.${name} 需要完整对象骨骼，当前分支暂停`,call.attributeOrigins[name] ?? call.origin,name));
+            const hasTarget = context.dispatch === 'object' && context.targetObject !== false;
+            value.orientToObject=bool(call.attributes.OrientToObject);
+            if (bool(call.attributes.Ricochet) && hasTarget) inputAngles.splice(0,3,0,0,Math.atan2(context.source[1]-context.target[1],context.source[0]-context.target[0]));
+            const inputMatrix = localRotationMatrix(inputAngles);
+            const placement = find(call,'Offset');
+            const localOffset = placement ? ['x','y','z'].map(axis => this.numeric(placement,axis,0,localIssues)) as [number,number,number] : [0,0,0] as [number,number,number];
+            const offset = transformVector(localOffset,inputMatrix);
+            value.offset = context.source.map((n,index) => n+offset[index]) as [number,number,number];
+            if (bool(call.attributes.CreateAtGroundHeight)) {if(!relative)value.offset[2] = context.ground; value.createAtGroundHeight = true;}
+            let matrix = bool(call.attributes.OrientToObject) ? [...inputMatrix] : [...localRotationMatrix([0,0,0])];
+            if (hasTarget) value.target = [...context.target];
+            const targetOffset = find(call,'TargetOffset');
+            if (targetOffset) value.target = ['x','y','z'].map((axis,index) => value.offset[index]+this.numeric(targetOffset,axis,0,localIssues)) as [number,number,number];
+            // 5336DC only consumes SetTargetMatrix under OrientToObject with a
+            // secondary object. The +10 vertical bias is present in the native path.
+            if (bool(call.attributes.OrientToObject) && bool(call.attributes.SetTargetMatrix) && hasTarget) {
+                const dx=context.target[0]-value.offset[0],dy=context.target[1]-value.offset[1],dz=context.target[2]-value.offset[2];
+                matrix = multiply(matrix,localRotationMatrix([0,Math.PI-Math.atan2(dz+10,Math.hypot(dx,dy)),0]));
+            }
+            const rotate = find(call,'Rotate');
+            if (rotate) {
+                value.rotationXYZ = ['X','Y','Z'].map(axis => this.numeric(rotate,axis,0,localIssues,'angle')) as [number,number,number]; value.rotation = value.rotationXYZ[2];
+                matrix = multiply(matrix,localRotationMatrix(value.rotationXYZ));
+                if (value.rotationXYZ[0] !== 0 || value.rotationXYZ[1] !== 0) localIssues.push(problem('rotate-contract','Rotate XYZ 采用 EA 同系矩阵合同 Rx·Ry·Rz，尚无 RA3 实机画面对照',rotate.origin,undefined,'warning'));
+            }
+            value.rotationMatrix = matrix;
+            if (call.attributes.TargetCoeff !== undefined) {
+                this.numeric(call,'TargetCoeff',1,localIssues);
+                localIssues.push(problem('nugget-unused','固定 533400 普通粒子创建路径不读取 TargetCoeff；XML 值已保留',call.attributeOrigins.TargetCoeff ?? call.origin,'TargetCoeff','information'));
+            }
+            const delay = find(call,'InitialDelay');
+            if (delay) {
+                const low=this.numeric(delay,'Low',-1,localIssues),high=this.numeric(delay,'High',-1,localIssues),type=delay.attributes.Type ?? 'CONSTANT';
+                if (low >= 0 && high >= low && ['CONSTANT','UNIFORM'].includes(type)) value.initialDelayOverrideMs={low,high,type:type as 'CONSTANT'|'UNIFORM'};
+                else if (!(low===-1 && high===-1 && ['CONSTANT','UNIFORM'].includes(type))) localIssues.push(problem('nugget-delay','InitialDelay 需非负毫秒范围/合法 Type，或默认 -1,-1',delay.origin));
+            }
+            const life=this.numeric(call,'SystemLife',-1,localIssues,'time');
+            if (life>=0) value.systemLifeFrames=Math.ceil(life*30); else if(life!==-1) localIssues.push(problem('nugget-lifetime','SystemLife 只支持非负 Time 或默认 -1s',call.origin,'SystemLife'));
+            for(const child of call.children) if(!['Rotate','Offset','TargetOffset','InitialDelay','SourceObjectFilter','SecondaryObjectFilter','SourceMustNotHaveBeenDisabledThisFrameByType'].includes(child.name)) localIssues.push(problem('nugget-module',`ParticleSystem/${child.name} 尚无已实现的创建合同`,child.origin));
+            if(bool(call.attributes.OnlyIfOnLand) && context.terrain==='water' || bool(call.attributes.OnlyIfOnWater) && context.terrain==='land') {
+                value.triggered=false; localIssues.push(problem('condition-not-triggered','当前陆地/水面条件不满足，未触发',call.origin,undefined,'information'));
+            }
+            if(localIssues.some(issue=>issue.severity==='error')) value.config=undefined;
+            issues.push(...localIssues.slice(inheritedIssueCount)); return value;
+        };
+        const dispatch = async(record:AssetRecord,context:FxScene,destination:FxSystem[],effective?:EffectiveNode):Promise<boolean> => {
+            const localIssues:FxIssue[]=[];
+            const node=effective ?? this.effective(record,localIssues); if(node && !effective) this.expandExpressions(node,this.symbols(localIssues,record.scopeUri??record.uri),localIssues);
+            issues.push(...localIssues); if(!node || localIssues.some(issue=>issue.severity==='error')) return false;
+            const listAttributes=new Set(['id','PlayEvenIfShrouded','Tailorable','CullTracking','CullTrackingMin','CullTrackingMax']);
+            for(const name of Object.keys(node.attributes)) if(!listAttributes.has(name)) {issues.push(problem('fxlist-field',`FXList.${name} 尚无已实现合同`,node.attributeOrigins[name]??node.origin,name));return false;}
+            for(const name of ['PlayEvenIfShrouded','Tailorable']) if(node.attributes[name]!==undefined && !/^(?:true|false|0|1)$/i.test(node.attributes[name])) {issues.push(problem('invalid-boolean',`${name} 不是合法 SageBool`,node.attributeOrigins[name]??node.origin,name));return false;}
+            for(const child of node.children) if(child.name!=='NuggetList') {issues.push(problem('fxlist-node',`FXList/${child.name} 尚无已实现合同`,child.origin));return false;}
+            const cullIssues:FxIssue[]=[],window=this.numeric(node,'CullTracking',0,cullIssues,'time'),minimum=this.numeric(node,'CullTrackingMin',0,cullIssues),maximum=this.numeric(node,'CullTrackingMax',0,cullIssues);
+            if(window<0 || !Number.isInteger(minimum) || !Number.isInteger(maximum) || minimum<0 || maximum<minimum || maximum>0x7fffffff)cullIssues.push(problem('cull-tracking-value','CullTracking 需非负时间及 0≤Min≤Max≤signed32 的整数范围',node.origin));
+            if(cullIssues.length){issues.push(...cullIssues);return false;}
+            if(bool(node.attributes.Tailorable)) issues.push(problem('fxlist-tailorable','Tailorable 质量裁剪采用当前标准高质量预览，未模拟其他游戏质量配置',node.attributeOrigins.Tailorable??node.origin,'Tailorable','warning'));
+            if(!bool(node.attributes.PlayEvenIfShrouded)) {
+                const visible=context.dispatch==='object' ? context.sourceVisibility ?? 1 : 0;
+                if(context.dispatch==='object' && visible>2 || (context.dispatch!=='object' || visible===0) && (context.positionVisibility??1)!==1) {
+                    issues.push(problem('condition-not-triggered','当前原生可见性查询值拒绝 FXList 分派',node.origin,undefined,'information'));return false;
+                }
+            }
+            const list=find(node,'NuggetList'); if(!list){issues.push(problem('nugget-list-missing','FXList 缺少 NuggetList',node.origin));return false;}
+            let callIndex=0;
+            for(const nugget of list.children) {
+                if(signal?.aborted) throw new Error('FX preview cancelled');
+                const invalidBoolean=Object.entries(nugget.attributes).find(([name,value])=>booleanAttributes.has(name) && !/^(?:true|false|0|1)$/i.test(value));
+                if(invalidBoolean){issues.push(problem('invalid-boolean',`${invalidBoolean[0]} 不是合法 SageBool`,nugget.origin,invalidBoolean[0]));if(invalidBoolean[0]==='StopIfPlayed')break;continue;}
+                const predicate=this.predicate(nugget,context,issues);
+                if(predicate==='skip')continue;
+                if(predicate==='context'){if(bool(nugget.attributes.StopIfPlayed))break;continue;}
+                if(nugget.name==='FXListAtBonePos' && context.dispatch!=='object') {
+                    issues.push(problem('bone-position-noop','FXListAtBonePos 的位置执行槽为空操作；没有 source object 骨骼',nugget.origin,undefined,'information'));
+                } else if(nugget.name!=='ParticleSystem') {
+                    issues.push(problem(nugget.name==='FXListAtBonePos'||nugget.name==='FXParticleSysBone'?'bone-context':'nugget-unsupported',`${nugget.name} 需要未实现的${nugget.name.includes('Bone')?'对象骨骼':'业务执行槽'}，未播放此节点`,nugget.origin,undefined,'warning'));
+                    if(bool(nugget.attributes.StopIfPlayed)){issues.push(problem('dispatch-stop-context',`${nugget.name} 已进入执行槽，StopIfPlayed 终止后续项`,nugget.origin,undefined,'information'));break;}
+                    continue;
+                } else {
+                    const countIssues:FxIssue[]=[],count=this.numeric(nugget,'Count',1,countIssues);
+                    if(!Number.isInteger(count)||Math.abs(count)>0x7fffffff)countIssues.push(problem('nugget-count','Count 必须为 signed32 整数系统实例数',nugget.origin,'Count'));
+                    if(count>128 || destination.length+Math.max(0,count)>128 || destination!==systems && dynamicDescriptors+Math.max(0,count)>512)countIssues.push(problem('system-budget','预览系统实例预算已达上限（单列表 128、事件图 512）',nugget.origin,'Count'));
+                    issues.push(...countIssues);
+                    if(!countIssues.length && count>0) {
+                        const particle=nugget.attributes.Particle??'';
+                        const target=particle?this.select('FXParticleSystemTemplate',particle,record,issues,nugget.origin,'Particle'):undefined;
+                        if(!particle)issues.push(problem('particle-reference-empty','ParticleSystem.Particle 为空，未创建系统',nugget.origin,'Particle','information'));
+                        if(target)for(let i=0;i<count;i++){destination.push(await instantiate(target,nugget,i,callIndex,context,record.key,destination!==systems));if(destination!==systems)dynamicDescriptors++;}
+                    }
+                    callIndex++;
+                }
+                // Native StopIfPlayed follows slot invocation, even when Count is
+                // zero, a position bone slot is empty, or terrain rejects creation.
+                if(bool(nugget.attributes.StopIfPlayed))break;
+            }
+            return true;
+        };
+        const rootIssues:FxIssue[]=[],effective=this.effective(asset,rootIssues);
+        if(effective)this.expandExpressions(effective,this.symbols(rootIssues,asset.scopeUri??asset.uri),rootIssues);
+        issues.push(...rootIssues);const fields=effective?this.fields(effective,asset):[];
+        if(effective && (asset.type==='FXParticleSystemTemplate' || !rootIssues.some(issue=>issue.severity==='error'))) {
+            if(asset.type==='FXParticleSystemTemplate')systems.push(await instantiate(asset,undefined,0,0,scene,asset.key));
+            else if(asset.type==='FXList')await dispatch(asset,scene,systems,effective);
+            else issues.push(this.issueAtAsset('asset-not-previewable',`${asset.type} 只提供结构与资源查看`,asset));
+        }
+        for(let cursor=0;cursor<pending.length;cursor++) {
+            const record=pending[cursor];
+            if(record.type==='FXParticleSystemTemplate'){await template(record);continue;}
+            if(fxLists.has(record.key))continue;
+            const list:FxEventList={key:record.key,systems:[],cullTrackingFrames:0,cullTrackingMin:0,cullTrackingMax:0,triggered:true};fxLists.set(record.key,list);
+            const localIssues:FxIssue[]=[],node=this.effective(record,localIssues);
+            if(node)this.expandExpressions(node,this.symbols(localIssues,record.scopeUri??record.uri),localIssues);
+            if(node){
+                // Original DLL Time initializer stores f32 seconds, and 533D20
+                // subtracts that raw value from GameLogic+50. There is no *30.
+                list.cullTrackingFrames=Math.fround(this.numeric(node,'CullTracking',0,localIssues,'time'));
+                list.cullTrackingMin=this.numeric(node,'CullTrackingMin',0,localIssues);list.cullTrackingMax=this.numeric(node,'CullTrackingMax',0,localIssues);
+                if(list.cullTrackingFrames<0 || !Number.isInteger(list.cullTrackingMin) || !Number.isInteger(list.cullTrackingMax) || list.cullTrackingMin<0 || list.cullTrackingMax<list.cullTrackingMin)localIssues.push(problem('cull-tracking-value','CullTracking 需非负时间及 0≤Min≤Max 的整数范围',node.origin));
+            }
+            issues.push(...localIssues);
+            list.triggered=!!node && !localIssues.some(issue=>issue.severity==='error') && await dispatch(record,{...scene,dispatch:'position',source:[0,0,0],target:[0,0,0],sourceRotation:[0,0,0],ground:0},list.systems,node);
+        }
+        const document=this.index.getDocument(asset.uri);
+        return {schemaVersion:1,entry:asset.entry,assetKey:asset.key,name:asset.id,documentUri:asset.uri,documentVersion:document?.version??0,generation:this.index.generation,
+            systems,fields,textures,issues,dependencies:[...this.index.graph.dependencies],scene,
+            dynamic:hasDynamic?{templates:[...templates.values()],fxLists:[...fxLists.values()],maxSystems:128,maxEventsPerFrame:256,maxDepth:16,initialFxLists:fxLists.has(asset.key)?[asset.key]:[]}:undefined};
     }
 }
