@@ -456,6 +456,7 @@ export function registerXmlProviders(context: vscode.ExtensionContext, services:
         tracked?.service.closeDocument(document.uri.fsPath); diagnostics.delete(document.uri);
     }));
     async function fileChanged(changed: vscode.Uri, onlyService?: AssetService): Promise<void> {
+        if (/[\\/](?:SuperCompilerCache|node_modules|\.git|\.vscode-test|test-results)[\\/]/i.test(changed.fsPath)) return;
         const servicesSeen = new Set<AssetService>();
         if (onlyService) {
             try {const checked = await checkedDocument(onlyService, changed.fsPath); onlyService.invalidate(checked); servicesSeen.add(onlyService);} catch {return;}
