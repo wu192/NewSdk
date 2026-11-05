@@ -2,7 +2,7 @@ name: NewSdk VS Code and FX
 
 on:
   push:
-    branches: [feat/vscode-p0, feat/fx-editor-round1]
+    branches: [feat/vscode-p0]
     paths: ['vscode-extension/**', '.github/workflows/vscode-p0.yml']
   pull_request:
     paths: ['vscode-extension/**', '.github/workflows/vscode-p0.yml']
@@ -18,7 +18,7 @@ permissions:
 
 concurrency:
   group: vscode-p0-${{ github.ref }}
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   windows-extension:
