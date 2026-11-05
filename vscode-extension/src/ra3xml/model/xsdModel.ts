@@ -24,6 +24,7 @@ export interface XsdElement extends XsdField { namespace?: string; abstract?: bo
 export interface XsdType {
     name: string; namespace: string; base?: string; attributes: XsdField[]; children: XsdField[];
     enumValues: string[]; referenceType?: string; list?: boolean; documentation?: string; sourceUri?: string;
+    allowAnyChild?: boolean; allowAnyAttribute?: boolean;
 }
 export interface XsdLoadOptions { maxFiles?: number; maxBytes?: number; entryFiles?: string[]; }
 interface Declaration { node: XmlElement; uri: string; namespace: string; }
@@ -160,13 +161,17 @@ export class XsdModel {
         type.base = body.attributes.base ? local(body.attributes.base) : undefined;
         const base = type.base ? this.resolveType(type.base) : undefined;
         type.attributes = [...base?.attributes ?? []]; type.children = [...base?.children ?? []];
+        type.allowAnyChild = base?.allowAnyChild; type.allowAnyAttribute = base?.allowAnyAttribute;
         type.enumValues = children(body, 'enumeration').map(value => value.attributes.value).filter(value => value !== undefined);
         if (!type.enumValues.length) type.enumValues = [...base?.enumValues ?? []];
         type.referenceType = annotation(node, 'refType') ?? annotation(body, 'refType') ?? base?.referenceType;
         const list = children(body, 'list')[0];
         type.list = !!list || base?.list;
         if (list) {
-            const item = list.attributes.itemType ? this.resolveType(local(list.attributes.itemType)) : undefined;
+            const inlineItem = children(list, 'simpleType')[0];
+            let itemName = list.attributes.itemType ? local(list.attributes.itemType) : undefined;
+            if (inlineItem) {itemName = this.typeKey(inlineItem, declaration); this.rawTypes.set(itemName, {...declaration, node: inlineItem});}
+            const item = itemName ? this.resolveType(itemName) : undefined;
             type.referenceType ??= item?.referenceType;
             if (!type.enumValues.length) type.enumValues = [...item?.enumValues ?? []];
         }
@@ -186,6 +191,10 @@ export class XsdModel {
                 } else if (['group', 'attributeGroup'].includes(child.localName)) {
                     const ref = local(child.attributes.ref ?? ''); const source = (child.localName === 'group' ? this.groups : this.attributeGroups).get(ref);
                     if (source && !groupStack.has(ref)) collect(source.node, optional || child.attributes.minOccurs === '0', new Set([...groupStack, ref]));
+                } else if (child.localName === 'any') {
+                    type.allowAnyChild = true;
+                } else if (child.localName === 'anyAttribute') {
+                    type.allowAnyAttribute = true;
                 }
             }
         };

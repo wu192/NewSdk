@@ -13,6 +13,8 @@ import type { EditValue,FieldActions } from './ui/fields';
 import { atlasPanel,curvesPanel } from './ui/curves';
 import { sourceMotionPanel, motionPlaybackLabels } from './ui/sourceMotion';
 import { sampleSourceMotion, type SourceMotion } from './runtime/sourceMotion';
+import { authoringPanel, type AuthoringForm } from './ui/authoring';
+import type { FxAuthoringView } from '../../src/fx/skillIntent';
 
 declare function acquireVsCodeApi(): {postMessage(message:unknown):void;getState():unknown;setState(value:unknown):void;};
 declare global {interface Window {__FX_BOOTSTRAP__?:FxEnvelope&{state?:Partial<SessionState>};__FX_TEST__?:boolean;__fxTest?:Record<string,unknown>;}}
@@ -30,6 +32,8 @@ interface TextureAssembly {descriptor:FxTextureTransfer;levels:Uint8Array[];rece
 const transfers=new Map<string,TextureAssembly>();
 const uploadedTextureKeys=new Set<string>();
 const textureGpuErrors=new Map<string,string>();
+let authoringView:FxAuthoringView|undefined;
+const authoringForm:AuthoringForm={description:'',mode:'edit',recipe:'impact',name:'Custom',result:'',resourceIds:[],settings:''};
 
 interface SessionState {frame:number;playing:boolean;speed:number;endFrame:number;selected:string;hidden:string[];solo?:string;background:string;ground:boolean;softParticles:boolean;lowResolution:boolean;followCursor:boolean;camera:CameraState;scene?:FxScene;}
 const saved=vscode.getState();
@@ -77,7 +81,7 @@ const stats=el('output','render-stats');stats.id='render-stats';
 stage.append(canvas,stageHint,noGpu,stats);
 const inspector=el('aside','inspector'),tabs=el('nav','tabs'),inspectorBody=el('div','inspector-body');inspectorBody.id='inspector-body';
 let activeTab='parameters';
-for(const [id,title] of [['parameters','参数'],['scene','预览场景'],['capabilities','能力 / 问题']]){const b=button(title,title,()=>{activeTab=id;for(const child of Array.from(tabs.children))child.classList.toggle('selected',(child as HTMLElement).dataset.tab===id);renderInspector();});b.dataset.tab=id;b.classList.toggle('selected',id===activeTab);tabs.append(b);}
+for(const [id,title] of [['parameters','参数'],['scene','预览场景'],['capabilities','能力 / 问题'],['authoring','AI 创作']]){const b=button(title,title,()=>{activeTab=id;for(const child of Array.from(tabs.children))child.classList.toggle('selected',(child as HTMLElement).dataset.tab===id);renderInspector();});b.dataset.tab=id;b.classList.toggle('selected',id===activeTab);tabs.append(b);}
 inspector.append(tabs,inspectorBody);workspace.append(layers,stage,inspector);
 const statusBar=el('div','status','正在读取特效…');statusBar.id='status';statusBar.setAttribute('role','status');
 app.append(header,identity,toolbar,workspace,statusBar);document.body.replaceChildren(app);
@@ -101,6 +105,7 @@ function renderLayers():void {
 const actions:FieldActions={draft:queueDraft,commit:commitEdits,cancel:cancelDraft,locate:key=>{if(key)send({type:'locate',key});},openSource:key=>send({type:'openFieldSource',key}),override:edit=>send({type:'overrideField',...edit})};
 function renderInspector():void {
     inspectorBody.replaceChildren();
+    if(activeTab==='authoring'){inspectorBody.append(authoringPanel(authoringView,authoringForm,value=>send({type:'authoring',value}),()=>send({type:'saveAndBuild'})));return;}
     if(activeTab==='scene'){renderScene();return;}
     if(activeTab==='capabilities'){renderCapabilities();return;}
     if(!ir){inspectorBody.append(el('p','hint','请选择 XML 中的 FXList 或 FXParticleSystemTemplate。'));return;}
@@ -295,6 +300,7 @@ async function receive(message:FxHostMessage):Promise<void> {
     if(message.type==='dispose'){dispose();return;}
     if(message.type==='active'){setActivity(message.active);return;}
     if(message.documentVersion<version)return;
+    if(message.type==='authoring'){version=message.documentVersion;requestId=Math.max(requestId,message.requestId);authoringView=message.view;authoringForm.mode=message.view.mode;if(message.view.focus){activeTab='authoring';for(const child of Array.from(tabs.children))child.classList.toggle('selected',(child as HTMLElement).dataset.tab==='authoring');}if(activeTab==='authoring')renderInspector();return;}
     if(message.type==='focusField'){focusField(message.key);return;}
     if(message.type==='focusSystem'){if(allSystems(ir).some(system=>system.key===message.key)){cancelDraft();state.selected=message.key;activeTab='parameters';for(const child of Array.from(tabs.children))child.classList.toggle('selected',(child as HTMLElement).dataset.tab==='parameters');renderLayers();renderInspector();persist();}return;}
     if(message.type==='resetRenderer'){resetRenderer();return;}

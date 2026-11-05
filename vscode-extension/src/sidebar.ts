@@ -99,6 +99,21 @@ export class NewSdkSidebar implements vscode.TreeDataProvider<SidebarItem>, vsco
         new SidebarItem('构建报告', [], 'newsdk.openReport', undefined, 'report'),
         new SidebarItem('打开输出目录', [], 'newsdk.openOutput', undefined, 'folder-opened'),
       ]),
+      new SidebarItem('XML 资产与索引', [
+        new SidebarItem('查找资产', [], 'newsdk.xml.searchAssets', undefined, 'search'),
+        new SidebarItem('查找未引用资产', [], 'newsdk.xml.unreferenced', '仅表示未被静态引用', 'references'),
+        new SidebarItem('查看索引报告', [], 'newsdk.xml.indexReport', undefined, 'graph'),
+        new SidebarItem('重新索引工作区', [], 'newsdk.xml.reindex', undefined, 'refresh'),
+        new SidebarItem('清除 XML 索引缓存并重建', [], 'newsdk.xml.clearIndex', undefined, 'clear-all'),
+      ]),
+      new SidebarItem('FX 创作与 AI 助手', [
+        new SidebarItem('AI 新建特效', [], 'newsdk.fx.aiNew', undefined, 'sparkle'),
+        new SidebarItem('AI 修改当前特效', [], 'newsdk.fx.aiModify', undefined, 'edit'),
+        new SidebarItem('检查当前特效', [], 'newsdk.fx.check', undefined, 'checklist'),
+        new SidebarItem('导入/更新创作 Skill', [], 'newsdk.fx.importSkill', undefined, 'extensions'),
+        new SidebarItem('安装到 AI 助手', [], 'newsdk.fx.installSkill', undefined, 'add'),
+        new SidebarItem('启动只读 MCP', [], 'newsdk.agent.start', '仅本机；需显式启用', 'plug'),
+      ]),
       ...(issues.length ? [new SidebarItem(`本轮问题 (${issues.length})`, issues)] : []),
       ...(artifacts.length ? [new SidebarItem('本轮产物', artifacts)] : []),
     ];

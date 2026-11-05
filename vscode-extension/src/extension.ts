@@ -12,8 +12,13 @@ import { registerFx, FxApi } from './fx/editorProvider';
 import { collectBuildInputs } from './fx/buildInputs';
 import { pathIdentity } from './project';
 import { CompilerOptionOverrides, requiresModVersion } from './compilerArguments';
-import { acquireAssetService, disposeAssetServices } from './ra3xml/services/assetService';
+import { acquireAssetService, disposeAssetServices, AssetService } from './ra3xml/services/assetService';
 import { registerXmlProviders, XmlProviders } from './ra3xml/providers';
+import { registerAssetCommands } from './ra3xml/features/indexCommands';
+import { registerMcpCommands, McpController } from './agent/commands';
+import { FxSkillManager } from './fx/skillManager';
+import { SkillRunner } from './fx/skillRunner';
+import { registerSkillCommands } from './fx/skillCommands';
 
 const projectStorageKey = 'newsdk.projects.v1';
 const lastProjectKey = 'newsdk.lastProject';
@@ -53,6 +58,20 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
     let fx: FxApi | undefined;
     let xmlProviders: XmlProviders | undefined;
     let xmlProjectKey: string | undefined;
+    let mcp: McpController | undefined;
+    let watchedService: AssetService | undefined;
+    let semanticWatchers: vscode.Disposable[] = [];
+    const clearSemanticWatchers = () => {semanticWatchers.forEach(watcher => watcher.dispose()); semanticWatchers = []; watchedService = undefined;};
+    const skillManager = new FxSkillManager(context.globalStorageUri.fsPath);
+    let pythonPath = vscode.workspace.getConfiguration('newsdk').get<string>('fxPythonPath', '');
+    const schemaStorageDirectory = path.join(context.globalStorageUri.fsPath, 'xml-schema');
+    let skillRunner = new SkillRunner({pythonPath: pythonPath || undefined, schemaStorageDirectory});
+    const currentSkillRunner = () => {
+        const configured = vscode.workspace.getConfiguration('newsdk').get<string>('fxPythonPath', '');
+        if (configured !== pythonPath) { void skillRunner.dispose().catch(error => log.appendLine(message(error))); pythonPath = configured; skillRunner = new SkillRunner({pythonPath: configured || undefined, schemaStorageDirectory}); }
+        return skillRunner;
+    };
+    context.subscriptions.push({dispose: () => { void skillRunner.dispose().catch(() => undefined); clearSemanticWatchers(); }});
     const workbench = new NewSdkWorkbench(context.extensionUri, (command, value) => {
         // The webview only passes command names and an artifact index/version.
         void vscode.commands.executeCommand(command, value);
@@ -117,8 +136,11 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         render();
     }
     function refreshXmlProject(): void {
-        const key = JSON.stringify([project?.identity, settings?.sdkRoot]);
+        const key = JSON.stringify([project?.identity, settings?.sdkRoot,
+            vscode.workspace.getConfiguration('newsdk').get<boolean>('xml.includeSdkXml', false)]);
         if (key === xmlProjectKey) return;
+        mcp?.reset();
+        clearSemanticWatchers();
         fx?.refreshProject();
         xmlProviders?.refresh();
         disposeAssetServices();
@@ -432,18 +454,46 @@ export async function activate(context: vscode.ExtensionContext): Promise<NewSdk
         if (event.affectsConfiguration('newsdk')) { fx?.refreshProject(); void refresh().then(() => xmlProviders?.refresh()).catch(error => { localMessage = message(error); render(); }); }
     }));
 
-    xmlProviders = registerXmlProviders(context, { getService: document => {
-        if (!project || document.uri.scheme !== 'file' || !vscode.workspace.isTrusted) return undefined;
+    function currentAssetService(): AssetService | undefined {
+        if (!project || !vscode.workspace.isTrusted) return undefined;
         const roots = [project.root, ...(settings?.sdkRoot ? [settings.sdkRoot] : [])];
-        return acquireAssetService({ roots, modRoot: project.root, sdkRoot: settings?.sdkRoot,
+        const service = acquireAssetService({ roots, modRoot: project.root, sdkRoot: settings?.sdkRoot,
+            includeSdkXml: vscode.workspace.getConfiguration('newsdk').get<boolean>('xml.includeSdkXml', false),
             storagePath: path.join(context.globalStorageUri.fsPath, 'xml-index'),
             readText: async file => {
                 const open = vscode.workspace.textDocuments.find(doc => doc.uri.scheme === 'file' && pathIdentity(doc.uri.fsPath) === pathIdentity(file));
                 return open ? { text: open.getText(), version: open.version } : { text: await fs.readFile(file, 'utf8'), version: 0 };
             } });
-    } });
+        if (service !== watchedService) {
+            clearSemanticWatchers(); watchedService = service;
+            for (const root of new Set(roots)) {
+                const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(root, '**/*.{xml,w3x,xsd,manifest,config}'));
+                const invalidate = (uri: vscode.Uri) => {
+                    if (/[\\/](?:SuperCompilerCache|node_modules|\.git|out|test-results)[\\/]/i.test(uri.fsPath)) return;
+                    void service.index.checkedFile(uri.fsPath).then(file => {if (watchedService === service) service.invalidate(file);}).catch(() => undefined);
+                };
+                semanticWatchers.push(watcher, watcher.onDidCreate(invalidate), watcher.onDidChange(invalidate), watcher.onDidDelete(invalidate));
+            }
+        }
+        return service;
+    }
+    async function refreshAssetService(service: AssetService): Promise<void> {
+        if (service !== currentAssetService()) throw new Error('项目已切换。');
+        for (const document of vscode.workspace.textDocuments) {
+            if (document.uri.scheme !== 'file' || !/\.xml$/i.test(document.uri.fsPath)
+                || !service.options.roots.some(root => containsPath(root, document.uri.fsPath))) continue;
+            const checked = await service.index.checkedFile(document.uri.fsPath);
+            service.setDocument(checked, document.getText(), document.version);
+        }
+        await service.startIndexing();
+    }
+    xmlProviders = registerXmlProviders(context, { getService: document => document.uri.scheme === 'file' ? currentAssetService() : undefined });
+    registerAssetCommands(context, {getService: async () => {const service = currentAssetService(); if (service) await refreshAssetService(service); return service;}});
+    mcp = registerMcpCommands(context, {getService: currentAssetService, refresh: refreshAssetService});
+    registerSkillCommands(context, skillManager, () => fx?.refreshProject());
     context.subscriptions.push(xmlProviders, { dispose: disposeAssetServices });
     fx = registerFx(context, { getProject: () => project, getConfiguration: () => settings,
+        skillManager, get skillRunner() { return currentSkillRunner(); },
         saveAndBuild: uris => exclusive(() => saveAndBuild(uris)) });
     context.subscriptions.push(fx);
 

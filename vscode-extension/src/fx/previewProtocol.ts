@@ -1,3 +1,4 @@
+import type { FxAuthoringAction, FxAuthoringView } from './skillIntent';
 import type { ParticleConfig } from '../../webview/fx/runtime';
 import type { SourceMotion } from '../../webview/fx/runtime/sourceMotion';
 
@@ -56,7 +57,7 @@ export interface FxTextureTransfer {
     levels: {width: number; height: number; byteLength: number}[];
 }
 export type FxClientMessage = FxEnvelope & (
-    {type: 'ready'; s3tc?: boolean} | {type: 'edit'; edits: {key: string; value: string; expectedValue: string}[]}
+    {type:'authoring';value:FxAuthoringAction} | {type: 'ready'; s3tc?: boolean} | {type: 'edit'; edits: {key: string; value: string; expectedValue: string}[]}
     | {type: 'locate'; key: string} | {type: 'select'; assetKey: string}
     | {type: 'scene'; scene: FxScene} | {type: 'reload'; resetRenderer?: boolean} | {type: 'saveAndBuild'} | {type: 'save'}
     | {type: 'openShared'; systemKey: string} | {type: 'new'; preset: string}
@@ -67,7 +68,7 @@ export type FxClientMessage = FxEnvelope & (
     | {type: 'undo'} | {type: 'redo'}
 );
 export type FxHostMessage = FxEnvelope & (
-    {type: 'preview'; ir: PreviewIR; assets: {key: string; name: string; type: string}[]; editingUri: string; textureBudgetBytes?: number}
+    {type:'authoring';view:FxAuthoringView} | {type: 'preview'; ir: PreviewIR; assets: {key: string; name: string; type: string}[]; editingUri: string; textureBudgetBytes?: number}
     | {type: 'status'; message: string; stale?: boolean}
     | {type: 'invalidateDraft'; message: string}
     | {type: 'active'; active: boolean} | {type: 'dispose'}

@@ -9,4 +9,6 @@ export class SemanticCache<T> {
     }
     async read():Promise<T|undefined>{try{const stat=await fs.stat(this.file);if(stat.size>8*1024*1024)return;const value=JSON.parse(await fs.readFile(this.file,'utf8')) as {version:number;records:T};return value.version===1?value.records:undefined;}catch{return;}}
     async write(records:T):Promise<void>{const json=JSON.stringify({version:1,records});if(Buffer.byteLength(json)>8*1024*1024)return;await fs.mkdir(path.dirname(this.file),{recursive:true});const temporary=`${this.file}.${process.pid}.tmp`;await fs.writeFile(temporary,json);await fs.rename(temporary,this.file);}
+    /** Remove only this MOD + SDK + XSD identity. Compiler caches are unrelated. */
+    async clear():Promise<void>{await fs.rm(this.file,{force:true});}
 }

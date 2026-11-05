@@ -32,8 +32,15 @@ export interface AssetGraph {
     documents: Map<string, XmlDocument>; issues: FxIssue[]; dependencies: string[];
     includes: IncludeEdge[]; sourceDataProfile?: SourceDataProfile; references?:ReferenceIndex;
 }
+/** Cheap generation checks let search consumers reuse keys without walking every graph. */
+class RevisionMap<K,V> extends Map<K,V> {
+    revision=0;
+    override set(key:K,value:V):this{if(this.get(key)!==value)this.revision++;return super.set(key,value);}
+    override delete(key:K):boolean{const removed=super.delete(key);if(removed)this.revision++;return removed;}
+    override clear():void{if(this.size)this.revision++;super.clear();}
+}
 export class SharedAssetState {
-    readonly graphs = new Map<string,AssetGraph>();
+    readonly graphs = new RevisionMap<string,AssetGraph>();
     readonly graphEpochs=new Map<string,number>();
     readonly physicalPaths=new Map<string,string>();
     readonly pending = new Map<string,Promise<AssetGraph>>();
