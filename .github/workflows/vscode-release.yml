@@ -1,0 +1,112 @@
+name: Publish NewSdk Mod Tools 0.5.1
+
+on:
+  push:
+    branches: [release/vscode-v0.5.1]
+    paths: [.github/workflows/vscode-release.yml]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-newsdk-mod-tools-0.5.1
+  cancel-in-progress: false
+
+jobs:
+  publish-vsix:
+    if: github.repository == 'wu192/NewSdk' && github.ref == 'refs/heads/release/vscode-v0.5.1'
+    runs-on: windows-2022
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: vscode-extension
+        shell: pwsh
+    env:
+      RELEASE_SOURCE: 4636a6b121f93066ce98383ecfae93fd1bde8b70
+      RELEASE_VERSION: 0.5.1
+      RELEASE_TAG: vscode-v0.5.1
+      NEWSDK_REQUIRE_LXML: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 4636a6b121f93066ce98383ecfae93fd1bde8b70
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact release source and version
+        run: |
+          $sourceCommit = git rev-parse HEAD
+          if ($LASTEXITCODE -ne 0 -or $sourceCommit -ne $env:RELEASE_SOURCE) { throw 'Unexpected release source commit' }
+          $packageVersion = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          if ($packageVersion -ne $env:RELEASE_VERSION) { throw 'Unexpected extension version' }
+          "Release source: $sourceCommit; version: $packageVersion" >> $env:GITHUB_STEP_SUMMARY
+      - name: Install dependencies without Actions cache
+        run: |
+          npm ci --no-audit --no-fund
+          if ($LASTEXITCODE -ne 0) { throw 'npm ci failed' }
+          python -m pip install --disable-pip-version-check --no-cache-dir lxml==6.0.2
+          if ($LASTEXITCODE -ne 0) { throw 'lxml installation failed' }
+      - name: Validate the pinned source
+        run: |
+          npm test
+          if ($LASTEXITCODE -ne 0) { throw 'Extension tests failed' }
+      - name: Build the installable VSIX
+        run: |
+          npm run package
+          if ($LASTEXITCODE -ne 0) { throw 'VSIX packaging failed' }
+      - name: Audit release package and create checksum
+        run: |
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $packagePath = Join-Path (Get-Location) 'NewSdk-Mod-Tools-FX.vsix'
+          $zip = [System.IO.Compression.ZipFile]::OpenRead($packagePath)
+          try {
+            $names = @($zip.Entries | ForEach-Object { $_.FullName })
+            $forbidden = @($names | Where-Object { $_ -match '(^|/)(SDK|Mods?|test-results|\.vscode-test|SuperCompilerCache)/|(^|/)(SKILL\.md|generate_fx\.py|validate_fx\.py|field-catalog\.json)$|\.(tga|dds|mp4|webm|mov|wasm)$|xmllint' })
+            if ($forbidden.Count -gt 0) { throw "Unexpected private/resource/engine payload: $($forbidden -join ', ')" }
+            foreach ($required in @('extension/package.json', 'extension/media/fx-editor.js', 'extension/out/src/fx/check-xsd.py', 'extension/out/src/fx/skillManager.js', 'extension/out/src/agent/mcpServer.js')) {
+              if ($names -notcontains $required) { throw "Missing packaged runtime file: $required" }
+            }
+            $reader = [System.IO.StreamReader]::new($zip.GetEntry('extension/package.json').Open())
+            try { $packaged = $reader.ReadToEnd() | ConvertFrom-Json } finally { $reader.Dispose() }
+            if ($packaged.version -ne $env:RELEASE_VERSION) { throw 'Packaged version mismatch' }
+            if ($packaged.dependencies.PSObject.Properties.Name -contains 'xmllint-wasm') { throw 'Unexpected WASM dependency' }
+          } finally { $zip.Dispose() }
+          $checksum = (Get-FileHash $packagePath -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$checksum  NewSdk-Mod-Tools-FX.vsix" | Set-Content 'NewSdk-Mod-Tools-FX.vsix.sha256' -Encoding utf8NoBOM
+          "SHA-256: $checksum" >> $env:GITHUB_STEP_SUMMARY
+      - name: Publish GitHub Release with explicit assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: wu192/NewSdk
+        run: |
+          $existingTags = @(gh api --paginate 'repos/wu192/NewSdk/releases?per_page=100' --jq '.[].tag_name')
+          if ($LASTEXITCODE -ne 0) { throw 'Could not check existing releases' }
+          if ($existingTags -contains $env:RELEASE_TAG) { throw 'Release already exists; refusing to overwrite it' }
+          $tagRefs = @(gh api "repos/wu192/NewSdk/git/matching-refs/tags/$env:RELEASE_TAG" --jq '.[].ref')
+          if ($LASTEXITCODE -ne 0) { throw 'Could not check existing tags' }
+          if ($tagRefs -contains "refs/tags/$env:RELEASE_TAG") { throw 'Release tag already exists; refusing to move it' }
+          @'
+          XML 资产工具与 FX 创作 Skill 集成版本。
+
+          - 补齐资产搜索、未引用查询、索引管理、语义高亮、大纲与 XML 编辑诊断。
+          - 接入本地 Skill 导入/版本恢复，以及 FX 创作、V0–V3 检查、差异确认和可撤销应用。
+          - 提供按需启用的本地只读 MCP；自动读取 SDK schema 并修复路径兼容问题。
+
+          安装：在 Windows 本地 VS Code 1.96+ 中选择“从 VSIX 安装”，然后配置 MOD、SDK 与编译器。
+
+          V2 XSD 校验需要 Python 3 和 lxml；ra3-fx-authoring 由用户自行导入，安装包不包含私有 Skill、SDK 或游戏资源。内置 AI 接口按文本调用。
+
+          Source commit: 4636a6b121f93066ce98383ecfae93fd1bde8b70
+          Windows validation: https://github.com/wu192/NewSdk/actions/runs/41996837546
+          '@ | Set-Content (Join-Path $env:RUNNER_TEMP 'newsdk-vscode-release-notes.txt') -Encoding utf8NoBOM
+          gh release create $env:RELEASE_TAG 'NewSdk-Mod-Tools-FX.vsix' 'NewSdk-Mod-Tools-FX.vsix.sha256' --repo $env:GH_REPO --target $env:RELEASE_SOURCE --title 'NewSdk Mod Tools 0.5.1' --notes-file (Join-Path $env:RUNNER_TEMP 'newsdk-vscode-release-notes.txt') --draft
+          if ($LASTEXITCODE -ne 0) { throw 'Draft creation or asset upload failed' }
+          gh release edit $env:RELEASE_TAG --repo $env:GH_REPO --draft=false --latest
+          if ($LASTEXITCODE -ne 0) { throw 'Release publication failed' }
+          "Published: https://github.com/wu192/NewSdk/releases/tag/$env:RELEASE_TAG" >> $env:GITHUB_STEP_SUMMARY
