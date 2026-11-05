@@ -54,4 +54,10 @@
 
 ## 当前结果主线（2026-10-27）
 
+### 新功能集成目标（2026-11-06 用户最新指示）
+
+用户指定从 `compiler-main` 创建 `feature/integration`（起点 `d7f788b882cf8d72c4426a3eebe506e3b59903eb`），配合 `wu192/EnhancerCorona` 的同名分支开发 XML/XSD 与编译器新功能。后续新功能以 `feature/integration` 为集成目标；`compiler-main` 保留为上游基线，不因网页默认 `main` 而改变开发起点。当前目标是支持真正 `DozerAIUpdate` 和 GameObject 的 `EnhancerSettings`，减少运行时按对象 JSON 配置。
+
+新参数须同步 schema、生产 marshaller/tokenizer、元数据和运行时消费协议；未使用扩展的既有资产保持字节兼容。PR、用户批准与禁止强推规则继续适用。以下 2026-10-27 说明作为历史背景，开发目标以上述最新指示为准。
+
 用户明确指定 `compiler-main` 为重构成果及以后开发的主分支，不再将本次成果合入 `recovery/compiler-source` 或旧主线。`refactor/modcompiler-p0-p3` 保留历史；旧 PR #13 关闭且不合并。今后以 `README.md`、`recovery/REFACTOR_RESUME.md` 为入口。这里指定的是开发主线；仓库网页默认分支是否更改须以 GitHub 实际设置为准。禁止强推，后续其他合并仍按用户批准规则执行。

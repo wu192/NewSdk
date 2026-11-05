@@ -6,3 +6,5 @@ SDK/builtmods/sagexml/Worldbuilder.imp -text
 SDK/builtmods/sagexml/Worldbuilder.relo -text
 recovery/releases/**/reference-zip-template.bin -text
 recovery/releases/**/compiler-manifest.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Preserve the SDK schema's existing CRLF while checking real whitespace errors.
+SDK/Schemas/xsd/AssetTypeGameObject.xsd whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

@@ -202,7 +202,7 @@ unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
         if(kind==118) {if(path=="RotationSpeed" || path=="UnitSpacing" || path=="Filter") return 1;if(path=="Filter/IncludeThing" || path=="Filter/ExcludeThing") return 3;}
         return 0;
     }
-    if(kind>=104 && kind<=111) {
+    if((kind>=104 && kind<=111) || kind==291) {
         if(path=="UnitAITargetChooserData" || path=="UnitAITargetChooserData/ObjectVisionRange/Filter") return 1;
         if(path=="UnitAITargetChooserData/ObjectVisionRange") return 2;
         if(path=="UnitAITargetChooserData/ObjectVisionRange/Filter/IncludeThing" || path=="UnitAITargetChooserData/ObjectVisionRange/Filter/ExcludeThing") return 3;

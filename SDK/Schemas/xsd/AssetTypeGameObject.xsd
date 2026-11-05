@@ -287,6 +287,7 @@
 	<xs:complexType name="AIModule">
 		<xs:choice minOccurs="0" maxOccurs="2">
 			<xs:element name="AIUpdate" type="AIUpdateModuleData" />
+			<xs:element name="DozerAIUpdate" type="DozerAIUpdateModuleData" />
 			<xs:element name="ConstructionYardAIUpdate" type="ConstructionYardAIUpdateModuleData" />
 			<xs:element name="AIGateUpdate" type="AIGateUpdateModuleData" />
 			<xs:element name="DeployStyleAIUpdate" type="DeployStyleAIUpdateModuleData" />
@@ -421,6 +422,7 @@
 					<xs:element name="CrusherInfo" balance:category="CrusherInfo" type="CrusherInfo" minOccurs="0" maxOccurs="1" XmlEdit:Category="Design" />
 					<xs:element name="ProjectedBuildabilityInfo" balance:category="ProjectedBuildabilityInfo" type="ProjectedBuildabilityInfo" minOccurs="0" maxOccurs="unbounded" XmlEdit:Category="Design" />
 					<xs:element name="DisplayUpgrade" type="UpgradeTemplateWeakRef" minOccurs="0" maxOccurs="2" XmlEdit:Category="Design" />
+					<xs:element name="EnhancerSettings" type="EnhancerSettings" minOccurs="0" XmlEdit:Category="Engineering" />
 				</xs:sequence>
 				<xs:attribute name="KindOf" type="KindOfBitFlags" XmlEdit:Category="Engineering" />
 				<xs:attribute name="Browser" type="StringList" XmlEdit:Category="Design" />
@@ -536,6 +538,11 @@
 		<xs:attribute name="DamageFX" type="DamageFXRef" />
 		<xs:attribute name="Conditions" type="ArmorSetBitFlags" />
 	</xs:complexType>
+	<!-- Token-only extension; the native GameObject layout remains unchanged. -->
+	<xs:complexType name="EnhancerSettings">
+		<xs:attribute name="DozerConstruction" type="SageBool" default="false" />
+	</xs:complexType>
+
 	<xs:complexType name="LocomotorSet">
 		<xs:sequence>
 		</xs:sequence>

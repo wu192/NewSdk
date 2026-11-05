@@ -1,0 +1,48 @@
+name: Enhancer XML native and managed component validation
+on:
+  push:
+    branches: [feature/integration]
+    paths:
+      - '.github/workflows/feature-enhancer-xml.yml'
+      - 'recovery/scripts/TestEnhancerDozerXml.ps1'
+      - 'recovery/src/Native/GameObject*'
+      - 'recovery/src/Bridge/GameObjectCompiler.cpp'
+      - 'recovery/tests/GameObjectDozer*'
+      - 'SDK/Schemas/xsd/AssetTypeGameObject.xsd'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: enhancer-xml-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  components:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout: |
+            recovery/src
+            recovery/tests
+            recovery/scripts
+            SDK/Schemas
+            SDK/tools
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Compile and exercise production native and XML bridge paths
+        shell: pwsh
+        run: ./recovery/scripts/TestEnhancerDozerXml.ps1 -OutputDirectory "${{ runner.temp }}/enhancer-dozer-xml"
+      - name: Preserve exact source and component evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: enhancer-xml-component-${{ github.run_id }}
+          retention-days: 7
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/enhancer-dozer-xml/validation.json
+            ${{ runner.temp }}/enhancer-dozer-xml/**/*.log
+            ${{ runner.temp }}/enhancer-dozer-xml/**/fixtures/*

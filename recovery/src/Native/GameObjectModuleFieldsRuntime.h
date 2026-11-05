@@ -49,6 +49,7 @@ BOOL CALLBACK InitializeModuleIndex(PINIT_ONCE,PVOID,PVOID*) {
         for(const auto& choice:assistChoices) index->emplace(choice.type,&choice);
         for(const auto& choice:economyChoices) index->emplace(choice.type,&choice);
         for(const auto& choice:aiUpdateChoices) index->emplace(choice.type,&choice);
+        index->emplace(dozerAIUpdateChoice.type,&dozerAIUpdateChoice);
         for(const auto& choice:crateChoices) index->emplace(choice.type,&choice);
         for(const auto& choice:healingChoices) index->emplace(choice.type,&choice);
         index->emplace(weaponSetChoice.type,&weaponSetChoice);
