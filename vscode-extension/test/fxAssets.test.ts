@@ -11,7 +11,9 @@ const ns = 'uri:ea.com:eala:asset';
 const wrap = (contents: string): string => `<AssetDeclaration xmlns="${ns}" xmlns:xai="uri:ea.com:eala:asset:instance">${contents}</AssetDeclaration>`;
 const fixtureRoot = path.resolve(__dirname, '../../test/fixtures/fx');
 async function temporary(t: {after: (callback: () => Promise<unknown>) => void}): Promise<string> {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-fx-assets-')); t.after(() => fs.rm(root,{recursive:true,force:true})); return root;
+    const created = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-fx-assets-'));
+    // Windows os.tmpdir() may use an 8.3 alias; source identities are physical paths.
+    const root = await fs.realpath(created); t.after(() => fs.rm(root,{recursive:true,force:true})); return root;
 }
 async function templateXml(): Promise<string> {
     const fixture = await fs.readFile(path.join(fixtureRoot,'Data','flash.xml'),'utf8');
@@ -41,6 +43,15 @@ test('include kinds retain their contract and invalidate changed dependency desp
     assert.ok(index.dependentsOf(texture.key).has(template.key));
     const generation = index.generation; assert.ok(index.invalidate(texture.uri).has(index.graph.entry));
     await index.load(path.join(root,'entry.xml')); assert.ok(index.generation > generation);
+});
+
+test('repeated imports deduplicate canonical assets and upgrade reference subtrees to concrete instance imports', async t => {
+    const root = await temporary(t);
+    await fs.writeFile(path.join(root,'entry.xml'),wrap('<Includes><Include type="reference" source="bundle.xml"/><Include type="all" source="bundle.xml"/></Includes>'));
+    await fs.writeFile(path.join(root,'bundle.xml'),wrap('<Includes><Include type="instance" source="texture.xml"/></Includes>'));
+    await fs.writeFile(path.join(root,'texture.xml'),wrap('<Texture id="T" File="a.tga"/>'));
+    const index = new AssetIndex({roots:[root]}); await index.load(path.join(root,'entry.xml'));
+    assert.equal(index.listAssets().length,1); assert.equal(index.listAssets()[0].includeType,'instance');
 });
 
 test('include cycles identify shortest active path, path escape and alias loops are bounded', async t => {
@@ -73,6 +84,17 @@ test('cross-file FXList distinguishes system count, invocation units, land/water
     assert.equal(ir.systems[0].initialDelayOverrideMs?.low,200); assert.equal(ir.systems[0].config?.initialDelay.low,0); // Invocation override preserves template construction sampling.
     assert.equal(ir.systems[0].config?.burstCount.low,1); // Count does not modify BurstCount.
     assert.equal(ir.systems[0].source.uri,path.join(root,'entry.xml'));
+});
+
+test('invalid FXList numeric and boolean inputs never fall back to a fabricated active system', async t => {
+    const root = await temporary(t); const template = await templateXml();
+    const index = new AssetIndex({roots:[root]});
+    for (const attributes of ['Count="NaN"','OnlyIfOnLand="unknown"']) {
+        await fs.writeFile(path.join(root,'entry.xml'),wrap(template+`<FXList id="Invalid"><NuggetList><ParticleSystem Particle="Flash" ${attributes}/></NuggetList></FXList>`));
+        await index.load(path.join(root,'entry.xml'));
+        const ir = await new AssetResolver(index).resolve(index.listAssets().find(a=>a.id==='Invalid')!.key);
+        assert.equal(ir.systems.length,0); assert.ok(ir.issues.some(i=>i.severity==='error'));
+    }
 });
 
 test('ordinary inheritance merges unique children, preserves parent provenance and resolves safe numeric defines', async t => {
@@ -135,6 +157,11 @@ test('SDK aliases stay readonly and local instances override reference-stream de
     const index = new AssetIndex({roots:[mod,sdk],modRoot:mod,sdkRoot:sdk}); await index.load(path.join(mod,'entry.xml'));
     const imported = index.listAssets().find(a=>a.includeType==='reference')!;
     assert.equal(imported.uri,path.join(sdk,'source.xml')); assert.equal(imported.readonly,true);
+    // The SDK selector can use a different alias than the allowed resource root.
+    const aliasedSelector = new AssetIndex({roots:[mod,sdk],modRoot:mod,sdkRoot:path.join(mod,'linked-sdk')});
+    await aliasedSelector.load(path.join(mod,'entry.xml'));
+    assert.equal(aliasedSelector.listAssets().find(a=>a.includeType==='reference')!.readonly,true);
+    aliasedSelector.dispose();
 });
 
 test('absent Atlas defaults expose authorized insertion fields at the real Gpu node', async t => {

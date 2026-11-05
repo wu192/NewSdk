@@ -42,6 +42,8 @@ export class PreviewSession {
 /** Only one canvas may be running. Inactive panels retain bounded UI state only. */
 export class ActivePreview {
     private active?: { session: PreviewSession; stop: () => void };
+    owns(session: PreviewSession): boolean { return this.active?.session === session; }
+    get hasActive(): boolean { return !!this.active; }
     activate(session: PreviewSession, stop: () => void): void {
         if (session.disposed) return;
         if (this.active?.session !== session) {

@@ -37,7 +37,7 @@ async function fixture(file, id) {
       if (req.url === '/harness.js') {res.setHeader('Content-Type', 'text/javascript'); res.end(bundled.outputFiles[0].contents);}
       else if (req.url === '/fx-editor.js') {res.setHeader('Content-Type', 'text/javascript');res.end(await fs.readFile(path.join(__dirname, '../media/fx-editor.js')));}
       else if (req.url === '/fx.css') {res.setHeader('Content-Type', 'text/css');res.end(await fs.readFile(path.join(__dirname, '../media/fx.css')));}
-      else if (req.url === '/app') {res.setHeader('Content-Type', 'text/html');res.end('<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="/fx.css"><body><div id="app"></div><script>window.__FX_TEST__=true;window.__FX_BOOTSTRAP__={sessionId:"browser-test",documentVersion:1,requestId:0};window.fxMessages=[];window.acquireVsCodeApi=()=>({postMessage:m=>window.fxMessages.push(m),getState:()=>undefined,setState:s=>{window.fxSavedState=s}});</script><script src="/fx-editor.js"></script>');}
+      else if (req.url.startsWith('/app')) {res.setHeader('Content-Type', 'text/html');res.end('<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="/fx.css"><body><div id="app"></div><script>if(location.search.includes("nogpu")){const get=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type,...args){return type==="webgl2"?null:get.call(this,type,...args)}}window.__FX_TEST__=true;window.__FX_BOOTSTRAP__={sessionId:"browser-test",documentVersion:1,requestId:0};window.fxMessages=[];window.acquireVsCodeApi=()=>({postMessage:m=>window.fxMessages.push(m),getState:()=>undefined,setState:s=>{window.fxSavedState=s}});</script><script src="/fx-editor.js"></script>');}
       else {res.setHeader('Content-Type', 'text/html');res.end(harnessHtml);}
     } catch (error) {res.statusCode=500;res.end(String(error));}
   });
@@ -65,6 +65,21 @@ async function fixture(file, id) {
       assert.equal(repeated.hash, first.hash, `${id}: seek did not restore identical pixels`);
       cases.push({id, frame, ...first});
     }
+    const additive = await fixture('flash.xml','Flash');
+    await page.evaluate(ir=>window.fxHarness.load(ir),additive);
+    const addOne = await page.evaluate(()=>window.fxHarness.seek(3));
+    additive.systems[0].config.alphas.forEach(a=>{a.range.low=0;a.range.high=0;});
+    await page.evaluate(ir=>window.fxHarness.load(ir),additive);
+    const addZero = await page.evaluate(()=>window.fxHarness.seek(3));
+    assert.equal(addZero.hash,addOne.hash,'ONE/ONE additive RGB must not be scaled by alpha');
+    additive.systems[0].config.shader='ALPHA';
+    await page.evaluate(ir=>window.fxHarness.load(ir),additive);
+    const alphaZero=await page.evaluate(()=>window.fxHarness.seek(3));
+    additive.systems[0].config.alphas.forEach(a=>{a.range.low=1;a.range.high=1;});
+    await page.evaluate(ir=>window.fxHarness.load(ir),additive);
+    const alphaOne=await page.evaluate(()=>window.fxHarness.seek(3));
+    assert.notEqual(alphaZero.hash,alphaOne.hash,'SRC_ALPHA alpha profile must respond to particle alpha');
+    cases.push({id:'Explicit material profiles',checks:['ADDITIVE ONE/ONE alpha independence','ALPHA SRC_ALPHA opacity']});
     for (let i=0;i<100;i++) {
       await page.evaluate(ir => {window.fxHarness.load(ir);window.fxHarness.seek(12);window.fxHarness.close();}, aura);
       const counts = await page.evaluate(() => ({...window.fxHarness.counts}));
@@ -92,13 +107,43 @@ async function fixture(file, id) {
     assert.ok((await page.locator('#time-label').textContent()).includes('帧'));
     await page.locator('#save-build').click();
     assert.equal(await page.evaluate(()=>window.fxMessages.filter(m=>m.type==='saveAndBuild').length),1);
+    const transferIr = structuredClone(uiIr), texture = transferIr.textures[0];
+    const pixelBytes = Buffer.from(texture.pixelsBase64,'base64');
+    const originalKey = texture.key; texture.key += ':chunk';
+    delete texture.pixelsBase64; delete texture.pixels;
+    transferIr.systems.forEach(s=>{if(s.textureKey===originalKey)s.textureKey=texture.key;});
+    await page.evaluate(ir => window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:2,type:'preview',ir,assets:[{key:ir.assetKey,name:ir.name,type:'FXParticleSystemTemplate'}],editingUri:ir.documentUri}),transferIr);
+    const descriptor = {key:texture.key,transferId:'chunk-test',width:texture.width,height:texture.height,format:'RGBA8',levels:[{width:texture.width,height:texture.height,byteLength:pixelBytes.length}]};
+    await page.evaluate(texture => window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:2,type:'textureBegin',texture}),descriptor);
+    const split = Math.floor(pixelBytes.length/2);
+    for (const [offset,end] of [[0,split],[split,pixelBytes.length]]) {
+      await page.evaluate(chunk=>window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:2,type:'textureChunk',...chunk}), {key:texture.key,transferId:'chunk-test',level:0,offset,total:pixelBytes.length,pixelsBase64:pixelBytes.subarray(offset,end).toString('base64')});
+    }
+    const acks = await page.evaluate(()=>window.fxMessages.filter(m=>m.type==='textureAck'));
+    assert.deepEqual(acks.map(m=>m.offset),[split,pixelBytes.length],'Chunk ACK must follow received byte offsets');
+    await page.evaluate(key=>window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:2,type:'textureEnd',key,transferId:'obsolete-transfer'}),texture.key);
+    await page.evaluate(key=>window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:2,type:'textureEnd',key,transferId:'chunk-test'}),texture.key);
+    await page.evaluate(()=>window.__fxTest.seek(3));
+    assert.ok((await page.evaluate(()=>window.__fxTest.stats())).gpu.gpuBytes>0,'Chunk texture must reach GPU');
+    if(process.env.NEWSDK_FX_PREVIEW)await page.screenshot({path:process.env.NEWSDK_FX_PREVIEW,fullPage:true});
     await page.evaluate(()=>window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:2,type:'active',active:false}));
     await page.waitForTimeout(80);
     const inactive=await page.evaluate(()=>window.__fxTest.stats());
     assert.equal(inactive.raf,false,'Inactive page must stop RAF');
     await page.evaluate(()=>window.__fxTest.dispose());
     assert.equal((await page.evaluate(()=>window.__fxTest.stats())).disposed,true);
-    cases.push({id:'Chinese editor UI',checks:['paused RAF','draft without document write','one gesture one commit','single step','save/build intent','inactive/dispose']});
+    cases.push({id:'Chinese editor UI',checks:['paused RAF','draft without document write','one gesture one commit','single step','save/build intent','chunk ACK / obsolete transfer rejection','inactive/dispose']});
+    await page.goto(`${origin}/app?nogpu`);
+    await page.waitForFunction(()=>window.__fxTest);
+    await page.evaluate(ir=>window.__fxTest.receive({sessionId:'browser-test',documentVersion:1,requestId:1,type:'preview',ir,assets:[{key:ir.assetKey,name:ir.name,type:'FXParticleSystemTemplate'}],editingUri:ir.documentUri}),transferIr);
+    await page.waitForTimeout(80);
+    assert.ok((await page.locator('.no-gpu').textContent()).includes('WebGL2'));
+    const noGpuState=await page.evaluate(()=>window.__fxTest.stats());
+    assert.equal(noGpuState.playing,false);assert.equal(noGpuState.raf,false);
+    await page.locator(selector).fill('29');await page.locator(selector).press('Enter');
+    assert.equal(await page.evaluate(()=>window.fxMessages.filter(m=>m.type==='edit').length),1,'No-WebGL editor must still submit XML edits');
+    await page.evaluate(()=>window.__fxTest.dispose());
+    cases.push({id:'No WebGL2',checks:['specific status','stopped RAF','structure and parameter editing']});
     assert.deepEqual(errors, []);
     await fs.writeFile(path.join(output, 'fx-render.json'), JSON.stringify({passed: true, renderer:'Chromium SwiftShader; regression only, no hardware FPS claim', cases, switches:100, gpuHandlesAfterClose:{buffers:0,textures:0,programs:0,vaos:0}}, null, 2));
     console.log(`FX renderer: ${cases.length} fixed fixtures, deterministic seek, 100 dispose cycles passed`);

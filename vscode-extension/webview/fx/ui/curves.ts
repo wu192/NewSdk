@@ -19,6 +19,8 @@ export function curvesPanel(system:FxSystem,actions:FieldActions):HTMLElement {
     if(!system.config){panel.append(el('p','hint','此系统尚无可播放配置。'));return panel;}
     const canvas=el('canvas','curve-canvas');canvas.width=600;canvas.height=170;canvas.setAttribute('aria-label','RGBA 生命周期曲线，拖动颜色节点可修改 RelativeAge');panel.append(canvas);
     const config=system.config;
+    if(config.shader==='ADDITIVE')panel.append(el('p','hint material-note','当前加色配置为 ONE / ONE：Alpha 不缩放可见 RGB。淡出请调 RGB / RGBA 缩放或源贴图 RGB；需要按 Alpha 透明时选择 ALPHA 材质。'));
+    else if(config.shader==='MULTIPLY')panel.append(el('p','hint material-note','当前乘色配置为 ZERO / INV_SRC_COLOR：Alpha 不缩放可见 RGB；衰减由颜色通道决定。'));
     const colorsPath=system.definition?childPath(system.definition,[],['Colors']):undefined;
     const colorNodes=colorsPath?at(system.definition!,colorsPath)!.children:[];
     const times:({slot:number;field?:FxField;time:number})[]=Array.from({length:4},(_,i)=>({slot:i+1,time:config.colors?.[i]?.time??0}));
@@ -81,7 +83,11 @@ export function curvesPanel(system:FxSystem,actions:FieldActions):HTMLElement {
         const sync=button('同步 Alpha 时间…','提交前确认将前四个 Alpha 时间同步为颜色时间',()=>{
             const changes:EditValue[]=[];
             alphaNodes.forEach((node,index)=>{const slot=Number(node.attributes.Frame);if(slot<1||slot>4)return;const f=fieldAt(system.fields,[...alphaPath!,index],'RelativeAge');if(f&&!f.readonly)changes.push({key:f.key,value:percentLexical(f.value,times[slot-1].time*100),expectedValue:f.value});});
-            if(changes.length&&window.confirm(`将 ${changes.length} 个 Alpha RelativeAge 同步为对应颜色时间。普通 GPU 不使用 Alpha 原时间；此操作可一次撤销。`))actions.commit(changes);
+            if(!changes.length)return;
+            const existing=panel.querySelector('.sync-review');if(existing)existing.remove();
+            const review=el('div','sync-review');review.append(el('strong','','确认同步 Alpha 时间'));
+            changes.forEach((change,i)=>review.append(el('p','hint',`槽 ${i+1}：${change.expectedValue} → ${change.value}`)));
+            review.append(button('应用一次编辑','保留其他字段，可通过一次撤销恢复',()=>{actions.commit(changes);review.remove();}),button('取消','保留当前 Alpha 时间',()=>review.remove()));panel.append(review);
         });sync.disabled=!alphaNodes.length;panel.append(sync);
     }
     panel.append(sizeTrend(config));draw();return panel;

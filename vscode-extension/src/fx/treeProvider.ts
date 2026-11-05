@@ -3,15 +3,21 @@ import * as path from 'node:path';
 import type { AssetRecord } from './assetIndex';
 import type { PreviewIR } from './previewProtocol';
 
-type FxTreeNode = { kind: 'asset'; asset: AssetRecord } | { kind: 'system'; key: string; name: string; asset: AssetRecord; issues: number };
+type TreeAsset = Pick<AssetRecord, 'key' | 'id' | 'type' | 'namespace' | 'uri' | 'entry' | 'readonly'>;
+type FxTreeNode = { kind: 'asset'; asset: TreeAsset } | { kind: 'system'; key: string; name: string; asset: TreeAsset; issues: number };
 
 /** The tree distinguishes shared definitions from each call in the current preview. */
 export class FxTreeProvider implements vscode.TreeDataProvider<FxTreeNode>, vscode.Disposable {
     private readonly changed = new vscode.EventEmitter<FxTreeNode | undefined>();
     readonly onDidChangeTreeData = this.changed.event;
-    private assets: AssetRecord[] = [];
-    private ir?: PreviewIR;
-    update(assets: AssetRecord[], ir?: PreviewIR): void { this.assets = assets.filter(a => a.type === 'FXList' || a.type === 'FXParticleSystemTemplate'); this.ir = ir; this.changed.fire(undefined); }
+    private assets: TreeAsset[] = [];
+    private ir?: { assetKey: string; systems: {key: string; name: string; issues: number}[] };
+    update(assets: AssetRecord[], ir?: PreviewIR): void {
+        this.assets = assets.filter(a => a.type === 'FXList' || a.type === 'FXParticleSystemTemplate')
+            .map(({key, id, type, namespace, uri, entry, readonly}) => ({key, id, type, namespace, uri, entry, readonly}));
+        this.ir = ir ? {assetKey: ir.assetKey, systems: ir.systems.map(s => ({key: s.key, name: s.name, issues: s.issues.length}))} : undefined;
+        this.changed.fire(undefined);
+    }
     getTreeItem(node: FxTreeNode): vscode.TreeItem {
         if (node.kind === 'system') {
             const item = new vscode.TreeItem(node.name, vscode.TreeItemCollapsibleState.None);
@@ -35,7 +41,7 @@ export class FxTreeProvider implements vscode.TreeDataProvider<FxTreeNode>, vsco
     getChildren(node?: FxTreeNode): FxTreeNode[] {
         if (!node) return this.assets.map(asset => ({ kind: 'asset', asset }));
         if (node.kind !== 'asset' || this.ir?.assetKey !== node.asset.key) return [];
-        return this.ir.systems.map(system => ({ kind: 'system', key: system.key, name: system.name, asset: node.asset, issues: system.issues.length }));
+        return this.ir.systems.map(system => ({ kind: 'system', key: system.key, name: system.name, asset: node.asset, issues: system.issues }));
     }
     dispose(): void { this.assets = []; this.ir = undefined; this.changed.dispose(); }
 }

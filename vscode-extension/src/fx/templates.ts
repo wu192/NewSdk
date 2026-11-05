@@ -1,7 +1,7 @@
 /** Small complete templates. Texture is an explicit author choice, never a fabricated id. */
 export const fxPresets = ['闪光', '烟雾', '喷射火花', '持续光环'] as const;
 export type FxPreset = typeof fxPresets[number];
-export function escapeXml(value: string): string { return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+export function escapeXml(value: string): string { return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;'); }
 export function createFxTemplate(preset: FxPreset, id: string, texture?: string, prefix = ''): string {
     if (!fxPresets.includes(preset) || !/^[A-Za-z_][A-Za-z0-9_.-]*$/.test(id) || !/^(?:[A-Za-z_][\w.-]*:)?$/.test(prefix)) throw new Error('无效的特效模板参数。');
     const q = (name: string): string => `${prefix}${name}`;

@@ -19,7 +19,7 @@ if(!bootstrap||typeof bootstrap.sessionId!=='string')throw new Error('缺少预�
 const sessionId=bootstrap.sessionId;
 let version=bootstrap.documentVersion,requestId=bootstrap.requestId,lastPreviewRequest=-1;
 let ir:PreviewIR|undefined,draftIr:PreviewIR|undefined,world:ParticleWorld|undefined,renderer:FxRenderer|undefined;
-let editingUri='',disposed=false,active=true,documentVisible=!document.hidden;
+let editingUri='',disposed=false,active=true,documentVisible=!document.hidden,rendererFailed=false;
 let raf:number|undefined,draftRaf:number|undefined,lastTime:number|undefined,accumulator=0,seekAbort:AbortController|undefined;
 let pendingDraft:EditValue[]|undefined;
 interface TextureAssembly {descriptor:FxTextureTransfer;levels:Uint8Array[];received:number[];version:number;discard:boolean;}
@@ -98,7 +98,10 @@ function renderInspector():void {
         const fields=[...system.fields];const keys=new Set(fields.map(f=>f.key));
         const rootFields=ir.fields.filter(f=>!keys.has(f.key));
         if(rootFields.length){const root=el('details','call-fields');root.open=true;root.append(el('summary','','这次调用 / 组合'),fieldsPanel(rootFields,actions));inspectorBody.append(root);}
-        inspectorBody.append(curvesPanel(system,actions),atlasPanel(system,actions),fieldsPanel(fields,actions));
+        const quick=fields.filter(f=>/\/(?:Lifetime|BurstCount|Size)\[\d+\]$/.test(f.nodePath)||f.attribute==='Shader'&&f.previewPath?.length===0).map(f=>f.attribute==='Shader'?{...f,group:'材质'}:f);
+        if(quick.length){const quickPanel=fieldsPanel(quick,actions);for(const group of Array.from(quickPanel.querySelectorAll('details')))group.open=true;inspectorBody.append(el('h3','','常用参数'),quickPanel);}
+        const quickKeys=new Set(quick.map(f=>f.key));
+        inspectorBody.append(curvesPanel(system,actions),atlasPanel(system,actions),fieldsPanel(fields.filter(f=>!quickKeys.has(f.key)),actions));
     }else inspectorBody.append(fieldsPanel(ir.fields,actions));
 }
 function renderScene():void {
@@ -130,9 +133,9 @@ function renderLayerData():RenderLayer[] {
     return (world?.systems??[]).map(s=>{const system=current!.systems.find(x=>x.key===s.id)!;return {id:s.id,config:s.runtime.config,births:s.runtime.particles,alphaSamples:s.runtime.alphaSamples,textureKey:system?.textureKey,visible:!state.hidden.includes(s.id)&&(!state.solo||state.solo===s.id)};});
 }
 function ensureRenderer():void {
-    if(renderer||disposed||!active||!documentVisible)return;
-    try {renderer=new FxRenderer(canvas,message=>{status(message,'warning');if(message.startsWith('GPU 上下文已重建'))send({type:'reload'});});noGpu.hidden=true;}
-    catch(error){noGpu.textContent=error instanceof Error?error.message:String(error);noGpu.hidden=false;status(noGpu.textContent,'warning');}
+    if(renderer||rendererFailed||disposed||!active||!documentVisible)return;
+    try {renderer=new FxRenderer(canvas,message=>{if(message.startsWith('GPU 上下文丢失'))setPlaying(false);status(message,'warning');if(message.startsWith('GPU 上下文已重建'))send({type:'reload'});});noGpu.hidden=true;}
+    catch(error){rendererFailed=true;state.playing=false;playButton.textContent='播放';playButton.disabled=true;replayButton.disabled=true;stepButton.disabled=true;stopFrame();noGpu.textContent=error instanceof Error?error.message:String(error);noGpu.hidden=false;status(noGpu.textContent,'warning');}
 }
 function renderNow(renderFrame?:number):void {
     if(disposed||!active||!documentVisible)return;
@@ -171,13 +174,16 @@ async function seek(frame:number):Promise<void> {
     catch(error){if(!abort.signal.aborted)showError(error);}
 }
 function definitions(current:PreviewIR):WorldSystem[] {
-    return current.systems.filter(s=>s.triggered&&s.config).slice(0,128).map(s=>({id:s.key,config:s.config!,options:{offset:s.offset,rotation:s.rotation,rotationXYZ:s.rotationXYZ,startFrame:s.startFrame,systemLifeFrames:s.systemLifeFrames,initialDelayOverrideMs:s.initialDelayOverrideMs}}));
+    const playable=current.systems.filter(s=>s.triggered&&s.config);
+    if(playable.length>128)throw new Error('预览系统预算已达 128 层；已暂停加载，请选择较小组合。');
+    return playable.map(s=>({id:s.key,config:s.config!,options:{offset:s.offset,rotation:s.rotation,rotationXYZ:s.rotationXYZ,startFrame:s.startFrame,systemLifeFrames:s.systemLifeFrames,initialDelayOverrideMs:s.initialDelayOverrideMs}}));
 }
 async function rebuild(current:PreviewIR,frame:number):Promise<void> {
-    seekAbort?.abort();world?.dispose();world=new ParticleWorld(definitions(current),current.scene.seed,32768,18000);
+    const selected=definitions(current);seekAbort?.abort();world?.dispose();world=new ParticleWorld(selected,current.scene.seed,32768,18000);
     stopFrame();await seek(frame);if(state.playing)draw();
 }
 function showPreviewStatus():void {
+    if(rendererFailed){status(noGpu.textContent??'无可用 WebGL2，结构编辑仍可用。','warning');return;}
     if(draftIr){status('调节中 · 松手 / 回车提交一次文档编辑，Esc 取消','draft');return;}
     const issues=ir?.issues??[];
     const blocked=issues.filter(i=>i.severity==='error').length;
@@ -186,7 +192,7 @@ function showPreviewStatus():void {
 function queueDraft(edits:EditValue[]):void {
     pendingDraft=edits;
     if(draftRaf!==undefined)return;
-    draftRaf=requestAnimationFrame(()=>{draftRaf=undefined;const value=pendingDraft;pendingDraft=undefined;if(value)void applyDraft(value);});
+    draftRaf=requestAnimationFrame(()=>{draftRaf=undefined;const value=pendingDraft;pendingDraft=undefined;if(value)void applyDraft(value).catch(showError);});
 }
 async function applyDraft(edits:EditValue[]):Promise<void> {
     if(!ir)return;
@@ -244,11 +250,12 @@ function focusField(key:string):void {
 }
 type TextureMessage=Extract<FxHostMessage,{type:'textureBegin'|'textureChunk'|'textureEnd'}>;
 function receiveTexture(message:TextureMessage):void {
-    if(!active||!documentVisible)return;
+    if(!active||!documentVisible||message.requestId<lastPreviewRequest)return;
     if(message.type==='textureBegin'){
         const descriptor=message.texture;
         if(!descriptor||!ir?.textures.some(t=>t.key===descriptor.key)||typeof descriptor.transferId!=='string'||!Array.isArray(descriptor.levels)||descriptor.levels.length<1||descriptor.levels.length>16)throw new Error('未知或无效的贴图传输。');
         if(!['RGBA8','DXT1','DXT3','DXT5'].includes(descriptor.format)||!Number.isInteger(descriptor.width)||!Number.isInteger(descriptor.height)||descriptor.width<1||descriptor.height<1||descriptor.width>16384||descriptor.height>16384)throw new Error('贴图传输的格式或尺寸无效。');
+        transfers.delete(descriptor.key);
         const size=descriptor.levels.reduce((n,l)=>n+l.byteLength,0);
         const used=[...transfers.values()].reduce((n,t)=>n+t.descriptor.levels.reduce((sum,l)=>sum+l.byteLength,0),0);
         if(!Number.isSafeInteger(size)||size<1||used+size>MAX_TRANSFER_BYTES)throw new Error('贴图传输超过 32 MiB 暂存预算。');
@@ -291,6 +298,16 @@ canvas.addEventListener('wheel',event=>{event.preventDefault();state.camera.dist
 function dispose():void {
     if(disposed)return;persist();disposed=true;stopFrame();if(draftRaf!==undefined)cancelAnimationFrame(draftRaf);seekAbort?.abort();world?.dispose();world=undefined;renderer?.dispose();renderer=undefined;transfers.clear();resize.disconnect();ir=undefined;draftIr=undefined;
 }
+window.addEventListener('keydown',event=>{
+    if(event.isComposing||!event.ctrlKey&&!event.metaKey)return;
+    const key=event.key.toLowerCase();
+    if(key==='z'||key==='y'){
+        event.preventDefault();event.stopPropagation();cancelDraft();
+        const fields=[...(ir?.fields??[]),...(ir?.systems.flatMap(s=>s.fields)??[])];
+        for(const row of Array.from(inspectorBody.querySelectorAll<HTMLElement>('.field-row'))){const field=fields.find(f=>f.key===row.dataset.fieldKey),input=row.querySelector('input,select');if(field&&(input instanceof HTMLInputElement||input instanceof HTMLSelectElement)){input.value=field.value;input.classList.remove('draft');}}
+        send({type:key==='y'||event.shiftKey?'redo':'undo'});
+    }
+});
 window.addEventListener('pagehide',dispose);
 if(window.__FX_TEST__)window.__fxTest={
     receive:(message:FxHostMessage)=>receive(message),seek:(frame:number)=>seek(frame),pause:()=>setPlaying(false),play:()=>setPlaying(true),dispose,

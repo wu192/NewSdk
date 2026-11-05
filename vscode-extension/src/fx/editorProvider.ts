@@ -30,6 +30,7 @@ interface EditorState {
     index: AssetIndex; resolver: AssetResolver; entry: string; assetKey?: string; previewKey?: string;
     ir?: PreviewIR; scene: FxScene; timer?: ReturnType<typeof setTimeout>; disposed: boolean;
     followCursor: boolean; sentTextures: Set<string>; subscriptions: vscode.Disposable[];
+    indexReleased: boolean;
     s3tc: boolean; transfer?: {key: string; transferId: string; level: number; offset: number; resolve: (accepted: boolean) => void};
     state: Record<string, unknown>;
 }
@@ -147,7 +148,8 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         const physical = await canonicalPath(asUri(file).fsPath);
         if (!this.roots.some(root => containsPath(root, physical))) throw new Error('文件不在当前 MOD / SDK 资源根中。');
         const sdk = this.services.getConfiguration()?.sdkRoot;
-        if (editable && sdk && containsPath(await canonicalPath(sdk), physical)) throw new Error('SDK 来源只读，请复制为 MOD 独立资源后编辑。');
+        const mod = this.services.getProject()?.root ?? this.roots[0];
+        if (editable && sdk && containsPath(await canonicalPath(sdk), physical) && !containsPath(await canonicalPath(mod), physical)) throw new Error('SDK 来源只读，请复制为 MOD 独立资源后编辑。');
         if (editable && !vscode.workspace.isTrusted) throw new Error('信任此工作区后才能修改特效。');
         return physical;
     }
@@ -213,7 +215,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         const state: EditorState = { document, panel, session, index, resolver: new AssetResolver(index),
             entry: request?.entry ?? document.uri.fsPath, assetKey: request?.assetKey, previewKey: request?.previewKey,
             scene: sceneValue(stored.scene) ?? { ...defaultScene, source: [...defaultScene.source], target: [...defaultScene.target] },
-            disposed: false, followCursor: stored.followCursor === true, state: stored, sentTextures: new Set(), subscriptions: [], s3tc: false };
+            disposed: false, followCursor: stored.followCursor === true, state: stored, sentTextures: new Set(), subscriptions: [], s3tc: false, indexReleased: false };
         this.editors.add(state);
         panel.webview.options = { enableScripts: true, localResourceRoots: [vscode.Uri.joinPath(this.context.extensionUri, 'media')] };
         panel.webview.html = this.html(panel.webview, session, stored);
@@ -223,7 +225,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         state.subscriptions.push(panel.onDidChangeViewState(() => {
             if (panel.visible && panel.active) {
                 this.active.activate(session, () => this.stopCanvas(state));
-                if (session.signal.aborted) this.schedule(state, 0);
+                if (session.signal.aborted || state.indexReleased || !state.ir) this.schedule(state, 0);
                 void this.post(state, { type: 'active', active: true });
             } else if (!panel.visible) {
                 this.active.release(session); state.sentTextures.clear();
@@ -238,6 +240,8 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
     private stopCanvas(state: EditorState): void {
         void this.post(state, { type: 'active', active: false });
         state.sentTextures.clear();
+        state.index.dispose(); state.indexReleased = true; state.ir = undefined;
+        this.diagnostics.remove(state.session.id);
     }
     private async post(state: EditorState, message: HostPayload): Promise<void> {
         if (state.disposed) return;
@@ -249,17 +253,24 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         if (state.disposed) return;
         state.session.renew(state.document.version);
         if (state.timer) clearTimeout(state.timer);
-        if (!state.panel.visible) return;
+        if (!state.panel.visible || (this.active.hasActive && !this.active.owns(state.session))) return;
         state.timer = setTimeout(() => { state.timer = undefined; void this.rebuild(state).catch(error => this.status(state, err(error), !!state.ir)); }, delay);
     }
     private changed(file: string): void {
         for (const state of this.editors) {
+            if (state.indexReleased) { if (sameFile(file, state.document.uri.fsPath)) this.schedule(state); continue; }
+            const relevant = sameFile(file, state.document.uri.fsPath)
+                || state.index.graph.dependencies.some(uri => sameFile(uri, file))
+                || state.index.graph.includes.some(edge => sameFile(edge.to, file))
+                || state.ir?.textures.some(texture => texture.file && sameFile(texture.file, file));
+            if (!relevant) continue;
             const affected = state.index.invalidate(file);
-            if (sameFile(file, state.document.uri.fsPath) || affected.size || state.ir?.dependencies.some(uri => sameFile(uri, file))) this.schedule(state);
+            if (relevant || affected.size) this.schedule(state);
         }
     }
     private async rebuild(state: EditorState): Promise<void> {
-        if (state.disposed || !state.panel.visible) return;
+        if (state.disposed || !state.panel.visible || (this.active.hasActive && !this.active.owns(state.session))) return;
+        if (state.indexReleased) { state.index = this.newIndex(); state.resolver = new AssetResolver(state.index); state.indexReleased = false; }
         const { requestId, signal } = state.session.renew(state.document.version);
         try {
         const model = parseXml(state.document.getText(), state.document.uri.fsPath, state.document.version);
@@ -287,6 +298,12 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                 if (loaded.texture.byteLength > textureTransferLimit) { texture.status = 'budget'; texture.message = '单贴图超过 32 MiB CPU 预览预算，请选择低分辨率源图。'; }
                 this.resources.release(loaded);
             } else texture.message = loaded.message;
+            if (texture.status !== 'ready' && texture.location) {
+                const code = `texture-${texture.status}`;
+                if (!ir.issues.some(issue => issue.code === code && sameFile(issue.uri, texture.location!.uri) && issue.start === texture.location!.start)) {
+                    ir.issues.push({ ...texture.location, code, severity: 'warning', message: texture.message ?? `贴图状态：${texture.status}` });
+                }
+            }
         }
         if (!state.session.current(requestId)) return;
         state.ir = ir; state.scene = ir.scene;
@@ -356,7 +373,8 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
             case 'ready':
                 if (!state.panel.visible) return;
                 state.s3tc = message.s3tc === true;
-                if (state.panel.active || ![...this.editors].some(s => s !== state && s.panel.active)) this.active.activate(state.session, () => this.stopCanvas(state));
+                if (state.panel.active || !this.active.hasActive || this.active.owns(state.session)) this.active.activate(state.session, () => this.stopCanvas(state));
+                else { state.session.suspend(); this.stopCanvas(state); return; }
                 state.sentTextures.clear(); await this.rebuild(state); break;
             case 'reload': await this.reload(state); break;
             case 'undo': case 'redo': if (state.panel.active) await vscode.commands.executeCommand(message.type); break;

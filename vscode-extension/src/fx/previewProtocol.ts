@@ -10,7 +10,7 @@ export interface FxField extends SourceLocation {
 }
 export interface FxTexture {
     key: string; name: string; file?: string; source: 'source' | 'compiled';
-    status: string; message?: string; width?: number; height?: number; pixels?: number[]; pixelsBase64?: string;
+    status: string; location?: SourceLocation; message?: string; width?: number; height?: number; pixels?: number[]; pixelsBase64?: string;
 }
 export interface FxSystem {
     key: string; name: string; templateKey: string; source: SourceLocation;

@@ -67,10 +67,15 @@ export class AssetIndex {
     /** Lexical and physical checks both run before any external file reader. */
     async checkedFile(uri: string): Promise<string> {
         const candidate = filePath(uri);
-        const roots = await Promise.all(this.options.roots.map(async root => {
+        // SDK/MOD selectors may use Windows short names or symlink aliases even
+        // when the allowed roots are canonical. Resolve selectors for readonly
+        // classification without granting them any additional filesystem access.
+        const selectors = [...new Set([...this.options.roots, this.options.modRoot, this.options.sdkRoot].filter((root): root is string => !!root))];
+        await Promise.all(selectors.map(async root => {
             const absolute = filePath(root); let physicalRoot: string; try { physicalRoot = await fs.realpath(absolute); } catch { physicalRoot = absolute; }
-            this.physicalPaths.set(absolute, physicalRoot); return physicalRoot;
+            this.physicalPaths.set(absolute, physicalRoot);
         }));
+        const roots = this.options.roots.map(root => this.physicalPaths.get(filePath(root))!);
         if (!this.options.roots.some(root => contains(filePath(root), candidate)) && !roots.some(root => contains(root, candidate))) throw new Error(`文件位于 MOD/SDK 资源根之外：${candidate}`);
         let physical: string;
         try { physical = await fs.realpath(candidate); }
@@ -138,6 +143,11 @@ export class AssetIndex {
                 if (rank[mode] > rank[previous]) {
                     modes.set(file, mode);
                     for (const asset of graph.assets.values()) if (asset.uri === file) asset.includeType = mode;
+                    // A later concrete import upgrades the same canonical subtree;
+                    // reference-only children remain reference-stream definitions.
+                    for (const edge of graph.includes.filter(edge => edge.from === file && edge.mode !== 'reference')) {
+                        await visit(edge.to, mode === 'reference' ? 'reference' : edge.mode, graph.documents.get(file)?.find(edge.source.nodePath), file);
+                    }
                 }
                 return;
             }

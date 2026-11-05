@@ -34,7 +34,7 @@ function source(origin: Origin, attribute?: string): SourceLocation {
 function problem(code: string, message: string, origin: Origin, attribute?: string, severity: FxIssue['severity'] = 'error'): FxIssue {
     return {...source(origin, attribute), code, message, severity};
 }
-function bool(value: string | undefined): boolean { return value === 'true' || value === '1'; }
+function bool(value: string | undefined): boolean { return value?.toLowerCase() === 'true' || value === '1'; }
 function isMetadata(name: string): boolean { return name === 'xmlns' || name.startsWith('xmlns:') || name.endsWith(':joinAction') || name === 'inheritFrom' || name === 'buildRule' || name === 'typeHashCode'; }
 
 /** Resolves only the chosen asset's typed references; unknown branches stay visible. */
@@ -183,20 +183,22 @@ export class AssetResolver {
     private async texture(template: AssetRecord, node: EffectiveNode, issues: FxIssue[]): Promise<FxTexture> {
         const name = node.attributes.ParticleTexture ?? '';
         const key = `texture:${template.key}:${name}`;
-        if (!name) return {key, name, source:'source', status:'empty-reference', message:'ParticleTexture 尚未选择贴图'};
+        let location = source(node.attributeOrigins.ParticleTexture ?? node.origin, 'ParticleTexture');
+        if (!name) return {key, name, location, source:'source', status:'empty-reference', message:'ParticleTexture 尚未选择贴图'};
         const declaration = this.select('Texture', name, template, issues, node.attributeOrigins.ParticleTexture ?? node.origin, 'ParticleTexture');
-        if (!declaration) return {key, name, source:'source', status:'missing-declaration', message:`Texture 声明不存在或有多个候选：${name}`};
+        if (!declaration) return {key, name, location, source:'source', status:'missing-declaration', message:`Texture 声明不存在或有多个候选：${name}`};
         const resolved = this.effective(declaration, issues);
-        if (!resolved) return {key, name, source:'source', status:'invalid-declaration', message:'Texture 继承无法解析'};
+        if (!resolved) return {key, name, location, source:'source', status:'invalid-declaration', message:'Texture 继承无法解析'};
         const file = resolved.attributes.File;
+        location = source(resolved.attributeOrigins.File ?? resolved.origin, 'File');
         if (file === undefined) {
             const empty = Object.keys(resolved.attributes).every(attr => attr === 'id');
-            return {key, name, source:'source', status:empty ? 'empty-declaration':'missing-file', message:empty ? 'Texture 是空声明，没有可预览的源素材':'Texture 缺少 File 属性'};
+            return {key, name, location, source:'source', status:empty ? 'empty-declaration':'missing-file', message:empty ? 'Texture 是空声明，没有可预览的源素材':'Texture 缺少 File 属性'};
         }
-        if (!file.trim()) return {key, name, source:'source', status:'empty-file', message:'Texture.File 为空'};
-        if (resolved.attributes.Type && resolved.attributes.Type !== 'StandardTexture') return {key, name, source:'source', status:'unsupported-type', message:`暂不支持 Texture.Type=${resolved.attributes.Type}`};
-        try { return {key, name, source:'source', status:'pending', file: await this.index.resolveFile(resolved.attributeOrigins.File?.uri ?? declaration.uri, file)}; }
-        catch (error) { return {key, name, source:'source', status:'invalid-file', message:error instanceof Error ? error.message:String(error)}; }
+        if (!file.trim()) return {key, name, location, source:'source', status:'empty-file', message:'Texture.File 为空'};
+        if (resolved.attributes.Type && resolved.attributes.Type !== 'StandardTexture') return {key, name, location, source:'source', status:'unsupported-type', message:`暂不支持 Texture.Type=${resolved.attributes.Type}`};
+        try { return {key, name, location, source:'source', status:'pending', file: await this.index.resolveFile(resolved.attributeOrigins.File?.uri ?? declaration.uri, file)}; }
+        catch (error) { return {key, name, location, source:'source', status:'invalid-file', message:error instanceof Error ? error.message:String(error)}; }
     }
     private numeric(node: EffectiveNode, attribute: string, fallback: number, issues: FxIssue[], kind: 'number'|'time'|'angle' = 'number'): number {
         const lexical = node.attributes[attribute]; if (lexical === undefined) return fallback;
@@ -223,6 +225,7 @@ export class AssetResolver {
             if (compiled && definition) systemIssues.push(...this.runtimeIssues(compiled.issues, definition));
             const textureIssues: FxIssue[] = [];
             const texture = definition ? await this.texture(template, definition, textureIssues) : undefined;
+            if (texture && texture.status !== 'pending' && !textureIssues.length) textureIssues.push({...texture.location!,code:`texture-${texture.status}`,message:texture.message ?? texture.status,severity:'warning'});
             systemIssues.push(...textureIssues.map(issue => ({...issue,severity:'warning' as const})));
             if (texture && !textures.some(t => t.key === texture.key)) textures.push(texture);
             let triggered = true; const offset: [number,number,number] = [...scene.source]; let rotation = 0; let rotationXYZ: [number,number,number] | undefined;
@@ -272,6 +275,12 @@ export class AssetResolver {
                 if (nugget.name !== 'ParticleSystem') {
                     issues.push(problem('nugget-unsupported', `${nugget.name} 节点保留在 XML 中，当前未播放`, nugget.origin, undefined, 'warning'));
                     if (bool(nugget.attributes.StopIfPlayed)) { issues.push(problem('dispatch-stop-context', `${nugget.name} 执行槽尚未实现，无法可靠继续 StopIfPlayed 调度`, nugget.origin)); break; }
+                    continue;
+                }
+                const invalidBoolean = Object.entries(nugget.attributes).find(([name,value]) => booleanAttributes.has(name) && !/^(?:[Tt]rue|[Ff]alse|0|1)$/.test(value));
+                if (invalidBoolean) {
+                    issues.push(problem('invalid-boolean', `${invalidBoolean[0]} 不是合法 SageBool`, nugget.origin, invalidBoolean[0]));
+                    if (invalidBoolean[0] === 'StopIfPlayed') break;
                     continue;
                 }
                 const countIssueStart = issues.length;
