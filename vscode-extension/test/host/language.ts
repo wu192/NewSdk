@@ -3,6 +3,7 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import * as http from 'node:http';
 import * as vscode from 'vscode';
+import {pathIdentity} from '../../src/project';
 
 interface LanguageApi {selectProject(root: string): Promise<void>;}
 interface Connection {type: 'http'; url: string; headers: {Authorization: string};}
@@ -99,15 +100,15 @@ export async function run(): Promise<void> {
         assert.ok(!flags.items.some(item => (typeof item.label === 'string' ? item.label : item.label.label) === 'AIR'));
         cases.push('flag-continuation');
         const definitions = await vscode.commands.executeCommand<vscode.Location[]>('vscode.executeDefinitionProvider', document.uri, referenceAt);
-        assert.equal(definitions.length, 1); assert.equal(definitions[0].uri.fsPath, base);
+        assert.equal(definitions.length, 1); assert.equal(pathIdentity(definitions[0].uri.fsPath), pathIdentity(base));
         const macroAt = document.positionAt(childText.indexOf('$HOST_COUNT') + 3);
         const macros = await vscode.commands.executeCommand<vscode.Location[]>('vscode.executeDefinitionProvider', document.uri, macroAt);
-        assert.equal(macros.length, 1); assert.equal(macros[0].uri.fsPath, base);
+        assert.equal(macros.length, 1); assert.equal(pathIdentity(macros[0].uri.fsPath), pathIdentity(base));
         const hovers = await vscode.commands.executeCommand<vscode.Hover[]>('vscode.executeHoverProvider', document.uri, macroAt);
         assert.ok(hovers.some(hover => hover.contents.some(content => typeof content === 'object' && 'value' in content && content.value.includes('5'))));
         const includeAt = document.positionAt(childText.indexOf('Base.xml') + 2);
         const includes = await vscode.commands.executeCommand<vscode.Location[]>('vscode.executeDefinitionProvider', document.uri, includeAt);
-        assert.equal(includes.length, 1); assert.equal(includes[0].uri.fsPath, base); cases.push('reference-define-include-navigation');
+        assert.equal(includes.length, 1); assert.equal(pathIdentity(includes[0].uri.fsPath), pathIdentity(base)); cases.push('reference-define-include-navigation');
 
         const configuration = await bounded(vscode.commands.executeCommand<{mcpServers: {newsdk: Connection}}>('newsdk.agent.start'), 'MCP start command');
         assert.ok(configuration?.mcpServers?.newsdk?.url, 'MCP start returns connection config without requiring notification dismissal');
