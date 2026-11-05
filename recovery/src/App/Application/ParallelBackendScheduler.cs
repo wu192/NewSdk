@@ -315,6 +315,7 @@ namespace NewModCompiler.Application
             {
                 long start = Start();
                 try { accepted = PreparedBackendWork.TryPrepareForScheduling(declaration, plugin, budget / 2, out prepared, out reason, out preparationBytes); }
+                catch (Exception error) { AttachSource(error,declaration); throw; }
                 finally { metrics.PreparationTicks += Elapsed(start); }
             }
             if (accepted)
@@ -344,7 +345,8 @@ namespace NewModCompiler.Application
                     work.ReservedBytes = preparationBytes; retained += preparationBytes;
                     SampleState();
                 }
-                compileCompatibility();
+                try { compileCompatibility(); }
+                catch (Exception error) { AttachSource(error,declaration); throw; }
                 work.Buffer = asset.Buffer;
                 work.Location = AssetLocation.Memory; work.State = WorkState.Ready; work.ReadySince = Start();
                 long resultBytes = BufferBytes(work.Buffer);
@@ -382,10 +384,16 @@ namespace NewModCompiler.Application
                 + (buffer.RelocationData == null ? 0 : buffer.RelocationData.Length)
                 + (buffer.ImportsData == null ? 0 : buffer.ImportsData.Length);
         }
+        static void AttachSource(Exception error, InstanceDeclaration declaration)
+        {
+            BinaryAssetBuilderException.AttachSource(error,declaration.Document.SourcePath,
+                declaration.Handle.TypeName,declaration.Handle.InstanceName);
+        }
         bool RunVerification(Subscription request)
         {
             long start = Start();
             try { return request.Verify == null || request.Verify(); }
+            catch (Exception error) { AttachSource(error,request.Physical.Declaration); throw; }
             finally { request.VerifyTicks += Elapsed(start); }
         }
         void ScheduleVerification(Subscription request, bool parallel)
@@ -406,9 +414,11 @@ namespace NewModCompiler.Application
             metrics.VerificationTicks += request.VerifyTicks;
             if (performance.Detailed) performance.RecordBackend("core.asset.verify", request.VerifyTicks);
             request.VerifyTicks = 0;
-            request.PublishVerification?.Invoke(result);
-            if (!result) throw new BinaryAssetBuilderException(ErrorCode.GameDataVerification,
-                "FATAL: An asset failed the Game Data Verification step. See previous output.");
+            try {
+                request.PublishVerification?.Invoke(result);
+                if (!result) throw new BinaryAssetBuilderException(ErrorCode.GameDataVerification,
+                    "FATAL: An asset failed the Game Data Verification step. See previous output.");
+            } catch (Exception error) { AttachSource(error,request.Physical.Declaration); throw; }
             request.Verified = true;
         }
         void Replay(Tracer.DiagnosticCapture diagnostics, string sourcePath)
@@ -445,6 +455,7 @@ namespace NewModCompiler.Application
                         {
                             Computed result;
                             try { result = work.Compute.GetAwaiter().GetResult(); }
+                            catch (Exception error) { AttachSource(error,work.Declaration); throw; }
                             finally
                             {
                                 Replay(work.Diagnostics, work.SourcePath); work.Diagnostics = null;
@@ -460,6 +471,7 @@ namespace NewModCompiler.Application
                         if (work.IO != null && work.IO.IsCompleted)
                         {
                             try { work.IO.GetAwaiter().GetResult(); }
+                            catch (Exception error) { AttachSource(error,work.Declaration); throw; }
                             finally { processor.InDocumentContext(work.SourcePath, work.Commit.FlushDiagnostics); }
                             metrics.IoTicks += work.IoTicks;
                             if (performance.Detailed) performance.RecordBackend("core.asset.io", work.IoTicks);
@@ -491,6 +503,7 @@ namespace NewModCompiler.Application
                             string cdata = work.Prepared == null ? work.Declaration.CustomDataPath : work.Prepared.Declaration.CustomDataPath;
                             long start = Start();
                             try { work.Commit = work.Asset.PrepareCommit(work.Location, work.Buffer, cdata); }
+                            catch (Exception error) { AttachSource(error,work.Declaration); throw; }
                             finally { metrics.CommitTicks += Elapsed(start); }
                             long bytes = Math.Max(work.ReservedBytes, work.Commit.RetainedBytes);
                             retained += bytes - work.ReservedBytes; work.ReservedBytes = bytes;

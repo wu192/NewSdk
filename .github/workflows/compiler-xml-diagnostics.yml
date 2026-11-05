@@ -1,0 +1,101 @@
+name: Compiler XML diagnostics release
+
+on:
+  push:
+    branches: [codex/compiler-source-diagnostics]
+    paths:
+      - 'recovery/src/**'
+      - 'recovery/tests/App/**'
+      - '.github/workflows/compiler-xml-diagnostics.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: compiler-xml-diagnostics-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compiler:
+    runs-on: windows-2022
+    timeout-minutes: 40
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /.gitattributes
+            /recovery/src/
+            /recovery/build/
+            /recovery/tests/App/
+            /recovery/scripts/
+            /ui/
+            /SDK/tools/antlr.runtime.dll
+            /SDK/tools/BinaryAssetBuilder.Utility.dll
+            /SDK/tools/BinaryAssetBuilder.Core.dll
+            /SDK/tools/BinaryAssetBuilder.exe.config
+            /SDK/Schemas/xsd/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Check application diagnostic compatibility
+        run: |
+          New-Item -ItemType Directory -Force work/evidence | Out-Null
+          ./recovery/scripts/BuildApp.ps1 -Tests -Configuration Release -OutputDirectory work/app *> work/evidence/app-build.log
+          & ./work/app/NewModCompiler.AppTests.exe "$env:RUNNER_TEMP/newsdk-diagnostic-tests" *> work/evidence/app-tests.log
+          if ($LASTEXITCODE -ne 0) { Get-Content work/evidence/app-tests.log -Tail 80; throw 'Application diagnostic contracts failed' }
+          Get-Content work/evidence/app-tests.log -Tail 12
+      - name: Build actual Win32 compiler
+        run: |
+          ./recovery/scripts/BuildCompiler.ps1 -Configuration Release -OutputDirectory work/product *> work/evidence/compiler-build.log
+          if ($LASTEXITCODE -ne 0) { Get-Content work/evidence/compiler-build.log -Tail 80; throw 'Compiler build failed' }
+      - name: Verify actual Core schema source diagnostics
+        run: |
+          ./recovery/scripts/TestSourceDiagnostics.ps1 -CompilerPath work/product/bin/NewModCompiler.exe -SourceSdkRoot SDK -WorkDirectory "$env:RUNNER_TEMP/newsdk-source-diagnostics-$env:GITHUB_RUN_ID" -SummaryPath work/evidence/source-diagnostics.json
+      - name: Publish versioned compiler package
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = 'compiler-2026.11.05-xml-' + $env:GITHUB_SHA.Substring(0, 7)
+          $zip = 'work/NewModCompiler-Win32-Release.zip'
+          Compress-Archive -Path work/product/bin/* -DestinationPath $zip -CompressionLevel Optimal
+          $hash = (Get-FileHash $zip -Algorithm SHA256).Hash.ToLowerInvariant()
+          $url = "https://github.com/$env:GITHUB_REPOSITORY/releases/download/$tag"
+          $manifest = @{ tag = $tag; url = "$url/NewModCompiler-Win32-Release.zip"; sha256 = $hash; binarySourceCommit = $env:GITHUB_SHA; manifestUrl = "$url/NewModCompiler-Win32-Release.manifest.json" }
+          $manifest | ConvertTo-Json | Set-Content work/NewModCompiler-Win32-Release.manifest.json
+          @('Adds optional reliable source and asset metadata to existing schema 1.0 diagnostics.', 'Application contracts and actual Core schema-error event/report/source location probe passed. Windows extension and broader MOD integration acceptance is tracked separately.') | Set-Content work/release-notes.txt
+          gh release create $tag $zip work/NewModCompiler-Win32-Release.manifest.json --target $env:GITHUB_SHA --prerelease --title "NewModCompiler XML diagnostics $($env:GITHUB_SHA.Substring(0,7))" --notes-file work/release-notes.txt
+          if ($LASTEXITCODE -ne 0) { throw 'Compiler release upload failed' }
+          $manifest | ConvertTo-Json | Set-Content work/evidence/release.json
+          "Compiler package: $url; SHA-256: $hash" >> $env:GITHUB_STEP_SUMMARY
+      - name: Collect bounded evidence
+        if: always()
+        run: |
+          New-Item -ItemType Directory -Force work/summary | Out-Null
+          @{ sourceCommit = $env:GITHUB_SHA; runId = $env:GITHUB_RUN_ID; result = '${{ job.status }}' } | ConvertTo-Json | Set-Content work/summary/run.json
+          if (Test-Path work/evidence/release.json) { Copy-Item work/evidence/release.json work/summary/ }
+          Get-Content work/summary/run.json >> $env:GITHUB_STEP_SUMMARY
+          if ('${{ job.status }}' -ne 'success') {
+            foreach ($file in Get-ChildItem work/evidence/*.log -ErrorAction SilentlyContinue) {
+              $tail = Get-Content $file -Tail 300 | Out-String
+              if ($tail.Length -gt 65536) { $tail = $tail.Substring($tail.Length - 65536) }
+              $tail | Set-Content (Join-Path work/summary $file.Name)
+            }
+          }
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        continue-on-error: true
+        with:
+          name: compiler-xml-summary-${{ github.run_id }}-${{ github.run_attempt }}
+          path: work/summary/
+          retention-days: 1
+          compression-level: 9
+          if-no-files-found: ignore

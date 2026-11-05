@@ -18,11 +18,13 @@ namespace BinaryAssetBuilder.Core;
 [Serializable]
 public class AssetDeclarationDocument : IXmlSerializable
 {
-	private class XmlNodeWithMetaData
+	private class XmlNodeWithMetaData : IEquatable<XmlNodeWithMetaData>
 	{
 		public XmlNode Node;
 
 		public int LineNumber;
+		public int LinePosition;
+		public string SourceUri;
 
 		public XmlNodeWithMetaData(XmlNode node, int line)
 		{
@@ -291,6 +293,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		public IDictionary<InstanceHandle, InstanceDeclaration> OutputInstanceSet;
 
 		public XmlReader XmlReader;
+		public XmlReader SourceInfoReader;
 
 		public string ConfigurationName;
 
@@ -769,10 +772,11 @@ public class AssetDeclarationDocument : IXmlSerializable
 		{
 			XmlResolver = xmlResolver
 		};
+		_Current.SourceInfoReader = xmlReader;
 		_Current.NodeSourceInfoSet = new LinkedList<XmlNodeWithMetaData>();
 		try
 		{
-			bool flag = _Current.LogicalSourcePath.EndsWith(".xml");
+			bool flag = _Current.LogicalSourcePath.EndsWith(".xml", StringComparison.OrdinalIgnoreCase);
 			if (flag)
 			{
 				_Current.XmlDocument.NodeInserted += NodeInsertedHandler;
@@ -793,6 +797,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 		}
 		finally
 		{
+			_Current.SourceInfoReader = null;
 			_Current.XmlReader.Close();
 		}
 		if (updateDependentFiles)
@@ -862,10 +867,12 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	private void NodeInsertedHandler(object sender, XmlNodeChangedEventArgs e)
 	{
-		IXmlLineInfo xmlLineInfo = _Current.XmlReader as IXmlLineInfo;
-		if (xmlLineInfo.HasLineInfo())
+		XmlReader reader = _Current.SourceInfoReader;
+		IXmlLineInfo xmlLineInfo = reader as IXmlLineInfo;
+		if (xmlLineInfo != null && xmlLineInfo.HasLineInfo() && xmlLineInfo.LineNumber > 0)
 		{
-			_Current.NodeSourceInfoSet.AddFirst(new XmlNodeWithMetaData(e.Node, xmlLineInfo.LineNumber));
+			_Current.NodeSourceInfoSet.AddFirst(new XmlNodeWithMetaData(e.Node, xmlLineInfo.LineNumber) {
+				LinePosition = xmlLineInfo.LinePosition, SourceUri = reader.BaseURI });
 		}
 	}
 
@@ -1010,7 +1017,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 			LinkedListNode<XmlNodeWithMetaData> linkedListNode = _Current.NodeSourceInfoSet.Find(new XmlNodeWithMetaData(node, 0));
 			if (linkedListNode != null && linkedListNode.Value != null)
 			{
-				throw new BinaryAssetBuilderException(ErrorCode.SchemaValidation, "XML validation error encountered in '{0}' near line {1}:\n   {2}", SourcePath, linkedListNode.Value.LineNumber, e.Message);
+				var info = linkedListNode.Value;
+				var failure = new BinaryAssetBuilderException(e.Exception, ErrorCode.SchemaValidation, "XML validation error encountered in '{0}' near line {1}:\n   {2}", SourcePath, info.LineNumber, e.Message);
+				if (!string.IsNullOrEmpty(info.SourceUri)) BinaryAssetBuilderException.AttachSource(failure, info.SourceUri, line: info.LineNumber, column: info.LinePosition);
+				throw failure;
 			}
 		}
 		throw new BinaryAssetBuilderException(e.Exception, ErrorCode.SchemaValidation, "XML validation error encountered in '{0}'", SourcePath);

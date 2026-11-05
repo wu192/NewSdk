@@ -672,8 +672,9 @@ public class DocumentProcessor
 			_MaxTotalMemory = Math.Max(_MaxTotalMemory, GC.GetTotalMemory(forceFullCollection: false));
 			return assetDeclarationDocument;
 		}
-		catch
+		catch (Exception error)
 		{
+			BinaryAssetBuilderException.AttachSource(error, sourcePath);
 			if (_ExecutionDocuments.TryGetValue(assetDeclarationDocument, out var failedVersion)) FailDocumentVersion(failedVersion);
 			throw;
 		}

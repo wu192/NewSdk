@@ -12,7 +12,7 @@ using Mvp.Xml.XPointer;
 
 namespace Mvp.Xml.XInclude;
 
-public class XIncludingReader : XmlReader
+public class XIncludingReader : XmlReader, IXmlLineInfo
 {
 	private XIncludeKeywords _keywords;
 
@@ -72,6 +72,15 @@ public class XIncludingReader : XmlReader
 	}
 
 	public override string BaseURI => _reader.BaseURI;
+
+	// Forward the active included reader's location. An XPointer/cache reader
+	// without source coordinates reports no line information rather than the
+	// suspended parent's xi:include position.
+	public bool HasLineInfo() => _reader is IXmlLineInfo info && info.HasLineInfo();
+
+	public int LineNumber => (_reader as IXmlLineInfo)?.LineNumber ?? 0;
+
+	public int LinePosition => (_reader as IXmlLineInfo)?.LinePosition ?? 0;
 
 	public override bool HasValue
 	{
