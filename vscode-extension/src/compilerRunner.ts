@@ -8,7 +8,8 @@ import {
 import {
     acquirePhysicalProjectLock, compilerArguments, CompilerOperation, diagnosticPaths, DiagnosticPaths, PhysicalProjectLock, ProjectRunLocks, RunConfiguration,
 } from './compilerArguments';
-import { canonicalPath, projectIdentity, validateOutputDirectory } from './project';
+import { canonicalPath, containsPath, pathIdentity, projectIdentity, validateOutputDirectory } from './project';
+import { BuildVersionTracker } from './fx/buildVersion';
 
 export { RunConfiguration, DiagnosticPaths } from './compilerArguments';
 
@@ -160,6 +161,7 @@ export class CompilerRunner implements vscode.Disposable {
         let polling: Promise<void> | undefined;
         let poll: (() => Promise<void>) | undefined;
         let protocolError: string | undefined;
+        let inputObservation: ReturnType<typeof observeInputs> | undefined;
         try {
             timer = setInterval(() => {
                 this.update({ elapsedMs: Date.now() - started });
@@ -194,6 +196,7 @@ export class CompilerRunner implements vscode.Disposable {
             // Capture old build IDs before launching. No old success event/report
             // may certify this invocation, even when startup fails before truncation.
             const tail = await JsonlTail.capture(paths.events);
+            if (operation === 'build') inputObservation = observeInputs(config);
             poll = () => {
                 if (polling) return polling;
                 polling = (async () => {
@@ -220,12 +223,14 @@ export class CompilerRunner implements vscode.Disposable {
                 exitCode, report, forced: this.forced,
                 protocolError: problems.length ? problems.join('\n') : undefined,
             });
+            if (inputObservation) result.inputState = inputObservation.tracker.result();
             this.setResult(result);
             return result;
         } catch (error) {
             const result = protocol.finish({
                 exitCode: undefined, forced: this.forced, protocolError: errorMessage(error),
             });
+            if (inputObservation) result.inputState = inputObservation.tracker.result();
             // Startup and configuration failures must remain clear even without
             // a compiler session or a structured report.
             if (!this.forced && !result.buildId) {
@@ -235,6 +240,7 @@ export class CompilerRunner implements vscode.Disposable {
             this.setResult(result);
             return result;
         } finally {
+            inputObservation?.dispose();
             if (timer) clearInterval(timer);
             await polling?.catch(() => undefined);
             await this.lockUpdates;
@@ -330,7 +336,9 @@ export class CompilerRunner implements vscode.Disposable {
     }
 
     private setResult(result: BuildResult): void {
-        this.update({ result, progress: result, status: result.status, message: result.reason });
+        const stale = result.inputState === 'inputs-changed' ? '；编译期间输入文件已变化，结果对应上一保存版本。'
+            : result.inputState === 'previous-saved' ? '；结果对应上一保存版本，未包含当前未保存修改。' : '';
+        this.update({ result, progress: result, status: result.status, message: result.reason + stale });
     }
 
     private update(change: Partial<RunnerState>): void {
@@ -344,6 +352,29 @@ export class CompilerRunner implements vscode.Disposable {
         this.update({ elapsedMs: Date.now() - started });
         if (this.disposed) this.subscriptions.forEach(subscription => subscription.dispose());
     }
+}
+
+/** Observe source changes during this invocation; never scan/hash the SDK or its compiler caches. */
+function observeInputs(config: RunConfiguration): { tracker: BuildVersionTracker; dispose(): void } {
+    const tracker = new BuildVersionTracker();
+    const cacheRoot = path.join(config.sdkRoot, 'SuperCompilerCache');
+    // SDK resource paths may be customized in BinaryAssetBuilder.exe.config.
+    // Observe changes conservatively, while excluding the compiler's own cache.
+    const relevant = (uri: vscode.Uri): boolean => uri.scheme === 'file' && !containsPath(cacheRoot, uri.fsPath)
+        && (containsPath(config.modRoot, uri.fsPath) || containsPath(config.sdkRoot, uri.fsPath));
+    const subscriptions: vscode.Disposable[] = [];
+    for (const root of new Set([config.modRoot, config.sdkRoot])) {
+        const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(root, '**/*'));
+        const changed = (uri: vscode.Uri): void => { if (relevant(uri)) tracker.disk(); };
+        subscriptions.push(watcher, watcher.onDidChange(changed), watcher.onDidCreate(changed), watcher.onDidDelete(changed));
+    }
+    subscriptions.push(vscode.workspace.onDidChangeTextDocument(event => {
+        if (relevant(event.document.uri) && event.contentChanges.length) tracker.memory(pathIdentity(event.document.uri.fsPath), event.document.version);
+    }), vscode.workspace.onDidSaveTextDocument(document => { if (relevant(document.uri)) tracker.disk(); }));
+    const documents = vscode.workspace.textDocuments.filter(document => relevant(document.uri));
+    for (const document of documents) tracker.memory(pathIdentity(document.uri.fsPath), document.version);
+    tracker.begin(documents.some(document => document.isDirty));
+    return { tracker, dispose: () => subscriptions.forEach(subscription => subscription.dispose()) };
 }
 
 function errorMessage(error: unknown): string {

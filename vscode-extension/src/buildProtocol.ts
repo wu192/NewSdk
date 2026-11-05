@@ -26,7 +26,14 @@ export interface ProtocolDiagnostic {
   file?: string;
   line?: number;
   column?: number;
+  assetType?: string;
+  assetId?: string;
+  streamId?: string;
+  stageId?: string;
 }
+
+export interface EffectiveOption { value: string; source: string; }
+export type EffectiveOptions = Record<string, EffectiveOption>;
 
 export interface BuildTask {
   id: string;
@@ -72,6 +79,7 @@ export interface BuildProgress {
   plan?: BuildPlan;
   diagnostics: ProtocolDiagnostic[];
   events: BuildEvent[];
+  effectiveOptions?: EffectiveOptions;
 }
 
 export interface BuildResult extends BuildProgress {
@@ -81,6 +89,8 @@ export interface BuildResult extends BuildProgress {
   artifacts: BuildArtifact[];
   publicationDirectory?: string;
   report?: BuildReport;
+  /** File observations only; this does not change the compiler's success verdict. */
+  inputState?: 'current' | 'previous-saved' | 'inputs-changed';
 }
 
 function object(value: unknown): Record<string, unknown> | undefined {
@@ -237,20 +247,45 @@ export function normalizePlan(value: unknown): BuildPlan | undefined {
   return { tasks, skipped, kind: typeof plan.PlanKind === 'string' ? plan.PlanKind : undefined };
 }
 
-function diagnostic(value: Record<string, unknown>): ProtocolDiagnostic | undefined {
+export function normalizeDiagnostic(value: Record<string, unknown>): ProtocolDiagnostic | undefined {
   if (typeof value.message !== 'string') { return undefined; }
   const result: ProtocolDiagnostic = {
     code: typeof value.code === 'string' ? value.code : 'COMPILER_DIAGNOSTIC',
     message: value.message,
     level: typeof value.level === 'string' ? value.level : 'info',
   };
-  // Core trace `source` is a component name, not an XML filename. Never infer
-  // source positions from it or synthesize line 1 for an unlocated message.
-  const file = typeof value.file === 'string' ? value.file : typeof value.filePath === 'string' ? value.filePath : undefined;
-  if (file && Number.isSafeInteger(value.line) && (value.line as number) > 0) {
-    result.file = file;
-    result.line = value.line as number;
-    if (Number.isSafeInteger(value.column) && (value.column as number) > 0) { result.column = value.column as number; }
+  // Old Core `source` strings name a component. Only the optional structured
+  // source object can provide fallback location/asset metadata.
+  const source = object(value.source);
+  const filename = (entry?: Record<string, unknown>): string | undefined =>
+    typeof entry?.file === 'string' && entry.file ? entry.file : typeof entry?.filePath === 'string' && entry.filePath ? entry.filePath : undefined;
+  const primaryFile = filename(value);
+  const sourceFile = filename(source);
+  const file = primaryFile ?? sourceFile;
+  const location = primaryFile && Number.isSafeInteger(value.line) && (value.line as number) > 0 ? value
+    : sourceFile && (!primaryFile || primaryFile === sourceFile) ? source : undefined;
+  if (file) result.file = file;
+  if (location && Number.isSafeInteger(location.line) && (location.line as number) > 0) {
+    result.line = location.line as number;
+    if (Number.isSafeInteger(location.column) && (location.column as number) > 0) result.column = location.column as number;
+  }
+  for (const key of ['assetType', 'assetId', 'streamId', 'stageId'] as const) {
+    const entry = value[key] ?? source?.[key];
+    if (typeof entry === 'string' && entry) result[key] = entry;
+  }
+  return result;
+}
+
+/** Display the values and origins the compiler actually selected. */
+export function normalizeEffectiveOptions(value: unknown): EffectiveOptions | undefined {
+  const entries = object(value);
+  if (!entries) return undefined;
+  const result: EffectiveOptions = {};
+  for (const [key, raw] of Object.entries(entries)) {
+    const option = object(raw);
+    const selected = option?.Value ?? option?.value;
+    const source = option?.Source ?? option?.source;
+    if (typeof selected === 'string' && typeof source === 'string') result[key] = { value: selected, source };
   }
   return result;
 }
@@ -259,12 +294,13 @@ function mergeDiagnostics(first: ProtocolDiagnostic[], other: unknown[]): Protoc
   const values = [...first];
   for (const entry of other) {
     const item = object(entry);
-    const parsed = item && diagnostic(item);
+    const parsed = item && normalizeDiagnostic(item);
     if (parsed) { values.push(parsed); }
   }
   const unique = new Map<string, ProtocolDiagnostic>();
   for (const item of values) {
-    unique.set(JSON.stringify([item.level, item.code, item.message, item.file, item.line, item.column]), item);
+    const key = JSON.stringify([item.level, item.code, item.message, item.file, item.line, item.column, item.assetType, item.assetId, item.streamId, item.stageId]);
+    unique.set(key, item);
   }
   return [...unique.values()];
 }
@@ -311,6 +347,7 @@ export class BuildProtocolState {
     for (const event of events) {
       result.elapsedMs = Math.max(result.elapsedMs, event.elapsedMs);
       const payload = object(event.payload);
+      result.effectiveOptions = normalizeEffectiveOptions(payload?.effectiveOptions) ?? result.effectiveOptions;
       switch (event.eventType) {
         case 'PlanResolved':
           result.plan = normalizePlan(payload);
@@ -332,7 +369,9 @@ export class BuildProtocolState {
           break;
         case 'Diagnostic': {
           if (event.level !== 'warning' && event.level !== 'error') { break; }
-          const item = diagnostic({ ...payload, code: event.diagnosticCode, message: event.message, level: event.level });
+          const item = normalizeDiagnostic({ ...payload, code: event.diagnosticCode ?? payload?.code,
+            message: event.message ?? payload?.message, level: event.level,
+            streamId: event.streamId ?? payload?.streamId, stageId: event.stageId ?? payload?.stageId });
           if (item) { result.diagnostics.push(item); }
           break;
         }
@@ -363,6 +402,7 @@ export class BuildProtocolState {
     if (finishes.length !== 1 || !report || options.exitCode === undefined) { return reject('interrupted', '缺少本轮完整终态、最终报告或进程退出码；结果不完整。'); }
     if (report.buildId !== progress.buildId) { return reject('failed', '最终报告 buildId 与本轮事件不一致；拒绝使用旧报告。'); }
     result.report = report;
+    result.effectiveOptions = normalizeEffectiveOptions(report.effectiveOptions) ?? result.effectiveOptions;
     result.diagnostics = mergeDiagnostics(result.diagnostics, report.diagnostics);
     result.plan ??= normalizePlan(report.plan);
     const finish = finishes[0];

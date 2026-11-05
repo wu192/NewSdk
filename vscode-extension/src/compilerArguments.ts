@@ -1,6 +1,7 @@
 import * as path from 'node:path';
 
 export type CompilerOperation = 'doctor' | 'plan' | 'build';
+export type CompilerOptionOverrides = Readonly<Record<string, string | number | boolean>>;
 
 export interface RunConfiguration {
     compilerPath: string;
@@ -8,12 +9,23 @@ export interface RunConfiguration {
     modRoot: string;
     outputDirectory: string;
     modVersion: string;
+    /** Only explicitly saved/UI overrides. Preset values stay owned by the compiler. */
+    compilerOptions?: CompilerOptionOverrides;
+    presetOptions?: Readonly<Record<string, string>>;
 }
 
 export interface DiagnosticPaths {
     events: string;
     report: string;
     log: string;
+}
+
+/** BIG is the default; only an explicitly known loose configuration can omit a version. */
+export function requiresModVersion(configuration: Pick<RunConfiguration, 'compilerOptions' | 'presetOptions'>): boolean {
+    const format = configuration.compilerOptions?.['package-format'] ?? configuration.presetOptions?.['package-format'];
+    if (format !== undefined) return String(format).toLowerCase() !== 'loose';
+    const profile = configuration.compilerOptions?.profile ?? configuration.presetOptions?.profile;
+    return String(profile).toLowerCase() !== 'development';
 }
 
 /** Separate plan evidence so checking a plan never replaces the previous build report. */
@@ -32,21 +44,52 @@ export function compilerArguments(operation: CompilerOperation, configuration: R
     if (operation === 'doctor') return ['doctor', '--sdk-root', configuration.sdkRoot];
     if (!configuration.modRoot.trim()) throw new Error('请选择 MOD 根目录。');
     if (!configuration.outputDirectory.trim()) throw new Error('请选择输出目录。');
-    if (!configuration.modVersion.trim()) throw new Error('请填写 MOD 版本。');
+    if (requiresModVersion(configuration) && !configuration.modVersion.trim()) throw new Error('请填写 BIG 构建所需的 MOD 版本。');
     const paths = diagnosticPaths(operation, configuration.outputDirectory);
-    return [
+    const args = [
         operation,
         '--mod', configuration.modRoot,
-        '--sdk-root', configuration.sdkRoot,
-        '--out', configuration.outputDirectory,
-        '--mod-version', configuration.modVersion.trim(),
-        '--package-content', 'auto',
-        '--package-format', 'big',
-        '--include-additional=true',
         '--events', paths.events,
         '--report', paths.report,
         '--log', paths.log,
     ];
+    if (configuration.modVersion.trim()) args.push('--mod-version', configuration.modVersion.trim());
+    for (const [key, value] of [['sdk-root', configuration.sdkRoot], ['out', configuration.outputDirectory]]) {
+        if (!samePath(configuration.presetOptions?.[key], value)) args.push(`--${key}`, value);
+    }
+    args.push(...compilerOptionArguments(configuration.compilerOptions));
+    return args;
+}
+
+const overrideKeys = new Set(['package-content', 'package-format', 'include-additional', 'fix-neutral-assets',
+    'jobs', 'profile', 'performance', 'game-root', 'game-version', 'skudef-name', 'tp', 'ss', 'pc', 'slowclean',
+    'sc', 'bc', 'csc', 'psc', 'fsc', 'atc', 'session-cache-directory', 'build-cache-directory', 'iod']);
+const booleanKeys = new Set(['include-additional', 'fix-neutral-assets', 'ss', 'pc', 'slowclean', 'sc', 'bc', 'csc', 'psc', 'fsc', 'atc']);
+
+/** Booleans must use --key=value: a separate false token is positional in the compiler CLI. */
+export function compilerOptionArguments(options: CompilerOptionOverrides = {}): string[] {
+    const args: string[] = [];
+    for (const [key, raw] of Object.entries(options)) {
+        if (!overrideKeys.has(key)) throw new Error(`不支持的编译覆盖项：${key}`);
+        if (!['string', 'number', 'boolean'].includes(typeof raw) || (typeof raw === 'number' && !Number.isFinite(raw))) {
+            throw new Error(`编译覆盖项需要有限标量值：${key}`);
+        }
+        const value = String(raw);
+        if (!value.trim() || value.includes('\0')) throw new Error(`编译覆盖项不能为空：${key}`);
+        if (booleanKeys.has(key)) {
+            if (!/^(true|false)$/i.test(value)) throw new Error(`编译覆盖项 ${key} 需要 true 或 false。`);
+            args.push(`--${key}=${value.toLowerCase()}`);
+        } else args.push(`--${key}`, value);
+    }
+    return args;
+}
+
+function samePath(first: string | undefined, second: string): boolean {
+    if (!first) return false;
+    const windows = /^[a-z]:[\\/]|^\\\\/i.test(second);
+    const api = windows ? path.win32 : path;
+    const normalize = (value: string): string => windows ? api.normalize(value).toLowerCase() : api.normalize(value);
+    return normalize(first) === normalize(second);
 }
 
 /** Pure lock manager, shared by all runner instances in one extension host. */

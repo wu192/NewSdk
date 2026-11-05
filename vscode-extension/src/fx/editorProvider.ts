@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { randomBytes } from 'node:crypto';
+import { getAssetService } from '../ra3xml/services/assetService';
 import { AssetIndex, AssetRecord } from './assetIndex';
 import { AssetResolver } from './assetResolver';
 import { ResourceReady, ResourceService } from './resourceService';
@@ -174,7 +175,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         return physical;
     }
     private newIndex(): AssetIndex {
-        return new AssetIndex({ roots: this.roots, modRoot: this.services.getProject()?.root ?? this.roots[0],
+        return getAssetService({ storagePath:this.context.globalStorageUri.fsPath, roots: this.roots, modRoot: this.services.getProject()?.root ?? this.roots[0],
             sdkRoot: this.services.getConfiguration()?.sdkRoot,
             readText: async file => {
                 const physical = await this.allowed(file);
@@ -189,7 +190,7 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
                 }
                 const stat = await fs.stat(physical); if (stat.size > sourceLimit) throw new Error('XML 超过单文档 4 MiB 解析预算。');
                 return { text: await fs.readFile(physical, 'utf8'), version: 0 };
-            } });
+            } }).createView();
     }
     async open(uri?: vscode.Uri, assetKey?: string): Promise<void> {
         if (!uri || uri.scheme !== 'file' || !/\.xml$/i.test(uri.fsPath)) throw new Error('请打开本地 XML 文件，或从特效树选择资产。');
@@ -294,7 +295,8 @@ class FxEditorProvider implements vscode.CustomTextEditorProvider, FxApi {
         if (state.indexReleased) { state.index = this.newIndex(); state.resolver = new AssetResolver(state.index); state.indexReleased = false; }
         const { requestId, signal } = state.session.renew(state.document.version);
         try {
-        const model = parseXml(state.document.getText(), state.document.uri.fsPath, state.document.version);
+        state.index.documentStore.set(state.document.uri.fsPath,state.document.getText(),state.document.version);
+        const model = await state.index.documentStore.read(state.document.uri.fsPath);
         if (!model.valid) {
             await this.diagnostics.update(state.session.id, model.issues.map(issue => ({ ...issue, uri: state.document.uri.fsPath, severity: 'error' })));
             await this.status(state, `XML 尚未完整；保留上一有效画面（文档版本 ${state.ir?.documentVersion ?? '—'}）。`, true); return;

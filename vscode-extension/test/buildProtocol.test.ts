@@ -92,6 +92,34 @@ test('only explicit filename and positive source line become located diagnostics
   assert.deepEqual(state.snapshot().diagnostics[0], { code: 'COMPILER_DIAGNOSTIC', message: 'malformed', level: 'error', file: 'D:\\mod\\Data\\Mod.xml', line: 15, column: 3 });
 });
 
+test('legacy base coordinates and structured source coordinates agree across event and report', () => {
+  const source = { file: 'D:\\mod\\Data\\Weapon.xml', line: 17, column: 5, assetType: 'WeaponTemplate', assetId: 'TankCannon' };
+  const state = new BuildProtocolState();
+  state.accept([event(1, 'BuildStarted'), event(2, 'Diagnostic', { level: 'error', diagnosticCode: 'XML_INVALID',
+    message: 'bad reference', streamId: 'base', stageId: 'compile', payload: { source } }),
+    event(3, 'BuildFinished', { payload: { status: 'failed', exitCode: 4 } })]);
+  const expected = { code: 'XML_INVALID', message: 'bad reference', level: 'error', ...source, streamId: 'base', stageId: 'compile' };
+  assert.deepEqual(state.snapshot().diagnostics[0], expected);
+  const result = state.finish({ exitCode: 4, report: report({ status: 'failed', exitCode: 4,
+    diagnostics: [{ ...expected, source }], effectiveOptions: { 'package-format': { Value: 'loose', Source: 'project' } } }) });
+  assert.equal(result.diagnostics.length, 1);
+  assert.deepEqual(result.effectiveOptions, { 'package-format': { value: 'loose', source: 'project' } });
+});
+
+test('file-only, asset-only and conflicting source metadata never create fabricated coordinates', () => {
+  const state = new BuildProtocolState();
+  state.accept([event(1, 'BuildStarted'),
+    event(2, 'Diagnostic', { level: 'error', message: 'no line', payload: { source: { file: 'schema.xsd', line: 0, column: 1 } } }),
+    event(3, 'Diagnostic', { level: 'error', message: 'asset only', payload: { source: { assetType: 'Texture', assetId: 'Known' } } }),
+    event(4, 'Diagnostic', { level: 'error', message: 'different sources', payload: { file: 'first.xml', source: { file: 'second.xml', line: 9, column: 3 } } })]);
+  assert.equal(state.snapshot().diagnostics[0].file, 'schema.xsd');
+  assert.equal(state.snapshot().diagnostics[0].line, undefined);
+  assert.equal(state.snapshot().diagnostics[1].assetId, 'Known');
+  assert.equal(state.snapshot().diagnostics[1].file, undefined);
+  assert.equal(state.snapshot().diagnostics[2].file, 'first.xml');
+  assert.equal(state.snapshot().diagnostics[2].line, undefined);
+});
+
 test('conflicting duplicate events, gaps, foreign build IDs and events after terminal fail', () => {
   const duplicate = completed();
   duplicate.accept([event(2, 'BuildFinished', { payload: { status: 'failed', exitCode: 4 } })]);

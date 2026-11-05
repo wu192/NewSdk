@@ -1,4 +1,4 @@
-name: NewSdk VS Code and FX
+name: NewSdk XML, compiler and FX
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
       NEWSDK_COMPILER_URL: ${{ secrets.NEWSDK_COMPILER_URL }}
       NEWSDK_COMPILER_SHA256: ${{ secrets.NEWSDK_COMPILER_SHA256 }}
       NEWSDK_COMPILER_AUTHORIZATION: ${{ secrets.NEWSDK_COMPILER_AUTHORIZATION }}
-      NEWSDK_ACCEPTANCE: ${{ inputs.full_acceptance && 'full' || 'smoke' }}
+      NEWSDK_ACCEPTANCE: ${{ (inputs.full_acceptance || github.head_ref == 'codex/xml-fx-compiler-integration') && 'full' || 'smoke' }}
       NEWSDK_FX_STRESS: ${{ inputs.full_acceptance && 'full' || 'smoke' }}
       NEWSDK_TEST_EVIDENCE: ${{ github.workspace }}/vscode-extension/test-results
     steps:
@@ -47,8 +47,15 @@ jobs:
       - name: Resolve provided compiler release
         run: |
           $release = Get-Content compiler-release.json -Raw | ConvertFrom-Json
-          if ($env:NEWSDK_COMPILER_URL -eq $release.url -and -not $env:NEWSDK_COMPILER_SHA256) {
+          if (-not $env:NEWSDK_COMPILER_URL) {
+            "NEWSDK_COMPILER_URL=$($release.url)" >> $env:GITHUB_ENV
             "NEWSDK_COMPILER_SHA256=$($release.sha256)" >> $env:GITHUB_ENV
+            'NEWSDK_EXPECT_SOURCE_DIAGNOSTICS=1' >> $env:GITHUB_ENV
+          } elseif ($env:NEWSDK_COMPILER_URL -eq $release.url -and -not $env:NEWSDK_COMPILER_SHA256) {
+            "NEWSDK_COMPILER_SHA256=$($release.sha256)" >> $env:GITHUB_ENV
+            'NEWSDK_EXPECT_SOURCE_DIAGNOSTICS=1' >> $env:GITHUB_ENV
+          } elseif ($env:NEWSDK_COMPILER_URL -eq $release.url -and $env:NEWSDK_COMPILER_SHA256 -eq $release.sha256) {
+            'NEWSDK_EXPECT_SOURCE_DIAGNOSTICS=1' >> $env:GITHUB_ENV
           }
       - name: Compile and run protocol, configuration and ZIP boundary tests
         run: |
@@ -69,7 +76,8 @@ jobs:
         if: env.NEWSDK_COMPILER_URL == ''
         uses: actions/checkout@v4
         with:
-          ref: a75840ef7d0351cedc11c91b1b4510d295b911a7
+          repository: wu162/NewSdk
+          ref: d19e0138cf60e5025dff45a99864dd326324409a
           path: .compiler-source
           persist-credentials: false
           sparse-checkout-cone-mode: false
@@ -111,7 +119,7 @@ jobs:
           $executable = Join-Path $destination 'bin/NewModCompiler.exe'
           if (-not (Test-Path $executable)) { throw 'Compiler source build did not produce NewModCompiler.exe' }
           "NEWSDK_COMPILER_PATH=$executable" >> $env:GITHUB_ENV
-          'NEWSDK_COMPILER_SOURCE_REF=a75840ef7d0351cedc11c91b1b4510d295b911a7' >> $env:GITHUB_ENV
+          'NEWSDK_COMPILER_SOURCE_REF=d19e0138cf60e5025dff45a99864dd326324409a' >> $env:GITHUB_ENV
       - name: Real Windows VS Code host, task lifecycle and actual compiler
         env:
           NEWSDK_TEST_ROOT: ${{ runner.temp }}/newsdk-p0-host
@@ -131,7 +139,7 @@ jobs:
           'See real-compiler.json and cancellation evidence for the actual executed scope. Smoke success alone does not establish complete P0 acceptance.' >> $env:GITHUB_STEP_SUMMARY
       - name: Save installable VSIX
         uses: actions/upload-artifact@v4
-        if: github.event_name == 'workflow_dispatch'
+        if: success() && github.event_name == 'workflow_dispatch'
         with:
           retention-days: 1
           name: NewSdk-Mod-Tools-FX-VSIX-${{ github.run_id }}-${{ github.run_attempt }}
@@ -142,20 +150,16 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force test-results/summary | Out-Null
           @{ commit = $env:GITHUB_SHA; run = $env:GITHUB_RUN_ID } | ConvertTo-Json | Set-Content test-results/summary/run.json
-          $files = @('fx-render.json', 'fx-render-round2.json', 'fx-ui-round2.json', 'fx-special.json', 'fx-stress.json', 'fx-host.json', 'extension-host.json', 'driver-exercise.json', 'driver-reopen.json', 'compiler-source.json', 'real-compiler.json', 'persistence.json')
+          $files = @('xml-host.json', 'fx-render.json', 'fx-render-round2.json', 'fx-ui-round2.json', 'fx-special.json', 'fx-stress.json', 'fx-host.json', 'extension-host.json', 'driver-exercise.json', 'driver-reopen.json', 'compiler-source.json', 'real-compiler.json', 'persistence.json')
           foreach ($name in $files) {
             $file = Join-Path 'test-results' $name
-            if ((Test-Path $file) -and (Get-Item $file).Length -le 131072) { Copy-Item $file test-results/summary/ }
+            if ((Test-Path $file) -and (Get-Item $file).Length -le 131072) {
+              Copy-Item $file test-results/summary/
+              $body = Get-Content $file -Raw
+              if ($body.Length -gt 32768) { $body = $body.Substring(0, 32768) + "`n[summary truncated]" }
+              "<details><summary>$name</summary><pre>$([System.Net.WebUtility]::HtmlEncode($body))</pre></details>" >> $env:GITHUB_STEP_SUMMARY
+            }
           }
-      - name: Save small acceptance summaries
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: NewSdk-FX-summary-${{ github.run_id }}-${{ github.run_attempt }}
-          path: vscode-extension/test-results/summary/
-          retention-days: 1
-          compression-level: 9
-          if-no-files-found: ignore
       - name: Collect bounded failure evidence
         if: failure()
         run: |
@@ -166,6 +170,7 @@ jobs:
               $tail = Get-Content $file -Tail 500 | Out-String
               if ($tail.Length -gt 65536) { $tail = '[truncated to final 64K characters]' + $tail.Substring($tail.Length - 65536) }
               $tail | Set-Content (Join-Path 'test-results/failure' $name)
+              "<details><summary>$name (failure tail)</summary><pre>$([System.Net.WebUtility]::HtmlEncode($tail))</pre></details>" >> $env:GITHUB_STEP_SUMMARY
             }
           }
           foreach ($name in @('fx-render-failure.png', 'fx-render-round2-failure.png', 'fx-ui-round2-failure.png')) {
@@ -175,6 +180,7 @@ jobs:
       - name: Save failure evidence only
         uses: actions/upload-artifact@v4
         if: failure()
+        continue-on-error: true
         with:
           name: NewSdk-FX-failure-${{ github.run_id }}-${{ github.run_attempt }}
           path: vscode-extension/test-results/failure/
