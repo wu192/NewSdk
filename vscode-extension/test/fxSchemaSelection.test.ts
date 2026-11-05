@@ -8,7 +8,7 @@ import {selectFxSchema} from '../src/fx/schemaSelection';
 const xsd = '<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"/>';
 
 test('FX selects the compiler-configured schema with Windows separators and actual SDK path casing', async t => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-schema-select-'));
+    const root = await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-schema-select-')));
     t.after(() => fs.rm(root, {recursive: true, force: true}));
     await fs.mkdir(path.join(root, 'Tools'));
     await fs.mkdir(path.join(root, 'Schemas', 'custom'), {recursive: true});
@@ -23,7 +23,7 @@ test('FX selects the compiler-configured schema with Windows separators and actu
 });
 
 test('FX uses the SDK default without a schema config and an explicit override remains authoritative', async t => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-schema-default-'));
+    const root = await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-schema-default-')));
     t.after(() => fs.rm(root, {recursive: true, force: true}));
     const sdk = path.join(root, 'sdk'), fallback = path.join(sdk, 'Schemas', 'xsd', 'CnC3Types.xsd'), override = path.join(root, 'Override.xsd');
     await fs.mkdir(path.dirname(fallback), {recursive: true});
@@ -36,7 +36,7 @@ test('FX uses the SDK default without a schema config and an explicit override r
 });
 
 test('FX schema selection reports malformed or missing SDK entries instead of silently choosing another schema', async t => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-schema-unavailable-'));
+    const root = await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-schema-unavailable-')));
     t.after(() => fs.rm(root, {recursive: true, force: true}));
     await fs.mkdir(path.join(root, 'tools'));
     const config = path.join(root, 'tools', 'BinaryAssetBuilder.exe.config');
@@ -53,7 +53,7 @@ test('FX schema selection reports malformed or missing SDK entries instead of si
 });
 
 test('compiler schema settings cannot leave the selected SDK through relative paths or links', async t => {
-    const root = await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-schema-boundary-'));
+    const root = await fs.realpath(await fs.mkdtemp(path.join(os.tmpdir(), 'newsdk-schema-boundary-')));
     t.after(() => fs.rm(root, {recursive: true, force: true}));
     const sdk = path.join(root, 'sdk'), outside = path.join(root, 'outside');
     await fs.mkdir(path.join(sdk, 'tools'), {recursive: true}); await fs.mkdir(outside);

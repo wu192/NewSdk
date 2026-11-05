@@ -172,7 +172,13 @@ export class SchemaAdapter {
     }
     private async canonicalAbsolute(input: string): Promise<string> {
         if (!input || input.includes('\0')) throw new Error('XSD 入口路径无效。');
-        const absolute = path.resolve(input);
+        let absolute = path.resolve(input);
+        // Windows temp/SDK selectors may contain 8.3 aliases such as RUNNER~1.
+        // Expand an existing path before enumerating its case-canonical spelling.
+        // Missing/mis-cased paths still use the component lookup below.
+        try {absolute = await fs.realpath(absolute);} catch (error) {
+            if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
+        }
         let current = path.parse(absolute).root;
         for (const component of absolute.slice(current.length).split(path.sep).filter(Boolean)) {
             const matches = (await fs.readdir(current)).filter(name => name.toLowerCase() === component.toLowerCase());
