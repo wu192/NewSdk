@@ -400,7 +400,10 @@ async function realCompilerCases(api: ExtensionApi, root: string, evidence: stri
             const lines = (await fs.readFile(file, 'utf8')).split(/\r?\n/);
             assert.ok(Number(payload.line) > 1 && Number(payload.line) <= lines.length, 'Malformed multiline XML must retain its actual reader position');
         }
-        assert.equal(event.streamId, 'base');
+        const plannedStream = result.plan?.tasks.find(task => sameFile(task.inputPath));
+        assert.ok(plannedStream, 'The diagnostic source entry must belong to a task in the current compiler plan');
+        assert.equal(plannedStream.content, 'base');
+        assert.equal(event.streamId, plannedStream.id, 'Diagnostics must retain the compiler plan stream identity');
         assert.equal(event.stageId, 'compile');
         const reported = result.report.diagnostics.map(record).find(item => item && item.code === event.diagnosticCode
             && item.message === event.message && sameFile(item.file) && item.line === payload.line && item.column === payload.column);
