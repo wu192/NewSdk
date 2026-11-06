@@ -6,7 +6,7 @@ using System.Xml;
 using BinaryAssetBuilder.Core;
 
 // Focused CLR/XML boundary coverage for the native Dozer restoration and the
-// token-only extension. The original DLL has no Dozer XML marshaler, so this
+// original GameObject token layout. The original DLL has no Dozer XML marshaler, so this
 // test asserts the recovered contract rather than treating it as an oracle.
 static class GameObjectDozerSmoke
 {
@@ -39,10 +39,10 @@ static class GameObjectDozerSmoke
         throw new Exception("Missing token: " + name);
     }
     static void Require(bool value, string message) { if (!value) throw new Exception(message); }
-    static void Check(TargetPlatform platform, string setting, bool? expected, bool defaults)
+    static void Check(TargetPlatform platform, bool defaults)
     {
         bool big = platform != TargetPlatform.Win32;
-        var input = Declaration(setting, defaults ? "" : "RepairHealthPercentPerSecond='2.5' BoredTime='3.25' BoredRange='64'");
+        var input = Declaration("", defaults ? "" : "RepairHealthPercentPerSecond='2.5' BoredTime='3.25' BoredRange='64'");
         PluginSchemaBoundary.Validate(input.Node);
         var chunk = Recovered.GameObjectCompiler.ProcessInstance(input, platform);
         var bytes = chunk.InstanceData;
@@ -58,21 +58,13 @@ static class GameObjectDozerSmoke
             Word(bytes, data + 80, big) == (defaults ? 0u : 0x40500000u) &&
             Word(bytes, data + 84, big) == (defaults ? 0u : 0x42800000u), "Native Dozer floats/defaults");
         Require(Word(bytes, data + 68, big) >= data + 88, "Inherited target chooser survives XML bridge");
-        if (expected.HasValue)
-        {
-            int extension = Token(bytes, 0, 0x09135D3Fu, big);
-            Require(Word(bytes, extension + 4, big) == 0x09135D3Fu, "EnhancerSettings type token");
-            int nested = (int)Word(bytes, extension + 8, big);
-            Require(Word(bytes, nested, big) == 0x45945FF5u && Word(bytes, nested + 4, big) == 0x77E3F4F7u, "Construction bool token");
-            Require(bytes[(int)Word(bytes, nested + 8, big)] == (expected.Value ? 1 : 0), "Construction bool/default");
-            for (int i = 0; i < 12; ++i) Require(bytes[nested + 12 + i] == 0, "Extension sentinel");
-        }
-        else Require(Word(bytes, 1512, big) == 0, "Omitted extension preserves original root token count");
+        for (int i = 0; i < 12; ++i)
+            Require(bytes[1512 + i] == 0, "Original root token sentinel");
         Require(chunk.ImportsData.Length == 0, "Tokenized imports");
         if (outputDirectory != null)
         {
             string name = Path.Combine(outputDirectory, "xml-" + (int)platform + "-" +
-                (!expected.HasValue ? "omitted" : setting == "<EnhancerSettings/>" ? "default" : expected.Value ? "true" : "false"));
+                (defaults ? "defaults" : "parameters"));
             File.WriteAllBytes(name + ".bin", bytes);
             File.WriteAllBytes(name + ".relo", chunk.RelocationData);
             File.WriteAllBytes(name + ".imp", chunk.ImportsData);
@@ -86,19 +78,21 @@ static class GameObjectDozerSmoke
             if (args.Length != 0) { outputDirectory = args[0]; Directory.CreateDirectory(outputDirectory); }
             foreach (TargetPlatform platform in new[] { TargetPlatform.Win32, TargetPlatform.Xbox360, TargetPlatform.PlayStation3, (TargetPlatform)99 })
             {
-                Check(platform, "", null, true);
-                Check(platform, "<EnhancerSettings/>", false, true);
-                Check(platform, "<EnhancerSettings DozerConstruction='false'/>", false, false);
-                Check(platform, "<EnhancerSettings DozerConstruction='true'/>", true, false);
+                Check(platform, true);
+                Check(platform, false);
             }
-            foreach (string bad in new[] { "<EnhancerSettings Typo='true'/>", "<EnhancerSettings DozerConstruction='wrong'/>", "<EnhancerSettings/><EnhancerSettings/>", "<EnhancerSettings><Unknown/></EnhancerSettings>" })
+            foreach (string bad in new[] { "<EnhancerSettings/>", "<EnhancerSettings DozerConstruction='true'/>" })
             {
                 bool rejected = false;
                 try { PluginSchemaBoundary.Validate(Declaration(bad, "").Node); }
                 catch (NotSupportedException) { rejected = true; }
-                Require(rejected, "Invalid EnhancerSettings accepted by SDK schema");
+                Require(rejected, "Removed building extension accepted by SDK schema");
             }
-            Console.WriteLine("PASS Dozer XML bridge + EnhancerSettings: four platforms, defaults, schema refusals"); return 0;
+            // A normal RA3 building requires no Dozer-specific field or token.
+            var building = new XmlDocument();
+            building.LoadXml("<GameObject xmlns='uri:ea.com:eala:asset' id='OrdinaryBuilding' KindOf='STRUCTURE'><Body><ActiveBody id='Body' MaxHealth='100'/></Body></GameObject>");
+            PluginSchemaBoundary.Validate(building.DocumentElement);
+            Console.WriteLine("PASS Dozer XML bridge: four platforms, inherited chooser, floats/defaults, ordinary building and obsolete-node schema refusals"); return 0;
         }
         catch (Exception error) { Console.Error.WriteLine(error); return 1; }
     }

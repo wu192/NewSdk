@@ -1,27 +1,37 @@
-name: Enhancer XML native and managed component validation
+name: Native Dozer serializer and XML component validation
 on:
   push:
-    branches: [feature/integration]
+    branches: [feature/integration, codex/native-dozer-commandset]
     paths:
       - '.github/workflows/feature-enhancer-xml.yml'
       - 'recovery/scripts/TestEnhancerDozerXml.ps1'
       - 'recovery/src/Native/GameObject*'
+      - 'recovery/src/Native/Relocation.*'
+      - 'recovery/src/Native/ScalarParsing.*'
+      - 'recovery/src/Native/DataInitializers.*'
+      - 'recovery/src/Native/ResourceMarshaling.*'
+      - 'recovery/src/Native/EnumBitset.*'
+      - 'recovery/src/Native/ObjectFilter.*'
+      - 'recovery/src/Native/WeaponSlotOrder.*'
       - 'recovery/src/Bridge/GameObjectCompiler.cpp'
       - 'recovery/tests/GameObjectDozer*'
+      - 'recovery/tests/PluginSchemaBoundary.cs'
       - 'SDK/Schemas/xsd/AssetTypeGameObject.xsd'
+      - 'SDK/Schemas/xsd/Modules/DozerAIUpdate.xsd'
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: enhancer-xml-${{ github.ref }}
+  group: native-dozer-components-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   components:
     runs-on: windows-2022
-    timeout-minutes: 20
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
+          fetch-depth: 1
           persist-credentials: false
           sparse-checkout: |
             recovery/src
@@ -39,9 +49,10 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: enhancer-xml-component-${{ github.run_id }}
-          retention-days: 7
+          name: native-dozer-components-${{ github.run_id }}
+          retention-days: 1
           if-no-files-found: error
+          compression-level: 9
           path: |
             ${{ runner.temp }}/enhancer-dozer-xml/validation.json
             ${{ runner.temp }}/enhancer-dozer-xml/**/*.log

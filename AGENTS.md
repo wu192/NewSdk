@@ -56,8 +56,8 @@
 
 ### 新功能集成目标（2026-11-06 用户最新指示）
 
-用户指定从 `compiler-main` 创建 `feature/integration`（起点 `d7f788b882cf8d72c4426a3eebe506e3b59903eb`），配合 `wu192/EnhancerCorona` 的同名分支开发 XML/XSD 与编译器新功能。后续新功能以 `feature/integration` 为集成目标；`compiler-main` 保留为上游基线，不因网页默认 `main` 而改变开发起点。当前目标是支持真正 `DozerAIUpdate` 和 GameObject 的 `EnhancerSettings`，减少运行时按对象 JSON 配置。
+用户指定从 `compiler-main` 创建 `feature/integration`（起点 `d7f788b882cf8d72c4426a3eebe506e3b59903eb`），配合 `wu192/EnhancerCorona` 的同名分支开发 XML/XSD 与编译器新功能。后续新功能以 `feature/integration` 为集成目标；`compiler-main` 保留为上游基线，不因网页默认 `main` 而改变开发起点。当前目标是保留真正 `DozerAIUpdate`，删除建筑专用 XML 标记与推土机 Lua 接口；由工程车实例当前命令集中的 `DOZER_CONSTRUCT` 指定可建造目标，建筑无须扩展节点或模板名单。
 
-新参数须同步 schema、生产 marshaller/tokenizer、元数据和运行时消费协议；未使用扩展的既有资产保持字节兼容。PR、用户批准与禁止强推规则继续适用。以下 2026-10-27 说明作为历史背景，开发目标以上述最新指示为准。
+原生参数须同步 schema、生产 marshaller/tokenizer 与元数据；不增加推土机专用资产扩展协议，既有资产保持字节兼容。PR、用户批准与禁止强推规则继续适用。以下 2026-10-27 说明作为历史背景，开发目标以上述最新指示为准。
 
 用户明确指定 `compiler-main` 为重构成果及以后开发的主分支，不再将本次成果合入 `recovery/compiler-source` 或旧主线。`refactor/modcompiler-p0-p3` 保留历史；旧 PR #13 关闭且不合并。今后以 `README.md`、`recovery/REFACTOR_RESUME.md` 为入口。这里指定的是开发主线；仓库网页默认分支是否更改须以 GitHub 实际设置为准。禁止强推，后续其他合并仍按用户批准规则执行。

@@ -1,24 +1,17 @@
-# 当前：新功能集成分支与原生推土机 XML（2026-11-06）
+# 当前：原生推土机命令资格重构（2026-11-06）
 
-用户指定配套分支 [`feature/integration`](https://github.com/wu192/NewSdk/tree/feature/integration)，
-从 `compiler-main` / `d7f788b8` 创建；后续新功能集成于此，`compiler-main` 未合入新功能。
-运行时为 [EnhancerCorona 同名分支](https://github.com/wu192/EnhancerCorona/tree/feature/integration)，
-原推土机 PR #1 已合入其集成分支。
+目标为 [`wu192/NewSdk feature/integration`](https://github.com/wu192/NewSdk/tree/feature/integration)，
+配套运行时为 [EnhancerCorona 同名分支](https://github.com/wu192/EnhancerCorona/tree/feature/integration)。
 
-当前支持真实 `AI/DozerAIUpdate` 的 schema、marshal/tokenizer/endian，以及直属
-`EnhancerSettings DozerConstruction`。五项对象级 JSON 配置移至 XML，仅保留全局开关；
-未使用扩展的根表保持原字节路径。协议、源码、复现命令见
-[DOZER_XML_EXTENSIONS.md](docs/DOZER_XML_EXTENSIONS.md)。
+保留真实 `AI/DozerAIUpdate` 的 schema、marshal/tokenizer/endian；删除建筑扩展
+节点、附加 bool 数据和额外根 token，恢复固定原生 GameObject 根表与布局。
+工程车从当前实例命令集的 `DOZER_CONSTRUCT` 取得建造目标，普通建筑无需专用标记。
+配置、二进制合同与定向复现见 [原生推土机 XML 与命令配置](docs/DOZER_XML_EXTENSIONS.md)。
 
-生产检查点 `34b76761`：真实 x86 GCC O0/O2 Native harness、完整 XSD 及编译结果到
-运行时 parser 的互操作通过。首轮 [Windows 42131081594](https://github.com/wu192/NewSdk/actions/runs/42131081594)
-因 C# 相对源文件路径失败，终态保留。修复后的源码 `dc59e691`，
-[Windows 42132833206](https://github.com/wu192/NewSdk/actions/runs/42132833206) 全 success：
-MSVC Win32 `/Od`、`/O2` Native 与真实 C++/CLI XML bridge 新构建和执行通过，
-包含四平台 `0/1/2/99`、schema 拒绝与参数／默认值。
-精简来源收据见 [evidence/enhancer-xml](evidence/enhancer-xml)。
-未运行完整 SDK/MOD、Enhancer DLL 或游戏内验收。后续文档提交不改变上述生产输入。
-禁止强推；上游合入仍遵循 PR 和用户批准规则。
+本次 Native/CLR harness 保留参数、默认值、AI 继承与大小端，新增无需标记的普通建筑
+schema 用例和已移除节点拒绝。Windows `/Od`、`/O2` 与四平台 XML bridge 结果
+须以本次 Actions 为准；历史扩展收据不能作为本次成功证据。
+未执行完整 SDK/MOD、DLL 或游戏内验收。禁止强推；合入继续遵循 PR 和用户批准规则。
 
 # 此前：compiler-main CI 五工作流通过，PR #1 待审
 
