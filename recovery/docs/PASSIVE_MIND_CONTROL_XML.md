@@ -39,6 +39,11 @@ GameObject TypeId/TypeHash 保持原值，ProcessingHash 版本推进至 4103/41
 每轮结果、来源提交、耗时和 fixture 身份写入 Actions 日志及 Job Summary，
 不上传工件、不增加矩阵或持久缓存。
 
-本地仅完成完整 schema 组合/示例与非法值检查及 C++ harness 语法检查；
-Windows native/CLR、完整 SDK/MOD、游戏、存取档、回放和多人结果须分别核实，
-不能由 schema 或组件通过推定。
+Windows [42229679853](https://github.com/wu192/NewSdk/actions/runs/42229679853)
+验证源码 `ef68ccfe`：上述 `/Od`、`/O2` native/CLR 全部通过，两个模式分别约
+23.3/20.9 秒；Actions 工件数量为 0。
+[原始组件收据及两次失败原因](../evidence/passive-mind-control-ci-20261106.json)
+保留来源提交、逐模式摘要和 fixture 身份。
+首轮修正了测试对 Microsoft unsigned XSD 词法的假设；次轮发现 Microsoft XSD
+仅凭数值上下限仍接受 NaN，因此生产 schema 增加十进制浮点词法约束。
+非法值拒绝断言均保留。未执行完整 SDK/MOD、游戏、存取档、回放或多人验收。

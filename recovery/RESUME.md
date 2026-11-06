@@ -5,9 +5,13 @@
 内联 ObjectFilter 及 GameObject 缓存版本。运行时位于 `wu192/EnhancerCorona` 同名分支。
 配置、ABI、组件验证入口及未验证范围见
 [心灵控制塔 XML](docs/PASSIVE_MIND_CONTROL_XML.md)。
-沿用现有 `TestEnhancerDozerXml.ps1` 与定向工作流；本地 schema/语法预检已完成，
-Windows native/CLR 与原 DLL 三缓冲兼容结果以该分支 Actions 的最终提交为准。
-未验证完整 SDK/MOD 或游戏。合入仍须 PR 和用户批准，禁止强推。
+沿用现有 `TestEnhancerDozerXml.ps1` 与定向工作流，源码 `ef68ccfe` 的
+[Windows 42229679853](https://github.com/wu192/NewSdk/actions/runs/42229679853)
+已成功：`/Od`、`/O2` native/CLR、四平台 XML/native 三缓冲、正式示例、非法值与
+四组旧 GameObject 原 DLL 三缓冲兼容均通过；零工件上传。
+[组件收据](evidence/passive-mind-control-ci-20261106.json)保留两次失败及修复原因。
+[PR #10](https://github.com/wu192/NewSdk/pull/10) 待审。
+未验证完整 SDK/MOD 或游戏。合入仍须用户批准，禁止强推。
 
 # 此前：原生推土机命令资格重构（2026-11-06）
 
