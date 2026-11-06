@@ -27,6 +27,7 @@
 			<xs:element name="DestroyDie" type="DestroyDieModuleData" />
 			<xs:element name="EmotionTrackerUpdate" type="EmotionTrackerUpdateModuleData" />
 			<xs:element name="DominateEnemySpecialPower" type="DominateEnemySpecialPowerModuleData" />
+			<xs:element name="PassiveMindControlUpdate" type="PassiveMindControlUpdateModuleData" />
 			<xs:element name="ReconstituteStateSpecialAbility" type="ReconstituteStateSpecialAbilityModuleData" />
 			<xs:element name="EngineerContain" type="EngineerContainModuleData" />
 			<xs:element name="InfiltratorContain" type="InfiltratorContainModuleData" />
