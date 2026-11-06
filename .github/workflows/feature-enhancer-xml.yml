@@ -45,15 +45,19 @@ jobs:
       - name: Compile and exercise production native and XML bridge paths
         shell: pwsh
         run: ./recovery/scripts/TestEnhancerDozerXml.ps1 -OutputDirectory "${{ runner.temp }}/enhancer-dozer-xml"
-      - name: Preserve exact source and component evidence
+      - name: Record exact source and component evidence in logs and summary
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: native-dozer-components-${{ github.run_id }}
-          retention-days: 1
-          if-no-files-found: error
-          compression-level: 9
-          path: |
-            ${{ runner.temp }}/enhancer-dozer-xml/validation.json
-            ${{ runner.temp }}/enhancer-dozer-xml/**/*.log
-            ${{ runner.temp }}/enhancer-dozer-xml/**/fixtures/*
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $path = Join-Path $env:RUNNER_TEMP 'enhancer-dozer-xml/validation.json'
+          if (!(Test-Path $path)) { throw 'Component receipt unavailable; see the failed validation step.' }
+          $json = Get-Content $path -Raw
+          Write-Host $json
+          '## Native Dozer component evidence' >> $env:GITHUB_STEP_SUMMARY
+          'Win32 /Od and /O2 serializer and XML bridge checks; not full SDK/MOD or game validation.' >> $env:GITHUB_STEP_SUMMARY
+          '```json' >> $env:GITHUB_STEP_SUMMARY
+          $json >> $env:GITHUB_STEP_SUMMARY
+          '```' >> $env:GITHUB_STEP_SUMMARY
+          # Receipts include test summaries, elapsed time, and fixture identities.
+          # Keep evidence in the run log and summary; upload no artifacts or caches.

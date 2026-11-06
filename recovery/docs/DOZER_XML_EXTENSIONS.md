@@ -74,7 +74,8 @@ g++ -m32 -std=c++17 -O2 -Irecovery/tests/native-host -Irecovery/src/Native -o Ga
 ```
 
 Linux 测试头只替代顺序执行的 Windows InitOnce，不加入 Windows 生产编译。
-组件工作流只保存小型 fixture、日志和来源/耗时收据，不上传 SDK、构建目录或 DLL 集合。
+组件工作流将来源、耗时、fixture 大小与摘要收据写入 Actions 日志和 Job Summary；
+临时 fixture 仅留在 runner，不上传任何工件或缓存，不占用 Actions 工件额度。
 历史扩展协议收据保留在 git 及 `recovery/evidence/enhancer-xml`，不能作为本次修改的成功证据。
 
 组件测试不代替完整 SDK/MOD、Enhancer DLL 或游戏内验收。特别是鼠标交互、
