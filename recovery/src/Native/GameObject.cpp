@@ -756,20 +756,11 @@ Relo::Chunk CompileGameObject(const AttributeMap& attributes,const std::vector<G
     }
     marshalList("DisplayUpgrade",568,false);
     if(!moduleLists.count(472)) moduleLists[472]=reinterpret_cast<NativeList*>(root+472);
-    // Extension data belongs to its token, never to the native GameObject
-    // layout. Start an independent tracker block after marshalling the root.
-    unsigned char* enhancerSettings=nullptr;
     data.Pop();
-    for(const auto& child:children) if(child.name=="EnhancerSettings") {
-        enhancerSettings=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(&enhancerSettings),1,1));
-        auto construction=child.attributes.find("DozerConstruction");
-        *enhancerSettings=construction!=child.attributes.end() && ParseBoolean(construction->second)?1:0;
-        data.Pop();
-    }
     // Unsupported optional pointers and remaining list counts stay absent.
     // Eight inline empty lists still produce count tables in original token order.
     Procedure* table=nullptr;
-    procedures.Push(reinterpret_cast<void**>(&table),12,enhancerSettings?128:127);
+    procedures.Push(reinterpret_cast<void**>(&table),12,127);
     for(unsigned i=0;i<126;++i) {
         const auto& t=tokens[i];table[i].name=t.name;table[i].type=t.type;
         if(t.kind==GameObjectTokenKind::Member) procedures.BookmarkMemberOffset(root+t.offset,&table[i].offset);
@@ -981,14 +972,6 @@ Relo::Chunk CompileGameObject(const AttributeMap& attributes,const std::vector<G
             }
             procedures.Pop();
         }
-    }
-    if(enhancerSettings) {
-        auto& extension=table[126];
-        extension.name=0x09135D3Fu;extension.type=0x09135D3Fu;
-        auto nested=static_cast<Procedure*>(procedures.Push(&extension.offset,12,2));
-        nested[0].name=0x45945FF5u;nested[0].type=0x77E3F4F7u;
-        procedures.BookmarkMemberOffset(enhancerSettings,&nested[0].offset);
-        procedures.Pop();
     }
     if(bigEndian) {
         EndianAI(skirmishAI,0);

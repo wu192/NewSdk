@@ -24,6 +24,7 @@ $native = @(
 )
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 foreach ($mode in @('Od', 'O2')) {
+    $modeTimer = [System.Diagnostics.Stopwatch]::StartNew()
     $out = Join-Path $OutputDirectory $mode
     $fixtures = Join-Path $out 'fixtures'
     $nativeObjects = Join-Path $out 'native-obj'
@@ -46,10 +47,11 @@ foreach ($mode in @('Od', 'O2')) {
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/bridge-test.log"; throw "XML bridge contract failed: $mode" }
     $receipt.modes += [ordered]@{
         mode = $mode
+        elapsedSeconds = [Math]::Round($modeTimer.Elapsed.TotalSeconds, 3)
         native = (Get-Content "$out/native-test.log" -Raw).Trim()
         bridge = (Get-Content "$out/bridge-test.log" -Raw).Trim()
         fixtures = @(Get-ChildItem $fixtures -File | ForEach-Object {
-            @{ name = $_.Name; sha256 = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
+            @{ name = $_.Name; bytes = $_.Length; sha256 = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
         })
     }
 }

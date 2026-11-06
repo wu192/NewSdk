@@ -19,7 +19,7 @@ static unsigned Find(const Bytes& bytes,unsigned table,std::uint32_t name,bool b
     for(unsigned at=table;Word(bytes,at,big);at+=12) if(Word(bytes,at,big)==name) return at;
     throw std::runtime_error("Missing token");
 }
-static std::vector<GameObjectChild> Input(const char* setting,bool defaults=false) {
+static std::vector<GameObjectChild> Input(bool defaults=false) {
     GameObjectChild dozer;dozer.name="DozerAIUpdate";
     dozer.attributes={{"TypeId","2366190371"},{"id","Dozer"}};
     if(!defaults) {
@@ -31,15 +31,9 @@ static std::vector<GameObjectChild> Input(const char* setting,bool defaults=fals
         dozer.children.push_back(chooser);
     }
     GameObjectChild ai;ai.name="AI";ai.children.push_back(dozer);
-    std::vector<GameObjectChild> children{ai};
-    if(setting) {
-        GameObjectChild extension;extension.name="EnhancerSettings";
-        if(*setting) extension.attributes["DozerConstruction"]=setting;
-        children.push_back(extension);
-    }
-    return children;
+    return {ai};
 }
-static void Check(const Relo::Chunk& chunk,bool big,const char* setting,bool defaults=false) {
+static void Check(const Relo::Chunk& chunk,bool big,bool defaults=false) {
     const auto& bytes=chunk.instance;
     auto root=Word(bytes,8,big)-4;
     auto list=Word(bytes,Find(bytes,0,1376227828u,big)+8,big);
@@ -63,16 +57,7 @@ static void Check(const Relo::Chunk& chunk,bool big,const char* setting,bool def
     if(defaults) Require(bytes.size()==data+88,"Dozer native size is 0x58");
     else Require(Word(bytes,data+12,big)==data+88 && Word(bytes,data+68,big)>data+88,"Inherited string and chooser after Dozer data");
     Require(data>=root+592,"Native GameObject layout remains 592 serialized bytes");
-    if(setting) {
-        auto extension=Find(bytes,0,0x09135D3Fu,big);
-        Require(Word(bytes,extension+4,big)==0x09135D3Fu,"EnhancerSettings type ID");
-        auto nested=Word(bytes,extension+8,big);
-        Require(Word(bytes,nested,big)==0x45945FF5u && Word(bytes,nested+4,big)==0x77E3F4F7u,"DozerConstruction bool token");
-        auto boolean=Word(bytes,nested+8,big);
-        Require(bytes.at(boolean)==(*setting=='t'?1:0),"Construction bool/default value");
-        for(unsigned i=0;i<12;++i) Require(bytes.at(nested+12+i)==0,"EnhancerSettings token sentinel");
-        Require(boolean+4==bytes.size(),"Extension is independent aligned trailing data");
-    } else Require(Word(bytes,1512,big)==0,"Absent extension preserves root token count");
+    for(unsigned i=0;i<12;++i) Require(bytes.at(1512+i)==0,"Original root token sentinel");
     Require(chunk.imports.empty(),"Tokenized imports remain empty");
 }
 static void Write(const std::string& name,const Bytes& bytes) {
@@ -84,15 +69,14 @@ int main(int argc,char** argv) {
         for(bool big:{false,true}) {
             auto empty=Native::CompileGameObject({}, {},big);
             Require(empty.instance.size()==2212 && Word(empty.instance,8,big)==1624,"Original empty asset bytes/layout");
-            auto defaults=Native::CompileGameObject({},Input(nullptr,true),big);Check(defaults,big,nullptr,true);
-            for(const char* setting:{static_cast<const char*>(nullptr),"true","false",""}) {
-                auto chunk=Native::CompileGameObject({},Input(setting),big);Check(chunk,big,setting);
-                if(argc>1 && (!setting || *setting)) {
-                    const auto stem=std::string(argv[1])+"/dozer-"+(setting?setting:"omitted")+(big?".be":".le");
+            for(bool defaults:{false,true}) {
+                auto chunk=Native::CompileGameObject({},Input(defaults),big);Check(chunk,big,defaults);
+                if(argc>1) {
+                    const auto stem=std::string(argv[1])+"/dozer-"+(defaults?"defaults":"parameters")+(big?".be":".le");
                     Write(stem+".bin",chunk.instance);Write(stem+".relo",chunk.relocations);
                 }
             }
         }
-        std::cout<<"PASS native DozerAIUpdate + EnhancerSettings, x86 little/big endian; root token offset 0\n";
+        std::cout<<"PASS native DozerAIUpdate, inherited fields/defaults, x86 little/big endian; original root tokens/layout\n";
     } catch(const std::exception& error) { std::cerr<<error.what()<<"\n";return 1; }
 }
