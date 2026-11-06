@@ -2,7 +2,7 @@
 
 资源分支：`resources/ra3-ui-assets`；起点：`recovery/legacy-sdk-cache` 的 `52d44c6267385055df6da91ecdc6ee2b44f467a9`。
 
-已保存全部 **6,284 个原始文件、174 个真正的二进制 MX 2004 FLA、4,485 个 AS 文件**。FLA 的 Contents 修订为 `0x38`，可被本仓库完整解析。
+原始导入保存了全部 **6,284 个文件、174 个真正的二进制 MX 2004 FLA、4,485 个 AS 文件**。本分支的直接 APT 修改例外见下文。FLA 的 Contents 修订为 `0x38`，可被本仓库完整解析。
 
 AS 文件名根据实际元件、实例、帧、标签、函数或事件生成，53 份类/接口文件使用实际类名。例如：
 
@@ -17,7 +17,7 @@ FLA 通过相对 `#include` 读取时间轴/事件 AS，通过 `import` 使用�
 | 路径 | 内容 |
 | --- | --- |
 | `converted/<Movie>/` | FLA、实际参与编译的 AS、脚本映射 |
-| `source/ra3ui/` | 原包全部文件：SWF、EAF、APT、CONST、DAT、RU、纹理等 |
+| `source/ra3ui/` | 原包资产及本分支直接编辑的 APT 资产；断电按钮以该目录为实际输入 |
 | `original/ra3ui.7z.001`–`.003` | 原包按 64 MiB 分块，避免 GitHub 单文件限制；无 Git LFS |
 | `tooling/ffdec_26.4.0.zip` | 固定本地转换工具，含其许可证 |
 | `provenance.json`、`source-inventory.json` | 来源、原包和工具 SHA-256、全部原文件校验 |
@@ -28,7 +28,17 @@ FLA 通过相对 `#include` 读取时间轴/事件 AS，通过 `import` 使用�
 | `validation/as-edit-proof.zip` | 改名后的真实 AS 修改、前后四流及证明报告 |
 | `validation/as-renames.json` | 4,432 份时间轴/事件脚本的命名依据和改名前后映射 |
 
-原包由 Jonwil 从 EA 发布的 EAF 重建 SWF，包含其最终补丁版 igm_pauseMenu 修正。本次 FLA/AS 是这些 SWF 的恢复产物。PPM 页面需要验证码，因此使用原作者公开的同名镜像，来源和核验范围见 `provenance.json`。原始文件保持原字节，空目录由原包分块保留。
+原包由 Jonwil 从 EA 发布的 EAF 重建 SWF，包含其最终补丁版 igm_pauseMenu 修正。本次 FLA/AS 是这些 SWF 的恢复产物。PPM 页面需要验证码，因此使用原作者公开的同名镜像，来源和核验范围见 `provenance.json`。原始归档和恢复结果保留导入版本，空目录由原包分块保留。本分支修改的 raw APT/CONST/XML/RU 另有明确来源与验证记录，不能再对整个 source 目录声称逐字节原版。
+
+## 本分支：直接 APT 断电按钮
+
+[源码与重建说明](source/ra3ui/TacticalHUDCommandModeBar/POWER_TOGGLE.md)。
+新增按钮实际修改 `source/ra3ui/TacticalHUDCommandModeBar/` 下的 APT、CONST、SDK XML 和 RU，
+以该目录的 `editing/*.apt.xml`、typed CONST JSON 直接重建；不使用 FLA/AS 构建按钮。
+SDK 发布仍走原 `AptAptData/AptConstData/AptDatData/AptGeometryData` 资产入口。
+原 SWF/EAF/TAC 是历史快照，`converted/` 是原恢复结果，两者不会自动随此按钮修改而更新。
+`source-inventory.json`、`conversion-report.json` 及下述174部影片报告描述原始导入/恢复；
+修改后的按钮另见该目录构建及验证收据，未作游戏实测。
 
 ## 验证结果与实际边界
 
@@ -55,7 +65,7 @@ FLA 通过相对 `#include` 读取时间轴/事件 AS，通过 `import` 使用�
 
 ## 使用与离线复现
 
-选择已验证且依赖闭合的影片，将整个 `converted/<Movie>/` 放入 MOD 的 `Data/AptUI/<Movie>/`，保留 AS 相对目录。本仓库的 FLA 自动发现会处理该目录。
+下述方式用于原恢复 FLA；本分支断电按钮使用上面的直接 APT 入口。选择已验证且依赖闭合的原恢复影片，将整个 `converted/<Movie>/` 放入 MOD 的 `Data/AptUI/<Movie>/`，保留 AS 相对目录。本仓库的 FLA 自动发现会处理该目录。
 
 原包、全部素材和固定工具均已入库。本次未新增或调度下载它们的 GitHub Actions；资源分支的检查点推送未产生 Actions 运行。
 

@@ -1,0 +1,38 @@
+{
+  "format": "Apt Data:74",
+  "movieOffset": 652,
+  "sourceXml": {
+    "file": "TacticalHUDCommandModeBar.apt.xml",
+    "bytes": 98921,
+    "sha256": "a04920be523fc984a7bd6bb4bcab3114abb6dfcc241de849f8ab9760e5657579"
+  },
+  "sourceConstants": {
+    "file": "TacticalHUDCommandModeBar.const.json",
+    "bytes": 11320,
+    "sha256": "b00df7bcb9ce5fcab81573913c2fdebbb69da20fdfd0a10ff1682e1ad1d76941"
+  },
+  "xml2apt": {
+    "file": "xml2apt",
+    "bytes": 2615404,
+    "sha256": "79f64849d6ac943b8240a1a9c05022fbe37006a83840c7ec6a32abb41ddeded7"
+  },
+  "assets": [
+    {
+      "file": "TacticalHUDCommandModeBar.apt",
+      "bytes": 22008,
+      "sha256": "94dd307b5cad69cde1144d716c6894bab30bc3a35ddb2141301ac44775f2f5c8"
+    },
+    {
+      "file": "TacticalHUDCommandModeBar.const",
+      "bytes": 3906,
+      "sha256": "3c7d88d798d2188a749bbf33b009d6fa6cd0f96bc127744d7bd06b7dbb6c9f39"
+    }
+  ],
+  "characters": 64,
+  "exports": 11,
+  "imports": 1,
+  "constants": 194,
+  "inputFormat": "APT instruction XML and typed CONST values; no FLA/AS",
+  "sdkEntryPoint": "TacticalHUDCommandModeBar.xml (AptAptData/AptConstData/AptDatData/AptGeometryData)",
+  "gameRuntimeTested": false
+}

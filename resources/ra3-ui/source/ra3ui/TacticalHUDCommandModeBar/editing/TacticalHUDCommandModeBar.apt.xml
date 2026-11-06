@@ -1,0 +1,3708 @@
+<?xml version='1.0' encoding='utf-8'?>
+<aptdata>
+	<movieclip screensizex="1024" screensizey="768" unknown="33">
+		<imports>
+			<import name="HelpBoxSite" movie="HelpBox" character="54" />
+		</imports>
+		<exports>
+			<export character="3" name="RA3CommandModeButtonClip" />
+			<export character="13" name="SellButtonNormal" />
+			<export character="21" name="RepairButtonNormal" />
+			<export character="29" name="SellButtonHighlighted" />
+			<export character="37" name="RepairButtonHighlighted" />
+			<export character="45" name="ObjectivesButtonHighlighted" />
+			<export character="53" name="ObjectivesButtonNormal" />
+			<export character="56" name="EnhancerPowerButton" />
+			<export character="58" name="EnhancerPowerSurface" />
+			<export character="60" name="EnhancerPowerIcon" />
+			<export character="63" name="EnhancerPowerHintText" />
+		</exports>
+		<frames>
+			<frame id="0">
+				<background color="-10066330" />
+				<placeobject flags="166" depth="1" character="54" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="-12.000000" ty="8.050000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+					<poname name="helpSite" />
+					<clipactions>
+						<clipaction flags="262144" flags2="0">
+							<string action="161" str="vertAlignment" />
+							<string action="166" str="top" />
+							<string action="161" str="horzAlignment" />
+							<string action="166" str="right" />
+							<noarg action="0" />
+						</clipaction>
+					</clipactions>
+				</placeobject>
+				<placeobject flags="166" depth="3" character="56" rotm00="1.000351" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="80.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+					<poname name="pauseButton" />
+					<clipactions>
+						<clipaction flags="262144" flags2="0">
+							<string action="161" str="buttonClipName" />
+							<string action="166" str="RA3CommandModeButtonClip" />
+							<string action="161" str="imageClipName" />
+							<string action="166" str="ObjectivesButton" />
+							<string action="161" str="backgroundClipName" />
+							<string action="166" str="" />
+							<noarg action="0" />
+						</clipaction>
+					</clipactions>
+				</placeobject>
+				<placeobject flags="166" depth="9" character="56" rotm00="1.000351" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="40.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+					<poname name="sellButton" />
+					<clipactions>
+						<clipaction flags="262144" flags2="0">
+							<string action="161" str="buttonClipName" />
+							<string action="166" str="RA3CommandModeButtonClip" />
+							<string action="161" str="imageClipName" />
+							<string action="166" str="SellButton" />
+							<string action="161" str="backgroundClipName" />
+							<string action="166" str="" />
+							<noarg action="0" />
+						</clipaction>
+					</clipactions>
+				</placeobject>
+				<placeobject flags="166" depth="15" character="56" rotm00="1.000351" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+					<poname name="repairButton" />
+					<clipactions>
+						<clipaction flags="262144" flags2="0">
+							<string action="161" str="buttonClipName" />
+							<string action="166" str="RA3CommandModeButtonClip" />
+							<string action="161" str="imageClipName" />
+							<string action="166" str="RepairButton" />
+							<string action="161" str="backgroundClipName" />
+							<string action="166" str="" />
+							<noarg action="0" />
+						</clipaction>
+					</clipactions>
+				</placeobject>
+				<action>
+					<definefunction name="GetPowerButton" size="61">
+					</definefunction>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="102" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="103" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="62" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<definefunction name="UpdatePowerButtonVisuals" size="553">
+					</definefunction>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="73" />
+					<noarg action="18" />
+					<goto action="157" pos="13" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<pushdata>
+						<data value="124" />
+					</pushdata>
+					<pushdata>
+						<data value="125" />
+					</pushdata>
+					<noarg action="60" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="85" />
+					</pushdata>
+					<noarg action="78" />
+					<noarg action="18" />
+					<goto action="157" pos="45" />
+					<pushdata>
+						<data value="124" />
+					</pushdata>
+					<pushdata>
+						<data value="126" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="29" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="64" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="73" />
+					</pushdata>
+					<noarg action="73" />
+					<noarg action="18" />
+					<goto action="157" pos="97" />
+					<pushdata>
+						<data value="124" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="85" />
+					</pushdata>
+					<noarg action="78" />
+					<noarg action="18" />
+					<goto action="157" pos="20" />
+					<pushdata>
+						<data value="128" />
+					</pushdata>
+					<goto action="153" pos="12" />
+					<pushdata>
+						<data value="129" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="29" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="64" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="71" />
+					</pushdata>
+					<noarg action="73" />
+					<noarg action="18" />
+					<goto action="157" pos="45" />
+					<pushdata>
+						<data value="124" />
+					</pushdata>
+					<pushdata>
+						<data value="130" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="29" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="124" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="131" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="132" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="133" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="70" />
+					</pushdata>
+					<noarg action="78" />
+					<noarg action="18" />
+					<goto action="157" pos="20" />
+					<pushdata>
+						<data value="134" />
+					</pushdata>
+					<goto action="153" pos="12" />
+					<pushdata>
+						<data value="135" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<definefunction name="ShowPowerButtonHelp" size="149">
+					</definefunction>
+					<pushdata>
+						<data value="136" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="91" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="70" />
+					</pushdata>
+					<noarg action="78" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="137" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="91" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="70" />
+					</pushdata>
+					<noarg action="78" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<definefunction name="HidePowerButtonHelp" size="189">
+					</definefunction>
+					<pushdata>
+						<data value="136" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="57" />
+					<pushdata>
+						<data value="136" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="91" />
+					</pushdata>
+					<pushdata>
+						<data value="138" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="137" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="57" />
+					<pushdata>
+						<data value="137" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="91" />
+					</pushdata>
+					<pushdata>
+						<data value="138" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<definefunction name="SetPowerModeState" size="457">
+						<argument name="activeArg" />
+						<argument name="enabledArg" />
+					</definefunction>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="73" />
+					<noarg action="18" />
+					<goto action="157" pos="13" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<pushdata>
+						<data value="139" />
+					</pushdata>
+					<pushdata>
+						<data value="140" />
+					</pushdata>
+					<noarg action="28" />
+					<noarg action="74" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="60" />
+					<pushdata>
+						<data value="139" />
+					</pushdata>
+					<noarg action="28" />
+					<noarg action="76" />
+					<noarg action="18" />
+					<goto action="157" pos="26" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="142" />
+					</pushdata>
+					<noarg action="28" />
+					<noarg action="74" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="20" />
+					<pushdata>
+						<data value="117" />
+					</pushdata>
+					<goto action="153" pos="12" />
+					<pushdata>
+						<data value="143" />
+					</pushdata>
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="108" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="139" />
+					</pushdata>
+					<noarg action="28" />
+					<noarg action="18" />
+					<goto action="157" pos="20" />
+					<pushdata>
+						<data value="117" />
+					</pushdata>
+					<goto action="153" pos="12" />
+					<pushdata>
+						<data value="143" />
+					</pushdata>
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="107" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="139" />
+					</pushdata>
+					<noarg action="28" />
+					<noarg action="18" />
+					<goto action="157" pos="20" />
+					<pushdata>
+						<data value="117" />
+					</pushdata>
+					<goto action="153" pos="12" />
+					<pushdata>
+						<data value="143" />
+					</pushdata>
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="106" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="139" />
+					</pushdata>
+					<noarg action="28" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="26" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="144" />
+					</pushdata>
+					<noarg action="61" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="145" />
+					</pushdata>
+					<noarg action="61" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<definefunction name="InitializePowerButton" size="537">
+					</definefunction>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<pushdata>
+						<data value="91" />
+					</pushdata>
+					<pushdata>
+						<data value="138" />
+					</pushdata>
+					<pushdata>
+						<data value="146" />
+					</pushdata>
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="147" />
+					</pushdata>
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="148" />
+					</pushdata>
+					<noarg action="11" />
+					<pushdata>
+						<data value="101" />
+					</pushdata>
+					<pushdata>
+						<data value="101" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="89" />
+					</pushdata>
+					<pushdata>
+						<data value="77" />
+					</pushdata>
+					<pushdata>
+						<data value="83" />
+					</pushdata>
+					<pushdata>
+						<data value="77" />
+					</pushdata>
+					<pushdata>
+						<data value="114" />
+					</pushdata>
+					<pushdata>
+						<data value="149" />
+					</pushdata>
+					<pushdata>
+						<data value="150" />
+					</pushdata>
+					<noarg action="67" />
+					<pushdata>
+						<data value="151" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<pushdata>
+						<data value="152" />
+					</pushdata>
+					<pushdata>
+						<data value="153" />
+					</pushdata>
+					<pushdata>
+						<data value="88" />
+					</pushdata>
+					<noarg action="61" />
+					<goto action="135" pos="0" />
+					<noarg action="29" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="94" />
+					</pushdata>
+					<noarg action="78" />
+					<noarg action="18" />
+					<goto action="157" pos="32" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="154" />
+					</pushdata>
+					<noarg action="61" />
+					<noarg action="23" />
+					<goto action="153" pos="177" />
+					<pushdata>
+						<data value="155" />
+					</pushdata>
+					<definefunction name="" size="117">
+					</definefunction>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="94" />
+					</pushdata>
+					<noarg action="78" />
+					<noarg action="18" />
+					<goto action="157" pos="62" />
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="155" />
+					</pushdata>
+					<noarg action="58" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="154" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<goto action="135" pos="0" />
+					<noarg action="29" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<definefunction name="FinishPowerButtonInitialization" size="2537">
+					</definefunction>
+					<pushdata>
+						<data value="156" />
+					</pushdata>
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="156" />
+					</pushdata>
+					<pushdata>
+						<data value="157" />
+					</pushdata>
+					<pushdata>
+						<data value="158" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="68" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="88" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="60" />
+					<pushdata>
+						<data value="156" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="159" />
+					</pushdata>
+					<pushdata>
+						<data value="160" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="156" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="161" />
+					</pushdata>
+					<pushdata>
+						<data value="162" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="131" />
+					</pushdata>
+					<pushdata>
+						<data value="156" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="163" />
+					</pushdata>
+					<noarg action="64" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="164" />
+					</pushdata>
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="165" />
+					</pushdata>
+					<pushdata>
+						<data value="166" />
+					</pushdata>
+					<pushdata>
+						<data value="158" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="65" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="88" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="60" />
+					<pushdata>
+						<data value="164" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="147" />
+					</pushdata>
+					<pushdata>
+						<data value="150" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="164" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="146" />
+					</pushdata>
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="136" />
+					</pushdata>
+					<pushdata>
+						<data value="91" />
+					</pushdata>
+					<pushdata>
+						<data value="138" />
+					</pushdata>
+					<pushdata>
+						<data value="161" />
+					</pushdata>
+					<pushdata>
+						<data value="167" />
+					</pushdata>
+					<pushdata>
+						<data value="159" />
+					</pushdata>
+					<pushdata>
+						<data value="168" />
+					</pushdata>
+					<pushdata>
+						<data value="146" />
+					</pushdata>
+					<pushdata>
+						<data value="169" />
+					</pushdata>
+					<pushdata>
+						<data value="147" />
+					</pushdata>
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="148" />
+					</pushdata>
+					<noarg action="11" />
+					<pushdata>
+						<data value="170" />
+					</pushdata>
+					<noarg action="67" />
+					<pushdata>
+						<data value="171" />
+					</pushdata>
+					<pushdata>
+						<data value="136" />
+					</pushdata>
+					<pushdata>
+						<data value="157" />
+					</pushdata>
+					<pushdata>
+						<data value="153" />
+					</pushdata>
+					<pushdata>
+						<data value="88" />
+					</pushdata>
+					<noarg action="61" />
+					<goto action="135" pos="0" />
+					<noarg action="29" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="172" />
+					</pushdata>
+					<pushdata>
+						<data value="136" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="163" />
+					</pushdata>
+					<noarg action="64" />
+					<noarg action="60" />
+					<pushdata>
+						<data value="173" />
+					</pushdata>
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="172" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="132" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="137" />
+					</pushdata>
+					<pushdata>
+						<data value="91" />
+					</pushdata>
+					<pushdata>
+						<data value="138" />
+					</pushdata>
+					<pushdata>
+						<data value="146" />
+					</pushdata>
+					<pushdata>
+						<data value="169" />
+					</pushdata>
+					<pushdata>
+						<data value="147" />
+					</pushdata>
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="160" />
+					</pushdata>
+					<noarg action="11" />
+					<pushdata>
+						<data value="158" />
+					</pushdata>
+					<noarg action="67" />
+					<pushdata>
+						<data value="174" />
+					</pushdata>
+					<pushdata>
+						<data value="137" />
+					</pushdata>
+					<pushdata>
+						<data value="175" />
+					</pushdata>
+					<pushdata>
+						<data value="153" />
+					</pushdata>
+					<pushdata>
+						<data value="88" />
+					</pushdata>
+					<noarg action="61" />
+					<goto action="135" pos="0" />
+					<noarg action="29" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="137" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="176" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="159" />
+					</pushdata>
+					<pushdata>
+						<data value="177" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="137" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="176" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="178" />
+					</pushdata>
+					<pushdata>
+						<data value="179" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="137" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="178" />
+					</pushdata>
+					<pushdata>
+						<data value="179" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="72" />
+					</pushdata>
+					<definefunction name="" size="189">
+						<argument name="newStateLabel" />
+					</definefunction>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="64" />
+					</pushdata>
+					<pushdata>
+						<data value="180" />
+					</pushdata>
+					<noarg action="28" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="180" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="69" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="66" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="67" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="181" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="145" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="104" />
+					</pushdata>
+					<definefunction name="" size="93">
+					</definefunction>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="70" />
+					</pushdata>
+					<noarg action="78" />
+					<noarg action="18" />
+					<goto action="157" pos="50" />
+					<pushdata>
+						<data value="71" />
+					</pushdata>
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="72" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="105" />
+					</pushdata>
+					<definefunction name="" size="141">
+					</definefunction>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="70" />
+					</pushdata>
+					<noarg action="78" />
+					<noarg action="18" />
+					<goto action="157" pos="98" />
+					<pushdata>
+						<data value="73" />
+					</pushdata>
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="72" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="182" />
+					</pushdata>
+					<pushdata>
+						<data value="183" />
+					</pushdata>
+					<pushdata>
+						<data value="184" />
+					</pushdata>
+					<pushdata>
+						<data value="185" />
+					</pushdata>
+					<noarg action="61" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="79" />
+					</pushdata>
+					<definefunction name="" size="197">
+					</definefunction>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="78" />
+					</pushdata>
+					<pushdata>
+						<data value="186" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="70" />
+					</pushdata>
+					<noarg action="78" />
+					<noarg action="18" />
+					<goto action="157" pos="98" />
+					<pushdata>
+						<data value="73" />
+					</pushdata>
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="72" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="181" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="187" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="81" />
+					</pushdata>
+					<definefunction name="" size="197">
+					</definefunction>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="78" />
+					</pushdata>
+					<pushdata>
+						<data value="138" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="70" />
+					</pushdata>
+					<noarg action="78" />
+					<noarg action="18" />
+					<goto action="157" pos="50" />
+					<pushdata>
+						<data value="80" />
+					</pushdata>
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="72" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="181" />
+					</pushdata>
+					<noarg action="78" />
+					<pushdata>
+						<data value="144" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="143" />
+					</pushdata>
+					<pushdata>
+						<data value="143" />
+					</pushdata>
+					<pushdata>
+						<data value="184" />
+					</pushdata>
+					<pushdata>
+						<data value="188" />
+					</pushdata>
+					<noarg action="61" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="189" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="102" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="103" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="71" />
+					<pushdata>
+						<data value="183" />
+					</pushdata>
+					<pushdata>
+						<data value="184" />
+					</pushdata>
+					<pushdata>
+						<data value="185" />
+					</pushdata>
+					<noarg action="61" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<definefunction name="UnloadPowerButton" size="289">
+					</definefunction>
+					<pushdata>
+						<data value="155" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="190" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="102" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="103" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="71" />
+					<pushdata>
+						<data value="183" />
+					</pushdata>
+					<pushdata>
+						<data value="184" />
+					</pushdata>
+					<pushdata>
+						<data value="185" />
+					</pushdata>
+					<noarg action="61" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="144" />
+					</pushdata>
+					<noarg action="61" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="137" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="82" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="136" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="82" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="82" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="137" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="136" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="121" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<definefunction name="GetSellButton" size="61">
+					</definefunction>
+					<pushdata>
+						<data value="0" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="102" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="103" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="62" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<definefunction name="GetRepairButton" size="61">
+					</definefunction>
+					<pushdata>
+						<data value="3" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="102" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="103" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="62" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<definefunction name="GetPauseButton" size="61">
+					</definefunction>
+					<pushdata>
+						<data value="4" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="122" />
+					</pushdata>
+					<pushdata>
+						<data value="102" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="103" />
+					</pushdata>
+					<noarg action="82" />
+					<noarg action="62" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<definefunction name="onUnload" size="181">
+					</definefunction>
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="191" />
+					</pushdata>
+					<noarg action="61" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="192" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="188" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="193" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="154" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="191" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="145" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="187" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="144" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="5" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="6" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="7" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="112" />
+					</pushdata>
+					<noarg action="59" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="62" />
+					<pushdata>
+						<data value="94" />
+					</pushdata>
+					<noarg action="28" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="322" />
+					<pushdata>
+						<data value="0" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="101" />
+					</pushdata>
+					<pushdata>
+						<data value="101" />
+					</pushdata>
+					<noarg action="28" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="3" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="101" />
+					</pushdata>
+					<pushdata>
+						<data value="101" />
+					</pushdata>
+					<noarg action="28" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="4" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="101" />
+					</pushdata>
+					<pushdata>
+						<data value="101" />
+					</pushdata>
+					<noarg action="28" />
+					<goto action="135" pos="0" />
+					<noarg action="79" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="94" />
+					</pushdata>
+					<pushdata>
+						<data value="186" />
+					</pushdata>
+					<goto action="135" pos="0" />
+					<noarg action="29" />
+					<pushdata>
+						<data value="127" />
+					</pushdata>
+					<noarg action="23" />
+					<pushdata>
+						<data value="77" />
+					</pushdata>
+					<pushdata>
+						<data value="118" />
+					</pushdata>
+					<pushdata>
+						<data value="116" />
+					</pushdata>
+					<noarg action="28" />
+					<pushdata>
+						<data value="184" />
+					</pushdata>
+					<pushdata>
+						<data value="76" />
+					</pushdata>
+					<noarg action="61" />
+					<pushdata>
+						<data value="184" />
+					</pushdata>
+					<pushdata>
+						<data value="185" />
+					</pushdata>
+					<noarg action="61" />
+					<noarg action="23" />
+					<pushdata>
+						<data value="141" />
+					</pushdata>
+					<pushdata>
+						<data value="193" />
+					</pushdata>
+					<noarg action="61" />
+					<noarg action="23" />
+					<noarg action="7" />
+					<pushdata>
+						<data value="123" />
+					</pushdata>
+					<noarg action="23" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</movieclip>
+	<shape id="1" top="0.000000" left="0.000000" bottom="100.000000" right="100.000000" geometry="1" />
+	<button id="2" top="0.000000" left="0.000000" bottom="100.000000" right="100.000000">
+		<vertexes>
+			<vertex x="0.000000" y="100.000000" />
+			<vertex x="0.000000" y="0.000000" />
+			<vertex x="100.000000" y="0.000000" />
+			<vertex x="100.000000" y="100.000000" />
+		</vertexes>
+		<triangles>
+			<triangle v1="0" v2="1" v3="2" />
+			<triangle v1="2" v2="3" v3="0" />
+		</triangles>
+		<buttonrecords>
+			<buttonrecord flags="8" character="1" depth="1" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" />
+		</buttonrecords>
+		<buttonactions>
+			<buttonaction flags="4">
+				<noarg action="89" />
+				<string action="164" str="client" />
+				<string action="161" str="OnPress" />
+				<noarg action="93" />
+				<noarg action="0" />
+			</buttonaction>
+			<buttonaction flags="8">
+				<noarg action="89" />
+				<string action="164" str="client" />
+				<string action="161" str="OnRelease" />
+				<noarg action="93" />
+				<noarg action="0" />
+			</buttonaction>
+			<buttonaction flags="161">
+				<noarg action="89" />
+				<string action="164" str="client" />
+				<string action="161" str="OnRollOver" />
+				<noarg action="93" />
+				<noarg action="0" />
+			</buttonaction>
+			<buttonaction flags="274">
+				<noarg action="89" />
+				<string action="164" str="client" />
+				<string action="161" str="OnRollOut" />
+				<noarg action="93" />
+				<noarg action="0" />
+			</buttonaction>
+		</buttonactions>
+	</button>
+	<sprite id="3">
+		<frames>
+			<frame id="0">
+				<framelabel label="_disabled" frame="0" />
+				<placeobject flags="6" depth="1" character="2" rotm00="0.370010" rotm01="0.000000" rotm10="0.000000" rotm11="0.220001" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+		</frame>
+			<frame id="5">
+		</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="_up" frame="10" />
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+		</frame>
+			<frame id="15">
+		</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="20">
+				<framelabel label="_over" frame="20" />
+			</frame>
+			<frame id="21">
+		</frame>
+			<frame id="22">
+		</frame>
+			<frame id="23">
+		</frame>
+			<frame id="24">
+		</frame>
+			<frame id="25">
+		</frame>
+			<frame id="26">
+		</frame>
+			<frame id="27">
+		</frame>
+			<frame id="28">
+		</frame>
+			<frame id="29">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="30">
+				<framelabel label="_down" frame="30" />
+			</frame>
+			<frame id="31">
+		</frame>
+			<frame id="32">
+		</frame>
+			<frame id="33">
+		</frame>
+			<frame id="34">
+		</frame>
+			<frame id="35">
+		</frame>
+			<frame id="36">
+		</frame>
+			<frame id="37">
+		</frame>
+			<frame id="38">
+		</frame>
+			<frame id="39">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<image id="4" image="4" />
+	<shape id="5" top="0.000000" left="0.000000" bottom="37.000000" right="22.000000" geometry="5" />
+	<image id="6" image="6" />
+	<shape id="7" top="0.000000" left="0.000000" bottom="37.000000" right="22.000000" geometry="7" />
+	<image id="8" image="8" />
+	<shape id="9" top="0.000000" left="0.000000" bottom="37.000000" right="22.000000" geometry="9" />
+	<sprite id="10">
+		<frames>
+			<frame id="0">
+				<action>
+					<constantpool>
+						<constant val="16" />
+						<constant val="17" />
+						<constant val="18" />
+						<constant val="19" />
+						<constant val="20" />
+						<constant val="21" />
+						<constant val="22" />
+						<constant val="23" />
+					</constantpool>
+					<definefunction2 name="OnCurrentFactionChanged" flags="2752514" size="8">
+						<argument reg="1" name="faction" />
+					</definefunction2>
+					<byte action="185" val="1" />
+					<goto action="159" pos="1" />
+					<definefunction2 name="onUnload" flags="6881283" size="15">
+				</definefunction2>
+					<byte action="185" val="1" />
+					<noarg action="90" />
+					<byte action="185" val="2" />
+					<byte action="178" val="0" />
+					<byte action="162" val="1" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="2" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="174" val="3" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="22" />
+					<noarg action="89" />
+					<byte action="174" val="4" />
+					<byte action="162" val="5" />
+					<noarg action="82" />
+					<goto action="159" pos="1" />
+					<noarg action="112" />
+					<noarg action="90" />
+					<byte action="174" val="4" />
+					<byte action="178" val="7" />
+					<byte action="162" val="3" />
+					<noarg action="115" />
+					<noarg action="29" />
+					<noarg action="0" />
+				</action>
+				<framelabel label="Allies" frame="0" />
+				<placeobject flags="6" depth="1" character="5" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+		</frame>
+			<frame id="5">
+		</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="Soviet" frame="10" />
+				<placeobject flags="3" depth="1" character="7" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+		</frame>
+			<frame id="15">
+		</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="20">
+				<framelabel label="Japan" frame="20" />
+				<placeobject flags="3" depth="1" character="9" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="21">
+		</frame>
+			<frame id="22">
+		</frame>
+			<frame id="23">
+		</frame>
+			<frame id="24">
+		</frame>
+			<frame id="25">
+		</frame>
+			<frame id="26">
+		</frame>
+			<frame id="27">
+		</frame>
+			<frame id="28">
+		</frame>
+			<frame id="29">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<image id="11" image="11" />
+	<shape id="12" top="-4.000000" left="-4.000000" bottom="41.000000" right="26.000000" geometry="12" />
+	<sprite id="13">
+		<frames>
+			<frame id="0">
+				<framelabel label="_disabled" frame="0" />
+				<placeobject flags="14" depth="1" character="10" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="127" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="5">
+				<framelabel label="_up" frame="5" />
+				<placeobject flags="9" depth="1" character="-1" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="_over" frame="10" />
+				<placeobject flags="6" depth="3" character="12" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="15">
+				<framelabel label="_down" frame="15" />
+			</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<image id="14" image="14" />
+	<shape id="15" top="0.000000" left="0.000000" bottom="37.000000" right="22.000000" geometry="15" />
+	<image id="16" image="16" />
+	<shape id="17" top="0.000000" left="0.000000" bottom="37.000000" right="22.000000" geometry="17" />
+	<image id="18" image="18" />
+	<shape id="19" top="0.000000" left="0.000000" bottom="37.000000" right="22.000000" geometry="19" />
+	<sprite id="20">
+		<frames>
+			<frame id="0">
+				<action>
+					<constantpool>
+						<constant val="24" />
+						<constant val="25" />
+						<constant val="26" />
+						<constant val="27" />
+						<constant val="28" />
+						<constant val="29" />
+						<constant val="30" />
+						<constant val="31" />
+					</constantpool>
+					<definefunction2 name="OnCurrentFactionChanged" flags="2752514" size="8">
+						<argument reg="1" name="faction" />
+					</definefunction2>
+					<byte action="185" val="1" />
+					<goto action="159" pos="1" />
+					<definefunction2 name="onUnload" flags="6881283" size="15">
+				</definefunction2>
+					<byte action="185" val="1" />
+					<noarg action="90" />
+					<byte action="185" val="2" />
+					<byte action="178" val="0" />
+					<byte action="162" val="1" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="2" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="174" val="3" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="22" />
+					<noarg action="89" />
+					<byte action="174" val="4" />
+					<byte action="162" val="5" />
+					<noarg action="82" />
+					<goto action="159" pos="1" />
+					<noarg action="112" />
+					<noarg action="90" />
+					<byte action="174" val="4" />
+					<byte action="178" val="7" />
+					<byte action="162" val="3" />
+					<noarg action="115" />
+					<noarg action="29" />
+					<noarg action="0" />
+				</action>
+				<framelabel label="Allies" frame="0" />
+				<placeobject flags="6" depth="1" character="15" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+		</frame>
+			<frame id="5">
+		</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="Soviet" frame="10" />
+				<placeobject flags="3" depth="1" character="17" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+		</frame>
+			<frame id="15">
+		</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="20">
+				<framelabel label="Japan" frame="20" />
+				<placeobject flags="3" depth="1" character="19" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="21">
+		</frame>
+			<frame id="22">
+		</frame>
+			<frame id="23">
+		</frame>
+			<frame id="24">
+		</frame>
+			<frame id="25">
+		</frame>
+			<frame id="26">
+		</frame>
+			<frame id="27">
+		</frame>
+			<frame id="28">
+		</frame>
+			<frame id="29">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<sprite id="21">
+		<frames>
+			<frame id="0">
+				<framelabel label="_disabled" frame="0" />
+				<placeobject flags="14" depth="1" character="20" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="127" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="5">
+				<framelabel label="_up" frame="5" />
+				<placeobject flags="9" depth="1" character="-1" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="_over" frame="10" />
+				<placeobject flags="6" depth="3" character="12" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="15">
+				<framelabel label="_down" frame="15" />
+			</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<image id="22" image="22" />
+	<shape id="23" top="-4.000000" left="-4.000000" bottom="41.000000" right="26.000000" geometry="23" />
+	<image id="24" image="24" />
+	<shape id="25" top="-4.000000" left="-4.000000" bottom="41.000000" right="26.000000" geometry="25" />
+	<image id="26" image="26" />
+	<shape id="27" top="-4.000000" left="-4.000000" bottom="41.000000" right="26.000000" geometry="27" />
+	<sprite id="28">
+		<frames>
+			<frame id="0">
+				<action>
+					<constantpool>
+						<constant val="32" />
+						<constant val="33" />
+						<constant val="34" />
+						<constant val="35" />
+						<constant val="36" />
+						<constant val="37" />
+						<constant val="38" />
+						<constant val="39" />
+					</constantpool>
+					<definefunction2 name="OnCurrentFactionChanged" flags="2752514" size="8">
+						<argument reg="1" name="faction" />
+					</definefunction2>
+					<byte action="185" val="1" />
+					<goto action="159" pos="1" />
+					<definefunction2 name="onUnload" flags="6881283" size="15">
+				</definefunction2>
+					<byte action="185" val="1" />
+					<noarg action="90" />
+					<byte action="185" val="2" />
+					<byte action="178" val="0" />
+					<byte action="162" val="1" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="2" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="174" val="3" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="22" />
+					<noarg action="89" />
+					<byte action="174" val="4" />
+					<byte action="162" val="5" />
+					<noarg action="82" />
+					<goto action="159" pos="1" />
+					<noarg action="112" />
+					<noarg action="90" />
+					<byte action="174" val="4" />
+					<byte action="178" val="7" />
+					<byte action="162" val="3" />
+					<noarg action="115" />
+					<noarg action="29" />
+					<noarg action="0" />
+				</action>
+				<framelabel label="Allies" frame="0" />
+				<placeobject flags="6" depth="1" character="23" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+		</frame>
+			<frame id="5">
+		</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="Soviet" frame="10" />
+				<placeobject flags="3" depth="1" character="25" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+		</frame>
+			<frame id="15">
+		</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="20">
+				<framelabel label="Japan" frame="20" />
+				<placeobject flags="3" depth="1" character="27" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="21">
+		</frame>
+			<frame id="22">
+		</frame>
+			<frame id="23">
+		</frame>
+			<frame id="24">
+		</frame>
+			<frame id="25">
+		</frame>
+			<frame id="26">
+		</frame>
+			<frame id="27">
+		</frame>
+			<frame id="28">
+		</frame>
+			<frame id="29">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<sprite id="29">
+		<frames>
+			<frame id="0">
+				<framelabel label="_disabled" frame="0" />
+				<placeobject flags="14" depth="1" character="28" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="127" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="5">
+				<framelabel label="_up" frame="5" />
+				<placeobject flags="9" depth="1" character="-1" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="_over" frame="10" />
+				<placeobject flags="6" depth="3" character="12" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="15">
+				<framelabel label="_down" frame="15" />
+			</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<image id="30" image="30" />
+	<shape id="31" top="-4.000000" left="-4.000000" bottom="41.000000" right="26.000000" geometry="31" />
+	<image id="32" image="32" />
+	<shape id="33" top="-4.000000" left="-4.000000" bottom="41.000000" right="26.000000" geometry="33" />
+	<image id="34" image="34" />
+	<shape id="35" top="-4.000000" left="-4.000000" bottom="41.000000" right="26.000000" geometry="35" />
+	<sprite id="36">
+		<frames>
+			<frame id="0">
+				<action>
+					<constantpool>
+						<constant val="40" />
+						<constant val="41" />
+						<constant val="42" />
+						<constant val="43" />
+						<constant val="44" />
+						<constant val="45" />
+						<constant val="46" />
+						<constant val="47" />
+					</constantpool>
+					<definefunction2 name="OnCurrentFactionChanged" flags="2752514" size="8">
+						<argument reg="1" name="faction" />
+					</definefunction2>
+					<byte action="185" val="1" />
+					<goto action="159" pos="1" />
+					<definefunction2 name="onUnload" flags="6881283" size="15">
+				</definefunction2>
+					<byte action="185" val="1" />
+					<noarg action="90" />
+					<byte action="185" val="2" />
+					<byte action="178" val="0" />
+					<byte action="162" val="1" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="2" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="174" val="3" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="22" />
+					<noarg action="89" />
+					<byte action="174" val="4" />
+					<byte action="162" val="5" />
+					<noarg action="82" />
+					<goto action="159" pos="1" />
+					<noarg action="112" />
+					<noarg action="90" />
+					<byte action="174" val="4" />
+					<byte action="178" val="7" />
+					<byte action="162" val="3" />
+					<noarg action="115" />
+					<noarg action="29" />
+					<noarg action="0" />
+				</action>
+				<framelabel label="Allies" frame="0" />
+				<placeobject flags="6" depth="1" character="31" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+		</frame>
+			<frame id="5">
+		</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="Soviet" frame="10" />
+				<placeobject flags="3" depth="1" character="33" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+		</frame>
+			<frame id="15">
+		</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="20">
+				<framelabel label="Japan" frame="20" />
+				<placeobject flags="3" depth="1" character="35" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="21">
+		</frame>
+			<frame id="22">
+		</frame>
+			<frame id="23">
+		</frame>
+			<frame id="24">
+		</frame>
+			<frame id="25">
+		</frame>
+			<frame id="26">
+		</frame>
+			<frame id="27">
+		</frame>
+			<frame id="28">
+		</frame>
+			<frame id="29">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<sprite id="37">
+		<frames>
+			<frame id="0">
+				<framelabel label="_disabled" frame="0" />
+				<placeobject flags="14" depth="1" character="36" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="127" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="5">
+				<framelabel label="_up" frame="5" />
+				<placeobject flags="9" depth="1" character="-1" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="_over" frame="10" />
+				<placeobject flags="6" depth="3" character="12" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="15">
+				<framelabel label="_down" frame="15" />
+			</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<image id="38" image="38" />
+	<shape id="39" top="-4.000000" left="-4.000000" bottom="41.000000" right="26.000000" geometry="39" />
+	<image id="40" image="40" />
+	<shape id="41" top="-4.000000" left="-4.000000" bottom="41.000000" right="26.000000" geometry="41" />
+	<image id="42" image="42" />
+	<shape id="43" top="-4.000000" left="-4.000000" bottom="41.000000" right="26.000000" geometry="43" />
+	<sprite id="44">
+		<frames>
+			<frame id="0">
+				<action>
+					<constantpool>
+						<constant val="48" />
+						<constant val="49" />
+						<constant val="50" />
+						<constant val="51" />
+						<constant val="52" />
+						<constant val="53" />
+						<constant val="54" />
+						<constant val="55" />
+					</constantpool>
+					<definefunction2 name="OnCurrentFactionChanged" flags="2752514" size="8">
+						<argument reg="1" name="faction" />
+					</definefunction2>
+					<byte action="185" val="1" />
+					<goto action="159" pos="1" />
+					<definefunction2 name="onUnload" flags="6881283" size="15">
+				</definefunction2>
+					<byte action="185" val="1" />
+					<noarg action="90" />
+					<byte action="185" val="2" />
+					<byte action="178" val="0" />
+					<byte action="162" val="1" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="2" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="174" val="3" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="22" />
+					<noarg action="89" />
+					<byte action="174" val="4" />
+					<byte action="162" val="5" />
+					<noarg action="82" />
+					<goto action="159" pos="1" />
+					<noarg action="112" />
+					<noarg action="90" />
+					<byte action="174" val="4" />
+					<byte action="178" val="7" />
+					<byte action="162" val="3" />
+					<noarg action="115" />
+					<noarg action="29" />
+					<noarg action="0" />
+				</action>
+				<framelabel label="Allies" frame="0" />
+				<placeobject flags="6" depth="1" character="39" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+		</frame>
+			<frame id="5">
+		</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="Soviet" frame="10" />
+				<placeobject flags="3" depth="1" character="41" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+		</frame>
+			<frame id="15">
+		</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="20">
+				<framelabel label="Japan" frame="20" />
+				<placeobject flags="3" depth="1" character="43" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="21">
+		</frame>
+			<frame id="22">
+		</frame>
+			<frame id="23">
+		</frame>
+			<frame id="24">
+		</frame>
+			<frame id="25">
+		</frame>
+			<frame id="26">
+		</frame>
+			<frame id="27">
+		</frame>
+			<frame id="28">
+		</frame>
+			<frame id="29">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<sprite id="45">
+		<frames>
+			<frame id="0">
+				<framelabel label="_disabled" frame="0" />
+				<placeobject flags="14" depth="1" character="44" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="127" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="5">
+				<framelabel label="_up" frame="5" />
+				<placeobject flags="9" depth="1" character="-1" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="_over" frame="10" />
+				<placeobject flags="6" depth="3" character="12" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="15">
+				<framelabel label="_down" frame="15" />
+			</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<image id="46" image="46" />
+	<shape id="47" top="0.000000" left="0.000000" bottom="37.000000" right="22.000000" geometry="47" />
+	<image id="48" image="48" />
+	<shape id="49" top="0.000000" left="0.000000" bottom="37.000000" right="22.000000" geometry="49" />
+	<image id="50" image="50" />
+	<shape id="51" top="0.000000" left="0.000000" bottom="37.000000" right="22.000000" geometry="51" />
+	<sprite id="52">
+		<frames>
+			<frame id="0">
+				<action>
+					<constantpool>
+						<constant val="56" />
+						<constant val="57" />
+						<constant val="58" />
+						<constant val="59" />
+						<constant val="60" />
+						<constant val="61" />
+						<constant val="62" />
+						<constant val="63" />
+					</constantpool>
+					<definefunction2 name="OnCurrentFactionChanged" flags="2752514" size="8">
+						<argument reg="1" name="faction" />
+					</definefunction2>
+					<byte action="185" val="1" />
+					<goto action="159" pos="1" />
+					<definefunction2 name="onUnload" flags="6881283" size="15">
+				</definefunction2>
+					<byte action="185" val="1" />
+					<noarg action="90" />
+					<byte action="185" val="2" />
+					<byte action="178" val="0" />
+					<byte action="162" val="1" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="2" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="174" val="3" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="22" />
+					<noarg action="89" />
+					<byte action="174" val="4" />
+					<byte action="162" val="5" />
+					<noarg action="82" />
+					<goto action="159" pos="1" />
+					<noarg action="112" />
+					<noarg action="90" />
+					<byte action="174" val="4" />
+					<byte action="178" val="7" />
+					<byte action="162" val="3" />
+					<noarg action="115" />
+					<noarg action="29" />
+					<noarg action="0" />
+				</action>
+				<framelabel label="Allies" frame="0" />
+				<placeobject flags="6" depth="1" character="47" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+		</frame>
+			<frame id="5">
+		</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="Soviet" frame="10" />
+				<placeobject flags="3" depth="1" character="49" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+		</frame>
+			<frame id="15">
+		</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="20">
+				<framelabel label="Japan" frame="20" />
+				<placeobject flags="3" depth="1" character="51" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="21">
+		</frame>
+			<frame id="22">
+		</frame>
+			<frame id="23">
+		</frame>
+			<frame id="24">
+		</frame>
+			<frame id="25">
+		</frame>
+			<frame id="26">
+		</frame>
+			<frame id="27">
+		</frame>
+			<frame id="28">
+		</frame>
+			<frame id="29">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<sprite id="53">
+		<frames>
+			<frame id="0">
+				<framelabel label="_disabled" frame="0" />
+				<placeobject flags="14" depth="1" character="52" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="127" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="1">
+		</frame>
+			<frame id="2">
+		</frame>
+			<frame id="3">
+		</frame>
+			<frame id="4">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="5">
+				<framelabel label="_up" frame="5" />
+				<placeobject flags="9" depth="1" character="-1" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="6">
+		</frame>
+			<frame id="7">
+		</frame>
+			<frame id="8">
+		</frame>
+			<frame id="9">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="10">
+				<framelabel label="_over" frame="10" />
+				<placeobject flags="6" depth="3" character="12" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+			</placeobject>
+			</frame>
+			<frame id="11">
+		</frame>
+			<frame id="12">
+		</frame>
+			<frame id="13">
+		</frame>
+			<frame id="14">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+			<frame id="15">
+				<framelabel label="_down" frame="15" />
+			</frame>
+			<frame id="16">
+		</frame>
+			<frame id="17">
+		</frame>
+			<frame id="18">
+		</frame>
+			<frame id="19">
+				<action>
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+			</frame>
+		</frames>
+	</sprite>
+	<empty id="54" />
+	<sprite id="55">
+		<frames>
+			<frame id="0">
+		</frame>
+		</frames>
+	</sprite>
+	<sprite id="56">
+		<frames>
+			<frame id="0">
+				<action>
+					<constantpool>
+						<constant val="64" />
+						<constant val="65" />
+						<constant val="66" />
+						<constant val="67" />
+						<constant val="68" />
+						<constant val="69" />
+						<constant val="70" />
+						<constant val="71" />
+						<constant val="72" />
+						<constant val="73" />
+						<constant val="74" />
+						<constant val="75" />
+						<constant val="76" />
+						<constant val="77" />
+						<constant val="78" />
+						<constant val="79" />
+						<constant val="80" />
+						<constant val="81" />
+						<constant val="82" />
+						<constant val="83" />
+						<constant val="84" />
+						<constant val="85" />
+						<constant val="86" />
+						<constant val="87" />
+						<constant val="88" />
+						<constant val="89" />
+						<constant val="90" />
+						<constant val="91" />
+						<constant val="92" />
+						<constant val="93" />
+						<constant val="94" />
+						<constant val="95" />
+						<constant val="96" />
+						<constant val="97" />
+						<constant val="98" />
+						<constant val="99" />
+						<constant val="100" />
+						<constant val="101" />
+						<constant val="102" />
+						<constant val="103" />
+						<constant val="104" />
+						<constant val="105" />
+						<constant val="106" />
+						<constant val="107" />
+						<constant val="108" />
+						<constant val="109" />
+						<constant val="110" />
+						<constant val="111" />
+						<constant val="112" />
+						<constant val="113" />
+						<constant val="114" />
+						<constant val="115" />
+						<constant val="116" />
+						<constant val="117" />
+						<constant val="118" />
+						<constant val="119" />
+						<constant val="120" />
+					</constantpool>
+					<definefunction2 name="SetState" flags="2752514" size="44">
+						<argument reg="1" name="newStateLabel" />
+					</definefunction2>
+					<byte action="185" val="1" />
+					<byte action="174" val="0" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="32" />
+					<byte action="185" val="1" />
+					<noarg action="90" />
+					<byte action="174" val="1" />
+					<byte action="175" val="2" />
+					<byte action="178" val="3" />
+					<byte action="185" val="1" />
+					<noarg action="90" />
+					<byte action="174" val="4" />
+					<byte action="175" val="2" />
+					<byte action="178" val="3" />
+					<byte action="185" val="1" />
+					<noarg action="90" />
+					<byte action="174" val="5" />
+					<byte action="175" val="2" />
+					<byte action="178" val="3" />
+					<byte action="162" val="0" />
+					<byte action="185" val="1" />
+					<noarg action="29" />
+					<definefunction name="OnPress" size="13">
+				</definefunction>
+					<byte action="174" val="6" />
+					<noarg action="18" />
+					<goto action="157" pos="5" />
+					<byte action="162" val="7" />
+					<noarg action="90" />
+					<byte action="176" val="8" />
+					<definefunction2 name="OnRelease" flags="2686978" size="28">
+				</definefunction2>
+					<byte action="174" val="6" />
+					<noarg action="18" />
+					<goto action="157" pos="5" />
+					<byte action="162" val="9" />
+					<noarg action="90" />
+					<byte action="176" val="8" />
+					<byte action="162" val="10" />
+					<byte action="162" val="11" />
+					<byte action="185" val="1" />
+					<byte action="181" val="2" />
+					<byte action="162" val="12" />
+					<noarg action="61" />
+					<noarg action="33" />
+					<byte action="162" val="13" />
+					<noarg action="154" />
+					<definefunction2 name="OnRollOver" flags="2686978" size="44">
+				</definefunction2>
+					<byte action="174" val="14" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="32" />
+					<byte action="174" val="6" />
+					<noarg action="18" />
+					<goto action="157" pos="5" />
+					<byte action="162" val="9" />
+					<noarg action="90" />
+					<byte action="176" val="8" />
+					<byte action="162" val="14" />
+					<noarg action="115" />
+					<noarg action="29" />
+					<byte action="162" val="10" />
+					<byte action="162" val="15" />
+					<byte action="185" val="1" />
+					<byte action="181" val="2" />
+					<byte action="162" val="12" />
+					<noarg action="61" />
+					<noarg action="33" />
+					<byte action="162" val="13" />
+					<noarg action="154" />
+					<definefunction2 name="OnRollOut" flags="2686978" size="40">
+				</definefunction2>
+					<byte action="174" val="14" />
+					<noarg action="18" />
+					<goto action="157" pos="32" />
+					<byte action="174" val="6" />
+					<noarg action="18" />
+					<goto action="157" pos="5" />
+					<byte action="162" val="16" />
+					<noarg action="90" />
+					<byte action="176" val="8" />
+					<byte action="162" val="14" />
+					<noarg action="116" />
+					<noarg action="29" />
+					<byte action="162" val="10" />
+					<byte action="162" val="17" />
+					<byte action="185" val="1" />
+					<byte action="181" val="2" />
+					<byte action="162" val="12" />
+					<noarg action="61" />
+					<noarg action="33" />
+					<byte action="162" val="13" />
+					<noarg action="154" />
+					<definefunction2 name="AttachContent" flags="2752515" size="220">
+				</definefunction2>
+					<byte action="174" val="1" />
+					<byte action="175" val="2" />
+					<goto action="135" pos="1" />
+					<noarg action="23" />
+					<byte action="185" val="1" />
+					<noarg action="118" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="5" />
+					<noarg action="89" />
+					<byte action="185" val="1" />
+					<byte action="178" val="18" />
+					<byte action="174" val="19" />
+					<noarg action="118" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="76" />
+					<noarg action="18" />
+					<goto action="157" pos="7" />
+					<noarg action="23" />
+					<byte action="174" val="19" />
+					<byte action="175" val="20" />
+					<noarg action="89" />
+					<noarg action="103" />
+					<noarg action="18" />
+					<goto action="157" pos="56" />
+					<byte action="174" val="19" />
+					<byte action="174" val="21" />
+					<goto action="157" pos="8" />
+					<byte action="162" val="22" />
+					<goto action="153" pos="2" />
+					<byte action="162" val="23" />
+					<noarg action="71" />
+					<goto action="135" pos="2" />
+					<noarg action="23" />
+					<noarg action="89" />
+					<byte action="162" val="2" />
+					<byte action="185" val="2" />
+					<byte action="181" val="3" />
+					<byte action="174" val="1" />
+					<byte action="162" val="24" />
+					<noarg action="82" />
+					<goto action="135" pos="1" />
+					<noarg action="23" />
+					<byte action="174" val="0" />
+					<noarg action="90" />
+					<byte action="185" val="1" />
+					<byte action="178" val="3" />
+					<byte action="174" val="4" />
+					<byte action="175" val="2" />
+					<goto action="135" pos="1" />
+					<noarg action="23" />
+					<byte action="185" val="1" />
+					<noarg action="118" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="5" />
+					<noarg action="89" />
+					<byte action="185" val="1" />
+					<byte action="178" val="18" />
+					<byte action="174" val="25" />
+					<noarg action="118" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="76" />
+					<noarg action="18" />
+					<goto action="157" pos="7" />
+					<noarg action="23" />
+					<byte action="174" val="25" />
+					<byte action="175" val="20" />
+					<noarg action="89" />
+					<noarg action="103" />
+					<noarg action="18" />
+					<goto action="157" pos="44" />
+					<noarg action="89" />
+					<byte action="162" val="2" />
+					<byte action="174" val="25" />
+					<byte action="174" val="21" />
+					<goto action="157" pos="8" />
+					<byte action="162" val="22" />
+					<goto action="153" pos="2" />
+					<byte action="162" val="23" />
+					<noarg action="71" />
+					<byte action="181" val="3" />
+					<byte action="174" val="4" />
+					<byte action="162" val="24" />
+					<noarg action="82" />
+					<goto action="135" pos="1" />
+					<noarg action="23" />
+					<byte action="174" val="0" />
+					<noarg action="90" />
+					<byte action="185" val="1" />
+					<byte action="178" val="3" />
+					<definefunction2 name="SetVisibility" flags="2752515" size="27">
+						<argument reg="2" name="visArg" />
+					</definefunction2>
+					<byte action="185" val="2" />
+					<noarg action="74" />
+					<noarg action="89" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<goto action="135" pos="1" />
+					<noarg action="23" />
+					<byte action="162" val="13" />
+					<byte action="181" val="7" />
+					<byte action="185" val="1" />
+					<noarg action="35" />
+					<byte action="174" val="26" />
+					<byte action="162" val="27" />
+					<byte action="185" val="1" />
+					<noarg action="79" />
+					<definefunction2 name="SetEnabled" flags="2752515" size="53">
+						<argument reg="2" name="enableArg" />
+					</definefunction2>
+					<byte action="185" val="2" />
+					<noarg action="74" />
+					<noarg action="89" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<goto action="135" pos="1" />
+					<noarg action="23" />
+					<byte action="185" val="1" />
+					<byte action="174" val="6" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="25" />
+					<byte action="162" val="6" />
+					<byte action="185" val="1" />
+					<noarg action="29" />
+					<byte action="174" val="6" />
+					<goto action="157" pos="8" />
+					<byte action="162" val="28" />
+					<goto action="153" pos="2" />
+					<byte action="162" val="16" />
+					<noarg action="90" />
+					<byte action="176" val="8" />
+					<definefunction2 name="SetSelected" flags="2752515" size="36">
+						<argument reg="2" name="selectArg" />
+					</definefunction2>
+					<byte action="185" val="2" />
+					<noarg action="74" />
+					<noarg action="89" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<goto action="135" pos="1" />
+					<noarg action="23" />
+					<byte action="185" val="1" />
+					<byte action="174" val="21" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="8" />
+					<byte action="162" val="21" />
+					<byte action="185" val="1" />
+					<noarg action="29" />
+					<noarg action="89" />
+					<byte action="176" val="29" />
+					<definefunction2 name="SetFlashing" flags="2752515" size="79">
+						<argument reg="2" name="flashArg" />
+					</definefunction2>
+					<byte action="174" val="26" />
+					<noarg action="118" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<goto action="157" pos="2" />
+					<noarg action="118" />
+					<noarg action="62" />
+					<byte action="185" val="2" />
+					<noarg action="74" />
+					<noarg action="89" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<goto action="135" pos="1" />
+					<noarg action="23" />
+					<byte action="174" val="26" />
+					<byte action="175" val="30" />
+					<noarg action="18" />
+					<goto action="157" pos="32" />
+					<byte action="185" val="1" />
+					<noarg action="18" />
+					<goto action="157" pos="12" />
+					<noarg action="89" />
+					<byte action="174" val="26" />
+					<byte action="178" val="31" />
+					<goto action="153" pos="5" />
+					<noarg action="89" />
+					<byte action="174" val="26" />
+					<byte action="178" val="32" />
+					<goto action="153" pos="7" />
+					<byte action="174" val="26" />
+					<byte action="162" val="33" />
+					<byte action="185" val="1" />
+					<noarg action="79" />
+					<definefunction2 name="SetHighlighted" flags="19464197" size="73">
+						<argument reg="4" name="highlightArg" />
+					</definefunction2>
+					<byte action="185" val="4" />
+					<noarg action="89" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<goto action="135" pos="3" />
+					<noarg action="23" />
+					<byte action="185" val="3" />
+					<noarg action="18" />
+					<goto action="157" pos="28" />
+					<byte action="174" val="34" />
+					<noarg action="118" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<goto action="157" pos="9" />
+					<byte action="162" val="34" />
+					<byte action="185" val="1" />
+					<noarg action="90" />
+					<byte action="185" val="2" />
+					<byte action="179" val="35" />
+					<goto action="153" pos="21" />
+					<byte action="174" val="34" />
+					<noarg action="118" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="9" />
+					<noarg action="89" />
+					<byte action="174" val="34" />
+					<byte action="178" val="36" />
+					<byte action="162" val="34" />
+					<noarg action="118" />
+					<noarg action="29" />
+					<definefunction name="GetHelpSite" size="9">
+				</definefunction>
+					<byte action="174" val="37" />
+					<noarg action="90" />
+					<byte action="174" val="38" />
+					<byte action="162" val="39" />
+					<noarg action="82" />
+					<noarg action="62" />
+					<definefunction name="onUnload" size="57">
+				</definefunction>
+					<noarg action="89" />
+					<byte action="174" val="34" />
+					<byte action="178" val="36" />
+					<byte action="162" val="8" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="40" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="41" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="15" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="17" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="29" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="42" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="43" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="44" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="45" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="46" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="47" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="162" val="48" />
+					<noarg action="59" />
+					<noarg action="23" />
+					<byte action="174" val="30" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="96" />
+					<byte action="162" val="0" />
+					<byte action="162" val="28" />
+					<noarg action="29" />
+					<byte action="162" val="6" />
+					<noarg action="116" />
+					<noarg action="29" />
+					<byte action="162" val="21" />
+					<noarg action="116" />
+					<noarg action="29" />
+					<byte action="162" val="14" />
+					<noarg action="116" />
+					<noarg action="29" />
+					<byte action="162" val="49" />
+					<noarg action="89" />
+					<byte action="162" val="2" />
+					<byte action="174" val="50" />
+					<byte action="181" val="3" />
+					<byte action="174" val="5" />
+					<byte action="162" val="24" />
+					<noarg action="82" />
+					<noarg action="60" />
+					<byte action="174" val="49" />
+					<byte action="162" val="51" />
+					<noarg action="112" />
+					<noarg action="79" />
+					<byte action="162" val="28" />
+					<noarg action="90" />
+					<byte action="174" val="49" />
+					<byte action="178" val="3" />
+					<noarg action="89" />
+					<byte action="176" val="29" />
+					<byte action="162" val="53" />
+					<noarg action="90" />
+					<byte action="176" val="43" />
+					<byte action="162" val="30" />
+					<noarg action="115" />
+					<noarg action="29" />
+					<byte action="162" val="10" />
+					<byte action="162" val="54" />
+					<noarg action="112" />
+					<byte action="181" val="2" />
+					<byte action="162" val="12" />
+					<noarg action="61" />
+					<noarg action="33" />
+					<byte action="162" val="13" />
+					<noarg action="154" />
+					<byte action="174" val="55" />
+					<byte action="175" val="56" />
+					<noarg action="18" />
+					<noarg action="76" />
+					<noarg action="18" />
+					<goto action="157" pos="6" />
+					<noarg action="23" />
+					<byte action="174" val="26" />
+					<noarg action="118" />
+					<noarg action="73" />
+					<noarg action="18" />
+					<noarg action="18" />
+					<goto action="157" pos="0" />
+					<noarg action="7" />
+					<noarg action="0" />
+				</action>
+				<placeobject flags="38" depth="1" character="55" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+					<poname name="buttonStage" />
+				</placeobject>
+				<placeobject flags="38" depth="3" character="55" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+					<poname name="backgroundStage" />
+				</placeobject>
+				<placeobject flags="38" depth="5" character="55" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+					<poname name="imageStage" />
+				</placeobject>
+			</frame>
+		</frames>
+	</sprite>
+	<shape id="57" top="0.000000" left="0.000000" bottom="100.000000" right="100.000000" geometry="57" />
+	<sprite id="58">
+		<frames>
+			<frame id="0">
+				<placeobject flags="6" depth="1" character="57" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0" />
+			</frame>
+		</frames>
+	</sprite>
+	<shape id="59" top="0.000000" left="0.000000" bottom="11.000000" right="18.000000" geometry="59" />
+	<sprite id="60">
+		<frames>
+			<frame id="0">
+				<placeobject flags="6" depth="1" character="59" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0" />
+			</frame>
+		</frames>
+	</sprite>
+	<font id="61" name="Lucida Sans" />
+	<edittext id="62" top="0.000000" left="0.000000" bottom="232.000000" right="25.000000" font="61" alignment="0" red="255" green="255" blue="255" alpha="255" height="14.000000" readonly="1" multiline="0" wordwrap="0">
+		<ettext text="Power off / restore" />
+		<etvar variable="text" />
+	</edittext>
+	<sprite id="63">
+		<frames>
+			<frame id="0">
+				<placeobject flags="38" depth="1" character="62" rotm00="1.000000" rotm01="0.000000" rotm10="0.000000" rotm11="1.000000" tx="0.000000" ty="0.000000" red="255" green="255" blue="255" alpha="255" ratio="0.000000" clipdepth="-1" unknown="0">
+					<poname name="field" />
+				</placeobject>
+			</frame>
+		</frames>
+	</sprite>
+</aptdata>
