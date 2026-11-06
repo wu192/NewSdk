@@ -105,7 +105,7 @@ static class GameObjectPassiveMindControlSmoke
         bool schemaRejected = false, compilerRejected = false;
         try { PluginSchemaBoundary.Validate(input.Node); } catch (NotSupportedException) { schemaRejected = true; }
         try { Recovered.GameObjectCompiler.ProcessInstance(input, TargetPlatform.Win32); } catch (Exception) { compilerRejected = true; }
-        Require((schemaRejected || !requireSchemaRejection) && compilerRejected, "Invalid module accepted at schema/native XML boundary: " + input.Node.OuterXml);
+        Require((schemaRejected || !requireSchemaRejection) && compilerRejected, "Invalid module accepted at schema/native XML boundary (schemaRejected=" + schemaRejected + ", compilerRejected=" + compilerRejected + "): " + input.Node.OuterXml);
     }
     static void ProductionExamples(string path, TargetPlatform platform)
     {
