@@ -9,8 +9,14 @@
 配置、二进制合同与定向复现见 [原生推土机 XML 与命令配置](docs/DOZER_XML_EXTENSIONS.md)。
 
 本次 Native/CLR harness 保留参数、默认值、AI 继承与大小端，新增无需标记的普通建筑
-schema 用例和已移除节点拒绝。Windows `/Od`、`/O2` 与四平台 XML bridge 结果
-须以本次 Actions 为准；历史扩展收据不能作为本次成功证据。
+schema 用例和已移除节点拒绝。Windows
+[42151031943](https://github.com/wu162/NewSdk/actions/runs/42151031943) 验证源码
+`a44f5836`：MSVC Win32 `/Od`、`/O2` Native 和四平台 XML bridge 均通过，
+任务约 79 秒，零工件上传；[逐模式来源及耗时收据](evidence/native-dozer/42151031943/validation.json)。
+首轮 `42150740776` 编译/测试通过，整体因账户工件额度满而失败，原终态保留。
+目标仓库当前只读，修改和验证分支暂存于
+[`wu162/NewSdk:codex/native-dozer-commandset`](https://github.com/wu162/NewSdk/tree/codex/native-dozer-commandset)，
+仍以 `wu192/NewSdk:feature/integration` 为基线，未合入目标分支。
 未执行完整 SDK/MOD、DLL 或游戏内验收。禁止强推；合入继续遵循 PR 和用户批准规则。
 
 # 此前：compiler-main CI 五工作流通过，PR #1 待审

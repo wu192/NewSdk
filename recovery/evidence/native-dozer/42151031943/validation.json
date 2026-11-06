@@ -1,0 +1,424 @@
+{
+  "succeeded": true,
+  "sourceCommit": "a44f5836a73b679fc5cda4b3a7090d94e53388af",
+  "runId": "42151031943",
+  "scope": "Win32 native production serializer and C++/CLI XML bridge; not full SDK/MOD/game acceptance",
+  "modes": [
+    {
+      "mode": "Od",
+      "elapsedSeconds": 25.775,
+      "native": "PASS native DozerAIUpdate, inherited fields/defaults, x86 little/big endian; original root tokens/layout",
+      "bridge": "PASS Dozer XML bridge: four platforms, inherited chooser, floats/defaults, ordinary building and obsolete-node schema refusals",
+      "fixtures": [
+        {
+          "name": "dozer-defaults.be.bin",
+          "bytes": 2724,
+          "sha256": "71bf21fc83342ee64a5708d409798d17854f7c7dac46e6bd35817b19d450e080"
+        },
+        {
+          "name": "dozer-defaults.be.relo",
+          "bytes": 12,
+          "sha256": "16b647ec9d85ee0c648ddbf1df65f3afce6a944f6ff6b1011237f544ef7ec821"
+        },
+        {
+          "name": "dozer-defaults.le.bin",
+          "bytes": 2724,
+          "sha256": "166f66e3ffbbe42ef1da1f9090d137fca5401bbda87d658571c323dd06d665f9"
+        },
+        {
+          "name": "dozer-defaults.le.relo",
+          "bytes": 12,
+          "sha256": "18539cee901d7f1c3ae6ad147ba908b94d6348ace35d429aca814c4c8026e9fc"
+        },
+        {
+          "name": "dozer-parameters.be.bin",
+          "bytes": 2980,
+          "sha256": "96f683535b80183c3cfdf9e8ee3facca0e5cc08757dba65b99a26ad09a281c86"
+        },
+        {
+          "name": "dozer-parameters.be.relo",
+          "bytes": 20,
+          "sha256": "88924c4b3eba500287f9fe16a899859ce9363eb0f7b0f1bec48280494a704033"
+        },
+        {
+          "name": "dozer-parameters.le.bin",
+          "bytes": 2980,
+          "sha256": "6bbb8d9b76e5835d8a14e57abfdfe0cce3cb7a23813cb90a79471a8d3ee1a150"
+        },
+        {
+          "name": "dozer-parameters.le.relo",
+          "bytes": 20,
+          "sha256": "a56a4be1ab2b71ead6b7c9a696d628aa348f53dbac3856f9b90e0c5be7e4b884"
+        },
+        {
+          "name": "xml-0-defaults.bin",
+          "bytes": 3368,
+          "sha256": "f2da93f6cb11c587e4f44e46b4d055b52b56790e87ebfb9ddcf92b4540c89044"
+        },
+        {
+          "name": "xml-0-defaults.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-0-defaults.relo",
+          "bytes": 20,
+          "sha256": "9b80d8790585ed1cf912f767526017f120d9f2ec11725ce0841f55924fba8daa"
+        },
+        {
+          "name": "xml-0-defaults.xml",
+          "bytes": 295,
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77"
+        },
+        {
+          "name": "xml-0-parameters.bin",
+          "bytes": 3368,
+          "sha256": "eea2a1f1c4b4516e95a073fa2e8480e62a6f4110f7bc20a146c0503ad1b3612a"
+        },
+        {
+          "name": "xml-0-parameters.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-0-parameters.relo",
+          "bytes": 20,
+          "sha256": "9b80d8790585ed1cf912f767526017f120d9f2ec11725ce0841f55924fba8daa"
+        },
+        {
+          "name": "xml-0-parameters.xml",
+          "bytes": 363,
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3"
+        },
+        {
+          "name": "xml-1-defaults.bin",
+          "bytes": 3368,
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f"
+        },
+        {
+          "name": "xml-1-defaults.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-1-defaults.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-1-defaults.xml",
+          "bytes": 295,
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77"
+        },
+        {
+          "name": "xml-1-parameters.bin",
+          "bytes": 3368,
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2"
+        },
+        {
+          "name": "xml-1-parameters.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-1-parameters.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-1-parameters.xml",
+          "bytes": 363,
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3"
+        },
+        {
+          "name": "xml-2-defaults.bin",
+          "bytes": 3368,
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f"
+        },
+        {
+          "name": "xml-2-defaults.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-2-defaults.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-2-defaults.xml",
+          "bytes": 295,
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77"
+        },
+        {
+          "name": "xml-2-parameters.bin",
+          "bytes": 3368,
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2"
+        },
+        {
+          "name": "xml-2-parameters.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-2-parameters.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-2-parameters.xml",
+          "bytes": 363,
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3"
+        },
+        {
+          "name": "xml-99-defaults.bin",
+          "bytes": 3368,
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f"
+        },
+        {
+          "name": "xml-99-defaults.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-99-defaults.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-99-defaults.xml",
+          "bytes": 295,
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77"
+        },
+        {
+          "name": "xml-99-parameters.bin",
+          "bytes": 3368,
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2"
+        },
+        {
+          "name": "xml-99-parameters.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-99-parameters.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-99-parameters.xml",
+          "bytes": 363,
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3"
+        }
+      ]
+    },
+    {
+      "mode": "O2",
+      "elapsedSeconds": 29.596,
+      "native": "PASS native DozerAIUpdate, inherited fields/defaults, x86 little/big endian; original root tokens/layout",
+      "bridge": "PASS Dozer XML bridge: four platforms, inherited chooser, floats/defaults, ordinary building and obsolete-node schema refusals",
+      "fixtures": [
+        {
+          "name": "dozer-defaults.be.bin",
+          "bytes": 2724,
+          "sha256": "71bf21fc83342ee64a5708d409798d17854f7c7dac46e6bd35817b19d450e080"
+        },
+        {
+          "name": "dozer-defaults.be.relo",
+          "bytes": 12,
+          "sha256": "16b647ec9d85ee0c648ddbf1df65f3afce6a944f6ff6b1011237f544ef7ec821"
+        },
+        {
+          "name": "dozer-defaults.le.bin",
+          "bytes": 2724,
+          "sha256": "166f66e3ffbbe42ef1da1f9090d137fca5401bbda87d658571c323dd06d665f9"
+        },
+        {
+          "name": "dozer-defaults.le.relo",
+          "bytes": 12,
+          "sha256": "18539cee901d7f1c3ae6ad147ba908b94d6348ace35d429aca814c4c8026e9fc"
+        },
+        {
+          "name": "dozer-parameters.be.bin",
+          "bytes": 2980,
+          "sha256": "96f683535b80183c3cfdf9e8ee3facca0e5cc08757dba65b99a26ad09a281c86"
+        },
+        {
+          "name": "dozer-parameters.be.relo",
+          "bytes": 20,
+          "sha256": "88924c4b3eba500287f9fe16a899859ce9363eb0f7b0f1bec48280494a704033"
+        },
+        {
+          "name": "dozer-parameters.le.bin",
+          "bytes": 2980,
+          "sha256": "6bbb8d9b76e5835d8a14e57abfdfe0cce3cb7a23813cb90a79471a8d3ee1a150"
+        },
+        {
+          "name": "dozer-parameters.le.relo",
+          "bytes": 20,
+          "sha256": "a56a4be1ab2b71ead6b7c9a696d628aa348f53dbac3856f9b90e0c5be7e4b884"
+        },
+        {
+          "name": "xml-0-defaults.bin",
+          "bytes": 3368,
+          "sha256": "f2da93f6cb11c587e4f44e46b4d055b52b56790e87ebfb9ddcf92b4540c89044"
+        },
+        {
+          "name": "xml-0-defaults.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-0-defaults.relo",
+          "bytes": 20,
+          "sha256": "9b80d8790585ed1cf912f767526017f120d9f2ec11725ce0841f55924fba8daa"
+        },
+        {
+          "name": "xml-0-defaults.xml",
+          "bytes": 295,
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77"
+        },
+        {
+          "name": "xml-0-parameters.bin",
+          "bytes": 3368,
+          "sha256": "eea2a1f1c4b4516e95a073fa2e8480e62a6f4110f7bc20a146c0503ad1b3612a"
+        },
+        {
+          "name": "xml-0-parameters.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-0-parameters.relo",
+          "bytes": 20,
+          "sha256": "9b80d8790585ed1cf912f767526017f120d9f2ec11725ce0841f55924fba8daa"
+        },
+        {
+          "name": "xml-0-parameters.xml",
+          "bytes": 363,
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3"
+        },
+        {
+          "name": "xml-1-defaults.bin",
+          "bytes": 3368,
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f"
+        },
+        {
+          "name": "xml-1-defaults.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-1-defaults.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-1-defaults.xml",
+          "bytes": 295,
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77"
+        },
+        {
+          "name": "xml-1-parameters.bin",
+          "bytes": 3368,
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2"
+        },
+        {
+          "name": "xml-1-parameters.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-1-parameters.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-1-parameters.xml",
+          "bytes": 363,
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3"
+        },
+        {
+          "name": "xml-2-defaults.bin",
+          "bytes": 3368,
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f"
+        },
+        {
+          "name": "xml-2-defaults.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-2-defaults.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-2-defaults.xml",
+          "bytes": 295,
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77"
+        },
+        {
+          "name": "xml-2-parameters.bin",
+          "bytes": 3368,
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2"
+        },
+        {
+          "name": "xml-2-parameters.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-2-parameters.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-2-parameters.xml",
+          "bytes": 363,
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3"
+        },
+        {
+          "name": "xml-99-defaults.bin",
+          "bytes": 3368,
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f"
+        },
+        {
+          "name": "xml-99-defaults.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-99-defaults.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-99-defaults.xml",
+          "bytes": 295,
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77"
+        },
+        {
+          "name": "xml-99-parameters.bin",
+          "bytes": 3368,
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2"
+        },
+        {
+          "name": "xml-99-parameters.imp",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "name": "xml-99-parameters.relo",
+          "bytes": 20,
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240"
+        },
+        {
+          "name": "xml-99-parameters.xml",
+          "bytes": 363,
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3"
+        }
+      ]
+    }
+  ]
+}

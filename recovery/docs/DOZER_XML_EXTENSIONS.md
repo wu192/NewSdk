@@ -80,3 +80,8 @@ Linux 测试头只替代顺序执行的 Windows InitOnce，不加入 Windows 生
 
 组件测试不代替完整 SDK/MOD、Enhancer DLL 或游戏内验收。特别是鼠标交互、
 普通建筑/工厂兼容、工程车死亡后接续、存档载入和多人同步须在游戏中分别验证。
+
+Windows 新验收：[`42151031943`](https://github.com/wu162/NewSdk/actions/runs/42151031943)，
+源码 `a44f5836`，上述 `/Od`、`/O2` Native/bridge 全通过；
+[逐模式来源、耗时与 fixture 摘要](../evidence/native-dozer/42151031943/validation.json)。
+目标仓库只读，验证分支位于 `wu162/NewSdk:codex/native-dozer-commandset`，未合入目标分支。
