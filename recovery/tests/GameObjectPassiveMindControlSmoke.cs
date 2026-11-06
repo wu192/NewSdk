@@ -123,11 +123,39 @@ static class GameObjectPassiveMindControlSmoke
             foreach (XmlElement module in root.GetElementsByTagName(names[i], "uri:ea.com:eala:asset"))
                 module.SetAttribute("TypeId", types[i]);
     }
+    static XmlElement PreparedExample(XmlElement source)
+    {
+        var prepared = (XmlElement)source.CloneNode(true);
+        AnnotateProduction(prepared);
+        // This component harness bypasses Core's dependency resolution as well
+        // as its TypeId annotation. Supply deterministic zero-based dependency
+        // indexes on a clone; source examples must retain actual asset names.
+        foreach (XmlElement hint in prepared.GetElementsByTagName("WeaponAiHintInfo", "uri:ea.com:eala:asset"))
+        {
+            Require(hint.GetAttribute("UseAsWarheadForDamageCalculations") == "PassiveMindControlDamageEstimateOnly", "Dedicated estimate reference");
+            hint.SetAttribute("UseAsWarheadForDamageCalculations", "PassiveMindControlDamageEstimateOnly\\0");
+        }
+        foreach (XmlElement weapon in prepared.GetElementsByTagName("Weapon", "uri:ea.com:eala:asset"))
+        {
+            Require(weapon.GetAttribute("Template") == "PassiveMindControlAssignedTargetWeapon", "Only harmless weapon is mounted");
+            weapon.SetAttribute("Template", "PassiveMindControlAssignedTargetWeapon\\1");
+        }
+        foreach (XmlElement model in prepared.GetElementsByTagName("Model", "uri:ea.com:eala:asset"))
+        {
+            Require(model.GetAttribute("Name") == "ABBaseDefenseAdvanced_SKN", "Stock sample model");
+            model.SetAttribute("Name", "ABBaseDefenseAdvanced_SKN\\2");
+        }
+        foreach (XmlElement stance in prepared.GetElementsByTagName("StancesBehavior", "uri:ea.com:eala:asset"))
+        {
+            Require(stance.GetAttribute("StanceTemplate") == "OffensiveStructures", "Stock structure stance");
+            stance.SetAttribute("StanceTemplate", "OffensiveStructures\\3");
+        }
+        return prepared;
+    }
     static void ProductionWeapon(XmlElement node, IAssetBuilderPlugin original, TargetPlatform platform)
     {
         PluginSchemaBoundary.Validate(node);
-        AnnotateProduction(node);
-        var input = Declaration(node);
+        var input = Declaration(PreparedExample(node));
         var result = Recovered.WeaponCompiler.ProcessInstance(input, platform);
         EqualBuffers(original.ProcessInstance(input), result, "Production harmless/estimate weapon original DLL");
         bool big = platform != TargetPlatform.Win32;
@@ -141,7 +169,10 @@ static class GameObjectPassiveMindControlSmoke
             var hintNode = (XmlElement)node.GetElementsByTagName("WeaponAiHintInfo", "uri:ea.com:eala:asset")[0];
             Require(hintNode.GetAttribute("UseAsWarheadForDamageCalculations") == "PassiveMindControlDamageEstimateOnly", "Dedicated estimate reference");
             int hint = (int)Word(b, root + 252, big);
-            Require(hint > root && Word(b, hint + 4, big) != 0, "Native damage estimate reference survives XML bridge");
+            Require(hint > root && Word(b, hint + 4, big) == 1, "Native damage estimate resolves dependency index zero as index+1");
+            int hintTable = (int)Word(b, Token(b, 0, 0xD3A7C780u, big) + 8, big);
+            int warheadToken = Token(b, hintTable, 3539729073u, big);
+            Require(Word(b, warheadToken + 4, big) == 3494305058u && Word(b, warheadToken + 8, big) == hint + 4, "Native weapon-reference token points at the resolved estimate dependency");
         }
         else
         {
@@ -172,16 +203,26 @@ static class GameObjectPassiveMindControlSmoke
             var module = (XmlElement)objectNode.GetElementsByTagName("PassiveMindControlUpdate", "uri:ea.com:eala:asset")[0];
             uint capacity = UInt32.Parse(module.GetAttribute("Capacity"));
             PluginSchemaBoundary.Validate(objectNode);
-            AnnotateProduction(objectNode);
             Require(objectNode.GetAttribute("CommandSet") == "GenericCommandSet", "Ordinary Stop command set");
             var mounted = objectNode.GetElementsByTagName("Weapon", "uri:ea.com:eala:asset");
             Require(mounted.Count == 1 && ((XmlElement)mounted[0]).GetAttribute("Template") == "PassiveMindControlAssignedTargetWeapon", "Estimate-only weapon is never mounted");
             Require(objectNode.GetElementsByTagName("AIUpdate", "uri:ea.com:eala:asset")[0].ParentNode.LocalName == "AI", "Ordinary AI node");
-            var result = Check(Declaration(objectNode), platform, capacity, 15);
+            var prepared = PreparedExample(objectNode);
+            var result = Check(Declaration(prepared), platform, capacity, 15);
             bool big = platform != TargetPlatform.Win32;
             byte[] b = result.InstanceData;
             int root = (int)Word(b, 8, big) - 4;
             Require((Word(b, root + 4, big) & (1u << 5)) != 0, "Native CAN_ATTACK flag");
+            int behaviors = (int)Word(b, root + 468, big), behaviorList = (int)Word(b, behaviors + 4, big), weaponSet = 0;
+            for (int i = 0; i < Word(b, behaviors, big); ++i)
+            {
+                int moduleData = (int)Word(b, behaviorList + 4*i, big);
+                if (Word(b, moduleData, big) == 1125589673u) weaponSet = moduleData;
+            }
+            Require(weaponSet != 0 && Word(b, weaponSet + 8, big) == 1, "One native ordinary hardpoint");
+            Require(Word(b, weaponSet + 16, big) == 0 && Word(b, weaponSet + 24, big) == 0 && Word(b, weaponSet + 32, big) == 0, "No extra native weapon slots");
+            int hardpoint = (int)Word(b, weaponSet + 12, big), mountedData = (int)Word(b, hardpoint + 20, big);
+            Require(Word(b, hardpoint + 16, big) == 1 && Word(b, mountedData, big) == 0 && Word(b, mountedData + 4, big) == 2, "Native primary weapon resolves harmless dependency index one; estimate is not mounted");
             Require(Word(b, root + 472, big) == 1, "One ordinary AI update");
             int aiList = (int)Word(b, root + 476, big), ai = (int)Word(b, aiList, big);
             Require(Word(b, ai, big) == 148619278u && Word(b, ai + 16, big) == 4 && Word(b, ai + 60, big) == 5, "Native AI disables idle acquisition and uses offensive structure state machine");
@@ -191,7 +232,7 @@ static class GameObjectPassiveMindControlSmoke
             File.WriteAllBytes(stem + ".imp", result.ImportsData);
             // The unextended attack/model/body/geometry backbone is native SDK
             // behavior: compare all three buffers with the original DLL too.
-            var legacy = (XmlElement)objectNode.CloneNode(true);
+            var legacy = (XmlElement)prepared.CloneNode(true);
             var extension = legacy.GetElementsByTagName("PassiveMindControlUpdate", "uri:ea.com:eala:asset")[0];
             extension.ParentNode.RemoveChild(extension);
             var legacyInput = Declaration(legacy);
