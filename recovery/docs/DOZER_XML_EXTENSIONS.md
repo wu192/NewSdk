@@ -84,4 +84,5 @@ Linux 测试头只替代顺序执行的 Windows InitOnce，不加入 Windows 生
 Windows 新验收：[`42151031943`](https://github.com/wu162/NewSdk/actions/runs/42151031943)，
 源码 `a44f5836`，上述 `/Od`、`/O2` Native/bridge 全通过；
 [逐模式来源、耗时与 fixture 摘要](../evidence/native-dozer/42151031943/validation.json)。
-目标仓库只读，验证分支位于 `wu162/NewSdk:codex/native-dozer-commandset`，未合入目标分支。
+首次验收因目标仓库当时只读而运行在 `wu162/NewSdk`。写权限恢复后，改动已推送至
+目标仓库 [PR #8](https://github.com/wu192/NewSdk/pull/8)，继续以 `feature/integration` 为集成目标。

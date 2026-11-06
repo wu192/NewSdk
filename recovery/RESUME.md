@@ -14,9 +14,12 @@ schema 用例和已移除节点拒绝。Windows
 `a44f5836`：MSVC Win32 `/Od`、`/O2` Native 和四平台 XML bridge 均通过，
 任务约 79 秒，零工件上传；[逐模式来源及耗时收据](evidence/native-dozer/42151031943/validation.json)。
 首轮 `42150740776` 编译/测试通过，整体因账户工件额度满而失败，原终态保留。
-目标仓库当前只读，修改和验证分支暂存于
-[`wu162/NewSdk:codex/native-dozer-commandset`](https://github.com/wu162/NewSdk/tree/codex/native-dozer-commandset)，
-仍以 `wu192/NewSdk:feature/integration` 为基线，未合入目标分支。
+目标仓库写权限已恢复；改动已推送至
+[`wu192/NewSdk:codex/native-dozer-commandset`](https://github.com/wu192/NewSdk/tree/codex/native-dozer-commandset)，
+经 [PR #8](https://github.com/wu192/NewSdk/pull/8) 向 `feature/integration` 集成。
+配套运行时 [EnhancerCorona PR #2](https://github.com/wu192/EnhancerCorona/pull/2)
+已合入其 `feature/integration`，合并提交 `bbf99ec5`。
+此前 `wu162/NewSdk` 验证分支保留验收来源，后续开发继续使用目标仓库。
 未执行完整 SDK/MOD、DLL 或游戏内验收。禁止强推；合入继续遵循 PR 和用户批准规则。
 
 # 此前：compiler-main CI 五工作流通过，PR #1 待审
