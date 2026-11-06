@@ -29,7 +29,8 @@ foreach ($mode in @('Od', 'O2')) {
     $fixtures = Join-Path $out 'fixtures'
     $nativeObjects = Join-Path $out 'native-obj'
     $bridgeObjects = Join-Path $out 'bridge-obj'
-    New-Item -ItemType Directory -Force $out, $fixtures, $nativeObjects, $bridgeObjects | Out-Null
+    $weaponObjects = Join-Path $out 'weapon-obj'
+    New-Item -ItemType Directory -Force $out, $fixtures, $nativeObjects, $bridgeObjects, $weaponObjects | Out-Null
     Copy-Item SDK/tools/*.dll $out
     $exe = Join-Path $out 'GameObjectDozerNative.exe'
     & cl /nologo /MD /EHsc /std:c++17 /utf-8 /fp:precise "/$mode" "/Irecovery/src/Native" "/Fo$nativeObjects/" "/Fe$exe" @native recovery/tests/GameObjectDozerNative.cpp *> "$out/native-build.log"
@@ -55,8 +56,16 @@ foreach ($mode in @('Od', 'O2')) {
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$smoke.config"
     & $smoke $fixtures *> "$out/bridge-test.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/bridge-test.log"; throw "XML bridge contract failed: $mode" }
+    # The complete ordinary-attack example also compiles its harmless weapon and
+    # the estimate-only template through the existing production weapon bridge.
+    $weaponDll = Join-Path $out 'Recovered.Weapon.dll'
+    $weaponNative = @($native | Where-Object { $_ -notin @('recovery/src/Native/GameObject.cpp', 'recovery/src/Native/WeaponSlotOrder.cpp') }) + @(
+        'recovery/src/Native/WeaponNugget.cpp', 'recovery/src/Native/WeaponTemplate.cpp'
+    )
+    & cl /nologo /clr /LD /MD /EHa /std:c++17 /utf-8 /fp:precise "/$mode" "/AI$out" "/Fo$weaponObjects/" "/Fe$weaponDll" @weaponNative recovery/src/Bridge/WeaponCompiler.cpp *> "$out/mind-control-weapon-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/mind-control-weapon-build.log"; throw "Passive mind control weapon bridge compilation failed: $mode" }
     $mindControlSmoke = Join-Path $out 'GameObjectPassiveMindControlSmoke.exe'
-    & $csc /nologo /platform:x86 "/r:$dll" "/r:$out/BinaryAssetBuilder.Core.dll" /r:System.Xml.dll "/out:$mindControlSmoke" (Resolve-Path 'recovery/src/Plugin/GameObjectPlugin.cs').Path (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs').Path (Resolve-Path 'recovery/tests/GameObjectPassiveMindControlSmoke.cs').Path *> "$out/mind-control-smoke-build.log"
+    & $csc /nologo /platform:x86 "/r:$dll" "/r:$weaponDll" "/r:$out/BinaryAssetBuilder.Core.dll" /r:System.Xml.dll "/out:$mindControlSmoke" (Resolve-Path 'recovery/src/Plugin/GameObjectPlugin.cs').Path (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs').Path (Resolve-Path 'recovery/tests/GameObjectPassiveMindControlSmoke.cs').Path *> "$out/mind-control-smoke-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/mind-control-smoke-build.log"; throw "Passive mind control managed smoke compilation failed: $mode" }
     Copy-Item "$smoke.config" "$mindControlSmoke.config"
     & $mindControlSmoke $fixtures (Resolve-Path "$out/BinaryAssetBuilder.Tokenizer.dll").Path (Resolve-Path 'examples/passive-mind-control/PassiveMindControlTower.xml').Path *> "$out/mind-control-bridge-test.log"

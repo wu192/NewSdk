@@ -107,28 +107,98 @@ static class GameObjectPassiveMindControlSmoke
         try { Recovered.GameObjectCompiler.ProcessInstance(input, TargetPlatform.Win32); } catch (Exception) { compilerRejected = true; }
         Require((schemaRejected || !requireSchemaRejection) && compilerRejected, "Invalid module accepted at schema/native XML boundary (schemaRejected=" + schemaRejected + ", compilerRejected=" + compilerRejected + "): " + input.Node.OuterXml);
     }
-    static void ProductionExamples(string path, TargetPlatform platform)
+    static void EqualBuffers(AssetBuffer expected, AssetBuffer actual, string label)
+    {
+        Equal(expected.InstanceData, actual.InstanceData, label + " instance");
+        Equal(expected.RelocationData, actual.RelocationData, label + " relocation");
+        Equal(expected.ImportsData, actual.ImportsData, label + " imports");
+    }
+    static void AnnotateProduction(XmlElement root)
+    {
+        // The schema preprocessor supplies these existing native module TypeIds
+        // in production. Keep the example itself free of compiler annotations.
+        string[] names = { "PassiveMindControlUpdate", "WeaponSetUpdate", "AIUpdate", "ActiveBody", "ScriptedModelDraw", "DestroyDie", "StancesBehavior", "DamageNugget" };
+        string[] types = { "4000878923", "1125589673", "148619278", "1510882715", "1322199627", "259966977", "3231835197", "3237297817" };
+        for (int i = 0; i < names.Length; ++i)
+            foreach (XmlElement module in root.GetElementsByTagName(names[i], "uri:ea.com:eala:asset"))
+                module.SetAttribute("TypeId", types[i]);
+    }
+    static void ProductionWeapon(XmlElement node, IAssetBuilderPlugin original, TargetPlatform platform)
+    {
+        PluginSchemaBoundary.Validate(node);
+        AnnotateProduction(node);
+        var input = Declaration(node);
+        var result = Recovered.WeaponCompiler.ProcessInstance(input, platform);
+        EqualBuffers(original.ProcessInstance(input), result, "Production harmless/estimate weapon original DLL");
+        bool big = platform != TargetPlatform.Win32;
+        byte[] b = result.InstanceData;
+        int root = (int)Word(b, 8, big) - 4;
+        Require(Word(b, root + 4, big) == 0x43480000u, "Weapon range matches capture radius");
+        if (node.GetAttribute("id") == "PassiveMindControlAssignedTargetWeapon")
+        {
+            Require(node.GetElementsByTagName("Nuggets", "uri:ea.com:eala:asset")[0].ChildNodes.Count == 0, "Mounted weapon has no effects");
+            Require(Word(b, root + 256, big) == 0 && Word(b, root + 260, big) == 0, "Mounted native Nugget count/pointer stay zero");
+            var hintNode = (XmlElement)node.GetElementsByTagName("WeaponAiHintInfo", "uri:ea.com:eala:asset")[0];
+            Require(hintNode.GetAttribute("UseAsWarheadForDamageCalculations") == "PassiveMindControlDamageEstimateOnly", "Dedicated estimate reference");
+            int hint = (int)Word(b, root + 252, big);
+            Require(hint > root && Word(b, hint + 4, big) != 0, "Native damage estimate reference survives XML bridge");
+        }
+        else
+        {
+            Require(node.GetAttribute("id") == "PassiveMindControlDamageEstimateOnly", "Only dedicated sample weapons");
+            Require(Word(b, root + 256, big) == 1, "One estimate-only Nugget");
+            int list = (int)Word(b, root + 260, big), nugget = (int)Word(b, list, big);
+            Require(Word(b, nugget, big) == 3237297817u && Word(b, nugget + 40, big) == 0x3f800000u, "Estimate-only damage is nonzero");
+        }
+        string stem = Path.Combine(outputDirectory, node.GetAttribute("id") + "-" + (int)platform);
+        File.WriteAllBytes(stem + ".bin", result.InstanceData);
+        File.WriteAllBytes(stem + ".relo", result.RelocationData);
+        File.WriteAllBytes(stem + ".imp", result.ImportsData);
+    }
+    static void ProductionExamples(string path, IAssetBuilderPlugin original, TargetPlatform platform)
     {
         var document = new XmlDocument(); document.Load(path);
-        int count = 0;
+        original.Initialize(null, platform);
+        int count = 0, weapons = 0;
         foreach (XmlNode node in document.DocumentElement.ChildNodes)
         {
             var objectNode = node as XmlElement;
             if (objectNode == null) continue;
+            if (objectNode.LocalName == "WeaponTemplate")
+            {
+                ProductionWeapon(objectNode, original, platform); ++weapons; continue;
+            }
             if (objectNode.LocalName != "GameObject") continue;
             var module = (XmlElement)objectNode.GetElementsByTagName("PassiveMindControlUpdate", "uri:ea.com:eala:asset")[0];
             uint capacity = UInt32.Parse(module.GetAttribute("Capacity"));
             PluginSchemaBoundary.Validate(objectNode);
-            module.SetAttribute("TypeId", "4000878923");
-            foreach (XmlElement body in objectNode.GetElementsByTagName("ActiveBody", "uri:ea.com:eala:asset")) body.SetAttribute("TypeId", "1510882715");
+            AnnotateProduction(objectNode);
+            Require(objectNode.GetAttribute("CommandSet") == "GenericCommandSet", "Ordinary Stop command set");
+            var mounted = objectNode.GetElementsByTagName("Weapon", "uri:ea.com:eala:asset");
+            Require(mounted.Count == 1 && ((XmlElement)mounted[0]).GetAttribute("Template") == "PassiveMindControlAssignedTargetWeapon", "Estimate-only weapon is never mounted");
+            Require(objectNode.GetElementsByTagName("AIUpdate", "uri:ea.com:eala:asset")[0].ParentNode.LocalName == "AI", "Ordinary AI node");
             var result = Check(Declaration(objectNode), platform, capacity, 15);
+            bool big = platform != TargetPlatform.Win32;
+            byte[] b = result.InstanceData;
+            int root = (int)Word(b, 8, big) - 4;
+            Require((Word(b, root + 4, big) & (1u << 5)) != 0, "Native CAN_ATTACK flag");
+            Require(Word(b, root + 472, big) == 1, "One ordinary AI update");
+            int aiList = (int)Word(b, root + 476, big), ai = (int)Word(b, aiList, big);
+            Require(Word(b, ai, big) == 148619278u && Word(b, ai + 16, big) == 4 && Word(b, ai + 60, big) == 5, "Native AI disables idle acquisition and uses offensive structure state machine");
             string stem = Path.Combine(outputDirectory, "example-" + capacity + "-" + (int)platform);
             File.WriteAllBytes(stem + ".bin", result.InstanceData);
             File.WriteAllBytes(stem + ".relo", result.RelocationData);
             File.WriteAllBytes(stem + ".imp", result.ImportsData);
+            // The unextended attack/model/body/geometry backbone is native SDK
+            // behavior: compare all three buffers with the original DLL too.
+            var legacy = (XmlElement)objectNode.CloneNode(true);
+            var extension = legacy.GetElementsByTagName("PassiveMindControlUpdate", "uri:ea.com:eala:asset")[0];
+            extension.ParentNode.RemoveChild(extension);
+            var legacyInput = Declaration(legacy);
+            EqualBuffers(original.ProcessInstance(legacyInput), Recovered.GameObjectCompiler.ProcessInstance(legacyInput, platform), "Complete native tower backbone original DLL");
             ++count;
         }
-        Require(count == 2, "Production capacity 3/8 examples");
+        Require(count == 2 && weapons == 2, "Production capacity 3/8 towers and harmless/estimate weapon pair");
     }
     static int Main(string[] args)
     {
@@ -148,7 +218,7 @@ static class GameObjectPassiveMindControlSmoke
                 Check(Module("Capacity='0008' AcquireRadius='200' CaptureIntervalFrames='1073741822'", Filter), platform, 8, 1073741822);
                 foreach (uint capacity in new uint[] { 3, 8 })
                     NativeEquality(Check(Module("Capacity='" + capacity + "' AcquireRadius='200'", ReferencedFilter), platform, capacity, 15), platform, capacity);
-                ProductionExamples(args[2], platform);
+                ProductionExamples(args[2], original, platform);
                 Legacy(original, platform);
             }
             foreach (string value in new[] { "0", "-1", "4294967296", "1.5", "text" }) Reject(Module("AcquireRadius='200' Capacity='" + value + "'", Filter));
@@ -156,7 +226,7 @@ static class GameObjectPassiveMindControlSmoke
             foreach (string value in new[] { "1junk", "1e", "0x1p1", "1D2" }) Reject(Module("AcquireRadius='" + value + "'", Filter), false);
             foreach (string value in new[] { "0", "-1", "1073741823", "4294967296" }) Reject(Module("AcquireRadius='200' CaptureIntervalFrames='" + value + "'", Filter));
             Reject(Module("", Filter)); Reject(Module("AcquireRadius='200'", "")); Reject(Module("AcquireRadius='200'", Filter + Filter));
-            Console.WriteLine("PASS passive mind control real XML bridge: four platforms; capacities/defaults/invalid values; template filters match native three buffers; production capacity 3/8 examples; legacy original DLL three-buffer compatibility");
+            Console.WriteLine("PASS passive mind control real XML bridge: four platforms; capacities/defaults/invalid values; template filters match native three buffers; complete capacity 3/8 ordinary-attack towers; empty effects and estimate-only weapons; native backbone/weapons and legacy original DLL three-buffer compatibility");
             return 0;
         }
         catch (Exception error) { Console.Error.WriteLine(error); return 1; }

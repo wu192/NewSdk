@@ -1,17 +1,15 @@
-# 当前：心灵控制塔配套编译器（2026-11-06）
+# 当前：普通右键指定心控增量（2026-11-07）
 
-新分支 `feature/passive-mind-control-tower` 基于 `feature/integration`，新增
-`Behaviors/PassiveMindControlUpdate` 的 schema、完整 `0x84` 数据 marshal/endian/token、
-内联 ObjectFilter 及 GameObject 缓存版本。运行时位于 `wu192/EnhancerCorona` 同名分支。
-配置、ABI、组件验证入口及未验证范围见
-[心灵控制塔 XML](docs/PASSIVE_MIND_CONTROL_XML.md)。
-沿用现有 `TestEnhancerDozerXml.ps1` 与定向工作流，源码 `ef68ccfe` 的
-[Windows 42229679853](https://github.com/wu192/NewSdk/actions/runs/42229679853)
-已成功：`/Od`、`/O2` native/CLR、四平台 XML/native 三缓冲、正式示例、非法值与
-四组旧 GameObject 原 DLL 三缓冲兼容均通过；零工件上传。
-[组件收据](evidence/passive-mind-control-ci-20261106.json)保留两次失败及修复原因。
-[PR #10](https://github.com/wu192/NewSdk/pull/10) 待审。
-未验证完整 SDK/MOD 或游戏。合入仍须用户批准，禁止强推。
+继续 `feature/passive-mind-control-tower` 与待审 PR #10，配套运行时为
+`wu192/EnhancerCorona` 同名分支及 PR #4，集成目标仍为 `feature/integration`。
+容量 3/8 示例已补完整可选塔、普通攻击槽与 AI；实际武器为空 Nuggets，
+独立非零估算模板仅由 AI hint 引用，不挂载。原生心控数据合同与 schema 不变。
+现有 `TestEnhancerDozerXml.ps1` 增加生产 Weapon bridge 与完整塔骨架原 DLL 三缓冲对照，
+沿原有 `/Od`、`/O2`、四平台矩阵验证，不新增工作流矩阵或工件上传。
+本轮新增用例等待现有 Windows CI；先前 `42229679853` 仅覆盖旧输入。
+本地两仓示例一致、完整 SDK schema 通过。普通右键光标/攻击资格、攻击收尾、
+存读档/回放/双客户端仍须游戏验收。细节见 [心控 XML](docs/PASSIVE_MIND_CONTROL_XML.md)。
+未合并；合入须用户批准，禁止强推。
 
 # 此前：原生推土机命令资格重构（2026-11-06）
 
