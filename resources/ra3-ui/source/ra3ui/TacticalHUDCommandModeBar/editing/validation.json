@@ -1,0 +1,274 @@
+{
+  "newXmlRoundTrip": "exact structural match",
+  "originalCharacters1Through56IncludingEmptyImportSlot": "unchanged decoded XML nodes",
+  "originalImport": "unchanged",
+  "originalSevenExports": "unchanged",
+  "originalPlacementAndBackground": "unchanged",
+  "originalConstants": {
+    "preservedTypedPrefix": 121,
+    "total": 194
+  },
+  "originalOtherFilesByteIdentical": [
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar.dat",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar.eaf",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar.flm",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar.swf",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar.tac",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/1.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/12.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/12.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/15.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/15.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/17.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/17.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/19.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/19.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/23.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/23.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/25.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/25.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/27.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/27.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/31.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/31.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/33.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/33.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/35.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/35.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/39.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/39.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/41.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/41.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/43.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/43.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/47.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/47.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/49.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/49.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/5.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/5.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/51.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/51.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/7.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/7.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/9.ru",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_geometry/9.ru.o",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/11.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/14.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/16.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/18.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/22.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/24.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/26.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/30.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/32.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/34.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/38.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/4.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/40.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/42.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/46.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/48.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/50.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/6.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/TacticalHUDCommandModeBar_textures/8.tga",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/art/Textures/apt_TacticalHUDCommandModeBar.INI",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/art/Textures/apt_TacticalHUDCommandModeBar.xml",
+    "resources/ra3-ui/source/ra3ui/TacticalHUDCommandModeBar/art/Textures/apt_TacticalHUDCommandModeBar_1.tga"
+  ],
+  "newGeometryDeclarations": [
+    57,
+    59
+  ],
+  "sdkReferencedFilesExist": 26,
+  "rootBytecode": {
+    "instructions": 841,
+    "functions": 18,
+    "branches": 27,
+    "functionSizes": [
+      {
+        "name": "GetPowerButton",
+        "bodyBytes": 61
+      },
+      {
+        "name": "UpdatePowerButtonVisuals",
+        "bodyBytes": 553
+      },
+      {
+        "name": "ShowPowerButtonHelp",
+        "bodyBytes": 149
+      },
+      {
+        "name": "HidePowerButtonHelp",
+        "bodyBytes": 189
+      },
+      {
+        "name": "SetPowerModeState",
+        "bodyBytes": 457
+      },
+      {
+        "name": "",
+        "bodyBytes": 117
+      },
+      {
+        "name": "InitializePowerButton",
+        "bodyBytes": 537
+      },
+      {
+        "name": "",
+        "bodyBytes": 189
+      },
+      {
+        "name": "",
+        "bodyBytes": 93
+      },
+      {
+        "name": "",
+        "bodyBytes": 141
+      },
+      {
+        "name": "",
+        "bodyBytes": 197
+      },
+      {
+        "name": "",
+        "bodyBytes": 197
+      },
+      {
+        "name": "FinishPowerButtonInitialization",
+        "bodyBytes": 2537
+      },
+      {
+        "name": "UnloadPowerButton",
+        "bodyBytes": 289
+      },
+      {
+        "name": "GetSellButton",
+        "bodyBytes": 61
+      },
+      {
+        "name": "GetRepairButton",
+        "bodyBytes": 61
+      },
+      {
+        "name": "GetPauseButton",
+        "bodyBytes": 61
+      },
+      {
+        "name": "onUnload",
+        "bodyBytes": 181
+      }
+    ]
+  },
+  "rootBytecodeMatchesPreviousCompiledImplementation": true,
+  "format": "74",
+  "aptBytes": 22008,
+  "constBytes": 3906,
+  "gameRuntimeTested": false,
+  "baseCommit": "66c5866070896bebc37fe5e9bdafba42a8822b9d",
+  "branch": "feat/power-toggle-ra3ui",
+  "authoringInput": "editing/TacticalHUDCommandModeBar.apt.xml + editing/TacticalHUDCommandModeBar.const.json + raw RU + original SDK AssetDeclaration",
+  "notInputs": [
+    "FLA",
+    "ActionScript",
+    "converted/",
+    "resources/ui-projects/"
+  ],
+  "baselineRoundTrip": {
+    "original_apt_bytes": 13985,
+    "roundtrip_apt_bytes": 13988,
+    "original_movie_offset": 504,
+    "roundtrip_movie_offset": 504,
+    "byte_identical_apt": false,
+    "decoded_xml_exact_match": true,
+    "decoded_xml_tree_equal": true,
+    "unchanged_const_values": true,
+    "toolRepository": "https://github.com/jonwil/cc3tools/tree/ae47b0996927bcf3c43ba3494805afa37b8744de"
+  },
+  "decodedNewRawTreeMatchesEditingXml": true,
+  "deterministicRebuild": "Two independent invocations matched final APT/CONST hashes",
+  "controlledBytecodeExecution": {
+    "input": "Actual tracked .apt and .const bytes; parse typed CONST, movie/frame/control pointers, DefineFunction and branch bytecode directly",
+    "harness": "tools/bytecode-smoke/RawSmoke.csproj",
+    "toolchain": ".NET SDK 8.0.427, Release, no FLA/AS compiler or asset encoder",
+    "build": "passed; zero warnings and errors",
+    "checks": 20,
+    "result": "passed",
+    "cases": [
+      "Ready once with encoded root",
+      "default hidden and disabled",
+      "GetPowerButton encodes button rather than root",
+      "Power at x=-40",
+      "native active/enabled feedback",
+      "press visual only",
+      "one Toggle per enabled release",
+      "hover tooltip enter/leave",
+      "disabled release rejected",
+      "hidden when unavailable",
+      "matching-root unload once",
+      "deferred frame initialization",
+      "teardown before initialization"
+    ],
+    "mocked": [
+      "attachMovie and shared button initialization",
+      "rendering/color/text APIs",
+      "native FSCommand receiver and native-to-UI invocation"
+    ],
+    "notExecuted": "Actual APT player/frame scheduling and native DLL/game integration"
+  },
+  "independentRawReview": {
+    "status": "passed",
+    "reader": "Jonwil apt2xml, independent of the write path and C# smoke interpreter",
+    "reviewer": "separate read-only agent native_repair",
+    "characters": 64,
+    "typedConstants": 194,
+    "constantReferencesChecked": 704,
+    "allNonNullCharacterSignaturesValid": true,
+    "namedVariableAndMethodReferencesAreStrings": true,
+    "noDanglingCharacterOrFontReference": true,
+    "shapeIdsMatchSdkGeometryIds": true,
+    "allSdkFileReferencesExist": true,
+    "fontName": "Lucida Sans",
+    "fontHeightPixels": 14,
+    "firstFrameOrder": "background, four original placeobject controls, migrated root action",
+    "schedulingBoundary": "First-frame ordering is intentional but actual APT scheduling still needs game verification"
+  },
+  "sdkProductBuildPerformed": false,
+  "nativeDllIntegrationTested": false,
+  "multiplayerReplaySaveLoadTested": false,
+  "assetFiles": {
+    "TacticalHUDCommandModeBar.apt": {
+      "bytes": 22008,
+      "sha256": "94dd307b5cad69cde1144d716c6894bab30bc3a35ddb2141301ac44775f2f5c8"
+    },
+    "TacticalHUDCommandModeBar.const": {
+      "bytes": 3906,
+      "sha256": "3c7d88d798d2188a749bbf33b009d6fa6cd0f96bc127744d7bd06b7dbb6c9f39"
+    },
+    "TacticalHUDCommandModeBar.xml": {
+      "bytes": 3088,
+      "sha256": "0004ca13db6c8c8412b7717c68ce0d28190335b40f1daae8e0e96ff6adaf377a"
+    },
+    "TacticalHUDCommandModeBar_geometry/57.ru": {
+      "bytes": 66,
+      "sha256": "e00e26b17cc2f750301c2c6c02f146498afa65e47c951b141b7bfb735296cee7"
+    },
+    "TacticalHUDCommandModeBar_geometry/59.ru": {
+      "bytes": 91,
+      "sha256": "a7cde84fb0692ecf0ca18beee3c44cad5e9e969cb3f82721c430980f215be3e6"
+    },
+    "editing/TacticalHUDCommandModeBar.apt.xml": {
+      "bytes": 98921,
+      "sha256": "a04920be523fc984a7bd6bb4bcab3114abb6dfcc241de849f8ab9760e5657579"
+    },
+    "editing/TacticalHUDCommandModeBar.const.json": {
+      "bytes": 11320,
+      "sha256": "b00df7bcb9ce5fcab81573913c2fdebbb69da20fdfd0a10ff1682e1ad1d76941"
+    },
+    "tools/rebuild_apt.py": {
+      "bytes": 4405,
+      "sha256": "db155e5b107920cf5687ffa7e5c33f1d90cd8638fbca1fb919aeda6e7c825909"
+    }
+  },
+  "scope": "Only the requested raw TacticalHUDCommandModeBar assets and their direct editing/rebuild/docs/check inputs; no native code or generic compiler changes"
+}

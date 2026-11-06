@@ -1,0 +1,782 @@
+{
+  "format": "Apt constant file",
+  "originalValues": 121,
+  "values": [
+    {
+      "type": 1,
+      "value": "sellButton"
+    },
+    {
+      "type": 1,
+      "value": "Pointer"
+    },
+    {
+      "type": 1,
+      "value": "encode"
+    },
+    {
+      "type": 1,
+      "value": "repairButton"
+    },
+    {
+      "type": 1,
+      "value": "pauseButton"
+    },
+    {
+      "type": 1,
+      "value": "GetSellButton"
+    },
+    {
+      "type": 1,
+      "value": "GetRepairButton"
+    },
+    {
+      "type": 1,
+      "value": "GetPauseButton"
+    },
+    {
+      "type": 1,
+      "value": "onUnload"
+    },
+    {
+      "type": 1,
+      "value": "initialized"
+    },
+    {
+      "type": 1,
+      "value": "helpSite"
+    },
+    {
+      "type": 1,
+      "value": "FSCommand:"
+    },
+    {
+      "type": 1,
+      "value": "OnInitialized"
+    },
+    {
+      "type": 1,
+      "value": "this"
+    },
+    {
+      "type": 1,
+      "value": "qualifyName"
+    },
+    {
+      "type": 1,
+      "value": ""
+    },
+    {
+      "type": 1,
+      "value": "DetachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "OnCurrentFactionChanged"
+    },
+    {
+      "type": 1,
+      "value": "onUnload"
+    },
+    {
+      "type": 1,
+      "value": "factionSkinned"
+    },
+    {
+      "type": 1,
+      "value": "_root"
+    },
+    {
+      "type": 1,
+      "value": "GetCurrentFaction"
+    },
+    {
+      "type": 1,
+      "value": "this"
+    },
+    {
+      "type": 1,
+      "value": "AttachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "DetachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "OnCurrentFactionChanged"
+    },
+    {
+      "type": 1,
+      "value": "onUnload"
+    },
+    {
+      "type": 1,
+      "value": "factionSkinned"
+    },
+    {
+      "type": 1,
+      "value": "_root"
+    },
+    {
+      "type": 1,
+      "value": "GetCurrentFaction"
+    },
+    {
+      "type": 1,
+      "value": "this"
+    },
+    {
+      "type": 1,
+      "value": "AttachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "DetachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "OnCurrentFactionChanged"
+    },
+    {
+      "type": 1,
+      "value": "onUnload"
+    },
+    {
+      "type": 1,
+      "value": "factionSkinned"
+    },
+    {
+      "type": 1,
+      "value": "_root"
+    },
+    {
+      "type": 1,
+      "value": "GetCurrentFaction"
+    },
+    {
+      "type": 1,
+      "value": "this"
+    },
+    {
+      "type": 1,
+      "value": "AttachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "DetachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "OnCurrentFactionChanged"
+    },
+    {
+      "type": 1,
+      "value": "onUnload"
+    },
+    {
+      "type": 1,
+      "value": "factionSkinned"
+    },
+    {
+      "type": 1,
+      "value": "_root"
+    },
+    {
+      "type": 1,
+      "value": "GetCurrentFaction"
+    },
+    {
+      "type": 1,
+      "value": "this"
+    },
+    {
+      "type": 1,
+      "value": "AttachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "DetachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "OnCurrentFactionChanged"
+    },
+    {
+      "type": 1,
+      "value": "onUnload"
+    },
+    {
+      "type": 1,
+      "value": "factionSkinned"
+    },
+    {
+      "type": 1,
+      "value": "_root"
+    },
+    {
+      "type": 1,
+      "value": "GetCurrentFaction"
+    },
+    {
+      "type": 1,
+      "value": "this"
+    },
+    {
+      "type": 1,
+      "value": "AttachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "DetachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "OnCurrentFactionChanged"
+    },
+    {
+      "type": 1,
+      "value": "onUnload"
+    },
+    {
+      "type": 1,
+      "value": "factionSkinned"
+    },
+    {
+      "type": 1,
+      "value": "_root"
+    },
+    {
+      "type": 1,
+      "value": "GetCurrentFaction"
+    },
+    {
+      "type": 1,
+      "value": "this"
+    },
+    {
+      "type": 1,
+      "value": "AttachFactionObserver"
+    },
+    {
+      "type": 1,
+      "value": "stateLabel"
+    },
+    {
+      "type": 1,
+      "value": "imageStage"
+    },
+    {
+      "type": 1,
+      "value": "clip"
+    },
+    {
+      "type": 1,
+      "value": "gotoAndPlay"
+    },
+    {
+      "type": 1,
+      "value": "backgroundStage"
+    },
+    {
+      "type": 1,
+      "value": "buttonStage"
+    },
+    {
+      "type": 1,
+      "value": "isEnabled"
+    },
+    {
+      "type": 1,
+      "value": "_down"
+    },
+    {
+      "type": 1,
+      "value": "SetState"
+    },
+    {
+      "type": 1,
+      "value": "_over"
+    },
+    {
+      "type": 1,
+      "value": "FSCommand:"
+    },
+    {
+      "type": 1,
+      "value": "OnClicked"
+    },
+    {
+      "type": 1,
+      "value": "qualifyName"
+    },
+    {
+      "type": 1,
+      "value": ""
+    },
+    {
+      "type": 1,
+      "value": "isOver"
+    },
+    {
+      "type": 1,
+      "value": "OnRollOver"
+    },
+    {
+      "type": 1,
+      "value": "_up"
+    },
+    {
+      "type": 1,
+      "value": "OnRollOut"
+    },
+    {
+      "type": 1,
+      "value": "removeMovieClip"
+    },
+    {
+      "type": 1,
+      "value": "imageClipName"
+    },
+    {
+      "type": 1,
+      "value": "length"
+    },
+    {
+      "type": 1,
+      "value": "isSelected"
+    },
+    {
+      "type": 1,
+      "value": "Normal"
+    },
+    {
+      "type": 1,
+      "value": "Highlighted"
+    },
+    {
+      "type": 1,
+      "value": "attachMovie"
+    },
+    {
+      "type": 1,
+      "value": "backgroundClipName"
+    },
+    {
+      "type": 1,
+      "value": "flashyThingy"
+    },
+    {
+      "type": 1,
+      "value": "_visible"
+    },
+    {
+      "type": 1,
+      "value": "_disabled"
+    },
+    {
+      "type": 1,
+      "value": "AttachContent"
+    },
+    {
+      "type": 1,
+      "value": "initialized"
+    },
+    {
+      "type": 1,
+      "value": "Start"
+    },
+    {
+      "type": 1,
+      "value": "Stop"
+    },
+    {
+      "type": 1,
+      "value": "shouldPlay"
+    },
+    {
+      "type": 1,
+      "value": "highlightClip"
+    },
+    {
+      "type": 1,
+      "value": "CreateHUDGadgetFlash"
+    },
+    {
+      "type": 1,
+      "value": "Close"
+    },
+    {
+      "type": 1,
+      "value": "helpSite"
+    },
+    {
+      "type": 1,
+      "value": "Pointer"
+    },
+    {
+      "type": 1,
+      "value": "encode"
+    },
+    {
+      "type": 1,
+      "value": "OnPress"
+    },
+    {
+      "type": 1,
+      "value": "OnRelease"
+    },
+    {
+      "type": 1,
+      "value": "SetVisibility"
+    },
+    {
+      "type": 1,
+      "value": "SetEnabled"
+    },
+    {
+      "type": 1,
+      "value": "SetSelected"
+    },
+    {
+      "type": 1,
+      "value": "SetFlashing"
+    },
+    {
+      "type": 1,
+      "value": "SetHighlighted"
+    },
+    {
+      "type": 1,
+      "value": "GetHelpSite"
+    },
+    {
+      "type": 1,
+      "value": "onUnload"
+    },
+    {
+      "type": 1,
+      "value": "buttonClip"
+    },
+    {
+      "type": 1,
+      "value": "buttonClipName"
+    },
+    {
+      "type": 1,
+      "value": "client"
+    },
+    {
+      "type": 1,
+      "value": "this"
+    },
+    {
+      "type": 1,
+      "value": "1"
+    },
+    {
+      "type": 1,
+      "value": "OnInitialized"
+    },
+    {
+      "type": 1,
+      "value": "extern"
+    },
+    {
+      "type": 1,
+      "value": "InGame"
+    },
+    {
+      "type": 1,
+      "value": "powerButton"
+    },
+    {
+      "type": 7,
+      "value": 1
+    },
+    {
+      "type": 3,
+      "value": 0
+    },
+    {
+      "type": 1,
+      "value": "tint"
+    },
+    {
+      "type": 7,
+      "value": 3425881
+    },
+    {
+      "type": 7,
+      "value": 13537066
+    },
+    {
+      "type": 4,
+      "value": 0
+    },
+    {
+      "type": 7,
+      "value": 15914563
+    },
+    {
+      "type": 7,
+      "value": 5795737
+    },
+    {
+      "type": 7,
+      "value": 2177331
+    },
+    {
+      "type": 1,
+      "value": "panelColor"
+    },
+    {
+      "type": 1,
+      "value": "setRGB"
+    },
+    {
+      "type": 1,
+      "value": "_alpha"
+    },
+    {
+      "type": 7,
+      "value": 100
+    },
+    {
+      "type": 7,
+      "value": 35
+    },
+    {
+      "type": 1,
+      "value": "powerHintBackground"
+    },
+    {
+      "type": 1,
+      "value": "powerHintText"
+    },
+    {
+      "type": 5,
+      "value": 0
+    },
+    {
+      "type": 1,
+      "value": "canUse"
+    },
+    {
+      "type": 1,
+      "value": "enabledArg"
+    },
+    {
+      "type": 7,
+      "value": 0
+    },
+    {
+      "type": 1,
+      "value": "activeArg"
+    },
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 1,
+      "value": "HidePowerButtonHelp"
+    },
+    {
+      "type": 1,
+      "value": "UpdatePowerButtonVisuals"
+    },
+    {
+      "type": 1,
+      "value": "_y"
+    },
+    {
+      "type": 1,
+      "value": "_x"
+    },
+    {
+      "type": 7,
+      "value": 40
+    },
+    {
+      "type": 1,
+      "value": "RA3CommandModeButtonClip"
+    },
+    {
+      "type": 7,
+      "value": 7
+    },
+    {
+      "type": 7,
+      "value": 200
+    },
+    {
+      "type": 1,
+      "value": "EnhancerPowerButton"
+    },
+    {
+      "type": 7,
+      "value": 4
+    },
+    {
+      "type": 1,
+      "value": "FinishPowerButtonInitialization"
+    },
+    {
+      "type": 1,
+      "value": "onEnterFrame"
+    },
+    {
+      "type": 1,
+      "value": "panel"
+    },
+    {
+      "type": 1,
+      "value": "EnhancerPowerSurface"
+    },
+    {
+      "type": 7,
+      "value": 3
+    },
+    {
+      "type": 1,
+      "value": "_width"
+    },
+    {
+      "type": 7,
+      "value": 37
+    },
+    {
+      "type": 1,
+      "value": "_height"
+    },
+    {
+      "type": 7,
+      "value": 22
+    },
+    {
+      "type": 1,
+      "value": "Color"
+    },
+    {
+      "type": 1,
+      "value": "icon"
+    },
+    {
+      "type": 1,
+      "value": "powerIcon"
+    },
+    {
+      "type": 1,
+      "value": "EnhancerPowerIcon"
+    },
+    {
+      "type": 7,
+      "value": 25
+    },
+    {
+      "type": 7,
+      "value": 238
+    },
+    {
+      "type": 7,
+      "value": 27
+    },
+    {
+      "type": 7,
+      "value": 5
+    },
+    {
+      "type": 7,
+      "value": 201
+    },
+    {
+      "type": 1,
+      "value": "hintColor"
+    },
+    {
+      "type": 7,
+      "value": 1053464
+    },
+    {
+      "type": 7,
+      "value": 202
+    },
+    {
+      "type": 1,
+      "value": "EnhancerPowerHintText"
+    },
+    {
+      "type": 1,
+      "value": "field"
+    },
+    {
+      "type": 7,
+      "value": 232
+    },
+    {
+      "type": 1,
+      "value": "text"
+    },
+    {
+      "type": 1,
+      "value": "Power off / restore"
+    },
+    {
+      "type": 1,
+      "value": "newStateLabel"
+    },
+    {
+      "type": 1,
+      "value": "_parent"
+    },
+    {
+      "type": 1,
+      "value": "%PowerToggle:Toggle"
+    },
+    {
+      "type": 1,
+      "value": "CallGameFunction"
+    },
+    {
+      "type": 7,
+      "value": 2
+    },
+    {
+      "type": 1,
+      "value": "fscommand"
+    },
+    {
+      "type": 5,
+      "value": 1
+    },
+    {
+      "type": 1,
+      "value": "ShowPowerButtonHelp"
+    },
+    {
+      "type": 1,
+      "value": "SetPowerModeState"
+    },
+    {
+      "type": 1,
+      "value": "%PowerToggle:Ready,"
+    },
+    {
+      "type": 1,
+      "value": "%PowerToggle:Unload,"
+    },
+    {
+      "type": 1,
+      "value": "UnloadPowerButton"
+    },
+    {
+      "type": 1,
+      "value": "GetPowerButton"
+    },
+    {
+      "type": 1,
+      "value": "InitializePowerButton"
+    }
+  ]
+}
