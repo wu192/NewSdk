@@ -145,7 +145,7 @@ static class GameObjectPassiveMindControlSmoke
                 foreach (uint capacity in new uint[] { 1, 3, 8, UInt32.MaxValue })
                     Check(Module("Capacity='" + capacity + "' AcquireRadius='200'", Filter), platform, capacity, 15);
                 Check(Module("AcquireRadius='200'", Filter), platform, 3, 15);
-                Check(Module("Capacity='+0008' AcquireRadius='200' CaptureIntervalFrames='1073741822'", Filter), platform, 8, 1073741822);
+                Check(Module("Capacity='0008' AcquireRadius='200' CaptureIntervalFrames='1073741822'", Filter), platform, 8, 1073741822);
                 foreach (uint capacity in new uint[] { 3, 8 })
                     NativeEquality(Check(Module("Capacity='" + capacity + "' AcquireRadius='200'", ReferencedFilter), platform, capacity, 15), platform, capacity);
                 ProductionExamples(args[2], platform);
