@@ -6,9 +6,13 @@
 独立非零估算模板仅由 AI hint 引用，不挂载。原生心控数据合同与 schema 不变。
 现有 `TestEnhancerDozerXml.ps1` 增加生产 Weapon bridge 与完整塔骨架原 DLL 三缓冲对照，
 沿原有 `/Od`、`/O2`、四平台矩阵验证，不新增工作流矩阵或工件上传。
-本轮新增用例等待现有 Windows CI；先前 `42229679853` 仅覆盖旧输入。
-本地两仓示例一致、完整 SDK schema 通过。普通右键光标/攻击资格、攻击收尾、
-存读档/回放/双客户端仍须游戏验收。细节见 [心控 XML](docs/PASSIVE_MIND_CONTROL_XML.md)。
+源码 `52338d0c` 的 [Windows 42307637203](https://github.com/wu192/NewSdk/actions/runs/42307637203)
+已 success：两模式 native/CLR、四平台、完整塔骨架和两武器原 DLL 三缓冲全部通过，
+约 82 秒、零工件；[收据](evidence/manual-mind-control-ci-20261107.json) 保存逐模式 fixture 身份。
+首轮 `42307169648` 构建通过，但测试遗漏 Core 引用预处理导致 hint 独立断言失败；
+已在测试副本补齐依赖索引并精确验证 hint/实际挂载武器，失败记录保留。
+普通右键光标/攻击资格、攻击收尾、存读档/回放/双客户端仍须游戏验收；
+未编完整 SDK/MOD。细节见 [心控 XML](docs/PASSIVE_MIND_CONTROL_XML.md)。
 未合并；合入须用户批准，禁止强推。
 
 # 此前：原生推土机命令资格重构（2026-11-06）

@@ -53,7 +53,7 @@ GameObject TypeId/TypeHash 保持原值，ProcessingHash 版本推进至 4103/41
 每轮结果、来源提交、耗时和 fixture 身份写入 Actions 日志及 Job Summary，
 不上传工件、不增加矩阵或持久缓存。
 
-Windows [42229679853](https://github.com/wu192/NewSdk/actions/runs/42229679853)
+此前 Windows [42229679853](https://github.com/wu192/NewSdk/actions/runs/42229679853)
 验证源码 `ef68ccfe`：上述 `/Od`、`/O2` native/CLR 全部通过，两个模式分别约
 23.3/20.9 秒；Actions 工件数量为 0。
 [原始组件收据及两次失败原因](../evidence/passive-mind-control-ci-20261106.json)
@@ -62,6 +62,22 @@ Windows [42229679853](https://github.com/wu192/NewSdk/actions/runs/42229679853)
 仅凭数值上下限仍接受 NaN，因此生产 schema 增加十进制浮点词法约束。
 非法值拒绝断言均保留。未执行完整 SDK/MOD、游戏、存取档、回放或多人验收。
 
-本轮普通攻击示例与 XML bridge 增量尚待现有 Windows 定向 CI 的 `/Od`、`/O2` 及四平台结果。
-本地仅完成两仓示例一致性和完整 SDK schema 检查；没有改变 TypeId、kind 292、`0x84`
-布局、schema 字段或生产编译分派。历史 CI `42229679853` 不覆盖本轮新增用例。
+本轮源码 `52338d0c62ede6c9d25f44ea1197a7feb3f17fa5` 的
+[Windows 42307637203](https://github.com/wu192/NewSdk/actions/runs/42307637203) 已 success。
+`/Od`、`/O2` 的 native/CLR 与四平台 XML bridge 全部通过，包括完整容量 3/8 塔、
+无实际效果/估算武器、空 Nuggets、非零估算和准确的 hint/挂载武器依赖索引，
+完整原生塔骨架及两武器的原 Tokenizer DLL 三缓冲对照也通过。
+两模式分别 26.829/31.316 秒，components job 82 秒；API 确认工件数量为 0。
+[本轮收据](../evidence/manual-mind-control-ci-20261107.json) 保存来源、逐模式摘要、
+每模式 100 份 fixture 的大小/摘要及原始失败终态。
+
+首轮 [42307169648](https://github.com/wu192/NewSdk/actions/runs/42307169648) 的 native/CLR
+构建通过，但 `/Od` 在 hint 非空断言失败：组件宿主跳过了 Core 的依赖预处理，
+原版与恢复版当时都将原始资产名编为空引用。修正仅在测试副本上加入 Core 形式的
+`name\index`，精确核对输出的 index+1、引用 token 类型/地址及实际武器槽；
+正式示例中的真实资产名保留，实际效果为空等断言没有放宽。
+
+本轮没有改变 TypeId、kind 292、`0x84` 布局、schema 字段或生产编译分派。
+这证明组件编译与对应二进制合同；组件宿主提供依赖索引，不代替完整 Core 解析/链接，
+也未执行完整 SDK/MOD 或游戏。普通右键攻击资格、无副作用表现、攻击 order/Shift 队列、
+存取档、回放与双客户端仍须分别进行游戏验收。
