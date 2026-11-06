@@ -1,4 +1,15 @@
-# 当前：原生推土机命令资格重构（2026-11-06）
+# 当前：心灵控制塔配套编译器（2026-11-06）
+
+新分支 `feature/passive-mind-control-tower` 基于 `feature/integration`，新增
+`Behaviors/PassiveMindControlUpdate` 的 schema、完整 `0x84` 数据 marshal/endian/token、
+内联 ObjectFilter 及 GameObject 缓存版本。运行时位于 `wu192/EnhancerCorona` 同名分支。
+配置、ABI、组件验证入口及未验证范围见
+[心灵控制塔 XML](docs/PASSIVE_MIND_CONTROL_XML.md)。
+沿用现有 `TestEnhancerDozerXml.ps1` 与定向工作流；本地 schema/语法预检已完成，
+Windows native/CLR 与原 DLL 三缓冲兼容结果以该分支 Actions 的最终提交为准。
+未验证完整 SDK/MOD 或游戏。合入仍须 PR 和用户批准，禁止强推。
+
+# 此前：原生推土机命令资格重构（2026-11-06）
 
 目标为 [`wu192/NewSdk feature/integration`](https://github.com/wu192/NewSdk/tree/feature/integration)，
 配套运行时为 [EnhancerCorona 同名分支](https://github.com/wu192/EnhancerCorona/tree/feature/integration)。

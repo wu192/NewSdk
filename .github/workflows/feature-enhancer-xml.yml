@@ -1,7 +1,7 @@
-name: Native Dozer serializer and XML component validation
+name: Native Dozer and mind control XML component validation
 on:
   push:
-    branches: [feature/integration, codex/native-dozer-commandset]
+    branches: [feature/integration, codex/native-dozer-commandset, feature/passive-mind-control-tower]
     paths:
       - '.github/workflows/feature-enhancer-xml.yml'
       - 'recovery/scripts/TestEnhancerDozerXml.ps1'
@@ -14,10 +14,16 @@ on:
       - 'recovery/src/Native/ObjectFilter.*'
       - 'recovery/src/Native/WeaponSlotOrder.*'
       - 'recovery/src/Bridge/GameObjectCompiler.cpp'
+      - 'recovery/src/Plugin/GameObjectPlugin.cs'
+      - 'recovery/src/App/Application/BuiltinCompilers.cs'
       - 'recovery/tests/GameObjectDozer*'
+      - 'recovery/tests/GameObjectPassiveMindControl*'
       - 'recovery/tests/PluginSchemaBoundary.cs'
+      - 'examples/passive-mind-control/**'
+      - 'SDK/Schemas/xsd/CnC3Types.xsd'
       - 'SDK/Schemas/xsd/AssetTypeGameObject.xsd'
       - 'SDK/Schemas/xsd/Modules/DozerAIUpdate.xsd'
+      - 'SDK/Schemas/xsd/Modules/PassiveMindControlUpdate.xsd'
   workflow_dispatch:
 permissions:
   contents: read
@@ -39,6 +45,7 @@ jobs:
             recovery/scripts
             SDK/Schemas
             SDK/tools
+            examples/passive-mind-control
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x86
@@ -54,8 +61,8 @@ jobs:
           if (!(Test-Path $path)) { throw 'Component receipt unavailable; see the failed validation step.' }
           $json = Get-Content $path -Raw
           Write-Host $json
-          '## Native Dozer component evidence' >> $env:GITHUB_STEP_SUMMARY
-          'Win32 /Od and /O2 serializer and XML bridge checks; not full SDK/MOD or game validation.' >> $env:GITHUB_STEP_SUMMARY
+          '## Native Dozer and passive mind control component evidence' >> $env:GITHUB_STEP_SUMMARY
+          'Win32 /Od and /O2 serializer, XML bridge, production examples and focused original-DLL three-buffer compatibility; not full SDK/MOD or game validation.' >> $env:GITHUB_STEP_SUMMARY
           '```json' >> $env:GITHUB_STEP_SUMMARY
           $json >> $env:GITHUB_STEP_SUMMARY
           '```' >> $env:GITHUB_STEP_SUMMARY

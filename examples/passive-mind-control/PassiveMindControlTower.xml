@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Module configurations: add the behavior to an existing tower's inherited
+       model/body/production configuration when integrating a playable MOD. -->
+  <GameObject id="PassiveMindControlTowerCapacityThree" KindOf="STRUCTURE">
+    <Behaviors>
+      <PassiveMindControlUpdate id="ModuleTag_PassiveMindControl"
+                                Capacity="3" AcquireRadius="200"
+                                CaptureIntervalFrames="15">
+        <TargetFilter Rule="ANY" Relationship="ENEMIES" Include="INFANTRY VEHICLE" />
+      </PassiveMindControlUpdate>
+    </Behaviors>
+    <Body><ActiveBody id="ModuleTag_Body" MaxHealth="100" /></Body>
+  </GameObject>
+  <GameObject id="PassiveMindControlTowerCapacityEight" KindOf="STRUCTURE">
+    <Behaviors>
+      <PassiveMindControlUpdate id="ModuleTag_PassiveMindControl"
+                                Capacity="8" AcquireRadius="200"
+                                CaptureIntervalFrames="15">
+        <TargetFilter Rule="ANY" Relationship="ENEMIES" Include="INFANTRY VEHICLE" />
+      </PassiveMindControlUpdate>
+    </Behaviors>
+    <Body><ActiveBody id="ModuleTag_Body" MaxHealth="100" /></Body>
+  </GameObject>
+</AssetDeclaration>

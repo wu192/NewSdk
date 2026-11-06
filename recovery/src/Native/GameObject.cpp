@@ -322,7 +322,7 @@ U32 PassiveMindControlUnsigned(const GameObjectChild& input,const char* name,U32
     if(found==input.attributes.end()) return fallback;
     // xs:unsignedInt is decimal. The legacy ParseUnsigned accepts signs,
     // prefixes and saturates overflow, so validate this new contract before
-    // passing canonical decimal values to the existing scalar marshaller.
+    // storing its checked decimal values beside the existing scalar fields.
     const auto& text=found->second;std::size_t at=0;
     while(at<text.size() && std::isspace(static_cast<unsigned char>(text[at]))) ++at;
     if(at<text.size() && text[at]=='+') ++at;

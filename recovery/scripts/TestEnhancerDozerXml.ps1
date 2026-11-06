@@ -8,7 +8,7 @@ $receipt = [ordered]@{
     succeeded = $false
     sourceCommit = $source
     runId = $env:GITHUB_RUN_ID
-    scope = 'Win32 native production serializer and C++/CLI XML bridge; not full SDK/MOD/game acceptance'
+    scope = 'Win32 native Dozer and passive mind control production serializer and C++/CLI XML bridge; focused legacy original-DLL three-buffer compatibility; not full SDK/MOD/game acceptance'
     modes = @()
 }
 $receipt | ConvertTo-Json -Depth 6 | Set-Content $validationPath
@@ -36,6 +36,16 @@ foreach ($mode in @('Od', 'O2')) {
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/native-build.log"; throw "Native serializer compilation failed: $mode" }
     & $exe $fixtures *> "$out/native-test.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/native-test.log"; throw "Native serializer contract failed: $mode" }
+    # Reuse the production native objects built above; only the new test main
+    # differs. Keep the existing /Od and /O2 matrix rather than adding jobs.
+    $sharedNativeObjects = @(Get-ChildItem "$nativeObjects/*.obj" | Where-Object {
+        $_.Name -notin @('GameObjectDozerNative.obj', 'GameObjectPassiveMindControlNative.obj')
+    } | ForEach-Object { $_.FullName })
+    $mindControlNative = Join-Path $out 'GameObjectPassiveMindControlNative.exe'
+    & cl /nologo /MD /EHsc /std:c++17 /utf-8 /fp:precise "/$mode" "/Irecovery/src/Native" "/Fo$nativeObjects/" "/Fe$mindControlNative" recovery/tests/GameObjectPassiveMindControlNative.cpp @sharedNativeObjects *> "$out/mind-control-native-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/mind-control-native-build.log"; throw "Passive mind control native compilation failed: $mode" }
+    & $mindControlNative $fixtures *> "$out/mind-control-native-test.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/mind-control-native-test.log"; throw "Passive mind control native contract failed: $mode" }
     $dll = Join-Path $out 'Recovered.GameObject.dll'
     & cl /nologo /clr /LD /MD /EHa /std:c++17 /utf-8 /fp:precise "/$mode" "/AI$out" "/Fo$bridgeObjects/" "/Fe$dll" @native recovery/src/Bridge/GameObjectCompiler.cpp *> "$out/bridge-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/bridge-build.log"; throw "XML bridge compilation failed: $mode" }
@@ -45,11 +55,19 @@ foreach ($mode in @('Od', 'O2')) {
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$smoke.config"
     & $smoke $fixtures *> "$out/bridge-test.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/bridge-test.log"; throw "XML bridge contract failed: $mode" }
+    $mindControlSmoke = Join-Path $out 'GameObjectPassiveMindControlSmoke.exe'
+    & $csc /nologo /platform:x86 "/r:$dll" "/r:$out/BinaryAssetBuilder.Core.dll" /r:System.Xml.dll "/out:$mindControlSmoke" (Resolve-Path 'recovery/src/Plugin/GameObjectPlugin.cs').Path (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs').Path (Resolve-Path 'recovery/tests/GameObjectPassiveMindControlSmoke.cs').Path *> "$out/mind-control-smoke-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/mind-control-smoke-build.log"; throw "Passive mind control managed smoke compilation failed: $mode" }
+    Copy-Item "$smoke.config" "$mindControlSmoke.config"
+    & $mindControlSmoke $fixtures (Resolve-Path "$out/BinaryAssetBuilder.Tokenizer.dll").Path (Resolve-Path 'examples/passive-mind-control/PassiveMindControlTower.xml').Path *> "$out/mind-control-bridge-test.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/mind-control-bridge-test.log"; throw "Passive mind control XML bridge or legacy compatibility failed: $mode" }
     $receipt.modes += [ordered]@{
         mode = $mode
         elapsedSeconds = [Math]::Round($modeTimer.Elapsed.TotalSeconds, 3)
         native = (Get-Content "$out/native-test.log" -Raw).Trim()
         bridge = (Get-Content "$out/bridge-test.log" -Raw).Trim()
+        mindControlNative = (Get-Content "$out/mind-control-native-test.log" -Raw).Trim()
+        mindControlBridge = (Get-Content "$out/mind-control-bridge-test.log" -Raw).Trim()
         fixtures = @(Get-ChildItem $fixtures -File | ForEach-Object {
             @{ name = $_.Name; bytes = $_.Length; sha256 = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
         })
@@ -57,4 +75,4 @@ foreach ($mode in @('Od', 'O2')) {
 }
 $receipt.succeeded = $true
 $receipt | ConvertTo-Json -Depth 8 | Set-Content $validationPath
-Write-Host "PASS: Win32 production serializer and XML bridge in /Od and /O2; $source"
+Write-Host "PASS: Win32 Dozer/passive mind control serializer and XML bridge, legacy three-buffer compatibility in /Od and /O2; $source"
