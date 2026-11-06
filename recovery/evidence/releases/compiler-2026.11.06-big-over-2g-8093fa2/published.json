@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "repository": "wu192/NewSdk",
+  "tag": "compiler-2026.11.06-big-over-2g-8093fa2",
+  "releaseId": 436592886,
+  "releaseUrl": "https://github.com/wu192/NewSdk/releases/tag/compiler-2026.11.06-big-over-2g-8093fa2",
+  "publishedAt": "2026-11-06T14:27:15Z",
+  "sourceCommit": "8093fa214bcc53be6ad3d365e79627c7fa7ef383",
+  "compilerBaseline": "d7f788b882cf8d72c4426a3eebe506e3b59903eb",
+  "upstreamHead": "72aa8f0cb954ad94450d6d9fdb43f85d05504586",
+  "upstreamFixCommit": "788566c07449eb0e223ad21e64bc28d15c3d8c56",
+  "upstreamFixAlreadyPresent": true,
+  "productionInputsChanged": false,
+  "buildRun": {
+    "id": 42232015502,
+    "url": "https://github.com/wu192/NewSdk/actions/runs/42232015502",
+    "conclusion": "failure",
+    "failedStep": "Publish validated Debug and Release packages",
+    "failure": "Draft lookup by tag returned HTTP 404 after successful upload; original run terminal state preserved."
+  },
+  "validation": {
+    "succeeded": true,
+    "platform": "Windows x86 .NET Framework 4.8",
+    "configurations": [
+      "Debug",
+      "Release"
+    ],
+    "largePayloadBytes": 2147487744,
+    "largeBigChecksPerConfiguration": 128,
+    "passed": [
+      "App contracts",
+      "Actual >2GiB resolver with/without insertion and BIG offsets/payload",
+      "Original HashFix/resolver byte differential",
+      "Fresh production compiler builds",
+      "Production-object Core/application fixtures",
+      "Real CLI success/failure/cancellation/retry",
+      "Official neutral small MOD raw BIG differential",
+      "Core source diagnostics",
+      "Final ZIP independent extracted cold MOD build and BIG/SKUDEF byte comparison"
+    ],
+    "scope": "Targeted large-file and small MOD acceptance; no full large MOD, full SDK or in-game acceptance. BIG uint32 size and offset limits remain."
+  },
+  "publication": {
+    "succeeded": true,
+    "method": "Published existing verified draft by Release ID; reused original accepted ZIPs without rebuilding or changing runtime bytes.",
+    "checks": [
+      "Downloaded all five draft assets and checked API sizes/digests",
+      "Verified SHA256SUMS.txt",
+      "Verified exact three-member runtime ZIPs and member hashes",
+      "Checked upstream fix identity against production build receipts with Windows CRLF checkout bytes",
+      "Rechecked published release metadata and unchanged asset digests"
+    ],
+    "oneOffWorkflow": "Removed after publication; original workflow and validation execution remain at sourceCommit."
+  },
+  "assets": [
+    {
+      "id": 717418936,
+      "name": "manifest.json",
+      "bytes": 5963,
+      "digest": "sha256:5292e8df08e067d991f99ee36850834fcbba1dc8c3f2c61067781cda48e024f3",
+      "url": "https://github.com/wu192/NewSdk/releases/download/compiler-2026.11.06-big-over-2g-8093fa2/manifest.json"
+    },
+    {
+      "id": 717418932,
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 2105519,
+      "digest": "sha256:940f9304e84e3f118fea0f38528d4e5772eef4db5a6c51e9ca921cfb56dcec97",
+      "url": "https://github.com/wu192/NewSdk/releases/download/compiler-2026.11.06-big-over-2g-8093fa2/NewModCompiler-Win32-Debug.zip"
+    },
+    {
+      "id": 717418934,
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 1610753,
+      "digest": "sha256:e5f3f3c9d9b81d4dae5fc308ec8097b4c32dd7b19ffa540df4c206cad188ea7d",
+      "url": "https://github.com/wu192/NewSdk/releases/download/compiler-2026.11.06-big-over-2g-8093fa2/NewModCompiler-Win32-Release.zip"
+    },
+    {
+      "id": 717418938,
+      "name": "SHA256SUMS.txt",
+      "bytes": 370,
+      "digest": "sha256:063669ba78176897a7df4279fede43cc528dfa85f82c97e29fb818c874c4607c",
+      "url": "https://github.com/wu192/NewSdk/releases/download/compiler-2026.11.06-big-over-2g-8093fa2/SHA256SUMS.txt"
+    },
+    {
+      "id": 717418939,
+      "name": "validation-evidence.zip",
+      "bytes": 216687,
+      "digest": "sha256:fa43dc831abf374ea9a9de5beb9d4cc553eca6a1b9371e725b6d981a01438457",
+      "url": "https://github.com/wu192/NewSdk/releases/download/compiler-2026.11.06-big-over-2g-8093fa2/validation-evidence.zip"
+    }
+  ]
+}
