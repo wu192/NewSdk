@@ -365,6 +365,12 @@
     "skippedScopes": [
       "formal final ZIP publication",
       "full Upheaval performance"
-    ]
+    ],
+    "workflowConclusion": "failure",
+    "artifact": {
+      "id": 13561471929,
+      "sha256": "3a44c27c5a015ea7a25ed67cd1efb4c4e4edb45260ced6e51d075b314719927c"
+    },
+    "releaseExeMatchesSuccessfulReplay": true
   }
 }
