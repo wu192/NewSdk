@@ -18,8 +18,7 @@ from ValidateCompilerBig import read_archive
 
 TAG = 'compiler-2026.11.01-game-worldbuilder'
 REPOSITORY = 'wu162/NewSdk'
-RUNTIME = {'NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll',
-           'fxc.exe', 'd3dcompiler_47.dll'}
+RUNTIME = {'NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll'}
 SMALL = ('compiler-manifest.json', 'release-metadata.json', 'USAGE.zh-CN.md', 'SHA256SUMS.txt')
 
 
@@ -61,7 +60,7 @@ def verify_acceptance(artifact, bundle, metadata, out):
         deployed = package['independentZipDeployment']
         need(package['sourceCommit'] == source and deployed['succeeded'] and deployed['coldGameExtraction'] and
              deployed['exactAcceptedRawOutputs'] and len(deployed['artifacts']) == 2,
-             'Independent five-file ZIP cold game extraction acceptance missing')
+             'Independent three-file ZIP cold game extraction acceptance missing')
         cold = artifact / 'game-wb-validation' / name / 'explicit-cold/artifacts'
         for entry in deployed['artifacts']:
             exact_identity(cold / entry['name'], entry)
@@ -70,12 +69,12 @@ def verify_acceptance(artifact, bundle, metadata, out):
         actual = {r['name']: r['data'] for r in read_archive(cold_big)['members']}
         original = {r['name']: r['data'] for r in read_archive(original_big)['members']}
         need(actual == original, 'Accepted BIG raw members differ from original SDK chain')
-        need({e['name'] for e in package['runtimeFiles']} == RUNTIME and len(package['runtimeFiles']) == 5,
-             'Runtime receipt is not the exact five-file layout')
+        need({e['name'] for e in package['runtimeFiles']} == RUNTIME and len(package['runtimeFiles']) == 3,
+             'Runtime receipt is not the exact three-file layout')
         source_zip = packages / package['name']
         exact_identity(source_zip, package)
         with zipfile.ZipFile(source_zip) as archive:
-            need(set(archive.namelist()) == RUNTIME and len(archive.namelist()) == 5, 'Runtime ZIP layout differs')
+            need(set(archive.namelist()) == RUNTIME and len(archive.namelist()) == 3, 'Runtime ZIP layout differs')
             for entry in package['runtimeFiles']:
                 raw = archive.read(entry['name'])
                 import hashlib
