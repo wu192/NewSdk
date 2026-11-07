@@ -162,18 +162,8 @@ public class OutputManager
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.FileNotFound, "Specified manifest could not be found: {0}", text);
 		}
-		try
-		{
-			if (!manifest.Load(text, list.ToArray()))
-				throw new IOException("The base patch manifest could not be read.");
-		}
-		catch (Exception error)
-		{
-			// A requested patch must never silently fall back to a full stream.
-			// Loading also resolves inherited patch manifests and their assets;
-			// those failures belong to this compilation just like a missing base.
-			throw new BinaryAssetBuilderException(error, ErrorCode.InvalidArgument, "Could not load base patch manifest '{0}'.", text);
-		}
+		if (!manifest.Load(text, list.ToArray()))
+			throw new BinaryAssetBuilderException(ErrorCode.InvalidArgument, "Could not load base patch manifest '{0}'.", text);
 		_BasePatchStream = basePatchStream;
 		_BasePatchStreamRelativePath = baseStreamRelativePath;
 		_BasePatchStreamAssets = new Dictionary<string, AssetHeader>(StringComparer.Ordinal);

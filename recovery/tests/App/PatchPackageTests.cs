@@ -97,8 +97,8 @@ namespace NewModCompiler.Tests
             request.PatchVersion="../1";Reject(()=>PatchStreams.Validate(request),"PATCH_VERSION_INVALID");request.PatchVersion="1.01";
             request.PatchConfig="../Base.skudef";Reject(()=>PatchStreams.Validate(request),"PATCH_CONFIG_INVALID");
             request.PatchConfig="Patch_1.0.skudef";Reject(()=>PatchStreams.Validate(request),"PATCH_CONFIG_SELF");request.PatchConfig=null;
-            File.Delete(baseStem+".relo");Reject(()=>PatchStreams.Validate(request),"PATCH_BASE_MISSING");Put(baseStem+".relo",new byte[4]);
-            Put(baseStem+".manifest",new byte[48]);Reject(()=>PatchStreams.Validate(request),"PATCH_BASE_INVALID");Put(baseStem+".manifest",Manifest());
+            File.Delete(baseStem+".relo");Reject(()=>PatchStreams.ValidateInput(request),"PATCH_BASE_MISSING");Put(baseStem+".relo",new byte[4]);
+            Put(baseStem+".manifest",new byte[48]);Reject(()=>PatchStreams.ValidateInput(request),"PATCH_BASE_INVALID");Put(baseStem+".manifest",Manifest());
             request.PackageFormat="loose";Reject(()=>PatchStreams.Validate(request),"PATCH_PACKAGE_FORMAT");request.PackageFormat="big";
             request.FixNeutralAssets=true;Reject(()=>PatchStreams.Validate(request),"PATCH_NEUTRAL_UNSUPPORTED");request.FixNeutralAssets=false;
             request.Content=new[]{"apt"};Reject(()=>PatchStreams.Validate(request),"PATCH_BASE_CONTENT");request.Content=new[]{"base"};

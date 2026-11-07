@@ -19,27 +19,34 @@ namespace NewModCompiler.Application
         public static void Compile(BuildRequest request, IList<BigArchiveEntry> entries, string temporary, CancellationToken cancellation)
         {
             cancellation.ThrowIfCancellationRequested();
-            var inputs = entries.ToDictionary(entry => Canonical(entry.Name), StringComparer.OrdinalIgnoreCase);
-            var shaders = inputs.Keys.Where(name => name.StartsWith("shaders\\", StringComparison.OrdinalIgnoreCase)
-                && name.IndexOf('\\', 8) < 0 && name.EndsWith(".fx", StringComparison.OrdinalIgnoreCase)).OrderBy(name => name, StringComparer.Ordinal).ToArray();
-            var outputs = new List<BigArchiveEntry>();
-            if (request.CompileFx && shaders.Length != 0)
+            var shaders = request.CompileFx ? entries.Where(entry => entry.Name.EndsWith(".fx", StringComparison.OrdinalIgnoreCase))
+                .Select(entry => Canonical(entry.Name)).Where(name => name.StartsWith("shaders\\", StringComparison.OrdinalIgnoreCase)
+                && name.IndexOf('\\', 8) < 0).OrderBy(name => name, StringComparer.Ordinal).ToArray() : new string[0];
+            if (shaders.Length == 0)
             {
-                string compiler = FindCompiler(request), workspace = Path.Combine(temporary, "fx");
-                Directory.CreateDirectory(workspace);
-                Materialize(inputs, workspace, cancellation);
-                string destination = Path.Combine(workspace, "shaders", "compiled");
-                Directory.CreateDirectory(destination);
-                foreach (string shader in shaders)
+                for (int i = entries.Count - 1; i >= 0; --i)
                 {
-                    cancellation.ThrowIfCancellationRequested();
-                    string source = LocalPath(workspace, shader), output = Path.Combine(destination, Path.GetFileName(source) + "o");
-                    string flags = "/nologo /O3 /WX /T fx_2_0";
-                    if (File.ReadLines(source).Any(line => line.Trim() == "/// fxc-wrapper-disable-preshader")) flags += " /Op";
-                    Run(request, compiler, flags + " /Fo " + Quote(output) + " " + Quote(source), Path.GetDirectoryName(source), cancellation);
-                    if (!File.Exists(output)) throw new BuildFailure(ExitCode.Compilation, "FX_OUTPUT_MISSING", "FX compiler did not create " + output);
-                    outputs.Add(new BigArchiveEntry { Name = "shaders\\compiled\\" + Path.GetFileName(output), SourcePath = output });
+                    string name = entries[i].Name;
+                    if (name.EndsWith(".fx", StringComparison.OrdinalIgnoreCase) || name.EndsWith(".fxh", StringComparison.OrdinalIgnoreCase)) entries.RemoveAt(i);
                 }
+                return;
+            }
+            var inputs = entries.ToDictionary(entry => Canonical(entry.Name), StringComparer.OrdinalIgnoreCase);
+            var outputs = new List<BigArchiveEntry>();
+            string compiler = FindCompiler(request), workspace = Path.Combine(temporary, "fx");
+            Directory.CreateDirectory(workspace);
+            Materialize(inputs, workspace, cancellation);
+            string destination = Path.Combine(workspace, "shaders", "compiled");
+            Directory.CreateDirectory(destination);
+            foreach (string shader in shaders)
+            {
+                cancellation.ThrowIfCancellationRequested();
+                string source = LocalPath(workspace, shader), output = Path.Combine(destination, Path.GetFileName(source) + "o");
+                string flags = "/nologo /O3 /WX /T fx_2_0";
+                if (File.ReadLines(source).Any(line => line.Trim() == "/// fxc-wrapper-disable-preshader")) flags += " /Op";
+                Run(request, compiler, flags + " /Fo " + Quote(output) + " " + Quote(source), Path.GetDirectoryName(source), cancellation);
+                if (!File.Exists(output)) throw new BuildFailure(ExitCode.Compilation, "FX_OUTPUT_MISSING", "FX compiler did not create " + output);
+                outputs.Add(new BigArchiveEntry { Name = "shaders\\compiled\\" + Path.GetFileName(output), SourcePath = output });
             }
             cancellation.ThrowIfCancellationRequested();
             var replacements = outputs.ToDictionary(entry => Canonical(entry.Name), StringComparer.OrdinalIgnoreCase);

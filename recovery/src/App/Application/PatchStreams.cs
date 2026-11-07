@@ -32,24 +32,17 @@ namespace NewModCompiler.Application
                 throw Bad("PATCH_VERSION_INVALID", "patch-version must be none or an ASCII letter/digit followed by letters, digits, dots, underscores or hyphens (maximum 64 characters, no trailing dot).");
             ValidateConfig(request.PatchConfig);
             if (request.Command == "doctor") return;
-            if (request.Content == null || !request.Content.Contains("base") || !File.Exists(Path.Combine(request.ModRoot,"Data","Mod.xml")))
+            if (request.Content == null || !request.Content.Contains("base"))
                 throw Bad("PATCH_BASE_CONTENT", "Patch compilation requires base content and Data/Mod.xml.");
             string path = request.BasePatchStream;
             if (!Path.IsPathRooted(path) || !string.Equals(Path.GetExtension(path),".manifest",StringComparison.OrdinalIgnoreCase))
                 throw Bad("PATCH_BASE_INVALID", "base-patch-stream must name an absolute .manifest file.");
-            if (!File.Exists(path)) throw Bad("PATCH_BASE_MISSING", "Base patch manifest does not exist: " + path);
             string stem = path.Substring(0,path.Length-Path.GetExtension(path).Length);
             foreach (string extension in new[] {".manifest",".bin",".imp",".relo"}) {
                 string source = stem + extension;
-                if (!File.Exists(source)) throw Bad("PATCH_BASE_MISSING", "The base patch stream requires all four linked files: " + source);
                 if ((!string.IsNullOrEmpty(request.OutputRoot) && Paths.Contains(request.OutputRoot,source)) ||
                     new[] {request.EventsPath,request.ReportPath,request.LogPath}.Any(output => !string.IsNullOrEmpty(output) && Paths.Contains(output,source)))
                     throw Bad("PATCH_BASE_OVERLAP", "Base patch stream inputs must remain outside output and diagnostics: " + source);
-            }
-            using (var input = File.OpenRead(path)) {
-                byte[] header = new byte[48];
-                if (input.Read(header,0,header.Length) != header.Length || header[0] != 0 || header[1] != 1 || header[2] != 6 || header[3] != 0)
-                    throw Bad("PATCH_BASE_INVALID", "The base patch stream must be a linked little-endian RA3 v6 manifest.");
             }
             if (new[] {"mod","mod_m","mod_l"}.Any(name => string.Equals(Path.GetFileName(path),name + Suffix(request) + ".manifest",StringComparison.OrdinalIgnoreCase)))
                 throw Bad("PATCH_BASE_SELF_REFERENCE", "The base manifest filename must differ from the packaged patch and LoD manifests; otherwise their runtime references would form a cycle.");
@@ -57,6 +50,23 @@ namespace NewModCompiler.Application
                 string name = request.SkudefName ?? Path.GetFileName(request.ModRoot.TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar));
                 if (string.Equals(request.PatchConfig,name + "_" + request.ModVersion + ".skudef",StringComparison.OrdinalIgnoreCase))
                     throw Bad("PATCH_CONFIG_SELF", "patch-config must name the base SKUDEF, not this patch's own SKUDEF.");
+            }
+        }
+        // CLI input probing happens once. Core loads the actual base stream;
+        // packaging consumes already accepted stream artifacts.
+        public static void ValidateInput(BuildRequest request)
+        {
+            if (request.Command == "doctor" || string.IsNullOrEmpty(request.BasePatchStream)) return;
+            if (!File.Exists(Path.Combine(request.ModRoot,"Data","Mod.xml")))
+                throw Bad("PATCH_BASE_CONTENT", "Patch compilation requires Data/Mod.xml.");
+            string path = request.BasePatchStream;
+            string stem = Path.Combine(Path.GetDirectoryName(path),Path.GetFileNameWithoutExtension(path));
+            foreach (string extension in new[] {".manifest",".bin",".imp",".relo"})
+                if (!File.Exists(stem + extension)) throw Bad("PATCH_BASE_MISSING", "The base patch stream requires all four linked files: " + stem + extension);
+            using (var input = File.OpenRead(path)) {
+                byte[] header = new byte[48];
+                if (input.Read(header,0,header.Length) != header.Length || header[0] != 0 || header[1] != 1 || header[2] != 6 || header[3] != 0)
+                    throw Bad("PATCH_BASE_INVALID", "The base patch stream must be a linked little-endian RA3 v6 manifest.");
             }
         }
         internal static void ValidateConfig(string value)
@@ -75,7 +85,7 @@ namespace NewModCompiler.Application
         internal static IEnumerable<BigArchiveEntry> LoD(BuildRequest request, string manifest, string temporary, CancellationToken cancellation)
         {
             string suffix = Suffix(request);
-            if (string.IsNullOrEmpty(request.BasePatchStream)) {
+            if (suffix.Length == 0) {
                 foreach (string source in LoDStreamBuilder.Create(Path.Combine(Path.GetDirectoryName(manifest),"mod.manifest"),cancellation,Path.Combine(temporary,"package-lod")))
                     yield return new BigArchiveEntry { Name = "Data\\" + Path.GetFileName(source), SourcePath = source };
                 yield break;
@@ -88,7 +98,7 @@ namespace NewModCompiler.Application
                 string lod = leaf.Substring(leaf.Length-2);
                 yield return new BigArchiveEntry { Name = "Data\\mod" + lod + suffix + Path.GetExtension(source), SourcePath = source };
             }
-            if (suffix.Length != 0) foreach (string name in new[] {"mod","mod_m","mod_l"}) {
+            foreach (string name in new[] {"mod","mod_m","mod_l"}) {
                 cancellation.ThrowIfCancellationRequested();
                 string source = Path.Combine(directory,name + ".version");
                 File.WriteAllBytes(source,Encoding.ASCII.GetBytes(suffix));

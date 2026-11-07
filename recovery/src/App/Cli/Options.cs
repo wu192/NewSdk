@@ -215,6 +215,7 @@ namespace NewModCompiler.Cli
             request.AutoDetectContent = request.Options["package-content"].Value == "auto";
             request.Content = request.AutoDetectContent ? new [] {"base","apt","maps"} : request.Options["package-content"].Value.Split(',').Select(x => x == "global-metadata" ? "maps" : x).ToArray(); request.PackageFormat = request.Options["package-format"].Value; request.IncludeAdditional = request.Options["include-additional"].Value=="true"; request.FixNeutralAssets = request.Options["fix-neutral-assets"].Value=="true";
             BigPackage.ValidateRequest(request);
+            PatchStreams.ValidateInput(request);
             if (request.Command != "doctor" && request.PackageFormat == "big" && request.Options["mod-version"].Source == "default")
                 throw Bad("CLI_MOD_VERSION", "Set mod-version in MOD/newmodcompiler.json, EXE.config appSettings, or --mod-version for BIG build/plan.");
             CacheLayout.ForRequest(request);
