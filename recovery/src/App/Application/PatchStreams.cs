@@ -51,6 +51,8 @@ namespace NewModCompiler.Application
                 if (input.Read(header,0,header.Length) != header.Length || header[0] != 0 || header[1] != 1 || header[2] != 6 || header[3] != 0)
                     throw Bad("PATCH_BASE_INVALID", "The base patch stream must be a linked little-endian RA3 v6 manifest.");
             }
+            if (new[] {"mod","mod_m","mod_l"}.Any(name => string.Equals(Path.GetFileName(path),name + Suffix(request) + ".manifest",StringComparison.OrdinalIgnoreCase)))
+                throw Bad("PATCH_BASE_SELF_REFERENCE", "The base manifest filename must differ from the packaged patch and LoD manifests; otherwise their runtime references would form a cycle.");
             if (request.PatchConfig != null) {
                 string name = request.SkudefName ?? Path.GetFileName(request.ModRoot.TrimEnd(Path.DirectorySeparatorChar,Path.AltDirectorySeparatorChar));
                 if (string.Equals(request.PatchConfig,name + "_" + request.ModVersion + ".skudef",StringComparison.OrdinalIgnoreCase))

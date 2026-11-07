@@ -82,9 +82,18 @@ namespace NewModCompiler.Tests
             Check(File.ReadAllBytes(stem+".manifest").SequenceEqual(Manifest()),"Packaging changed cached Core output");
             request.PatchVersion="2.5";files=Build(request,plan,artifacts);
             Check(files.ContainsKey("data\\mod_2.5.bin") && !files.ContainsKey("data\\mod_1.01.bin"),"Stream version must remain independent of package version");
-            request.PatchVersion="none";request.PatchConfig=null;files=Build(request,plan,artifacts);
+            request.PatchVersion="none";Reject(()=>PatchStreams.Validate(request),"PATCH_BASE_SELF_REFERENCE");
+            string sameStem=Path.Combine(root,"base","mod_1.01"),wbStem=Path.Combine(root,"base","worldbuilder.11");
+            foreach(string extension in new[]{".manifest",".bin",".imp",".relo"}) {
+                File.Copy(baseStem+extension,sameStem+extension);
+                File.Copy(baseStem+extension,wbStem+extension);
+            }
+            request.PatchVersion="1.01";request.BasePatchStream=sameStem+".manifest";
+            Reject(()=>PatchStreams.Validate(request),"PATCH_BASE_SELF_REFERENCE");
+            request.PatchVersion="none";request.BasePatchStream=wbStem+".manifest";request.PatchConfig=null;files=Build(request,plan,artifacts);
             Check(files.Count==12 && files.ContainsKey("data\\mod.manifest") && !files.Keys.Any(value=>value.EndsWith(".version",StringComparison.Ordinal)),"WorldBuilder patch must allow unversioned streams");
             Check(!File.ReadAllText(skudef).Contains("add-config"),"Optional base SKUDEF leaked from a previous build");
+            request.BasePatchStream=baseStem+".manifest";
             request.PatchVersion="../1";Reject(()=>PatchStreams.Validate(request),"PATCH_VERSION_INVALID");request.PatchVersion="1.01";
             request.PatchConfig="../Base.skudef";Reject(()=>PatchStreams.Validate(request),"PATCH_CONFIG_INVALID");
             request.PatchConfig="Patch_1.0.skudef";Reject(()=>PatchStreams.Validate(request),"PATCH_CONFIG_SELF");request.PatchConfig=null;

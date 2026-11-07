@@ -1,7 +1,7 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [benchmark/original-sdk-current, compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, refactor/remove-plugin-schema-validation, perf/audiofile-parallel, perf/gameobject-weapon-plugins, feat/texture-plugin, feat/asset-pipeline-parallel]
+    branches: [benchmark/original-sdk-current, compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, refactor/remove-plugin-schema-validation, perf/audiofile-parallel, perf/gameobject-weapon-plugins, feat/texture-plugin, feat/asset-pipeline-parallel, feat/patch-fx-config-version]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
@@ -50,6 +50,7 @@ on:
       - 'recovery/scripts/TestCompilerBuildCachePayloads.ps1'
       - 'recovery/scripts/TestCompilerSessionCache.ps1'
       - 'recovery/scripts/TestCompilerBig.ps1'
+      - 'recovery/scripts/TestCompilerPatchFx.ps1'
       - 'recovery/scripts/ValidateCompilerBig.py'
       - 'recovery/scripts/ValidateCompilerLoD.py'
       - 'recovery/scripts/TestCompilerSdk.ps1'
@@ -213,6 +214,18 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Real patch streams, original BAB differential and FX compilation
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerPatchFx.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/patch-fx/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - uses: actions/upload-artifact@v4
+        if: always() && env.CLI_REUSE != 'true'
+        with:
+          name: patch-fx-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/refactor/patch-fx/${{ github.run_id }}-${{ github.run_attempt }}/
+          if-no-files-found: warn
+          retention-days: 7
       - name: Existing bounded performance levels and original byte gates with current Release
         if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
         timeout-minutes: 2

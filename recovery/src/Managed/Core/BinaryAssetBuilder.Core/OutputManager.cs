@@ -164,12 +164,15 @@ public class OutputManager
 		}
 		try
 		{
-			manifest.Load(text, list.ToArray());
+			if (!manifest.Load(text, list.ToArray()))
+				throw new IOException("The base patch manifest could not be read.");
 		}
-		catch (Exception)
+		catch (Exception error)
 		{
-			_Tracer.TraceError("Could not load {0}.", basePatchStream);
-			return;
+			// A requested patch must never silently fall back to a full stream.
+			// Loading also resolves inherited patch manifests and their assets;
+			// those failures belong to this compilation just like a missing base.
+			throw new BinaryAssetBuilderException(error, ErrorCode.InvalidArgument, "Could not load base patch manifest '{0}'.", text);
 		}
 		_BasePatchStream = basePatchStream;
 		_BasePatchStreamRelativePath = baseStreamRelativePath;

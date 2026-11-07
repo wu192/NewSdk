@@ -61,9 +61,9 @@ Joypad 新并行范围见 [Joypad 说明](docs/components/xml/XML_JOYPAD.md)。�
 ./NewModCompiler.exe build --sdk-root "C:\NewSdk\SDK" --mod "C:\Mods\Example" --out "C:\Build\ExampleLoose" --package-content base --package-format loose
 ```
 
-默认 `--package-content auto`、`--package-format big`，输出 BIG + SKUDEF 并自动包含 Additional。只有 APT 或全局元数据的 MOD 也能直接编译，无需创建空的 Mod.xml。自动发现没有任何有效编译入口时以 `PLAN_NO_INPUTS` 报错；仅有 Additional 不算编译入口。正常编译无需填写平台或缓存开关。最终格式为 BIG 的 `build` 和 `plan` 每次必须在命令行显式传入 `--mod-version`，项目预设或旧默认值均不能代替；loose（包括 development 派生的 loose）不要求显式版本，并保留原有包身份校验。
+默认 `--package-content auto`、`--package-format big`，输出 BIG + SKUDEF 并自动包含 Additional。只有 APT 或全局元数据的 MOD 也能直接编译，无需创建空的 Mod.xml。自动发现没有任何有效编译入口时以 `PLAN_NO_INPUTS` 报错；仅有 Additional 不算编译入口。正常编译无需填写平台或缓存开关。最终格式为 BIG 的 `build` 和 `plan` 要求由 CLI、项目 JSON 或 EXE appSettings 提供 `mod-version`；loose（包括 development 派生的 loose）不要求显式版本，并保留原有包身份校验。
 
-普通帮助 `--help`（或 `-h`）只列出以下 10 个编译与性能参数，以及 `build`、`plan`、`doctor` 和帮助入口。高级能力通过 `--help-advanced` 查看，可直接与 `build` 使用。
+普通帮助 `--help`（或 `-h`）列出以下编译与性能参数，以及 `build`、`plan`、`doctor` 和帮助入口。高级能力通过 `--help-advanced` 查看，可直接与 `build` 使用。
 
 | 参数 | 默认值 / 用途 |
 | --- | --- |
@@ -73,8 +73,10 @@ Joypad 新并行范围见 [Joypad 说明](docs/components/xml/XML_JOYPAD.md)。�
 | `--package-content` | `auto`，或 `base,apt,global-metadata` 的组合 |
 | `--package-format` | `big`，也可显式选择 `loose` |
 | `--include-additional` | BIG 默认 true，loose 默认 false |
-| `--mod-version` | 最终格式为 BIG 的 build/plan 每次必须在 CLI 显式指定；项目预设不能代替 |
+| `--mod-version` | BIG build/plan 需要版本，可由 CLI、项目 JSON 或 EXE appSettings 提供 |
 | `--skudef-name` | MOD 目录名 |
+| `--base-patch-stream` | 基准 manifest 路径，兼容 `/bps:`，仅作用于 BIG 的 base 流 |
+| `--compile-fx` | 默认 true，编译合并后的 Additional/Shaders 顶层 FX |
 | `--jobs` | `auto` 或正整数，默认 `auto` |
 | `--performance` | `off`、`summary`、`detailed`，默认 `off` |
 
