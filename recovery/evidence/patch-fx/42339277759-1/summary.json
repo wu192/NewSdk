@@ -1,0 +1,376 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "productionSourceCommit": "64d2aeb31a1c1dd6393c3def76b163cecb00834a",
+  "testSourceCommit": "a2d59e0223f50c6683b6205ef389469890a1b57a",
+  "producerRunId": 42338796649,
+  "replayRunId": 42339277759,
+  "runtimeArtifact": {
+    "id": 13561195638,
+    "sha256": "4446e9321d8097975d58ec25fefc73847870a5fe9be10f1f6c1c0f65c4cc2e47"
+  },
+  "replayArtifact": {
+    "id": 13561460293,
+    "sha256": "296f50e6b353c8b3a1ebd87c69883ef445d51e19409d88e48394411c1ace725b"
+  },
+  "appContracts": {
+    "runId": 42338796635,
+    "status": "passed",
+    "assertions": 2012
+  },
+  "productionInputsUnchangedForReplay": true,
+  "scope": "Debug/Release production tiny three-Armor patch; all 15 original BAB+LoD/version members byte-identical; normal/patch/hot and same-path base edit; malformed base rejects with exit 4; actual Windows Kits fxc fx_2_0 output packaged. No new full MOD performance or game-runtime claim.",
+  "modes": [
+    {
+      "fx": {
+        "compiler": "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x86\\fxc.exe",
+        "status": "passed",
+        "compilerSha256": "856d0fe6b31d15d9caca507b57b0ac7d2d6b569c450db7f01affe064bb5bb578"
+      },
+      "exeSha256": "3b6747a89a84cb4c75fe821b6104e0c417c99453f788bf2ac1cade718be1426d",
+      "originalBabSha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af",
+      "configuration": "Debug",
+      "passed": true,
+      "failures": [],
+      "originalLodSha256": "e28b665a17cbbf597b47a2069a6efd979da00b44021f8f73b6beb0fb076fac0b",
+      "cases": [
+        {
+          "buildId": "dbb0d8171b164f27a7b0219c289fa9f1",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\Base",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\base-out",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "base"
+        },
+        {
+          "buildId": "ec534878db514c04bc30de00b2087142",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\normal",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "normal-before-patch"
+        },
+        {
+          "buildId": "8c563e010ffd4cee88e88de2e505139f",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\patch-out",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch"
+        },
+        {
+          "buildId": "3ab0233cddfc485aa96ca514dd9ac9e8",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\hot",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch-hot"
+        },
+        {
+          "buildId": "c2890aafab2d4332b339b4614586150b",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\Base",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\base-out",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "base-edited"
+        },
+        {
+          "buildId": "97d4c2c8f91241c0abcb57f82e3eb356",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\changed",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch-after-base-edit"
+        },
+        {
+          "noPublishedBig": true,
+          "name": "invalid-base-body",
+          "expectedFailure": true
+        },
+        {
+          "buildId": "43f629b140ce40ffa62e49393dde4aa4",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\fx",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pfd35384a4\\Debug\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--fxc",
+            "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x86\\fxc.exe"
+          ],
+          "name": "patch-with-fx"
+        }
+      ]
+    },
+    {
+      "fx": {
+        "compiler": "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x86\\fxc.exe",
+        "status": "passed",
+        "compilerSha256": "856d0fe6b31d15d9caca507b57b0ac7d2d6b569c450db7f01affe064bb5bb578"
+      },
+      "exeSha256": "8569133b5efb8410ca6b38aec495f5cf5b761169765514706d989562fa4c1a55",
+      "originalBabSha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af",
+      "configuration": "Release",
+      "passed": true,
+      "failures": [],
+      "originalLodSha256": "e28b665a17cbbf597b47a2069a6efd979da00b44021f8f73b6beb0fb076fac0b",
+      "cases": [
+        {
+          "buildId": "ad122aa51d734a5d9dd0b1a01d64ab72",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\Base",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\base-out",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "base"
+        },
+        {
+          "buildId": "984a45af73044578a4f6a99932c5dc8d",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\normal",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "normal-before-patch"
+        },
+        {
+          "buildId": "f77dcc85ce19408f918c610862776728",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\patch-out",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch"
+        },
+        {
+          "buildId": "72e9269cf66a44a9b4f85db6cf580851",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\hot",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch-hot"
+        },
+        {
+          "buildId": "f1ef56ee9512432da534ee8718b855ce",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\Base",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\base-out",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "base-edited"
+        },
+        {
+          "buildId": "253f4453066148729c6caf3d7445e6aa",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\changed",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch-after-base-edit"
+        },
+        {
+          "noPublishedBig": true,
+          "name": "invalid-base-body",
+          "expectedFailure": true
+        },
+        {
+          "buildId": "92468bb6f6d74e1c8e7693b62fd966fd",
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\fx",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pfd35384a4\\Release\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--fxc",
+            "C:\\Program Files (x86)\\Windows Kits\\10\\bin\\10.0.26100.0\\x86\\fxc.exe"
+          ],
+          "name": "patch-with-fx"
+        }
+      ]
+    }
+  ],
+  "retainedFailures": [
+    {
+      "runId": 42337034198,
+      "reason": "Invalid XML comment in initial compiler config; corrected before production64."
+    },
+    {
+      "runId": 42337247913,
+      "reason": "Windows test source/output case collision and old report schema omitted applicationConfig."
+    },
+    {
+      "runId": 42338078954,
+      "reason": "Original BAB test invocation omitted explicit original cache paths; later raw oracle exposed mixed path separators."
+    },
+    {
+      "runId": 42338737155,
+      "reason": "Mixed-separator old-tool input paths changed manifest source and dependency spelling; assertions retained and native Windows paths supplied for replay."
+    }
+  ],
+  "broaderProductionRegression": {
+    "runId": 42338796649,
+    "productionSourceCommit": "64d2aeb31a1c1dd6393c3def76b163cecb00834a",
+    "independentGates": "passed",
+    "passedScopes": [
+      "Debug/Release native build and route metadata",
+      "Core/backend/application lifecycle",
+      "bounded performance and hot cache",
+      "FLA integration",
+      "texture original differential",
+      "real CLI and cancellation",
+      "build cache",
+      "input roots original differential",
+      "Audio CDATA and W3X cache payloads",
+      "session cache and report/event protocol",
+      "BIG/LoD/original MakeBig",
+      "complete mymod original BAB/SDK differential"
+    ],
+    "retainedFailure": {
+      "step": "old-controller patch oracle",
+      "reason": "Old test script supplied mixed-separator paths to original BAB/LoD; current script corrects Windows paths. All 15 members pass strict comparison using the same D/R binaries in replay42339277759."
+    },
+    "skippedScopes": [
+      "formal final ZIP publication",
+      "full Upheaval performance"
+    ],
+    "workflowConclusion": "failure",
+    "artifact": {
+      "id": 13561471929,
+      "sha256": "3a44c27c5a015ea7a25ed67cd1efb4c4e4edb45260ced6e51d075b314719927c"
+    },
+    "releaseExeMatchesSuccessfulReplay": true
+  }
+}

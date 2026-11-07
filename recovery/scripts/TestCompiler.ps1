@@ -39,7 +39,7 @@ try {
         # original absolute paths; make all native/managed objects unavailable.
         if(!(Test-Path "$build/obj")){throw 'Missing product object directory to quarantine'}
         Move-Item "$build/obj" (Join-Path $work "$mode/quarantined-obj")
-        $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
+        $allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','fxc.exe','d3dcompiler_47.dll')
         if(@(Get-ChildItem $clean -Recurse|Where-Object{$_.PSIsContainer -or $_.Name -notin $allowed}).Count -ne 0){throw 'Unexpected file or subdirectory in clean production directory'}
         foreach($required in $allowed){if(!(Test-Path (Join-Path $clean $required) -PathType Leaf)){throw "Missing required production file: $required"}}
         $exe=Join-Path $clean 'NewModCompiler.exe'

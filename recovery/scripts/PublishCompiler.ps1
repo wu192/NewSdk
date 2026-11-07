@@ -14,8 +14,8 @@ $AcceptanceReceipt=(Resolve-Path -LiteralPath $AcceptanceReceipt).Path
 if(Test-Path -LiteralPath $OutputDirectory){throw "Refusing to overwrite release output: $OutputDirectory"}
 $out=(New-Item -ItemType Directory -Path $OutputDirectory).FullName
 $short=$null;$oldPath=$env:PATH
-$allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
-$state=[ordered]@{schemaVersion=1;succeeded=$false;status='started';sourceCommit=$null;binarySourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;configurations=@();scope='Exact three-file Win32/net48 runtime ZIP deployment, production doctor and small Armor MOD with source-runtime raw output equivalence; not complete P5/G3/SDK or Unicode Texture acceptance'}
+$allowed=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','fxc.exe','d3dcompiler_47.dll')
+$state=[ordered]@{schemaVersion=1;succeeded=$false;status='started';sourceCommit=$null;binarySourceCommit=$null;runId=$env:GITHUB_RUN_ID;runAttempt=$env:GITHUB_RUN_ATTEMPT;configurations=@();scope='Exact five-file Win32/net48 runtime ZIP deployment with Windows SDK x86 FX compiler, production doctor and small Armor MOD with source-runtime raw output equivalence; not complete P5/G3/SDK or Unicode Texture acceptance'}
 function Need([bool]$Condition,[string]$Message){if(!$Condition){throw $Message}}
 function Hash([string]$Path){(Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()}
 function Within([string]$Directory,[string]$Path){
@@ -24,7 +24,7 @@ function Within([string]$Directory,[string]$Path){
 }
 function Inventory([string]$Directory){
     $items=@(Get-ChildItem -LiteralPath $Directory -Force)
-    Need ($items.Count -eq $allowed.Count) "Runtime does not contain exactly three files: $Directory"
+    Need ($items.Count -eq $allowed.Count) "Runtime does not contain exactly five files: $Directory"
     foreach($item in $items){Need (!$item.PSIsContainer -and $item.Name -cin $allowed -and ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -eq 0) "Unexpected runtime entry: $($item.Name)"}
     return @($allowed|ForEach-Object{$file=Get-Item -LiteralPath (Join-Path $Directory $_);@{name=$_;bytes=$file.Length;sha256=(Hash $file.FullName)}})
 }
@@ -186,7 +186,7 @@ try {
     foreach($configuration in $state.configurations){
         $stem='NewModCompiler-Win32-'+$configuration.configuration
         $zip=Join-Path $out ($stem+'.zip');Move-Item -LiteralPath $configuration.candidateZip -Destination $zip
-        $manifest=[ordered]@{schemaVersion=1;status='verified-small-mod-deployment';platform='Win32';runtime='.NET Framework 4.8';configuration=$configuration.configuration;binarySourceCommit=$state.binarySourceCommit;packagingSourceCommit=$state.sourceCommit;runId=$state.runId;runAttempt=$state.runAttempt;acceptance=$state.acceptance;toolchain=$configuration.toolchain;buildReceiptSha256=$configuration.buildReceiptSha256;linkRecipeSha256=$configuration.linkRecipeSha256;files=$configuration.runtimeFiles;archive=@{name=($stem+'.zip');bytes=(Get-Item -LiteralPath $zip).Length;sha256=$configuration.zipSha256};texturePlugin=$configuration.texturePlugin;dependencies=@{textureImplementation='built-in-source';systemRequirements=@('Windows x86-compatible process','NET Framework 4.8','x86 VC runtime matching recorded production VCToolsVersion');limitations='Texture is compiled into the EXE; no legacy Texture DLL, VC80 or DirectX runtime is deployed; system runtime libraries are not redistributed'};validation=@{productionDoctor=$true;sourceRuntimeRawOutputEquality=$true;bigDeployment=$(if($VerifyBigDeployment){$state.bigDeployment}else{$null});schemaProtocolSha256=$state.protocolSha256;scope=$state.scope}}
+        $manifest=[ordered]@{schemaVersion=1;status='verified-small-mod-deployment';platform='Win32';runtime='.NET Framework 4.8';configuration=$configuration.configuration;binarySourceCommit=$state.binarySourceCommit;packagingSourceCommit=$state.sourceCommit;runId=$state.runId;runAttempt=$state.runAttempt;acceptance=$state.acceptance;toolchain=$configuration.toolchain;buildReceiptSha256=$configuration.buildReceiptSha256;linkRecipeSha256=$configuration.linkRecipeSha256;files=$configuration.runtimeFiles;archive=@{name=($stem+'.zip');bytes=(Get-Item -LiteralPath $zip).Length;sha256=$configuration.zipSha256};texturePlugin=$configuration.texturePlugin;dependencies=@{textureImplementation='built-in-source';fxCompiler='Windows SDK x86 fxc.exe with d3dcompiler_47.dll';systemRequirements=@('Windows x86-compatible process','NET Framework 4.8','x86 VC runtime matching recorded production VCToolsVersion');limitations='Texture is compiled into the EXE; no legacy Texture DLL, VC80 or legacy DirectX 9 runtime is deployed; Windows system and VC runtime libraries are not redistributed'};validation=@{productionDoctor=$true;sourceRuntimeRawOutputEquality=$true;bigDeployment=$(if($VerifyBigDeployment){$state.bigDeployment}else{$null});schemaProtocolSha256=$state.protocolSha256;scope=$state.scope}}
         $manifest|ConvertTo-Json -Depth 20|Set-Content -LiteralPath (Join-Path $out ($stem+'.manifest.json'))
         $configuration.zip=$zip;$null=$configuration.Remove('candidateZip')
     }

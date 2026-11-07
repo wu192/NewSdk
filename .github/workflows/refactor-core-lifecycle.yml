@@ -1,7 +1,7 @@
 name: MOD compiler Core lifecycle integration
 on:
   push:
-    branches: [benchmark/original-sdk-current, compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, refactor/remove-plugin-schema-validation, perf/audiofile-parallel, perf/gameobject-weapon-plugins, feat/texture-plugin, feat/asset-pipeline-parallel]
+    branches: [benchmark/original-sdk-current, compiler-main, refactor/modcompiler-p0-p3, feature/compiler-build-defaults, recovery/legacy-sdk-cache, refactor/remove-plugin-schema-validation, perf/audiofile-parallel, perf/gameobject-weapon-plugins, feat/texture-plugin, feat/asset-pipeline-parallel, feat/patch-fx-config-version]
     paths:
       - '.github/workflows/refactor-core-lifecycle.yml'
       - 'recovery/scripts/TestCompilerCoreLifecycle.ps1'
@@ -50,6 +50,7 @@ on:
       - 'recovery/scripts/TestCompilerBuildCachePayloads.ps1'
       - 'recovery/scripts/TestCompilerSessionCache.ps1'
       - 'recovery/scripts/TestCompilerBig.ps1'
+      - 'recovery/scripts/TestCompilerPatchFx.ps1'
       - 'recovery/scripts/ValidateCompilerBig.py'
       - 'recovery/scripts/ValidateCompilerLoD.py'
       - 'recovery/scripts/TestCompilerSdk.ps1'
@@ -189,6 +190,19 @@ jobs:
           $receipt=Get-Content "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -Raw|ConvertFrom-Json
           $enabled=(@($receipt.modes).Count -eq 2 -and @($receipt.modes|Where-Object{$_.backendIntegrated -ne $true}).Count -eq 0)
           "cliEnabled=$($enabled.ToString().ToLowerInvariant())"|Add-Content $env:GITHUB_OUTPUT
+      - uses: actions/upload-artifact@v4
+        if: steps.product.outcome == 'success' && env.CLI_REUSE != 'true'
+        with:
+          name: patch-fx-runtime-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/core-lifecycle-product/*/bin/NewModCompiler.exe
+            recovery/artifacts/core-lifecycle-product/*/bin/NewModCompiler.exe.config
+            recovery/artifacts/core-lifecycle-product/*/bin/antlr.runtime.dll
+            recovery/artifacts/core-lifecycle-product/*/bin/fxc.exe
+            recovery/artifacts/core-lifecycle-product/*/bin/d3dcompiler_47.dll
+            recovery/artifacts/core-lifecycle-product/*/build.json
+          if-no-files-found: error
+          retention-days: 7
       - name: Complete shared-helper XML route smoke
         if: ${{ !cancelled() && steps.product.outcome == 'success' && contains(github.event.head_commit.message, '[shared-tokenizer-helpers]') }}
         shell: pwsh
@@ -213,6 +227,18 @@ jobs:
         shell: pwsh
         run: |
           ./recovery/scripts/TestCompilerCoreLifecycle.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/core-lifecycle/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - name: Real patch streams, original BAB differential and FX compilation
+        if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
+        shell: pwsh
+        run: |
+          ./recovery/scripts/TestCompilerPatchFx.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/patch-fx/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
+      - uses: actions/upload-artifact@v4
+        if: always() && env.CLI_REUSE != 'true'
+        with:
+          name: patch-fx-${{ github.run_id }}-${{ github.run_attempt }}
+          path: recovery/evidence/refactor/patch-fx/${{ github.run_id }}-${{ github.run_attempt }}/
+          if-no-files-found: warn
+          retention-days: 7
       - name: Existing bounded performance levels and original byte gates with current Release
         if: ${{ !cancelled() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
         timeout-minutes: 2
@@ -367,12 +393,12 @@ jobs:
         run: |
           ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/sdk-mymod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TimeoutSeconds 600
           if($LASTEXITCODE -ne 0){throw 'Complete mymod SDK differential failed'}
-      - name: Publish final three-file packages after complete production acceptance
+      - name: Publish final five-file packages after complete production acceptance
         if: ${{ success() && steps.big.outcome == 'success' && steps.cli.outcome == 'success' && env.CLI_REUSE != 'true' }}
         shell: pwsh
         run: |
           ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -AcceptanceReceipt "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -VerifyBigDeployment -OutputDirectory "recovery/artifacts/final-release/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          if($LASTEXITCODE -ne 0){throw 'Final three-file ZIP deployment validation failed'}
+          if($LASTEXITCODE -ne 0){throw 'Final five-file ZIP deployment validation failed'}
       - name: One full Upheaval jobs 1 4 auto cold hot and modified A/B after acceptance
         if: ${{ success() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
         timeout-minutes: 24
@@ -509,6 +535,8 @@ jobs:
             recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe
             recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe.config
             recovery/artifacts/core-lifecycle-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/core-lifecycle-product/Release/bin/fxc.exe
+            recovery/artifacts/core-lifecycle-product/Release/bin/d3dcompiler_47.dll
             recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
             recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
             recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Release.zip
@@ -642,6 +670,8 @@ jobs:
             recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe
             recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe.config
             recovery/artifacts/core-lifecycle-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/core-lifecycle-product/Release/bin/fxc.exe
+            recovery/artifacts/core-lifecycle-product/Release/bin/d3dcompiler_47.dll
             recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
             recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
             recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Release.zip

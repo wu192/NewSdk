@@ -1,4 +1,20 @@
-# 当前：compiler-main CI 五工作流通过，PR #1 待审
+# 当前：Patch / FX / 配置版本已通过定向验证，PR #11 待审
+
+FX 随包工具补充已通过：生产源码 `fd32a0a5`，[Windows 42341470222](https://github.com/wu192/NewSdk/actions/runs/42341470222) 全部 success。新包加入 Windows SDK 10.0.26100.0 的 x86 `fxc.exe` 与 `d3dcompiler_47.dll`，默认使用 EXE 同目录工具。D/R 五文件 ZIP 独立解压，在 PATH 为空、SDK 无 FXC 且不传 --fxc 时真实编译成功，自动工具路径及 FXO 入 BIG 均确认；原15成员 patch/LoD、冷热/基准修改/损坏输入也通过。16份报告、438个事件协议复核通过。[下载新 D/R ZIP](https://github.com/wu192/NewSdk/actions/runs/42341470222/artifacts/13562280288)，[收据](evidence/patch-fx-bundle/42341470222-1/summary.json)。历史归档和固定旧发布脚本保留原布局；以下 `64d2aeb3` 是补充前的验收来源。
+
+[PR #11](https://github.com/wu192/NewSdk/pull/11)，分支 `feat/patch-fx-config-version`。
+新增 base-patch-stream（兼容 /bps）、独立 patch-version / Patch WB 无后缀布局、
+LoD/.version 与可选 SKUDEF add-config；合并 Additional 后编译 FX，处理 include 覆盖与失败/取消。
+BIG mod-version 支持 MOD JSON 和 EXE appSettings，CLI 优先。用法见 [使用说明](COMPILER_USAGE.md#patch-与-fx)。
+生产源码 `64d2aeb3`，[Windows App 42338796635](https://github.com/wu192/NewSdk/actions/runs/42338796635) 的 2012 项合同通过。
+[D/R 真实回放 42339277759](https://github.com/wu192/NewSdk/actions/runs/42339277759) 复用本轮同源二进制：
+全部15个原 BAB/LoD/版本成员逐字节一致；普通/patch/热态、同路径基准修改、损坏基准拒绝及真实 fxc 编译均通过。
+16份报告、438个事件（含 FX 工具记录及配置来源）通过原协议校验。[简明收据](evidence/patch-fx/42339277759-1/summary.json)。
+重复基准磁盘检查已收敛到 CLI 输入入口；删除错误包装、无 FX 时的字典及无版本 LoD 快照。
+完整原生回归 [42338796649](https://github.com/wu192/NewSdk/actions/runs/42338796649) 的其余独立门槛均通过：Core/CLI/取消、性能/热缓存、FLA/Texture、资产/会话缓存、BIG/原 MakeBig 及完整 mymod 原 SDK 对照。旧对照控制器的路径差异失败由上述修正回放独立覆盖；原失败保留，断言未放宽。该运行的正式 ZIP 发布和大型 Upheaval 性能步骤跳过；提供本轮已核对并完成真实回放的 D/R 运行文件。
+未合并、未发布 Release；本轮不新增完整大型 MOD 性能或游戏内结论。
+
+# 此前：compiler-main CI 五工作流通过，PR #1 待审
 
 [PR #1](https://github.com/wu192/NewSdk/pull/1)，`fix/compiler-main-ci` 基于 `72aa8f0c`。
 验证分支头 `12b0cd99`，PR 检出源码 `1ac655d5`：

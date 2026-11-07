@@ -104,11 +104,11 @@ try{
         $script:modeOut=(New-Item -ItemType Directory -Path (Join-Path $out $mode)).FullName
         $modeWork=(New-Item -ItemType Directory -Path (Join-Path $short $mode.Substring(0,1))).FullName
         $script:runtime=(New-Item -ItemType Directory -Path (Join-Path $modeWork 'r')).FullName
-        foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$file") -Destination $runtime}
+        foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','fxc.exe','d3dcompiler_47.dll')){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$file") -Destination $runtime}
         $script:exe=Join-Path $runtime 'NewModCompiler.exe'
         $build=Get-Content -LiteralPath (Join-Path $CompilerDirectory "$mode/build.json") -Raw|ConvertFrom-Json
         Need ($build.exeSha256 -ceq (Hash $exe) -and $build.texturePlugin.implementation -ceq 'built-in-source' -and @($build.texturePlugin.externalRuntimeFiles).Count -eq 0) 'Cache/input-root acceptance requires the current source texture build'
-        Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 3) 'Unexpected source runtime deployment files'
+        Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 5) 'Unexpected source runtime deployment files'
         $script:modeState=@{configuration=$mode;passed=$false;exeSha256=(Hash $exe);cases=@()};$state.modes+=,$modeState
         $script:sdk=(New-Item -ItemType Directory -Path (Join-Path $modeWork 's')).FullName
         New-Item -ItemType Directory -Path "$sdk/tools","$sdk/Schemas"|Out-Null

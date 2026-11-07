@@ -40,6 +40,7 @@ def stage_runtime(build, source_commit, destination):
     source_texture = receipt.get('texturePlugin')
     if source_texture is not None:
         need(source_texture == {'implementation': 'built-in-source', 'externalRuntimeFiles': []}, 'Source texture receipt differs')
+        names.update(('fxc.exe', 'd3dcompiler_47.dll'))
     else:
         names.update(('BinaryAssetBuilder.TextureCompiler.dll', 'BinaryAssetBuilder.TextureCompiler.dll.patch.json'))
     need(set(receipt['runtimeFiles']) == names, 'Runtime deployment set differs')

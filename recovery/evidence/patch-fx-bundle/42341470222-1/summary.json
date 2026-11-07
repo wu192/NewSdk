@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "productionSourceCommit": "fd32a0a5005b8aec4de7ddb4b28f211ff80e957c",
+  "runId": 42341470222,
+  "artifactId": 13562280288,
+  "artifactSha256": "f06b2e33c3ccd180c52c6abd06e25f583525cbc9cd580c796a44dc900a2f7ce5",
+  "windowsSdkVersion": "10.0.26100.0",
+  "scope": "Debug/Release exact five-file runtime ZIPs independently extracted. FX compiled with PATH empty, fixture SDK without FXC and no --fxc option; bundled x86 FXC selected automatically, dependent DLL carried and bytecode packaged. Existing tiny patch/original-15-member/cache/base-edit/invalid-base checks also pass. No new full SDK/game/performance claim.",
+  "packages": [
+    {
+      "configuration": "Debug",
+      "name": "NewModCompiler-Win32-Debug.zip",
+      "bytes": 4170763,
+      "sha256": "8eb81e4283949e33532c97a30076dc0b0b356fa1f2e1c76fade1b57125af8b26",
+      "files": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 7748608,
+          "sha256": "eb037c087cfaa3ba37b8f5dda4d75607dc612e601ad0492926d788e75e370b15"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 590,
+          "sha256": "54a284f0fff689de0c95305726d7fb752405bdd59bb7f4a505532654382d4ca2"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        },
+        {
+          "name": "fxc.exe",
+          "bytes": 146264,
+          "sha256": "856d0fe6b31d15d9caca507b57b0ac7d2d6b569c450db7f01affe064bb5bb578"
+        },
+        {
+          "name": "d3dcompiler_47.dll",
+          "bytes": 4147544,
+          "sha256": "6ad5286c722c7f354487e693bc6af738e86e511aeed1025b4e824ed326b06126"
+        }
+      ],
+      "fx": {
+        "dependency": "d3dcompiler_47.dll",
+        "dependencySha256": "6ad5286c722c7f354487e693bc6af738e86e511aeed1025b4e824ed326b06126",
+        "sdkContainsCompiler": false,
+        "compilerSha256": "856d0fe6b31d15d9caca507b57b0ac7d2d6b569c450db7f01affe064bb5bb578",
+        "compiler": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\fx-bundle\\extracted\\Debug\\bin\\fxc.exe",
+        "emptyPath": true,
+        "automaticBundledTool": true,
+        "status": "passed"
+      }
+    },
+    {
+      "configuration": "Release",
+      "name": "NewModCompiler-Win32-Release.zip",
+      "bytes": 3635003,
+      "sha256": "77a7c70d31710c7441edba930566aef48508512f8b3d9283f84a7850aadd7dfa",
+      "files": [
+        {
+          "name": "NewModCompiler.exe",
+          "bytes": 5046272,
+          "sha256": "2143dd48860c73fab04f493d8a60dc3885ee43d9727c8d06580bf38adfa0cfb6"
+        },
+        {
+          "name": "NewModCompiler.exe.config",
+          "bytes": 590,
+          "sha256": "54a284f0fff689de0c95305726d7fb752405bdd59bb7f4a505532654382d4ca2"
+        },
+        {
+          "name": "antlr.runtime.dll",
+          "bytes": 99328,
+          "sha256": "febdc86d6299a550c6ec87050b0cbf5205e821851e75494c699c17ce8ba2c62a"
+        },
+        {
+          "name": "fxc.exe",
+          "bytes": 146264,
+          "sha256": "856d0fe6b31d15d9caca507b57b0ac7d2d6b569c450db7f01affe064bb5bb578"
+        },
+        {
+          "name": "d3dcompiler_47.dll",
+          "bytes": 4147544,
+          "sha256": "6ad5286c722c7f354487e693bc6af738e86e511aeed1025b4e824ed326b06126"
+        }
+      ],
+      "fx": {
+        "dependency": "d3dcompiler_47.dll",
+        "dependencySha256": "6ad5286c722c7f354487e693bc6af738e86e511aeed1025b4e824ed326b06126",
+        "sdkContainsCompiler": false,
+        "compilerSha256": "856d0fe6b31d15d9caca507b57b0ac7d2d6b569c450db7f01affe064bb5bb578",
+        "compiler": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\fx-bundle\\extracted\\Release\\bin\\fxc.exe",
+        "emptyPath": true,
+        "automaticBundledTool": true,
+        "status": "passed"
+      }
+    }
+  ]
+}

@@ -162,15 +162,8 @@ public class OutputManager
 		{
 			throw new BinaryAssetBuilderException(ErrorCode.FileNotFound, "Specified manifest could not be found: {0}", text);
 		}
-		try
-		{
-			manifest.Load(text, list.ToArray());
-		}
-		catch (Exception)
-		{
-			_Tracer.TraceError("Could not load {0}.", basePatchStream);
-			return;
-		}
+		if (!manifest.Load(text, list.ToArray()))
+			throw new BinaryAssetBuilderException(ErrorCode.InvalidArgument, "Could not load base patch manifest '{0}'.", text);
 		_BasePatchStream = basePatchStream;
 		_BasePatchStreamRelativePath = baseStreamRelativePath;
 		_BasePatchStreamAssets = new Dictionary<string, AssetHeader>(StringComparer.Ordinal);

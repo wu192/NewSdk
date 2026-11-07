@@ -173,6 +173,8 @@ jobs:
             recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe
             recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe.config
             recovery/artifacts/new-world-codecs-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/new-world-codecs-product/Release/bin/fxc.exe
+            recovery/artifacts/new-world-codecs-product/Release/bin/d3dcompiler_47.dll
             recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
             recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
             recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/audio-cli/validation.json
@@ -188,6 +190,8 @@ jobs:
             recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe
             recovery/artifacts/new-world-codecs-product/Release/bin/NewModCompiler.exe.config
             recovery/artifacts/new-world-codecs-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/new-world-codecs-product/Release/bin/fxc.exe
+            recovery/artifacts/new-world-codecs-product/Release/bin/d3dcompiler_47.dll
             recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
             recovery/artifacts/new-world-codecs-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
             recovery/evidence/codecs/new-world/${{ github.run_id }}-${{ github.run_attempt }}/audio-cli/validation.json

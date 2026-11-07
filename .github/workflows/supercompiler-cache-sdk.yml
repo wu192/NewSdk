@@ -55,7 +55,7 @@ jobs:
           foreach($file in @(@{runtime="$exe.config";source='recovery/src/App/App.config'},@{runtime="$product/bin/antlr.runtime.dll";source='SDK/tools/antlr.runtime.dll'})){
             if((Get-FileHash $file.runtime -Algorithm SHA256).Hash -cne (Get-FileHash $file.source -Algorithm SHA256).Hash){throw 'Reused runtime dependency differs from current production input'}
           }
-          if(@(Get-ChildItem "$product/bin" -Force).Count -ne 3){throw 'Reused runtime contains unexpected files'}
+          if(@(Get-ChildItem "$product/bin" -Force).Count -ne 5){throw 'Reused runtime contains unexpected files'}
           $receipt.sourceCommit|Set-Content recovery/artifacts/cache-binary-source.txt
           Remove-Item recovery/artifacts/supercompiler-cache-sdk -Recurse -Force
       - uses: actions/setup-dotnet@v4
@@ -100,6 +100,8 @@ jobs:
             recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe
             recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe.config
             recovery/artifacts/supercompiler-cache-product/bin/antlr.runtime.dll
+            recovery/artifacts/supercompiler-cache-product/bin/fxc.exe
+            recovery/artifacts/supercompiler-cache-product/bin/d3dcompiler_47.dll
             recovery/artifacts/supercompiler-cache-sdk/validation.json
             recovery/artifacts/cache-binary-source.txt
         run: python recovery/scripts/WriteCiSummary.py --title "SuperCompilerCache SDK acceptance"
@@ -114,6 +116,8 @@ jobs:
             recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe
             recovery/artifacts/supercompiler-cache-product/bin/NewModCompiler.exe.config
             recovery/artifacts/supercompiler-cache-product/bin/antlr.runtime.dll
+            recovery/artifacts/supercompiler-cache-product/bin/fxc.exe
+            recovery/artifacts/supercompiler-cache-product/bin/d3dcompiler_47.dll
             recovery/artifacts/supercompiler-cache-sdk/validation.json
             recovery/artifacts/cache-binary-source.txt
           if-no-files-found: error

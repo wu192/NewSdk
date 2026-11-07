@@ -1,5 +1,9 @@
 # 编译器最小发行包
 
+## 当前 FX 工具布局
+
+`feat/patch-fx-config-version` 的新运行包携带五个文件：`NewModCompiler.exe`、`NewModCompiler.exe.config`、`antlr.runtime.dll`、`fxc.exe`、`d3dcompiler_47.dll`。FX 工具从构建使用的 Windows SDK x86 目录复制，编译器默认使用同目录中的工具，显式 `--fxc` 仍可覆盖。以下历史包的三文件或旧 Texture 五文件布局按各自收据保留。
+
 ## 当前分支候选：完整缓存恢复（2026-10-29）
 
 `recovery/legacy-sdk-cache` 的 [PR #19](https://github.com/wu162/NewSdk/pull/19) 已通过[完整运行 40814401237](https://github.com/wu162/NewSdk/actions/runs/40814401237)，待审查，未合入 `compiler-main`。生产二进制、测试及发行源码均为 `39039961847cd1ca9cb93743fd51741a4e5c9f49`，Debug/Release 在该运行重建；后续文档提交不改变来源。

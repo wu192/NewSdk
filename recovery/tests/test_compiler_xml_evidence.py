@@ -74,7 +74,8 @@ class XmlEvidenceTests(unittest.TestCase):
                            foundationSha256=inputs[0]['sha256'], applicationSha256=inputs[1]['sha256'],
                            nativeBuild=dict(objects=[inputs[3]['path']]),
                            resources=[dict(path=inputs[4]['path'], sha256=inputs[4]['sha256'])],
-                           runtimeFiles=['NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll'],
+                           runtimeFiles=['NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll',
+                                         'fxc.exe', 'd3dcompiler_47.dll'],
                            texturePlugin={'implementation': 'built-in-source', 'externalRuntimeFiles': []})
             write(folder / 'build.json', product)
             host = dict(schemaVersion=2, sourceCommit=cls.source, configuration=mode,
@@ -179,11 +180,15 @@ class XmlEvidenceTests(unittest.TestCase):
         self.assertEqual([r['groups'] for r in result['configurations']], [63, 63])
         self.assertIn('not independently rehashed', result['limitations'][0])
 
-    def test_historical_dll_runtime_receipts_remain_verifiable(self):
+    def test_historical_runtime_receipts_remain_verifiable(self):
+        for mode in ('Debug', 'Release'):
+            self.mutate(self.root / f'artifacts/native-product/{mode}/build.json',
+                        lambda product: product.update(runtimeFiles=product['runtimeFiles'][:3]))
+        self.assertEqual(len(self.check()['configurations']), 2)
         def historical(product):
             product.pop('texturePlugin')
-            product['runtimeFiles'] += ['BinaryAssetBuilder.TextureCompiler.dll',
-                                       'BinaryAssetBuilder.TextureCompiler.dll.patch.json']
+            product['runtimeFiles'] = product['runtimeFiles'][:3] + ['BinaryAssetBuilder.TextureCompiler.dll',
+                                                                 'BinaryAssetBuilder.TextureCompiler.dll.patch.json']
         for mode in ('Debug', 'Release'):
             self.mutate(self.root / f'artifacts/native-product/{mode}/build.json', historical)
         self.assertEqual(len(self.check()['configurations']), 2)

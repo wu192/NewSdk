@@ -35,7 +35,7 @@ try{
         if($routeCode -ne 0){Get-Content "$evidence/routes-runtime.log";throw "$mode production built-in route validation failed"}
         Complete-CompilerValidationRun $validationRun
         $runtime=(New-Item -ItemType Directory "$work/$mode-runtime").FullName
-        foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item "$CompilerDirectory/$mode/bin/$file" $runtime}
+        foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','fxc.exe','d3dcompiler_47.dll')){Copy-Item "$CompilerDirectory/$mode/bin/$file" $runtime}
         $exe=Join-Path $runtime 'NewModCompiler.exe'
         $destination=Join-Path $work "$mode-output"
         $arguments=@('build','--sdk-root',$sdk,'--mod',$mod,'--out',$destination,'--package-format','loose','--package-content','base','--include-additional=false','--jobs','1','/bc:false','/sc:false')

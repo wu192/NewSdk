@@ -13,14 +13,14 @@ namespace NewModCompiler.Cli
     {
         static readonly Dictionary<string, string> Aliases = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase) {
             {"od","out"}, {"scd","session-cache-directory"}, {"scp","session-cache-directory"},
-            {"bcd","build-cache-directory"}, {"bcp","build-cache-directory"}
+            {"bcd","build-cache-directory"}, {"bcp","build-cache-directory"}, {"bps","base-patch-stream"}
         };
         static readonly HashSet<string> Ordinary = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-            "mod","sdk-root","out","package-content","package-format","include-additional","mod-version","skudef-name","jobs","performance"
+            "mod","sdk-root","out","package-content","package-format","include-additional","mod-version","skudef-name","jobs","performance","base-patch-stream","compile-fx"
         };
         static readonly HashSet<string> Advanced = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
             "fix-neutral-assets","game-root","game-version","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod",
-            "ss","pc","slowclean","dr","data","art","audio","tl","log","events","report"
+            "ss","pc","slowclean","dr","data","art","audio","tl","log","events","report","patch-version","patch-config","fxc"
         };
         // These entries preserve old invocations, without introducing user modes
         // or implying that fixed runtime settings can be changed.
@@ -32,10 +32,10 @@ namespace NewModCompiler.Cli
             {"oof","false"}, {"vf","false"}, {"oar","false"}, {"osh","false"}, {"oix","false"}, {"mr","false"}
         };
         static readonly HashSet<string> Booleans = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-            "fix-neutral-assets","include-additional","sc","bc","csc","psc","fsc","atc","slowclean","pc","ls","ss","oof","vf","oar","osh","oix","mr"
+            "fix-neutral-assets","include-additional","compile-fx","sc","bc","csc","psc","fsc","atc","slowclean","pc","ls","ss","oof","vf","oar","osh","oix","mr"
         };
         static readonly HashSet<string> Unsupported = new HashSet<string>(StringComparer.OrdinalIgnoreCase) {
-            "gui","res","pers","mp","poe","sf","sh","sp","bcn","bps","cpf"
+            "gui","res","pers","mp","poe","sf","sh","sp","bcn","cpf"
         };
         static BuildFailure Bad(string code, string message) { return new BuildFailure(ExitCode.Arguments, code, message); }
         static void Set(IDictionary<string, EffectiveOption> options, string key, string value, string source)
@@ -145,22 +145,23 @@ namespace NewModCompiler.Cli
                 if (File.Exists(preset)) LoadPreset(request.Options, preset);
             }
             foreach (var pair in commandLine) request.Options[pair.Key] = pair.Value;
-            // The shipped EXE config can set the neutral-repair default for
-            // all MODs. Project and command-line values retain precedence.
-            if (!request.Options.ContainsKey("fix-neutral-assets") || !request.Options.ContainsKey("game-root")) {
-                System.Collections.Specialized.NameValueCollection settings;
-                try { settings = ConfigurationManager.AppSettings; }
-                catch (ConfigurationErrorsException e) { throw Bad("CONFIG_INVALID", "Invalid compiler configuration: " + e.Message); }
-                string neutral = settings["fix-neutral-assets"], game = settings["game-root"];
-                if (!request.Options.ContainsKey("fix-neutral-assets") && neutral != null)
-                    Set(request.Options,"fix-neutral-assets",NormalizeValue("fix-neutral-assets",neutral),"applicationConfig");
-                if (!request.Options.ContainsKey("game-root") && !string.IsNullOrWhiteSpace(game))
-                    Set(request.Options,"game-root",FullPath(Path.IsPathRooted(game) ? game : Path.Combine(AppDomain.CurrentDomain.BaseDirectory,game)),"applicationConfig");
+            // CLI overrides the MOD preset, then EXE appSettings supply defaults.
+            System.Collections.Specialized.NameValueCollection settings;
+            try { settings = ConfigurationManager.AppSettings; }
+            catch (ConfigurationErrorsException e) { throw Bad("CONFIG_INVALID", "Invalid compiler configuration: " + e.Message); }
+            foreach (string key in new[] {"fix-neutral-assets","game-root","mod-version","base-patch-stream","patch-version","patch-config","compile-fx","fxc"}) {
+                if (request.Options.ContainsKey(key)) continue;
+                string configured = settings[key];
+                if (string.IsNullOrWhiteSpace(configured)) continue;
+                string value = NormalizeValue(key, configured);
+                if (IsPath(key)) value = FullPath(Path.IsPathRooted(value) ? value : Path.Combine(AppDomain.CurrentDomain.BaseDirectory,value));
+                Set(request.Options,key,value,"applicationConfig");
             }
             Default(request,"ss","true"); Default(request,"pc","true"); Default(request,"slowclean","true");
             foreach (string key in new[] {"sc","bc","psc","csc"}) Default(request,key,"true");
             foreach (string key in new[] {"fsc","atc"}) Default(request,key,"false");
             Default(request,"mod-version","1.0"); Default(request,"game-version","1.12");
+            Default(request,"patch-version","1.01"); Default(request,"compile-fx","true");
             Default(request,"profile","standard"); Default(request,"performance","off");
             request.PerformanceLevel = request.Options["performance"].Value;
             Default(request,"jobs","auto");
@@ -205,12 +206,18 @@ namespace NewModCompiler.Cli
             request.ModVersion=request.Options["mod-version"].Value; request.GameVersion=request.Options["game-version"].Value;
             EffectiveOption gameRoot; if(request.Options.TryGetValue("game-root",out gameRoot)) request.GameRoot=gameRoot.Value;
             EffectiveOption sku; if(request.Options.TryGetValue("skudef-name",out sku)) request.SkudefName=sku.Value;
+            EffectiveOption patch; if(request.Options.TryGetValue("base-patch-stream",out patch)) request.BasePatchStream=patch.Value;
+            request.PatchVersion=request.Options["patch-version"].Value;
+            if(request.Options.TryGetValue("patch-config",out patch)) request.PatchConfig=patch.Value;
+            request.CompileFx=request.Options["compile-fx"].Value=="true";
+            EffectiveOption fxc; if(request.Options.TryGetValue("fxc",out fxc)) request.FxcPath=fxc.Value;
             // Keep established task IDs, workspace names and protocol values for compatibility.
             request.AutoDetectContent = request.Options["package-content"].Value == "auto";
             request.Content = request.AutoDetectContent ? new [] {"base","apt","maps"} : request.Options["package-content"].Value.Split(',').Select(x => x == "global-metadata" ? "maps" : x).ToArray(); request.PackageFormat = request.Options["package-format"].Value; request.IncludeAdditional = request.Options["include-additional"].Value=="true"; request.FixNeutralAssets = request.Options["fix-neutral-assets"].Value=="true";
             BigPackage.ValidateRequest(request);
-            if (request.Command != "doctor" && request.PackageFormat == "big" && !commandLine.ContainsKey("mod-version"))
-                throw Bad("CLI_MOD_VERSION", "--mod-version is required on the command line for BIG build/plan.");
+            PatchStreams.ValidateInput(request);
+            if (request.Command != "doctor" && request.PackageFormat == "big" && request.Options["mod-version"].Source == "default")
+                throw Bad("CLI_MOD_VERSION", "Set mod-version in MOD/newmodcompiler.json, EXE.config appSettings, or --mod-version for BIG build/plan.");
             CacheLayout.ForRequest(request);
             return request;
         }
@@ -239,7 +246,7 @@ namespace NewModCompiler.Cli
             } catch (IOException e) { throw Bad("CLI_LOG_PATH",e.Message); }
             return path;
         }
-        static bool IsPath(string key) { return new [] {"mod","sdk-root","game-root","out","events","report","log","session-cache-directory","build-cache-directory","iod"}.Contains(key); }
+        static bool IsPath(string key) { return new [] {"mod","sdk-root","game-root","out","events","report","log","session-cache-directory","build-cache-directory","iod","base-patch-stream","fxc"}.Contains(key); }
         static string FullPath(string value) { try { return Path.GetFullPath(value); } catch (Exception e) { throw Bad("CLI_PATH", e.Message); } }
         static void LoadPreset(IDictionary<string, EffectiveOption> options, string file)
         {
@@ -248,7 +255,7 @@ namespace NewModCompiler.Cli
                 if (values == null) throw Bad("PROJECT_INVALID", "Project preset must be a JSON object.");
                 foreach (var pair in values) {
                     string key = Canonical(pair.Key);
-                    if (!new [] {"jobs","profile","sdk-root","game-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","tp","ss","pc","slowclean","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
+                    if (!new [] {"jobs","profile","sdk-root","game-root","out","package-content","package-format","include-additional","fix-neutral-assets","mod-version","game-version","skudef-name","base-patch-stream","patch-version","patch-config","compile-fx","fxc","tp","ss","pc","slowclean","sc","bc","csc","psc","fsc","atc","session-cache-directory","build-cache-directory","iod"}.Contains(key)) throw Bad("PROJECT_OPTION", "Unsupported project key: " + pair.Key);
                     if (!(pair.Value is IConvertible)) throw Bad("PROJECT_OPTION", "Project values must be scalar values: " + pair.Key);
                     string raw = Convert.ToString(pair.Value, System.Globalization.CultureInfo.InvariantCulture);
                     if (string.IsNullOrWhiteSpace(raw)) throw Bad("PROJECT_OPTION", "Project value must not be empty: " + pair.Key);
@@ -267,18 +274,23 @@ namespace NewModCompiler.Cli
             "  --package-content auto|base,apt,global-metadata  Default auto; explicit combinations are supported.\n" +
             "  --package-format big|loose          Default big: BIG + SKUDEF.\n" +
             "  --include-additional=<true|false>   Default true for BIG, false for loose.\n" +
-            "  --mod-version <version>            Required on the CLI for BIG build/plan; no BIG default.\n" +
+            "  --mod-version <version>            BIG version; CLI, MOD JSON or EXE appSettings required.\n" +
             "  --skudef-name <basename>           Default MOD directory name.\n" +
+            "  --base-patch-stream <manifest>     Compile base data as a patch of an existing stream (/bps alias).\n" +
+            "  --compile-fx=<true|false>          Default true; compile Additional/Shaders/*.fx before BIG packaging.\n" +
             "  --jobs auto|<positive integer>      Default auto; 1 runs on the owner.\n" +
             "  --performance off|summary|detailed  Default off; timings go to build-report.json.\n" +
             "By default, auto-detect base, APT UI and global metadata; include SDK then MOD Additional (excluding .asset). Empty MOD inputs fail.\n" +
-            "Existing MOD/newmodcompiler.json presets remain supported: CLI overrides project values, then defaults apply.\n" +
+            "MOD/newmodcompiler.json presets are supported: CLI overrides project, then EXE appSettings and defaults apply.\n" +
             "Use --help-advanced for cache, resource-root, diagnostic and neutral-repair controls.\n";
         public const string AdvancedHelp = Help +
             "Advanced options are directly usable with build/plan; no mode switch is required.\n" +
             "  --fix-neutral-assets=<true|false>   Default false; also configurable in MOD/newmodcompiler.json or EXE.config appSettings. Requires base content in BIG; missing Worldbuilder streams are obtained from the registered game's Data/WBData_12.big.\n" +
             "  --game-root <directory>            Optional game install directory; overrides automatic registry discovery for neutral repair. Also supported in project JSON and EXE appSettings.\n" +
             "  --game-version <version>           Default 1.12; changes only the SKUDEF field.\n" +
+            "  --patch-version <version|none>     Default 1.01; stream suffix and .version markers. none keeps Patch WB names. Requires BIG base patch.\n" +
+            "  --patch-config <filename.skudef>   Optional base MOD config appended as add-config in patch SKUDEF.\n" +
+            "  --fxc <executable>                 Optional FX compiler override; defaults to bundled fxc.exe beside NewModCompiler.exe.\n" +
             "Cache: /sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false; each accepts true|false. SDK buildCache config can override the default /bc.\n" +
             "Caches: <sdk-root>/SuperCompilerCache/<ModKey>. /scd:<directory> (/scp alias), /bcd:<directory> (/bcp alias), /iod:<directory> must stay inside that MOD partition.\n" +
             "Legacy script controls: /ss:true /pc:true /slowclean:true; each also accepts false.\n" +

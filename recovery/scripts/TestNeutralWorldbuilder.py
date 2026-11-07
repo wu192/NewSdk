@@ -24,7 +24,8 @@ from ImportWorldbuilderReferences import unpack
 
 ROOT = Path(__file__).resolve().parents[2]
 EXTENSIONS = ('.manifest', '.bin', '.imp', '.relo')
-RUNTIME = ('NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll')
+RUNTIME = ('NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll',
+           'fxc.exe', 'd3dcompiler_47.dll')
 TOOLS = ('HashFix.exe', 'ModAssetResolver.exe', 'LoDStreamBuilder.exe', 'MakeBig.exe',
          'ModAssetResolver_TypeHashes.txt', 'ModAssetResolver_InstanceHashes.txt')
 

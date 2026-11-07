@@ -166,7 +166,7 @@ jobs:
         if: ${{ !cancelled() && env.REUSE_CLI != 'true' }}
         shell: pwsh
         run: ./recovery/scripts/TestCompilerCli.ps1 -CompilerDirectory recovery/artifacts/joypad-parallel-product -OutputDirectory "$env:EVIDENCE_ROOT/cli"
-      - name: Check actual CLI protocol and prepare independently extracted three-file ZIPs
+      - name: Check actual CLI protocol and prepare independently extracted five-file ZIPs
         if: ${{ success() }}
         shell: pwsh
         run: |
@@ -219,6 +219,8 @@ jobs:
             recovery/artifacts/joypad-parallel-product/*/bin/NewModCompiler.exe
             recovery/artifacts/joypad-parallel-product/*/bin/NewModCompiler.exe.config
             recovery/artifacts/joypad-parallel-product/*/bin/antlr.runtime.dll
+            recovery/artifacts/joypad-parallel-product/*/bin/fxc.exe
+            recovery/artifacts/joypad-parallel-product/*/bin/d3dcompiler_47.dll
             recovery/artifacts/joypad-parallel-packages/**/*.manifest.json
             recovery/artifacts/joypad-parallel-packages/**/release.json
         run: python recovery/scripts/WriteCiSummary.py --title "joypad-parallel-evidence-${{ github.run_id }}-${{ github.run_attempt }}"
@@ -236,6 +238,8 @@ jobs:
             recovery/artifacts/joypad-parallel-product/*/bin/NewModCompiler.exe
             recovery/artifacts/joypad-parallel-product/*/bin/NewModCompiler.exe.config
             recovery/artifacts/joypad-parallel-product/*/bin/antlr.runtime.dll
+            recovery/artifacts/joypad-parallel-product/*/bin/fxc.exe
+            recovery/artifacts/joypad-parallel-product/*/bin/d3dcompiler_47.dll
             recovery/artifacts/joypad-parallel-packages/**/*.manifest.json
             recovery/artifacts/joypad-parallel-packages/**/release.json
           if-no-files-found: warn

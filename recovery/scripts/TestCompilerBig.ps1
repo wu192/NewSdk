@@ -249,7 +249,7 @@ try{
         $sourceBin=Join-Path $CompilerDirectory "$mode/bin"
         if(Test-Path -LiteralPath $p7Replay){Need ($replay.modeExeSha256.$mode -ceq (Hash (Join-Path $sourceBin 'NewModCompiler.exe'))) 'P7 replay mode EXE differs from independently accepted original bytes'}
         $runtimeFiles=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
-        if(Test-Path -LiteralPath $p7Replay){$runtimeFiles+=@('BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')}
+        if(Test-Path -LiteralPath $p7Replay){$runtimeFiles+=@('BinaryAssetBuilder.TextureCompiler.dll','BinaryAssetBuilder.TextureCompiler.dll.patch.json')}else{$runtimeFiles+=@('fxc.exe','d3dcompiler_47.dll')}
         if($UsePackagedRuntime){
             $sourceBefore=RuntimeSnapshot $sourceBin
             Need ($sourceBefore.Count -eq $runtimeFiles.Count -and @($sourceBefore.Keys|Where-Object{$_ -cnotin $runtimeFiles}).Count -eq 0) 'Packaged BIG runtime file inventory differs'

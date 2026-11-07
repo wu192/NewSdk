@@ -34,11 +34,11 @@ namespace NewModCompiler.Tests
             Check(standard.PackageFormat=="big" && standard.IncludeAdditional && !standard.FixNeutralAssets,"Standard package defaults");
             Check(standard.AutoDetectContent && standard.GameVersion=="1.12" && standard.ModVersion=="1.0","Automatic content and identity defaults");
             Check(standard.JobsAuto && standard.RequestedJobs==0 && standard.PerformanceLevel=="off","Automatic jobs and disabled performance defaults");
-            string[] ordinary={"mod","sdk-root","out","package-content","package-format","include-additional","mod-version","skudef-name","jobs","performance"};
+            string[] ordinary={"mod","sdk-root","out","package-content","package-format","include-additional","mod-version","skudef-name","jobs","performance","base-patch-stream","compile-fx"};
             foreach(string key in ordinary) Check(Options.Help.Contains("--"+key),"Ordinary help includes "+key);
-            foreach(string key in new[]{"profile","fix-neutral-assets","game-version","log","events","report"})
+            foreach(string key in new[]{"profile","fix-neutral-assets","game-version","log","events","report","patch-version","patch-config","fxc"})
                 Check(!Options.Help.Contains("--"+key),"Ordinary help hides "+key);
-            foreach(string key in new[]{"fix-neutral-assets","game-version","log","events","report"})
+            foreach(string key in new[]{"fix-neutral-assets","game-version","log","events","report","patch-version","patch-config","fxc"})
                 Check(Options.AdvancedHelp.Contains("--"+key),"Advanced help includes "+key);
             foreach(string key in new[]{"ss","pc","slowclean","sc","bc","csc","psc","fsc","atc","scd","scp","bcd","bcp","iod","dr","data","art","audio","tl"})
                 Check(Options.AdvancedHelp.Contains("/"+key),"Advanced help includes "+key);
@@ -53,7 +53,7 @@ namespace NewModCompiler.Tests
             Reject("PACKAGE_NEUTRAL_CONTENT",()=>parse(new[]{"--package-content","apt","--fix-neutral-assets=true"}));
             foreach(string command in new[]{"plan","build"}) {
                 string[] prefix={command,"--mod",mod,"--sdk-root",sdk,"--out",output,"--mod-version","1.0"};
-                foreach(string option in new[]{"/sp:ignored.xsd","/bcn:default","/bps:4096","/cpf:asset","/el:1","/ls:false","/tp:Xbox360","/gui:false","/res:false","/pers:false","/mp:false","/poe:false","/sf:false","/sh:false","--unknown=value"})
+                foreach(string option in new[]{"/sp:ignored.xsd","/bcn:default","/cpf:asset","/el:1","/ls:false","/tp:Xbox360","/gui:false","/res:false","/pers:false","/mp:false","/poe:false","/sf:false","/sh:false","--unknown=value"})
                     RejectCli(prefix.Concat(new[]{option}).ToArray());
                 foreach(string key in new[]{"oof","vf","oar","osh","oix","mr"}) {
                     Check(Options.Parse(prefix.Concat(new[]{"/"+key+":false"}).ToArray()).Options[key].Value=="false","Legacy false remains accepted: "+key);
@@ -106,6 +106,8 @@ namespace NewModCompiler.Tests
             Check(overridden.PackageFormat=="big" && overridden.OutputRoot==output && overridden.Options["pc"].Source=="commandLine","CLI overrides project");
             File.WriteAllText(project,"{\"mod-version\":2.7,\"game-version\":1.12}");
             Check(parse(new[]{"--profile","development"}).ModVersion=="2.7", "Existing numeric project versions remain accepted for derived loose output");
+            var numericVersion=parse(new string[0]);
+            Check(numericVersion.PackageFormat=="big" && numericVersion.ModVersion=="2.7" && numericVersion.Options["mod-version"].Source=="project","Numeric project MOD version also enables BIG output");
             var development=parse(new[]{"--profile","development","--mod-version","3.1"});
             Check(development.PackageFormat=="loose" && development.ModVersion=="3.1" && development.GameVersion=="1.12", "Development can reuse project package identity and CLI version overrides");
             Check(development.Options["package-format"].Source=="default","Development-derived loose retains default provenance");
@@ -130,8 +132,8 @@ namespace NewModCompiler.Tests
             string sdk=Path.Combine(root,"sdk"),mod=Path.Combine(root,"mod"),output=Path.Combine(root,"out"),project=Path.Combine(mod,"newmodcompiler.json");
             Directory.CreateDirectory(sdk);Directory.CreateDirectory(mod);
             Action<string[]> missing=arguments=> {
-                try { Options.Parse(arguments); throw new Exception("Accepted BIG output without an explicit CLI MOD version"); }
-                catch(BuildFailure failure) { Check(failure.Code=="CLI_MOD_VERSION" && failure.ExitCode==ExitCode.Arguments,"Missing CLI BIG version returns CLI_MOD_VERSION and exit code 2"); }
+                try { Options.Parse(arguments); throw new Exception("Accepted BIG output without a configured or CLI MOD version"); }
+                catch(BuildFailure failure) { Check(failure.Code=="CLI_MOD_VERSION" && failure.ExitCode==ExitCode.Arguments,"Missing configured/CLI BIG version returns CLI_MOD_VERSION and exit code 2"); }
             };
             foreach(string command in new[]{"build","plan"}) {
                 string[] prefix={command,"--mod",mod,"--sdk-root",sdk,"--out",output};
@@ -139,19 +141,54 @@ namespace NewModCompiler.Tests
                 var explicitVersion=Options.Parse(prefix.Concat(new[]{"--mod-version","1.0"}).ToArray());
                 Check(explicitVersion.PackageFormat=="big" && explicitVersion.ModVersion=="1.0" && explicitVersion.Options["mod-version"].Source=="commandLine","Explicit CLI version enables BIG output");
                 File.WriteAllText(project,"{\"mod-version\":\"2.7\"}");
-                missing(prefix);
+                var configured=Options.Parse(prefix);
+                Check(configured.PackageFormat=="big" && configured.ModVersion=="2.7" && configured.Options["mod-version"].Source=="project","Project MOD version enables BIG output without a CLI version");
                 var overridden=Options.Parse(prefix.Concat(new[]{"--mod-version","1.0"}).ToArray());
                 Check(overridden.ModVersion=="1.0" && overridden.Options["mod-version"].Source=="commandLine","CLI version overrides the project for BIG output");
+                File.WriteAllText(project,"{\"mod-version\":\"../escape\"}");
+                Reject("PACKAGE_IDENTITY_INVALID",()=>Options.Parse(prefix));
                 File.Delete(project);
                 var loose=Options.Parse(prefix.Concat(new[]{"--package-format","loose"}).ToArray());
                 Check(loose.PackageFormat=="loose" && loose.Options["mod-version"].Source=="default","Explicit loose still accepts no CLI version");
                 var development=Options.Parse(prefix.Concat(new[]{"--profile","development"}).ToArray());
                 Check(development.PackageFormat=="loose" && development.Options["package-format"].Source=="default" && development.Options["mod-version"].Source=="default","Development-derived loose still accepts no CLI version");
             }
+            RunApplicationVersion(root,sdk,mod,output,project);
             Reject("PACKAGE_IDENTITY_FORMAT",()=>Options.Parse(new[]{"plan","--mod",mod,"--sdk-root",sdk,"--out",output,"--package-format","loose","--mod-version","1.0"}));
             Check(Options.Parse(new[]{"doctor","--sdk-root",sdk}).Command=="doctor","Doctor still accepts no CLI version");
             Check(!Directory.Exists(output),"Version validation does not create output files");
             return checks-previousChecks;
+        }
+        static void RunApplicationVersion(string root,string sdk,string mod,string output,string project)
+        {
+            string configuration=Path.Combine(root,"version-test.config");
+            File.WriteAllText(configuration,"<configuration><appSettings><add key=\"mod-version\" value=\"1.8\"/></appSettings></configuration>");
+            var setup=new AppDomainSetup { ApplicationBase=AppDomain.CurrentDomain.BaseDirectory, ConfigurationFile=configuration };
+            var domain=AppDomain.CreateDomain("MOD version configuration",null,setup);
+            try {
+                var probe=(ApplicationVersionConfigProbe)domain.CreateInstanceFromAndUnwrap(typeof(ApplicationVersionConfigProbe).Assembly.Location,typeof(ApplicationVersionConfigProbe).FullName);
+                foreach(string command in new[]{"build","plan"}) {
+                    string[] prefix={command,"--mod",mod,"--sdk-root",sdk,"--out",output};
+                    var application=probe.Parse(prefix);
+                    Check(application.SequenceEqual(new[]{"1.8","applicationConfig"}),"EXE appSettings MOD version enables BIG "+command);
+                    File.WriteAllText(project,"{\"mod-version\":\"2.7\"}");
+                    var configured=probe.Parse(prefix);
+                    Check(configured.SequenceEqual(new[]{"2.7","project"}),"Project MOD version overrides EXE configuration");
+                    var overridden=probe.Parse(prefix.Concat(new[]{"--mod-version","3.0"}).ToArray());
+                    Check(overridden.SequenceEqual(new[]{"3.0","commandLine"}),"CLI MOD version overrides project and EXE configuration");
+                    File.Delete(project);
+                }
+            } finally { AppDomain.Unload(domain); if(File.Exists(project)) File.Delete(project); }
+        }
+    }
+    public sealed class ApplicationVersionConfigProbe : MarshalByRefObject
+    {
+        public string[] Parse(string[] arguments)
+        {
+            try {
+                var request=Options.Parse(arguments);
+                return new[]{request.ModVersion,request.Options["mod-version"].Source};
+            } catch(BuildFailure failure) { return new[]{"error",failure.Code}; }
         }
     }
 }

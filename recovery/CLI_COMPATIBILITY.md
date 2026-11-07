@@ -4,7 +4,7 @@
 
 ## 普通入口
 
-保留 `build`、`plan`、`doctor`、`--help`、`-h` 和 `--help-advanced`。`doctor` 仍只要求 SDK 路径，不附加 MOD、输出目录或显式 MOD 版本要求。普通帮助只展示以下 10 个参数：
+保留 `build`、`plan`、`doctor`、`--help`、`-h` 和 `--help-advanced`。`doctor` 仍只要求 SDK 路径，不附加 MOD、输出目录或显式 MOD 版本要求。普通帮助展示以下参数：
 
 | 参数 | 默认值 / 用途 |
 | --- | --- |
@@ -14,12 +14,16 @@
 | `--package-content` | `auto`，或 `base,apt,global-metadata` 的组合 |
 | `--package-format` | `big`，可选 `loose` |
 | `--include-additional` | BIG 默认 true，loose 默认 false |
-| `--mod-version` | 最终格式为 BIG 的 build/plan 每次必须在 CLI 显式指定；项目预设不能代替 |
+| `--mod-version` | BIG build/plan 需要版本，可由 CLI、项目 JSON 或 EXE appSettings 提供 |
 | `--skudef-name` | MOD 目录名 |
+| `--base-patch-stream` | 基准 manifest 路径，兼容 `/bps:`，仅作用于 BIG 的 base 流 |
+| `--compile-fx` | 默认 true，编译合并后的 Additional/Shaders 顶层 FX |
 | `--jobs` | `auto` 或正整数，默认 `auto` |
 | `--performance` | `off\|summary\|detailed`，默认 `off` |
 
-默认自动发现 base/APT/global-metadata，输出 BIG + SKUDEF 并包含 Additional。Win32 与 LinkedStreams 固定，正常编译无需显式填写平台、格式或缓存参数。最终格式为 BIG 的 `build`/`plan` 每次必须在命令行显式传入 `--mod-version`，项目预设与旧默认值不能代替。loose（包括 development 派生的 loose）不要求显式版本，显式 loose 的原包身份校验继续保留。布尔值接受 `--include-additional=false`、旧式 `/pc:false` 或裸开关启用；不接受空格分隔的布尔值。
+默认自动发现 base/APT/global-metadata，输出 BIG + SKUDEF 并包含 Additional。Win32 与 LinkedStreams 固定，正常编译无需显式填写平台、格式或缓存参数。最终格式为 BIG 的 `build`/`plan` 要求由 CLI、MOD 项目 JSON 或 EXE appSettings 提供 `mod-version`。loose（包括 development 派生的 loose）不要求显式版本，显式 loose 的原包身份校验继续保留。布尔值接受 `--include-additional=false`、旧式 `/pc:false` 或裸开关启用；不接受空格分隔的布尔值。
+
+基础补丁默认使用流版本 `1.01`，`--patch-version none` 保留 Patch WB 无后缀布局；`--patch-config Base_1.0.skudef` 可添加基准配置引用。FX 可用 `--fxc` 指定工具；源码 `.fx`/`.fxh` 不进入 BIG。操作与边界见 [使用说明](COMPILER_USAGE.md#patch-与-fx)。
 
 ## 高级能力
 
@@ -58,16 +62,16 @@
 
 ## 明确拒绝
 
-`/gui`、`/res`、`/pers`、`/mp`、`/poe`、`/sf`、`/sh` 维持拒绝。`/sp`、`/bcn`、`/bps`、`/cpf` 不属于可用选项：自定义 Schema、BuildConfiguration、基础补丁流及自定义后缀均在 CLI 阶段以退出码 2 拒绝，`plan` 与 `build` 一致。未知选项、非固定平台/链接值、`/el:1` 及上述无效布尔开关的 true 同样拒绝。
+`/gui`、`/res`、`/pers`、`/mp`、`/poe`、`/sf`、`/sh` 维持拒绝。`/sp`、`/bcn`、`/cpf` 不属于可用选项：自定义 Schema、BuildConfiguration 及自定义后缀均在 CLI 阶段以退出码 2 拒绝，`plan` 与 `build` 一致。未知选项、非固定平台/链接值、`/el:1` 及上述无效布尔开关的 true 同样拒绝。
 
 ## 项目预设与包身份
 
-`newmodcompiler.json` 既有键继续有效，完整列表为：`jobs`、`profile`、`sdk-root`、`game-root`、`out`、`package-content`、`package-format`、`include-additional`、`fix-neutral-assets`、`mod-version`、`game-version`、`skudef-name`、`tp`、`ss`、`pc`、`slowclean`、`sc`、`bc`、`csc`、`psc`、`fsc`、`atc`、`session-cache-directory`（`scd`/`scp` 别名）、`build-cache-directory`（`bcd`/`bcp` 别名）和 `iod`。`od` 仍为 `out` 的别名。
+`newmodcompiler.json` 既有键继续有效，完整列表为：`jobs`、`profile`、`sdk-root`、`game-root`、`out`、`package-content`、`package-format`、`include-additional`、`fix-neutral-assets`、`mod-version`、`game-version`、`skudef-name`、`base-patch-stream`（`bps` 别名）、`patch-version`、`patch-config`、`compile-fx`、`fxc`、`tp`、`ss`、`pc`、`slowclean`、`sc`、`bc`、`csc`、`psc`、`fsc`、`atc`、`session-cache-directory`（`scd`/`scp` 别名）、`build-cache-directory`（`bcd`/`bcp` 别名）和 `iod`。`od` 仍为 `out` 的别名。
 
-优先级保持命令行 ＞ 项目预设 ＞ 默认值，同一来源同一参数指定冲突值时报错。`mod-version` 项目键继续被识别，但 BIG 的必填要求只能由本次 CLI 显式版本满足，须用命令行覆盖项目版本。JSON 相对路径以 MOD 目录为基准，命令行路径以调用目录为基准；生效值及来源进入报告与事件。SDK 的 `buildCache` 仅覆盖未显式指定的 `/bc` 默认值。
+优先级保持命令行 ＞ 项目预设 ＞ EXE appSettings ＞ 默认值，同一来源同一参数指定冲突值时报错。BIG 可直接使用项目或 EXE 配置的 `mod-version`。JSON 相对路径以 MOD 目录为基准，EXE 配置相对路径以程序目录为基准，命令行路径以调用目录为基准；生效值及来源进入报告与事件。SDK 的 `buildCache` 仅覆盖未显式指定的 `/bc` 默认值。
 
 ```json
 {"package-content":"base,apt,global-metadata","mod-version":"2.7-beta","skudef-name":"ExampleLauncher"}
 ```
 
-使用上例项目预设并在 BIG `build`/`plan` 命令行显式传入 `--mod-version 2.7-beta`，MOD 目录名为 Example 时发布 `Example_2.7-beta.big` 和 `ExampleLauncher_2.7-beta.skudef`；SKUDEF 精确包含 ASCII/CRLF 的 `mod-game 1.12` 与 `add-big Example_2.7-beta.big`。MOD 版本允许 ASCII 字母、数字、点、下划线及连字符；游戏版本为点分十进制；SKUDEF 名称为单个 ASCII 文件基名。均不能注入目录或换行指令。APT 内部 `.version` 仍为原脚本的空格+CRLF，与 MOD 包版本不同。
+使用上例项目预设即可执行 BIG `build`/`plan`；MOD 目录名为 Example 时发布 `Example_2.7-beta.big` 和 `ExampleLauncher_2.7-beta.skudef`；SKUDEF 精确包含 ASCII/CRLF 的 `mod-game 1.12` 与 `add-big Example_2.7-beta.big`。MOD 版本允许 ASCII 字母、数字、点、下划线及连字符；游戏版本为点分十进制；SKUDEF 名称为单个 ASCII 文件基名。均不能注入目录或换行指令。APT 内部 `.version` 仍为原脚本的空格+CRLF，与 MOD 包版本不同。

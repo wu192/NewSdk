@@ -235,7 +235,10 @@ namespace NewModCompiler.Application
             settings.InputPath = StreamInputPath(context);
             settings.SchemaPath = Path.Combine(sdkRoot, "Schemas", "xsd", "CnC3Types.xsd");
             settings.DataRoot = RootOption("dr", sdkRoot);
-            settings.OutputDirectory = Path.Combine(output, "streams");
+            // Patch linking depends on the current base manifest, independently
+            // of source asset identities. Keep its outputs apart from full builds.
+            bool patch = context.Task.Content == "base" && !string.IsNullOrEmpty(request.BasePatchStream);
+            settings.OutputDirectory = Path.Combine(output, patch ? "patch-streams" : "streams");
             settings.IntermediateOutputDirectory = cacheLayout.Intermediate;
             settings.SessionCacheDirectory = cacheLayout.Session;
             // SDK buildCacheRoot is configuration input, never a writable override
@@ -263,7 +266,7 @@ namespace NewModCompiler.Application
             settings.GuiMode = settings.Resident = settings.PauseOnError = settings.MetricsReporting = false;
             settings.OldOutputFormat = settings.VersionFiles = settings.OutputAssetReport = settings.OutputStringHashes = settings.OutputIntermediateXml = false;
             settings.SingleFile = false; settings.LinkedStreams = true;
-            settings.CustomPostfix = ""; settings.StreamPostfix = ""; settings.BasePatchStream = null;
+            settings.CustomPostfix = ""; settings.StreamPostfix = ""; settings.BasePatchStream = patch ? request.BasePatchStream : null;
             settings.TraceLevel = traceLevel; settings.ErrorLevel = 0;
             Settings.Current = settings;
             string signature = InputSignature(request);
@@ -530,7 +533,14 @@ namespace NewModCompiler.Application
                 settings.FileIdentity = request.FileIdentities.CoreIdentity;
                 settings.FileHashRead = request.FileIdentities.RecordRead;
                 settings.SchemaFileIdentities = request.FileIdentities.SchemaIdentities;
-                settings.StreamOutputStarted = stem => startedStreams.Add(stem);
+                settings.StreamOutputStarted = stem => {
+                    startedStreams.Add(stem);
+                    // A base stream may change while MOD XML remains unchanged.
+                    // Reuse compiled assets, but always relink the patch against
+                    // the base actually loaded by this invocation.
+                    if (settings.BasePatchStream != null)
+                        foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo", ".old.manifest" }) File.Delete(stem + extension);
+                };
                 settings.StreamOutputCompleted = (stem, reused) => {
                     foreach (string extension in new[] { ".manifest", ".bin", ".imp", ".relo" }) currentFiles.Add(stem + extension);
                     if (reused) linkedStreamsRestored++;

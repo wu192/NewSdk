@@ -10,7 +10,7 @@
 
 正常编译直接生成 manifest/bin/imp/relo 与 CDATA。原脚本 step5 在未启用可选修复时直接运行 LoD；HashFix→ModAssetResolver→LoD 不是默认必需链。**2026-10-27 用户确认不需要 AssetMerge：不纳入新流程，也不作为 P7 完成条件。** 已保存的独立恢复准备不代表产品需要或启用了它。
 
-成功非空构建只发布 `<MOD目录名>_<mod-version>.big` 与 `<skudef-name>_<mod-version>.skudef`。默认 mod-version 为1.0，skudef-name为MOD目录名，game-version为1.12；可用同名长参数或项目配置更改，规则见 `CLI_COMPATIBILITY.md`。SKUDEF 保持 ASCII/CRLF 的 `mod-game <game-version>`、`add-big <包名>`；游戏侧 Unicode 名称合同仍未启用。原 MakeBig 本身的 UTF-8 行为另见 `MAKEBIG_RECOVERY.md`。
+成功非空构建只发布 `<MOD目录名>_<mod-version>.big` 与 `<skudef-name>_<mod-version>.skudef`。BIG 的 mod-version 由命令行、项目 JSON 或 EXE appSettings 提供；skudef-name 默认为 MOD 目录名，game-version 默认为1.12，规则见 `CLI_COMPATIBILITY.md`。SKUDEF 保持 ASCII/CRLF 的 `mod-game <game-version>`、`add-big <包名>`；patch-config 可追加基准配置的 `add-config`。游戏侧 Unicode 名称合同仍未启用。原 MakeBig 本身的 UTF-8 行为另见 `MAKEBIG_RECOVERY.md`。
 
 | 本次产物 | BIG 内路径 |
 | --- | --- |
@@ -20,7 +20,7 @@
 | APT 派生版本 | `data/aptui/<流名>.version`，原命令实测 `20 0d 0a` |
 | maps 四输出与 CDATA | `data/additionalmaps/<流名>.*`、`data/additionalmaps/<流名>/cdata/*.cdata` |
 
-默认成员仅来自本次已确认的流产物清单；不扫描陈旧输出、中间文件或缓存。base 不派生 `.version`。空可选集合保持上一代，不生成空 BIG。
+默认成员仅来自本次已确认的流产物清单；不扫描陈旧输出、中间文件或缓存。普通 base 不派生 `.version`；配置 base-patch-stream 时，patch-version 默认1.01，生成 `data/mod_1.01.*`、`data/mod_m_1.01.*`、`data/mod_l_1.01.*` 和内容为 `_1.01` 的三个版本指针。patch-version=none 使用 Patch WB 无后缀布局。FX 在 Additional 合并后编译为 `shaders/compiled/*.fxo`，`.fx`/`.fxh` 源码排除；操作与边界见 [使用说明](COMPILER_USAGE.md#patch-与-fx)。空可选集合保持上一代，不生成空 BIG。
 
 BIG 默认自动包含 Additional，可用 `--include-additional=false` 关闭；显式 loose 不自动包含，`--include-additional=true` 仍只允许 BIG：按原 step8 先 SDK/Additional、后 MOD/Additional 递归覆盖；相对路径进入 BIG 根，`.asset` 按原 MakeBig 规则排除。同名文件可覆盖本次编译结果或 APT 版本，这是原脚本的覆盖行为，记录 `ADDITIONAL_OVERWRITE` 警告。所有输入先快照到本次 staging 并核对 SHA256，不改原 SDK/MOD/流文件；之后仍走已有发布事务。项目配置可使用布尔 `include-additional`。
 

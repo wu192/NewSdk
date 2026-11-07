@@ -17,6 +17,7 @@ namespace NewModCompiler.Application
             if(request.FixNeutralAssets && (request.PackageFormat!="big" || request.Content==null || !request.Content.Contains("base"))) throw new BuildFailure(ExitCode.Arguments,"PACKAGE_NEUTRAL_CONTENT","Neutral-asset repair requires BIG packaging with base content selected.");
             if(request.IncludeAdditional && request.PackageFormat!="big") throw new BuildFailure(ExitCode.Arguments,"PACKAGE_ADDITIONAL_FORMAT","Additional files require --package-format big.");
             PackageIdentity.Validate(request);
+            PatchStreams.Validate(request);
             if(request.Command=="doctor") return;
             if(request.PackageFormat==null || request.PackageFormat=="loose") return;
             if(request.PackageFormat!="big") throw new BuildFailure(ExitCode.Arguments,"CLI_CAPABILITY","Package format must be loose or big.");
@@ -55,7 +56,7 @@ namespace NewModCompiler.Application
                 string extension=Path.GetExtension(artifact.Path);
                 if(new[] {".manifest",".bin",".imp",".relo"}.Contains(extension,StringComparer.OrdinalIgnoreCase)) {
                     if(!string.Equals(leaf,stem+extension,StringComparison.OrdinalIgnoreCase) || !owners[owner].Add(extension)) throw new IOException("BIG stream files must be one exact four-file set per selected task.");
-                    relative=stem+extension;
+                    relative=PatchStreams.EntryName(request,owner,stem,extension);
                 } else {
                     var directory=new DirectoryInfo(Path.GetDirectoryName(artifact.Path));
                     if(artifact.Kind!="custom-data" || !string.Equals(extension,".cdata",StringComparison.OrdinalIgnoreCase) || !string.Equals(directory.Name,"cdata",StringComparison.OrdinalIgnoreCase) || directory.Parent==null || !string.Equals(directory.Parent.Name,stem,StringComparison.OrdinalIgnoreCase)) throw new IOException("Unexpected BIG custom-data artifact layout.");
@@ -90,10 +91,10 @@ namespace NewModCompiler.Application
                 // original script passes lowercase mod.manifest, which is also
                 // the exact embedded dependency name in both LoD manifests.
                 using (request.Performance.Measure("package.lod"))
-                foreach(string source in LoDStreamBuilder.Create(Path.Combine(Path.GetDirectoryName(manifest),"mod.manifest"),cancellation,Path.Combine(temporary,"package-lod"))) {
-                    string name="Data\\"+Path.GetFileName(source);
+                foreach(BigArchiveEntry entry in PatchStreams.LoD(request,manifest,temporary,cancellation)) {
+                    string name=entry.Name;
                     if(!names.Add(name)) throw new IOException("Case-insensitive LoD archive path collision.");
-                    entries.Add(new BigArchiveEntry {Name=name,SourcePath=source});
+                    entries.Add(entry);
                 }
             }
             // SDK/defaultscript.cs uses echo-dot plus space redirection for each
@@ -113,8 +114,9 @@ namespace NewModCompiler.Application
             string big=Path.Combine(output,mod+"_"+request.ModVersion+".big"),skudef=Path.Combine(output,(request.SkudefName ?? mod)+"_"+request.ModVersion+".skudef");
             using (request.Performance.Measure("package.additional-merge"))
                 if(request.IncludeAdditional) AdditionalFiles.Merge(entries,additional,cancellation,warning);
+            using (request.Performance.Measure("package.fx")) ShaderCompiler.Compile(request,entries,temporary,cancellation);
             using (request.Performance.Measure("package.big")) MakeBig.Write(big,entries,cancellation);
-            using (request.Performance.Measure("package.skudef")) BigArchiveWriter.WriteSkudef(skudef,Path.GetFileName(big),cancellation,request.GameVersion);
+            using (request.Performance.Measure("package.skudef")) BigArchiveWriter.WriteSkudef(skudef,Path.GetFileName(big),cancellation,request.GameVersion,request.PatchConfig);
             cancellation.ThrowIfCancellationRequested();
             return new[] {Describe(big,"package.big"),Describe(skudef,"package.skudef")};
             } finally {
