@@ -90,7 +90,7 @@ Joypad 新并行范围见 [Joypad 说明](docs/components/xml/XML_JOYPAD.md)。�
 
 | 选项 | 默认值 / 效果 |
 | --- | --- |
-| `--mod-version` | BIG build/plan 每次在 CLI 显式指定，生成 `<MOD目录名>_<所传版本>.big`；项目值不能代替 |
+| `--mod-version` | BIG build/plan 的包版本，可由 CLI、项目 JSON 或 EXE appSettings 提供，生成 `<MOD目录名>_<版本>.big` |
 | `--skudef-name` | MOD 目录名，生成 `<基名>_<版本>.skudef`，其中 add-big 引用真实 BIG 文件名 |
 | `--include-additional=false` | BIG 默认自动包含，手动关闭时使用 false；先取 `SDK/Additional`，后由 `MOD/Additional` 同名文件覆盖，排除 `.asset` |
 
@@ -112,13 +112,31 @@ Additional 的相对目录进入 BIG 根；它能够覆盖已编译文件及 APT
 }
 ```
 
-SDK 和输出路径可由项目提供；BIG `build`/`plan` 仍须每次在命令行传入 MOD 路径与版本号：
+SDK、输出路径和版本均可由项目提供，命令行只需传入 MOD 路径：
 
 ```powershell
-./NewModCompiler.exe build --mod "C:\Mods\Example" --mod-version 2.8
+./NewModCompiler.exe build --mod "C:\Mods\Example"
 ```
 
-命令行覆盖项目预设，预设覆盖默认值；同一来源的冲突参数会报错。项目中的 `mod-version` 键继续被识别，但仅有预设版本不足以满足 BIG 的必填要求，必须用 CLI 版本覆盖。SDK 与输出路径可保存到项目，JSON 中相对路径以 MOD 目录为基准；命令行路径仍以调用目录为基准。还可保存内容选择、BIG 设置、`jobs` 及既有高级缓存与旧脚本设置（完整键列表见 [参数兼容表](CLI_COMPATIBILITY.md)）。不扩充项目格式；不要将其他旧 BAB 参数写入 JSON。`profile` 仍可供已有项目兼容使用，规则见下文。
+命令行覆盖项目预设，项目覆盖 EXE appSettings，最后使用默认值；同一来源的冲突参数会报错。BIG 的版本必须由命令行或配置提供。EXE.config 可用 `<add key="mod-version" value="2.7-beta"/>` 设置通用版本。JSON 相对路径以 MOD 目录为基准，EXE 配置相对路径以程序目录为基准，命令行路径以调用目录为基准。还可保存内容选择、BIG 设置、`jobs` 及既有高级缓存与旧脚本设置（完整键列表见 [参数兼容表](CLI_COMPATIBILITY.md)）。`profile` 仍可供已有项目兼容使用，规则见下文。
+
+### Patch 与 FX
+
+附件脚本的基础补丁和 Patch WB 共用 `base-patch-stream`（旧 `/bps:`）选项，指向基准 `.manifest`；对应 `.bin`、`.imp`、`.relo` 应保留在同一目录。该选项只作用于 base 流，并要求 BIG 输出。
+
+```json
+{
+  "mod-version": "1.1",
+  "base-patch-stream": "../BaseBuild/mod.manifest",
+  "patch-version": "1.01",
+  "patch-config": "Base_1.0.skudef",
+  "compile-fx": true
+}
+```
+
+补丁包输出 `Data/Mod_1.01.*`、`Data/mod_m_1.01.*`、`Data/mod_l_1.01.*` 和对应无换行的 `.version` 指针。流版本 `patch-version` 与包版本 `mod-version` 独立；使用 `"patch-version": "none"` 保留 Patch WB 的无后缀流布局。`patch-config` 可省略，设置时为单个 SKUDEF 文件名，生成 `add-config`；基准 MOD 仍需自行安装。基准资源搜索可通过现有 `/data`、`/art`、`/audio` 设置。
+
+FX 在合并 SDK/MOD Additional 后、打 BIG 前编译，搜索 `Shaders` 顶层的 `.fx`，保留相对包含文件路径。编译参数沿用附件的 `/nologo /O3 /WX /T fx_2_0`；源文件包含独立行 `/// fxc-wrapper-disable-preshader` 时加入 `/Op`。输出位于 `Shaders/Compiled/<名称>.fxo`，`.fx` 和 `.fxh` 不进入 BIG。每次打包重新编译，包含文件修改也会生效。默认依次查找 SDK 的 `ARModExtraTools/fxc.exe`、`tools/fxc.exe` 和 PATH，也可用 `fxc` 配置完整路径。关闭使用 `"compile-fx": false` 或 `--compile-fx=false`。编译失败会使构建失败；仅当存在待编译 FX 时需要工具。
 
 ## 6. 高级选项
 

@@ -53,12 +53,13 @@ namespace NewModCompiler.Application
             });
         }
 
-        public static void WriteSkudef(string path, string bigFileName, CancellationToken cancellation = default(CancellationToken), string gameVersion = "1.12")
+        public static void WriteSkudef(string path, string bigFileName, CancellationToken cancellation = default(CancellationToken), string gameVersion = "1.12", string baseConfig = null)
         {
             string name=NormalizeName(bigFileName,false);
             if(name.IndexOf('\\')>=0 || !name.EndsWith(".big",StringComparison.OrdinalIgnoreCase)) throw new ArgumentException("SKUDEF requires an ASCII BIG file name, without directories.");
             PackageIdentity.ValidateGameVersion(gameVersion);
-            byte[] text=Encoding.ASCII.GetBytes("mod-game "+gameVersion+"\r\nadd-big "+name+"\r\n");
+            PatchStreams.ValidateConfig(baseConfig);
+            byte[] text=Encoding.ASCII.GetBytes("mod-game "+gameVersion+"\r\nadd-big "+name+"\r\n"+(baseConfig == null ? "" : "add-config "+baseConfig+"\r\n"));
             Atomic(Output(path),cancellation,stream=>stream.Write(text,0,text.Length));
         }
 

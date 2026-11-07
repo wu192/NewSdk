@@ -149,6 +149,7 @@ namespace NewModCompiler.Tests
         public static int Main(string[] args)
         {
             try {
+                if (ShaderCompilerTests.IsFxcProbe(args)) return ShaderCompilerTests.FxcProbe(args);
                 if (args.Length==1 && args[0]=="--close-failure-probe") return CloseFailureProcess();
                 root=Path.GetFullPath(args.Length==0 ? Path.Combine(Path.GetTempPath(),"NewModCompiler-App-"+Guid.NewGuid().ToString("N")) : args[0]);
                 if (Directory.Exists(root)) Directory.Delete(root,true); Directory.CreateDirectory(root);
@@ -164,6 +165,8 @@ namespace NewModCompiler.Tests
                 assertions += FileIdentityTests.Run(Path.Combine(root,"file-identity"));
                 assertions += BigArchiveWriterTests.Run(Path.Combine(root,"big-writer"));
                 assertions += BuildDefaultsTests.Run(Path.Combine(root,"build-defaults"));
+                assertions += ShaderCompilerTests.Run(Path.Combine(root,"shader-compiler"));
+                assertions += PatchPackageTests.Run(Path.Combine(root,"patch-package"));
                 assertions += CacheLayoutTests.Run(Path.Combine(root,"cache-layout"));
                 assertions += AdditionalFilesTests.Run(Path.Combine(root,"additional-files"));
                 assertions += MakeBigTests.Run(Path.Combine(root,"makebig"));

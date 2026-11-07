@@ -41,12 +41,18 @@ namespace NewModCompiler.Application
         public string ModVersion { get; set; }
         public string GameVersion { get; set; }
         public string SkudefName { get; set; }
+        public string BasePatchStream { get; set; }
+        public string PatchVersion { get; set; }
+        public string PatchConfig { get; set; }
+        public bool CompileFx { get; set; }
+        public string FxcPath { get; set; }
+        internal readonly List<string> ExternalTools = new List<string>();
         public bool IncludeAdditional { get; set; }
         public bool FixNeutralAssets { get; set; }
         public string GameRoot { get; set; }
         public string[] Arguments { get; set; }
         public IDictionary<string, EffectiveOption> Options { get; private set; }
-        public BuildRequest() { JobsAuto=true; PerformanceLevel="off"; ModVersion="1.0"; GameVersion="1.12"; Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }
+        public BuildRequest() { JobsAuto=true; PerformanceLevel="off"; ModVersion="1.0"; GameVersion="1.12"; PatchVersion="1.01"; CompileFx=true; Options = new SortedDictionary<string, EffectiveOption>(StringComparer.Ordinal); }
     }
     public sealed class BuildTask
     {

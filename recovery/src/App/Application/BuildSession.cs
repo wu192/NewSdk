@@ -133,7 +133,7 @@ namespace NewModCompiler.Application
                 {"inputRoots",compiler is IInputRootsCompiler ? ((IInputRootsCompiler)compiler).InputRootsReport : null},
                 {"plan",plan},{"stages",stages},{"diagnostics",diagnostics},{"diagnosticCounts",new {error=errorCount,warning=warningCount}},
                 {"loadedProviders",providerIdentity == null ? new string[0] : new [] {providerIdentity}},
-                {"externalTools",new string[0]},{"cache",cacheCompiler == null ? (object)new {status="NotImplemented",hits=0,misses=0} : cacheCompiler.CacheReport},
+                {"externalTools",request.ExternalTools.ToArray()},{"cache",cacheCompiler == null ? (object)new {status="NotImplemented",hits=0,misses=0} : cacheCompiler.CacheReport},
                 {"elapsedMs",events.ElapsedMilliseconds},{"artifacts",artifacts},{"logPaths",new {events=request.EventsPath,report=request.ReportPath,text=request.LogPath}},
                 {"executionMode",request.Command == "plan" ? "PlanOnly" : "InProcess"},
                 {"publicationStatus",request.Command == "plan" ? "NoCompilationRequested" : generated ? "PublishedDirectory" : "NotPublished"},
