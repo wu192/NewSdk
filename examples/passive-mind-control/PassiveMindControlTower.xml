@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <Includes>
+    <Include type="all" source="ART:ABBaseDefenseAdvanced_SKN.w3x" />
+  </Includes>
+
+  <SpecialPowerTemplate id="SpecialPowerPassiveMindControlWeapon"
+                        TargetType="OBJECT" NumTargets="1" ReloadTime="0s"
+                        Flags="NEEDS_TARGET CANNOT_TARGET_SELF" />
+
+  <!-- Only explicit attacks fire this single-target immediate weapon. Check is
+       read-only; Apply shares the Update's capture transaction and deadline.
+       Automatic acquisition stays in Update and never fires this weapon. -->
+  <WeaponTemplate id="PassiveMindControlAssignedTargetWeapon"
+                  AttackRange="200" AcceptableAimDelta="180d"
+                  WeaponSpeed="999999" RadiusDamageAffects="ENEMIES"
+                  ClipSize="1" Flags="ATTACK_NEEDS_LINE_OF_SIGHT"
+                  RequiredAntiMask="ANTI_GROUND ANTI_WATER ANTI_SUBMERGED ANTI_AIRBORNE_VEHICLE ANTI_AIRBORNE_INFANTRY">
+    <FiringDuration MinSeconds="0s" MaxSeconds="0s" />
+    <ClipReloadTime MinSeconds="0.033333s" MaxSeconds="0.033333s" />
+    <WeaponAiHintInfo UseAsWarheadForDamageCalculations="PassiveMindControlDamageEstimateOnly" />
+    <Nuggets>
+      <SpecialPowerNugget Radius="0" SpecialPowerTemplate="SpecialPowerPassiveMindControlWeapon" />
+    </Nuggets>
+  </WeaponTemplate>
+
+  <!-- Estimate only: never mount or launch this template. The native AI hint
+       evaluates its nonzero damage without executing its Nuggets. -->
+  <WeaponTemplate id="PassiveMindControlDamageEstimateOnly"
+                  AttackRange="200" RadiusDamageAffects="ENEMIES">
+    <Nuggets>
+      <DamageNugget Damage="1" Radius="0" DamageType="UNRESISTABLE" DeathType="NORMAL">
+        <SpecialObjectFilter Rule="ANY" Relationship="ENEMIES" Include="INFANTRY VEHICLE" />
+      </DamageNugget>
+    </Nuggets>
+  </WeaponTemplate>
+
+  <!-- Complete selectable tower templates use stock art and commands. Include
+       this file in the MOD and expose the desired template through its normal
+       builder/command-set entry or a map. No extra skill or targeting mode. -->
+  <GameObject id="PassiveMindControlTowerCapacityThree"
+              Side="Allies" EditorSorting="STRUCTURE" RadarPriority="STRUCTURE"
+              BuildTime="15" CommandSet="GenericCommandSet"
+              ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE"
+              KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_ATTACK FS_BASE_DEFENSE SCORE AUTO_ACQUIRABLE_BY_AI CAN_SEE_THROUGH_STRUCTURE">
+    <ObjectResourceInfo><BuildCost Account="0" Amount="1200" /></ObjectResourceInfo>
+    <Draws>
+      <ScriptedModelDraw id="ModuleTag_Model" OkToChangeModelColor="true">
+        <ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+          <Model Name="ABBaseDefenseAdvanced_SKN" />
+        </ModelConditionState>
+      </ScriptedModelDraw>
+    </Draws>
+    <Behaviors>
+      <PassiveMindControlUpdate id="ModuleTag_PassiveMindControl"
+                                SpecialPowerTemplate="SpecialPowerPassiveMindControlWeapon"
+                                Capacity="3" AcquireRadius="200"
+                                CaptureIntervalFrames="15"
+                                DisableWhenStatus="POWERED_DOWN_EMP USER_POWERED_DOWN NO_SPECIAL_ABILITY">
+        <TargetFilter Rule="ANY" Relationship="ENEMIES" Include="INFANTRY VEHICLE" />
+      </PassiveMindControlUpdate>
+      <WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+        <WeaponSlotHardpoint ID="1">
+          <Weapon Ordering="PRIMARY_WEAPON" Template="PassiveMindControlAssignedTargetWeapon" />
+        </WeaponSlotHardpoint>
+      </WeaponSetUpdate>
+      <StancesBehavior id="ModuleTag_Stance" StanceTemplate="OffensiveStructures" />
+      <DestroyDie id="ModuleTag_DestroyDie"><DieMuxData DeathTypes="ALL" /></DestroyDie>
+    </Behaviors>
+    <AI>
+      <AIUpdate id="ModuleTag_AIUpdate" AutoAcquireEnemiesWhenIdle="NO"
+                StateMachine="OffensiveStructureAIStateMachine">
+        <UnitAITargetChooserData />
+      </AIUpdate>
+    </AI>
+    <Body><ActiveBody id="ModuleTag_Body" MaxHealth="1500" /></Body>
+    <Geometry IsSmall="false">
+      <Shape Type="BOX" MajorRadius="15" MinorRadius="15" Height="51" ContactPointGeneration="STRUCTURE">
+        <Offset x="0" y="0" z="0" />
+      </Shape>
+    </Geometry>
+    <VisionInfo VisionRange="360" ShroudClearingRange="500" />
+  </GameObject>
+
+  <GameObject id="PassiveMindControlTowerCapacityEight"
+              Side="Allies" EditorSorting="STRUCTURE" RadarPriority="STRUCTURE"
+              BuildTime="15" CommandSet="GenericCommandSet"
+              ProductionQueueType="OTHER_STRUCTURE" BuildPlacementTypeFlag="OTHER_STRUCTURE"
+              KindOf="STRUCTURE SELECTABLE IMMOBILE CAN_ATTACK FS_BASE_DEFENSE SCORE AUTO_ACQUIRABLE_BY_AI CAN_SEE_THROUGH_STRUCTURE">
+    <ObjectResourceInfo><BuildCost Account="0" Amount="1200" /></ObjectResourceInfo>
+    <Draws>
+      <ScriptedModelDraw id="ModuleTag_Model" OkToChangeModelColor="true">
+        <ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+          <Model Name="ABBaseDefenseAdvanced_SKN" />
+        </ModelConditionState>
+      </ScriptedModelDraw>
+    </Draws>
+    <Behaviors>
+      <PassiveMindControlUpdate id="ModuleTag_PassiveMindControl"
+                                SpecialPowerTemplate="SpecialPowerPassiveMindControlWeapon"
+                                Capacity="8" AcquireRadius="200"
+                                CaptureIntervalFrames="15"
+                                DisableWhenStatus="POWERED_DOWN_EMP USER_POWERED_DOWN NO_SPECIAL_ABILITY">
+        <TargetFilter Rule="ANY" Relationship="ENEMIES" Include="INFANTRY VEHICLE" />
+      </PassiveMindControlUpdate>
+      <WeaponSetUpdate id="ModuleTag_WeaponSetUpdate">
+        <WeaponSlotHardpoint ID="1">
+          <Weapon Ordering="PRIMARY_WEAPON" Template="PassiveMindControlAssignedTargetWeapon" />
+        </WeaponSlotHardpoint>
+      </WeaponSetUpdate>
+      <StancesBehavior id="ModuleTag_Stance" StanceTemplate="OffensiveStructures" />
+      <DestroyDie id="ModuleTag_DestroyDie"><DieMuxData DeathTypes="ALL" /></DestroyDie>
+    </Behaviors>
+    <AI>
+      <AIUpdate id="ModuleTag_AIUpdate" AutoAcquireEnemiesWhenIdle="NO"
+                StateMachine="OffensiveStructureAIStateMachine">
+        <UnitAITargetChooserData />
+      </AIUpdate>
+    </AI>
+    <Body><ActiveBody id="ModuleTag_Body" MaxHealth="1500" /></Body>
+    <Geometry IsSmall="false">
+      <Shape Type="BOX" MajorRadius="15" MinorRadius="15" Height="51" ContactPointGeneration="STRUCTURE">
+        <Offset x="0" y="0" z="0" />
+      </Shape>
+    </Geometry>
+    <VisionInfo VisionRange="360" ShroudClearingRange="500" />
+  </GameObject>
+</AssetDeclaration>

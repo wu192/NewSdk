@@ -1,4 +1,34 @@
-# 当前：原生推土机命令资格重构（2026-11-06）
+# 当前：武器事件心控与状态禁用（2026-11-07）
+
+继续两仓 `feature/passive-mind-control-tower`，集成目标为 `feature/integration`。
+NewSdk 共享数据由 `0x84` 扩大为 `0xA4`：`+0x84` 必填 SP 引用，
+`+0x88` 可选七字 `DisableWhenStatus:ObjectStatusBitFlags`；使用已有 Reference/ObjectStatus
+marshal、token 和 endian。GameObject ProcessingHash 版本推进为 4106/4107/4108，
+内置版本同步。容量 3/8 完整示例改为唯一原生即时 SP Nugget，idle 自动索敌关闭，
+自动捕获仍由配套运行时 Update 执行，两仓同步部署并重编资产。
+当前本地完整示例 schema 与 native 测试源语法已检查；Win32 serializer/CLR bridge
+需要本次提交对应现有 `feature-enhancer-xml.yml` 验证，旧运行不能覆盖新布局。
+未执行完整 SDK/MOD 或游戏；未合并，禁止强推。
+细节见 [心控 XML](docs/PASSIVE_MIND_CONTROL_XML.md)。以下为历史结果。
+
+# 当前：普通右键指定心控增量（2026-11-07）
+
+继续 `feature/passive-mind-control-tower` 与待审 PR #10，配套运行时为
+`wu192/EnhancerCorona` 同名分支及 PR #4，集成目标仍为 `feature/integration`。
+容量 3/8 示例已补完整可选塔、普通攻击槽与 AI；实际武器为空 Nuggets，
+独立非零估算模板仅由 AI hint 引用，不挂载。原生心控数据合同与 schema 不变。
+现有 `TestEnhancerDozerXml.ps1` 增加生产 Weapon bridge 与完整塔骨架原 DLL 三缓冲对照，
+沿原有 `/Od`、`/O2`、四平台矩阵验证，不新增工作流矩阵或工件上传。
+源码 `52338d0c` 的 [Windows 42307637203](https://github.com/wu192/NewSdk/actions/runs/42307637203)
+已 success：两模式 native/CLR、四平台、完整塔骨架和两武器原 DLL 三缓冲全部通过，
+约 82 秒、零工件；[收据](evidence/manual-mind-control-ci-20261107.json) 保存逐模式 fixture 身份。
+首轮 `42307169648` 构建通过，但测试遗漏 Core 引用预处理导致 hint 独立断言失败；
+已在测试副本补齐依赖索引并精确验证 hint/实际挂载武器，失败记录保留。
+普通右键光标/攻击资格、攻击收尾、存读档/回放/双客户端仍须游戏验收；
+未编完整 SDK/MOD。细节见 [心控 XML](docs/PASSIVE_MIND_CONTROL_XML.md)。
+未合并；合入须用户批准，禁止强推。
+
+# 此前：原生推土机命令资格重构（2026-11-06）
 
 目标为 [`wu192/NewSdk feature/integration`](https://github.com/wu192/NewSdk/tree/feature/integration)，
 配套运行时为 [EnhancerCorona 同名分支](https://github.com/wu192/EnhancerCorona/tree/feature/integration)。

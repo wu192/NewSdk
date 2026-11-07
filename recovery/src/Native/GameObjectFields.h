@@ -3942,6 +3942,7 @@ const ModuleChildName moduleChildNames[] = {
     { "Draws", "SpotlightDraw" },
     { "Draws", "DynamicsDraw" },
     { "Behaviors", "ObjectSMCHelper" },
+    { "Behaviors", "PassiveMindControlUpdate" },
     { "Behaviors", "ObjectDefectionHelper" },
     { "Behaviors", "AttributeModifierUpgrade" },
     { "Behaviors", "AttackTargetSpecialPower" },

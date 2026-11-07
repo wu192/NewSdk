@@ -442,6 +442,7 @@
 	<xs:include schemaLocation="Modules/AnimalAIUpdate.xsd"/>
 	<xs:include schemaLocation="Modules/AssaultTransportAIUpdate.xsd"/>
 	<xs:include schemaLocation="Modules/DozerAIUpdate.xsd"/>
+	<xs:include schemaLocation="Modules/PassiveMindControlUpdate.xsd"/>
 	<xs:include schemaLocation="Modules/BroadcastStealthUpdate.xsd"/>
 	<xs:include schemaLocation="Modules/StructureUnpackUpdate.xsd"/>
 	<xs:include schemaLocation="Modules/StructureSellUpdate.xsd"/>

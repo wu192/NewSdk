@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Compiler/runtime contract shared with EnhancerCorona PassiveMindControlUpdate. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns="uri:ea.com:eala:asset" targetNamespace="uri:ea.com:eala:asset"
+    elementFormDefault="qualified">
+  <xs:simpleType name="PassiveMindControlCapacity">
+    <xs:restriction base="xs:unsignedInt"><xs:minInclusive value="1"/></xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PassiveMindControlIntervalFrames">
+    <xs:restriction base="xs:unsignedInt">
+      <xs:minInclusive value="1"/>
+      <!-- Keep below the native 0x3fffffff sleep sentinel. -->
+      <xs:maxInclusive value="1073741822"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PassiveMindControlRadius">
+    <xs:restriction base="xs:float">
+      <!-- Exclude NaN/INF lexically as well: Microsoft's XSD float facets
+           alone do not reject NaN consistently. -->
+      <xs:pattern value="[+\-]?([0-9]+(\.[0-9]*)?|\.[0-9]+)([eE][+\-]?[0-9]+)?"/>
+      <xs:minExclusive value="0"/>
+      <xs:maxInclusive value="3.4028234663852886E38"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PassiveMindControlUpdateModuleData">
+    <xs:complexContent>
+      <xs:extension base="UpdateModuleData">
+        <xs:sequence><xs:element name="TargetFilter" type="ObjectFilter"/></xs:sequence>
+        <xs:attribute name="Capacity" type="PassiveMindControlCapacity" default="3"/>
+        <xs:attribute name="AcquireRadius" type="PassiveMindControlRadius" use="required"/>
+        <xs:attribute name="CaptureIntervalFrames" type="PassiveMindControlIntervalFrames" default="15"/>
+        <xs:attribute name="SpecialPowerTemplate" type="SpecialPowerTemplateRef" use="required"/>
+        <xs:attribute name="DisableWhenStatus" type="ObjectStatusBitFlags"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

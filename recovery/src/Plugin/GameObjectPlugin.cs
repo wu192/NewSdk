@@ -16,8 +16,8 @@ namespace Recovered.GameObject
         public uint GetAllTypesHash() { return 1424942948u; }
         public uint GetVersionNumber()
         {
-            return platform == TargetPlatform.PlayStation3 ? 4102u :
-                platform == TargetPlatform.Xbox360 ? 4101u : 4100u;
+            return platform == TargetPlatform.PlayStation3 ? 4108u :
+                platform == TargetPlatform.Xbox360 ? 4107u : 4106u;
         }
         public ExtendedTypeInformation GetExtendedTypeInformation(uint typeId)
         {

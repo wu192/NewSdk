@@ -10,6 +10,8 @@
 #include <stdexcept>
 #include <algorithm>
 #include <cmath>
+#include <cstddef>
+#include <cctype>
 #include <unordered_map>
 #include <type_traits>
 #ifndef NOMINMAX
@@ -69,6 +71,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectCrate.h"
 #include "GameObjectAIUpdate.h"
 #include "GameObjectDozer.h"
+#include "GameObjectPassiveMindControl.h"
 #include "GameObjectEconomy.h"
 #include "GameObjectAssist.h"
 #include "GameObjectSpawnUpdate.h"
@@ -314,6 +317,77 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
 #include "GameObjectScalarDefaultsRuntime.h"
 #include "GameObjectModuleFieldsRuntime.h"
 #include "GameObjectModuleFamiliesRuntime.h"
+U32 PassiveMindControlUnsigned(const GameObjectChild& input,const char* name,U32 fallback,U32 maximum) {
+    auto found=input.attributes.find(name);
+    if(found==input.attributes.end()) return fallback;
+    // xs:unsignedInt is decimal. The legacy ParseUnsigned accepts signs,
+    // prefixes and saturates overflow, so validate this new contract before
+    // storing its checked decimal values beside the existing scalar fields.
+    const auto& text=found->second;std::size_t at=0;
+    while(at<text.size() && std::isspace(static_cast<unsigned char>(text[at]))) ++at;
+    if(at<text.size() && text[at]=='+') ++at;
+    U32 value=0;bool digits=false;
+    while(at<text.size() && text[at]>='0' && text[at]<='9') {
+        U32 digit=static_cast<U32>(text[at++]-'0');digits=true;
+        if(value>maximum/10 || (value==maximum/10 && digit>maximum%10))
+            throw std::invalid_argument(std::string("PassiveMindControlUpdate invalid ")+name);
+        value=value*10+digit;
+    }
+    while(at<text.size() && std::isspace(static_cast<unsigned char>(text[at]))) ++at;
+    if(!digits || at!=text.size() || !value)
+        throw std::invalid_argument(std::string("PassiveMindControlUpdate invalid ")+name);
+    return value;
+}
+float PassiveMindControlRadius(const std::string& text) {
+    // Validate the complete xs:float decimal spelling; ParseFloat deliberately
+    // retains the old compiler's permissive numeric-prefix behavior elsewhere.
+    std::size_t at=0;
+    while(at<text.size() && std::isspace(static_cast<unsigned char>(text[at]))) ++at;
+    if(at<text.size() && (text[at]=='+' || text[at]=='-')) ++at;
+    auto digits=[&]() {
+        std::size_t start=at;
+        while(at<text.size() && text[at]>='0' && text[at]<='9') ++at;
+        return at!=start;
+    };
+    bool mantissa=digits();
+    if(at<text.size() && text[at]=='.') {++at;mantissa=digits() || mantissa;}
+    bool exponent=true;
+    if(at<text.size() && (text[at]=='e' || text[at]=='E')) {
+        ++at;if(at<text.size() && (text[at]=='+' || text[at]=='-')) ++at;
+        exponent=digits();
+    }
+    while(at<text.size() && std::isspace(static_cast<unsigned char>(text[at]))) ++at;
+    float value=ParseFloat(text);
+    if(!mantissa || !exponent || at!=text.size() || !std::isfinite(value) || value<=0)
+        throw std::invalid_argument("PassiveMindControlUpdate requires finite positive AcquireRadius");
+    return value;
+}
+void MarshalPassiveMindControl(const GameObjectChild& input,unsigned char* output,Relo::Tracker& data) {
+    auto specialPower=input.attributes.find("SpecialPowerTemplate");
+    if(specialPower==input.attributes.end() || specialPower->second.empty())
+        throw std::invalid_argument("PassiveMindControlUpdate requires SpecialPowerTemplate");
+    auto radius=input.attributes.find("AcquireRadius");
+    if(radius==input.attributes.end())
+        throw std::invalid_argument("PassiveMindControlUpdate requires AcquireRadius");
+    PassiveMindControlRadius(radius->second);
+    U32 capacity=PassiveMindControlUnsigned(input,"Capacity",3u,0xFFFFFFFFu);
+    U32 interval=PassiveMindControlUnsigned(input,"CaptureIntervalFrames",15u,0x3FFFFFFEu);
+    const GameObjectChild* filter=nullptr;
+    for(const auto& child:input.children) if(child.name=="TargetFilter") {
+        if(filter) throw std::invalid_argument("PassiveMindControlUpdate requires exactly one TargetFilter");
+        filter=&child;
+    }
+    if(!filter) throw std::invalid_argument("PassiveMindControlUpdate requires TargetFilter");
+    MarshalModuleFieldSet(input,output,passiveMindControlFieldSet,data);
+    // Keep the full decimal uint32 range, including xs:unsignedInt lexical
+    // values such as 08 which the legacy base-0 scalar parser reads as octal.
+    std::memcpy(output+0x08,&capacity,4);std::memcpy(output+0x10,&interval,4);
+    MarshalUpgradeFilter(*filter,reinterpret_cast<ObjectFilter*>(output+0x14),data);
+}
+void EndianPassiveMindControl(unsigned char* output) {
+    EndianModuleFieldSet(output,passiveMindControlFieldSet);
+    EndianObjectFilter(reinterpret_cast<ObjectFilter*>(output+0x14));
+}
 #include "GameObjectModuleDispatchRuntime.h"
 U32 ExactStringHash(const std::string& text) {
     U32 size=static_cast<U32>(std::strlen(text.c_str())),hash=size;if(!size) return 0;
@@ -1053,4 +1127,3 @@ Relo::Chunk CompileGameObject(const AttributeMap& attributes,const std::vector<G
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
-
