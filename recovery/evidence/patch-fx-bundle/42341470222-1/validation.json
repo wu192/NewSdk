@@ -1,0 +1,317 @@
+{
+  "runId": "42341470222",
+  "sourceCommit": "fd32a0a5005b8aec4de7ddb4b28f211ff80e957c",
+  "failures": [],
+  "succeeded": true,
+  "schemaVersion": 1,
+  "modes": [
+    {
+      "exeSha256": "eb037c087cfaa3ba37b8f5dda4d75607dc612e601ad0492926d788e75e370b15",
+      "fx": {
+        "dependency": "d3dcompiler_47.dll",
+        "dependencySha256": "6ad5286c722c7f354487e693bc6af738e86e511aeed1025b4e824ed326b06126",
+        "sdkContainsCompiler": false,
+        "compilerSha256": "856d0fe6b31d15d9caca507b57b0ac7d2d6b569c450db7f01affe064bb5bb578",
+        "compiler": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\fx-bundle\\extracted\\Debug\\bin\\fxc.exe",
+        "emptyPath": true,
+        "automaticBundledTool": true,
+        "status": "passed"
+      },
+      "failures": [],
+      "configuration": "Debug",
+      "originalLodSha256": "e28b665a17cbbf597b47a2069a6efd979da00b44021f8f73b6beb0fb076fac0b",
+      "passed": true,
+      "cases": [
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\Base",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\base-out",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "base",
+          "buildId": "7cd90c7d9dbc4b959b061419d62938c8"
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\normal",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "normal-before-patch",
+          "buildId": "16545f0adf454ffbb849924d9cf4d6d3"
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\patch-out",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch",
+          "buildId": "3d85a58e4ecc4497a8551a507e9becb4"
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\hot",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch-hot",
+          "buildId": "d893b140ed114f42a62ce804167f1a37"
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\Base",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\base-out",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "base-edited",
+          "buildId": "51f78eac80214939874ed1c1b5d59afd"
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\changed",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch-after-base-edit",
+          "buildId": "7fbd0cf456354437926dd5aecb9188b0"
+        },
+        {
+          "name": "invalid-base-body",
+          "noPublishedBig": true,
+          "expectedFailure": true
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\fx",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pf8cd044d7\\Debug\\base-out\\published\\base\\Mod\\streams\\mod.manifest"
+          ],
+          "name": "patch-with-fx",
+          "buildId": "c4d1a8578ab549f0b8a1b3f8800fe318"
+        }
+      ],
+      "originalBabSha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af"
+    },
+    {
+      "exeSha256": "2143dd48860c73fab04f493d8a60dc3885ee43d9727c8d06580bf38adfa0cfb6",
+      "fx": {
+        "dependency": "d3dcompiler_47.dll",
+        "dependencySha256": "6ad5286c722c7f354487e693bc6af738e86e511aeed1025b4e824ed326b06126",
+        "sdkContainsCompiler": false,
+        "compilerSha256": "856d0fe6b31d15d9caca507b57b0ac7d2d6b569c450db7f01affe064bb5bb578",
+        "compiler": "D:\\a\\NewSdk\\NewSdk\\recovery\\artifacts\\fx-bundle\\extracted\\Release\\bin\\fxc.exe",
+        "emptyPath": true,
+        "automaticBundledTool": true,
+        "status": "passed"
+      },
+      "failures": [],
+      "configuration": "Release",
+      "originalLodSha256": "e28b665a17cbbf597b47a2069a6efd979da00b44021f8f73b6beb0fb076fac0b",
+      "passed": true,
+      "cases": [
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\Base",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\base-out",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "base",
+          "buildId": "332f58e60d2146bc960434fd895e4e3c"
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\normal",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "normal-before-patch",
+          "buildId": "5da8d5d8dbe3423aa8154142a33df845"
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\patch-out",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch",
+          "buildId": "e4e3b151017f43d5b99a4f67466b878d"
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\hot",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch-hot",
+          "buildId": "96f097d002ab4683bd1ee61812b0833c"
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\Base",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\base-out",
+            "--package-content",
+            "base",
+            "--package-format",
+            "loose"
+          ],
+          "name": "base-edited",
+          "buildId": "c82940e0be574e00b36a07db6a5bdee5"
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\changed",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\base-out\\published\\base\\Mod\\streams\\mod.manifest",
+            "--patch-config",
+            "Base_1.0.skudef",
+            "--include-additional=false"
+          ],
+          "name": "patch-after-base-edit",
+          "buildId": "1e76882bfaa94f43a21c3d560bbe7d02"
+        },
+        {
+          "name": "invalid-base-body",
+          "noPublishedBig": true,
+          "expectedFailure": true
+        },
+        {
+          "arguments": [
+            "build",
+            "--mod",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\Patch",
+            "--sdk-root",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\s",
+            "--out",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\fx",
+            "--package-content",
+            "base",
+            "--base-patch-stream",
+            "D:\\a\\_temp\\pf8cd044d7\\Release\\base-out\\published\\base\\Mod\\streams\\mod.manifest"
+          ],
+          "name": "patch-with-fx",
+          "buildId": "927c87ea7ecb4495b6660b0561c62dfe"
+        }
+      ],
+      "originalBabSha256": "f79c2fe743de251e59c9e1daee6930f4c58b1de3adf735f73aa7e9798c8c49af"
+    }
+  ],
+  "scriptSha256": "8e427cbe9d27719a62f9792e5f2b1977e0d016401daf2b3dbc362e9eaa03670e",
+  "scope": "Small real Core patch, original BAB/LoD byte oracle, normal/patch/hot/base-edit cache transitions; actual bundled FX compiler with empty PATH and no SDK compiler; no full MOD/game acceptance"
+}

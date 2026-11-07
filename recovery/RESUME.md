@@ -1,6 +1,6 @@
 # 当前：Patch / FX / 配置版本已通过定向验证，PR #11 待审
 
-FX 随包工具补充：用户要求运行包直接携带 FX 编译依赖，现加入 x86 `fxc.exe` 与 `d3dcompiler_47.dll`，默认优先使用 EXE 同目录工具。构建及当前发行清单改为五文件；历史归档格式保留。正在进行 D/R 独立 ZIP、空 PATH、SDK 无 FXC 的真实编译验证，以下 `64d2aeb3` 仍是补充前的验收来源。
+FX 随包工具补充已通过：生产源码 `fd32a0a5`，[Windows 42341470222](https://github.com/wu192/NewSdk/actions/runs/42341470222) 全部 success。新包加入 Windows SDK 10.0.26100.0 的 x86 `fxc.exe` 与 `d3dcompiler_47.dll`，默认使用 EXE 同目录工具。D/R 五文件 ZIP 独立解压，在 PATH 为空、SDK 无 FXC 且不传 --fxc 时真实编译成功，自动工具路径及 FXO 入 BIG 均确认；原15成员 patch/LoD、冷热/基准修改/损坏输入也通过。16份报告、438个事件协议复核通过。[下载新 D/R ZIP](https://github.com/wu192/NewSdk/actions/runs/42341470222/artifacts/13562280288)，[收据](evidence/patch-fx-bundle/42341470222-1/summary.json)。历史归档和固定旧发布脚本保留原布局；以下 `64d2aeb3` 是补充前的验收来源。
 
 [PR #11](https://github.com/wu192/NewSdk/pull/11)，分支 `feat/patch-fx-config-version`。
 新增 base-patch-stream（兼容 /bps）、独立 patch-version / Patch WB 无后缀布局、

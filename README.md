@@ -4,6 +4,8 @@
 
 ## 获取工具
 
+Patch/FX 待审版本见 [PR #11](https://github.com/wu192/NewSdk/pull/11)，[下载 Debug/Release 运行 ZIP](https://github.com/wu192/NewSdk/actions/runs/42341470222/artifacts/13562280288)。新包已携带 FX 编译器和 DLL，解压后自动使用；D/R 独立 ZIP 的真实 FX 编译、原 patch 字节对照及空 PATH 验证已通过。[打包收据](recovery/evidence/patch-fx-bundle/42341470222-1/summary.json)。尚未合并或发布 GitHub Release。
+
 当前共享地编缓存版：[compiler-2026.11.02-shared-worldbuilder-cache](https://github.com/wu162/NewSdk/releases/tag/compiler-2026.11.02-shared-worldbuilder-cache)。
 同一SDK的所有Mod共用一份地编数据，旧有效缓存自动迁移/清理；D/R两Mod复用、并发首次提取和独立ZIP快测通过。
 
