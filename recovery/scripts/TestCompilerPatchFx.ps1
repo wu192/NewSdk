@@ -56,6 +56,11 @@ function Package($Build){
     $files=@($Build.report.artifacts|Where-Object{$_.Kind -ceq 'package.big'})
     Need ($files.Count -eq 1) 'Expected one BIG artifact';return [string]$files[0].Path
 }
+function RecordFailure([string]$Name,$Failure){
+    $entry=@{configuration=$script:mode;name=$Name;error=$Failure.Exception.Message}
+    $script:modeState.failures+=,$entry;$script:state.failures+=,$entry
+    Write-Warning ($Name+': '+$Failure.Exception.Message)
+}
 function CheckPatch($Build,[string]$Normal,[string]$Base,[bool]$Reused,[string]$Oracle=''){
     & python $script:validator $PSScriptRoot (Package $Build) $Normal $Base $Build.case $Reused.ToString().ToLowerInvariant() $Oracle
     Need ($LASTEXITCODE -eq 0) 'Production patch manifest/BIG/original oracle comparison failed'
@@ -111,7 +116,7 @@ passed=all(row['byteIdentical'] for row in comparisons)
 (destination/'comparison.json').write_text(json.dumps({'succeeded':passed,'sharedReused':reused,'originalCompared':bool(oracle),'rawComparisons':comparisons,'references':refs,'assets':assets,'members':{name:hashlib.sha256(data).hexdigest() for name,data in entries.items()}},indent=2)+'\n')
 need(passed,'Original BAB /bps + LoD raw bytes differ; raw comparisons retained')
 '@|Set-Content -LiteralPath $validator
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;scriptSha256=(Hash $PSCommandPath);modes=@();scope='Small real Core patch, original BAB/LoD byte oracle, normal/patch/hot/base-edit cache transitions; optional actual FX compilation; no full MOD/game acceptance'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;scriptSha256=(Hash $PSCommandPath);modes=@();failures=@();scope='Small real Core patch, original BAB/LoD byte oracle, normal/patch/hot/base-edit cache transitions; optional actual FX compilation; no full MOD/game acceptance'}
 try{
     foreach($mode in $Configurations){
         $modeOut=(New-Item -ItemType Directory -Path "$out/$mode").FullName
@@ -121,7 +126,7 @@ try{
         New-Item -ItemType Directory -Path "$sdk/tools","$sdk/Schemas"|Out-Null
         Copy-Item -LiteralPath "$root/SDK/Schemas/xsd" -Destination "$sdk/Schemas" -Recurse
         Copy-Item -LiteralPath "$root/SDK/tools/BinaryAssetBuilder.exe.config" -Destination "$sdk/tools"
-        $modeState=@{configuration=$mode;passed=$false;exeSha256=(Hash $exe);cases=@();fx=@{status='not-available'}};$state.modes+=,$modeState
+        $modeState=@{configuration=$mode;passed=$false;exeSha256=(Hash $exe);cases=@();failures=@();fx=@{status='not-available'}};$state.modes+=,$modeState
         $baseMod=Join-Path $modeWork 'Base';$patchMod=Join-Path $modeWork 'Patch'
         PutMod $baseMod '100%';PutMod $patchMod '100%' -Patch
         $baseOutput=Join-Path $modeWork 'base-out'
@@ -136,6 +141,9 @@ try{
         CheckPatch $hot (Manifest $normal) $baseManifest $true
         Need ((Hash (Package $patch)) -ceq (Hash (Package $hot))) 'Unchanged hot patch package raw bytes differ'
 
+        # Collect independent checks so an oracle failure does not hide FX,
+        # invalid-base rejection or changed-reference cache behavior.
+        try {
         # Independent original tools use the same XML and resolved input roots.
         $oracle=(New-Item -ItemType Directory -Path "$modeWork/original").FullName
         $tools=(New-Item -ItemType Directory -Path "$oracle/tools").FullName
@@ -150,8 +158,14 @@ try{
         $runtime=$config.CreateElement('supportedRuntime');$runtime.SetAttribute('version','v4.0');$startup.AppendChild($runtime)|Out-Null
         $config.Save("$tools/BinaryAssetBuilder.exe.config")
         New-Item -ItemType Directory -Path "$oracle/streams","$oracle/intermediate","$oracle/session","$oracle/cache"|Out-Null
-        $originalArguments=@("$patchMod/Data/Mod.xml","/bps:$baseManifest","/sp:$($roots.schemaPath)","/dr:$sdk","/od:$oracle/streams","/iod:$oracle/intermediate","/scd:$oracle/session","/bcp:$oracle/cache",'/tp:Win32','/sc:false','/bc:false','/psc:false','/fsc:false','/csc:false','/atc:false','/sh:false','/pc:true','/res:false','/gui:false','/poe:false','/mr:false','/oof:false','/sf:false','/ls:true','/ss:true','/oix:false','/vf:false','/osh:false','/oar:false','/slowclean:true','/tl:3','/el:0')
-        RunProcess "$tools/BinaryAssetBuilder.exe" $originalArguments $sdk "$modeOut/original-bab"
+        $originalInput=(Resolve-Path -LiteralPath "$patchMod/Data/Mod.xml").Path
+        $originalBab=(Resolve-Path -LiteralPath "$tools/BinaryAssetBuilder.exe").Path
+        $originalOutput=(Resolve-Path -LiteralPath "$oracle/streams").Path
+        $originalIntermediate=(Resolve-Path -LiteralPath "$oracle/intermediate").Path
+        $originalSession=(Resolve-Path -LiteralPath "$oracle/session").Path
+        $originalCache=(Resolve-Path -LiteralPath "$oracle/cache").Path
+        $originalArguments=@($originalInput,"/bps:$baseManifest","/sp:$($roots.schemaPath)","/dr:$sdk","/od:$originalOutput","/iod:$originalIntermediate","/scd:$originalSession","/bcp:$originalCache",'/tp:Win32','/sc:false','/bc:false','/psc:false','/fsc:false','/csc:false','/atc:false','/sh:false','/pc:true','/res:false','/gui:false','/poe:false','/mr:false','/oof:false','/sf:false','/ls:true','/ss:true','/oix:false','/vf:false','/osh:false','/oar:false','/slowclean:true','/tl:3','/el:0')
+        RunProcess $originalBab $originalArguments $sdk "$modeOut/original-bab"
         $manifests=@(Get-ChildItem -LiteralPath "$oracle/streams" -Filter Mod.manifest -Recurse -File)
         Need ($manifests.Count -eq 1) 'Original BAB did not emit one fresh patch manifest'
         $streams=$manifests[0].DirectoryName
@@ -159,21 +173,27 @@ try{
             Move-Item -LiteralPath "$streams/Mod.$extension" -Destination "$streams/mod_1.01.$extension"
             Copy-Item -LiteralPath ([IO.Path]::ChangeExtension($baseManifest,$extension)) -Destination "$streams/Mod.$extension"
         }
-        RunProcess "$tools/LoDStreamBuilder.exe" @("$streams/mod_1.01.manifest") $tools "$modeOut/original-lod"
+        $originalManifest=(Resolve-Path -LiteralPath "$streams/mod_1.01.manifest").Path
+        $originalLod=(Resolve-Path -LiteralPath "$tools/LoDStreamBuilder.exe").Path
+        RunProcess $originalLod @($originalManifest) $tools "$modeOut/original-lod"
         foreach($suffix in @('m','l')){foreach($extension in @('manifest','bin','imp','relo')){Move-Item -LiteralPath "$streams/mod_1.01_$suffix.$extension" -Destination "$streams/mod_${suffix}_1.01.$extension"}}
         foreach($stem in @('mod','mod_m','mod_l')){[IO.File]::WriteAllBytes("$streams/$stem.version",[Text.Encoding]::ASCII.GetBytes('_1.01'))}
         $originalArchive=(New-Item -ItemType Directory -Path "$modeOut/original-streams").FullName
         Get-ChildItem -LiteralPath $streams -File|Where-Object{$_.BaseName -in @('mod_1.01','mod_m_1.01','mod_l_1.01','mod','mod_m','mod_l')}|Copy-Item -Destination $originalArchive
         CheckPatch $patch (Manifest $normal) $baseManifest $true $streams
-        $modeState.originalBabSha256=Hash "$tools/BinaryAssetBuilder.exe";$modeState.originalLodSha256=Hash "$tools/LoDStreamBuilder.exe"
+        $modeState.originalBabSha256=Hash $originalBab;$modeState.originalLodSha256=Hash $originalLod
+        } catch {RecordFailure 'original-oracle' $_}
 
+        try {
         PutMod $baseMod '90%'
         $changedBase=Build 'base-edited' $baseMod $baseOutput @('--package-format','loose')
         Need ((Manifest $changedBase) -ceq $baseManifest) 'Base-edit fixture changed the reference path'
         $changedPatch=Build 'patch-after-base-edit' $patchMod (Join-Path $modeWork 'changed') $patchArguments
         CheckPatch $changedPatch (Manifest $normal) $baseManifest $false
         Need ((Hash (Package $patch)) -cne (Hash (Package $changedPatch))) 'Same-path base edit left a stale patch package'
+        } catch {RecordFailure 'base-edited' $_}
 
+        try {
         # Keep the CLI's valid v6 header, but make the body unreadable in Core.
         # Signed -1 asset count throws before any unsafe asset-table access.
         $badBase=Join-Path $modeWork 'broken.manifest'
@@ -187,7 +207,9 @@ try{
         Need (@(Get-ChildItem -LiteralPath "$badOutput/published" -Filter '*.big' -Recurse -File -ErrorAction SilentlyContinue).Count -eq 0) 'Invalid base body published a BIG'
         if(Test-Path -LiteralPath "$badOutput/build-report.json"){Copy-Item -LiteralPath "$badOutput/build-report.json" -Destination $badCase}
         $modeState.cases+=,@{name='invalid-base-body';expectedFailure=$true;noPublishedBig=$true}
+        } catch {RecordFailure 'invalid-base-body' $_}
 
+        try {
         $fxc=$FxcExecutable
         if(!$fxc){$fxc=@("$root/SDK/ARModExtraTools/fxc.exe","$root/SDK/tools/fxc.exe")|Where-Object{Test-Path -LiteralPath $_ -PathType Leaf}|Select-Object -First 1}
         if(!$fxc){$fxc=Get-ChildItem "${env:ProgramFiles(x86)}/Windows Kits/*/bin/*/x86/fxc.exe" -ErrorAction SilentlyContinue|Sort-Object FullName -Descending|Select-Object -First 1 -ExpandProperty FullName}
@@ -199,7 +221,9 @@ try{
             & python -c $check $PSScriptRoot (Package $fx);Need ($LASTEXITCODE -eq 0) 'Actual FX bytecode missing or shader source leaked into BIG'
             $modeState.fx=@{status='passed';compiler=$fxc;compilerSha256=(Hash $fxc)}
         }
-        $modeState.passed=$true
+        } catch {RecordFailure 'fx' $_}
+        $modeState.passed=$modeState.failures.Count -eq 0
     }
-    $state.succeeded=$true
+    $state.succeeded=$state.failures.Count -eq 0
+    Need $state.succeeded 'Patch/FX integration failed; independent case failures are retained in validation.json'
 }finally{$state|ConvertTo-Json -Depth 12|Set-Content "$out/validation.json"}
