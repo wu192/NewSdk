@@ -1,12 +1,16 @@
-# 当前：Patch / FX / 配置版本，PR #11 验证中
+# 当前：Patch / FX / 配置版本已通过定向验证，PR #11 待审
 
 [PR #11](https://github.com/wu192/NewSdk/pull/11)，分支 `feat/patch-fx-config-version`。
 新增 base-patch-stream（兼容 /bps）、独立 patch-version / Patch WB 无后缀布局、
 LoD/.version 与可选 SKUDEF add-config；合并 Additional 后编译 FX，处理 include 覆盖与失败/取消。
 BIG mod-version 支持 MOD JSON 和 EXE appSettings，CLI 优先。用法见 [使用说明](COMPILER_USAGE.md#patch-与-fx)。
-[Windows App 42337247904](https://github.com/wu192/NewSdk/actions/runs/42337247904) 的 2012 项托管合同通过；
-[Windows Core 42337247913](https://github.com/wu192/NewSdk/actions/runs/42337247913) 正在验证真实 Core/原工具字节及 FX。
-首轮配置 XML 注释错误已修复，失败记录保留；未合并、未发布 Release。
+生产源码 `64d2aeb3`，[Windows App 42338796635](https://github.com/wu192/NewSdk/actions/runs/42338796635) 的 2012 项合同通过。
+[D/R 真实回放 42339277759](https://github.com/wu192/NewSdk/actions/runs/42339277759) 复用本轮同源二进制：
+全部15个原 BAB/LoD/版本成员逐字节一致；普通/patch/热态、同路径基准修改、损坏基准拒绝及真实 fxc 编译均通过。
+16份报告、438个事件（含 FX 工具记录及配置来源）通过原协议校验。[简明收据](evidence/patch-fx/42339277759-1/summary.json)。
+重复基准磁盘检查已收敛到 CLI 输入入口；删除错误包装、无 FX 时的字典及无版本 LoD 快照。
+完整原生回归 [42338796649](https://github.com/wu192/NewSdk/actions/runs/42338796649) 尚在收尾，旧对照控制器的路径差异失败由上述修正回放独立覆盖；原失败保留，断言未放宽。
+未合并、未发布 Release；本轮不新增完整大型 MOD 性能或游戏内结论。
 
 # 此前：compiler-main CI 五工作流通过，PR #1 待审
 

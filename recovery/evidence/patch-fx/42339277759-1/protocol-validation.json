@@ -1,0 +1,171 @@
+{
+  "schemaVersion": "1.0",
+  "status": "passed",
+  "scope": "Actual application host protocol outputs; no asset compilation acceptance implied",
+  "sourceCommit": "a2d59e0223f50c6683b6205ef389469890a1b57a",
+  "artifactId": 13561460293,
+  "artifactArchiveSha256": "296f50e6b353c8b3a1ebd87c69883ef445d51e19409d88e48394411c1ace725b",
+  "validator": "Draft202012Validator with RFC3339 FormatChecker enabled",
+  "packages": {
+    "jsonschema": "4.23.0",
+    "rfc3339-validator": "0.1.4",
+    "attrs": "26.1.0",
+    "jsonschema-specifications": "2025.9.1",
+    "referencing": "0.37.0",
+    "rpds-py": "2026.9.1"
+  },
+  "pythonVersion": "3.12.14",
+  "validatorScriptSha256": "345ad1b552279bffd61aec047072f83232b1c82e9f8ef6077dd6155f948703d8",
+  "schemaInputs": [
+    {
+      "path": "build-event.schema.json",
+      "sha256": "9ed098a7aa7eae217fbfd1df05a5a4674e2b4af6d375ab230d79c54e733ada07"
+    },
+    {
+      "path": "build-report.schema.json",
+      "sha256": "5406dc59d122467f77af87873572cb6f87326356acd332cb2cf36a56fdb00ba7"
+    }
+  ],
+  "matrix": [
+    {
+      "configuration": "Debug",
+      "reports": 8,
+      "eventFiles": 7,
+      "events": 219
+    },
+    {
+      "configuration": "Release",
+      "reports": 8,
+      "eventFiles": 7,
+      "events": 219
+    }
+  ],
+  "validatedFiles": [
+    {
+      "path": "Debug/base/build-report.json",
+      "sha256": "7c55494eff40b44d6632ba7ab1c00eb6404b9f1cbea49daeaaf584ea244349a0"
+    },
+    {
+      "path": "Debug/base/build.events.jsonl",
+      "sha256": "723e6d72667388d8d3dd4b8d773a8f008c90856b7f42f5e4aeaaa748092f7392"
+    },
+    {
+      "path": "Debug/base-edited/build-report.json",
+      "sha256": "91febf70f96a002c65116ccb7ffe32b8fb24c94ffa4ba5c38a897b47595ec6e8"
+    },
+    {
+      "path": "Debug/base-edited/build.events.jsonl",
+      "sha256": "780cdfe751bb6d55ce5fad13db160b11cf453888652ec85a1dfbed9a0bebd4aa"
+    },
+    {
+      "path": "Debug/invalid-base-body/build-report.json",
+      "sha256": "c224dc3926f7ca3ccc8ba1d2a5d7f6ca5637f544517d43fab092ef026603f6c0"
+    },
+    {
+      "path": "Debug/normal-before-patch/build-report.json",
+      "sha256": "e71eb744310df1f49bf0db0ed4f205f2e0fe3468cf9b0b455f09e5d4e3bd4eff"
+    },
+    {
+      "path": "Debug/normal-before-patch/build.events.jsonl",
+      "sha256": "2b29668b72b1016b302325845f15dbd5183f75cc988f3789bdd6a67013263b8e"
+    },
+    {
+      "path": "Debug/patch/build-report.json",
+      "sha256": "0b3c786c4e722425402dd7dda7226540bb1d647a80082b9b958bdadd38e9ccf5"
+    },
+    {
+      "path": "Debug/patch/build.events.jsonl",
+      "sha256": "88437a262b02a81f96a7e3c9cbca5382b23432cbeecdde594e32e14decb61f98"
+    },
+    {
+      "path": "Debug/patch-after-base-edit/build-report.json",
+      "sha256": "e7a71d2f973b945dfbd1fc7d3acafeb3ee777de186d28b5982f3dfcd6b4fe4e9"
+    },
+    {
+      "path": "Debug/patch-after-base-edit/build.events.jsonl",
+      "sha256": "255683733f9ca248334eecb0865089b084f21f0b2797258e1cd2d9991c8a4e5b"
+    },
+    {
+      "path": "Debug/patch-hot/build-report.json",
+      "sha256": "8bf346857adda3d20fc59581ff7d2edb39dd770fcaae35e001ba723ab89c20ea"
+    },
+    {
+      "path": "Debug/patch-hot/build.events.jsonl",
+      "sha256": "25fcefa61a8e5952d12361181733df73a8c84524aac4fa3ae2352030fad674b7"
+    },
+    {
+      "path": "Debug/patch-with-fx/build-report.json",
+      "sha256": "0201fa0011033b6a65e7dda545423b99266f6e41bbbd2c2d2b999053e7d9cd37"
+    },
+    {
+      "path": "Debug/patch-with-fx/build.events.jsonl",
+      "sha256": "a97a90023a8bea3be89faaa045acf8f9c204155aa911631f675aaed845e85102"
+    },
+    {
+      "path": "Release/base/build-report.json",
+      "sha256": "e7480297323b879653a59aee7e75db5bf439a3ed3a3526d48165f404da003957"
+    },
+    {
+      "path": "Release/base/build.events.jsonl",
+      "sha256": "e3ca5e15e525ca35b49c05f1819b91ceaeaaea3547379263fcc2b608240310ff"
+    },
+    {
+      "path": "Release/base-edited/build-report.json",
+      "sha256": "acb5a60e20a8449fee4e0c928e8075c0a2b684a576a5ac17602d65107bcdc17b"
+    },
+    {
+      "path": "Release/base-edited/build.events.jsonl",
+      "sha256": "9c5131d006c0c553dd8ccd6d0cc4114f32ec0fbfa6997ab0530711acfa0cca57"
+    },
+    {
+      "path": "Release/invalid-base-body/build-report.json",
+      "sha256": "c385e2b2cb92c706170220d82716f34701b585a4d2b9b2f8d8065ba0f624eb1d"
+    },
+    {
+      "path": "Release/normal-before-patch/build-report.json",
+      "sha256": "c585e216754d7f6c61782f6eb0d49df964035b2ff66093d9bf0d611fcb5af748"
+    },
+    {
+      "path": "Release/normal-before-patch/build.events.jsonl",
+      "sha256": "37fefa93bf602d342a46153df8c602387d770be14000a7a0816bb49499a8ffee"
+    },
+    {
+      "path": "Release/patch/build-report.json",
+      "sha256": "dd055cc008bc533de8d1f775540cfc2b85038aa87bbc6ac7307b0088009801ac"
+    },
+    {
+      "path": "Release/patch/build.events.jsonl",
+      "sha256": "ab71b48f9ff34669572b287d15e69dece6df23c57defcdbccbc3cf0bd18c58c4"
+    },
+    {
+      "path": "Release/patch-after-base-edit/build-report.json",
+      "sha256": "951f5f25cedb83709fee2d1418fbaea228a33b3ac65aa9214852263df16e5b9d"
+    },
+    {
+      "path": "Release/patch-after-base-edit/build.events.jsonl",
+      "sha256": "b82f0eae379a38dcf6a5d362bdfb02a15c13cb751a072f82c46baac4dde0bb96"
+    },
+    {
+      "path": "Release/patch-hot/build-report.json",
+      "sha256": "1351d893741ff104a3cf5bed530e6caa24f25d1570c8a3e56fc794ac5820873c"
+    },
+    {
+      "path": "Release/patch-hot/build.events.jsonl",
+      "sha256": "850236e9dd79dc1bf57ff1a760167a3469531c8e1e0370998451803772407410"
+    },
+    {
+      "path": "Release/patch-with-fx/build-report.json",
+      "sha256": "2de04358a09759427b817e617fb0a8a2aa0f7c4c78cbc398d1a3ba56fff422be"
+    },
+    {
+      "path": "Release/patch-with-fx/build.events.jsonl",
+      "sha256": "2f45d9e1a064afe34ea3275af389f26fd7149fba4bd5920da469247e1daad4fb"
+    }
+  ],
+  "errorCount": 0,
+  "errors": [],
+  "notes": [
+    "The report-write-failure test intentionally has a terminal event and no report file; only existing outputs are schema-validated.",
+    "Runtime assertions separately verify sequence, lifecycle, correlation, exit codes and controlled failure behavior."
+  ]
+}
