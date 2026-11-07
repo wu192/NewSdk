@@ -9,7 +9,7 @@ BIG mod-version 支持 MOD JSON 和 EXE appSettings，CLI 优先。用法见 [�
 全部15个原 BAB/LoD/版本成员逐字节一致；普通/patch/热态、同路径基准修改、损坏基准拒绝及真实 fxc 编译均通过。
 16份报告、438个事件（含 FX 工具记录及配置来源）通过原协议校验。[简明收据](evidence/patch-fx/42339277759-1/summary.json)。
 重复基准磁盘检查已收敛到 CLI 输入入口；删除错误包装、无 FX 时的字典及无版本 LoD 快照。
-完整原生回归 [42338796649](https://github.com/wu192/NewSdk/actions/runs/42338796649) 尚在收尾，旧对照控制器的路径差异失败由上述修正回放独立覆盖；原失败保留，断言未放宽。
+完整原生回归 [42338796649](https://github.com/wu192/NewSdk/actions/runs/42338796649) 的其余独立门槛均通过：Core/CLI/取消、性能/热缓存、FLA/Texture、资产/会话缓存、BIG/原 MakeBig 及完整 mymod 原 SDK 对照。旧对照控制器的路径差异失败由上述修正回放独立覆盖；原失败保留，断言未放宽。该运行的正式 ZIP 发布和大型 Upheaval 性能步骤跳过；提供本轮已核对并完成真实回放的 D/R 运行文件。
 未合并、未发布 Release；本轮不新增完整大型 MOD 性能或游戏内结论。
 
 # 此前：compiler-main CI 五工作流通过，PR #1 待审

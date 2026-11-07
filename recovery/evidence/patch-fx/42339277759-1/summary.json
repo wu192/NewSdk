@@ -339,5 +339,32 @@
       "runId": 42338737155,
       "reason": "Mixed-separator old-tool input paths changed manifest source and dependency spelling; assertions retained and native Windows paths supplied for replay."
     }
-  ]
+  ],
+  "broaderProductionRegression": {
+    "runId": 42338796649,
+    "productionSourceCommit": "64d2aeb31a1c1dd6393c3def76b163cecb00834a",
+    "independentGates": "passed",
+    "passedScopes": [
+      "Debug/Release native build and route metadata",
+      "Core/backend/application lifecycle",
+      "bounded performance and hot cache",
+      "FLA integration",
+      "texture original differential",
+      "real CLI and cancellation",
+      "build cache",
+      "input roots original differential",
+      "Audio CDATA and W3X cache payloads",
+      "session cache and report/event protocol",
+      "BIG/LoD/original MakeBig",
+      "complete mymod original BAB/SDK differential"
+    ],
+    "retainedFailure": {
+      "step": "old-controller patch oracle",
+      "reason": "Old test script supplied mixed-separator paths to original BAB/LoD; current script corrects Windows paths. All 15 members pass strict comparison using the same D/R binaries in replay42339277759."
+    },
+    "skippedScopes": [
+      "formal final ZIP publication",
+      "full Upheaval performance"
+    ]
+  }
 }
