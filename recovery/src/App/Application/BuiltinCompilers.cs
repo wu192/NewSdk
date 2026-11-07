@@ -115,7 +115,7 @@ namespace NewModCompiler.Application
             {
                 uint version = family == "xml" ? 4u : family == "w3x" ? Recovered.W3x.W3xCatalog.Version(TargetPlatform.Win32) :
                     family == "audio" ? BinaryAssetBuilder.AudioCompiler.AudioCatalog.Version(TargetPlatform.Win32) :
-                    family == "gameobject" ? 4103u : 4100u;
+                    family == "gameobject" ? 4106u : 4100u;
                 // Source expansion happens before backend dispatch, so its UI
                 // interface must remain available even on a lazy Core session.
                 IAssetBuilderPlugin plugin = lazy && family != "ui" ?

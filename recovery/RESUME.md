@@ -1,3 +1,16 @@
+# 当前：武器事件心控与状态禁用（2026-11-07）
+
+继续两仓 `feature/passive-mind-control-tower`，集成目标为 `feature/integration`。
+NewSdk 共享数据由 `0x84` 扩大为 `0xA4`：`+0x84` 必填 SP 引用，
+`+0x88` 可选七字 `DisableWhenStatus:ObjectStatusBitFlags`；使用已有 Reference/ObjectStatus
+marshal、token 和 endian。GameObject ProcessingHash 版本推进为 4106/4107/4108，
+内置版本同步。容量 3/8 完整示例改为唯一原生即时 SP Nugget，idle 自动索敌关闭，
+自动捕获仍由配套运行时 Update 执行，两仓同步部署并重编资产。
+当前本地完整示例 schema 与 native 测试源语法已检查；Win32 serializer/CLR bridge
+需要本次提交对应现有 `feature-enhancer-xml.yml` 验证，旧运行不能覆盖新布局。
+未执行完整 SDK/MOD 或游戏；未合并，禁止强推。
+细节见 [心控 XML](docs/PASSIVE_MIND_CONTROL_XML.md)。以下为历史结果。
+
 # 当前：普通右键指定心控增量（2026-11-07）
 
 继续 `feature/passive-mind-control-tower` 与待审 PR #10，配套运行时为

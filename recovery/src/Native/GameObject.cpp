@@ -363,6 +363,9 @@ float PassiveMindControlRadius(const std::string& text) {
     return value;
 }
 void MarshalPassiveMindControl(const GameObjectChild& input,unsigned char* output,Relo::Tracker& data) {
+    auto specialPower=input.attributes.find("SpecialPowerTemplate");
+    if(specialPower==input.attributes.end() || specialPower->second.empty())
+        throw std::invalid_argument("PassiveMindControlUpdate requires SpecialPowerTemplate");
     auto radius=input.attributes.find("AcquireRadius");
     if(radius==input.attributes.end())
         throw std::invalid_argument("PassiveMindControlUpdate requires AcquireRadius");
@@ -1124,4 +1127,3 @@ Relo::Chunk CompileGameObject(const AttributeMap& attributes,const std::vector<G
 #ifdef _MANAGED
 #pragma managed(pop)
 #endif
-

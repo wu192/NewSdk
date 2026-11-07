@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "ResourceMarshaling.h"
 #include <algorithm>
+#include <array>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -19,7 +20,7 @@ static unsigned Token(const Bytes& b,unsigned at,std::uint32_t name,bool big) {
 }
 static GameObjectChild Input(const std::string& capacity="3",bool references=false) {
     GameObjectChild module;module.name="PassiveMindControlUpdate";
-    module.attributes={{"TypeId","4000878923"},{"id","ModuleTag_PassiveMindControl"},{"AcquireRadius","200"}};
+    module.attributes={{"TypeId","4000878923"},{"id","ModuleTag_PassiveMindControl"},{"AcquireRadius","200"},{"SpecialPowerTemplate","SpecialPowerPassiveMindControlWeapon\\23"}};
     if(!capacity.empty())module.attributes["Capacity"]=capacity;
     GameObjectChild filter;filter.name="TargetFilter";
     filter.attributes={{"Rule","ANY"},{"Relationship","ENEMIES"},{"Include","INFANTRY VEHICLE"}};
@@ -42,7 +43,8 @@ static bool Relocated(const Bytes& b,unsigned location,bool big) {
     for(unsigned at=0;at+4<=b.size();at+=4) if(Word(b,at,big)==location) return true;
     return false;
 }
-static void Check(const Relo::Chunk& chunk,bool big,unsigned capacity,bool references,unsigned interval=15) {
+static void Check(const Relo::Chunk& chunk,bool big,unsigned capacity,bool references,unsigned interval=15,
+                  const std::array<std::uint32_t,7>& disableMask={}) {
     const auto& b=chunk.instance;
     auto root=Word(b,8,big)-4,header=Word(b,root+468,big),slots=Word(b,header+4,big),data=Word(b,slots,big);
     Require(Word(b,header,big)==1,"One behavior");
@@ -69,17 +71,24 @@ static void Check(const Relo::Chunk& chunk,bool big,unsigned capacity,bool refer
     Require(Word(b,Token(b,filterTable,2363267224u,big)+8,big)==data+20,"Inline mode 8 filter starts at +0x14");
     Require(Word(b,data+24,big)==2 && Word(b,data+28,big)==2,"Filter ANY/enemies");
     Require((Word(b,data+36,big)&(1u<<10))!=0 && (Word(b,data+60,big)&(1u<<12))!=0,"Filter infantry/vehicle KindOf");
-    for(unsigned i=0;i<12;++i)Require(b.at(table+60+i)==0,"Body sentinel");
-    Require(chunk.imports.empty(),"Weak filter names remain hashes without imports");
+    auto power=Token(b,table,0x81D85EFAu,big);
+    Require(Word(b,power+4,big)==0xAEE83888u && Word(b,power+8,big)==data+0x84,"SpecialPower reference token at +0x84");
+    Require(Word(b,data+0x84,big)==24,"SpecialPower import index 23 becomes index+1 in both endians");
+    auto disable=Token(b,table,0x7E6EE20Bu,big);
+    Require(Word(b,disable+4,big)==0xA7BD811Eu && Word(b,disable+8,big)==data+0x88,"Inline ObjectStatus token at +0x88");
+    for(unsigned i=0;i<disableMask.size();++i)
+        Require(Word(b,data+0x88+4*i,big)==disableMask[i],"All seven inline DisableWhenStatus words/endian");
+    for(unsigned i=0;i<12;++i)Require(b.at(table+84+i)==0,"Seven-token body sentinel");
+    Require(chunk.imports.empty(),"BAB token stream reconstructs resource references without a separate imports table");
     if(references) {
         Require(Word(b,data+116,big)==1 && Word(b,data+124,big)==1,"Inline template list counts");
         auto included=Word(b,data+120,big),excluded=Word(b,data+128,big);
-        Require(included>=data+132 && excluded>=data+132,"Filter allocations follow the complete 0x84 body");
+        Require(included>=data+164 && excluded>=data+164,"Filter allocations follow the complete 0xA4 body");
         Require(Word(b,included,big)==Native::HashAssetId("SovietConscript") && Word(b,excluded,big)==Native::HashAssetId("JapanCommando"),"Filter template hashes survive");
         Require(Relocated(chunk.relocations,data+108,big) && Relocated(chunk.relocations,data+120,big) && Relocated(chunk.relocations,data+128,big),"Inline filter status and lists relocate");
         auto includes=Word(b,Token(b,filterTable,3363839358u,big)+8,big);
         Require(Word(b,includes+8,big)==data+116 && Word(b,includes+20,big)==included,"Filter list token addresses");
-    } else Require(Word(b,root+480,big)==data+132,"Next module follows fixed 0x84 body");
+    } else Require(Word(b,root+480,big)==data+164,"Next module follows fixed 0xA4 body");
 }
 static void Reject(GameObjectChild module) {
     try {Compile(module,false);}catch(const std::exception&){return;}
@@ -99,6 +108,12 @@ int main(int argc,char** argv) {
                 }
             }
             Check(Compile(Input(""),big),big,3,false);
+            auto emptyMask=Input();emptyMask.attributes["DisableWhenStatus"]="";
+            Check(Compile(emptyMask,big),big,3,false);
+            auto disabled=Input();disabled.attributes["DisableWhenStatus"]="POWERED_DOWN_EMP USER_POWERED_DOWN NO_SPECIAL_ABILITY";
+            Check(Compile(disabled,big),big,3,false,15,{{0x40u,0u,0u,0x800u,0x2000u,0u,0u}});
+            auto everyWord=Input();everyWord.attributes["DisableWhenStatus"]="NO_SPECIAL_ABILITY LEASHED_RETURNING ENCLOSED CAN_ENTER_ANYTHING WEAPON_UPGRADED_01 GROUND_LOCOMOTOR_ACTIVE ANTI_GARRISON";
+            Check(Compile(everyWord,big),big,3,false,15,{{0x40u,1u,1u,1u,1u,1u,0x40000000u}});
             auto interval=Input();interval.attributes["CaptureIntervalFrames"]="1073741822";
             Check(Compile(interval,big),big,3,false,1073741822);
         }
@@ -106,9 +121,11 @@ int main(int argc,char** argv) {
         Check(Compile(Input("+0008"),false),false,8,false);
         for(const auto& value:{"0","-1","NaN","INF","-INF","1e39","1junk","1e","0x1p1","1D2"}){auto m=Input();m.attributes["AcquireRadius"]=value;Reject(m);}
         for(const auto& value:{"0","-1","1073741823","4294967296"}){auto m=Input();m.attributes["CaptureIntervalFrames"]=value;Reject(m);}
+        auto missingPower=Input();missingPower.attributes.erase("SpecialPowerTemplate");Reject(missingPower);
+        auto emptyPower=Input();emptyPower.attributes["SpecialPowerTemplate"]="";Reject(emptyPower);
         auto missingRadius=Input();missingRadius.attributes.erase("AcquireRadius");Reject(missingRadius);
         auto missingFilter=Input();missingFilter.children.clear();Reject(missingFilter);
         auto duplicateFilter=Input();duplicateFilter.children.push_back(duplicateFilter.children[0]);Reject(duplicateFilter);
-        std::cout<<"PASS passive mind control production native serializer: capacity 1/3/8/uint32 max, defaults, invalid values, mode 8 inline filter, template hashes/relocations, little/big endian\n";
+        std::cout<<"PASS passive mind control production native serializer: capacity 1/3/8/uint32 max, defaults, invalid values, 0xA4 body, required SpecialPower reference, seven-word DisableWhenStatus/defaults/multiple/high-word/endian, mode 8 inline filter, template hashes/relocations, little/big endian\n";
     } catch(const std::exception& error){std::cerr<<error.what()<<"\n";return 1;}
 }
