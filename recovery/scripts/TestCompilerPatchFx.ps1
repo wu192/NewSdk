@@ -149,7 +149,8 @@ try{
         $startup.RemoveAll();$startup.SetAttribute('useLegacyV2RuntimeActivationPolicy','true')
         $runtime=$config.CreateElement('supportedRuntime');$runtime.SetAttribute('version','v4.0');$startup.AppendChild($runtime)|Out-Null
         $config.Save("$tools/BinaryAssetBuilder.exe.config")
-        $originalArguments=@("$patchMod/Data/Mod.xml","/bps:$baseManifest","/sp:$($roots.schemaPath)","/dr:$sdk","/od:$oracle/streams","/iod:$oracle/intermediate",'/tp:Win32','/sc:false','/bc:false','/psc:false','/fsc:false','/csc:false','/atc:false','/sh:false','/pc:true','/res:false','/gui:false','/poe:false','/mr:false','/oof:false','/sf:false','/ls:true','/ss:true','/oix:false','/vf:false','/osh:false','/oar:false','/slowclean:true','/tl:3','/el:0')
+        New-Item -ItemType Directory -Path "$oracle/streams","$oracle/intermediate","$oracle/session","$oracle/cache"|Out-Null
+        $originalArguments=@("$patchMod/Data/Mod.xml","/bps:$baseManifest","/sp:$($roots.schemaPath)","/dr:$sdk","/od:$oracle/streams","/iod:$oracle/intermediate","/scd:$oracle/session","/bcp:$oracle/cache",'/tp:Win32','/sc:false','/bc:false','/psc:false','/fsc:false','/csc:false','/atc:false','/sh:false','/pc:true','/res:false','/gui:false','/poe:false','/mr:false','/oof:false','/sf:false','/ls:true','/ss:true','/oix:false','/vf:false','/osh:false','/oar:false','/slowclean:true','/tl:3','/el:0')
         RunProcess "$tools/BinaryAssetBuilder.exe" $originalArguments $sdk "$modeOut/original-bab"
         $manifests=@(Get-ChildItem -LiteralPath "$oracle/streams" -Filter Mod.manifest -Recurse -File)
         Need ($manifests.Count -eq 1) 'Original BAB did not emit one fresh patch manifest'
