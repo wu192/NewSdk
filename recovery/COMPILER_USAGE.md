@@ -14,7 +14,9 @@ Joypad 新并行范围见 [Joypad 说明](docs/components/xml/XML_JOYPAD.md)。�
 
 ## 1. 安装与检查
 
-本分支新构建将 Texture 编译器源码内建到 EXE，ZIP 只有三个运行文件：`NewModCompiler.exe`、`NewModCompiler.exe.config`、`antlr.runtime.dll`。完整解压到单独目录，保留三个文件。本轮源码 `8fe12ca9b` 的完整 Windows 及独立 ZIP 验收已通过，Debug/Release 包见[本轮产物归档](https://github.com/wu162/NewSdk/actions/runs/41185772818/artifacts/13037167160)中的 `artifacts/final-release/41185772818-1/`，通常使用 `NewModCompiler-Win32-Release.zip`；最终归档已下载复算，六份运行文件和两个三文件 ZIP 已与生产构建、发布清单核对，见[完整验收摘要](evidence/texture/plugin-validation/41185772818-1/full-summary.json)。[范围与原收据](docs/TEXTURE_PLUGIN.md)。历史五文件包仍可从 [功能验收归档40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929/artifacts/12916669037) 内 `artifacts/final-release/40915444929-1/NewModCompiler-Win32-Release.zip` 获取（生产源码6d39f833）；该包使用原 Texture DLL 和补丁清单，保留其原布局。
+本分支新构建将 Texture 编译器源码内建到 EXE，并携带 FX 工具。ZIP 内的五个运行文件为 `NewModCompiler.exe`、`NewModCompiler.exe.config`、`antlr.runtime.dll`、`fxc.exe`、`d3dcompiler_47.dll`，完整解压到同一目录即可运行。两份 FX 工具为构建时使用的 Windows SDK x86 版本，不需要在目标机器安装 Windows SDK 或旧 DirectX 9/D3DX。
+
+历史源码 `8fe12ca9b` 的三文件包和完整验收见[原产物归档](https://github.com/wu162/NewSdk/actions/runs/41185772818/artifacts/13037167160)、[原验收摘要](evidence/texture/plugin-validation/41185772818-1/full-summary.json)，不代表新的 FX 工具布局。更早使用原 Texture DLL 和补丁清单的五文件包也保留原布局，来源见 [功能验收归档40915444929](https://github.com/wu162/NewSdk/actions/runs/40915444929/artifacts/12916669037)。
 
 目标机器需要 Windows x86 兼容环境、.NET Framework 4.8，以及与编译工具链匹配的 x86 VC 运行库。新构建的 Texture 不再需要原 DLL、VC80 CRT 或 DirectX 9/D3DX；历史五文件包仍需要这些依赖。SDK 资源和 MOD 源码单独提供；工具 ZIP 不包含完整 SDK，也不下载游戏文件。
 
@@ -138,7 +140,7 @@ SDK、输出路径和版本均可由项目提供，命令行只需传入 MOD 路
 
 补丁包输出 `Data/Mod_1.01.*`、`Data/mod_m_1.01.*`、`Data/mod_l_1.01.*` 和对应无换行的 `.version` 指针。流版本 `patch-version` 与包版本 `mod-version` 独立；使用 `"patch-version": "none"` 保留 Patch WB 的无后缀流布局。`patch-config` 可省略，设置时为单个 SKUDEF 文件名，生成 `add-config`；基准 MOD 仍需自行安装。基准资源搜索可通过现有 `/data`、`/art`、`/audio` 设置。
 
-FX 在合并 SDK/MOD Additional 后、打 BIG 前编译，搜索 `Shaders` 顶层的 `.fx`，保留相对包含文件路径。编译参数沿用附件的 `/nologo /O3 /WX /T fx_2_0`；源文件包含独立行 `/// fxc-wrapper-disable-preshader` 时加入 `/Op`。输出位于 `Shaders/Compiled/<名称>.fxo`，`.fx` 和 `.fxh` 不进入 BIG。每次打包重新编译，包含文件修改也会生效。默认依次查找 SDK 的 `ARModExtraTools/fxc.exe`、`tools/fxc.exe` 和 PATH，也可用 `fxc` 配置完整路径。关闭使用 `"compile-fx": false` 或 `--compile-fx=false`。编译失败会使构建失败；仅当存在待编译 FX 时需要工具。
+FX 在合并 SDK/MOD Additional 后、打 BIG 前编译，搜索 `Shaders` 顶层的 `.fx`，保留相对包含文件路径。编译参数沿用附件的 `/nologo /O3 /WX /T fx_2_0`；源文件包含独立行 `/// fxc-wrapper-disable-preshader` 时加入 `/Op`。输出位于 `Shaders/Compiled/<名称>.fxo`，`.fx` 和 `.fxh` 不进入 BIG。每次打包重新编译，包含文件修改也会生效。默认优先使用 `NewModCompiler.exe` 同目录中的包内 `fxc.exe`，其配套 `d3dcompiler_47.dll` 也随包提供。`fxc` 配置或 `--fxc` 可显式覆盖工具路径；旧 SDK 的 `ARModExtraTools/fxc.exe`、`tools/fxc.exe` 和 PATH 查找仍兼容。关闭使用 `"compile-fx": false` 或 `--compile-fx=false`。编译失败会使构建失败；没有 FX 时不检查或启动工具。
 
 ## 6. 高级选项
 
@@ -235,7 +237,7 @@ BIG/SKUDEF 包缓存已移除；每次构建都会从本轮编译结果重新打
 | `PACKAGE_IDENTITY_INVALID` | 检查版本或文件基名是否含目录、换行或非法字符 |
 | `PACKAGE_NAME_UNSUPPORTED` | 将 MOD 文件夹基名改为 ASCII 后使用 BIG |
 | `CLI_UNSUPPORTED` | 按 CLI 兼容表移除未支持的旧选项；plan/build 均在执行前拒绝 |
-| doctor 失败 | 保留标准错误诊断，检查 SDK 路径、.NET/VC 运行库和包内三个运行文件是否完整；历史五文件包另需原 Texture 依赖 |
+| doctor 失败 | 保留标准错误诊断，检查 SDK 路径、.NET/VC 运行库和包内运行文件是否完整；历史原 Texture 包另需其旧依赖 |
 
 LoD 明确修复原工具的表尾越界：完整保留逻辑名称/来源表，不复制越界产生的尾字节；详见 [兼容策略](P7_LOD_ORIGINAL_TAIL.md)。完整 UI/runtime、中文纹理路径、混合纹理会话缓存仍有未覆盖范围。AssetMerge 不属于新流程。
 

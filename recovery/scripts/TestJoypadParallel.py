@@ -145,7 +145,8 @@ def run(args):
             entry.write_bytes(original_xml)
             runtime = products / mode / 'bin'
             before = {path.name: sha(path.read_bytes()) for path in runtime.iterdir()}
-            need(set(before) == {'NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll'}, 'Unexpected runtime files')
+            need(set(before) == {'NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll',
+                                 'fxc.exe', 'd3dcompiler_47.dll'}, 'Unexpected runtime files')
             receipt = json.loads((products / mode / 'build.json').read_text(encoding='utf-8-sig'))
             need(receipt['sourceCommit'] == args.source_commit and receipt['exeSha256'] == before['NewModCompiler.exe'], 'Production executable/receipt differs')
             serial, inventory, report = invoke(mode, 'serial', '1', False)

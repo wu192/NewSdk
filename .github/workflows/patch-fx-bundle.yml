@@ -1,0 +1,85 @@
+name: Compiler bundled FX
+on:
+  push:
+    branches: [feat/patch-fx-config-version]
+    paths:
+      - '.github/workflows/patch-fx-bundle.yml'
+      - 'recovery/src/App/**'
+      - 'recovery/tests/App/ShaderCompilerTests.cs'
+      - 'recovery/scripts/BuildCompiler.ps1'
+      - 'recovery/scripts/TestCompiler.ps1'
+      - 'recovery/scripts/TestCompilerPatchFx.ps1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bundled-fx:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[fx-bundle]')
+    runs-on: windows-2022
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/recovery/evidence/
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Inspect selected Windows SDK FX tools before compiling
+        shell: pwsh
+        run: |
+          $fx=Join-Path $env:WindowsSdkDir "bin/$($env:WindowsSDKVersion.TrimEnd('\'))/x86"
+          Get-Item (Join-Path $fx 'fxc.exe'),(Join-Path $fx 'd3dcompiler_47.dll') | Select-Object Name,Length,@{n='Version';e={$_.VersionInfo.FileVersion}} | Format-Table
+      - name: Parse scripts and run managed App contracts
+        shell: pwsh
+        run: |
+          foreach($script in Get-ChildItem recovery/scripts -Filter '*.ps1' -File) {
+            $tokens=$null;$errors=$null
+            $null=[Management.Automation.Language.Parser]::ParseFile($script.FullName,[ref]$tokens,[ref]$errors)
+            if($errors.Count){throw ($errors|Out-String)}
+          }
+          ./recovery/scripts/TestApp.ps1 -Configuration Release -OutputDirectory recovery/artifacts/fx-bundle/app
+      - name: Install existing native audit dependencies
+        shell: pwsh
+        run: python -m pip install -r recovery/probes/TextureRedirect/requirements.txt
+      - name: Build Debug and Release production runtimes once
+        shell: pwsh
+        run: |
+          foreach($mode in @('Debug','Release')) {
+            ./recovery/scripts/BuildManagedFoundation.ps1 -Configuration $mode -OutputDirectory "recovery/artifacts/fx-bundle/foundation/$mode"
+          }
+          ./recovery/scripts/TestCompiler.ps1 -FoundationDirectory recovery/artifacts/fx-bundle/foundation -BuildDirectory recovery/artifacts/fx-bundle/product -OutputDirectory recovery/artifacts/fx-bundle/deployment
+      - name: Zip and independently extract both bundled runtimes
+        shell: pwsh
+        run: |
+          $root=Join-Path $PWD 'recovery/artifacts/fx-bundle'
+          New-Item -ItemType Directory -Path "$root/packages"|Out-Null
+          foreach($mode in @('Debug','Release')) {
+            $build=Get-Content "$root/product/$mode/build.json" -Raw|ConvertFrom-Json
+            $zip="$root/packages/NewModCompiler-Win32-$mode.zip"
+            Compress-Archive -LiteralPath @($build.runtimeFiles|ForEach-Object{"$root/product/$mode/bin/$_"}) -DestinationPath $zip
+            $bin="$root/extracted/$mode/bin"
+            Expand-Archive -LiteralPath $zip -DestinationPath $bin
+            $files=@(Get-ChildItem -LiteralPath $bin -Force)
+            if($files.Count -ne 5 -or @($files|Where-Object{$_.PSIsContainer -or $_.Name -cnotin $build.runtimeFiles}).Count){throw "Extracted $mode ZIP differs from five-file runtime contract"}
+          }
+      - name: Verify patch and bundled FX from extracted ZIPs without system tools
+        shell: pwsh
+        run: ./recovery/scripts/TestCompilerPatchFx.ps1 -CompilerDirectory recovery/artifacts/fx-bundle/extracted -OutputDirectory recovery/artifacts/fx-bundle/patch-fx
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compiler-bundled-fx-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/fx-bundle/packages/*.zip
+            recovery/artifacts/fx-bundle/product/*/build.json
+            recovery/artifacts/fx-bundle/deployment/**
+            recovery/artifacts/fx-bundle/patch-fx/**
+          if-no-files-found: warn
+          retention-days: 7

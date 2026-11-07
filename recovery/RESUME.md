@@ -1,5 +1,7 @@
 # 当前：Patch / FX / 配置版本已通过定向验证，PR #11 待审
 
+FX 随包工具补充：用户要求运行包直接携带 FX 编译依赖，现加入 x86 `fxc.exe` 与 `d3dcompiler_47.dll`，默认优先使用 EXE 同目录工具。构建及当前发行清单改为五文件；历史归档格式保留。正在进行 D/R 独立 ZIP、空 PATH、SDK 无 FXC 的真实编译验证，以下 `64d2aeb3` 仍是补充前的验收来源。
+
 [PR #11](https://github.com/wu192/NewSdk/pull/11)，分支 `feat/patch-fx-config-version`。
 新增 base-patch-stream（兼容 /bps）、独立 patch-version / Patch WB 无后缀布局、
 LoD/.version 与可选 SKUDEF add-config；合并 Additional 后编译 FX，处理 include 覆盖与失败/取消。

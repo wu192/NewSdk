@@ -292,7 +292,7 @@ def main():
     state = {'schemaVersion': 1, 'succeeded': False, 'sourceCommit': commit,
              'runId': os.environ.get('GITHUB_RUN_ID'), 'runAttempt': os.environ.get('GITHUB_RUN_ATTEMPT'),
              'modes': [], 'packages': [],
-             'scope': 'Debug/Release actual two-asset MOD; game-layout official BIG extraction, CLI/project/appSettings precedence, both original registry views, extraction cold/hot/failed retry, two MODs sharing one SDK extraction and overlapping cold extraction, unchanged inputs, original HashFix/Resolver/LoD/MakeBig raw differential and independent three-file ZIP cold shared extraction. No full MOD or in-game acceptance.'}
+             'scope': 'Debug/Release actual two-asset MOD; game-layout official BIG extraction, CLI/project/appSettings precedence, both original registry views, extraction cold/hot/failed retry, two MODs sharing one SDK extraction and overlapping cold extraction, unchanged inputs, original HashFix/Resolver/LoD/MakeBig raw differential and independent five-file ZIP cold shared extraction. No full MOD or in-game acceptance.'}
     work = Path(tempfile.mkdtemp(prefix='gwb-', dir=Path(os.environ['RUNNER_TEMP']).resolve().anchor))
     try:
         game, game_identity = create_game(work)

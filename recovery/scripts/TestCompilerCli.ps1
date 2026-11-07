@@ -201,7 +201,9 @@ try {
         $script:modeOut=(New-Item -ItemType Directory -Path (Join-Path $out $mode)).FullName
         $script:modeWork=(New-Item -ItemType Directory -Path (Join-Path $short $mode.Substring(0,1))).FullName;$script:caseIndex=0
         $script:runtime=(New-Item -ItemType Directory -Path (Join-Path $modeWork 'r')).FullName
-        foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$file") -Destination $runtime}
+        $runtimeFiles=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
+        if(!$reuse){$runtimeFiles+=@('fxc.exe','d3dcompiler_47.dll')}
+        foreach($file in $runtimeFiles){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$file") -Destination $runtime}
         $script:exe=Join-Path $runtime 'NewModCompiler.exe';$exeHash=Hash $exe
         if($reuse){
             foreach($file in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){
@@ -219,7 +221,7 @@ try {
         }else{
             $build=Get-Content -LiteralPath (Join-Path $CompilerDirectory "$mode/build.json") -Raw|ConvertFrom-Json
             Need ($build.exeSha256 -ceq $exeHash -and $build.texturePlugin.implementation -ceq 'built-in-source' -and @($build.texturePlugin.externalRuntimeFiles).Count -eq 0) 'Production source texture build provenance differs'
-            Need (@(Get-ChildItem $runtime -Force).Count -eq 3) 'Unexpected clean production runtime files'
+            Need (@(Get-ChildItem $runtime -Force).Count -eq 5) 'Unexpected clean production runtime files'
             $textureDeployment=@{implementation='built-in-source';assemblySha256=$exeHash;externalRuntimeFiles=@()}
         }
         $runtimeSnapshot=Snapshot $runtime

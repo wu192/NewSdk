@@ -22,7 +22,7 @@ Joypad 并行版已发布：[NewModCompiler 2026.11.01](https://github.com/wu162
 生产/测试源码 `8fe12ca9b` 的 [Windows 41185772818](https://github.com/wu162/NewSdk/actions/runs/41185772818) 已整体通过：Debug/Release 构建、原元数据完整转录、组件与实际四 worker 并行、缓存、完整 mymod 原版对照、两个独立三文件 ZIP，以及完整 Upheaval 22 样本。插件版本 `4202` 和三个 ProcessingHash 保留原 DLL 值。
 [常见格式与并行 CLI 收据](recovery/evidence/texture/plugin-validation/41185772818-1/common-summary.json)已入库：D/R 各31组件结果与上一轮原字节相同，16个真实CLI用例通过。本轮 Debug/Release 包见[本轮产物归档](https://github.com/wu162/NewSdk/actions/runs/41185772818/artifacts/13037167160)；最终归档已下载复算，Debug/Release 六份运行文件及两个三文件 ZIP 均与生产构建和发布清单核对通过，详见[完整验收摘要](recovery/evidence/texture/plugin-validation/41185772818-1/full-summary.json)。上一轮 `4c74bf64b` 的[验收记录](https://github.com/wu162/NewSdk/actions/runs/41180859852)保留为历史，历史 `compiler-main` 发行见[发行说明](recovery/COMPILER_RELEASE.md)。
 
-本分支将 Texture 编译器源码内建到 EXE，新构建的工具 ZIP 只有三个运行文件：NewModCompiler.exe、NewModCompiler.exe.config、antlr.runtime.dll。SDK、MOD 源码和系统运行库单独准备。要求 Windows x86 兼容环境、.NET Framework 4.8 及与构建工具链匹配的 x86 VC 运行库；Texture 不再依赖原 DLL、VC80 或 DirectX 9/D3DX。先运行 doctor 检查环境。更早使用原 DLL 的历史包仍保留五文件布局；本次能力与边界见 [Texture 说明](recovery/docs/TEXTURE_PLUGIN.md)。
+本分支将 Texture 编译器源码内建到 EXE，新构建的工具 ZIP 包含五个运行文件：NewModCompiler.exe、NewModCompiler.exe.config、antlr.runtime.dll，以及随包提供的 x86 fxc.exe、d3dcompiler_47.dll。完整解压即可使用包内工具编译 FX。SDK、MOD 源码和系统运行库单独准备。要求 Windows x86 兼容环境、.NET Framework 4.8 及与构建工具链匹配的 x86 VC 运行库；Texture 不再依赖原 DLL、VC80 或 DirectX 9/D3DX。先运行 doctor 检查环境。此前三文件包及更早使用原 Texture DLL 的历史五文件包保留各自布局；本次能力与边界见 [Texture 说明](recovery/docs/TEXTURE_PLUGIN.md)。
 
 ## 使用
 
@@ -45,7 +45,7 @@ Joypad 并行版已发布：[NewModCompiler 2026.11.01](https://github.com/wu162
 - `--mod-version 2.7-beta`、`--skudef-name ExampleLauncher`：设置 BIG/SKUDEF 身份。版本可保存为 MOD 的 `newmodcompiler.json` 中的 `"mod-version": "2.7-beta"`，也可放在 EXE.config 的同名 appSettings；命令行覆盖项目配置，项目配置覆盖 EXE 配置。BIG 仍要求至少一处配置版本；名称默认为 MOD 目录名。
 - `--include-additional=false`：关闭默认 Additional；开启时先取 SDK/Additional，再由 MOD/Additional 覆盖，排除 `.asset`，覆盖冲突记录警告。
 - `--base-patch-stream C:\Base\mod.manifest`（兼容 `/bps:`）：基于已有四流编译 BIG 补丁。默认流版本为 `1.01`，可用 `--patch-version` 设置；`none` 使用附件 Patch WB 的无后缀布局。`--patch-config Base_1.0.skudef` 可追加基准 MOD 的 `add-config`。
-- FX 默认将合并后的 `Additional/Shaders/*.fx` 编译为 `Shaders/Compiled/*.fxo`，支持附件的 `/// fxc-wrapper-disable-preshader` 指令。可用 `--fxc` 指定工具或 `--compile-fx=false` 关闭；FX 编译需要 `fxc.exe`，`.fx`/`.fxh` 源码不打入 BIG。
+- FX 默认将合并后的 `Additional/Shaders/*.fx` 编译为 `Shaders/Compiled/*.fxo`，支持附件的 `/// fxc-wrapper-disable-preshader` 指令。默认使用编译器目录随包携带的 `fxc.exe` 和 `d3dcompiler_47.dll`，无需另配工具路径；可用 `--fxc` 覆盖或 `--compile-fx=false` 关闭。`.fx`/`.fxh` 源码不打入 BIG。
 
 loose（包括兼容 development 派生的 loose）和 `doctor` 不要求显式版本；显式 loose 仍保留原包身份校验。
 

@@ -245,10 +245,11 @@ def check(root, repository, expected_source=None):
         runtime_names = ['NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll']
         if 'texturePlugin' in product:
             require(product['texturePlugin'] == {'implementation': 'built-in-source', 'externalRuntimeFiles': []}, mode + ': source texture implementation receipt differs')
+            runtime_layouts = [runtime_names, runtime_names + ['fxc.exe', 'd3dcompiler_47.dll']]
         else:
             # Revalidation of historical accepted archives retains their DLL contract.
-            runtime_names += ['BinaryAssetBuilder.TextureCompiler.dll', 'BinaryAssetBuilder.TextureCompiler.dll.patch.json']
-        require(product.get('runtimeFiles') == runtime_names, mode + ': production runtime inventory differs')
+            runtime_layouts = [runtime_names + ['BinaryAssetBuilder.TextureCompiler.dll', 'BinaryAssetBuilder.TextureCompiler.dll.patch.json']]
+        require(product.get('runtimeFiles') in runtime_layouts, mode + ': production runtime inventory differs')
         state = modes[mode]
         require(state.get('passed') is True and state.get('productExeSha256') == product['exeSha256']
                 and state.get('validationHostSha256') == host['exeSha256'], mode + ': matrix EXE identity drift')

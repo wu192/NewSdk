@@ -266,8 +266,9 @@ print(json.dumps({'changedPaths': changed, 'receipt': receipt}))
             Need ($patch.targetExeSha256 -ceq (Hash $exe) -and $patch.patchedSha256 -ceq (Hash (Join-Path $runtime 'BinaryAssetBuilder.TextureCompiler.dll')) -and $patch.protectedPeAudit.status -ceq 'passed') 'Historical Texture runtime does not bind its EXE'
             Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 5) 'Historical SDK deployment is not the exact five-file runtime'
         }else{
+            foreach($file in @('fxc.exe','d3dcompiler_47.dll')){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$file") -Destination $runtime}
             Need ($build.texturePlugin.implementation -ceq 'built-in-source' -and @($build.texturePlugin.externalRuntimeFiles).Count -eq 0) 'SDK build requires the source texture plugin'
-            Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 3) 'SDK production deployment is not the exact three-file runtime'
+            Need (@(Get-ChildItem -LiteralPath $runtime -Force).Count -eq 5) 'SDK production deployment is not the exact five-file runtime'
         }
         $runtimeBefore=Snapshot $runtime;$destination=Join-Path $short ($mode.Substring(0,1)+'out');New-Item -ItemType Directory -Path $destination|Out-Null
         $arguments=@('build','--mod',$mod,'--sdk-root',$sdk,'--out',$destination,'--package-content','base,apt,maps','--package-format','loose','/sc:false','/bc:false',"/data:$data","/art:$art","/audio:$audio")

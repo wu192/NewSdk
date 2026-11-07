@@ -105,10 +105,10 @@ try{
         $script:cliEvidence=(New-Item -ItemType Directory "$evidence/cli").FullName
         $modeWork=(New-Item -ItemType Directory "$work/$mode/production").FullName
         $script:cliRuntime=(New-Item -ItemType Directory "$modeWork/runtime").FullName
-        foreach($name in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$name") -Destination $cliRuntime}
+        foreach($name in @('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','fxc.exe','d3dcompiler_47.dll')){Copy-Item -LiteralPath (Join-Path $CompilerDirectory "$mode/bin/$name") -Destination $cliRuntime}
         $script:cliExe=Join-Path $cliRuntime 'NewModCompiler.exe'
         $product=Get-Content -LiteralPath (Join-Path $CompilerDirectory "$mode/build.json") -Raw|ConvertFrom-Json
-        Need ($product.sourceCommit -ceq $state.sourceCommit -and $product.configuration -ceq $mode -and (Hash $cliExe) -ceq $product.exeSha256 -and @(Get-ChildItem -LiteralPath $cliRuntime -Force).Count -eq 3) 'Common-format production runtime differs from built product'
+        Need ($product.sourceCommit -ceq $state.sourceCommit -and $product.configuration -ceq $mode -and (Hash $cliExe) -ceq $product.exeSha256 -and @(Get-ChildItem -LiteralPath $cliRuntime -Force).Count -eq 5) 'Common-format production runtime differs from built product'
         $cliMode.exeSha256=Hash $cliExe
         $script:cliSdk=(New-Item -ItemType Directory "$modeWork/sdk").FullName
         New-Item -ItemType Directory "$cliSdk/tools","$cliSdk/Schemas"|Out-Null

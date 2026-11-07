@@ -106,12 +106,12 @@ namespace NewModCompiler.Application
                 if (configured != null) return configured;
                 throw new BuildFailure(ExitCode.Environment, "FX_COMPILER_MISSING", "Configured FX compiler was not found: " + request.FxcPath);
             }
-            foreach (string candidate in new[] { Path.Combine(request.SdkRoot, "ARModExtraTools", "fxc.exe"), Path.Combine(request.SdkRoot, "tools", "fxc.exe"), "fxc.exe" })
+            foreach (string candidate in new[] { Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fxc.exe"), Path.Combine(request.SdkRoot, "ARModExtraTools", "fxc.exe"), Path.Combine(request.SdkRoot, "tools", "fxc.exe"), "fxc.exe" })
             {
                 string compiler = FindExecutable(candidate);
                 if (compiler != null) return compiler;
             }
-            throw new BuildFailure(ExitCode.Environment, "FX_COMPILER_MISSING", "FX sources require fxc.exe. Set --fxc or install it in SDK/ARModExtraTools.");
+            throw new BuildFailure(ExitCode.Environment, "FX_COMPILER_MISSING", "FX sources require the bundled fxc.exe, or an explicit --fxc path.");
         }
 
         static string FindExecutable(string name)

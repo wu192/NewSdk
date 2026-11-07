@@ -72,6 +72,8 @@ try {
     Invoke-CompilerTool 'link.exe' @('@'+$linkResponse) (Join-Path $out 'link.log')
     Copy-Item 'recovery/src/App/App.config' "$exe.config"
     Copy-Item 'SDK/tools/antlr.runtime.dll' $bin
+    $fxcDirectory=Join-Path $env:WindowsSdkDir "bin/$($env:WindowsSDKVersion.TrimEnd('\'))/x86"
+    Copy-Item (Join-Path $fxcDirectory 'fxc.exe'),(Join-Path $fxcDirectory 'd3dcompiler_47.dll') $bin
     $before=(Get-FileHash $exe -Algorithm SHA256).Hash
     $metadataTool=(Resolve-Path 'recovery/build/ManagedMetadata/bin/Release/net8.0/ManagedMetadata.dll').Path
     Invoke-CompilerTool 'dotnet' @($metadataTool,'verify-linked',$exe,(Resolve-Path 'SDK/tools/BinaryAssetBuilder.Utility.dll').Path) (Join-Path $out 'metadata.log')
@@ -84,7 +86,7 @@ try {
         sources=@($sources|ForEach-Object{@{path=[IO.Path]::GetRelativePath($root,$_.FullName).Replace('\','/');sha256=(Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()}})
         hostingSource=@{path='recovery/src/Hosting/CompilerEntry.cpp';sha256=(Get-FileHash $hostingSource -Algorithm SHA256).Hash.ToLowerInvariant()}
         nativeBuild=$nativeBuild
-        resources=$resources;runtimeFiles=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll')
+        resources=$resources;runtimeFiles=@('NewModCompiler.exe','NewModCompiler.exe.config','antlr.runtime.dll','fxc.exe','d3dcompiler_47.dll')
         texturePlugin=@{implementation='built-in-source';externalRuntimeFiles=@()}
         scope='Unified Native/Bridge, built-in compilers and managed Foundation in one EXE; experimental in-process no-cache CLI backend, with P5/G3/SDK acceptance tracked separately'
         containsProbeOrTestSources=$false;backendIntegrated=$true;modCompilationSupported=$false;modCompilationAcceptance='Not established by a build receipt; require actual CLI and P5/G3/SDK evidence';status='built; clean deployment and runtime validation required'

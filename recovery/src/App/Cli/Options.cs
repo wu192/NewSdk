@@ -290,7 +290,7 @@ namespace NewModCompiler.Cli
             "  --game-version <version>           Default 1.12; changes only the SKUDEF field.\n" +
             "  --patch-version <version|none>     Default 1.01; stream suffix and .version markers. none keeps Patch WB names. Requires BIG base patch.\n" +
             "  --patch-config <filename.skudef>   Optional base MOD config appended as add-config in patch SKUDEF.\n" +
-            "  --fxc <executable>                 Optional FX compiler path; defaults to SDK/ARModExtraTools/fxc.exe, SDK/tools/fxc.exe, then PATH.\n" +
+            "  --fxc <executable>                 Optional FX compiler override; defaults to bundled fxc.exe beside NewModCompiler.exe.\n" +
             "Cache: /sc:true /bc:true /csc:true /psc:true /fsc:false /atc:false; each accepts true|false. SDK buildCache config can override the default /bc.\n" +
             "Caches: <sdk-root>/SuperCompilerCache/<ModKey>. /scd:<directory> (/scp alias), /bcd:<directory> (/bcp alias), /iod:<directory> must stay inside that MOD partition.\n" +
             "Legacy script controls: /ss:true /pc:true /slowclean:true; each also accepts false.\n" +

@@ -103,6 +103,21 @@ namespace NewModCompiler.Tests
             missing.CompileFx = true;
             Reject(() => ShaderCompiler.Compile(missing, new List<BigArchiveEntry> { new BigArchiveEntry { Name = "Shaders\\plain.fx", SourcePath = plain } }, Path.Combine(root, "missing"), CancellationToken.None), "FX_COMPILER_MISSING");
 
+            if (Environment.OSVersion.Platform != PlatformID.Unix)
+            {
+                string bundled = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "fxc.exe");
+                File.Copy(Assembly.GetExecutingAssembly().Location, bundled);
+                try
+                {
+                    var automatic = new BuildRequest { SdkRoot = sdk, CompileFx = true };
+                    var bundledEntries = new List<BigArchiveEntry> { new BigArchiveEntry { Name = "Shaders\\plain.fx", SourcePath = plain } };
+                    ShaderCompiler.Compile(automatic, bundledEntries, Path.Combine(root, "bundled"), CancellationToken.None);
+                    Check(automatic.ExternalTools.Count == 1 && automatic.ExternalTools[0] == bundled, "default compiler did not resolve beside the executable");
+                    Check(File.ReadAllText(bundledEntries.Single().SourcePath) == "compiled:plain", "bundled default did not compile shader bytecode");
+                }
+                finally { File.Delete(bundled); }
+            }
+
             string waiting = Path.Combine(root, "waiting.fx"), cancelRoot = Path.Combine(root, "cancel"); Put(waiting, "BLOCK");
             var cancelled = new List<BigArchiveEntry> { new BigArchiveEntry { Name = "shaders\\waiting.fx", SourcePath = waiting } };
             Exception workerFailure = null;

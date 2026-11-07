@@ -88,7 +88,7 @@ jobs:
             python recovery/scripts/TestNeutralWorldbuilder.py --product-build "recovery/artifacts/neutral-product/$mode" --configuration $mode --output "recovery/artifacts/neutral-mod/$mode"
             if($LASTEXITCODE -ne 0){throw "$mode neutral small MOD/original chain failed"}
           }
-      - name: Package exact validated three-file Debug and Release products
+      - name: Package exact validated five-file Debug and Release products
         shell: pwsh
         run: |
           python recovery/scripts/PackageNeutralCompiler.py --product-root recovery/artifacts/neutral-product --validation-root recovery/artifacts/neutral-mod --output recovery/artifacts/neutral-packages

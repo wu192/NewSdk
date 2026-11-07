@@ -3,7 +3,6 @@
 param(
     [Parameter(Mandatory=$true)][string]$CompilerDirectory,
     [Parameter(Mandatory=$true)][string]$OutputDirectory,
-    [string]$FxcExecutable,
     [ValidateRange(15,600)][int]$TimeoutSeconds=120,
     [ValidateSet('Debug','Release')][string[]]$Configurations=@('Debug','Release')
 )
@@ -116,7 +115,7 @@ passed=all(row['byteIdentical'] for row in comparisons)
 (destination/'comparison.json').write_text(json.dumps({'succeeded':passed,'sharedReused':reused,'originalCompared':bool(oracle),'rawComparisons':comparisons,'references':refs,'assets':assets,'members':{name:hashlib.sha256(data).hexdigest() for name,data in entries.items()}},indent=2)+'\n')
 need(passed,'Original BAB /bps + LoD raw bytes differ; raw comparisons retained')
 '@|Set-Content -LiteralPath $validator
-$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;scriptSha256=(Hash $PSCommandPath);modes=@();failures=@();scope='Small real Core patch, original BAB/LoD byte oracle, normal/patch/hot/base-edit cache transitions; optional actual FX compilation; no full MOD/game acceptance'}
+$state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;scriptSha256=(Hash $PSCommandPath);modes=@();failures=@();scope='Small real Core patch, original BAB/LoD byte oracle, normal/patch/hot/base-edit cache transitions; actual bundled FX compiler with empty PATH and no SDK compiler; no full MOD/game acceptance'}
 try{
     foreach($mode in $Configurations){
         $modeOut=(New-Item -ItemType Directory -Path "$out/$mode").FullName
@@ -210,17 +209,21 @@ try{
         } catch {RecordFailure 'invalid-base-body' $_}
 
         try {
-        $fxc=$FxcExecutable
-        if(!$fxc){$fxc=@("$root/SDK/ARModExtraTools/fxc.exe","$root/SDK/tools/fxc.exe")|Where-Object{Test-Path -LiteralPath $_ -PathType Leaf}|Select-Object -First 1}
-        if(!$fxc){$fxc=Get-ChildItem "${env:ProgramFiles(x86)}/Windows Kits/*/bin/*/x86/fxc.exe" -ErrorAction SilentlyContinue|Sort-Object FullName -Descending|Select-Object -First 1 -ExpandProperty FullName}
-        if($fxc){
+            $bin=[IO.Path]::GetDirectoryName($exe)
+            $fxc=(Resolve-Path -LiteralPath (Join-Path $bin 'fxc.exe')).Path
+            $compilerDll=(Resolve-Path -LiteralPath (Join-Path $bin 'd3dcompiler_47.dll')).Path
+            Need (@(Get-ChildItem -LiteralPath $sdk -Filter 'fxc.exe' -Recurse -File).Count -eq 0) 'SDK fixture contains an FX compiler'
             New-Item -ItemType Directory -Path "$patchMod/Additional/Shaders"|Out-Null
             [IO.File]::WriteAllText("$patchMod/Additional/Shaders/Probe.fx",'float4 main():COLOR0{return float4(1,0,0,1);} technique Main {pass P {PixelShader=compile ps_2_0 main();}}')
-            $fx=Build 'patch-with-fx' $patchMod (Join-Path $modeWork 'fx') @('--base-patch-stream',$baseManifest,'--fxc',$fxc)
+            $savedPath=$env:PATH
+            try {
+                $env:PATH=''
+                $fx=Build 'patch-with-fx' $patchMod (Join-Path $modeWork 'fx') @('--base-patch-stream',$baseManifest)
+            } finally {$env:PATH=$savedPath}
+            Need (@($fx.report.externalTools).Count -eq 1 -and $fx.report.externalTools[0] -ceq $fxc) 'FX build did not select the bundled compiler automatically'
             $check='import sys;sys.path.insert(0,sys.argv[1]);from ValidateCompilerBig import read_archive;d={x["name"]:x["data"] for x in read_archive(sys.argv[2])["members"]};assert len(d["shaders\\compiled\\probe.fxo"])>4;assert not any(n.endswith((".fx",".fxh")) for n in d)'
             & python -c $check $PSScriptRoot (Package $fx);Need ($LASTEXITCODE -eq 0) 'Actual FX bytecode missing or shader source leaked into BIG'
-            $modeState.fx=@{status='passed';compiler=$fxc;compilerSha256=(Hash $fxc)}
-        }
+            $modeState.fx=@{status='passed';compiler=$fxc;compilerSha256=(Hash $fxc);dependency='d3dcompiler_47.dll';dependencySha256=(Hash $compilerDll);automaticBundledTool=$true;emptyPath=$true;sdkContainsCompiler=$false}
         } catch {RecordFailure 'fx' $_}
         $modeState.passed=$modeState.failures.Count -eq 0
     }

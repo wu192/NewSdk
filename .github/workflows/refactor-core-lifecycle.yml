@@ -198,6 +198,8 @@ jobs:
             recovery/artifacts/core-lifecycle-product/*/bin/NewModCompiler.exe
             recovery/artifacts/core-lifecycle-product/*/bin/NewModCompiler.exe.config
             recovery/artifacts/core-lifecycle-product/*/bin/antlr.runtime.dll
+            recovery/artifacts/core-lifecycle-product/*/bin/fxc.exe
+            recovery/artifacts/core-lifecycle-product/*/bin/d3dcompiler_47.dll
             recovery/artifacts/core-lifecycle-product/*/build.json
           if-no-files-found: error
           retention-days: 7
@@ -391,12 +393,12 @@ jobs:
         run: |
           ./recovery/scripts/TestCompilerSdk.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -OutputDirectory "recovery/evidence/refactor/sdk-mymod/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT" -TimeoutSeconds 600
           if($LASTEXITCODE -ne 0){throw 'Complete mymod SDK differential failed'}
-      - name: Publish final three-file packages after complete production acceptance
+      - name: Publish final five-file packages after complete production acceptance
         if: ${{ success() && steps.big.outcome == 'success' && steps.cli.outcome == 'success' && env.CLI_REUSE != 'true' }}
         shell: pwsh
         run: |
           ./recovery/scripts/PublishCompiler.ps1 -CompilerDirectory recovery/artifacts/core-lifecycle-product -AcceptanceReceipt "recovery/evidence/refactor/core-cli/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -VerifyBigDeployment -OutputDirectory "recovery/artifacts/final-release/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT"
-          if($LASTEXITCODE -ne 0){throw 'Final three-file ZIP deployment validation failed'}
+          if($LASTEXITCODE -ne 0){throw 'Final five-file ZIP deployment validation failed'}
       - name: One full Upheaval jobs 1 4 auto cold hot and modified A/B after acceptance
         if: ${{ success() && steps.product.outcome == 'success' && env.CLI_REUSE != 'true' }}
         timeout-minutes: 24
@@ -533,6 +535,8 @@ jobs:
             recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe
             recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe.config
             recovery/artifacts/core-lifecycle-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/core-lifecycle-product/Release/bin/fxc.exe
+            recovery/artifacts/core-lifecycle-product/Release/bin/d3dcompiler_47.dll
             recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
             recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
             recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Release.zip
@@ -666,6 +670,8 @@ jobs:
             recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe
             recovery/artifacts/core-lifecycle-product/Release/bin/NewModCompiler.exe.config
             recovery/artifacts/core-lifecycle-product/Release/bin/antlr.runtime.dll
+            recovery/artifacts/core-lifecycle-product/Release/bin/fxc.exe
+            recovery/artifacts/core-lifecycle-product/Release/bin/d3dcompiler_47.dll
             recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll
             recovery/artifacts/core-lifecycle-product/Release/bin/BinaryAssetBuilder.TextureCompiler.dll.patch.json
             recovery/artifacts/final-release/${{ github.run_id }}-${{ github.run_attempt }}/NewModCompiler-Win32-Release.zip

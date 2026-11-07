@@ -50,7 +50,8 @@ def main():
     need(acceptance['succeeded'] and len(acceptance['modes']) == 2 and all(mode['passed'] for mode in acceptance['modes']), 'Production CLI/cancellation acceptance failed')
     release = read(packages / 'release.json')
     need(release['succeeded'] and release['binarySourceCommit'] == args.source_commit and len(release['configurations']) == 2, 'Independent ZIP deployment did not pass')
-    allowed = {'NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll'}
+    allowed = {'NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll',
+               'fxc.exe', 'd3dcompiler_47.dll'}
     records = []
     for mode in ('Debug', 'Release'):
         stem = 'NewModCompiler-Win32-' + mode
@@ -60,9 +61,9 @@ def main():
         build = read(products / mode / 'build.json')
         need(manifest['binarySourceCommit'] == args.source_commit and build['sourceCommit'] == args.source_commit, 'Runtime source commit differs')
         need(digest(archive.read_bytes()) == manifest['archive']['sha256'], 'Runtime ZIP digest differs')
-        need(len(manifest['files']) == 3 and {item['name'] for item in manifest['files']} == allowed, 'Manifest file inventory differs')
+        need(len(manifest['files']) == 5 and {item['name'] for item in manifest['files']} == allowed, 'Manifest file inventory differs')
         with zipfile.ZipFile(archive) as runtime:
-            need(len(runtime.infolist()) == 3 and set(runtime.namelist()) == allowed and runtime.testzip() is None, 'Runtime ZIP must contain exactly three valid files')
+            need(len(runtime.infolist()) == 5 and set(runtime.namelist()) == allowed and runtime.testzip() is None, 'Runtime ZIP must contain exactly five valid files')
             for item in manifest['files']:
                 data = runtime.read(item['name'])
                 need(len(data) == item['bytes'] and digest(data) == item['sha256'], 'Runtime ZIP member digest differs')
@@ -90,7 +91,7 @@ def main():
     (output / 'USAGE.zh-CN.md').write_text('''# NewModCompiler Joypad 并行待确认包
 
 普通使用请选择 NewModCompiler-Win32-Release.zip；Debug 包供调试。
-完整解压三个运行文件至同一目录：NewModCompiler.exe、NewModCompiler.exe.config、antlr.runtime.dll。
+完整解压五个运行文件至同一目录：NewModCompiler.exe、NewModCompiler.exe.config、antlr.runtime.dll、fxc.exe、d3dcompiler_47.dll。
 
 要求 Windows x86 兼容环境、.NET Framework 4.8 及与清单工具链匹配的 x86 VC 运行库。SDK 与 MOD 单独准备。
 

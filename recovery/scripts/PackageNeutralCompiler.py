@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Archive the current three-file products only after focused acceptance."""
+"""Archive the current five-file products only after focused acceptance."""
 import argparse
 import hashlib
 import json
@@ -11,7 +11,8 @@ import tempfile
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
-RUNTIME = ('NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll')
+RUNTIME = ('NewModCompiler.exe', 'NewModCompiler.exe.config', 'antlr.runtime.dll',
+           'fxc.exe', 'd3dcompiler_47.dll')
 
 
 def need(value, message):
@@ -49,7 +50,7 @@ def main():
         need(receipt['sourceCommit'] == commit and receipt['configuration'] == mode and
              receipt['exeSha256'] == state['binarySha256'], 'Product and acceptance EXE differ: ' + mode)
         bin_path = product / 'bin'
-        need({p.name for p in bin_path.iterdir() if p.is_file()} == set(RUNTIME), 'Runtime is not the exact three-file layout')
+        need({p.name for p in bin_path.iterdir() if p.is_file()} == set(RUNTIME), 'Runtime is not the exact five-file layout')
         files = {name: (bin_path / name).read_bytes() for name in RUNTIME}
         need(sha(files['NewModCompiler.exe']) == receipt['exeSha256'], 'Runtime EXE changed after acceptance')
         archive = out / ('NewModCompiler-Win32-' + mode + '.zip')
