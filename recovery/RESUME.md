@@ -1,4 +1,14 @@
-# 当前：compiler-main CI 五工作流通过，PR #1 待审
+# 当前：Patch / FX / 配置版本，PR #11 验证中
+
+[PR #11](https://github.com/wu192/NewSdk/pull/11)，分支 `feat/patch-fx-config-version`。
+新增 base-patch-stream（兼容 /bps）、独立 patch-version / Patch WB 无后缀布局、
+LoD/.version 与可选 SKUDEF add-config；合并 Additional 后编译 FX，处理 include 覆盖与失败/取消。
+BIG mod-version 支持 MOD JSON 和 EXE appSettings，CLI 优先。用法见 [使用说明](COMPILER_USAGE.md#patch-与-fx)。
+[Windows App 42337247904](https://github.com/wu192/NewSdk/actions/runs/42337247904) 的 2012 项托管合同通过；
+[Windows Core 42337247913](https://github.com/wu192/NewSdk/actions/runs/42337247913) 正在验证真实 Core/原工具字节及 FX。
+首轮配置 XML 注释错误已修复，失败记录保留；未合并、未发布 Release。
+
+# 此前：compiler-main CI 五工作流通过，PR #1 待审
 
 [PR #1](https://github.com/wu192/NewSdk/pull/1)，`fix/compiler-main-ci` 基于 `72aa8f0c`。
 验证分支头 `12b0cd99`，PR 检出源码 `1ac655d5`：

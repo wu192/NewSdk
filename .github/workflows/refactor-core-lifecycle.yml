@@ -190,6 +190,17 @@ jobs:
           $receipt=Get-Content "recovery/evidence/refactor/core-lifecycle-deployment/$env:GITHUB_RUN_ID-$env:GITHUB_RUN_ATTEMPT/validation.json" -Raw|ConvertFrom-Json
           $enabled=(@($receipt.modes).Count -eq 2 -and @($receipt.modes|Where-Object{$_.backendIntegrated -ne $true}).Count -eq 0)
           "cliEnabled=$($enabled.ToString().ToLowerInvariant())"|Add-Content $env:GITHUB_OUTPUT
+      - uses: actions/upload-artifact@v4
+        if: steps.product.outcome == 'success' && env.CLI_REUSE != 'true'
+        with:
+          name: patch-fx-runtime-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            recovery/artifacts/core-lifecycle-product/*/bin/NewModCompiler.exe
+            recovery/artifacts/core-lifecycle-product/*/bin/NewModCompiler.exe.config
+            recovery/artifacts/core-lifecycle-product/*/bin/antlr.runtime.dll
+            recovery/artifacts/core-lifecycle-product/*/build.json
+          if-no-files-found: error
+          retention-days: 7
       - name: Complete shared-helper XML route smoke
         if: ${{ !cancelled() && steps.product.outcome == 'success' && contains(github.event.head_commit.message, '[shared-tokenizer-helpers]') }}
         shell: pwsh

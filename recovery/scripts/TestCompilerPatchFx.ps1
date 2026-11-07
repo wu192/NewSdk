@@ -100,11 +100,16 @@ need((assets['ArmorTemplate:PatchShared'][0]==0)==reused,'Base edit/normal-to-pa
 need(assets['ArmorTemplate:PatchChanged'][0]>0 and assets['ArmorTemplate:PatchAdded'][0]>0,'Changed/new assets were omitted from patch payload')
 need(all(row[0]>0 for row in normalassets.values()),'Normal loose fixture did not contain full payloads')
 for stem in stems: manifest(entries[f'data\\{stem}.manifest'])
+comparisons=[]
 if oracle:
-    for name,data in entries.items(): need((oracle/name.split('\\')[-1]).read_bytes()==data,'Original BAB /bps + LoD raw bytes differ: '+name)
+    for name,data in entries.items():
+        original=(oracle/name.split('\\')[-1]).read_bytes()
+        comparisons.append({'name':name,'byteIdentical':original==data,'originalSha256':hashlib.sha256(original).hexdigest(),'candidateSha256':hashlib.sha256(data).hexdigest(),'originalBytes':len(original),'candidateBytes':len(data),'firstDifferentOffsets':[i for i,(a,b) in enumerate(zip(original,data)) if a!=b][:16]})
 export=destination/'members';export.mkdir(exist_ok=True)
 for name,data in entries.items(): (export/name.split('\\')[-1]).write_bytes(data)
-(destination/'comparison.json').write_text(json.dumps({'succeeded':True,'sharedReused':reused,'originalCompared':bool(oracle),'references':refs,'assets':assets,'members':{name:hashlib.sha256(data).hexdigest() for name,data in entries.items()}},indent=2)+'\n')
+passed=all(row['byteIdentical'] for row in comparisons)
+(destination/'comparison.json').write_text(json.dumps({'succeeded':passed,'sharedReused':reused,'originalCompared':bool(oracle),'rawComparisons':comparisons,'references':refs,'assets':assets,'members':{name:hashlib.sha256(data).hexdigest() for name,data in entries.items()}},indent=2)+'\n')
+need(passed,'Original BAB /bps + LoD raw bytes differ; raw comparisons retained')
 '@|Set-Content -LiteralPath $validator
 $state=@{schemaVersion=1;succeeded=$false;sourceCommit=(& git -C $root rev-parse HEAD).Trim();runId=$env:GITHUB_RUN_ID;scriptSha256=(Hash $PSCommandPath);modes=@();scope='Small real Core patch, original BAB/LoD byte oracle, normal/patch/hot/base-edit cache transitions; optional actual FX compilation; no full MOD/game acceptance'}
 try{
@@ -125,7 +130,7 @@ try{
         $normal=Build 'normal-before-patch' $patchMod (Join-Path $modeWork 'normal') @('--package-format','loose')
         [IO.File]::WriteAllText("$patchMod/newmodcompiler.json",'{"mod-version":"2.7"}')
         $patchArguments=@('--base-patch-stream',$baseManifest,'--patch-config','Base_1.0.skudef','--include-additional=false')
-        $patch=Build 'patch' $patchMod (Join-Path $modeWork 'patch') $patchArguments
+        $patch=Build 'patch' $patchMod (Join-Path $modeWork 'patch-out') $patchArguments
         CheckPatch $patch (Manifest $normal) $baseManifest $true
         $hot=Build 'patch-hot' $patchMod (Join-Path $modeWork 'hot') $patchArguments
         CheckPatch $hot (Manifest $normal) $baseManifest $true
@@ -156,6 +161,8 @@ try{
         RunProcess "$tools/LoDStreamBuilder.exe" @("$streams/mod_1.01.manifest") $tools "$modeOut/original-lod"
         foreach($suffix in @('m','l')){foreach($extension in @('manifest','bin','imp','relo')){Move-Item -LiteralPath "$streams/mod_1.01_$suffix.$extension" -Destination "$streams/mod_${suffix}_1.01.$extension"}}
         foreach($stem in @('mod','mod_m','mod_l')){[IO.File]::WriteAllBytes("$streams/$stem.version",[Text.Encoding]::ASCII.GetBytes('_1.01'))}
+        $originalArchive=(New-Item -ItemType Directory -Path "$modeOut/original-streams").FullName
+        Get-ChildItem -LiteralPath $streams -File|Where-Object{$_.BaseName -in @('mod_1.01','mod_m_1.01','mod_l_1.01','mod','mod_m','mod_l')}|Copy-Item -Destination $originalArchive
         CheckPatch $patch (Manifest $normal) $baseManifest $true $streams
         $modeState.originalBabSha256=Hash "$tools/BinaryAssetBuilder.exe";$modeState.originalLodSha256=Hash "$tools/LoDStreamBuilder.exe"
 
