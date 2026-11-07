@@ -1,0 +1,283 @@
+MISSIONOBJ:1-1
+"摧毁基洛夫，每个玩家每10秒可额外获得450块钱"
+End
+
+MISSIONOBJ:1-2
+"摧毁龙船，每个玩家每10秒可额外获得450块钱"
+End
+
+MISSIONOBJ:1-3
+"摧毁AC130，每个玩家每10秒可额外获得450块钱。"
+End
+
+MISSIONOBJ:1-4
+"摧毁特殊的奖励单位，可为每名玩家每10秒额外获得450块钱的收入。"
+End
+
+MISSIONOBJ:1-5
+"摧毁改装的基洛夫，所有盟军帝国玩家额外获得每10秒450块的收入。"
+End
+
+MISSIONOBJ:1-6
+"摧毁重型运输机，每个玩家每10秒可额外获得900块钱收入。"
+End
+
+Mission HotSpot 01 Title
+"标枪兵一键进驻IFV"
+END
+
+Mission HotSpot 01 Description
+"让你的标枪兵瞬间进驻到空闲的多功能步兵战车中，这个功能有一分钟的冷却时间"
+END
+
+SCRIPT: 1-0
+"BUG记录：bonusTeam与FinalBossAI操控被莫名开启，DragonBoss很可能提前发动攻击"
+END
+
+SCRIPT: 1-1
+"If the text you see is a bunch of garbled codes,you need to open RA3BattleNet,you can download it in\nhttps://ra3battle.net/\nMy channel is\nhttps://space.bilibili.com/3493115086244747?spm_id_from=333.1007.0.0 "
+END
+
+SCRIPT: 1-2
+"欢迎来到陆地空战塔防，敌方将派出大量空军每1分钟一个波次来进攻你，请做好防空！每5波都会有一个小BOSS，请注意文本提示做出相应策略！此外，击杀地图上的奖励目标可为所有玩家提供额外的经济来源!\n地图制作：伟大的食堂(B站同名)    地图有问题请向我反馈"
+END
+
+SCRIPT: 1-3
+"青龙核心舰遭到攻击！正在请求重明支援！"
+END
+
+SCRIPT: 1-4
+"空中炮艇受到攻击，呼叫截击机支援！快释放我们的无人攻击机！"
+END
+
+SCRIPT: 1-5
+"机体要承受不住了！呼叫超时空IFV支援！"
+END
+
+SCRIPT: 1-6
+"指挥官，击毁敌方的改装版基洛夫后，我们发现了民用车库和民用船坞的位置！占领这些建筑可为我军地面载具提供维修！"
+END
+
+SCRIPT: 1-7
+"盟军补贴：建造科技中心可解锁"标枪兵一键进驻IFV功能"！"
+END
+
+SCRIPT: 1-8
+"帝国补贴：你建造的第一个波能塔将变成阵营拓展模式的护盾投射塔！"
+END
+
+SCRIPT: 1-9
+"---------小广告----------\n感谢以下兄弟的赞助支持：\n馒头卡、Ahr、自然选择号、rhhbds\n讨论、测图、赞助、闲聊欢迎+Q群296347547\n感谢红警3地图研究群中各位大佬提供的帮助！"
+END
+
+SCRIPT: 1-11
+"第1波"s
+END
+
+SCRIPT: 1-12
+"第2波"
+END
+
+SCRIPT: 1-13
+"第3波"
+END
+
+SCRIPT: 1-14
+"第4波"
+END
+
+SCRIPT: 1-15
+"第5波，警告！敌方袋狸正在持续不断空投牛蛙，请尽快击落！"
+END
+
+SCRIPT: 1-16
+"第6波，注意！敌人获得了先进航空协议和先进导弹协议的加强！"
+END
+
+SCRIPT: 1-17
+"第7波"
+END
+
+SCRIPT: 1-18
+"第8波"
+END
+
+SCRIPT: 1-19
+"第9波"
+END
+
+SCRIPT: 1-20
+"第10波，警告！敌方天使将发射超级导弹！请注意回避。"
+END
+
+SCRIPT: 1-21
+"第11波，注意！敌人获得了帝国自爆协议和先进海军协议的加强！\n一个奖励单位已出现，击杀可获得额外持续收入！"
+END
+
+SCRIPT: 1-22
+"第12波"
+END
+
+SCRIPT: 1-23
+"第13波"
+END
+
+SCRIPT: 1-24
+"第14波"
+END
+
+SCRIPT: 1-25
+"第15波，警告！敌方龙船可以不断建造防御塔！"
+END
+
+SCRIPT: 1-26
+"第16波，注意！敌人的天狗与基洛夫安装了复合装甲防御力增强！"
+END
+
+SCRIPT: 1-27
+"第17波"
+END
+
+SCRIPT: 1-28
+"第18波"
+END
+
+SCRIPT: 1-29
+"第19波"
+END
+
+SCRIPT: 1-30
+"第20波，警告！发现敌方基洛夫携带不稳定核弹头，击毁后会发生自爆！"
+END
+
+SCRIPT: 1-31
+"第21波，注意！敌方获得了基础的进攻性协议！敌方维和装备了先进制导系统射程提高！\n一个奖励单位已出现，击杀可获得额外持续收入！"
+END
+
+SCRIPT: 1-32
+"第22波"
+END
+
+SCRIPT: 1-33
+"第23波"
+END
+
+SCRIPT: 1-34
+"第24波"
+END
+
+SCRIPT: 1-35
+"第25波，警告！敌方空天母舰进入视野！"
+END
+
+SCRIPT: 1-36
+"第26波，注意，敌方单位获得了两座精兵学院加成！阿波罗获得折射能力！"
+END
+
+SCRIPT: 1-37
+"第27波"
+END
+
+SCRIPT: 1-38
+"第28波"
+END
+
+SCRIPT: 1-39
+"第29波"
+END
+
+SCRIPT: 1-40
+"第30波，警告！侦测到敌方实验级摇光，可边移动边开火！"
+END
+
+SCRIPT: 1-41
+"第31波，注意！敌方获得了高级进攻性协议！"
+END
+
+SCRIPT: 1-42
+"第32波"
+END
+
+SCRIPT: 1-43
+"第33波"
+END
+
+SCRIPT: 1-44
+"第34波"
+END
+
+SCRIPT: 1-45
+"第35波，警告！敌方超级先锋入境，装载大型质子撞击炮！"
+END
+
+SCRIPT: 1-46
+"第36波"
+END
+
+SCRIPT: 1-47
+"第37波"
+END
+
+SCRIPT: 1-48
+"第38波"
+END
+
+SCRIPT: 1-49
+"第39波"
+END
+
+SCRIPT: 1-50
+"第40波"
+END
+
+SCRIPT: 1-51
+"和蔼！任何百分比伤害单位终将绳之以法！"
+END
+
+SCRIPT: 1-52
+"BOSS释放技能：挥日阳戈"
+END
+
+SCRIPT: 1-53
+"BOSS释放技能：万剑归宗"
+END
+
+SCRIPT: 1-54
+"BOSS释放技能：时空风暴"
+END
+
+SCRIPT: 1-55
+"BOSS释放技能：百鸟朝凤"
+END
+
+SCRIPT: 1-56
+"干得漂亮指挥官！你成功打败了关底BOSS，你一定就是传说中的塔防大佬！你过关！"
+END
+
+SCRIPT: 1-57
+"BOSS释放技能：东风呼啸"
+END
+
+SCRIPT: 1-58
+"BOSS释放技能：以逸待劳"
+END
+
+SCRIPT: 1-59
+"这些天灯正在给BOSS进行维修！摧毁他们！"
+END
+
+SCRIPT: 1-60
+"终极时刻来临："
+END
+
+SCRIPT: 1-61
+"警告！BOSS“霞光万丈”武器系统即将充能完毕！"
+END
+
+SCRIPT: 1-99
+"脚本测试"
+END
+
+
+
+

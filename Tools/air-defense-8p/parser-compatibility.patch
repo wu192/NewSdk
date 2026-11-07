@@ -1,0 +1,73 @@
+diff --git a/src/Dreamness.RA3.Map.Parser/Asset/Collection/Dim2Array/ByteDim2Array.cs b/src/Dreamness.RA3.Map.Parser/Asset/Collection/Dim2Array/ByteDim2Array.cs
+index 9b27285..45e21ad 100644
+--- a/src/Dreamness.RA3.Map.Parser/Asset/Collection/Dim2Array/ByteDim2Array.cs
++++ b/src/Dreamness.RA3.Map.Parser/Asset/Collection/Dim2Array/ByteDim2Array.cs
+@@ -11,6 +11,6 @@ public class ByteDim2Array: Dim2WritableArray<byte>
+ 
+     protected override byte[] ElementToBytes(byte element, BaseContext context)
+     {
+-        return BitConverter.GetBytes(element);
++        return new byte[] { element };
+     }
+ }
+\ No newline at end of file
+diff --git a/src/Dreamness.RA3.Map.Parser/Asset/Impl/Player/PlayerData.cs b/src/Dreamness.RA3.Map.Parser/Asset/Impl/Player/PlayerData.cs
+index 10a8f7f..7d99299 100644
+--- a/src/Dreamness.RA3.Map.Parser/Asset/Impl/Player/PlayerData.cs
++++ b/src/Dreamness.RA3.Map.Parser/Asset/Impl/Player/PlayerData.cs
+@@ -13,6 +13,9 @@ namespace Dreamness.Ra3.Map.Parser.Asset.Impl.Player;
+ public class PlayerData: Ra3MapWritable
+ {
+ 
++    [JsonIgnore]
++    public byte[] BuildListPayload { get; private set; } = new byte[4];
++
+     [JsonIgnore]
+     public AssetProperties Properties { get; private set; }
+ 
+@@ -65,8 +68,21 @@ public class PlayerData: Ra3MapWritable
+         ObservableUtil.Subscribe(playerData.Properties, playerData);
+         binaryWriter.Write(playerData.Properties.ToBytes(context));
+         
+-        var magic = binaryReader.ReadInt32();
+-        binaryWriter.Write(magic);
++        var buildListStart = binaryReader.BaseStream.Position;
++        var buildListCount = binaryReader.ReadInt32();
++        for (int i = 0; i < buildListCount; i++)
++        {
++            binaryReader.ReadBytes(binaryReader.ReadUInt16());
++            binaryReader.ReadBytes(binaryReader.ReadUInt16());
++            binaryReader.ReadBytes(18); // Vec3D, angle, initially built, C&C3+ flag
++            binaryReader.ReadUInt32(); // rebuild count
++            binaryReader.ReadBytes(binaryReader.ReadUInt16()); // script
++            binaryReader.ReadBytes(7); // health and three boolean flags
++        }
++        var buildListEnd = binaryReader.BaseStream.Position;
++        binaryReader.BaseStream.Position = buildListStart;
++        playerData.BuildListPayload = binaryReader.ReadBytes((int)(buildListEnd - buildListStart));
++        binaryWriter.Write(playerData.BuildListPayload);
+         
+         binaryWriter.Flush();
+         playerData.Data = memoryStream.ToArray();
+@@ -147,8 +163,7 @@ public class PlayerData: Ra3MapWritable
+             using var memoryStream = new MemoryStream();
+             using var binaryWriter = new BinaryWriter(memoryStream);
+             binaryWriter.Write(Properties.ToBytes(context));
+-            var magic = 0;
+-            binaryWriter.Write(magic);
++            binaryWriter.Write(BuildListPayload);
+             
+             binaryWriter.Flush();
+             return memoryStream.ToArray();
+diff --git a/src/Dreamness.RA3.Map.Parser/Asset/ScriptData/ScriptData.cs b/src/Dreamness.RA3.Map.Parser/Asset/ScriptData/ScriptData.cs
+index f7a47d3..4c10126 100644
+--- a/src/Dreamness.RA3.Map.Parser/Asset/ScriptData/ScriptData.cs
++++ b/src/Dreamness.RA3.Map.Parser/Asset/ScriptData/ScriptData.cs
+@@ -48,6 +48,7 @@ public static class ScriptData
+     {
+         Assembly LibAssembly = typeof(Ra3Map).Assembly;
+         using var stream = LibAssembly.GetManifestResourceStream(resourceName)
++                           ?? LibAssembly.GetManifestResourceStream(resourceName.Replace('\\', '/'))
+                            ?? throw new FileNotFoundException(
+                                $"Resource not found: {resourceName}\n" +
+                                $"Available:\n{string.Join("\n", LibAssembly.GetManifestResourceNames())}");

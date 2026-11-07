@@ -1,0 +1,194 @@
+{
+  "status": "passed",
+  "map": "[cor]陆地空战塔防1.3(食堂作)_mix_8p.map",
+  "checks": {
+    "terrain": {
+      "all_height_and_13_blend_planes": "passed",
+      "original_left_grid_columns": 680,
+      "right_extension_columns": 196,
+      "texture_phase": "passed",
+      "texture_tables_preserved": true
+    },
+    "player_slots": {
+      "side_entries": 22,
+      "player_slots": 8
+    },
+    "objects_and_teams": {
+      "objects": 446,
+      "ore_nodes": 16,
+      "starts": {
+        "Player_5_Start": [
+          4320.0,
+          2160.0,
+          0.0
+        ],
+        "Player_6_Start": [
+          5300.0,
+          2160.0,
+          0.0
+        ],
+        "Player_4_Start": [
+          3340.0,
+          2160.0,
+          0.0
+        ],
+        "Player_3_Start": [
+          2360.0,
+          2160.0,
+          0.0
+        ],
+        "Player_2_Start": [
+          1380.0,
+          2160.0,
+          0.0
+        ],
+        "Player_1_Start": [
+          400.0,
+          2160.0,
+          0.0
+        ],
+        "Player_7_Start": [
+          6280.0,
+          2160.0,
+          0.0
+        ],
+        "Player_8_Start": [
+          7260.0,
+          2160.0,
+          0.0
+        ]
+      },
+      "teams": 430,
+      "unique_objects_waypoints_and_no_new_duplicate_teams": "passed",
+      "preserved_original_duplicate_teams": {
+        "PlyrAllies/teamPlyrAllies": 2
+      }
+    },
+    "metadata": {
+      "trigger_areas": 9,
+      "multiplayer_positions": 8,
+      "hotspots": 8,
+      "death_zone_translation": 1960,
+      "original_six_player_zones_preserved": true
+    },
+    "lua": {
+      "interpreter": "Lua 5.4 with mocked game actions/conditions; no game engine execution",
+      "snippets": 147,
+      "tested_functions": {
+        "SpawnAttackTeam": {
+          "players": 8,
+          "actions": 25,
+          "references": "passed"
+        },
+        "SpawnAttackTeamQuietly": {
+          "players": 8,
+          "actions": 24,
+          "references": "passed"
+        },
+        "SpawnAttackTeamShielded": {
+          "players": 8,
+          "actions": 25,
+          "references": "passed"
+        },
+        "SpawnBoLuo": {
+          "players": 8,
+          "named_carriers": "passed",
+          "destroyed_carriers_skipped": true
+        },
+        "SpawnWeiHe": {
+          "players": 8,
+          "named_carriers": "passed",
+          "destroyed_carriers_skipped": true
+        },
+        "SpawnShiJi": {
+          "players": 8,
+          "named_carriers": "passed",
+          "destroyed_carriers_skipped": true
+        },
+        "TeamUseAbility": {
+          "players": 8,
+          "actions": 16
+        },
+        "TeleportBossMove": {
+          "players": 8,
+          "actions": 24,
+          "waypoint_references": "passed"
+        },
+        "TeleportBossMove2": {
+          "players": 8,
+          "actions": 24,
+          "waypoint_references": "passed"
+        },
+        "SpawnParatroop": {
+          "players": 8,
+          "actions": 34,
+          "absent_bosses_skipped": true
+        },
+        "InsideMap": {
+          "boundary_cases": 5,
+          "x_limit": 7960,
+          "x_clamp": 7910,
+          "y_limit": 6000,
+          "y_clamp": 5950
+        }
+      }
+    }
+  },
+  "sha256": "52492688a5f777fbac686ba73c66e4e918d3bcc101ec959a402d530c57d4ae34",
+  "scripts_sha256": "ac9067edbeb975a7a4c855dbeb98ea5fd1934d701c1b6b7363443262c8746345",
+  "script_expansion": {
+    "original": 275,
+    "final": 306,
+    "unique_paths": 306,
+    "added_shared_actions": 81,
+    "modified_lua_blocks": 26,
+    "original_wire_fields_preserved": true
+  },
+  "reference_validation": {
+    "mapSha256": "52492688a5f777fbac686ba73c66e4e918d3bcc101ec959a402d530c57d4ae34",
+    "typedReferencesChecked": 1651,
+    "originalMissingReferenceOccurrences": 53,
+    "finalMissingReferenceOccurrences": 46,
+    "newUnresolvedReferences": [],
+    "inheritedMissingTargetsInClonedDisabledScripts": [
+      {
+        "player": "Player_7",
+        "script": "/帝国额外电力",
+        "command": "ENABLE_SCRIPT",
+        "arg": 0,
+        "type": 2,
+        "value": "/ShieldP7",
+        "baselineValue": "/ShieldP6",
+        "scriptInitiallyActive": false
+      },
+      {
+        "player": "Player_8",
+        "script": "/帝国额外电力",
+        "command": "ENABLE_SCRIPT",
+        "arg": 0,
+        "type": 2,
+        "value": "/ShieldP8",
+        "baselineValue": "/ShieldP6",
+        "scriptInitiallyActive": false
+      }
+    ],
+    "luaStaticLaneReferenceChecks": 176,
+    "luaNewUnresolvedReferences": [],
+    "limitations": [
+      "Static reference validation recognizes map declarations and script-created object references; external mod/global script resolution and in-game behavior are unverified.",
+      "Source disabled empire-extra-power scripts reference missing /ShieldP1..6; clones preserve this inactive, unverified behavior."
+    ],
+    "counts": {
+      "players": 22,
+      "teams": 429,
+      "waypoints": 63,
+      "objects": 220,
+      "areas": 9,
+      "hotspots": 8,
+      "labels": 327
+    },
+    "newExplicitLaneReferences": 190
+  },
+  "rebuild_from_original_zip": "passed; identical map SHA256",
+  "game_engine_test": "not performed; 8-slot capable client/engine and original Corona/Lua environment required"
+}

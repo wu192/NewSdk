@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable></PropertyGroup>
+  <ItemGroup><Compile Remove="vendor/**/*.cs"/><ProjectReference Include="vendor/Ra3MapSharp/src/Dreamness.RA3.Map.Parser/Dreamness.RA3.Map.Parser.csproj"/></ItemGroup>
+</Project>
