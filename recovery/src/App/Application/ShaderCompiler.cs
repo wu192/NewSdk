@@ -14,6 +14,7 @@ namespace NewModCompiler.Application
     public static class ShaderCompiler
     {
         static readonly Regex Include = new Regex(@"^\s*#\s*include\s*[""<]([^"">]+)["">]", RegexOptions.Multiline);
+        static readonly HashSet<string> TextExtensions = new HashSet<string>(new[] { ".fx", ".fxh", ".h", ".hlsl", ".inc" }, StringComparer.OrdinalIgnoreCase);
 
         public static void Compile(BuildRequest request, IList<BigArchiveEntry> entries, string temporary, CancellationToken cancellation)
         {
@@ -70,7 +71,7 @@ namespace NewModCompiler.Application
                     File.Copy(inputs[name].SourcePath, target);
                 }
                 string extension = Path.GetExtension(name);
-                if ((!new[] { ".fx", ".fxh", ".h", ".hlsl", ".inc" }.Contains(extension, StringComparer.OrdinalIgnoreCase) && !included.Contains(name)) || !scanned.Add(name)) continue;
+                if ((!TextExtensions.Contains(extension) && !included.Contains(name)) || !scanned.Add(name)) continue;
                 // Follow literal includes outside Shaders as well, preserving
                 // their archive-relative location and overlay precedence.
                 foreach (Match match in Include.Matches(File.ReadAllText(target)))

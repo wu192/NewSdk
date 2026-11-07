@@ -1,7 +1,7 @@
 name: SuperCompilerCache App contracts
 on:
   push:
-    branches: [feature/supercompiler-cache]
+    branches: [feature/supercompiler-cache, feat/patch-fx-config-version]
     paths:
       - '.github/workflows/supercompiler-cache-app.yml'
       - 'recovery/src/App/**'

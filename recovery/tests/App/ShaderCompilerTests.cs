@@ -82,6 +82,7 @@ namespace NewModCompiler.Tests
             Check(entries.All(entry => !entry.Name.EndsWith(".fx", StringComparison.OrdinalIgnoreCase) && !entry.Name.EndsWith(".fxh", StringComparison.OrdinalIgnoreCase)), "source files reached the BIG inventory");
             Check(File.ReadAllText(Path.Combine(mod, "Additional", "Shaders", "Compiled", "sample.fxo")) == "stale bytecode", "compiler overwrote source Additional bytecode");
             Check(Paths.Contains(temporary, compiled.SourcePath), "compiled bytecode escaped the package workspace");
+            Check(request.ExternalTools.Count == 1 && request.ExternalTools[0] == request.FxcPath, "launched FX compiler was not recorded in the build report");
 
             foreach (string failure in new[] { "FAIL", "NOOUTPUT" })
             {
