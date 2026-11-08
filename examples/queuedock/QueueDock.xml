@@ -2,8 +2,8 @@
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
   <!-- Minimal GameObject compiler/parser fixtures. These objects deliberately
        omit a playable refinery's model, economy, commands and geometry.
-       MaxConcurrentMiners is accepted by the paired compiler/parser; this
-       branch does not enable parallel unloading in the game. -->
+       MaxConcurrentMiners is accepted by the paired compiler/parser; these
+       fixtures do not provide a playable multi-bay refinery. -->
   <GameObject id="QueueDockDefaultCapacity">
     <Behaviors>
       <QueueDockBehavior id="ModuleTag_QueueDock"

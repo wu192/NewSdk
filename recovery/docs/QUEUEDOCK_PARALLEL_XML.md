@@ -25,6 +25,8 @@ PC GameObject 处理版本由 `4106` 提升为 `4109`，Xbox360/PS3 同步为
 真实 GameObject 节点（含 schema 必需的普通 ActiveBody），供编译/parser 验证；它们没有可玩的矿厂模型、
 经济或完整骨骼。实际并行卸矿还依赖运行时 Gate、独立 Context、九处路由、
 生命周期和存档接线；仅编译 XML 成功不能证明并行卸矿已工作。
+配套运行时接线在 [EnhancerCorona PR #8](https://github.com/wu192/EnhancerCorona/pull/8)，
+编译器改动在 [NewSdk PR #12](https://github.com/wu192/NewSdk/pull/12)；均以 `feature/integration` 为集成目标，游戏验收另行记录。
 
 验证入口为现有 `TestEnhancerDozerXml.ps1`，继续使用同一 Win32 `/Od`、
 `/O2` 原生对象与 C++/CLI bridge，不增加构建矩阵或工件上传：
