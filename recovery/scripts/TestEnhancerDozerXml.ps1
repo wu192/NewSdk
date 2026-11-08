@@ -8,7 +8,8 @@ $receipt = [ordered]@{
     succeeded = $false
     sourceCommit = $source
     runId = $env:GITHUB_RUN_ID
-    scope = 'Win32 native Dozer and passive mind control production serializer and C++/CLI XML bridge; focused legacy original-DLL three-buffer compatibility; not full SDK/MOD/game acceptance'
+    scope = 'Win32 native Dozer, passive mind control and RepairDock production serializer/C++/CLI XML bridge; source-built Core repair expressions/schema/TypeId injection; focused legacy original-DLL three-buffer compatibility; not full SDK/MOD/game acceptance'
+    core = $null
     modes = @()
 }
 $receipt | ConvertTo-Json -Depth 6 | Set-Content $validationPath
@@ -23,6 +24,25 @@ $native = @(
     'recovery/src/Native/GameObject.cpp'
 )
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
+# Build the changed frontend once, separately from the original-DLL component
+# oracle directories. Do not substitute the stock Core for semantic coverage.
+$coreOut = Join-Path $OutputDirectory 'source-core'
+New-Item -ItemType Directory -Force $coreOut | Out-Null
+Copy-Item SDK/tools/*.dll $coreOut
+& dotnet build recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj -c Release -p:TargetFramework=net48 -p:PlatformTarget=x86 -o "$coreOut/build" --nologo *> "$coreOut/build.log"
+if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/build.log" -Tail 70; throw 'Source Core compilation failed' }
+Copy-Item "$coreOut/build/BinaryAssetBuilder.Core.dll", "$coreOut/build/Mvp.Xml.dll" $coreOut -Force
+$coreSmoke = Join-Path $coreOut 'GameObjectRepairDockCore.exe'
+& $csc /nologo /platform:x86 "/r:$coreOut/BinaryAssetBuilder.Core.dll" /r:System.Xml.dll "/out:$coreSmoke" (Resolve-Path 'recovery/tests/GameObjectRepairDockCore.cs').Path *> "$coreOut/smoke-build.log"
+if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/smoke-build.log"; throw 'RepairDock Core smoke compilation failed' }
+'<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$coreSmoke.config"
+& $coreSmoke *> "$coreOut/test.log"
+if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/test.log"; throw 'RepairDock source Core contract failed' }
+$receipt.core = [ordered]@{
+    configuration = 'Release/net48/x86'
+    result = (Get-Content "$coreOut/test.log" -Raw).Trim()
+    sha256 = (Get-FileHash "$coreOut/BinaryAssetBuilder.Core.dll" -Algorithm SHA256).Hash.ToLowerInvariant()
+}
 foreach ($mode in @('Od', 'O2')) {
     $modeTimer = [System.Diagnostics.Stopwatch]::StartNew()
     $out = Join-Path $OutputDirectory $mode
@@ -40,13 +60,18 @@ foreach ($mode in @('Od', 'O2')) {
     # Reuse the production native objects built above; only the new test main
     # differs. Keep the existing /Od and /O2 matrix rather than adding jobs.
     $sharedNativeObjects = @(Get-ChildItem "$nativeObjects/*.obj" | Where-Object {
-        $_.Name -notin @('GameObjectDozerNative.obj', 'GameObjectPassiveMindControlNative.obj')
+        $_.Name -notin @('GameObjectDozerNative.obj', 'GameObjectPassiveMindControlNative.obj', 'GameObjectRepairDockNative.obj')
     } | ForEach-Object { $_.FullName })
     $mindControlNative = Join-Path $out 'GameObjectPassiveMindControlNative.exe'
     & cl /nologo /MD /EHsc /std:c++17 /utf-8 /fp:precise "/$mode" "/Irecovery/src/Native" "/Fo$nativeObjects/" "/Fe$mindControlNative" recovery/tests/GameObjectPassiveMindControlNative.cpp @sharedNativeObjects *> "$out/mind-control-native-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/mind-control-native-build.log"; throw "Passive mind control native compilation failed: $mode" }
     & $mindControlNative $fixtures *> "$out/mind-control-native-test.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/mind-control-native-test.log"; throw "Passive mind control native contract failed: $mode" }
+    $repairDockNative = Join-Path $out 'GameObjectRepairDockNative.exe'
+    & cl /nologo /MD /EHsc /std:c++17 /utf-8 /fp:precise "/$mode" "/Irecovery/src/Native" "/Fo$nativeObjects/" "/Fe$repairDockNative" recovery/tests/GameObjectRepairDockNative.cpp @sharedNativeObjects *> "$out/repair-dock-native-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/repair-dock-native-build.log"; throw "RepairDock native compilation failed: $mode" }
+    & $repairDockNative $fixtures *> "$out/repair-dock-native-test.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/repair-dock-native-test.log"; throw "RepairDock native contract failed: $mode" }
     $dll = Join-Path $out 'Recovered.GameObject.dll'
     & cl /nologo /clr /LD /MD /EHa /std:c++17 /utf-8 /fp:precise "/$mode" "/AI$out" "/Fo$bridgeObjects/" "/Fe$dll" @native recovery/src/Bridge/GameObjectCompiler.cpp *> "$out/bridge-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/bridge-build.log"; throw "XML bridge compilation failed: $mode" }
@@ -56,6 +81,12 @@ foreach ($mode in @('Od', 'O2')) {
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$smoke.config"
     & $smoke $fixtures *> "$out/bridge-test.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/bridge-test.log"; throw "XML bridge contract failed: $mode" }
+    $repairDockSmoke = Join-Path $out 'GameObjectRepairDockSmoke.exe'
+    & $csc /nologo /platform:x86 "/r:$dll" "/r:$out/BinaryAssetBuilder.Core.dll" /r:System.Xml.dll "/out:$repairDockSmoke" (Resolve-Path 'recovery/tests/GameObjectRepairDockSmoke.cs').Path *> "$out/repair-dock-smoke-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/repair-dock-smoke-build.log"; throw "RepairDock managed smoke compilation failed: $mode" }
+    Copy-Item "$smoke.config" "$repairDockSmoke.config"
+    & $repairDockSmoke $fixtures (Resolve-Path "$out/BinaryAssetBuilder.Tokenizer.dll").Path *> "$out/repair-dock-bridge-test.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/repair-dock-bridge-test.log"; throw "RepairDock XML bridge or legacy Dock compatibility failed: $mode" }
     # The complete ordinary-attack example also compiles its harmless weapon and
     # the estimate-only template through the existing production weapon bridge.
     $weaponDll = Join-Path $out 'Recovered.Weapon.dll'
@@ -77,6 +108,8 @@ foreach ($mode in @('Od', 'O2')) {
         bridge = (Get-Content "$out/bridge-test.log" -Raw).Trim()
         mindControlNative = (Get-Content "$out/mind-control-native-test.log" -Raw).Trim()
         mindControlBridge = (Get-Content "$out/mind-control-bridge-test.log" -Raw).Trim()
+        repairDockNative = (Get-Content "$out/repair-dock-native-test.log" -Raw).Trim()
+        repairDockBridge = (Get-Content "$out/repair-dock-bridge-test.log" -Raw).Trim()
         fixtures = @(Get-ChildItem $fixtures -File | ForEach-Object {
             @{ name = $_.Name; bytes = $_.Length; sha256 = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
         })
@@ -84,4 +117,4 @@ foreach ($mode in @('Od', 'O2')) {
 }
 $receipt.succeeded = $true
 $receipt | ConvertTo-Json -Depth 8 | Set-Content $validationPath
-Write-Host "PASS: Win32 Dozer/passive mind control serializer and XML bridge, legacy three-buffer compatibility in /Od and /O2; $source"
+Write-Host "PASS: Win32 Dozer/passive mind control/RepairDock serializer and XML bridge, legacy three-buffer compatibility in /Od and /O2; $source"

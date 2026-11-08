@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Contract fixture for the proposed compiler repair, not a complete MOD.
+<!-- Native RepairDock compiler fixture, not a complete MOD.
      ResearchRepairDepot_SKN must be supplied with the public bones described
-     in 03-compiler-contract.md. The stock compiler does not write RepairDock.
-     Runtime cache and command/lifecycle changes in the research still apply.
+     below. Use the paired EnhancerCorona repair-dock runtime branch.
      Bone positions at scale 1: Waiting01=(-80,-30,0), Waiting02=(-80,30,0),
      Start=(-50,0,0), Action=(0,0,0), End=(50,0,0).
      Each waiting point is 42.43 units horizontally from Start (native max 50).

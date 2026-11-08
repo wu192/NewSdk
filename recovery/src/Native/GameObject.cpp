@@ -12,6 +12,8 @@
 #include <cmath>
 #include <cstddef>
 #include <cctype>
+#include <cerrno>
+#include <cstdlib>
 #include <unordered_map>
 #include <type_traits>
 #ifndef NOMINMAX

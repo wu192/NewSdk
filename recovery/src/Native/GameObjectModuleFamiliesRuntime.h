@@ -413,7 +413,26 @@ void EndianAIUpdate(unsigned char* output,unsigned kind) {
     auto chooser=*reinterpret_cast<unsigned char**>(output+68);
     if(chooser) EndianWeaponSetNode(chooser,8);
 }
+void ValidateRepairDockInput(const GameObjectChild& input) {
+    // Component/bridge callers can bypass Core. Reject unresolved expressions,
+    // time suffixes and integer overflow before the legacy prefix parsers run.
+    auto frames=input.attributes.find("FramesForFullHeal"),positions=input.attributes.find("NumberApproachPositions");
+    if(frames==input.attributes.end() || positions==input.attributes.end())
+        throw std::invalid_argument("RepairDockUpdate requires FramesForFullHeal and NumberApproachPositions.");
+    char* end=nullptr;const char* start=frames->second.c_str();
+    std::strtod(start,&end);
+    while(*end && std::isspace(static_cast<unsigned char>(*end))) ++end;
+    if(end==start || *end)
+        throw std::invalid_argument("RepairDockUpdate FramesForFullHeal must be an evaluated real without a time unit.");
+    start=positions->second.c_str();errno=0;
+    const long count=std::strtol(start,&end,0);
+    const bool overflow=errno==ERANGE;
+    while(*end && std::isspace(static_cast<unsigned char>(*end))) ++end;
+    if(end==start || *end || overflow || count<1)
+        throw std::invalid_argument("RepairDockUpdate NumberApproachPositions must be an evaluated Int32 >= 1.");
+}
 void MarshalEconomy(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    if(kind==repairDockKind) ValidateRepairDockInput(input);
     unsigned group=kind==repairDockKind?0:kind-112;MarshalModuleFieldSet(input,output,economyFieldSets[group],data);
     if(group==0 || group==3 || group==4) {
         if(group) MarshalModuleFieldSet(input,output,economyFieldSets[0],data);
