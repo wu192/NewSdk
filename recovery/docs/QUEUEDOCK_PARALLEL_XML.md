@@ -22,7 +22,7 @@ PC GameObject 处理版本由 `4106` 提升为 `4109`，Xbox360/PS3 同步为
 默认容量 1 的 56 字节运行时对象；资产布局与存档版本是不同合同。
 
 [最小 XML 示例](../../examples/queuedock/QueueDock.xml)含默认、1、2、10 四个
-真实 GameObject 节点，供编译/parser 验证；它们没有可玩的矿厂模型、
+真实 GameObject 节点（含 schema 必需的普通 ActiveBody），供编译/parser 验证；它们没有可玩的矿厂模型、
 经济或完整骨骼。实际并行卸矿还依赖运行时 Gate、独立 Context、九处路由、
 生命周期和存档接线；仅编译 XML 成功不能证明并行卸矿已工作。
 

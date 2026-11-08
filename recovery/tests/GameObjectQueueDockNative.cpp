@@ -29,7 +29,10 @@ static GameObjectChild Input(const std::string& capacity="",bool strings=true) {
 }
 static Relo::Chunk Compile(const GameObjectChild& module,bool big) {
     GameObjectChild behaviors;behaviors.name="Behaviors";behaviors.children={module};
-    return Native::CompileGameObject({}, {behaviors},big);
+    GameObjectChild activeBody;activeBody.name="ActiveBody";
+    activeBody.attributes={{"TypeId","1510882715"},{"id","Body"},{"MaxHealth","100"}};
+    GameObjectChild body;body.name="Body";body.children={activeBody};
+    return Native::CompileGameObject({}, {behaviors,body},big);
 }
 static bool Relocated(const Bytes& bytes,unsigned location,bool big) {
     for(unsigned at=0;at+4<=bytes.size();at+=4)if(Word(bytes,at,big)==location)return true;
@@ -60,7 +63,7 @@ static void Check(const Relo::Chunk& chunk,bool big,unsigned capacity,bool strin
         Require(Word(b,token+4,big)==438907818u && Word(b,token+8,big)==at,"Original string token payloads");
         end+=static_cast<unsigned>((length+4)&~3u);
     }
-    Require(b.size()==end,"Exactly 56-byte body and five padded strings, no companion data");
+    Require(Word(b,root+480,big)==end && Word(b,end,big)==1510882715u,"Ordinary Body follows exactly the QueueDock body and five padded strings, no companion data");
     Require(chunk.imports.empty(),"No new resource imports");
 }
 static void Write(const std::string& file,const Bytes& bytes) {

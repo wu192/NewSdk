@@ -13,7 +13,7 @@ static class GameObjectQueueDockSmoke
     static InstanceDeclaration Input(string capacity)
     {
         var xml = new XmlDocument();
-        xml.LoadXml("<GameObject xmlns='uri:ea.com:eala:asset' id='QueueDockSmoke'><Behaviors><QueueDockBehavior TypeId='2941001505' id='QueueDock' DockStartBoneName='DockStart' DockActionBoneName='DockAction' DockEndBoneName='DockEnd' QueueBonePrefix='Que' TurnTableBoneName='TurnTable'" + (capacity == null ? "" : " MaxConcurrentMiners='" + capacity + "'") + "/></Behaviors></GameObject>");
+        xml.LoadXml("<GameObject xmlns='uri:ea.com:eala:asset' id='QueueDockSmoke'><Behaviors><QueueDockBehavior TypeId='2941001505' id='QueueDock' DockStartBoneName='DockStart' DockActionBoneName='DockAction' DockEndBoneName='DockEnd' QueueBonePrefix='Que' TurnTableBoneName='TurnTable'" + (capacity == null ? "" : " MaxConcurrentMiners='" + capacity + "'") + "/></Behaviors><Body><ActiveBody TypeId='1510882715' id='Body' MaxHealth='100'/></Body></GameObject>");
         return Declaration(xml.DocumentElement);
     }
     static InstanceDeclaration Declaration(XmlElement element)
@@ -72,6 +72,7 @@ static class GameObjectQueueDockSmoke
             PluginSchemaBoundary.Validate(element);
             var module = (XmlElement)element.GetElementsByTagName("QueueDockBehavior", "uri:ea.com:eala:asset")[0];
             module.SetAttribute("TypeId", "2941001505");
+            ((XmlElement)element.GetElementsByTagName("ActiveBody", "uri:ea.com:eala:asset")[0]).SetAttribute("TypeId", "1510882715");
             var result = Recovered.GameObjectCompiler.ProcessInstance(Declaration(element), platform);
             bool big = platform != TargetPlatform.Win32;
             int root = (int)Word(result.InstanceData, 8, big) - 4;

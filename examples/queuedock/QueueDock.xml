@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AssetDeclaration xmlns="uri:ea.com:eala:asset">
   <!-- Minimal GameObject compiler/parser fixtures. These objects deliberately
-       omit a playable refinery's model, economy, body, commands and geometry.
+       omit a playable refinery's model, economy, commands and geometry.
        MaxConcurrentMiners is accepted by the paired compiler/parser; this
        branch does not enable parallel unloading in the game. -->
   <GameObject id="QueueDockDefaultCapacity">
@@ -14,6 +14,7 @@
                          TurnTableBoneName="BONE_TABLE"
                          DockingAnimation="DOCKING_ACTIVE" />
     </Behaviors>
+    <Body><ActiveBody id="Body" MaxHealth="100" /></Body>
   </GameObject>
   <GameObject id="QueueDockCapacityOne">
     <Behaviors>
@@ -26,6 +27,7 @@
                          DockingAnimation="DOCKING_ACTIVE"
                          MaxConcurrentMiners="1" />
     </Behaviors>
+    <Body><ActiveBody id="Body" MaxHealth="100" /></Body>
   </GameObject>
   <GameObject id="QueueDockCapacityTwo">
     <Behaviors>
@@ -38,6 +40,7 @@
                          DockingAnimation="DOCKING_ACTIVE"
                          MaxConcurrentMiners="2" />
     </Behaviors>
+    <Body><ActiveBody id="Body" MaxHealth="100" /></Body>
   </GameObject>
   <GameObject id="QueueDockCapacityTen">
     <Behaviors>
@@ -50,5 +53,6 @@
                          DockingAnimation="DOCKING_ACTIVE"
                          MaxConcurrentMiners="10" />
     </Behaviors>
+    <Body><ActiveBody id="Body" MaxHealth="100" /></Body>
   </GameObject>
 </AssetDeclaration>
