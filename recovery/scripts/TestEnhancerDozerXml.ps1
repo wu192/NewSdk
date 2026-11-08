@@ -29,7 +29,7 @@ $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 $coreOut = Join-Path $OutputDirectory 'source-core'
 New-Item -ItemType Directory -Force $coreOut | Out-Null
 Copy-Item SDK/tools/*.dll $coreOut
-& dotnet build recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj -c Release -p:TargetFramework=net48 -p:PlatformTarget=x86 -o "$coreOut/build" --nologo *> "$coreOut/build.log"
+& dotnet build recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj -c Release -p:PlatformTarget=x86 -o "$coreOut/build" --nologo *> "$coreOut/build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/build.log" -Tail 70; throw 'Source Core compilation failed' }
 Copy-Item "$coreOut/build/BinaryAssetBuilder.Core.dll", "$coreOut/build/Mvp.Xml.dll" $coreOut -Force
 $coreSmoke = Join-Path $coreOut 'GameObjectRepairDockCore.exe'
@@ -39,7 +39,7 @@ if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/smoke-build.log"; throw 'Repair
 & $coreSmoke *> "$coreOut/test.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/test.log"; throw 'RepairDock source Core contract failed' }
 $receipt.core = [ordered]@{
-    configuration = 'Release/net48/x86'
+    configuration = 'Release/net20/x86'
     result = (Get-Content "$coreOut/test.log" -Raw).Trim()
     sha256 = (Get-FileHash "$coreOut/BinaryAssetBuilder.Core.dll" -Algorithm SHA256).Hash.ToLowerInvariant()
 }
