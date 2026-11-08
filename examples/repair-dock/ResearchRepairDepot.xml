@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Contract fixture for the proposed compiler repair, not a complete MOD.
+     ResearchRepairDepot_SKN must be supplied with the public bones described
+     in 03-compiler-contract.md. The stock compiler does not write RepairDock.
+     Runtime cache and command/lifecycle changes in the research still apply.
+     Bone positions at scale 1: Waiting01=(-80,-30,0), Waiting02=(-80,30,0),
+     Start=(-50,0,0), Action=(0,0,0), End=(50,0,0).
+     Each waiting point is 42.43 units horizontally from Start (native max 50).
+     Side walls leave 72 units of clear width; actual vehicle footprints,
+     turning and traffic still require validation. -->
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <GameObject id="ResearchRepairDepot"
+              KindOf="STRUCTURE SELECTABLE IMMOBILE REPAIR_PAD">
+    <Draws>
+      <ScriptedModelDraw id="Draw"
+                        ExtraPublicBone="DockStart DockAction DockEnd DockWaiting01 DockWaiting02">
+        <ModelConditionState ParseCondStateType="PARSE_DEFAULT">
+          <Model Name="ResearchRepairDepot_SKN" />
+        </ModelConditionState>
+      </ScriptedModelDraw>
+    </Draws>
+    <Behaviors>
+      <RepairDockUpdate id="RepairDock"
+                        NumberApproachPositions="2"
+                        AllowsPassthrough="false"
+                        GoToRallyPointAfterDock="false"
+                        ShouldDockInReverse="false"
+                        MinDockTime="0s"
+                        ObjectsInLineWeight="13s"
+                        FramesForFullHeal="150" />
+    </Behaviors>
+    <Body>
+      <ActiveBody id="Body" MaxHealth="1000" />
+    </Body>
+    <Geometry>
+      <PlacementShape Type="BOX" MajorRadius="36" MinorRadius="44" Height="24" />
+      <Shape Type="BOX" Name="NorthWall" MajorRadius="36" MinorRadius="4" Height="24">
+        <Offset x="0" y="40" z="0" />
+      </Shape>
+      <Shape Type="BOX" Name="SouthWall" MajorRadius="36" MinorRadius="4" Height="24">
+        <Offset x="0" y="-40" z="0" />
+      </Shape>
+    </Geometry>
+  </GameObject>
+</AssetDeclaration>

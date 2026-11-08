@@ -28,7 +28,9 @@ namespace Recovered.GameObject
             {
                 info.TypeName = "GameObject";
                 info.TypeHash = 3415017856u;
-                info.ProcessingHash = unchecked(info.TypeHash + GetVersionNumber());
+                // Writer revision: RepairDock now emits its full native derived
+                // layout instead of the legacy unknown-module placeholder.
+                info.ProcessingHash = unchecked(info.TypeHash + GetVersionNumber() + 0x52445001u);
             }
             return info;
         }

@@ -414,7 +414,7 @@ void EndianAIUpdate(unsigned char* output,unsigned kind) {
     if(chooser) EndianWeaponSetNode(chooser,8);
 }
 void MarshalEconomy(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
-    unsigned group=kind-112;MarshalModuleFieldSet(input,output,economyFieldSets[group],data);
+    unsigned group=kind==repairDockKind?0:kind-112;MarshalModuleFieldSet(input,output,economyFieldSets[group],data);
     if(group==0 || group==3 || group==4) {
         if(group) MarshalModuleFieldSet(input,output,economyFieldSets[0],data);
         for(const auto& child:input.children) if(child.name=="ForVoiceRetreatThisIsASafeHarborToObjectFilter") {
@@ -430,15 +430,22 @@ void MarshalEconomy(const GameObjectChild& input,unsigned char* output,unsigned 
         for(const auto& child:input.children) if(child.name=="UnitSpacing") MarshalModuleFieldSet(child,output+48,economyFieldSets[7],data);
         for(const auto& child:input.children) if(child.name=="Filter") MarshalUpgradeFilter(child,reinterpret_cast<ObjectFilter*>(output+60),data);
     }
+    if(kind==repairDockKind) {
+        MarshalModuleFieldSet(input,output,repairDockFieldSet,data);
+        auto repair=reinterpret_cast<RepairDockModuleData*>(output);
+        if(!std::isfinite(repair->framesForFullHeal) || repair->framesForFullHeal<=0 || repair->numberApproachPositions<1)
+            throw std::invalid_argument("RepairDockUpdate requires finite positive FramesForFullHeal and NumberApproachPositions >= 1 after expression evaluation.");
+    }
 }
 void EndianEconomy(unsigned char* output,unsigned kind) {
-    unsigned group=kind-112;EndianModuleFieldSet(output,economyFieldSets[group]);
+    unsigned group=kind==repairDockKind?0:kind-112;EndianModuleFieldSet(output,economyFieldSets[group]);
     if(group==0 || group==3 || group==4) {
         if(group) EndianModuleFieldSet(output,economyFieldSets[0]);
         auto filter=*reinterpret_cast<ObjectFilter**>(output+20);if(filter) EndianObjectFilter(filter);
     }
     if(group==2) {auto status=*reinterpret_cast<unsigned char**>(output+16);if(status) EndianModuleFieldSet(status,lifecycleFieldSets[6]);}
     if(group==6) {EndianModuleFieldSet(output+36,economyFieldSets[7]);EndianModuleFieldSet(output+48,economyFieldSets[7]);EndianObjectFilter(reinterpret_cast<ObjectFilter*>(output+60));}
+    if(kind==repairDockKind) EndianModuleFieldSet(output,repairDockFieldSet);
 }
 void MarshalAssistFilter(const GameObjectChild& child,unsigned char* output,unsigned offset,Relo::Tracker& data) {
     auto at=static_cast<ObjectFilter*>(data.Push(reinterpret_cast<void**>(output+offset),112,1));MarshalUpgradeFilter(child,at,data);data.Pop();

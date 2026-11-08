@@ -8,6 +8,8 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    // RepairDock inherits exactly the Dock child/filter contract.
+    if(kind==repairDockKind) kind=112;
     if(kind==passiveMindControlKind) {
         if(path=="TargetFilter") return 1;
         if(path=="TargetFilter/IncludeThing" || path=="TargetFilter/ExcludeThing") return 3;
