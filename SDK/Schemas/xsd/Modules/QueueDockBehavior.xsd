@@ -13,6 +13,7 @@
 				<xs:attribute name="QueueBonePrefix" type="xs:string" default="" />
 				<xs:attribute name="TurnTableBoneName" type="xs:string" default="" />
 				<xs:attribute name="DockingAnimation" type="ModelConditionFlagType" />
+				<xs:attribute name="MaxConcurrentMiners" type="SageUnsignedInt" default="1" />
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>

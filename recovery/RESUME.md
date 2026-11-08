@@ -1,4 +1,15 @@
-# 当前：武器事件心控与状态禁用（2026-11-07）
+# 当前：QueueDock 容量资产合同（2026-11-08）
+
+新分支 `feature/queuedock-multi-unload`，基线与集成目标均为 `feature/integration`。
+原 QueueDock TypeId/kind 不变；新增默认 1 的 `MaxConcurrentMiners`，生产
+marshal 严格校验 `1..10`，native 52→56、token 7→8。处理缓存版本同步
+4109/4110/4111。原生 writer、真实 XML bridge、ReloString/relocation/endian
+和已知扩展投影后的原 DLL 回归已加入现有定向 Windows 工作流。
+验证结果以本分支对应提交的 Actions Job Summary 为准；未做完整 SDK/MOD 或游戏。
+配套 parser 及运行时边界见 [QueueDock XML 合同](docs/QUEUEDOCK_PARALLEL_XML.md)。
+未合并；禁止强推，合入仍须 PR 与用户批准。
+
+# 此前：武器事件心控与状态禁用（2026-11-07）
 
 继续两仓 `feature/passive-mind-control-tower`，集成目标为 `feature/integration`。
 NewSdk 共享数据由 `0x84` 扩大为 `0xA4`：`+0x84` 必填 SP 引用，

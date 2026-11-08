@@ -1,7 +1,7 @@
-name: Native Dozer and mind control XML component validation
+name: Enhancer XML component validation
 on:
   push:
-    branches: [feature/integration, codex/native-dozer-commandset, feature/passive-mind-control-tower]
+    branches: [feature/integration, codex/native-dozer-commandset, feature/passive-mind-control-tower, feature/queuedock-multi-unload]
     paths:
       - '.github/workflows/feature-enhancer-xml.yml'
       - 'recovery/scripts/TestEnhancerDozerXml.ps1'
@@ -17,12 +17,16 @@ on:
       - 'recovery/src/Plugin/GameObjectPlugin.cs'
       - 'recovery/src/App/Application/BuiltinCompilers.cs'
       - 'recovery/tests/GameObjectDozer*'
+      - 'recovery/tests/GameObjectQueueDock*'
+      - 'recovery/tests/GameObjectQueueParking*'
       - 'recovery/tests/GameObjectPassiveMindControl*'
       - 'recovery/tests/PluginSchemaBoundary.cs'
       - 'examples/passive-mind-control/**'
+      - 'examples/queuedock/**'
       - 'SDK/Schemas/xsd/CnC3Types.xsd'
       - 'SDK/Schemas/xsd/AssetTypeGameObject.xsd'
       - 'SDK/Schemas/xsd/Modules/DozerAIUpdate.xsd'
+      - 'SDK/Schemas/xsd/Modules/QueueDockBehavior.xsd'
       - 'SDK/Schemas/xsd/Modules/PassiveMindControlUpdate.xsd'
   workflow_dispatch:
 permissions:
@@ -46,6 +50,7 @@ jobs:
             SDK/Schemas
             SDK/tools
             examples/passive-mind-control
+            examples/queuedock
       - uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x86
@@ -61,7 +66,7 @@ jobs:
           if (!(Test-Path $path)) { throw 'Component receipt unavailable; see the failed validation step.' }
           $json = Get-Content $path -Raw
           Write-Host $json
-          '## Native Dozer and passive mind control component evidence' >> $env:GITHUB_STEP_SUMMARY
+          '## Native Dozer, QueueDock and passive mind control component evidence' >> $env:GITHUB_STEP_SUMMARY
           'Win32 /Od and /O2 serializer, XML bridge, production examples and focused original-DLL three-buffer compatibility; not full SDK/MOD or game validation.' >> $env:GITHUB_STEP_SUMMARY
           '```json' >> $env:GITHUB_STEP_SUMMARY
           $json >> $env:GITHUB_STEP_SUMMARY

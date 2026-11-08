@@ -314,10 +314,11 @@ void EndianSoundSelector(unsigned char* output,unsigned kind) {
     Swap(&list->count);
 }
 
+U32 StrictPositiveModuleUnsigned(const GameObjectChild& input,const char* name,U32 fallback,U32 maximum);
 #include "GameObjectScalarDefaultsRuntime.h"
 #include "GameObjectModuleFieldsRuntime.h"
 #include "GameObjectModuleFamiliesRuntime.h"
-U32 PassiveMindControlUnsigned(const GameObjectChild& input,const char* name,U32 fallback,U32 maximum) {
+U32 StrictPositiveModuleUnsigned(const GameObjectChild& input,const char* name,U32 fallback,U32 maximum) {
     auto found=input.attributes.find(name);
     if(found==input.attributes.end()) return fallback;
     // xs:unsignedInt is decimal. The legacy ParseUnsigned accepts signs,
@@ -330,12 +331,12 @@ U32 PassiveMindControlUnsigned(const GameObjectChild& input,const char* name,U32
     while(at<text.size() && text[at]>='0' && text[at]<='9') {
         U32 digit=static_cast<U32>(text[at++]-'0');digits=true;
         if(value>maximum/10 || (value==maximum/10 && digit>maximum%10))
-            throw std::invalid_argument(std::string("PassiveMindControlUpdate invalid ")+name);
+            throw std::invalid_argument(input.name+" invalid "+name);
         value=value*10+digit;
     }
     while(at<text.size() && std::isspace(static_cast<unsigned char>(text[at]))) ++at;
     if(!digits || at!=text.size() || !value)
-        throw std::invalid_argument(std::string("PassiveMindControlUpdate invalid ")+name);
+        throw std::invalid_argument(input.name+" invalid "+name);
     return value;
 }
 float PassiveMindControlRadius(const std::string& text) {
@@ -370,8 +371,8 @@ void MarshalPassiveMindControl(const GameObjectChild& input,unsigned char* outpu
     if(radius==input.attributes.end())
         throw std::invalid_argument("PassiveMindControlUpdate requires AcquireRadius");
     PassiveMindControlRadius(radius->second);
-    U32 capacity=PassiveMindControlUnsigned(input,"Capacity",3u,0xFFFFFFFFu);
-    U32 interval=PassiveMindControlUnsigned(input,"CaptureIntervalFrames",15u,0x3FFFFFFEu);
+    U32 capacity=StrictPositiveModuleUnsigned(input,"Capacity",3u,0xFFFFFFFFu);
+    U32 interval=StrictPositiveModuleUnsigned(input,"CaptureIntervalFrames",15u,0x3FFFFFFEu);
     const GameObjectChild* filter=nullptr;
     for(const auto& child:input.children) if(child.name=="TargetFilter") {
         if(filter) throw std::invalid_argument("PassiveMindControlUpdate requires exactly one TargetFilter");

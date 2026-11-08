@@ -500,7 +500,12 @@ void EndianSpawnUpdate(unsigned char* output,unsigned kind) {
 }
 
 void MarshalQueueParking(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
+    // Core has already expanded defines/inheritance before this production
+    // marshaller runs. Do not let the legacy base-0 parser clip or reinterpret
+    // the new unsigned decimal contract (in particular 08/09/010).
+    U32 capacity=kind==128?StrictPositiveModuleUnsigned(input,"MaxConcurrentMiners",1u,10u):0u;
     MarshalModuleFieldSet(input,output,queueParkingFieldSets[kind-128],data);
+    if(kind==128) {std::memcpy(output+52,&capacity,4);return;}
     if(kind!=129) return;
     for(const auto& child:input.children) if(child.name=="CanParkHereFilter") MarshalAssistFilter(child,output,44,data);
     for(const auto& child:input.children) if(child.name=="DefaultRallyPointOffset") {
