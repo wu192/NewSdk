@@ -1,0 +1,1230 @@
+{
+  "succeeded": true,
+  "sourceCommit": "5f71da841ebc6846a28fcc6beba2e85fbe879d85",
+  "runId": "42450345003",
+  "scope": "Win32 native Dozer, QueueDock and passive mind control production serializer and C++/CLI XML bridge; focused legacy original-DLL three-buffer compatibility; not full SDK/MOD/game acceptance",
+  "modes": [
+    {
+      "mode": "Od",
+      "elapsedSeconds": 29.283,
+      "native": "PASS native DozerAIUpdate, inherited fields/defaults, x86 little/big endian; original root tokens/layout",
+      "bridge": "PASS Dozer XML bridge: four platforms, inherited chooser, floats/defaults, ordinary building and obsolete-node schema refusals",
+      "queueDockNative": "PASS QueueDock production native serializer: unchanged TypeId/kind, native56, default1/1/2/10, strict decimal/range, eight-token payload offsets, five ReloStrings/relocations, little/big endian",
+      "queueDockBridge": "PASS QueueDock real XML bridge: four platforms, default/1/2/10 native three-buffer equality, strict invalid/range errors, cache identity; production native token/ReloString/endian tests run separately",
+      "mindControlNative": "PASS passive mind control production native serializer: capacity 1/3/8/uint32 max, defaults, invalid values, 0xA4 body, required SpecialPower reference, seven-word DisableWhenStatus/defaults/multiple/high-word/endian, mode 8 inline filter, template hashes/relocations, little/big endian",
+      "mindControlBridge": "PASS passive mind control real XML bridge: four platforms; capacities/defaults/invalid values; template filters match native three buffers; complete capacity 3/8 ordinary-attack towers; required real SP import, seven-word source disable mask and single-SP/estimate-only weapons; native backbone/weapons and legacy original DLL three-buffer compatibility",
+      "fixtures": [
+        {
+          "name": "dozer-defaults.be.bin",
+          "sha256": "71bf21fc83342ee64a5708d409798d17854f7c7dac46e6bd35817b19d450e080",
+          "bytes": 2724
+        },
+        {
+          "name": "dozer-defaults.be.relo",
+          "sha256": "16b647ec9d85ee0c648ddbf1df65f3afce6a944f6ff6b1011237f544ef7ec821",
+          "bytes": 12
+        },
+        {
+          "name": "dozer-defaults.le.bin",
+          "sha256": "166f66e3ffbbe42ef1da1f9090d137fca5401bbda87d658571c323dd06d665f9",
+          "bytes": 2724
+        },
+        {
+          "name": "dozer-defaults.le.relo",
+          "sha256": "18539cee901d7f1c3ae6ad147ba908b94d6348ace35d429aca814c4c8026e9fc",
+          "bytes": 12
+        },
+        {
+          "name": "dozer-parameters.be.bin",
+          "sha256": "96f683535b80183c3cfdf9e8ee3facca0e5cc08757dba65b99a26ad09a281c86",
+          "bytes": 2980
+        },
+        {
+          "name": "dozer-parameters.be.relo",
+          "sha256": "88924c4b3eba500287f9fe16a899859ce9363eb0f7b0f1bec48280494a704033",
+          "bytes": 20
+        },
+        {
+          "name": "dozer-parameters.le.bin",
+          "sha256": "6bbb8d9b76e5835d8a14e57abfdfe0cce3cb7a23813cb90a79471a8d3ee1a150",
+          "bytes": 2980
+        },
+        {
+          "name": "dozer-parameters.le.relo",
+          "sha256": "a56a4be1ab2b71ead6b7c9a696d628aa348f53dbac3856f9b90e0c5be7e4b884",
+          "bytes": 20
+        },
+        {
+          "name": "example-3-0.bin",
+          "sha256": "3ee484dfdeb1fa7839dcebdc6a5207ca203ec6aecbf4ef5c374349768e3b4923",
+          "bytes": 7096
+        },
+        {
+          "name": "example-3-0.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-3-0.relo",
+          "sha256": "6bcf9a482a5a3017d46df24d6fae9e797a8cf607a16a1b98a17885cf267792e1",
+          "bytes": 96
+        },
+        {
+          "name": "example-3-1.bin",
+          "sha256": "be0761b4dbdef8c4e64138988da6d44c3f3f3728f4a0473c26be090f583950d6",
+          "bytes": 7096
+        },
+        {
+          "name": "example-3-1.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-3-1.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "example-3-2.bin",
+          "sha256": "be0761b4dbdef8c4e64138988da6d44c3f3f3728f4a0473c26be090f583950d6",
+          "bytes": 7096
+        },
+        {
+          "name": "example-3-2.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-3-2.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "example-3-99.bin",
+          "sha256": "be0761b4dbdef8c4e64138988da6d44c3f3f3728f4a0473c26be090f583950d6",
+          "bytes": 7096
+        },
+        {
+          "name": "example-3-99.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-3-99.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "example-8-0.bin",
+          "sha256": "3fdba548aef432794b99858dcd79ed0b91ae1b3f430936d1ae21c6ac039170b2",
+          "bytes": 7096
+        },
+        {
+          "name": "example-8-0.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-8-0.relo",
+          "sha256": "6bcf9a482a5a3017d46df24d6fae9e797a8cf607a16a1b98a17885cf267792e1",
+          "bytes": 96
+        },
+        {
+          "name": "example-8-1.bin",
+          "sha256": "1983db196d7295b652107cbbe5a5c6f39df01b114acb801b8d0f8ceb9a8568d2",
+          "bytes": 7096
+        },
+        {
+          "name": "example-8-1.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-8-1.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "example-8-2.bin",
+          "sha256": "1983db196d7295b652107cbbe5a5c6f39df01b114acb801b8d0f8ceb9a8568d2",
+          "bytes": 7096
+        },
+        {
+          "name": "example-8-2.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-8-2.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "example-8-99.bin",
+          "sha256": "1983db196d7295b652107cbbe5a5c6f39df01b114acb801b8d0f8ceb9a8568d2",
+          "bytes": 7096
+        },
+        {
+          "name": "example-8-99.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-8-99.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "mind-control-capacity-3.be.bin",
+          "sha256": "5a170bc1a6e9bf1818d8e30160255ba5c9dff365bd1c7b9837fe6decdc0b28c5",
+          "bytes": 3172
+        },
+        {
+          "name": "mind-control-capacity-3.be.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "mind-control-capacity-3.be.relo",
+          "sha256": "73015c81fe2263c3ca2724cd2606337a269a1ca151bb4113e5a364f06ded09d4",
+          "bytes": 32
+        },
+        {
+          "name": "mind-control-capacity-3.le.bin",
+          "sha256": "5c739c6edb99ba995a53083587103d71ae269534bd83e42228aa43ab41c12548",
+          "bytes": 3172
+        },
+        {
+          "name": "mind-control-capacity-3.le.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "mind-control-capacity-3.le.relo",
+          "sha256": "3a31b49c0e05b612b9f40347af50d1fbf71ee65530e78f07e684408234c53ca8",
+          "bytes": 32
+        },
+        {
+          "name": "mind-control-capacity-8.be.bin",
+          "sha256": "0d792e0538b38d306370aa2689e95731c94825fbdf4100a6d89cf8bca65e7372",
+          "bytes": 3172
+        },
+        {
+          "name": "mind-control-capacity-8.be.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "mind-control-capacity-8.be.relo",
+          "sha256": "73015c81fe2263c3ca2724cd2606337a269a1ca151bb4113e5a364f06ded09d4",
+          "bytes": 32
+        },
+        {
+          "name": "mind-control-capacity-8.le.bin",
+          "sha256": "95c794bc8bce21c202302befc9cf598d81ebcea76b860fb246df825464674aab",
+          "bytes": 3172
+        },
+        {
+          "name": "mind-control-capacity-8.le.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "mind-control-capacity-8.le.relo",
+          "sha256": "3a31b49c0e05b612b9f40347af50d1fbf71ee65530e78f07e684408234c53ca8",
+          "bytes": 32
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-0.bin",
+          "sha256": "7f2f3ece8f79cd3201b4561a1ff0ea912ead19e125728a0f9e035fca956ad416",
+          "bytes": 2024
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-0.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-0.relo",
+          "sha256": "c4c51f9cb7f19857260ccc16f6335e8e1713a75d74ef5ef8d2780b0fa9bfad5a",
+          "bytes": 24
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-1.bin",
+          "sha256": "d5b04e3d6798a53ebb039859996300acdacf12e2e41b8ca7dfc23ee1dc4250dc",
+          "bytes": 2024
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-1.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-1.relo",
+          "sha256": "898fd6ee5ee063414ac7e6d4d7ec28d769bddce19f29865830cf123c4dc3e987",
+          "bytes": 24
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-2.bin",
+          "sha256": "d5b04e3d6798a53ebb039859996300acdacf12e2e41b8ca7dfc23ee1dc4250dc",
+          "bytes": 2024
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-2.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-2.relo",
+          "sha256": "898fd6ee5ee063414ac7e6d4d7ec28d769bddce19f29865830cf123c4dc3e987",
+          "bytes": 24
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-99.bin",
+          "sha256": "d5b04e3d6798a53ebb039859996300acdacf12e2e41b8ca7dfc23ee1dc4250dc",
+          "bytes": 2024
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-99.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-99.relo",
+          "sha256": "898fd6ee5ee063414ac7e6d4d7ec28d769bddce19f29865830cf123c4dc3e987",
+          "bytes": 24
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-0.bin",
+          "sha256": "f06a5d760212624fe5ff0f8a67976d0ee5667750950b2ecdd072b63ffd60b908",
+          "bytes": 2564
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-0.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-0.relo",
+          "sha256": "09f1a8fb5a6c466b0ef2a5d4fcefad38721a5dc4d58eef7eec73f39a393561f5",
+          "bytes": 16
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-1.bin",
+          "sha256": "8749db728d8f1380e3a1902813849391753345438bc0f2f9d77ec3ada61f44e5",
+          "bytes": 2564
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-1.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-1.relo",
+          "sha256": "980c6a1d48446596b960730051d4dd166db46ee5be9393107dd0f1a451a58ecc",
+          "bytes": 16
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-2.bin",
+          "sha256": "8749db728d8f1380e3a1902813849391753345438bc0f2f9d77ec3ada61f44e5",
+          "bytes": 2564
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-2.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-2.relo",
+          "sha256": "980c6a1d48446596b960730051d4dd166db46ee5be9393107dd0f1a451a58ecc",
+          "bytes": 16
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-99.bin",
+          "sha256": "8749db728d8f1380e3a1902813849391753345438bc0f2f9d77ec3ada61f44e5",
+          "bytes": 2564
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-99.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-99.relo",
+          "sha256": "980c6a1d48446596b960730051d4dd166db46ee5be9393107dd0f1a451a58ecc",
+          "bytes": 16
+        },
+        {
+          "name": "queue-dock-1.be.bin",
+          "sha256": "afe511980242f37b47ba700b3bbd14b3bc9f16d67f74f522e7fcdf1d7d3eb1ba",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-1.be.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-1.be.relo",
+          "sha256": "5e85c6054cb3d2009a0fb3931167c257902aef7b50f4480faa56027d4bcc56e0",
+          "bytes": 40
+        },
+        {
+          "name": "queue-dock-1.le.bin",
+          "sha256": "da5c1945e87d8dd2802f8aef8ef6a6ffa0105c4749e4541fac82069706e49c42",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-1.le.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-1.le.relo",
+          "sha256": "fa33e325a088aef8002b8e4951bc6894d66239e8905c49c6c629e1ed47579da2",
+          "bytes": 40
+        },
+        {
+          "name": "queue-dock-10.be.bin",
+          "sha256": "d57b5d0d0a85e48d5d9f57254c4270495922d0ce6314262fcd89214b56fe147a",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-10.be.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-10.be.relo",
+          "sha256": "5e85c6054cb3d2009a0fb3931167c257902aef7b50f4480faa56027d4bcc56e0",
+          "bytes": 40
+        },
+        {
+          "name": "queue-dock-10.le.bin",
+          "sha256": "dbe802e6cd8849c1b233d67937030be2eb1dd360490a7406c2fc970bf9ae3fac",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-10.le.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-10.le.relo",
+          "sha256": "fa33e325a088aef8002b8e4951bc6894d66239e8905c49c6c629e1ed47579da2",
+          "bytes": 40
+        },
+        {
+          "name": "queue-dock-2.be.bin",
+          "sha256": "96c8647df48f8505a1129bd6252b59af48be3eac9f01a7b207a91a4db7b6e821",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-2.be.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-2.be.relo",
+          "sha256": "5e85c6054cb3d2009a0fb3931167c257902aef7b50f4480faa56027d4bcc56e0",
+          "bytes": 40
+        },
+        {
+          "name": "queue-dock-2.le.bin",
+          "sha256": "d1d3a10af273817615c61c008fc0ee69a7f0b2dd1713da919e80ffd0d5eef8c4",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-2.le.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-2.le.relo",
+          "sha256": "fa33e325a088aef8002b8e4951bc6894d66239e8905c49c6c629e1ed47579da2",
+          "bytes": 40
+        },
+        {
+          "name": "xml-0-defaults.bin",
+          "sha256": "f2da93f6cb11c587e4f44e46b4d055b52b56790e87ebfb9ddcf92b4540c89044",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-0-defaults.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-0-defaults.relo",
+          "sha256": "9b80d8790585ed1cf912f767526017f120d9f2ec11725ce0841f55924fba8daa",
+          "bytes": 20
+        },
+        {
+          "name": "xml-0-defaults.xml",
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77",
+          "bytes": 295
+        },
+        {
+          "name": "xml-0-parameters.bin",
+          "sha256": "eea2a1f1c4b4516e95a073fa2e8480e62a6f4110f7bc20a146c0503ad1b3612a",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-0-parameters.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-0-parameters.relo",
+          "sha256": "9b80d8790585ed1cf912f767526017f120d9f2ec11725ce0841f55924fba8daa",
+          "bytes": 20
+        },
+        {
+          "name": "xml-0-parameters.xml",
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3",
+          "bytes": 363
+        },
+        {
+          "name": "xml-1-defaults.bin",
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-1-defaults.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-1-defaults.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-1-defaults.xml",
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77",
+          "bytes": 295
+        },
+        {
+          "name": "xml-1-parameters.bin",
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-1-parameters.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-1-parameters.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-1-parameters.xml",
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3",
+          "bytes": 363
+        },
+        {
+          "name": "xml-2-defaults.bin",
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-2-defaults.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-2-defaults.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-2-defaults.xml",
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77",
+          "bytes": 295
+        },
+        {
+          "name": "xml-2-parameters.bin",
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-2-parameters.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-2-parameters.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-2-parameters.xml",
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3",
+          "bytes": 363
+        },
+        {
+          "name": "xml-99-defaults.bin",
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-99-defaults.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-99-defaults.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-99-defaults.xml",
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77",
+          "bytes": 295
+        },
+        {
+          "name": "xml-99-parameters.bin",
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-99-parameters.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-99-parameters.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-99-parameters.xml",
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3",
+          "bytes": 363
+        }
+      ]
+    },
+    {
+      "mode": "O2",
+      "elapsedSeconds": 33.908,
+      "native": "PASS native DozerAIUpdate, inherited fields/defaults, x86 little/big endian; original root tokens/layout",
+      "bridge": "PASS Dozer XML bridge: four platforms, inherited chooser, floats/defaults, ordinary building and obsolete-node schema refusals",
+      "queueDockNative": "PASS QueueDock production native serializer: unchanged TypeId/kind, native56, default1/1/2/10, strict decimal/range, eight-token payload offsets, five ReloStrings/relocations, little/big endian",
+      "queueDockBridge": "PASS QueueDock real XML bridge: four platforms, default/1/2/10 native three-buffer equality, strict invalid/range errors, cache identity; production native token/ReloString/endian tests run separately",
+      "mindControlNative": "PASS passive mind control production native serializer: capacity 1/3/8/uint32 max, defaults, invalid values, 0xA4 body, required SpecialPower reference, seven-word DisableWhenStatus/defaults/multiple/high-word/endian, mode 8 inline filter, template hashes/relocations, little/big endian",
+      "mindControlBridge": "PASS passive mind control real XML bridge: four platforms; capacities/defaults/invalid values; template filters match native three buffers; complete capacity 3/8 ordinary-attack towers; required real SP import, seven-word source disable mask and single-SP/estimate-only weapons; native backbone/weapons and legacy original DLL three-buffer compatibility",
+      "fixtures": [
+        {
+          "name": "dozer-defaults.be.bin",
+          "sha256": "71bf21fc83342ee64a5708d409798d17854f7c7dac46e6bd35817b19d450e080",
+          "bytes": 2724
+        },
+        {
+          "name": "dozer-defaults.be.relo",
+          "sha256": "16b647ec9d85ee0c648ddbf1df65f3afce6a944f6ff6b1011237f544ef7ec821",
+          "bytes": 12
+        },
+        {
+          "name": "dozer-defaults.le.bin",
+          "sha256": "166f66e3ffbbe42ef1da1f9090d137fca5401bbda87d658571c323dd06d665f9",
+          "bytes": 2724
+        },
+        {
+          "name": "dozer-defaults.le.relo",
+          "sha256": "18539cee901d7f1c3ae6ad147ba908b94d6348ace35d429aca814c4c8026e9fc",
+          "bytes": 12
+        },
+        {
+          "name": "dozer-parameters.be.bin",
+          "sha256": "96f683535b80183c3cfdf9e8ee3facca0e5cc08757dba65b99a26ad09a281c86",
+          "bytes": 2980
+        },
+        {
+          "name": "dozer-parameters.be.relo",
+          "sha256": "88924c4b3eba500287f9fe16a899859ce9363eb0f7b0f1bec48280494a704033",
+          "bytes": 20
+        },
+        {
+          "name": "dozer-parameters.le.bin",
+          "sha256": "6bbb8d9b76e5835d8a14e57abfdfe0cce3cb7a23813cb90a79471a8d3ee1a150",
+          "bytes": 2980
+        },
+        {
+          "name": "dozer-parameters.le.relo",
+          "sha256": "a56a4be1ab2b71ead6b7c9a696d628aa348f53dbac3856f9b90e0c5be7e4b884",
+          "bytes": 20
+        },
+        {
+          "name": "example-3-0.bin",
+          "sha256": "3ee484dfdeb1fa7839dcebdc6a5207ca203ec6aecbf4ef5c374349768e3b4923",
+          "bytes": 7096
+        },
+        {
+          "name": "example-3-0.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-3-0.relo",
+          "sha256": "6bcf9a482a5a3017d46df24d6fae9e797a8cf607a16a1b98a17885cf267792e1",
+          "bytes": 96
+        },
+        {
+          "name": "example-3-1.bin",
+          "sha256": "be0761b4dbdef8c4e64138988da6d44c3f3f3728f4a0473c26be090f583950d6",
+          "bytes": 7096
+        },
+        {
+          "name": "example-3-1.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-3-1.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "example-3-2.bin",
+          "sha256": "be0761b4dbdef8c4e64138988da6d44c3f3f3728f4a0473c26be090f583950d6",
+          "bytes": 7096
+        },
+        {
+          "name": "example-3-2.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-3-2.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "example-3-99.bin",
+          "sha256": "be0761b4dbdef8c4e64138988da6d44c3f3f3728f4a0473c26be090f583950d6",
+          "bytes": 7096
+        },
+        {
+          "name": "example-3-99.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-3-99.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "example-8-0.bin",
+          "sha256": "3fdba548aef432794b99858dcd79ed0b91ae1b3f430936d1ae21c6ac039170b2",
+          "bytes": 7096
+        },
+        {
+          "name": "example-8-0.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-8-0.relo",
+          "sha256": "6bcf9a482a5a3017d46df24d6fae9e797a8cf607a16a1b98a17885cf267792e1",
+          "bytes": 96
+        },
+        {
+          "name": "example-8-1.bin",
+          "sha256": "1983db196d7295b652107cbbe5a5c6f39df01b114acb801b8d0f8ceb9a8568d2",
+          "bytes": 7096
+        },
+        {
+          "name": "example-8-1.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-8-1.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "example-8-2.bin",
+          "sha256": "1983db196d7295b652107cbbe5a5c6f39df01b114acb801b8d0f8ceb9a8568d2",
+          "bytes": 7096
+        },
+        {
+          "name": "example-8-2.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-8-2.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "example-8-99.bin",
+          "sha256": "1983db196d7295b652107cbbe5a5c6f39df01b114acb801b8d0f8ceb9a8568d2",
+          "bytes": 7096
+        },
+        {
+          "name": "example-8-99.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "example-8-99.relo",
+          "sha256": "ff159fbaf2031b04a595923c1e38c6ebc045e3bb8bd6315697561c740980f8e3",
+          "bytes": 96
+        },
+        {
+          "name": "mind-control-capacity-3.be.bin",
+          "sha256": "5a170bc1a6e9bf1818d8e30160255ba5c9dff365bd1c7b9837fe6decdc0b28c5",
+          "bytes": 3172
+        },
+        {
+          "name": "mind-control-capacity-3.be.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "mind-control-capacity-3.be.relo",
+          "sha256": "73015c81fe2263c3ca2724cd2606337a269a1ca151bb4113e5a364f06ded09d4",
+          "bytes": 32
+        },
+        {
+          "name": "mind-control-capacity-3.le.bin",
+          "sha256": "5c739c6edb99ba995a53083587103d71ae269534bd83e42228aa43ab41c12548",
+          "bytes": 3172
+        },
+        {
+          "name": "mind-control-capacity-3.le.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "mind-control-capacity-3.le.relo",
+          "sha256": "3a31b49c0e05b612b9f40347af50d1fbf71ee65530e78f07e684408234c53ca8",
+          "bytes": 32
+        },
+        {
+          "name": "mind-control-capacity-8.be.bin",
+          "sha256": "0d792e0538b38d306370aa2689e95731c94825fbdf4100a6d89cf8bca65e7372",
+          "bytes": 3172
+        },
+        {
+          "name": "mind-control-capacity-8.be.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "mind-control-capacity-8.be.relo",
+          "sha256": "73015c81fe2263c3ca2724cd2606337a269a1ca151bb4113e5a364f06ded09d4",
+          "bytes": 32
+        },
+        {
+          "name": "mind-control-capacity-8.le.bin",
+          "sha256": "95c794bc8bce21c202302befc9cf598d81ebcea76b860fb246df825464674aab",
+          "bytes": 3172
+        },
+        {
+          "name": "mind-control-capacity-8.le.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "mind-control-capacity-8.le.relo",
+          "sha256": "3a31b49c0e05b612b9f40347af50d1fbf71ee65530e78f07e684408234c53ca8",
+          "bytes": 32
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-0.bin",
+          "sha256": "7f2f3ece8f79cd3201b4561a1ff0ea912ead19e125728a0f9e035fca956ad416",
+          "bytes": 2024
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-0.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-0.relo",
+          "sha256": "c4c51f9cb7f19857260ccc16f6335e8e1713a75d74ef5ef8d2780b0fa9bfad5a",
+          "bytes": 24
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-1.bin",
+          "sha256": "d5b04e3d6798a53ebb039859996300acdacf12e2e41b8ca7dfc23ee1dc4250dc",
+          "bytes": 2024
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-1.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-1.relo",
+          "sha256": "898fd6ee5ee063414ac7e6d4d7ec28d769bddce19f29865830cf123c4dc3e987",
+          "bytes": 24
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-2.bin",
+          "sha256": "d5b04e3d6798a53ebb039859996300acdacf12e2e41b8ca7dfc23ee1dc4250dc",
+          "bytes": 2024
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-2.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-2.relo",
+          "sha256": "898fd6ee5ee063414ac7e6d4d7ec28d769bddce19f29865830cf123c4dc3e987",
+          "bytes": 24
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-99.bin",
+          "sha256": "d5b04e3d6798a53ebb039859996300acdacf12e2e41b8ca7dfc23ee1dc4250dc",
+          "bytes": 2024
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-99.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlAssignedTargetWeapon-99.relo",
+          "sha256": "898fd6ee5ee063414ac7e6d4d7ec28d769bddce19f29865830cf123c4dc3e987",
+          "bytes": 24
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-0.bin",
+          "sha256": "f06a5d760212624fe5ff0f8a67976d0ee5667750950b2ecdd072b63ffd60b908",
+          "bytes": 2564
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-0.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-0.relo",
+          "sha256": "09f1a8fb5a6c466b0ef2a5d4fcefad38721a5dc4d58eef7eec73f39a393561f5",
+          "bytes": 16
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-1.bin",
+          "sha256": "8749db728d8f1380e3a1902813849391753345438bc0f2f9d77ec3ada61f44e5",
+          "bytes": 2564
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-1.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-1.relo",
+          "sha256": "980c6a1d48446596b960730051d4dd166db46ee5be9393107dd0f1a451a58ecc",
+          "bytes": 16
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-2.bin",
+          "sha256": "8749db728d8f1380e3a1902813849391753345438bc0f2f9d77ec3ada61f44e5",
+          "bytes": 2564
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-2.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-2.relo",
+          "sha256": "980c6a1d48446596b960730051d4dd166db46ee5be9393107dd0f1a451a58ecc",
+          "bytes": 16
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-99.bin",
+          "sha256": "8749db728d8f1380e3a1902813849391753345438bc0f2f9d77ec3ada61f44e5",
+          "bytes": 2564
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-99.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "PassiveMindControlDamageEstimateOnly-99.relo",
+          "sha256": "980c6a1d48446596b960730051d4dd166db46ee5be9393107dd0f1a451a58ecc",
+          "bytes": 16
+        },
+        {
+          "name": "queue-dock-1.be.bin",
+          "sha256": "afe511980242f37b47ba700b3bbd14b3bc9f16d67f74f522e7fcdf1d7d3eb1ba",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-1.be.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-1.be.relo",
+          "sha256": "5e85c6054cb3d2009a0fb3931167c257902aef7b50f4480faa56027d4bcc56e0",
+          "bytes": 40
+        },
+        {
+          "name": "queue-dock-1.le.bin",
+          "sha256": "da5c1945e87d8dd2802f8aef8ef6a6ffa0105c4749e4541fac82069706e49c42",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-1.le.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-1.le.relo",
+          "sha256": "fa33e325a088aef8002b8e4951bc6894d66239e8905c49c6c629e1ed47579da2",
+          "bytes": 40
+        },
+        {
+          "name": "queue-dock-10.be.bin",
+          "sha256": "d57b5d0d0a85e48d5d9f57254c4270495922d0ce6314262fcd89214b56fe147a",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-10.be.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-10.be.relo",
+          "sha256": "5e85c6054cb3d2009a0fb3931167c257902aef7b50f4480faa56027d4bcc56e0",
+          "bytes": 40
+        },
+        {
+          "name": "queue-dock-10.le.bin",
+          "sha256": "dbe802e6cd8849c1b233d67937030be2eb1dd360490a7406c2fc970bf9ae3fac",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-10.le.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-10.le.relo",
+          "sha256": "fa33e325a088aef8002b8e4951bc6894d66239e8905c49c6c629e1ed47579da2",
+          "bytes": 40
+        },
+        {
+          "name": "queue-dock-2.be.bin",
+          "sha256": "96c8647df48f8505a1129bd6252b59af48be3eac9f01a7b207a91a4db7b6e821",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-2.be.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-2.be.relo",
+          "sha256": "5e85c6054cb3d2009a0fb3931167c257902aef7b50f4480faa56027d4bcc56e0",
+          "bytes": 40
+        },
+        {
+          "name": "queue-dock-2.le.bin",
+          "sha256": "d1d3a10af273817615c61c008fc0ee69a7f0b2dd1713da919e80ffd0d5eef8c4",
+          "bytes": 2956
+        },
+        {
+          "name": "queue-dock-2.le.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "queue-dock-2.le.relo",
+          "sha256": "fa33e325a088aef8002b8e4951bc6894d66239e8905c49c6c629e1ed47579da2",
+          "bytes": 40
+        },
+        {
+          "name": "xml-0-defaults.bin",
+          "sha256": "f2da93f6cb11c587e4f44e46b4d055b52b56790e87ebfb9ddcf92b4540c89044",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-0-defaults.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-0-defaults.relo",
+          "sha256": "9b80d8790585ed1cf912f767526017f120d9f2ec11725ce0841f55924fba8daa",
+          "bytes": 20
+        },
+        {
+          "name": "xml-0-defaults.xml",
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77",
+          "bytes": 295
+        },
+        {
+          "name": "xml-0-parameters.bin",
+          "sha256": "eea2a1f1c4b4516e95a073fa2e8480e62a6f4110f7bc20a146c0503ad1b3612a",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-0-parameters.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-0-parameters.relo",
+          "sha256": "9b80d8790585ed1cf912f767526017f120d9f2ec11725ce0841f55924fba8daa",
+          "bytes": 20
+        },
+        {
+          "name": "xml-0-parameters.xml",
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3",
+          "bytes": 363
+        },
+        {
+          "name": "xml-1-defaults.bin",
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-1-defaults.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-1-defaults.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-1-defaults.xml",
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77",
+          "bytes": 295
+        },
+        {
+          "name": "xml-1-parameters.bin",
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-1-parameters.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-1-parameters.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-1-parameters.xml",
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3",
+          "bytes": 363
+        },
+        {
+          "name": "xml-2-defaults.bin",
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-2-defaults.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-2-defaults.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-2-defaults.xml",
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77",
+          "bytes": 295
+        },
+        {
+          "name": "xml-2-parameters.bin",
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-2-parameters.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-2-parameters.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-2-parameters.xml",
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3",
+          "bytes": 363
+        },
+        {
+          "name": "xml-99-defaults.bin",
+          "sha256": "1330c6d811aa6237a167b81af7fb0cbf79c46899d75a7a5a8465e331f8419a9f",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-99-defaults.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-99-defaults.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-99-defaults.xml",
+          "sha256": "5d32d5fac68abc18684f26af4909d24f00bd6e55f7673273408ec9daa8873d77",
+          "bytes": 295
+        },
+        {
+          "name": "xml-99-parameters.bin",
+          "sha256": "ac5d126e17e3c1746091308fca0caa7401b38bdd8326cd3a535090354f3a29b2",
+          "bytes": 3368
+        },
+        {
+          "name": "xml-99-parameters.imp",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "name": "xml-99-parameters.relo",
+          "sha256": "74e3c7e62e6675be0c1a63ab4160f1683b57756726d61b6bb8641a485fe81240",
+          "bytes": 20
+        },
+        {
+          "name": "xml-99-parameters.xml",
+          "sha256": "e6f351b49273bfa1ac01d60b98df1d4e46e24aae0d0c8b28ef9d16650531f2c3",
+          "bytes": 363
+        }
+      ]
+    }
+  ],
+  "workflowUrl": "https://github.com/wu192/NewSdk/actions/runs/42450345003",
+  "initialFailure": {
+    "runId": 42450219147,
+    "url": "https://github.com/wu192/NewSdk/actions/runs/42450219147",
+    "sourceCommit": "8274cd65be945925e8803c3b4c89bfc71511bc9d",
+    "reason": "New real GameObject XML fixture omitted schema-required Body/AI; corrected with ordinary ActiveBody and reran without relaxing schema."
+  },
+  "localHost": {
+    "abi": "real i386 (sizeof(void*)=4), qemu-i386 on Linux",
+    "toolchain": "user-local Debian g++14 multilib",
+    "productionNative": [
+      "QueueDock",
+      "DozerAIUpdate",
+      "PassiveMindControl"
+    ],
+    "result": "passed",
+    "legacyNative52Projection": "Both endian three-buffer comparisons against native writer from baseline d4368fb passed; distinct from Windows original-DLL checks."
+  }
+}

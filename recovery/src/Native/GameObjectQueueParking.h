@@ -10,6 +10,7 @@ const ModuleField queueParkingQueueDockModuleDataFields[] = {
     { "QueueBonePrefix", 32u, ModuleValue::String, "", nullptr },
     { "TurnTableBoneName", 40u, ModuleValue::String, "", nullptr },
     { "DockingAnimation", 48u, ModuleValue::Enum, nullptr, &aiModelConditionFlagType },
+    { "MaxConcurrentMiners", 52u, ModuleValue::Unsigned, "1", nullptr },
 };
 const ModuleField queueParkingParkingPlaceBehaviorModuleDataFields[] = {
     { "NumRows", 8u, ModuleValue::Signed, nullptr, nullptr },
@@ -26,7 +27,7 @@ const ModuleField queueParkingParkingPlaceBehaviorModuleDataFields[] = {
     { "HelipadBoneName", 36u, ModuleValue::String, "HeliPark01", nullptr },
 };
 const ModuleFieldSet queueParkingFieldSets[] = {
-    { queueParkingQueueDockModuleDataFields, 6u },
+    { queueParkingQueueDockModuleDataFields, 7u },
     { queueParkingParkingPlaceBehaviorModuleDataFields, 12u },
 };
 const ModuleToken queueParkingQueueDockModuleDataTokens[] = {
@@ -37,8 +38,9 @@ const ModuleToken queueParkingQueueDockModuleDataTokens[] = {
     { 2098610190u, 438907818u, 32u, nullptr, 0u, 0u },
     { 3567440301u, 438907818u, 40u, nullptr, 0u, 0u },
     { 1270412640u, 359808523u, 48u, nullptr, 0u, 0u },
+    { 983236950u, 503583685u, 52u, nullptr, 0u, 0u },
 };
-const ModuleLayout queueParkingQueueDockModuleData = { queueParkingQueueDockModuleDataTokens, 7u };
+const ModuleLayout queueParkingQueueDockModuleData = { queueParkingQueueDockModuleDataTokens, 8u };
 const ModuleToken queueParkingParkingPlaceBehaviorModuleDataTokens[] = {
     { 1u, 4043318533u, 0u, &spawnUpdateModuleData, 0u, 0u },
     { 3047136039u, 602296504u, 8u, nullptr, 0u, 0u },
@@ -58,6 +60,6 @@ const ModuleToken queueParkingParkingPlaceBehaviorModuleDataTokens[] = {
 };
 const ModuleLayout queueParkingParkingPlaceBehaviorModuleData = { queueParkingParkingPlaceBehaviorModuleDataTokens, 15u };
 const ModuleChoice queueParkingChoices[] = {
-    { 2941001505u, &queueParkingQueueDockModuleData, 52u, 128u },
+    { 2941001505u, &queueParkingQueueDockModuleData, 56u, 128u },
     { 3921409083u, &queueParkingParkingPlaceBehaviorModuleData, 56u, 129u },
 };

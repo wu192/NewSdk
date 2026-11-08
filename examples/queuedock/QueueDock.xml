@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset">
+  <!-- Minimal GameObject compiler/parser fixtures. These objects deliberately
+       omit a playable refinery's model, economy, commands and geometry.
+       MaxConcurrentMiners is accepted by the paired compiler/parser; these
+       fixtures do not provide a playable multi-bay refinery. -->
+  <GameObject id="QueueDockDefaultCapacity">
+    <Behaviors>
+      <QueueDockBehavior id="ModuleTag_QueueDock"
+                         DockStartBoneName="DockStart"
+                         DockActionBoneName="DockAction"
+                         DockEndBoneName="DockEnd"
+                         QueueBonePrefix="Que"
+                         TurnTableBoneName="BONE_TABLE"
+                         DockingAnimation="DOCKING_ACTIVE" />
+    </Behaviors>
+    <Body><ActiveBody id="Body" MaxHealth="100" /></Body>
+  </GameObject>
+  <GameObject id="QueueDockCapacityOne">
+    <Behaviors>
+      <QueueDockBehavior id="ModuleTag_QueueDock"
+                         DockStartBoneName="DockStart"
+                         DockActionBoneName="DockAction"
+                         DockEndBoneName="DockEnd"
+                         QueueBonePrefix="Que"
+                         TurnTableBoneName="BONE_TABLE"
+                         DockingAnimation="DOCKING_ACTIVE"
+                         MaxConcurrentMiners="1" />
+    </Behaviors>
+    <Body><ActiveBody id="Body" MaxHealth="100" /></Body>
+  </GameObject>
+  <GameObject id="QueueDockCapacityTwo">
+    <Behaviors>
+      <QueueDockBehavior id="ModuleTag_QueueDock"
+                         DockStartBoneName="DockStart"
+                         DockActionBoneName="DockAction"
+                         DockEndBoneName="DockEnd"
+                         QueueBonePrefix="Que"
+                         TurnTableBoneName="BONE_TABLE"
+                         DockingAnimation="DOCKING_ACTIVE"
+                         MaxConcurrentMiners="2" />
+    </Behaviors>
+    <Body><ActiveBody id="Body" MaxHealth="100" /></Body>
+  </GameObject>
+  <GameObject id="QueueDockCapacityTen">
+    <Behaviors>
+      <QueueDockBehavior id="ModuleTag_QueueDock"
+                         DockStartBoneName="DockStart"
+                         DockActionBoneName="DockAction"
+                         DockEndBoneName="DockEnd"
+                         QueueBonePrefix="Que"
+                         TurnTableBoneName="BONE_TABLE"
+                         DockingAnimation="DOCKING_ACTIVE"
+                         MaxConcurrentMiners="10" />
+    </Behaviors>
+    <Body><ActiveBody id="Body" MaxHealth="100" /></Body>
+  </GameObject>
+</AssetDeclaration>

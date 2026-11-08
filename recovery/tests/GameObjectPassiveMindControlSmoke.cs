@@ -269,7 +269,7 @@ static class GameObjectPassiveMindControlSmoke
             {
                 var plugin = new Recovered.GameObject.Plugin(); plugin.Initialize(null, platform);
                 var info = plugin.GetExtendedTypeInformation(2486173485u);
-                uint version = platform == TargetPlatform.PlayStation3 ? 4108u : platform == TargetPlatform.Xbox360 ? 4107u : 4106u;
+                uint version = platform == TargetPlatform.PlayStation3 ? 4111u : platform == TargetPlatform.Xbox360 ? 4110u : 4109u;
                 Require(plugin.GetVersionNumber() == version && info.TypeId == 2486173485u && info.TypeHash == 3415017856u && info.ProcessingHash == unchecked(3415017856u + version), "GameObject cache version changes without TypeId/TypeHash changes");
                 foreach (uint capacity in new uint[] { 1, 3, 8, UInt32.MaxValue })
                     Check(Module("Capacity='" + capacity + "' AcquireRadius='200'", Filter), platform, capacity, 15);

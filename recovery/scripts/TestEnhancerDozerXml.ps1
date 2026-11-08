@@ -8,7 +8,7 @@ $receipt = [ordered]@{
     succeeded = $false
     sourceCommit = $source
     runId = $env:GITHUB_RUN_ID
-    scope = 'Win32 native Dozer and passive mind control production serializer and C++/CLI XML bridge; focused legacy original-DLL three-buffer compatibility; not full SDK/MOD/game acceptance'
+    scope = 'Win32 native Dozer, QueueDock and passive mind control production serializer and C++/CLI XML bridge; focused legacy original-DLL three-buffer compatibility; not full SDK/MOD/game acceptance'
     modes = @()
 }
 $receipt | ConvertTo-Json -Depth 6 | Set-Content $validationPath
@@ -40,13 +40,18 @@ foreach ($mode in @('Od', 'O2')) {
     # Reuse the production native objects built above; only the new test main
     # differs. Keep the existing /Od and /O2 matrix rather than adding jobs.
     $sharedNativeObjects = @(Get-ChildItem "$nativeObjects/*.obj" | Where-Object {
-        $_.Name -notin @('GameObjectDozerNative.obj', 'GameObjectPassiveMindControlNative.obj')
+        $_.Name -notin @('GameObjectDozerNative.obj', 'GameObjectPassiveMindControlNative.obj', 'GameObjectQueueDockNative.obj')
     } | ForEach-Object { $_.FullName })
     $mindControlNative = Join-Path $out 'GameObjectPassiveMindControlNative.exe'
     & cl /nologo /MD /EHsc /std:c++17 /utf-8 /fp:precise "/$mode" "/Irecovery/src/Native" "/Fo$nativeObjects/" "/Fe$mindControlNative" recovery/tests/GameObjectPassiveMindControlNative.cpp @sharedNativeObjects *> "$out/mind-control-native-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/mind-control-native-build.log"; throw "Passive mind control native compilation failed: $mode" }
     & $mindControlNative $fixtures *> "$out/mind-control-native-test.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/mind-control-native-test.log"; throw "Passive mind control native contract failed: $mode" }
+    $queueDockNative = Join-Path $out 'GameObjectQueueDockNative.exe'
+    & cl /nologo /MD /EHsc /std:c++17 /utf-8 /fp:precise "/$mode" "/Irecovery/src/Native" "/Fo$nativeObjects/" "/Fe$queueDockNative" recovery/tests/GameObjectQueueDockNative.cpp @sharedNativeObjects *> "$out/queue-dock-native-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/queue-dock-native-build.log"; throw "QueueDock native compilation failed: $mode" }
+    & $queueDockNative $fixtures *> "$out/queue-dock-native-test.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/queue-dock-native-test.log"; throw "QueueDock native contract failed: $mode" }
     $dll = Join-Path $out 'Recovered.GameObject.dll'
     & cl /nologo /clr /LD /MD /EHa /std:c++17 /utf-8 /fp:precise "/$mode" "/AI$out" "/Fo$bridgeObjects/" "/Fe$dll" @native recovery/src/Bridge/GameObjectCompiler.cpp *> "$out/bridge-build.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/bridge-build.log"; throw "XML bridge compilation failed: $mode" }
@@ -56,6 +61,12 @@ foreach ($mode in @('Od', 'O2')) {
     '<configuration><startup useLegacyV2RuntimeActivationPolicy="true"><supportedRuntime version="v4.0" /></startup></configuration>' | Set-Content "$smoke.config"
     & $smoke $fixtures *> "$out/bridge-test.log"
     if ($LASTEXITCODE -ne 0) { Get-Content "$out/bridge-test.log"; throw "XML bridge contract failed: $mode" }
+    $queueDockSmoke = Join-Path $out 'GameObjectQueueDockSmoke.exe'
+    & $csc /nologo /platform:x86 /define:QUEUEDOCK_LEGACY_ONLY "/r:$dll" "/r:$out/BinaryAssetBuilder.Core.dll" /r:System.Xml.dll "/out:$queueDockSmoke" (Resolve-Path 'recovery/src/Plugin/GameObjectPlugin.cs').Path (Resolve-Path 'recovery/tests/PluginSchemaBoundary.cs').Path (Resolve-Path 'recovery/tests/GameObjectQueueDockSmoke.cs').Path (Resolve-Path 'recovery/tests/GameObjectQueueParkingCases.cs').Path *> "$out/queue-dock-smoke-build.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/queue-dock-smoke-build.log"; throw "QueueDock managed smoke compilation failed: $mode" }
+    Copy-Item "$smoke.config" "$queueDockSmoke.config"
+    & $queueDockSmoke $fixtures (Resolve-Path 'examples/queuedock/QueueDock.xml').Path (Resolve-Path "$out/BinaryAssetBuilder.Tokenizer.dll").Path *> "$out/queue-dock-bridge-test.log"
+    if ($LASTEXITCODE -ne 0) { Get-Content "$out/queue-dock-bridge-test.log"; throw "QueueDock XML bridge contract failed: $mode" }
     # The complete ordinary-attack example also compiles its harmless weapon and
     # the estimate-only template through the existing production weapon bridge.
     $weaponDll = Join-Path $out 'Recovered.Weapon.dll'
@@ -75,6 +86,8 @@ foreach ($mode in @('Od', 'O2')) {
         elapsedSeconds = [Math]::Round($modeTimer.Elapsed.TotalSeconds, 3)
         native = (Get-Content "$out/native-test.log" -Raw).Trim()
         bridge = (Get-Content "$out/bridge-test.log" -Raw).Trim()
+        queueDockNative = (Get-Content "$out/queue-dock-native-test.log" -Raw).Trim()
+        queueDockBridge = (Get-Content "$out/queue-dock-bridge-test.log" -Raw).Trim()
         mindControlNative = (Get-Content "$out/mind-control-native-test.log" -Raw).Trim()
         mindControlBridge = (Get-Content "$out/mind-control-bridge-test.log" -Raw).Trim()
         fixtures = @(Get-ChildItem $fixtures -File | ForEach-Object {
@@ -84,4 +97,4 @@ foreach ($mode in @('Od', 'O2')) {
 }
 $receipt.succeeded = $true
 $receipt | ConvertTo-Json -Depth 8 | Set-Content $validationPath
-Write-Host "PASS: Win32 Dozer/passive mind control serializer and XML bridge, legacy three-buffer compatibility in /Od and /O2; $source"
+Write-Host "PASS: Win32 Dozer/QueueDock/passive mind control serializer and XML bridge, legacy three-buffer compatibility in /Od and /O2; $source"

@@ -29,7 +29,11 @@ partial class GameObjectOracle {
             expected=original.ProcessInstance(input);actual=Recovered.GameObjectCompiler.ProcessInstance(input,platform);
 #endif
         }catch(Exception error){throw new Exception("Fixture "+attrs+children,error);}
-        Equal(expected.InstanceData,actual.InstanceData,attrs+children+" instance");Equal(expected.RelocationData,actual.RelocationData,attrs+children+" relocation");Equal(expected.ImportsData,actual.ImportsData,attrs+children+" imports");++fixtures;return actual;
+        // QueueDock deliberately adds one uint and one token to the original
+        // type. Remove only that checked default extension for the historical
+        // three-buffer oracle; every original byte/offset is still compared.
+        var comparable=QueueDockLegacyView(actual,platform!=TargetPlatform.Win32);
+        Equal(expected.InstanceData,comparable.InstanceData,attrs+children+" instance");Equal(expected.RelocationData,comparable.RelocationData,attrs+children+" relocation");Equal(expected.ImportsData,comparable.ImportsData,attrs+children+" imports");++fixtures;return actual;
     }
     static void Reject(TargetPlatform p,string attrs,string children) {
 #if GO_TRANSCRIPT_ORACLE
