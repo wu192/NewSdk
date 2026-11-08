@@ -41,3 +41,8 @@ PC GameObject 处理版本由 `4106` 提升为 `4109`，Xbox360/PS3 同步为
 
 这些是组件验证入口，不是完整 Core/SDK/MOD、原生资源加载、游戏、存档
 或多人 CRC 验收。实际通过记录以对应提交的 Actions 终态/Job Summary 为准。
+
+源码 `5f71da84` 的 [Windows 42450345003](https://github.com/wu192/NewSdk/actions/runs/42450345003)
+已通过 `/Od` 与 `/O2` 上述全部组件及原有推土机/心控回归，零工件。
+[完整组件收据](../evidence/queuedock/42450345003/validation.json)保留逐模式输出、
+fixture 身份与首轮 schema fixture 失败；本地 i386/qemu 结果单独记录。

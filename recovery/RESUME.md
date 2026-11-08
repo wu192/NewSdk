@@ -5,7 +5,11 @@
 marshal 严格校验 `1..10`，native 52→56、token 7→8。处理缓存版本同步
 4109/4110/4111。原生 writer、真实 XML bridge、ReloString/relocation/endian
 和已知扩展投影后的原 DLL 回归已加入现有定向 Windows 工作流。
-验证结果以本分支对应提交的 Actions Job Summary 为准；未做完整 SDK/MOD 或游戏。
+源码 `5f71da84` 的 [Windows 42450345003](https://github.com/wu192/NewSdk/actions/runs/42450345003)
+已 success：Win32 `/Od`、`/O2` native 与 C++/CLI、四平台、真实示例、三缓冲
+及原 DLL 已知扩展投影回归通过；零工件。[收据](evidence/queuedock/42450345003/validation.json)。
+首轮 fixture 缺 schema 必需 Body 已补普通 ActiveBody，失败记录保留。
+本地真正 i386 writer 经 qemu 验证通过；未做完整 SDK/MOD 或游戏。
 配套 parser 及运行时边界见 [QueueDock XML 合同](docs/QUEUEDOCK_PARALLEL_XML.md)。
 未合并；禁止强推，合入仍须 PR 与用户批准。
 
