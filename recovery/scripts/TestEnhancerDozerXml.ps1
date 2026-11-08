@@ -24,12 +24,18 @@ $native = @(
     'recovery/src/Native/GameObject.cpp'
 )
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
+$coreFailure = $null
+try {
 # Build the changed frontend once, separately from the original-DLL component
 # oracle directories. Do not substitute the stock Core for semantic coverage.
 $coreOut = Join-Path $OutputDirectory 'source-core'
 New-Item -ItemType Directory -Force $coreOut | Out-Null
 Copy-Item SDK/tools/*.dll $coreOut
-& dotnet build recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj -c Release -p:Platform=AnyCPU -p:PlatformTarget=x86 -o "$coreOut/build" --nologo *> "$coreOut/build.log"
+# Restore constructs its framework graph from TargetFrameworks and can remove
+# the inner-build TargetFramework property. Set both on restore and build.
+& dotnet restore recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj -p:TargetFrameworks=net48 -p:TargetFramework=net48 -p:Platform=AnyCPU -p:PlatformTarget=x86 --nologo *> "$coreOut/restore.log"
+if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/restore.log" -Tail 70; throw 'Source Core restore failed' }
+& dotnet build recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj -c Release -p:TargetFrameworks=net48 -p:TargetFramework=net48 -p:Platform=AnyCPU -p:PlatformTarget=x86 -o "$coreOut/build" --no-restore --nologo *> "$coreOut/build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/build.log" -Tail 70; throw 'Source Core compilation failed' }
 Copy-Item "$coreOut/build/BinaryAssetBuilder.Core.dll", "$coreOut/build/Mvp.Xml.dll" $coreOut -Force
 $coreSmoke = Join-Path $coreOut 'GameObjectRepairDockCore.exe'
@@ -39,10 +45,17 @@ if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/smoke-build.log"; throw 'Repair
 & $coreSmoke *> "$coreOut/test.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/test.log"; throw 'RepairDock source Core contract failed' }
 $receipt.core = [ordered]@{
-    configuration = 'Release/net20/x86'
+    succeeded = $true
+    configuration = 'Release/net48/x86'
     result = (Get-Content "$coreOut/test.log" -Raw).Trim()
     sha256 = (Get-FileHash "$coreOut/BinaryAssetBuilder.Core.dll" -Algorithm SHA256).Hash.ToLowerInvariant()
 }
+} catch {
+    $coreFailure = $_.Exception.Message
+    $receipt.core = [ordered]@{ succeeded = $false; error = $coreFailure }
+    Write-Host "Core validation failed: $coreFailure. Continuing independent native/bridge checks."
+}
+$receipt | ConvertTo-Json -Depth 8 | Set-Content $validationPath
 foreach ($mode in @('Od', 'O2')) {
     $modeTimer = [System.Diagnostics.Stopwatch]::StartNew()
     $out = Join-Path $OutputDirectory $mode
@@ -114,6 +127,10 @@ foreach ($mode in @('Od', 'O2')) {
             @{ name = $_.Name; bytes = $_.Length; sha256 = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() }
         })
     }
+}
+if ($coreFailure) {
+    $receipt | ConvertTo-Json -Depth 8 | Set-Content $validationPath
+    throw "Source Core contract failed: $coreFailure; independent native/bridge results are recorded separately."
 }
 $receipt.succeeded = $true
 $receipt | ConvertTo-Json -Depth 8 | Set-Content $validationPath
