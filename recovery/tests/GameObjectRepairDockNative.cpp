@@ -48,7 +48,9 @@ static void Check(const Relo::Chunk& chunk,bool big,bool filter,bool repair=true
     const std::uint32_t type=repair?347729765u:3651459681u;
     Require(Word(b,header,big)==1 && Word(b,data,big)==type,"One real Dock module, native type identity");
     Require(Word(b,data+4,big)==Native::HashAssetId("Repair"),"Inherited ModuleData id");
-    Require(Word(b,data+8,big)==2 && Word(b,data+12,big)==0 && Word(b,data+16,big)==0x3FC00000u,"Dock int and Time fields");
+    // Preserve the original binary32 0.001f scale: 1500ms rounds one ULP
+    // above 1.5, as independently covered by XmlunitoverlayOracle.
+    Require(Word(b,data+8,big)==2 && Word(b,data+12,big)==0 && Word(b,data+16,big)==0x3FC00001u,"Dock int and Time fields");
     Require(b.at(data+24)==0 && b.at(data+25)==0 && b.at(data+26)==1 && b.at(data+27)==0,"Inherited booleans and padding");
     unsigned wrapper=0;
     for(unsigned at=0;at+12<root;at+=12)if(Word(b,at,big)==2 && Word(b,at+4,big)==type){Require(!wrapper,"One behavior wrapper");wrapper=at;}

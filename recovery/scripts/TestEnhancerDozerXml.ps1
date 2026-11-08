@@ -31,13 +31,34 @@ try {
 $coreOut = Join-Path $OutputDirectory 'source-core'
 New-Item -ItemType Directory -Force $coreOut | Out-Null
 Copy-Item SDK/tools/*.dll $coreOut
-# Restore constructs its framework graph from TargetFrameworks and can remove
-# the inner-build TargetFramework property. Set both on restore and build.
-& dotnet restore recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj -p:TargetFrameworks=net48 -p:TargetFramework=net48 -p:Platform=AnyCPU -p:PlatformTarget=x86 --nologo *> "$coreOut/restore.log"
-if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/restore.log" -Tail 70; throw 'Source Core restore failed' }
-& dotnet build recovery/src/Managed/Core/BinaryAssetBuilder.Core.csproj -c Release -p:TargetFrameworks=net48 -p:TargetFramework=net48 -p:Platform=AnyCPU -p:PlatformTarget=x86 -o "$coreOut/build" --no-restore --nologo *> "$coreOut/build.log"
+# The historical standalone Core project still declares net20. Compile its
+# unchanged production sources as net48 for this focused test, referencing the
+# existing SDK dependencies; rebuilding unrelated Mvp.Xml is unnecessary.
+$coreSource = [Security.SecurityElement]::Escape((Resolve-Path 'recovery/src/Managed/Core').Path)
+$sdkTools = [Security.SecurityElement]::Escape((Resolve-Path 'SDK/tools').Path)
+$coreProject = Join-Path $coreOut 'RepairDock.SourceCore.csproj'
+@"
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>BinaryAssetBuilder.Core</AssemblyName><GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFramework>net48</TargetFramework><PlatformTarget>x86</PlatformTarget><LangVersion>10.0</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks><EnableDefaultCompileItems>false</EnableDefaultCompileItems><RootNamespace />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$coreSource/**/*.cs" Exclude="$coreSource/bin/**/*.cs;$coreSource/obj/**/*.cs" />
+    <EmbeddedResource Include="$coreSource/BinaryAssetBuilderProject.xsd" LogicalName="BinaryAssetBuilderProject.xsd" />
+    <Reference Include="BinaryAssetBuilder.Utility"><HintPath>$sdkTools/BinaryAssetBuilder.Utility.dll</HintPath></Reference>
+    <Reference Include="EALA.Hash"><HintPath>$sdkTools/EALA.Hash.dll</HintPath></Reference>
+    <Reference Include="EALA.Metrics"><HintPath>$sdkTools/EALA.Metrics.dll</HintPath></Reference>
+    <Reference Include="Mvp.Xml"><HintPath>$sdkTools/Mvp.Xml.dll</HintPath></Reference>
+    <Reference Include="System.Xml" /><Reference Include="System.Configuration" />
+    <Reference Include="System.Windows.Forms" /><Reference Include="System.Drawing" />
+  </ItemGroup>
+</Project>
+"@ | Set-Content $coreProject
+& dotnet build $coreProject -c Release -p:Platform=AnyCPU -o "$coreOut/build" --nologo *> "$coreOut/build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/build.log" -Tail 70; throw 'Source Core compilation failed' }
-Copy-Item "$coreOut/build/BinaryAssetBuilder.Core.dll", "$coreOut/build/Mvp.Xml.dll" $coreOut -Force
+Copy-Item "$coreOut/build/BinaryAssetBuilder.Core.dll" $coreOut -Force
 $coreSmoke = Join-Path $coreOut 'GameObjectRepairDockCore.exe'
 & $csc /nologo /platform:x86 "/r:$coreOut/BinaryAssetBuilder.Core.dll" /r:System.Xml.dll "/out:$coreSmoke" (Resolve-Path 'recovery/tests/GameObjectRepairDockCore.cs').Path *> "$coreOut/smoke-build.log"
 if ($LASTEXITCODE -ne 0) { Get-Content "$coreOut/smoke-build.log"; throw 'RepairDock Core smoke compilation failed' }
