@@ -1464,6 +1464,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	private FrontendReference CaptureFrontendReference(InstanceDeclaration declaration, XPathNavigator navigator)
 	{
+		// xsi:type selects the element's actual SchemaType, but .NET does not
+		// attach ordinary attribute schema metadata to this dispatch annotation.
+		if (navigator.NodeType == XPathNodeType.Attribute && navigator.LocalName == "type" &&
+			navigator.NamespaceURI == XmlSchema.InstanceNamespace) return null;
 		var type = navigator.SchemaInfo?.SchemaType;
 		if (type == null)
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError,
