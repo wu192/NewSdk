@@ -537,6 +537,29 @@ const ModuleToken economyDockUpdateModuleDataTokens[] = {
     { 610727759u, 3832456114u, 20u, nullptr, 7u, 0u },
 };
 const ModuleLayout economyDockUpdateModuleData = { economyDockUpdateModuleDataTokens, 8u };
+// Existing RA3 RepairDockUpdateModuleData; the Dock base remains 28 bytes.
+constexpr U32 repairDockType = 347729765u;
+constexpr unsigned repairDockKind = 293u;
+struct RepairDockModuleData {
+    U32 typeId, moduleId;
+    std::int32_t numberApproachPositions;
+    float minDockTime, objectsInLineWeight;
+    ObjectFilter* safeHarborFilter;
+    bool allowsPassthrough, goToRallyPointAfterDock, shouldDockInReverse;
+    unsigned char padding;
+    float framesForFullHeal;
+};
+static_assert(sizeof(RepairDockModuleData)==32, "RepairDock native data ABI");
+static_assert(offsetof(RepairDockModuleData,framesForFullHeal)==28, "RepairDock derived real ABI");
+const ModuleField repairDockFields[] = {
+    { "FramesForFullHeal", 28u, ModuleValue::Float, "0", nullptr },
+};
+const ModuleFieldSet repairDockFieldSet = { repairDockFields, 1u };
+const ModuleToken repairDockTokens[] = {
+    { 1u, 3651459681u, 0u, &economyDockUpdateModuleData, 0u, 0u },
+    { 627633844u, 1683514611u, 28u, nullptr, 0u, 0u },
+};
+const ModuleLayout repairDockLayout = { repairDockTokens, 2u };
 const ModuleToken economyOreNodeModuleDataTokens[] = {
     { 1u, 2769121946u, 0u, &reactiveBehaviorModuleData, 0u, 0u },
     { 2156780885u, 1982953380u, 8u, nullptr, 0u, 0u },
@@ -608,6 +631,7 @@ const ModuleToken economyGatherEjectUpdateModuleDataTokens[] = {
 const ModuleLayout economyGatherEjectUpdateModuleData = { economyGatherEjectUpdateModuleDataTokens, 11u };
 const ModuleChoice economyChoices[] = {
     { 3651459681u, &economyDockUpdateModuleData, 28u, 112u },
+    { repairDockType, &repairDockLayout, 32u, repairDockKind },
     { 2384596706u, &economyOreNodeModuleData, 72u, 113u },
     { 2432276463u, &economyOreMinerModuleData, 20u, 114u },
     { 3270634528u, &economySupplyCenterDockUpdateModuleData, 36u, 115u },

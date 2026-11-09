@@ -1,4 +1,18 @@
-# 当前：武器事件心控与状态禁用（2026-11-07）
+# 当前：原生车辆进站维修（2026-11-09）
+
+两仓 `feature/ra3-repair-dock` 从各自 `feature/integration` 开发，待审
+[NewSdk PR #13](https://github.com/wu192/NewSdk/pull/13) 配套
+[EnhancerCorona PR #10](https://github.com/wu192/EnhancerCorona/pull/10)。
+接通已有 RepairDock 的 32 字节 writer、继承 token、endian、可空 filter relocation，
+Core 按实际 SchemaType 处理同名和 `xsi:type`，表达式求值后检查有限正 Frames 和 W>=1；
+根 GameObject TypeId 不变，处理缓存指纹更新。入口见 [示例](../examples/repair-dock/README.md)。
+源码 `08370e8c` 的 [Windows 42538237705](https://github.com/wu192/NewSdk/actions/runs/42538237705)
+已通过源码 Core、`/Od`/`/O2` native/CLR、四平台、双端序及旧 Dock 原 DLL 字节对照；
+[精简收据](evidence/repair-dock/42538237705/validation.json) 固定来源与范围，后续文档不改变构建输入。
+模型由 MOD 提供；完整 SDK/MOD、游戏、存档和联机验收未执行。未合并，禁止强推。
+以下为历史结果。
+
+# 此前：武器事件心控与状态禁用（2026-11-07）
 
 继续两仓 `feature/passive-mind-control-tower`，集成目标为 `feature/integration`。
 NewSdk 共享数据由 `0x84` 扩大为 `0xA4`：`+0x84` 必填 SP 引用，

@@ -14,6 +14,7 @@ public ref class GameObjectCompiler abstract sealed {
     // These XML context annotations have no native binary members.
     static bool IsXmlContextAttribute(XPathNavigator^ attribute) {
         return attribute->NamespaceURI=="http://www.w3.org/2000/xmlns/" ||
+            (attribute->NamespaceURI=="http://www.w3.org/2001/XMLSchema-instance" && attribute->LocalName=="type") ||
             (attribute->NamespaceURI=="http://www.w3.org/XML/1998/namespace" &&
              (attribute->LocalName=="base" || attribute->LocalName=="lang"));
     }
@@ -218,6 +219,8 @@ public ref class GameObjectCompiler abstract sealed {
         while(nodes->MoveNext()) {
             auto child=nodes->Current;Native::GameObjectChild item;item.name=marshal_as<std::string>(child->LocalName);
 
+            // Core injects TypeId from the actual SchemaType (including
+            // xsi:type), so a derived Dock element must not use its local name.
             auto typeId=marshal_as<std::string>(child->GetAttribute("TypeId",""));
             auto attrs=child->Clone();if(attrs->MoveToFirstAttribute()) do {
                 if(IsXmlContextAttribute(attrs)) continue;

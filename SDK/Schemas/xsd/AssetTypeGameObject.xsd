@@ -139,6 +139,7 @@
 			<xs:element name="TiberiumGrowthModBehavior" type="TiberiumGrowthModBehaviorModuleData" />
 			<xs:element name="RadarBehavior" type="RadarBehaviorModuleData" />
 			<xs:element name="DockUpdate" type="DockUpdateModuleData" />
+						<xs:element name="RepairDockUpdate" type="RepairDockUpdateModuleData" />
 			<xs:element name="RepairUpdate" type="RepairUpdateModuleData" />
 			<xs:element name="SupplyCenterDockUpdate" type="SupplyCenterDockUpdateModuleData" />
 			<xs:element name="SupplyWarehouseDockUpdate" type="SupplyWarehouseDockUpdateModuleData" />

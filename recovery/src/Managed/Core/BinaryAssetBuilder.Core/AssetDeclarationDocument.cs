@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Globalization;
 using System.IO;
 #if NEWSdk_MONOLITHIC
 using System.Linq;
@@ -1463,6 +1464,10 @@ public class AssetDeclarationDocument : IXmlSerializable
 
 	private FrontendReference CaptureFrontendReference(InstanceDeclaration declaration, XPathNavigator navigator)
 	{
+		// xsi:type selects the element's actual SchemaType, but .NET does not
+		// attach ordinary attribute schema metadata to this dispatch annotation.
+		if (navigator.NodeType == XPathNodeType.Attribute && navigator.LocalName == "type" &&
+			navigator.NamespaceURI == XmlSchema.InstanceNamespace) return null;
 		var type = navigator.SchemaInfo?.SchemaType;
 		if (type == null)
 			throw new BinaryAssetBuilderException(ErrorCode.InternalError,
@@ -1545,6 +1550,24 @@ public class AssetDeclarationDocument : IXmlSerializable
 		return result;
 	}
 
+	private static void ValidateRepairDock(XPathNavigator node)
+	{
+		// ProcessExpressions and inheritance run before schema validation. Check
+		// the resolved native float32 value, rather than the expression's text.
+		string framesText = node.GetAttribute("FramesForFullHeal", "");
+		if (!float.TryParse(framesText, NumberStyles.Float, CultureInfo.InvariantCulture, out float frames) ||
+			float.IsNaN(frames) || float.IsInfinity(frames) || frames <= 0)
+			throw new BinaryAssetBuilderException(ErrorCode.SchemaValidation,
+				"RepairDockUpdate {0}: FramesForFullHeal must evaluate to a finite positive float32 value (no time unit).", node.GetAttribute("id", ""));
+		string approachText = node.GetAttribute("NumberApproachPositions", "");
+		bool parsed = approachText.StartsWith("0x", StringComparison.Ordinal)
+			? int.TryParse(approachText.Substring(2), NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out int positions)
+			: int.TryParse(approachText, NumberStyles.Integer, CultureInfo.InvariantCulture, out positions);
+		if (!parsed || positions < 1)
+			throw new BinaryAssetBuilderException(ErrorCode.SchemaValidation,
+				"RepairDockUpdate {0}: NumberApproachPositions must evaluate to an Int32 >= 1.", node.GetAttribute("id", ""));
+	}
+
 	private void ValidateInstances()
 	{
 		var processor = _Current.DocumentProcessor;
@@ -1574,6 +1597,7 @@ public class AssetDeclarationDocument : IXmlSerializable
 					navigator.MoveToParent();
 				}
 				var schemaType = navigator.SchemaInfo?.SchemaType;
+				if (schemaType?.Name == "RepairDockUpdateModuleData") ValidateRepairDock(navigator);
 				if (schemaType != null && schemaType.Name != null)
 					input.References.Add(new FrontendReference { Target = navigator.Clone(), IsTypeId = true,
 						TypeIdText = processor.SchemaSet.GetInstanceTypeMetadata(schemaType).TypeIdText });

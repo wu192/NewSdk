@@ -1,0 +1,45 @@
+{
+  "succeeded": true,
+  "sourceCommit": "08370e8ca700f69cc21633bd0a1d98b0cf2893ee",
+  "runId": "42538237705",
+  "runUrl": "https://github.com/wu192/NewSdk/actions/runs/42538237705",
+  "scope": "Win32 native Dozer, passive mind control and RepairDock production serializer/C++/CLI XML bridge; source-built Core repair expressions/schema/TypeId injection; focused legacy original-DLL three-buffer compatibility; not full SDK/MOD/game acceptance",
+  "core": {
+    "succeeded": true,
+    "configuration": "Release/net48/x86",
+    "result": "PASS source Core: real define/expression traversal before schema/semantic checks, production named/xsi:type metadata and TypeId injection, positive finite float32 and Int32 waiting count, defaults/malformed/overflow/underflow failures",
+    "sha256": "24aa826ac22c40a762759bbf82e5fca287ade1ac62ebc56b40bcb84dbedc0dc4"
+  },
+  "modes": [
+    {
+      "mode": "Od",
+      "elapsedSeconds": 21.087,
+      "native": "PASS native DozerAIUpdate, inherited fields/defaults, x86 little/big endian; original root tokens/layout",
+      "bridge": "PASS Dozer XML bridge: four platforms, inherited chooser, floats/defaults, ordinary building and obsolete-node schema refusals",
+      "mindControlNative": "PASS passive mind control production native serializer: capacity 1/3/8/uint32 max, defaults, invalid values, 0xA4 body, required SpecialPower reference, seven-word DisableWhenStatus/defaults/multiple/high-word/endian, mode 8 inline filter, template hashes/relocations, little/big endian",
+      "mindControlBridge": "PASS passive mind control real XML bridge: four platforms; capacities/defaults/invalid values; template filters match native three buffers; complete capacity 3/8 ordinary-attack towers; required real SP import, seven-word source disable mask and single-SP/estimate-only weapons; native backbone/weapons and legacy original DLL three-buffer compatibility",
+      "repairDockNative": "PASS RepairDock x86 native: 32-byte type, inherited Dock fields/tokens, raw float, optional filter data/relocations, little/big endian, invalid values; unchanged 28-byte Dock",
+      "repairDockBridge": "PASS RepairDock XML bridge: actual named/xsi:type schema identity; four platforms; optional filter native three-buffer equality; unchanged Dock original-DLL equality",
+      "fixtureCount": 124,
+      "fixtureBytes": 155000
+    },
+    {
+      "mode": "O2",
+      "elapsedSeconds": 22.968,
+      "native": "PASS native DozerAIUpdate, inherited fields/defaults, x86 little/big endian; original root tokens/layout",
+      "bridge": "PASS Dozer XML bridge: four platforms, inherited chooser, floats/defaults, ordinary building and obsolete-node schema refusals",
+      "mindControlNative": "PASS passive mind control production native serializer: capacity 1/3/8/uint32 max, defaults, invalid values, 0xA4 body, required SpecialPower reference, seven-word DisableWhenStatus/defaults/multiple/high-word/endian, mode 8 inline filter, template hashes/relocations, little/big endian",
+      "mindControlBridge": "PASS passive mind control real XML bridge: four platforms; capacities/defaults/invalid values; template filters match native three buffers; complete capacity 3/8 ordinary-attack towers; required real SP import, seven-word source disable mask and single-SP/estimate-only weapons; native backbone/weapons and legacy original DLL three-buffer compatibility",
+      "repairDockNative": "PASS RepairDock x86 native: 32-byte type, inherited Dock fields/tokens, raw float, optional filter data/relocations, little/big endian, invalid values; unchanged 28-byte Dock",
+      "repairDockBridge": "PASS RepairDock XML bridge: actual named/xsi:type schema identity; four platforms; optional filter native three-buffer equality; unchanged Dock original-DLL equality",
+      "fixtureCount": 124,
+      "fixtureBytes": 155000
+    }
+  ],
+  "notExecuted": [
+    "full SDK/MOD build and native game loading",
+    "gameplay/model traversal",
+    "save roundtrip",
+    "multiplayer CRC/replay"
+  ]
+}
