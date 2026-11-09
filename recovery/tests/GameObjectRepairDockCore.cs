@@ -38,7 +38,7 @@ static class GameObjectRepairDockCore
         string type = derived ? " xsi:type='RepairDockUpdateModuleData'" : "";
         xml.LoadXml("<AssetDeclaration xmlns='" + Namespace + "' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'><GameObject id='CoreRepair'><Behaviors><" + element + type + " id='Repair' AllowsPassthrough='false'" +
             (frames == null ? "" : " FramesForFullHeal='" + frames + "'") +
-            (positions == null ? "" : " NumberApproachPositions='" + positions + "'") + "/></Behaviors></GameObject></AssetDeclaration>");
+            (positions == null ? "" : " NumberApproachPositions='" + positions + "'") + "/></Behaviors><Body><ActiveBody id='Body' MaxHealth='100'/></Body></GameObject></AssetDeclaration>");
         var document = new AssetDeclarationDocument();
         var stateType = typeof(AssetDeclarationDocument).GetNestedType("CurrentState", BindingFlags.NonPublic);
         var state = FormatterServices.GetUninitializedObject(stateType);
@@ -57,6 +57,7 @@ static class GameObjectRepairDockCore
         var instances = new InstanceSet(); instances.Add(declaration);
         stateType.GetField("SelfInstances").SetValue(state, instances);
         bool rejected = false;
+        Exception rejection = null;
         try
         {
             Require(ExpressionEvaluatorWrapper.GetEvaluator(document) != null, "Real expression evaluator must be loaded");
@@ -78,11 +79,11 @@ static class GameObjectRepairDockCore
         catch (TargetInvocationException error)
         {
             if (!(error.InnerException is BinaryAssetBuilderException)) throw;
-            rejected = true;
+            rejected = true; rejection = error.InnerException;
         }
-        catch (System.Xml.Schema.XmlSchemaValidationException) { rejected = true; }
-        catch (BinaryAssetBuilderException) { rejected = true; }
-        Require(rejected != accepted, "Unexpected Core result for frames=" + frames + " positions=" + positions + " derived=" + derived);
+        catch (System.Xml.Schema.XmlSchemaValidationException error) { rejected = true; rejection = error; }
+        catch (BinaryAssetBuilderException error) { rejected = true; rejection = error; }
+        Require(rejected != accepted, "Unexpected Core result for frames=" + frames + " positions=" + positions + " derived=" + derived + "; rejection=" + rejection);
     }
     static int Main()
     {
