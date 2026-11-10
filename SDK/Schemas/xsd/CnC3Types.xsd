@@ -451,6 +451,7 @@
 	<xs:include schemaLocation="Modules/AttributeModifierNaval.xsd"/>
 	<xs:include schemaLocation="Modules/ShieldSphereUpdate.xsd"/>
 	<xs:include schemaLocation="Modules/SpiderHoleUpdate.xsd"/>
+	<xs:include schemaLocation="Modules/YurikoShieldSphereUpdate.xsd"/>
 	<xs:include schemaLocation="Modules/LiftObjectUpdate.xsd"/>
 
 

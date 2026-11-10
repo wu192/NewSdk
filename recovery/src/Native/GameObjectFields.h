@@ -3968,6 +3968,7 @@ const ModuleChildName moduleChildNames[] = {
     { "Behaviors", "EnableDynamicsCollide" },
     { "Behaviors", "FireWeaponUpdate" },
     { "Behaviors", "BombardAreaUpdate" },
+    { "Behaviors", "YurikoShieldSphereUpdate" },
     { "Behaviors", "LiftObjectUpdate" },
     { "Behaviors", "SpecialDisguiseUpdate" },
     { "Behaviors", "ToppleUpdate" },

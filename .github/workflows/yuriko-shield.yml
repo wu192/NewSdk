@@ -1,0 +1,39 @@
+name: Yuriko shield compiler validation
+on:
+  push:
+    branches: [feature/yuriko-shield]
+  pull_request:
+    branches: [compiler-main]
+    paths: ['recovery/src/Native/GameObject*', 'SDK/Schemas/xsd/**', 'recovery/tests/Yuriko*', 'recovery/scripts/TestYuriko*', '.github/workflows/yuriko-shield.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: yuriko-shield-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  native-and-schema:
+    runs-on: windows-2022
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            recovery/src/Native
+            recovery/src/Managed/Hash
+            recovery/tests
+            recovery/scripts
+            SDK/Schemas
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Check actual tokenizer and schema routes
+        shell: pwsh
+        run: ./recovery/scripts/TestYurikoShield.ps1 -Configuration ${{ matrix.configuration }}
+      - name: Validation scope
+        if: always()
+        shell: pwsh
+        run: '"Native Win32 component and XSD route validation only. No SDK stream or game test." >> $env:GITHUB_STEP_SUMMARY'
