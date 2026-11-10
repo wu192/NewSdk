@@ -17,14 +17,27 @@ const ModuleField flingFields[] = {
     { "FlingSpeedMin", 464u, ModuleValue::Float, "100", nullptr },
 };
 const ModuleFieldSet flingFieldSet = { flingFields, 4u };
+// Native outer list token and 8-byte source/physical-proxy pairs. Inner
+// Source/Replacement names and hashes are an explicit RA3-port contract.
+const ModuleField flingReplacementFields[] = {
+    { "Source", 0u, ModuleValue::AssetId, nullptr, nullptr },
+    { "Replacement", 4u, ModuleValue::AssetId, nullptr, nullptr },
+};
+const ModuleFieldSet flingReplacementFieldSet = { flingReplacementFields, 2u };
+const ModuleToken flingReplacementTokens[] = {
+    { 0xd4edc301u, 0x148ed75du, 0u, nullptr, 0u, 0u },
+    { 0xb955f215u, 0x148ed75du, 4u, nullptr, 0u, 0u },
+};
+const ModuleLayout flingReplacementLayout = { flingReplacementTokens, 2u };
 const ModuleToken flingTokens[] = {
     { 1u, 0xcefe1113u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
     { 0xfee927fcu, 0x23e650b8u, 452u, nullptr, 0u, 0u },
     { 0xddccddf3u, 0x23e650b8u, 456u, nullptr, 0u, 0u },
     { 0x7b773fb9u, 0x645864f3u, 460u, nullptr, 0u, 0u },
     { 0x80503b2du, 0x645864f3u, 464u, nullptr, 0u, 0u },
+    { 0x891c564bu, 0xee9c04c0u, 468u, &flingReplacementLayout, 1u, 8u },
 };
-const ModuleLayout flingLayout = { flingTokens, 5u };
+const ModuleLayout flingLayout = { flingTokens, 6u };
 // A new derived name keeps old LiftObjectUpdate's 40-byte data and tokens
 // unchanged. This port adds the missing Uprising link field after that prefix.
 const ModuleField yurikoLiftFields[] = {

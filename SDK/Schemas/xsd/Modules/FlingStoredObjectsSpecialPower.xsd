@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="uri:ea.com:eala:asset" targetNamespace="uri:ea.com:eala:asset" elementFormDefault="qualified">
+  <!-- Explicit RA3-port entry aliases. The original entry parser is protected;
+       source/replacement semantics and the 8-byte pair layout are confirmed. -->
+  <xs:complexType name="YurikoFlingObjectReplacement">
+    <xs:attribute name="Source" type="GameObjectWeakRef" use="required"/>
+    <xs:attribute name="Replacement" type="GameObjectWeakRef" use="required"/>
+  </xs:complexType>
   <xs:complexType name="FlingStoredObjectsSpecialPowerModuleData">
     <xs:complexContent><xs:extension base="SpecialPowerModuleData">
+      <xs:sequence>
+        <xs:element name="ObjectReplacement" type="YurikoFlingObjectReplacement" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
       <xs:attribute name="StoreObjectsLinkID" type="SageInt" default="0"/>
       <xs:attribute name="LiftObjectLinkID" type="SageInt" default="0"/>
       <xs:attribute name="FlingSpeedMax" type="SageReal" default="300"/>
