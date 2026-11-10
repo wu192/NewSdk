@@ -23,3 +23,5 @@
 本分支没有暴露原 Fling 的可选对象替换表（token `0x891C564B/0xEE9C04C0`），保留空表数据；替换目标为另一种对象的机制尚未移植。当前运行时范围以配套分支文档为准，不能以此宣称完整复现所有战役道具。
 
 本地实际 32 位 C++ tokenizer 的 LE/BE 用例通过，覆盖拾取、存储、悬浮链接、原生速度默认值及父类 LiftVelocity；宿主为 GCC14/QEMU i386，Windows InitOnce 由宿主接口替代。Actions 继续验证 Win32 Debug/Release 与无 TypeId 注入的 XSD 路由。真实 SDK 四流、完整 MOD 和实机投掷尚未验证。
+
+旧资产兼容检查：使用同一实际 32 位宿主分别编译 `f0adccd6` 和本分支，根对象、原 ShieldSphereUpdate、原 LiftObjectUpdate、原 StoreObjectsSpecialPower 四组输入各测 LE/BE，instance/relocation/import 三缓冲合计 23296 字节完全一致，SHA256 `4b80a8cf006d046d04c624af7431130c7522c89447589c16409ff7e28b305be3`。该检查覆盖这八组旧资产，不等于完整 SDK 差分。
