@@ -21,12 +21,16 @@ int main() {try {
             Require(Number(b,Field(b,vector,0x30be6097u,big),big)==3,"guard-offset z");
         }
         GameObjectChild power;power.name="AddObjectsToLureUpdateSpecialPower";
-        power.attributes={{"TypeId","2816409548"},{"id","Dominate"},{"SpecialPowerTemplate","Power\\5"},{"TeleportLinkID","7"},{"Radius","150"}};
+        power.attributes={{"TypeId","2816409548"},{"id","Dominate"},{"SpecialPowerTemplate","Power\\5"},{"TeleportLinkID","4"},{"LureObjectLinkID","7"},{"Radius","150"}};
         auto po=Compile(power,big);auto pt=Table(po.instance,0xa7deffccu,big);
-        Require(Word(po.instance,InheritedField(po.instance,pt,0xfe5dbc0bu,big),big)==7,"inherited store/lure link");
+        Require(Word(po.instance,InheritedField(po.instance,pt,0xfe5dbc0bu,big),big)==4,"inherited store collection link is independent");
         Require(Number(po.instance,InheritedField(po.instance,pt,0x4f31c6c5u,big),big)==150,"inherited store radius");
+        Require(Word(po.instance,Field(po.instance,pt,0x16e57839u,big),big)==7,"own destination lure link");
+        power.attributes.erase("LureObjectLinkID");
+        auto defaults=Compile(power,big);auto defaultTable=Table(defaults.instance,0xa7deffccu,big);
+        Require(Word(defaults.instance,Field(defaults.instance,defaultTable,0x16e57839u,big),big)==0,"RA3 port destination-link default");
         Require(GameObjectModuleNodeKind(291,"GuardOffset")==2,"list XML reader route");
         Require(GameObjectModuleNodeKind(292,"AttributeModifierAffects/IncludeThing")==3,"inherited special-power filter route");
     }
-    std::cout<<"Yuriko domination: native defaults, formation capacity, vector tokens, weak references, inherited store fields and LE/BE passed\n";return 0;
+    std::cout<<"Yuriko domination: native defaults, formation capacity, vector tokens, weak references, independent store/destination links and LE/BE passed\n";return 0;
 } catch(const std::exception& e) {std::cerr<<e.what()<<"\n";return 1;}}

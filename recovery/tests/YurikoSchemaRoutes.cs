@@ -9,7 +9,7 @@ class YurikoSchemaRoutes {
         var expected=new Dictionary<string,uint>();
         string modules="";
         if(args[1]=="shield") {expected.Add("YurikoShieldSphereUpdateModuleData",0x95d855b6u);modules="<YurikoShieldSphereUpdate id='Shield'><ObjectFilter Rule='ANY' Include='INFANTRY'/></YurikoShieldSphereUpdate>";}
-        if(args[1]=="domination") {expected.Add("LureObjectsUpdateModuleData",0xb65ab72au);expected.Add("AddObjectsToLureUpdateSpecialPowerModuleData",0xa7deffccu);modules="<LureObjectsUpdate id='Lure'><GuardOffset x='1' y='2' z='3'/></LureObjectsUpdate><AddObjectsToLureUpdateSpecialPower id='Dominate' SpecialPowerTemplate='TestPower'/>";}
+        if(args[1]=="domination") {expected.Add("LureObjectsUpdateModuleData",0xb65ab72au);expected.Add("AddObjectsToLureUpdateSpecialPowerModuleData",0xa7deffccu);modules="<LureObjectsUpdate id='Lure'><GuardOffset x='1' y='2' z='3'/></LureObjectsUpdate><AddObjectsToLureUpdateSpecialPower id='Dominate' SpecialPowerTemplate='TestPower' TeleportLinkID='4' LureObjectLinkID='7'/>";}
         if(args[1]=="slam") {expected.Add("AddObjectsToLiftUpdateSpecialPowerModuleData",0xd9b247dfu);expected.Add("FlingStoredObjectsSpecialPowerModuleData",0x12d1fad9u);expected.Add("YurikoLiftObjectUpdateModuleData",0xaa9e10d6u);modules="<YurikoLiftObjectUpdate id='Lift' LiftObjectLinkID='7'/><AddObjectsToLiftUpdateSpecialPower id='Pickup' SpecialPowerTemplate='TestPower'/><FlingStoredObjectsSpecialPower id='Throw' SpecialPowerTemplate='TestPower'/>";}
         if(expected.Count==0)throw new Exception("unknown fixture group");
         var schemas=new XmlSchemaSet();schemas.XmlResolver=new XmlUrlResolver();schemas.Add("uri:ea.com:eala:asset",args[0]);schemas.Compile();

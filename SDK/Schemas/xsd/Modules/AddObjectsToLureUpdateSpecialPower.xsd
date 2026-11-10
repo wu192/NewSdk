@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="uri:ea.com:eala:asset" targetNamespace="uri:ea.com:eala:asset" elementFormDefault="qualified">
-  <!-- RA3 port: inherited TeleportLinkID selects LureObjectsUpdate.LinkID. -->
+  <!-- Explicit RA3 port alias: own destination link is independent of Store.TeleportLinkID. -->
   <xs:complexType name="AddObjectsToLureUpdateSpecialPowerModuleData">
-    <xs:complexContent><xs:extension base="StoreObjectsSpecialPowerModuleData"/></xs:complexContent>
+    <xs:complexContent><xs:extension base="StoreObjectsSpecialPowerModuleData">
+      <xs:attribute name="LureObjectLinkID" type="SageInt" default="0"/>
+    </xs:extension></xs:complexContent>
   </xs:complexType>
 </xs:schema>

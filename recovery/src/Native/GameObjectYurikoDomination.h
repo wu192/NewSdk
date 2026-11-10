@@ -29,13 +29,19 @@ const ModuleToken lureTokens[] = {
     { 0x13b3d27cu, 0x29368077u, 60u, &lureOffsetLayout, 1u, 12u },
 };
 const ModuleLayout lureLayout = { lureTokens, 9u };
-// The RA3 port uses StoreObjectsSpecialPower's existing TeleportLinkID to
-// select LureObjectsUpdate.LureObjectLinkID. It does not add a second storage identifier.
+// The native AddLure callback uses an independent destination link after Store.
+// Its protected parser token is unknown; this explicit RA3 port alias reuses
+// the public LureObjectLinkID token, independently of inherited TeleportLinkID.
+const ModuleField addLureFields[] = {
+    { "LureObjectLinkID", 468u, ModuleValue::Signed, "0", nullptr },
+};
+const ModuleFieldSet addLureFieldSet = { addLureFields, 1u };
 const ModuleToken addLureTokens[] = {
     { 1u, 0xa74a234cu, 0u, &specialDerivedStoreObjectsSpecialPowerModuleData, 0u, 0u },
+    { 0x16e57839u, 0x23e650b8u, 468u, nullptr, 0u, 0u },
 };
-const ModuleLayout addLureLayout = { addLureTokens, 1u };
+const ModuleLayout addLureLayout = { addLureTokens, 2u };
 const ModuleChoice dominationChoices[] = {
     { 0xb65ab72au, &lureLayout, 68u, 291u },
-    { 0xa7deffccu, &addLureLayout, 468u, 292u },
+    { 0xa7deffccu, &addLureLayout, 472u, 292u },
 };

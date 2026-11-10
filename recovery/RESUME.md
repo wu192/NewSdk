@@ -1,6 +1,6 @@
 # 本分支：百合子魅惑模块移植
 
-基于 `compiler-main/f0adccd6`，配套 EnhancerCorona `feature/yuriko-domination`。生产编译支持、原生输入 token、公开字段和验证范围见 [本轮说明](docs/YURIKO_DOMINATION.md)。本地实际 32 位组件 LE/BE 与八组旧资产三缓冲兼容检查通过；Win32 Debug/Release、无 TypeId 注入的 XSD 路由以本分支 Actions 最终状态为准。未新增真实 SDK 四流或游戏内验收。
+基于 `compiler-main/f0adccd6`，配套 EnhancerCorona `feature/yuriko-domination`。AddLure 已补独立目的链接 LureObjectLinkID（数据 472 字节），与继承的存储集合 TeleportLinkID 分开。生产编译支持、原生输入 token、公开字段和验证范围见 [本轮说明](docs/YURIKO_DOMINATION.md)。本地实际 32 位组件 LE/BE 与八组旧资产三缓冲兼容检查通过；Win32 Debug/Release、无 TypeId 注入的 XSD 路由此次独立链接的结果以本分支新 Actions 为准。未新增真实 SDK 四流或游戏内验收。
 
 以下历史入口保留。
 
