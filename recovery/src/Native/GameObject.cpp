@@ -6,6 +6,7 @@
 #include "EnumBitset.h"
 #include "ObjectFilter.h"
 #include "WeaponSlotOrder.h"
+#include "WeaponNugget.h"
 #include <cstring>
 #include <stdexcept>
 #include <algorithm>

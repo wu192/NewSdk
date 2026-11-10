@@ -11,6 +11,14 @@ unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
     if(kind==293)return GameObjectModuleNodeKind(183,path);
     if(kind==294)return path=="ObjectReplacement"?2:GameObjectModuleNodeKind(162,path);
     if(kind==296)return 0;
+    if(kind==297) {
+        if(path=="DamageNugget" || path=="DamageNugget/DamageScalarDetails") return 2;
+        if(path=="DamageNugget/SpecialObjectFilter" || path=="DamageNugget/DamageScalarDetails/Filter") return 1;
+        for(const char* prefix:{"DamageNugget/SpecialObjectFilter/","DamageNugget/DamageScalarDetails/Filter/"})
+            if(path==std::string(prefix)+"IncludeThing" || path==std::string(prefix)+"ExcludeThing") return 3;
+        if(path=="DamageNugget/RequiredUpgrade" || path=="DamageNugget/ForbiddenUpgrade" || path=="DamageNugget/DamageScalarDetails/RequiredUpgrade") return 3;
+        return 0;
+    }
     if(kind>=286 && kind<=290)return DrawModelNodeKind(kind,path);
     if(kind>=283 && kind<=285){
         if(kind!=284 && (path=="FXShader" || path=="FXShader/Constants"))return 1;

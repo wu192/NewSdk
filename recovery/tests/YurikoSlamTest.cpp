@@ -35,6 +35,44 @@ int main() {try {
         Require(GameObjectModuleNodeKind(293,"RequirementsFilterMP/IncludeThing")==3,"pickup inherited XML filter route");
         Require(GameObjectModuleNodeKind(294,"RequirementsFilterMP/IncludeThing")==3,"throw inherited XML filter route");
         Require(GameObjectModuleNodeKind(294,"ObjectReplacement")==2,"replacement XML reader route");
+        GameObjectChild collide;collide.name="DamageDynamicsCollide";
+        collide.attributes={{"TypeId","431960881"},{"id","Impact"}};
+        GameObjectChild impact;impact.name="DamageNugget";
+        impact.attributes={{"Damage","250"},{"DamageType","CRUSH"},{"DeathType","NORMAL"},
+            {"Radius","12"},{"UnderAttackOverrideEvaEvent","Eva\\9"},{"VictimShroudRevealer","Revealer\\11"}};
+        GameObjectChild filter;filter.name="SpecialObjectFilter";filter.attributes={{"Rule","ANY"},{"Include","INFANTRY"}};
+        GameObjectChild include;include.name="IncludeThing";include.text="Infantry";filter.children.push_back(include);impact.children.push_back(filter);
+        GameObjectChild required;required.name="RequiredUpgrade";required.text="CollisionUpgrade";impact.children.push_back(required);
+        GameObjectChild scalar;scalar.name="DamageScalarDetails";scalar.attributes={{"Scalar","150%"}};
+        filter.name="Filter";scalar.children.push_back(filter);scalar.children.push_back(required);impact.children.push_back(scalar);
+        collide.children.push_back(impact);
+        impact.attributes={{"Damage","0"},{"OnlyKillOwnerWhenTriggered","true"},{"DeathType","NORMAL"}};
+        impact.children.clear();collide.children.push_back(impact);
+        auto co=Compile(collide,big);auto ct=Table(co.instance,0x19bf3331u,big);
+        Require(Number(co.instance,Field(co.instance,ct,0x00f63ca4u,big),big)==10,"native full-damage speed default");
+        auto damageList=Field(co.instance,ct,0xf4948415u,big);
+        Require(Word(co.instance,Word(co.instance,damageList+8,big),big)==2,"inline damage count");
+        auto first=Word(co.instance,damageList+20,big),second=Word(co.instance,damageList+32,big);
+        Require(Word(co.instance,first,big)==1,"damage entry has direct fields without polymorphic wrapper");
+        auto firstStart=InheritedField(co.instance,first,430981792u,big),secondStart=InheritedField(co.instance,second,430981792u,big);
+        Require(secondStart-firstStart==152,"RA3 damage entries are contiguous 152-byte values");
+        Require(Word(co.instance,firstStart,big)==0xc0f53e99u,"inline damage type");
+        Require(Number(co.instance,Field(co.instance,first,0x7c33e4e9u,big),big)==250,"impact damage");
+        Require(Number(co.instance,InheritedField(co.instance,first,0x4f31c6c5u,big),big)==12,"inherited nugget radius");
+        Require(Word(co.instance,Field(co.instance,first,4203588415u,big),big)==10,"inline EVA strong reference");
+        Require(Word(co.instance,Field(co.instance,first,771372620u,big),big)==12,"inline revealer strong reference");
+        auto scalarList=Field(co.instance,first,2442600653u,big);
+        Require(Word(co.instance,Word(co.instance,scalarList+8,big),big)==1,"nested damage-scalar count");
+        auto scalarEntry=Word(co.instance,scalarList+20,big);
+        Require(Number(co.instance,Field(co.instance,scalarEntry,1556264584u,big),big)==1.5f,"nested percent scalar");
+        auto upgrades=Field(co.instance,scalarEntry,2138150697u,big);
+        Require(Word(co.instance,Word(co.instance,upgrades+8,big),big)==1,"nested scalar upgrade count");
+        Require(Word(co.instance,Word(co.instance,upgrades+20,big),big)==HashAssetId("CollisionUpgrade"),"nested scalar weak upgrade ID");
+        Require(co.instance[Field(co.instance,second,1874552506u,big)]==1,"self-kill flag from shared damage definition");
+        Require(GameObjectModuleNodeKind(297,"DamageNugget/DamageScalarDetails/Filter/IncludeThing")==3,"nested damage filter XML path");
+        collide.attributes["FullDamageSpeed"]="25";auto overrideSpeed=Compile(collide,big);auto ot=Table(overrideSpeed.instance,0x19bf3331u,big);
+        Require(Number(overrideSpeed.instance,Field(overrideSpeed.instance,ot,0x00f63ca4u,big),big)==25,"full-damage speed override");
+
     }
-    std::cout<<"Yuriko slam: pickup/store/lift links, native speed defaults, three source/proxy mappings, inherited LiftVelocity and LE/BE passed\n";return 0;
+    std::cout<<"Yuriko slam: pickup/store/lift links, native speed defaults, three source/proxy mappings, inherited LiftVelocity, inline collision damage with nested filters/scalars and LE/BE passed\n";return 0;
 } catch(const std::exception& e) {std::cerr<<e.what()<<"\n";return 1;}}

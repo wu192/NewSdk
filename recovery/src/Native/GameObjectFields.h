@@ -3970,6 +3970,7 @@ const ModuleChildName moduleChildNames[] = {
     { "Behaviors", "BombardAreaUpdate" },
     { "Behaviors", "AddObjectsToLiftUpdateSpecialPower" },
     { "Behaviors", "FlingStoredObjectsSpecialPower" },
+    { "Behaviors", "DamageDynamicsCollide" },
     { "Behaviors", "YurikoLiftObjectUpdate" },
     { "Behaviors", "LiftObjectUpdate" },
     { "Behaviors", "SpecialDisguiseUpdate" },

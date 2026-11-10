@@ -37,6 +37,7 @@
 			<xs:element name="BombardAreaUpdate" type="BombardAreaUpdateModuleData" />
 			<xs:element name="AddObjectsToLiftUpdateSpecialPower" type="AddObjectsToLiftUpdateSpecialPowerModuleData" />
 			<xs:element name="FlingStoredObjectsSpecialPower" type="FlingStoredObjectsSpecialPowerModuleData" />
+			<xs:element name="DamageDynamicsCollide" type="DamageDynamicsCollideModuleData" />
 			<xs:element name="YurikoLiftObjectUpdate" type="YurikoLiftObjectUpdateModuleData" />
 			<xs:element name="LiftObjectUpdate" type="LiftObjectUpdateModuleData" />
 			<xs:element name="SpecialDisguiseUpdate" type="SpecialDisguiseUpdateModuleData" />

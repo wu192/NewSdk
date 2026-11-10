@@ -53,7 +53,7 @@ try {
  $common=@('Relocation','ScalarParsing','DataInitializers','ResourceMarshaling','EnumBitset','ObjectFilter')|ForEach-Object{"recovery/src/Native/$_.cpp"}
  $xmlSources=@($common)+@(Get-ChildItem recovery/src/Native/Xml*.cpp -File|Where-Object Name -notmatch Draft|Sort-Object Name|ForEach-Object FullName)+@(Get-ChildItem recovery/src/Bridge/Xml*Compiler.cpp -File|Where-Object Name -notmatch Draft|Sort-Object Name|ForEach-Object FullName)
  Build-Plugin 'Recovered.XmlCompilerPriority' $xmlSources 'recovery/src/Plugin/XmlPriorityPlugin.cs' 'Recovered.XmlPriority.Plugin'
- Build-Plugin 'Recovered.GameObject' (@($common)+@('recovery/src/Native/WeaponSlotOrder.cpp','recovery/src/Native/GameObject.cpp','recovery/src/Bridge/GameObjectCompiler.cpp')) 'recovery/src/Plugin/GameObjectPlugin.cs' 'Recovered.GameObjectPlugin'
+ Build-Plugin 'Recovered.GameObject' (@($common)+@('recovery/src/Native/WeaponSlotOrder.cpp','recovery/src/Native/WeaponNugget.cpp','recovery/src/Native/GameObject.cpp','recovery/src/Bridge/GameObjectCompiler.cpp')) 'recovery/src/Plugin/GameObjectPlugin.cs' 'Recovered.GameObjectPlugin'
  Build-Plugin 'Recovered.Weapon' (@($common)+@('recovery/src/Native/WeaponNugget.cpp','recovery/src/Native/WeaponTemplate.cpp','recovery/src/Bridge/WeaponCompiler.cpp')) 'recovery/src/Plugin/WeaponPlugin.cs' 'Recovered.WeaponPlugin'
  Build-Plugin 'Recovered.Armor' @('recovery/src/Native/Relocation.cpp','recovery/src/Native/ScalarParsing.cpp','recovery/src/Native/ArmorTemplate.cpp','recovery/src/Bridge/ArmorCompiler.cpp') 'recovery/src/Plugin/ArmorPlugin.cs' 'Recovered.Compiler'
  & "$root/recovery/scripts/BuildW3xPlugin.ps1" -OutputDirectory "$work/w3x"

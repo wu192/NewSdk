@@ -4,7 +4,7 @@ $build=if($env:RUNNER_TEMP){Join-Path $env:RUNNER_TEMP "yuriko-slam-$Configurati
 New-Item -ItemType Directory -Path $build -Force | Out-Null
 $mode=if($Configuration -eq 'Debug'){'/Od'}else{'/O2'}
 $native='recovery/src/Native'
-$sources=@('Relocation','ScalarParsing','DataInitializers','ResourceMarshaling','EnumBitset','ObjectFilter','WeaponSlotOrder','GameObject') | ForEach-Object {"$native/$_.cpp"}
+$sources=@('Relocation','ScalarParsing','DataInitializers','ResourceMarshaling','EnumBitset','ObjectFilter','WeaponSlotOrder','WeaponNugget','GameObject') | ForEach-Object {"$native/$_.cpp"}
 & cl /nologo /EHsc /std:c++17 /MD /W3 $mode "/I$native" /Irecovery/tests @sources recovery/tests/YurikoSlamTest.cpp "/Fe:$build/test.exe" "/Fo:$build/"
 if($LASTEXITCODE -ne 0){throw 'Native module test build failed'}
 & "$build/test.exe"

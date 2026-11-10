@@ -1,3 +1,7 @@
+# 本轮补齐：投掷物理碰撞伤害
+
+`DamageDynamicsCollide` 的新 XSD/路由已接入，直接复用完整 DamageNuggetType 的 152 字节值数组。LE/BE 组件及八组旧 GameObject、六组旧 Weapon 三缓冲字节对照通过；Win32/XSD 结果以本分支新的 Actions 为准。字段、原生证据和接口边界见 [投掷说明](docs/YURIKO_SLAM.md)。本次新增共享 WeaponNugget.cpp 依赖，独立 GameObject 检查脚本已同步；未改旧伤害功能。
+
 # 本分支：百合子投掷模块移植
 
 基于 `compiler-main/f0adccd6`，配套 EnhancerCorona `feature/yuriko-slam`。生产编译支持、原生输入 token、公开字段和限制见 [本轮说明](docs/YURIKO_SLAM.md)。本地实际 32 位组件 LE/BE 与八组旧资产三缓冲兼容检查通过；Win32 Debug/Release、无 TypeId 注入的 XSD 路由以本分支 Actions 最终状态为准。未新增真实 SDK 四流或游戏内验收。

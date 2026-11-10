@@ -9,6 +9,7 @@ BOOL CALLBACK InitializeModuleIndex(PINIT_ONCE,PVOID,PVOID*) {
         std::unique_ptr<ModuleIndex> index(new ModuleIndex);
         index->reserve(320);
         // emplace keeps the original first-match precedence across families.
+        index->emplace(damageDynamicsChoice.type,&damageDynamicsChoice);
         for(const auto& choice:slamChoices) index->emplace(choice.type,&choice);
         for(const auto& choice:drawModelChoices) index->emplace(choice.type,&choice);
         for(const auto& choice:drawBeamChoices) index->emplace(choice.type,&choice);
