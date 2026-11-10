@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="uri:ea.com:eala:asset" targetNamespace="uri:ea.com:eala:asset" elementFormDefault="qualified">
+  <!-- RA3 port: inherited TeleportLinkID selects LureObjectsUpdate.LinkID. -->
+  <xs:complexType name="AddObjectsToLureUpdateSpecialPowerModuleData">
+    <xs:complexContent><xs:extension base="StoreObjectsSpecialPowerModuleData"/></xs:complexContent>
+  </xs:complexType>
+</xs:schema>
