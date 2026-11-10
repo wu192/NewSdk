@@ -30,3 +30,5 @@
 本地实际 32 位 C++ tokenizer 的 LE/BE 用例通过，覆盖拾取、存储、悬浮链接、原生速度默认值、三条源/代理映射、空表及父类 LiftVelocity；宿主为 GCC14/QEMU i386，Windows InitOnce 由宿主接口替代。Actions 继续验证 Win32 Debug/Release 与无 TypeId 注入的 XSD 路由。真实 SDK 四流、完整 MOD 和实机投掷尚未验证。
 
 旧资产兼容检查：使用同一实际 32 位宿主分别编译 `f0adccd6` 和本分支，根对象、原 ShieldSphereUpdate、原 LiftObjectUpdate、原 StoreObjectsSpecialPower 四组输入各测 LE/BE，instance/relocation/import 三缓冲合计 23296 字节完全一致，SHA256 `4b80a8cf006d046d04c624af7431130c7522c89447589c16409ff7e28b305be3`。该检查覆盖这八组旧资产，不等于完整 SDK 差分。
+
+Windows 验证已通过：[定向运行 42789466290](https://github.com/wu192/NewSdk/actions/runs/42789466290)，源码 `fb2843a00ed8d3ff79ecaca04627c0aa91444232`，Win32 Debug/Release 均完成实际 native tokenizer 与公开 XML/XSD 路由检查。该结果不包含完整 SDK 四流或游戏执行。
