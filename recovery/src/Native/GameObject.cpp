@@ -111,6 +111,7 @@ extern const ModuleLayout drawMainW3DScriptedModelDrawModuleData;
 #include "GameObjectDrawAnimation.h"
 #include "GameObjectDrawDynamics.h"
 #include "GameObjectDrawModel.h"
+#include "GameObjectYurikoSlam.h"
 struct ReloString {U32 length;void* data;};
 static_assert(sizeof(ReloString)==8, "GameObject strings require x86");
 struct NativeList {U32 count;void* data;};

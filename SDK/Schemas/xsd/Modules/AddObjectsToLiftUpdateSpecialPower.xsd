@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="uri:ea.com:eala:asset" targetNamespace="uri:ea.com:eala:asset" elementFormDefault="qualified">
+  <xs:complexType name="AddObjectsToLiftUpdateSpecialPowerModuleData">
+    <xs:complexContent><xs:extension base="StoreObjectsSpecialPowerModuleData">
+      <xs:attribute name="LiftObjectLinkID" type="SageInt" default="0"/>
+    </xs:extension></xs:complexContent>
+  </xs:complexType>
+</xs:schema>

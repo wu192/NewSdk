@@ -1,0 +1,43 @@
+// Uprising 1.0 AddLift input parser 0x26c0000 and Fling parser 0x4ae440.
+// StoreObjectsLinkID and LiftObjectLinkID are hash-verified original names.
+// FlingSpeedMax/Min are descriptive aliases retaining original input token IDs.
+const ModuleField addLiftFields[] = {
+    { "LiftObjectLinkID", 468u, ModuleValue::Signed, "0", nullptr },
+};
+const ModuleFieldSet addLiftFieldSet = { addLiftFields, 1u };
+const ModuleToken addLiftTokens[] = {
+    { 1u, 0xa74a234cu, 0u, &specialDerivedStoreObjectsSpecialPowerModuleData, 0u, 0u },
+    { 0xddccddf3u, 0x23e650b8u, 468u, nullptr, 0u, 0u },
+};
+const ModuleLayout addLiftLayout = { addLiftTokens, 2u };
+const ModuleField flingFields[] = {
+    { "StoreObjectsLinkID", 452u, ModuleValue::Signed, "0", nullptr },
+    { "LiftObjectLinkID", 456u, ModuleValue::Signed, "0", nullptr },
+    { "FlingSpeedMax", 460u, ModuleValue::Float, "300", nullptr },
+    { "FlingSpeedMin", 464u, ModuleValue::Float, "100", nullptr },
+};
+const ModuleFieldSet flingFieldSet = { flingFields, 4u };
+const ModuleToken flingTokens[] = {
+    { 1u, 0xcefe1113u, 0u, &specialPowerSpecialPowerModuleData, 0u, 0u },
+    { 0xfee927fcu, 0x23e650b8u, 452u, nullptr, 0u, 0u },
+    { 0xddccddf3u, 0x23e650b8u, 456u, nullptr, 0u, 0u },
+    { 0x7b773fb9u, 0x645864f3u, 460u, nullptr, 0u, 0u },
+    { 0x80503b2du, 0x645864f3u, 464u, nullptr, 0u, 0u },
+};
+const ModuleLayout flingLayout = { flingTokens, 5u };
+// A new derived name keeps old LiftObjectUpdate's 40-byte data and tokens
+// unchanged. This port adds the missing Uprising link field after that prefix.
+const ModuleField yurikoLiftFields[] = {
+    { "LiftObjectLinkID", 40u, ModuleValue::Signed, "0", nullptr },
+};
+const ModuleFieldSet yurikoLiftFieldSet = { yurikoLiftFields, 1u };
+const ModuleToken yurikoLiftTokens[] = {
+    { 1u, 0xbf91bfcdu, 0u, &utilityLiftObjectUpdateModuleData, 0u, 0u },
+    { 0xddccddf3u, 0x23e650b8u, 40u, nullptr, 0u, 0u },
+};
+const ModuleLayout yurikoLiftLayout = { yurikoLiftTokens, 2u };
+const ModuleChoice slamChoices[] = {
+    { 0xd9b247dfu, &addLiftLayout, 472u, 293u },
+    { 0x12d1fad9u, &flingLayout, 476u, 294u },
+    { 0xaa9e10d6u, &yurikoLiftLayout, 44u, 296u },
+};
