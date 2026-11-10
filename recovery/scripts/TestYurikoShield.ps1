@@ -1,7 +1,6 @@
 param([ValidateSet('Debug','Release')][string]$Configuration='Release')
 $ErrorActionPreference='Stop'
-$build=Join-Path $env:RUNNER_TEMP "yuriko-shield-$Configuration"
-if (-not $env:RUNNER_TEMP) {$build=Join-Path $PSScriptRoot '../../work/yuriko-shield'}
+$build=if($env:RUNNER_TEMP){Join-Path $env:RUNNER_TEMP "yuriko-shield-$Configuration"}else{Join-Path $PSScriptRoot '../../work/yuriko-shield'}
 New-Item -ItemType Directory -Path $build -Force | Out-Null
 $mode=if($Configuration -eq 'Debug'){'/Od'}else{'/O2'}
 $native='recovery/src/Native'

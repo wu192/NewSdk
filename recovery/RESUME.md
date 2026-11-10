@@ -1,3 +1,9 @@
+# 本分支：百合子护盾模块移植
+
+基于 `compiler-main/f0adccd6`，配套 EnhancerCorona `feature/yuriko-shield`。生产编译支持、原生输入 token、公开字段和限制见 [本轮说明](docs/YURIKO_SHIELD.md)。本地实际 32 位组件 LE/BE 与八组旧资产三缓冲兼容检查通过；Win32 Debug/Release、无 TypeId 注入的 XSD 路由以本分支 Actions 最终状态为准。未新增真实 SDK 四流或游戏内验收。
+
+以下历史入口保留。
+
 # 当前：Patch / FX / 配置版本已通过定向验证，PR #11 待审
 
 FX 随包工具补充已通过：生产源码 `fd32a0a5`，[Windows 42341470222](https://github.com/wu192/NewSdk/actions/runs/42341470222) 全部 success。新包加入 Windows SDK 10.0.26100.0 的 x86 `fxc.exe` 与 `d3dcompiler_47.dll`，默认使用 EXE 同目录工具。D/R 五文件 ZIP 独立解压，在 PATH 为空、SDK 无 FXC 且不传 --fxc 时真实编译成功，自动工具路径及 FXO 入 BIG 均确认；原15成员 patch/LoD、冷热/基准修改/损坏输入也通过。16份报告、438个事件协议复核通过。[下载新 D/R ZIP](https://github.com/wu192/NewSdk/actions/runs/42341470222/artifacts/13562280288)，[收据](evidence/patch-fx-bundle/42341470222-1/summary.json)。历史归档和固定旧发布脚本保留原布局；以下 `64d2aeb3` 是补充前的验收来源。

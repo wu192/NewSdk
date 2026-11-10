@@ -15,7 +15,7 @@ class YurikoSchemaRoutes {
         var schemas=new XmlSchemaSet();schemas.XmlResolver=new XmlUrlResolver();schemas.Add("uri:ea.com:eala:asset",args[0]);schemas.Compile();
         var settings=new XmlReaderSettings();settings.Schemas=schemas;settings.ValidationType=ValidationType.Schema;
         settings.ValidationEventHandler+=(sender,e)=>{throw e.Exception;};
-        string xml="<AssetDeclaration xmlns='uri:ea.com:eala:asset'><GameObject id='Test'><Behaviors>"+modules+"</Behaviors></GameObject></AssetDeclaration>";
+        string xml="<AssetDeclaration xmlns='uri:ea.com:eala:asset'><GameObject id='Test'><Behaviors>"+modules+"</Behaviors><AI><AIUpdate id='AI'/></AI><Body><ActiveBody id='Body' MaxHealth='500'/></Body></GameObject></AssetDeclaration>";
         int checkedTypes=0;
         using(var reader=XmlReader.Create(new StringReader(xml),settings)) while(reader.Read()) {
             if(reader.NodeType!=XmlNodeType.Element || reader.SchemaInfo==null || reader.SchemaInfo.SchemaType==null)continue;
