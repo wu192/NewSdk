@@ -24,8 +24,10 @@
 
 旧资产兼容检查：使用同一实际 32 位宿主分别编译 `f0adccd6` 和本分支，根对象、原 ShieldSphereUpdate、原 LiftObjectUpdate、原 StoreObjectsSpecialPower 四组输入各测 LE/BE，instance/relocation/import 三缓冲合计 23296 字节完全一致，SHA256 `4b80a8cf006d046d04c624af7431130c7522c89447589c16409ff7e28b305be3`。该检查覆盖这八组旧资产，不等于完整 SDK 差分。
 
-此前组件 Windows 验证：[定向运行 42787898814](https://github.com/wu192/NewSdk/actions/runs/42787898814)，源码 `8e4d10932dd843d26a97ccc38928f35521b875d4`，Win32 Debug/Release 均完成实际 native tokenizer 与公开 XML/XSD 路由检查。该结果不包含此次独立目的链接；新的 Win32/XSD 结果另行记录，也不包含完整 SDK 四流或游戏执行。
+Windows 验证已通过：[定向运行 42833996905](https://github.com/wu192/NewSdk/actions/runs/42833996905)，源码 `3549bf59`，Win32 Debug/Release 均完成包含独立目的链接的实际 native tokenizer 与公开 XML/XSD 路由检查。该结果不包含完整 SDK 四流或游戏执行。
 
 配套运行时补齐了旋转队形、守卫范围和强制跟随速度的内部实现；这些改动沿用上述字段及 68 字节协议，没有新增 XML 参数。最终运行时 Win32 验证状态见 [EnhancerCorona 魅惑说明](https://github.com/wu192/EnhancerCorona/blob/feature/yuriko-domination/docs/YurikoDomination.md)，不把先前编译器组件结果扩大为运行时或实机通过。
 
 原生 AddLure 回调 `0x7FA760` 读取起义数据 +0x1EC 的独立目的链接，查找函数 `0x6E9DF0` 对 0 选择首个模块、对非零比较 Lure 数据 +8。RA3 的原生 Store 前缀为 468 字节，AddLure 增加一个有符号链接至 +468，完整数据 472 字节。原字段 parser `0x4AE230` 和构造器 `0x43B8A0` 进入保护代码；`AddObjectsToLureUpdateSpecialPower.LureObjectLinkID`、token `0x16E57839/0x23E650B8` 及缺省 0 是明确的移植协议，不声称恢复了原生 AddLure 字段拼写或缺省值。原生 LureUpdate 同名字段散列已经核实。
+
+独立链接改动后重新执行上述八组旧 GameObject 对照，23296 字节三缓冲仍逐字节相同；[本次收据](../evidence/yuriko-domination/legacy-link-compat.json) 记录源码、案例、平台和 SHA256。
