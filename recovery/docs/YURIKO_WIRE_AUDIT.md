@@ -7,14 +7,14 @@
 | 模块 | 数据大小 | 本轮输入与断言 | token 缓冲大小 |
 | --- | ---: | --- | ---: |
 | LureObjectsUpdate | 68 | 链接 7、半径平方 22500、守卫范围 99、帧间隔 12、七字状态、标记弱 ID、三个 Vector3 | 2784 |
-| AddObjectsToLureUpdateSpecialPower | 468 | 原生 Store 父层解包、TeleportLinkID 7、释放时恢复父类型 | 3844 |
+| AddObjectsToLureUpdateSpecialPower | 472 | 原生 Store 字段直接写最终分配、集合 TeleportLinkID 4/独立目的 LureObjectLinkID 7、释放时恢复父类型 | 3860 |
 | AddObjectsToLiftUpdateSpecialPower | 472 | Store 集合 4、悬浮链接 7 | 3860 |
 | FlingStoredObjectsSpecialPower | 476 | 集合 4、悬浮链接 7、速度 420/180、三个模板替换条目及释放 | 4020 |
 | YurikoLiftObjectUpdate | 44 | 原生 40 字节父数据、LiftVelocity 8、链接 7 | 2568 |
 | YurikoShieldSphereUpdate | 280 | 原生护盾半径 90、两条 FX 引用的一基编码、伤害类型 64 位掩码 | 3068 |
-| DamageDynamicsCollide | 20 | DynamicsCollide→Behavior 父层、速度 25、两个直接内联的 152 字节 DamageNugget、伤害 250、自毁位及释放所有权 | 3736 |
+| DamageDynamicsCollide | 20 | DynamicsCollide→Behavior 父层、速度 25、两个直接内联的 152 字节 DamageNugget、伤害 250、自毁位、两条强引用的最终修正地址及释放所有权 | 3736 |
 
-编译器组件另外覆盖 LE/BE、完整伤害条目字段、嵌套过滤器与标量，以及旧资产字节兼容；跨仓工具使用 LE token 输入。最新投掷 Win32 Debug/Release 及四模块公开 XSD 路由为 [42829667772](https://github.com/wu192/NewSdk/actions/runs/42829667772)，源 `b4149eb564a5a7d2a6df0b0710992d19e99b867a`。旧 GameObject 八组输入三缓冲 23296 字节、旧 Weapon 六组输入三缓冲 13304 字节均与 `f0adccd6` 相同；具体散列见 [投掷说明](YURIKO_SLAM.md)。
+编译器组件另外覆盖 LE/BE、完整伤害条目字段、嵌套过滤器与标量，以及旧资产字节兼容；跨仓工具使用 LE token 输入。最新投掷 Win32 Debug/Release 及四模块公开 XSD 路由为 [42829667772](https://github.com/wu192/NewSdk/actions/runs/42829667772)，源 `b4149eb564a5a7d2a6df0b0710992d19e99b867a`。旧 GameObject 八组输入三缓冲 23296 字节、旧 Weapon 六组输入三缓冲 13304 字节均与 `f0adccd6` 相同；具体散列见 [投掷说明](YURIKO_SLAM.md)。新增独立魅惑目的链接的 Win32 Debug/Release/XSD 为 [42833996905](https://github.com/wu192/NewSdk/actions/runs/42833996905)，源 `3549bf59`；该源码八组旧 GameObject 对照也再次通过。
 
 ## 复跑
 
@@ -34,7 +34,7 @@ python recovery/tools/yuriko-wire/audit.py --sdk-prefix C:/work/NewSdk-yuriko --
 python recovery/tools/yuriko-wire/audit.py \
   --sdk-prefix /workspace/work/NewSdk-yuriko \
   --runtime-prefix /workspace/work/EnhancerCorona-yuriko \
-  --out /workspace/work/yuriko-wire-repeat \
+  --out /workspace/work/yuriko-wire-final \
   --cxx /workspace/work/sdk-host-test/gxx32 --kind gnu \
   --runner-json '["/workspace/work/sdk-host-test/usr/bin/qemu-i386","/workspace/work/sdk-host-test/sysroot/usr/lib32/ld-linux.so.2","--library-path","/workspace/work/sdk-host-test/sysroot/usr/lib32"]'
 ```
@@ -43,6 +43,8 @@ python recovery/tools/yuriko-wire/audit.py \
 
 ## 证据边界与后续验证
 
-原生父数据 parser、完整 DamageNugget 字段 parser、游戏分配器和资源回调由受控接口替代。断言检查传给这些接口的父 token 层级、直接/多态条目形状、大小和引用编码；完整 DamageNugget 本身由已有编译器组件用例检查。工具不能证明原生函数调用约定、Hook、状态图、伤害执行、存档重定位或游戏行为，也没有运行 C# 前端、完整 SDK 四流、完整 MOD 或实机。
+原生字段 parser、游戏分配器和资源回调由受控接口替代。断言检查传给这些接口的父 token 层级、直接条目形状、大小、引用编码和最终输出地址；完整 DamageNugget 本身由已有编译器组件用例检查。Store、SpecialPower、Lift、Behavior 和 DamageNugget 均直接写最终分配。DamageNugget 还模拟延后资源修正，确认两个强引用的写入地址保留在最终数组中；不用临时条目复制来掩盖地址寿命问题。工具不能证明原生函数调用约定、Hook、状态图、伤害执行、存档重定位或游戏行为，也没有运行 C# 前端、完整 SDK 四流、完整 MOD 或实机。
 
 仅修改运行时内部算法、状态或 Hook，且 XML/XSD、编组/token/endian、数据头和 parser 均未变时，保留有效的 SDK 组件/XSD 结果，并运行该运行时改动所需的宿主回归和 Win32 DLL 检查。无需为了同一份编译协议重复完整 SDK 验证。修改上述协议依赖时，集中重跑对应组件/XSD及本审计；新增原生调用仍需独立 ABI 和运行时验证。该判断不跳过或关闭已有 Actions。
+
+原生字段入口由静态调用链核对：Store `0x4A8A80`、SpecialPower `0x4A7B60`、Lift `0x42E430`、Behavior `0x41D640`、DamageNugget `0x483DC0`，均为 `cdecl(base, body, finalOutput, tracker)`。武器 Nugget 包装入口 `0x4928D0` 的 Damage 分支经 `0x4905B0` 分配/清零 152 字节后调用 `0x483DC0`；通用模块入口 `0x4ACAD0` 不分派此 Nugget 类型。运行时使用字段入口直接写最终数组，工具按实际 GameAddress 键替代这些接口。

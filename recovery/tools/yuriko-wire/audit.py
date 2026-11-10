@@ -66,30 +66,35 @@ auto* positions=(Position*)(std::uintptr_t)d->offsets;for(unsigned i=0;i<3;++i)a
 destroyData(&result,nullptr);assert(!result);std::cout<<"actualSDK->runtime Lure68 parser: PASS\n";}
 '''
 write_source('audit-lure.cpp',source)
-# Slam prefix parser and map allocation/destruction, with a mock native prefix only.
+# Slam prefix parser and map allocation/destruction, with in-place native seams.
 r=Path(str(options.runtime_prefix.resolve())+'-slam');s=(r/'ext/YurikoSlamExt.cpp').read_text();parse=s[s.index('    void parsePrefix('):s.index('    Module* findModule(')]
 source=common+r'''
 #include "ra3defines/YurikoSlam.h"
 using namespace YurikoSlam;
 constexpr std::uint32_t nativeLiftType=0xBF91BFCD;
-namespace GameAddress{template<class T>T get_address(std::string_view k){return k=="allocate_game_memory"?reinterpret_cast<T>(&alloc):reinterpret_cast<T>(&release);}}
-namespace CustomModuleRegistry{
-void parseNative(unsigned char* base,std::uint32_t* w,void** out,void*){
- auto* table=(std::uint32_t*)(base+w[2]);assert(table[0]==1);
- unsigned bytes=w[1]==storeType?468:w[1]==powerType?452:40;
- auto* p=(std::uint32_t*)alloc(bytes);p[0]=w[1];p[1]=value(base,table,0x8CDC9898);
- if(w[1]==storeType)p[114]=value(base,table,0xFE5DBC0B);
- if(w[1]==nativeLiftType)p[2]=value(base,table,0x38026647);
- *out=p;
+void* prefixDestination{};
+void prefixFields(unsigned char* base,std::uint32_t* table,void* out,std::uint32_t type){
+ assert(table[0]==1);auto* p=(std::uint32_t*)out;p[0]=type;p[1]=value(base,table,0x8CDC9898);prefixDestination=out;
+ if(type==storeType)p[114]=value(base,table,0xFE5DBC0B);
+ if(type==nativeLiftType)p[2]=value(base,table,0x38026647);
 }
-void destroyNative(void** out,void*){release(*out);*out=nullptr;}
-}
+void storeFields(unsigned char* b,std::uint32_t* t,void* o,void*){prefixFields(b,t,o,storeType);}
+void powerFields(unsigned char* b,std::uint32_t* t,void* o,void*){prefixFields(b,t,o,powerType);}
+void liftFields(unsigned char* b,std::uint32_t* t,void* o,void*){prefixFields(b,t,o,nativeLiftType);}
+namespace GameAddress{template<class T>T get_address(std::string_view k){
+ if(k=="allocate_game_memory")return reinterpret_cast<T>(&alloc);
+ if(k=="deallocate_game_memory")return reinterpret_cast<T>(&release);
+ if(k=="StoreObjectsSpecialPower::ParseFields")return reinterpret_cast<T>(&storeFields);
+ if(k=="SpecialPowerModule::ParseFields")return reinterpret_cast<T>(&powerFields);
+ assert(k=="LiftObjectUpdate::ParseFields");return reinterpret_cast<T>(&liftFields);
+}}
+namespace CustomModuleRegistry{void destroyNative(void** out,void*){release(*out);*out=nullptr;}}
 '''+parse+r'''
 int main(){void* out{};
-{auto b=read("/workspace/work/sdk-wire-audit/add-lift.bin");parseAdd(b.data(),wrapper(b,addType),&out,nullptr);auto* d=(AddData*)out;assert(d->nativeStore[114]==4&&d->liftUpdateLinkId==7);destroyData(&out,nullptr);}
+{auto b=read("/workspace/work/sdk-wire-audit/add-lift.bin");parseAdd(b.data(),wrapper(b,addType),&out,nullptr);auto* d=(AddData*)out;assert(out==prefixDestination&&d->nativeStore[114]==4&&d->liftUpdateLinkId==7);destroyData(&out,nullptr);}
 {auto b=read("/workspace/work/sdk-wire-audit/fling.bin");parseFling(b.data(),wrapper(b,flingType),&out,nullptr);auto* d=(FlingData*)out;assert(d->storeObjectsLinkId==4&&d->liftUpdateLinkId==7&&d->maxSpeed==420&&d->minSpeed==180&&d->replacementCount==3);
-auto* pairs=(ObjectReplacement*)(std::uintptr_t)d->replacementData;for(unsigned i=0;i<3;++i)assert(pairs[i].source&&pairs[i].replacement&&pairs[i].source!=pairs[i].replacement);destroyData(&out,nullptr);}
-{auto b=read("/workspace/work/sdk-wire-audit/lift.bin");parseLift(b.data(),wrapper(b,0xAA9E10D6),&out,nullptr);auto* d=(std::uint32_t*)out;float velocity;std::memcpy(&velocity,d+2,4);assert(d[0]==0xAA9E10D6&&d[10]==7&&velocity==8);destroyLift(&out,nullptr);}
+auto* pairs=(ObjectReplacement*)(std::uintptr_t)d->replacementData;assert(out==prefixDestination);for(unsigned i=0;i<3;++i)assert(pairs[i].source&&pairs[i].replacement&&pairs[i].source!=pairs[i].replacement);destroyData(&out,nullptr);}
+{auto b=read("/workspace/work/sdk-wire-audit/lift.bin");parseLift(b.data(),wrapper(b,0xAA9E10D6),&out,nullptr);auto* d=(std::uint32_t*)out;float velocity;std::memcpy(&velocity,d+2,4);assert(out==prefixDestination&&d[0]==0xAA9E10D6&&d[10]==7&&velocity==8);destroyLift(&out,nullptr);}
 assert(!out);std::cout<<"actualSDK->runtime AddLift/Fling476/map/Lift44: PASS\n";}
 '''
 write_source('audit-slam.cpp',source)
@@ -145,11 +150,16 @@ std::uint32_t value(unsigned char* base,std::uint32_t* table,std::uint32_t name)
 using namespace YurikoLureContract;
 namespace CustomModuleRegistry{using Parse=void(unsigned char*,std::uint32_t*,void**,void*);using Destroy=void(void**,void*);}
 template<class T>T& field(void* p,unsigned offset){return *(T*)((unsigned char*)p+offset);}
-void nativeParse(unsigned char* base,std::uint32_t* w,void** out,void*){assert(w[0]==2&&w[1]==storeTypeId);auto* body=(std::uint32_t*)(base+w[2]);assert(body[0]==1&&body[1]==0xCEFE1113);auto* data=(std::uint32_t*)alloc(468);data[0]=storeTypeId;data[114]=value(base,body,0xFE5DBC0B);*out=data;}
+void* storeDestination{};
+void nativeFields(unsigned char* base,std::uint32_t* body,void* out,void*){assert(body[0]==1&&body[1]==0xCEFE1113);auto* data=(std::uint32_t*)out;data[0]=storeTypeId;data[114]=value(base,body,0xFE5DBC0B);storeDestination=out;}
 void nativeDestroy(void** out,void*){assert(*(std::uint32_t*)*out==storeTypeId);release(*out);*out=nullptr;}
-namespace GameAddress{template<class T>T get_address(std::string_view key){return key=="BehaviorModuleData::Parse"?reinterpret_cast<T>(&nativeParse):reinterpret_cast<T>(&nativeDestroy);}}
+namespace GameAddress{template<class T>T get_address(std::string_view key){
+ if(key=="allocate_game_memory")return reinterpret_cast<T>(&alloc);
+ if(key=="StoreObjectsSpecialPower::ParseFields")return reinterpret_cast<T>(&nativeFields);
+ assert(key=="BehaviorModuleData::Destroy");return reinterpret_cast<T>(&nativeDestroy);
+}}
 '''+functions+r'''
-int main(){auto b=read("/workspace/work/sdk-wire-audit/add-lure.bin");void* out{};parseAdd(b.data(),wrapper(b,addTypeId),&out,nullptr);auto* data=(std::uint32_t*)out;assert(data[0]==addTypeId&&data[114]==7);destroyAdd(&out,nullptr);assert(!out);std::cout<<"actualSDK->runtime AddLure468/nativeStore parent and link: PASS\n";}
+int main(){auto b=read("/workspace/work/sdk-wire-audit/add-lure.bin");void* out{};parseAdd(b.data(),wrapper(b,addTypeId),&out,nullptr);auto* data=(YurikoAddLureData*)out;assert(out==storeDestination&&data->storePrefix[0]==addTypeId&&data->storePrefix[114]==4&&data->lureObjectLinkId==7);destroyAdd(&out,nullptr);assert(!out);std::cout<<"actualSDK->runtime AddLure472/inPlaceStore/independentLinks: PASS\n";}
 ''')
 
 r=Path(str(options.runtime_prefix.resolve())+'-slam')
@@ -186,24 +196,37 @@ std::uint32_t value(unsigned char* base,std::uint32_t* table,std::uint32_t name)
 using namespace YurikoImpact;
 namespace ra3_types {struct DamageNuggetDefinition {unsigned char bytes[152];};}
 unsigned parsed=0,destroyed=0;
+std::vector<std::uint32_t*> fixups;
+void* behaviorDestination{};
 void destroyFields(void*,void*){++destroyed;}
-namespace GameAddress{template<class T>T get_address(std::string_view k){return k=="allocate_game_memory"?reinterpret_cast<T>(&alloc):k=="DamageNugget::DestroyFields"?reinterpret_cast<T>(&destroyFields):reinterpret_cast<T>(&release);}}
-namespace CustomModuleRegistry {
-void parseNative(unsigned char* base,std::uint32_t* wrapper,void** output,void*){
- auto* rows=(std::uint32_t*)(base+wrapper[2]);assert(rows[0]==1);
- if(wrapper[1]==behaviorType){assert(rows[1]==0xD75D93A2);auto* data=(std::uint32_t*)alloc(8);data[0]=behaviorType;data[1]=value(base,rows,0x8CDC9898);*output=data;}
- else {assert(wrapper[1]==damageNuggetType&&rows[1]==3351432196u);auto* data=(unsigned char*)alloc(152);std::memcpy(data,&damageNuggetType,4);
-  auto damage=value(base,rows,0x7C33E4E9);std::memcpy(data+40,&damage,4);
-  data[146]=static_cast<unsigned char>(value(base,rows,1874552506u));*output=data;}
+void behaviorFields(unsigned char* base,std::uint32_t* rows,void* output,void*){
+ assert(rows[0]==1&&rows[1]==0xD75D93A2);auto* data=(std::uint32_t*)output;
+ data[0]=behaviorType;data[1]=value(base,rows,0x8CDC9898);behaviorDestination=output;
  ++parsed;
 }
-void destroyNative(void** output,void*){release(*output);*output=nullptr;}
+void nuggetFields(unsigned char* base,std::uint32_t* rows,void* output,void*){
+ assert(rows[0]==1&&rows[1]==3351432196u);auto* data=(unsigned char*)output;
+ auto damage=value(base,rows,0x7C33E4E9);std::memcpy(data+40,&damage,4);
+ data[146]=static_cast<unsigned char>(value(base,rows,1874552506u));
+ if(value(base,rows,4203588415u)){assert(value(base,rows,4203588415u)==32);fixups.push_back((std::uint32_t*)(data+100));}
+ if(value(base,rows,771372620u)){assert(value(base,rows,771372620u)==45);fixups.push_back((std::uint32_t*)(data+104));}
+ ++parsed;
 }
+namespace GameAddress{template<class T>T get_address(std::string_view k){
+ if(k=="allocate_game_memory")return reinterpret_cast<T>(&alloc);
+ if(k=="deallocate_game_memory")return reinterpret_cast<T>(&release);
+ if(k=="DamageNugget::DestroyFields")return reinterpret_cast<T>(&destroyFields);
+ if(k=="BehaviorModule::ParseFields")return reinterpret_cast<T>(&behaviorFields);
+ assert(k=="DamageNugget::ParseFields");return reinterpret_cast<T>(&nuggetFields);
+}}
 '''+functions+r'''
 int main(){auto b=read("/workspace/work/sdk-wire-audit/collision.bin");void* output{};parse(b.data(),wrapper(b,typeId),&output,nullptr);
 auto* data=(Data*)output;assert(data&&data->type==typeId&&data->moduleId&&data->fullDamageSpeed==25&&data->count==2&&data->entries);
 auto* definitions=(unsigned char*)(std::uintptr_t)data->entries;float damage;std::memcpy(&damage,definitions+40,4);assert(damage==250&&definitions[146]==0&&definitions[152+146]==1);
-assert(parsed==3);destroyData(&output,nullptr);assert(!output&&destroyed==2);std::cout<<"actualSDK->runtime DamageDynamics20/directDamage152/ownership: PASS\n";}
+assert(output==behaviorDestination&&parsed==3&&fixups.size()==2);
+assert(fixups[0]==(std::uint32_t*)(definitions+100)&&fixups[1]==(std::uint32_t*)(definitions+104));
+for(auto* field:fixups)*field=0x1234;assert(*(std::uint32_t*)(definitions+100)==0x1234&&*(std::uint32_t*)(definitions+104)==0x1234);
+destroyData(&output,nullptr);assert(!output&&destroyed==2);std::cout<<"actualSDK->runtime DamageDynamics20/directDamage152/finalFixups/ownership: PASS\n";}
 ''')
 
 # Only a platform InitOnce seam is substituted on non-Windows hosts. Production
