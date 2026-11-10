@@ -8,6 +8,8 @@ bool GameObjectModuleNestedSupported(const std::string& typeId,const std::string
 }
 unsigned GameObjectRecursiveModuleKind(const std::string& typeId) {auto c=FindModule(ParseUnsigned(typeId));return c && c->kind>=41?c->kind:0;}
 unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
+    if(kind==291)return path=="GuardOffset"?2:0;
+    if(kind==292)return GameObjectModuleNodeKind(183,path);
     if(kind>=286 && kind<=290)return DrawModelNodeKind(kind,path);
     if(kind>=283 && kind<=285){
         if(kind!=284 && (path=="FXShader" || path=="FXShader/Constants"))return 1;

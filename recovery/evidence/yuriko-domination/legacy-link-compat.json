@@ -1,0 +1,25 @@
+{
+  "baseline": "f0adccd666f107c9257ec5d18710823adb511d02",
+  "sourceLocal": "4d932574940b2dd7de587e78661644f425726ad8",
+  "publishedSource": "3549bf59",
+  "compiler": "GCC14, actual ELF32 under QEMU i386",
+  "cases": [
+    "root object",
+    "original ShieldSphereUpdate",
+    "original LiftObjectUpdate",
+    "original StoreObjectsSpecialPower"
+  ],
+  "platforms": [
+    "little endian",
+    "big endian"
+  ],
+  "buffers": [
+    "instance",
+    "relocation",
+    "import"
+  ],
+  "bytes": 23296,
+  "sha256": "4b80a8cf006d046d04c624af7431130c7522c89447589c16409ff7e28b305be3",
+  "result": "all bytes identical",
+  "scope": "Eight focused component cases; not full SDK streams or game execution."
+}

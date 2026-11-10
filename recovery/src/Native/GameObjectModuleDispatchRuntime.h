@@ -1,6 +1,7 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind>=291 && choice->kind<=292) EndianYurikoDomination(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=286 && choice->kind<=290) EndianDrawModel(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=198 && choice->kind<=199) EndianPowerCreation(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=213 && choice->kind<=214) EndianAbilityResource(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -82,6 +83,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(!choice) for(auto known:knownModuleTypes) if(known==type) throw std::invalid_argument("Unsupported polymorphic GameObject module TypeId");
     // New queue/building groups dispatch after the common allocation below.
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
+    if(choice && choice->kind>=291 && choice->kind<=292) MarshalYurikoDomination(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=198 && choice->kind<=199) MarshalPowerCreation(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=213 && choice->kind<=214) MarshalAbilityResource(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=286 && choice->kind<=290) MarshalDrawModel(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);

@@ -35,6 +35,8 @@
 			<xs:element name="EnableDynamicsCollide" type="EnableDynamicsCollideModuleData" />
 			<xs:element name="FireWeaponUpdate" type="FireWeaponUpdateModuleData" />
 			<xs:element name="BombardAreaUpdate" type="BombardAreaUpdateModuleData" />
+			<xs:element name="LureObjectsUpdate" type="LureObjectsUpdateModuleData" />
+			<xs:element name="AddObjectsToLureUpdateSpecialPower" type="AddObjectsToLureUpdateSpecialPowerModuleData" />
 			<xs:element name="LiftObjectUpdate" type="LiftObjectUpdateModuleData" />
 			<xs:element name="SpecialDisguiseUpdate" type="SpecialDisguiseUpdateModuleData" />
 			<xs:element name="ToppleUpdate" type="ToppleUpdateModuleData" />

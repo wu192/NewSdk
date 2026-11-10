@@ -571,3 +571,4 @@ void EndianQueueParking(unsigned char* output,unsigned kind) {
 #include "GameObjectDrawAnimationRuntime.h"
 #include "GameObjectDrawDynamicsRuntime.h"
 #include "GameObjectDrawModelRuntime.h"
+#include "GameObjectYurikoDominationRuntime.h"
