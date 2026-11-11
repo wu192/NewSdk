@@ -1,3 +1,11 @@
+# 本分支：百合子护盾模块移植
+
+基于 `compiler-main/f0adccd6`，配套 EnhancerCorona `feature/yuriko-shield`。生产编译支持、原生输入 token、公开字段和限制见 [本轮说明](docs/YURIKO_SHIELD.md)。本地实际 32 位组件 LE/BE 与八组旧资产三缓冲兼容检查通过；Win32 Debug/Release、无 TypeId 注入的 XSD 路由以本分支 Actions 最终状态为准。未新增真实 SDK 四流或游戏内验收。
+
+2026-11-11 重构追加 `InterceptedProjectileObjectStatus`：复用原生token `0x91F93DE7/0xA7BD811E`，在原264字节父数据+三个扩展字段之后，于280处追加RA3的7DWORD掩码，总308字节；配套Enhancer parser同步，旧流缺token默认空。32位tokenizer新字段、7字边界及.NET8公开schema路由已验证；[本轮Windows Debug/Release](https://github.com/wu192/NewSdk/actions/runs/43020213993)已通过，生产源码6e95b347。实际i386输出交由配套运行时生产parser的跨仓检查也通过；后续仅补说明，未改变生产/测试输入。
+
+以下历史入口保留。
+
 # 当前：Patch / FX / 配置版本已通过定向验证，PR #11 待审
 
 FX 随包工具补充已通过：生产源码 `fd32a0a5`，[Windows 42341470222](https://github.com/wu192/NewSdk/actions/runs/42341470222) 全部 success。新包加入 Windows SDK 10.0.26100.0 的 x86 `fxc.exe` 与 `d3dcompiler_47.dll`，默认使用 EXE 同目录工具。D/R 五文件 ZIP 独立解压，在 PATH 为空、SDK 无 FXC 且不传 --fxc 时真实编译成功，自动工具路径及 FXO 入 BIG 均确认；原15成员 patch/LoD、冷热/基准修改/损坏输入也通过。16份报告、438个事件协议复核通过。[下载新 D/R ZIP](https://github.com/wu192/NewSdk/actions/runs/42341470222/artifacts/13562280288)，[收据](evidence/patch-fx-bundle/42341470222-1/summary.json)。历史归档和固定旧发布脚本保留原布局；以下 `64d2aeb3` 是补充前的验收来源。
