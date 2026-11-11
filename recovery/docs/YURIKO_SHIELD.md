@@ -20,3 +20,7 @@
 本次追加字段另与本轮基线 `bfea136c6d64a7d02aed3ac44363137de99ff75e` 对比：同一实际32位宿主执行根对象、原ShieldSphereUpdate、原LiftObjectUpdate、原StoreObjectsSpecialPower各LE/BE，8组的instance/relocations/imports全部逐字节一致。按每缓冲长度加内容串联的收据为23296字节，SHA256 `e9379a0164532e0c2c6e59bf20bf0e0b625e71333c54180610bf19300c2a19eb`；这是本轮组件范围，未替代完整SDK差分。
 
 历史Windows验证：[定向运行 42787855476](https://github.com/wu192/NewSdk/actions/runs/42787855476)，源码 `41c33abc9493ebd41b145021a6d43a24d1676cd4`，Win32 Debug/Release 均完成实际 native tokenizer 与公开 XML/XSD 路由检查。它不包含本次追加状态字段，亦不包含完整 SDK 四流或游戏执行。
+
+本轮Windows验证已通过：[运行43020213993](https://github.com/wu192/NewSdk/actions/runs/43020213993)，生产源码 `6e95b347ae9cdedfa2d3d34d48a8443c7e8f7800`，Win32 Debug/Release均完成真实native tokenizer LE/BE和公开XSD路由。相同生产源码的PR事件运行43020221975也通过。
+
+配套跨仓检查将本轮真实i386 tokenizer输出直接交给 EnhancerCorona `56d1aa61b2f0183dd363f9ae18d2a2f07f62756a` 的生产 `parseDerived`，已验证FX引用、伤害掩码、状态位31/32/222、默认值、旧token缺省、父数据保留和末尾哨兵。该组件检查不代替完整SDK四流、MOD或游戏验收。

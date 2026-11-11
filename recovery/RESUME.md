@@ -2,7 +2,7 @@
 
 基于 `compiler-main/f0adccd6`，配套 EnhancerCorona `feature/yuriko-shield`。生产编译支持、原生输入 token、公开字段和限制见 [本轮说明](docs/YURIKO_SHIELD.md)。本地实际 32 位组件 LE/BE 与八组旧资产三缓冲兼容检查通过；Win32 Debug/Release、无 TypeId 注入的 XSD 路由以本分支 Actions 最终状态为准。未新增真实 SDK 四流或游戏内验收。
 
-2026-11-11 重构追加 `InterceptedProjectileObjectStatus`：复用原生token `0x91F93DE7/0xA7BD811E`，在原264字节父数据+三个扩展字段之后，于280处追加RA3的7DWORD掩码，总308字节；配套Enhancer parser同步，旧流缺token默认空。32位tokenizer新字段、7字边界及.NET8公开schema路由已验证；本轮Windows以新Actions结果为准，旧收据不覆盖新增字段。
+2026-11-11 重构追加 `InterceptedProjectileObjectStatus`：复用原生token `0x91F93DE7/0xA7BD811E`，在原264字节父数据+三个扩展字段之后，于280处追加RA3的7DWORD掩码，总308字节；配套Enhancer parser同步，旧流缺token默认空。32位tokenizer新字段、7字边界及.NET8公开schema路由已验证；[本轮Windows Debug/Release](https://github.com/wu192/NewSdk/actions/runs/43020213993)已通过，生产源码6e95b347。实际i386输出交由配套运行时生产parser的跨仓检查也通过；后续仅补说明，未改变生产/测试输入。
 
 以下历史入口保留。
 
