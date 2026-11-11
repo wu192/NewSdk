@@ -8,7 +8,7 @@ class YurikoSchemaRoutes {
     static int Main(string[] args) {
         var expected=new Dictionary<string,uint>();
         string modules="";
-        if(args[1]=="shield") {expected.Add("YurikoShieldSphereUpdateModuleData",0x95d855b6u);modules="<YurikoShieldSphereUpdate id='Shield'><ObjectFilter Rule='ANY' Include='INFANTRY'/></YurikoShieldSphereUpdate>";}
+        if(args[1]=="shield") {expected.Add("YurikoShieldSphereUpdateModuleData",0x95d855b6u);modules="<YurikoShieldSphereUpdate id='Shield' InterceptedProjectileObjectStatus='NO_COLLISIONS ANTI_GARRISON'><ObjectFilter Rule='ANY' Include='INFANTRY'/></YurikoShieldSphereUpdate>";}
         if(args[1]=="domination") {expected.Add("LureObjectsUpdateModuleData",0xb65ab72au);expected.Add("AddObjectsToLureUpdateSpecialPowerModuleData",0xa7deffccu);modules="<LureObjectsUpdate id='Lure'><GuardOffset x='1' y='2' z='3'/></LureObjectsUpdate><AddObjectsToLureUpdateSpecialPower id='Dominate' SpecialPowerTemplate='TestPower'/>";}
         if(args[1]=="slam") {expected.Add("AddObjectsToLiftUpdateSpecialPowerModuleData",0xd9b247dfu);expected.Add("FlingStoredObjectsSpecialPowerModuleData",0x12d1fad9u);modules="<AddObjectsToLiftUpdateSpecialPower id='Pickup' SpecialPowerTemplate='TestPower'/><FlingStoredObjectsSpecialPower id='Throw' SpecialPowerTemplate='TestPower'/>";}
         if(expected.Count==0)throw new Exception("unknown fixture group");
@@ -29,6 +29,15 @@ class YurikoSchemaRoutes {
             }
         }
         if(checkedTypes!=expected.Count)throw new Exception("module schema route missing");
+        if(args[1]=="shield") {
+            // The extension reuses RA3's seven-word enum. Uprising status225
+            // must not become a new eighth-word XML value by this port.
+            bool rejected=false;
+            string invalid=xml.Replace("NO_COLLISIONS ANTI_GARRISON","225");
+            try { using(var reader=XmlReader.Create(new StringReader(invalid),settings))while(reader.Read()){} }
+            catch(XmlSchemaException){rejected=true;}
+            if(!rejected)throw new Exception("Uprising status225 escaped the RA3 schema boundary");
+        }
         Console.WriteLine("Validated XML without injected TypeId; all "+checkedTypes+" module schema names map to native IDs");return 0;
     }
 }

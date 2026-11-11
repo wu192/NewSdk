@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="uri:ea.com:eala:asset" targetNamespace="uri:ea.com:eala:asset" elementFormDefault="qualified">
-  <!-- Uprising input token IDs are preserved. These three public names are
+  <!-- Uprising input token IDs are preserved. These public names are
        descriptive aliases; the original XML names are unavailable in the game. -->
   <xs:complexType name="YurikoShieldSphereUpdateModuleData">
     <xs:complexContent><xs:extension base="ShieldSphereUpdateModuleData">
       <xs:attribute name="ReflectionFX" type="FXListRef"/>
       <xs:attribute name="AlternateReflectionFX" type="FXListRef"/>
       <xs:attribute name="AlternateReflectionDamageTypes" type="DamageBitFlags"/>
+      <xs:attribute name="InterceptedProjectileObjectStatus" type="ObjectStatusBitFlags" default=""/>
     </xs:extension></xs:complexContent>
   </xs:complexType>
 </xs:schema>
