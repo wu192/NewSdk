@@ -1,0 +1,72 @@
+{
+  "scope": "Seven actual 32-bit SDK token buffers consumed by extracted runtime parsers. Native parent/field parsers and resource callbacks mocked. No full SDK stream or game execution.",
+  "results": "all passed",
+  "sources": {
+    "sdk": {
+      "domination": {
+        "commit": "4d932574940b2dd7de587e78661644f425726ad8",
+        "tracked_changes": false
+      },
+      "slam": {
+        "commit": "4bee9819f182ff07f9fbe32800147815e8241270",
+        "tracked_changes": true
+      },
+      "shield": {
+        "commit": "4e17cad3e2fe274580a9deb7ea4b12e4b00cf3b4",
+        "tracked_changes": false
+      }
+    },
+    "runtime": {
+      "domination": {
+        "commit": "538a1f9352454b897c968a771712f4ac27a0ce01",
+        "tracked_changes": true
+      },
+      "slam": {
+        "commit": "3a0edb016219f218236219f05be2519606a42f48",
+        "tracked_changes": true
+      },
+      "shield": {
+        "commit": "3fe0a19f02f9f1021e4363387648bbc74d92515e",
+        "tracked_changes": false
+      }
+    }
+  },
+  "harness_sha256": {
+    "audit-add-lure.cpp": "dbda8d88a9ee033251279857df4184e9928bf12927bcffe078c08563135fffa2",
+    "audit-impact.cpp": "2304ec9f672e3b72306f2d92919cf152685c8e58acc5c254e3dd2c63b0706157",
+    "audit-lure.cpp": "6f269c1e89047cf4ee592ef124cf7e0dee2f6cdef28a254b980414531ef54fe4",
+    "audit-shield.cpp": "4617dcd38c31fd2bf018cc58793abbf039adfdfde9dc8c373e96083c1a122689",
+    "audit-slam.cpp": "06b60d250fad8a276002a75d8c1f62b1154ee2c883c5cfccf35c9847c72dd8dc"
+  },
+  "emitter_sha256": "e482d3e3113843820a0f243de311f1bcb9a82eece2824c1a9643ff2b43b7ae96",
+  "buffers": {
+    "lure.bin": {
+      "bytes": 2784,
+      "sha256": "5f915740b9a1a7caca9b66d53ffe4855191f5d7d0c455a09e0b188bf286d9f16"
+    },
+    "add-lure.bin": {
+      "bytes": 3860,
+      "sha256": "01c48380c6459850e262f53acf8a7eb1f90def43e0a42c9c622a126b58aa190b"
+    },
+    "add-lift.bin": {
+      "bytes": 3860,
+      "sha256": "f886d25ef15e5f3242cfd4a900ebaf01b7a49b23ba9ff1c2a3eac1da75ac8541"
+    },
+    "fling.bin": {
+      "bytes": 4020,
+      "sha256": "c54852b774f8bf27aaa43f6eeafb2e6f81e5de3f388d6af6920c2d17638bc658"
+    },
+    "lift.bin": {
+      "bytes": 2568,
+      "sha256": "320a827574e4108bb8d0eba334444548797952f46d84e8d6d890af45e070f351"
+    },
+    "shield.bin": {
+      "bytes": 3068,
+      "sha256": "f6156ac8b59dac58415dbeabc0bc47c8b510376cfea65f000a102ce0e5430989"
+    },
+    "collision.bin": {
+      "bytes": 3736,
+      "sha256": "6cab3386f4bb3db715de21b66ad85273cf92435c6a18a851b96e8db7fe2caa54"
+    }
+  }
+}

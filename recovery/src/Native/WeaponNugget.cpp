@@ -776,6 +776,14 @@ void EndianDamage(DamageNugget& object) {
     Swap(&object.scalars.count);EndianBase(object.base);
 }
 }
+void MarshalInlineDamageNugget(const WeaponNuggetInput& input,void* output,Relo::Tracker& data) {
+    auto& object=*static_cast<DamageNugget*>(output);
+    MarshalDamage(input,object,data);object.base.type=DamageId;
+}
+void TokenizeInlineDamageNugget(void* input,void** table,Relo::Tracker& tokens) {
+    TokenDamage(*static_cast<DamageNugget*>(input),table,tokens);
+}
+void EndianInlineDamageNugget(void* input) { EndianDamage(*static_cast<DamageNugget*>(input)); }
 void MarshalWeaponNuggets(const std::vector<WeaponNuggetInput>& input,WeaponNuggetList* list,Relo::Tracker& data) {
 
     list->count=static_cast<U32>(input.size());

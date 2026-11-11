@@ -33,6 +33,12 @@ struct WeaponNuggetList { std::uint32_t count; void** elements; };
 void MarshalWeaponNuggets(const std::vector<WeaponNuggetInput>& input, WeaponNuggetList* list, Relo::Tracker& data);
 void TokenizeWeaponNuggets(WeaponNuggetList* list, void** table, Relo::Tracker& tokens);
 void EndianWeaponNuggets(WeaponNuggetList* list);
+// A DynamicsCollide damage list stores complete DamageNuggetType values inline.
+// The existing weapon family keeps its original pointer/polymorphic list shape.
+constexpr unsigned DamageNuggetDataSize = 152u;
+void MarshalInlineDamageNugget(const WeaponNuggetInput& input, void* output, Relo::Tracker& data);
+void TokenizeInlineDamageNugget(void* input, void** table, Relo::Tracker& tokens);
+void EndianInlineDamageNugget(void* input);
 }}
 
 

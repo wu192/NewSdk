@@ -1,3 +1,13 @@
+# 本轮补齐：投掷物理碰撞伤害
+
+`DamageDynamicsCollide` 的新 XSD/路由已接入，直接复用完整 DamageNuggetType 的 152 字节值数组。LE/BE 组件及八组旧 GameObject、六组旧 Weapon 三缓冲字节对照通过；[Windows 42829667772](https://github.com/wu192/NewSdk/actions/runs/42829667772) 的 Win32 Debug/Release 与四模块 XSD 路由已全部通过，源码 `b4149eb5`。字段、原生证据和接口边界见 [投掷说明](docs/YURIKO_SLAM.md)。[七模块跨仓审计与精简复跑](docs/YURIKO_WIRE_AUDIT.md) 已通过实际 32 位缓冲与当前运行时 parser。新增共享 WeaponNugget.cpp 依赖，独立 GameObject 检查脚本已同步；未改旧伤害功能。
+
+# 本分支：百合子投掷模块移植
+
+基于 `compiler-main/f0adccd6`，配套 EnhancerCorona `feature/yuriko-slam`。生产编译支持、原生输入 token、公开字段和限制见 [本轮说明](docs/YURIKO_SLAM.md)。本地实际 32 位组件 LE/BE 与八组旧资产三缓冲兼容检查通过；Win32 Debug/Release、无 TypeId 注入的 XSD 路由以本分支 Actions 最终状态为准。未新增真实 SDK 四流或游戏内验收。
+
+以下历史入口保留。
+
 # 当前：Patch / FX / 配置版本已通过定向验证，PR #11 待审
 
 FX 随包工具补充已通过：生产源码 `fd32a0a5`，[Windows 42341470222](https://github.com/wu192/NewSdk/actions/runs/42341470222) 全部 success。新包加入 Windows SDK 10.0.26100.0 的 x86 `fxc.exe` 与 `d3dcompiler_47.dll`，默认使用 EXE 同目录工具。D/R 五文件 ZIP 独立解压，在 PATH 为空、SDK 无 FXC 且不传 --fxc 时真实编译成功，自动工具路径及 FXO 入 BIG 均确认；原15成员 patch/LoD、冷热/基准修改/损坏输入也通过。16份报告、438个事件协议复核通过。[下载新 D/R ZIP](https://github.com/wu192/NewSdk/actions/runs/42341470222/artifacts/13562280288)，[收据](evidence/patch-fx-bundle/42341470222-1/summary.json)。历史归档和固定旧发布脚本保留原布局；以下 `64d2aeb3` 是补充前的验收来源。

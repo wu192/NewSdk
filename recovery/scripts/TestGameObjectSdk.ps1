@@ -19,7 +19,7 @@ for ($i=0; $i -lt $script.Count; ++$i) {
 if ($start -eq 0 -or $end -eq 0) { throw 'EALAModStudio case 5 launch evidence missing' }
 $script[$start..($end-1)] | Set-Content "$report/EALAModStudio-case5.txt"
 Copy-Item SDK/tools/*.dll $build
-cl /nologo /clr /LD /MD /EHa /O2 /fp:precise /AI"$build" /Fo"$build/" /Fe"$build/Recovered.GameObject.dll" recovery/src/Native/Relocation.cpp recovery/src/Native/ScalarParsing.cpp recovery/src/Native/DataInitializers.cpp recovery/src/Native/ResourceMarshaling.cpp recovery/src/Native/EnumBitset.cpp recovery/src/Native/ObjectFilter.cpp recovery/src/Native/WeaponSlotOrder.cpp recovery/src/Native/GameObject.cpp recovery/src/Bridge/GameObjectCompiler.cpp *> "$report/build.txt"
+cl /nologo /clr /LD /MD /EHa /O2 /fp:precise /AI"$build" /Fo"$build/" /Fe"$build/Recovered.GameObject.dll" recovery/src/Native/Relocation.cpp recovery/src/Native/ScalarParsing.cpp recovery/src/Native/DataInitializers.cpp recovery/src/Native/ResourceMarshaling.cpp recovery/src/Native/EnumBitset.cpp recovery/src/Native/ObjectFilter.cpp recovery/src/Native/WeaponSlotOrder.cpp recovery/src/Native/WeaponNugget.cpp recovery/src/Native/GameObject.cpp recovery/src/Bridge/GameObjectCompiler.cpp *> "$report/build.txt"
 if ($LASTEXITCODE -ne 0) { Get-Content "$report/build.txt"; throw 'GameObject SDK component build failed' }
 $csc = "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe"
 & $csc /nologo /target:library /platform:x86 /r:"$build/Recovered.GameObject.dll" /r:"$build/BinaryAssetBuilder.Core.dll" /out:"$build/Recovered.GameObjectPlugin.dll" (Resolve-Path 'recovery/src/Plugin/GameObjectPlugin.cs') *> "$report/plugin-build.txt"

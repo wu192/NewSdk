@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="uri:ea.com:eala:asset" xmlns:xas="uri:ea.com:eala:asset:schema" targetNamespace="uri:ea.com:eala:asset" elementFormDefault="qualified">
+  <xs:complexType name="DynamicsCollideModuleData">
+    <xs:complexContent><xs:extension base="BehaviorModuleData"/></xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DamageDynamicsCollideModuleData">
+    <xs:complexContent><xs:extension base="DynamicsCollideModuleData">
+      <xs:sequence>
+        <xs:element name="DamageNugget" type="DamageNuggetType" xas:byValue="true" block="extension restriction" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <!-- Descriptive alias for native token 00F63CA4. Damage ramps with
+           collision speed up to this value; its native default is 10. -->
+      <xs:attribute name="FullDamageSpeed" type="SageReal" default="10"/>
+    </xs:extension></xs:complexContent>
+  </xs:complexType>
+</xs:schema>

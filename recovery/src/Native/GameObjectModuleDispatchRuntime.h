@@ -1,6 +1,8 @@
 // Included by GameObject.cpp; definitions remain in its namespace and original order.
 void EndianModule(U32* input) {
     auto choice=FindModule(input[0]);
+    if(choice && choice->kind==297) EndianDamageDynamics(reinterpret_cast<unsigned char*>(input));
+    if(choice && ((choice->kind>=293 && choice->kind<=294) || choice->kind==296)) EndianYurikoSlam(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=286 && choice->kind<=290) EndianDrawModel(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=198 && choice->kind<=199) EndianPowerCreation(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=213 && choice->kind<=214) EndianAbilityResource(reinterpret_cast<unsigned char*>(input),choice->kind);
@@ -82,6 +84,8 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(!choice) for(auto known:knownModuleTypes) if(known==type) throw std::invalid_argument("Unsupported polymorphic GameObject module TypeId");
     // New queue/building groups dispatch after the common allocation below.
     auto target=static_cast<U32*>(data.Push(slot,choice?choice->size:8,1));
+    if(choice && choice->kind==297) MarshalDamageDynamics(input,reinterpret_cast<unsigned char*>(target),data);
+    if(choice && ((choice->kind>=293 && choice->kind<=294) || choice->kind==296)) MarshalYurikoSlam(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=198 && choice->kind<=199) MarshalPowerCreation(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=213 && choice->kind<=214) MarshalAbilityResource(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=286 && choice->kind<=290) MarshalDrawModel(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
@@ -152,7 +156,16 @@ void TokenizeModuleTable(U32* input,const ModuleLayout& layout,void** slot,Relo:
     auto table=static_cast<Procedure*>(procedures.Push(slot,12,layout.count+1));
     for(unsigned i=0;i<layout.count;++i) {
         const auto& t=layout.tokens[i];table[i].name=t.name;table[i].type=t.type;
-        if(t.mode==10) {
+        if(t.mode==11) {
+            auto list=reinterpret_cast<NativeList*>(reinterpret_cast<unsigned char*>(input)+t.offset);
+            auto rows=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,list->count+1));
+            rows[0].name=1820487795u;rows[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&rows[0].offset);
+            for(U32 j=0;j<list->count;++j) {
+                rows[j+1].name=2974916843u;
+                TokenizeInlineDamageNugget(static_cast<unsigned char*>(list->data)+t.stride*j,&rows[j+1].offset,procedures);
+            }
+            procedures.Pop();
+        } else if(t.mode==10) {
             auto list=reinterpret_cast<NativeList*>(reinterpret_cast<unsigned char*>(input)+t.offset);auto table2=static_cast<Procedure*>(procedures.Push(&table[i].offset,12,list->count+1));table2[0].name=1820487795u;table2[0].type=1564774360u;procedures.BookmarkMemberOffset(list,&table2[0].offset);for(U32 j=0;j<list->count;++j){table2[j+1].name=2974916843u;TokenizeBeamShader(static_cast<U32**>(list->data)[j],&table2[j+1].offset,procedures);}procedures.Pop();
         } else if(t.mode==1 || t.mode==3 || t.mode==6) {
             auto list=reinterpret_cast<NativeList*>(reinterpret_cast<unsigned char*>(input)+t.offset);
