@@ -21,8 +21,10 @@ try {
     & "$out/LegacyDozerNative.exe" 2>&1 | Tee-Object "$out/build.log" -Append
     if ($LASTEXITCODE -ne 0) { throw 'Native Dozer contract failed' }
     $objects += Join-Path $out 'NativeExports.obj'
+    & dumpbin /symbols (Join-Path $out 'NativeExports.obj') | Select-String 'LegacyTokenizer(Compile|Free)' | Tee-Object "$out/build.log" -Append
     # Positional netmodule input merges its IL into this PE. /ASSEMBLYMODULE
     # would leave an external .netmodule dependency and is deliberately unused.
     & link /nologo /DLL /LTCG /MACHINE:X86 /CLRIMAGETYPE:IJW "/DEF:$root/recovery/src/LegacyTokenizer/NativeExports.def" "/OUT:$out/BinaryAssetBuilder.Tokenizer.dll" "/LIBPATH:$framework" @objects "$out/Plugin.netmodule" mscoree.lib 2>&1 | Tee-Object "$out/build.log" -Append
     if ($LASTEXITCODE -ne 0) { throw 'Single DLL CLR 2 link failed' }
+    & dumpbin /exports "$out/BinaryAssetBuilder.Tokenizer.dll" | Tee-Object "$out/build.log" -Append
 } finally { Pop-Location }
