@@ -53,6 +53,13 @@ jobs:
       - name: Validate original SDK replacement and Dozer
         shell: pwsh
         run: ./recovery/scripts/TestLegacyTokenizer.ps1 -BuildDirectory "$env:RUNNER_TEMP/legacy-tokenizer-build"
+      - name: Record build failure in Job Summary
+        if: failure()
+        shell: pwsh
+        run: |
+          '未完成：构建或验收失败，未上传可替换 DLL。' | Add-Content $env:GITHUB_STEP_SUMMARY
+          $log = "$env:RUNNER_TEMP/legacy-tokenizer-build/build.log"
+          if (Test-Path $log) { Get-Content $log -Tail 35 | Add-Content $env:GITHUB_STEP_SUMMARY }
       - name: Prepare minimal verified delivery
         shell: pwsh
         run: |
