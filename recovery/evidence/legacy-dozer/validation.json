@@ -1,0 +1,32 @@
+{
+  "sourceCommit": "6ba78d5b8bc0b8e36e7f13c50c7e3db950e64920",
+  "runId": "43698049060",
+  "runAttempt": 1,
+  "runConclusion": "failure",
+  "overallAccepted": false,
+  "reason": "Original AssetTypeGameObject.xsd has no DozerAIUpdate declaration; strict DLL-only SDK compile exits -1.",
+  "baselineCommit": "103f8ea14e6687884518047a861fc42e76abec0f",
+  "gates": {
+    "nativeDozerContract": true,
+    "clr2X86LoadAndAssemblyIdentity": true,
+    "singleModuleNoAdditionalCrtDll": true,
+    "originalTypesByteComparison": { "passed": true, "fixtures": 28, "buffers": 84 },
+    "dozerManagedContract": { "passed": true, "fixtures": 8 },
+    "requiredSchemaSdk": { "passed": true, "inputErrors": 0, "finalNativeDozerThreeBuffersVerified": true },
+    "strictDllOnlySdk": { "passed": false, "exitCode": -1 }
+  },
+  "inputScope": {
+    "paths": "recovery/fixtures/legacy-dozer-sdk-files.txt",
+    "originalFiles": 39,
+    "originalArtDeclarationStubs": 28,
+    "modelAndTextureRebuild": false
+  },
+  "candidate": {
+    "artifactId": "14154678064",
+    "retentionDays": 1,
+    "dllBytes": 655872,
+    "dllSha256": "11528f19e73efce1653236785ab0fe7e74cb9dcd107922e902111996a7f263c0",
+    "zipSha256": "3fa5ba740f28dd73d67416dc041c8675336ca0a1b2208423537694f08ff20f96"
+  },
+  "supersedesIncompleteSdkRun": "43697300548"
+}

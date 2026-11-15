@@ -1,6 +1,6 @@
 # 老版 Tokenizer 的 Dozer 移植
 
-状态：严格 DLL-only 替换验收仍须单独核对；构建及各项测试的实际结果见本包末尾记录或对应 Actions。不得把必要 XSD 修正后的成功等同于原 XSD 的成功。
+状态：候选 DLL 已通过 CLR 2/x86 加载、旧类型逐字节对照及必要 XSD 下的真实 SDK 示例编译；严格 DLL-only 门槛失败，整体方案尚未完全验收。原 XSD 缺少 Dozer 声明，不能省略必要的一行修正。
 
 本实现以 `plan/legacy-tokenizer-dozer-only` 的 `103f8ea14e6687884518047a861fc42e76abec0f` 为基线，仅扩展原生 DozerAIUpdate。原生布局、类型、三个原始 float 字段和 AIUpdate 继承合同遵循方案；没有加入其他扩展模块。
 
@@ -29,3 +29,11 @@
 方案“AssetTypeGameObject.xsd 已声明 Dozer”与基线实际文件不符，因此严格的“原版 SDK 只换 DLL 即可编译 Dozer XML”门槛存在矛盾。验证脚本分别执行保留原 XSD的 DLL-only 编译与补齐必要 XSD 后的编译；若严格门槛失败，即使补齐 XSD 的编译成功也记录未完成，不发布已通过的交付。
 
 取得完整验收前请勿把候选 DLL 用作已验证替换件。运行时推土机仍需 EnhancerCorona；建筑保持普通 STRUCTURE，命令使用 DOZER_CONSTRUCT，不新增建筑标记。
+
+## 实际验证与候选包
+
+测试源码：`6ba78d5b8bc0b8e36e7f13c50c7e3db950e64920`；[Windows x86 运行 43698049060](https://github.com/wu192/NewSdk/actions/runs/43698049060)，attempt 1。CLR 2 真实加载及程序集身份/单模块检查通过；28 个旧类型样本的 84 个缓冲区逐字节一致，8 个 Dozer 样本通过。必要 XSD 的 SDK 编译无 Error/Critical，最终 manifest 中精确定位的 NativeDozer 三缓冲区原生合同通过。
+
+原 XSD 的 SDK 编译 exit `-1`，错误为 AI 不允许 DozerAIUpdate 子元素；因此工作流最终为 failure，PR 保持草稿，未合入。此失败不被其他通过项覆盖。
+
+[最小候选包](https://github.com/wu192/NewSdk/actions/runs/43698049060/artifacts/14154678064) 仅含 DLL、必要 XSD、示例和说明，Actions 保留一天。DLL SHA256：`11528f19e73efce1653236785ab0fe7e74cb9dcd107922e902111996a7f263c0`。先前运行 43697300548 的 SDK 检查曾缺少 Art 输入，已由本次完整依赖检出及严格日志/最终流检查替代；不把旧运行作为完整 SDK 验收依据。
