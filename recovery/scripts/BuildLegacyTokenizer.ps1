@@ -27,4 +27,13 @@ try {
     & link /nologo /DLL /LTCG /MACHINE:X86 /CLRIMAGETYPE:IJW "/DEF:$root/recovery/src/LegacyTokenizer/NativeExports.def" "/OUT:$out/BinaryAssetBuilder.Tokenizer.dll" "/LIBPATH:$framework" @objects "$out/Plugin.netmodule" mscoree.lib 2>&1 | Tee-Object "$out/build.log" -Append
     if ($LASTEXITCODE -ne 0) { throw 'Single DLL CLR 2 link failed' }
     & dumpbin /exports "$out/BinaryAssetBuilder.Tokenizer.dll" | Tee-Object "$out/build.log" -Append
+    $dependencies = & dumpbin /dependents "$out/BinaryAssetBuilder.Tokenizer.dll"
+    $dependencies | Select-String '\.dll' | Tee-Object "$out/build.log" -Append
+    if ($dependencies -match '(?i)(msvcr\d|msvcp\d|vcruntime|ucrtbase|api-ms-win-crt)') { throw 'Unexpected additional C++ runtime DLL dependency' }
+    # All managed input was compiled with CLR 2. Modern LINK stamps v4 on its
+    # merged output; verify the image/references before setting its CLR 2 target.
+    & "$env:WINDIR/Microsoft.NET/Framework/v4.0.30319/csc.exe" /nologo /platform:x86 /optimize+ "/out:$out/SetLegacyTokenizerRuntime.exe" (Resolve-Path 'recovery/tools/SetLegacyTokenizerRuntime.cs').Path 2>&1 | Tee-Object "$out/build.log" -Append
+    if ($LASTEXITCODE -ne 0) { throw 'Runtime metadata build tool compilation failed' }
+    & "$out/SetLegacyTokenizerRuntime.exe" "$out/BinaryAssetBuilder.Tokenizer.dll" 2>&1 | Tee-Object "$out/build.log" -Append
+    if ($LASTEXITCODE -ne 0) { throw 'Generated image cannot target CLR 2' }
 } finally { Pop-Location }

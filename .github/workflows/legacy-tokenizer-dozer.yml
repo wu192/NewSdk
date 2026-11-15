@@ -7,6 +7,7 @@ on:
       - 'recovery/src/Native/**'
       - 'recovery/src/Bridge/GameObjectCompiler.cpp'
       - 'recovery/tests/Legacy*'
+      - 'recovery/tools/SetLegacyTokenizerRuntime.cs'
       - 'recovery/scripts/*LegacyTokenizer.ps1'
       - 'recovery/examples/legacy-dozer/**'
       - 'SDK/Schemas/xsd/AssetTypeGameObject.xsd'
@@ -26,6 +27,7 @@ jobs:
           sparse-checkout: |
             /recovery/src/
             /recovery/tests/Legacy*
+            /recovery/tools/SetLegacyTokenizerRuntime.cs
             /recovery/scripts/*LegacyTokenizer.ps1
             /recovery/examples/legacy-dozer/
             /recovery/docs/LEGACY_TOKENIZER_DOZER_DELIVERY.md
@@ -60,7 +62,8 @@ jobs:
           '未完成：构建或验收失败，未上传可替换 DLL。' | Add-Content $env:GITHUB_STEP_SUMMARY
           $log = "$env:RUNNER_TEMP/legacy-tokenizer-build/build.log"
           if (Test-Path $log) { Get-Content $log -Tail 35 | Add-Content $env:GITHUB_STEP_SUMMARY }
-      - name: Prepare minimal verified delivery
+      - name: Prepare minimal candidate with explicit strict verdict
+        if: always() && env.LEGACY_CANDIDATE_READY == 'true'
         shell: pwsh
         run: |
           $out = "$env:RUNNER_TEMP/legacy-tokenizer-delivery"
@@ -69,9 +72,11 @@ jobs:
           Copy-Item SDK/Schemas/xsd/AssetTypeGameObject.xsd "$out/SDK/Schemas/xsd"
           Copy-Item recovery/examples/legacy-dozer/* "$out/example"
           Copy-Item recovery/docs/LEGACY_TOKENIZER_DOZER_DELIVERY.md "$out/README.md"
+          "`n本包已通过构建、CLR 2 加载、旧类型逐字节对照及必要 XSD 集成。严格 DLL-only SDK 编译 exit=$env:LEGACY_STRICT_EXIT；非 0 表示严格门槛未完成。sourceCommit=$env:GITHUB_SHA runId=$env:GITHUB_RUN_ID" | Add-Content "$out/README.md"
       - uses: actions/upload-artifact@v4
+        if: always() && env.LEGACY_CANDIDATE_READY == 'true'
         with:
-          name: legacy-tokenizer-dozer
+          name: legacy-tokenizer-dozer-candidate
           path: ${{ runner.temp }}/legacy-tokenizer-delivery
           retention-days: 1
           if-no-files-found: error

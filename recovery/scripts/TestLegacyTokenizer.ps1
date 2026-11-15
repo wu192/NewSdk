@@ -71,6 +71,10 @@ try {
     }
     if ((Get-FileHash "$sdk/tools/BinaryAssetBuilder.exe.config").Hash -ne $configHash) { throw 'SDK config changed' }
     Summary 'PASS: real SDK example compiled with required XSD; original EXE/config/other DLLs retained.'
+    if ($env:GITHUB_ENV) {
+        'LEGACY_CANDIDATE_READY=true' | Add-Content $env:GITHUB_ENV
+        "LEGACY_STRICT_EXIT=$($strict.ExitCode)" | Add-Content $env:GITHUB_ENV
+    }
     if ($strict.ExitCode -ne 0) { throw 'Incomplete strict plan gate: original SDK schema rejects Dozer; required one-line XSD change cannot be omitted.' }
     Summary 'PASS: strict DLL-only SDK compile.'
 } finally { Pop-Location }
