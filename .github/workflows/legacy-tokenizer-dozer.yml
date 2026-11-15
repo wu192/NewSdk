@@ -10,6 +10,7 @@ on:
       - 'recovery/tools/SetLegacyTokenizerRuntime.cs'
       - 'recovery/scripts/*LegacyTokenizer.ps1'
       - 'recovery/examples/legacy-dozer/**'
+      - 'recovery/fixtures/legacy-dozer-sdk-files.txt'
       - 'SDK/Schemas/xsd/AssetTypeGameObject.xsd'
       - '.github/workflows/legacy-tokenizer-dozer.yml'
   workflow_dispatch:
@@ -30,6 +31,7 @@ jobs:
             /recovery/tools/SetLegacyTokenizerRuntime.cs
             /recovery/scripts/*LegacyTokenizer.ps1
             /recovery/examples/legacy-dozer/
+            /recovery/fixtures/legacy-dozer-sdk-files.txt
             /recovery/docs/LEGACY_TOKENIZER_DOZER_DELIVERY.md
             /SDK/*
             !/SDK/*/
@@ -37,6 +39,11 @@ jobs:
             /SDK/Schemas/
             /SDK/SageXml/
             /SDK/builtmods/
+      - name: Include exact original SDK sample dependencies
+        shell: pwsh
+        run: |
+          Get-Content recovery/fixtures/legacy-dozer-sdk-files.txt | ForEach-Object { '/' + $_ } | git sparse-checkout add --stdin
+          if ($LASTEXITCODE -ne 0) { throw 'Original SDK sample dependency checkout failed' }
       - name: Fetch exact original SDK schema baseline
         shell: pwsh
         run: |

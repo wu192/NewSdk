@@ -1,6 +1,6 @@
 # 老版 Tokenizer 的 Dozer 移植
 
-状态：源码及定向验证入口已准备，Windows x86 构建与原版 SDK 验收尚未完成。未提供已验收 DLL。
+状态：严格 DLL-only 替换验收仍须单独核对；构建及各项测试的实际结果见本包末尾记录或对应 Actions。不得把必要 XSD 修正后的成功等同于原 XSD 的成功。
 
 本实现以 `plan/legacy-tokenizer-dozer-only` 的 `103f8ea14e6687884518047a861fc42e76abec0f` 为基线，仅扩展原生 DozerAIUpdate。原生布局、类型、三个原始 float 字段和 AIUpdate 继承合同遵循方案；没有加入其他扩展模块。
 
@@ -16,6 +16,8 @@
 ```
 
 工作流 `legacy-tokenizer-dozer.yml` 只运行一个 Windows x86 作业，一次构建、定向原/新三缓冲区对照、Dozer 布局/继承/重定位检查及真实 SDK 示例编译。不启用缓存；仅在构建、CLR 2 加载、旧类型回归及必要 XSD 的 SDK 集成均成功后上传最小候选包，保留一天。候选包另列严格 DLL-only 门槛结果，失败时不标为已完成替换验收。失败日志保留于 Actions 和 Job Summary。
+
+真实 SDK 检查检出 `recovery/fixtures/legacy-dozer-sdk-files.txt` 列出的原始输入，拒绝编译日志中的 Error/Critical，并从最终 Mod manifest 精确提取 NativeDozer 的三缓冲区，核实原生数据、继承 token 与重定位。基线的 28 个相关 Art 文件原本就是空声明占位文件，保持原样；示例引用 SDK 原版基础 manifest 资源，本次不重新构建模型或贴图。
 
 ## XSD 与替换路径
 

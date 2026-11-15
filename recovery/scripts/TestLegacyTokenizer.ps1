@@ -59,22 +59,24 @@ try {
         if (!$process.WaitForExit(180000)) { $process.Kill(); throw "SDK $Label timed out" }
         $process.Refresh()
         Get-Content "$work/sdk-$Label.log", "$work/sdk-$Label.err" | Select-Object -Last 35 | ForEach-Object { Summary $_ }
-        return @{ ExitCode = $process.ExitCode; Output = $output }
+        $errors = @(Select-String -Path "$work/sdk-$Label.log", "$work/sdk-$Label.err" -Pattern '\] (Error|Critical):')
+        $products = @(foreach ($extension in @('bin','manifest','imp','relo')) { Get-ChildItem $output -Recurse -Filter "mod.$extension" })
+        return @{ ExitCode = $process.ExitCode; Output = $output; Errors = $errors; Succeeded = ($process.ExitCode -eq 0 -and $errors.Count -eq 0 -and $products.Count -eq 4) }
     }
     $strict = InvokeSdk 'dll-only'
     Summary "DLL-only SDK compile exit: $($strict.ExitCode). Original GameObject XSD has no Dozer declaration."
     [IO.File]::WriteAllBytes($schema, $schemaWithDozer)
     $integrated = InvokeSdk 'required-schema'
-    if ($integrated.ExitCode -ne 0) { throw 'Real SDK Dozer example compile failed with required schema' }
-    foreach ($extension in @('bin','manifest','imp','relo')) {
-        if (!(Get-ChildItem $integrated.Output -Recurse -Filter "mod.$extension")) { throw "SDK missing mod.$extension" }
-    }
+    if (!$integrated.Succeeded) { $integrated.Errors | ForEach-Object { Summary $_.Line }; throw 'Real SDK Dozer example compile failed or logged input errors with required schema' }
+    $manifest = Get-ChildItem $integrated.Output -Recurse -Filter 'mod.manifest'
+    & "$work/candidate/LegacyTokenizerOracle.exe" sdk "$work/candidate/BinaryAssetBuilder.Tokenizer.dll" $manifest.FullName
+    Checked 'Final SDK NativeDozer buffers/contract verification failed'
     if ((Get-FileHash "$sdk/tools/BinaryAssetBuilder.exe.config").Hash -ne $configHash) { throw 'SDK config changed' }
     Summary 'PASS: real SDK example compiled with required XSD; original EXE/config/other DLLs retained.'
     if ($env:GITHUB_ENV) {
         'LEGACY_CANDIDATE_READY=true' | Add-Content $env:GITHUB_ENV
         "LEGACY_STRICT_EXIT=$($strict.ExitCode)" | Add-Content $env:GITHUB_ENV
     }
-    if ($strict.ExitCode -ne 0) { throw 'Incomplete strict plan gate: original SDK schema rejects Dozer; required one-line XSD change cannot be omitted.' }
+    if (!$strict.Succeeded) { throw 'Incomplete strict plan gate: original SDK schema rejects Dozer; required one-line XSD change cannot be omitted.' }
     Summary 'PASS: strict DLL-only SDK compile.'
 } finally { Pop-Location }

@@ -211,14 +211,107 @@ class LegacyTokenizerOracle
         Require(comparisons == 84, "Expected 28 fixtures and 84 buffer comparisons");
         Console.WriteLine("PASS compare: {0} three-buffer byte comparisons and exact metadata", comparisons);
     }
+    static byte[] StreamChunk(byte[] stream, int offset, int length)
+    {
+        byte[] result = new byte[length];
+        Array.Copy(stream, offset, result, 0, length);
+        return result;
+    }
+    static string ManifestName(byte[] manifest, int offset)
+    {
+        int end = offset;
+        while (manifest[end] != 0) ++end;
+        return Encoding.Default.GetString(manifest, offset, end - offset);
+    }
+    static void CheckSdkDozer(AssetBuffer result)
+    {
+        byte[] data = result.InstanceData;
+        int root = checked((int)Word(data, 8, false)) - 4;
+        for (int i = 0; i < 12; ++i) Require(data[126 * 12 + i] == 0, "SDK original GameObject root token sentinel");
+        Require(Word(data, root + 472, false) == 1, "SDK NativeDozer AI list count");
+        int slots = checked((int)Word(data, root + 476, false));
+        int module = checked((int)Word(data, slots, false));
+        Require(module + 0x58 <= data.Length && Word(data, module, false) == DozerType, "SDK NativeDozer native type/0x58 data");
+        Require(Relocation(result, root + 476, false) && Relocation(result, slots, false), "SDK AI list/module relocations");
+        int list = checked((int)Word(data, Token(data, 0, 1376227828u, false) + 8, false));
+        int wrapper = checked((int)Word(data, list + 20, false));
+        Require(Word(data, wrapper, false) == 2 && Word(data, wrapper + 4, false) == DozerType, "SDK Dozer polymorphic token");
+        int table = checked((int)Word(data, wrapper + 8, false));
+        Require(Word(data, table, false) == 1 && Word(data, table + 4, false) == 0x08DBC00Eu, "SDK Dozer AIUpdate inheritance");
+        int parent = checked((int)Word(data, table + 8, false));
+        Require(Word(data, parent, false) == 1 && Word(data, parent + 4, false) == 4043318533u, "SDK AIUpdate Update inheritance");
+        uint[] names = new uint[] { 0x8229777Eu, 0x18C1A7F3u, 0xC492A6B5u };
+        uint[] bits = new uint[] { 0x3CA3D70Au, 0x43160000u, 0x43160000u }; // 0.02f, 150f, 150f
+        for (int i = 0; i < 3; ++i)
+        {
+            int token = table + 12 * (i + 1);
+            Require(Word(data, token, false) == names[i] && Word(data, token + 4, false) == 0x645864F3u &&
+                Word(data, token + 8, false) == module + 0x4Cu + (uint)(4 * i), "SDK Dozer scalar token/offset");
+            Require(Word(data, module + 0x4C + 4 * i, false) == bits[i], "SDK Dozer raw float bits");
+        }
+        for (int i = 0; i < 12; ++i) Require(data[table + 48 + i] == 0, "SDK Dozer token sentinel");
+        Require(Word(data, module + 20, false) == 0x43FA0000u && Word(data, module + 52, false) == 1 &&
+            Word(data, module + 60, false) == 7 && Word(data, module + 68, false) == 0,
+            "SDK inherited AIUpdate defaults/UnitAI state machine/null chooser");
+        Require(result.RelocationData.Length >= 4 && Word(result.RelocationData, result.RelocationData.Length - 4, false) == UInt32.MaxValue,
+            "SDK relocation sentinel");
+    }
+    static void Sdk(string manifestPath)
+    {
+        // Original Utility ManifestHeader/AssetEntry are both 48-byte records.
+        // OutputManager.LinkStream concatenates each entry's three buffers,
+        // starting after the four-byte stream checksum. This selects the exact
+        // named output asset rather than searching unrelated bytes for Dozer.
+        byte[] manifest = File.ReadAllBytes(manifestPath);
+        Require(manifest[0] == 0 && manifest[1] == 1 && BitConverter.ToUInt16(manifest, 2) == 6,
+            "Expected Win32 linked SDK manifest version 6");
+        int count = checked((int)Word(manifest, 12, false));
+        int names = checked(48 + 48 * count + (int)Word(manifest, 32, false) + (int)Word(manifest, 36, false));
+        string stem = Path.Combine(Path.GetDirectoryName(manifestPath), Path.GetFileNameWithoutExtension(manifestPath));
+        byte[] instance = File.ReadAllBytes(stem + ".bin");
+        byte[] relocations = File.ReadAllBytes(stem + ".relo");
+        byte[] imports = File.ReadAllBytes(stem + ".imp");
+        uint checksum = Word(manifest, 4, false);
+        Require(Word(instance, 0, false) == checksum && Word(relocations, 0, false) == checksum && Word(imports, 0, false) == checksum,
+            "SDK stream checksums differ from manifest");
+        int instanceAt = 4, relocationAt = 4, importsAt = 4, matched = 0;
+        for (int i = 0; i < count; ++i)
+        {
+            int entry = 48 + 48 * i;
+            int instanceLength = checked((int)Word(manifest, entry + 32, false));
+            int relocationLength = checked((int)Word(manifest, entry + 36, false));
+            int importsLength = checked((int)Word(manifest, entry + 40, false));
+            string name = ManifestName(manifest, checked(names + (int)Word(manifest, entry + 24, false)));
+            if (name == "GameObject:NativeDozer")
+            {
+                ++matched;
+                Require(Word(manifest, entry, false) == RootTypes[0] && Word(manifest, entry + 8, false) == RootHashes[0] &&
+                    Word(manifest, entry + 44, false) == 1 && instanceLength != 0,
+                    "SDK NativeDozer manifest identity/type hash/tokenized ABI");
+                AssetBuffer result = new AssetBuffer();
+                result.InstanceData = StreamChunk(instance, instanceAt, instanceLength);
+                result.RelocationData = StreamChunk(relocations, relocationAt, relocationLength);
+                result.ImportsData = StreamChunk(imports, importsAt, importsLength);
+                CheckSdkDozer(result);
+            }
+            instanceAt = checked(instanceAt + instanceLength);
+            relocationAt = checked(relocationAt + relocationLength);
+            importsAt = checked(importsAt + importsLength);
+        }
+        Require(matched == 1, "SDK manifest must contain exactly one compiled GameObject:NativeDozer");
+        Require(instanceAt == instance.Length && relocationAt == relocations.Length && importsAt == imports.Length,
+            "SDK linked stream sizes do not match manifest asset records");
+        Console.WriteLine("PASS SDK output: exact GameObject:NativeDozer manifest entry, original root/type hash, native Dozer/raw 0.02,150,150/AI inheritance/tokens/relocations in linked streams");
+    }
     static int Main(string[] args)
     {
         try
         {
-            if (args.Length != 3) throw new ArgumentException("Usage: LegacyTokenizerOracle dump|dozer DLL OUTPUT_DIR; compare BASELINE_DIR CANDIDATE_DIR");
+            if (args.Length != 3) throw new ArgumentException("Usage: LegacyTokenizerOracle dump|dozer DLL OUTPUT_DIR; sdk DLL MOD_MANIFEST; compare BASELINE_DIR CANDIDATE_DIR");
             if (args[0] == "compare") { Compare(args[1], args[2]); return 0; }
-            if (args[0] != "dump" && args[0] != "dozer") throw new ArgumentException("Unknown mode " + args[0]);
+            if (args[0] != "dump" && args[0] != "dozer" && args[0] != "sdk") throw new ArgumentException("Unknown mode " + args[0]);
             IAssetBuilderPlugin plugin = Load(args[1]);
+            if (args[0] == "sdk") { Sdk(args[2]); return 0; }
             Directory.CreateDirectory(args[2]);
             File.WriteAllText(Path.Combine(args[2], "metadata.txt"), Metadata(plugin), Encoding.UTF8);
             if (args[0] == "dump") Dump(plugin, args[2]); else Dozer(plugin, args[2]);
