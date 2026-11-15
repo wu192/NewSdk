@@ -55,6 +55,7 @@ struct ModuleChildName {const char* parent;const char* child;};
 #include "GameObjectHealing.h"
 #include "GameObjectCrate.h"
 #include "GameObjectAIUpdate.h"
+#include "GameObjectDozer.h"
 #include "GameObjectEconomy.h"
 #include "GameObjectAssist.h"
 #include "GameObjectSpawnUpdate.h"

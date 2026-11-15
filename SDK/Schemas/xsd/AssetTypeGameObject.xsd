@@ -287,6 +287,7 @@
 	<xs:complexType name="AIModule">
 		<xs:choice minOccurs="0" maxOccurs="2">
 			<xs:element name="AIUpdate" type="AIUpdateModuleData" />
+			<xs:element name="DozerAIUpdate" type="DozerAIUpdateModuleData" />
 			<xs:element name="ConstructionYardAIUpdate" type="ConstructionYardAIUpdateModuleData" />
 			<xs:element name="AIGateUpdate" type="AIGateUpdateModuleData" />
 			<xs:element name="DeployStyleAIUpdate" type="DeployStyleAIUpdateModuleData" />

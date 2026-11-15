@@ -1,0 +1,70 @@
+name: Legacy Tokenizer Dozer only
+on:
+  push:
+    branches: [feat/legacy-tokenizer-dozer-only]
+    paths:
+      - 'recovery/src/LegacyTokenizer/**'
+      - 'recovery/src/Native/**'
+      - 'recovery/src/Bridge/GameObjectCompiler.cpp'
+      - 'recovery/tests/Legacy*'
+      - 'recovery/scripts/*LegacyTokenizer.ps1'
+      - 'recovery/examples/legacy-dozer/**'
+      - 'SDK/Schemas/xsd/AssetTypeGameObject.xsd'
+      - '.github/workflows/legacy-tokenizer-dozer.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-and-validate:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[legacy-dozer]')
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /recovery/src/
+            /recovery/tests/Legacy*
+            /recovery/scripts/*LegacyTokenizer.ps1
+            /recovery/examples/legacy-dozer/
+            /recovery/docs/LEGACY_TOKENIZER_DOZER_DELIVERY.md
+            /SDK/*
+            !/SDK/*/
+            /SDK/tools/
+            /SDK/Schemas/
+            /SDK/SageXml/
+            /SDK/builtmods/
+      - name: Fetch exact original SDK schema baseline
+        shell: pwsh
+        run: |
+          git fetch --depth=1 origin 103f8ea14e6687884518047a861fc42e76abec0f
+          if ($LASTEXITCODE -ne 0) { throw 'Original SDK baseline unavailable' }
+      - name: Enable original SDK CLR 2 runtime and compiler
+        shell: pwsh
+        run: |
+          Enable-WindowsOptionalFeature -Online -FeatureName NetFx3 -All -NoRestart | Out-Null
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Build one x86 CLR 2 DLL
+        shell: pwsh
+        run: ./recovery/scripts/BuildLegacyTokenizer.ps1 -OutputDirectory "$env:RUNNER_TEMP/legacy-tokenizer-build"
+      - name: Validate original SDK replacement and Dozer
+        shell: pwsh
+        run: ./recovery/scripts/TestLegacyTokenizer.ps1 -BuildDirectory "$env:RUNNER_TEMP/legacy-tokenizer-build"
+      - name: Prepare minimal verified delivery
+        shell: pwsh
+        run: |
+          $out = "$env:RUNNER_TEMP/legacy-tokenizer-delivery"
+          New-Item -ItemType Directory -Force "$out/SDK/tools", "$out/SDK/Schemas/xsd", "$out/example" | Out-Null
+          Copy-Item "$env:RUNNER_TEMP/legacy-tokenizer-build/BinaryAssetBuilder.Tokenizer.dll" "$out/SDK/tools"
+          Copy-Item SDK/Schemas/xsd/AssetTypeGameObject.xsd "$out/SDK/Schemas/xsd"
+          Copy-Item recovery/examples/legacy-dozer/* "$out/example"
+          Copy-Item recovery/docs/LEGACY_TOKENIZER_DOZER_DELIVERY.md "$out/README.md"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: legacy-tokenizer-dozer
+          path: ${{ runner.temp }}/legacy-tokenizer-delivery
+          retention-days: 1
+          if-no-files-found: error

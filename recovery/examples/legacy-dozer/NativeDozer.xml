@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AssetDeclaration xmlns="uri:ea.com:eala:asset"
+                  xmlns:xai="uri:ea.com:eala:asset:instance">
+  <Includes>
+    <Include type="all" source="DATA:GlobalData/GlobalDefines.xml" />
+    <Include type="instance" source="DATA:Allied/Units/AlliedMiner.xml" />
+    <Include type="instance" source="DATA:Allied/Structures/AlliedPowerPlant.xml" />
+    <Include type="instance" source="DATA:Allied/Structures/AlliedWarFactory.xml" />
+  </Includes>
+
+  <!-- Keep the official Prospector model, locomotors, body and death effects.
+       The legacy Tokenizer replacement compiles the real native AI module. -->
+  <GameObject id="NativeDozer" inheritFrom="AlliedMiner"
+              BuildTime="10" CommandSet="NativeDozerCommandSet"
+              KindOf="SELECTABLE CAN_CAST_REFLECTIONS SCORE AMPHIBIOUS VEHICLE DOZER CAN_BE_FAVORITE_UNIT CYCLE_SELECTION">
+    <Behaviors>
+      <OreMinerBehavior id="ModuleTag_OreMinerBehavior" xai:joinAction="Remove" />
+      <SpecialPower id="ModuleTag_ReplaceSelfUnpackSpecialPowerTrigger" xai:joinAction="Remove" />
+      <ReplaceSelfSpecialAbility id="ModuleTag_ReplaceSelf" xai:joinAction="Remove" />
+    </Behaviors>
+    <AI xai:joinAction="Replace">
+      <DozerAIUpdate id="ModuleTag_AI" StateMachine="UnitAIStateMachine"
+                     AutoAcquireEnemiesWhenIdle="NO"
+                     RepairHealthPercentPerSecond="0.02"
+                     BoredTime="150" BoredRange="150" />
+    </AI>
+  </GameObject>
+
+  <!-- Optional test producer. Retain every inherited behavior, including
+       ProductionUpdate; completed factories must still train units. -->
+  <GameObject id="NativeDozerWarFactory" inheritFrom="AlliedWarFactory"
+              CommandSet="NativeDozerWarFactoryCommandSet" />
+
+  <LogicCommand id="Command_TrainNativeDozer" Type="UNIT_BUILD">
+    <Object>NativeDozer</Object>
+  </LogicCommand>
+  <!-- Reference ordinary building templates without modifying their modules. -->
+  <LogicCommand id="Command_NativeDozerPowerPlant" Type="DOZER_CONSTRUCT">
+    <Object>AlliedPowerPlant</Object>
+  </LogicCommand>
+  <LogicCommand id="Command_NativeDozerWarFactory" Type="DOZER_CONSTRUCT">
+    <Object>AlliedWarFactory</Object>
+  </LogicCommand>
+  <!-- Type 5 on an SDK-supported single-state ability button opens placement. -->
+  <UnitAbilityButtonTemplate id="Button_NativeDozerPowerPlant"
+                             LogicCommand="Command_NativeDozerPowerPlant">
+    <Data>
+      <BuildWall StateData="ButtonState_NativeDozerPowerPlant" />
+    </Data>
+  </UnitAbilityButtonTemplate>
+  <ButtonSingleStateData id="ButtonState_NativeDozerPowerPlant">
+    <State Image="Button_AlliedPowerPlant_on"
+           Title="Name:AlliedPowerPlant" Description="Desc:AlliedPowerPlant" />
+  </ButtonSingleStateData>
+  <UnitAbilityButtonTemplate id="Button_NativeDozerWarFactory"
+                             LogicCommand="Command_NativeDozerWarFactory">
+    <Data>
+      <BuildWall StateData="ButtonState_NativeDozerWarFactory" />
+    </Data>
+  </UnitAbilityButtonTemplate>
+  <ButtonSingleStateData id="ButtonState_NativeDozerWarFactory">
+    <State Image="Button_AlliedWarFactory_on"
+           Title="Name:AlliedWarFactory" Description="Desc:AlliedWarFactory" />
+  </ButtonSingleStateData>
+  <LogicCommandSet id="NativeDozerCommandSet">
+    <Cmd>Command_NativeDozerPowerPlant</Cmd>
+    <Cmd>Command_NativeDozerWarFactory</Cmd>
+  </LogicCommandSet>
+  <LogicCommandSet id="NativeDozerWarFactoryCommandSet">
+    <Cmd>Command_TrainNativeDozer</Cmd>
+  </LogicCommandSet>
+</AssetDeclaration>

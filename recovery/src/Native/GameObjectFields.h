@@ -4215,6 +4215,7 @@ const ModuleChildName moduleChildNames[] = {
     { "Behaviors", "AssembleStructureSpecialAbilityUpdate" },
     { "Behaviors", "StructurePlacementBehavior" },
     { "AI", "AIUpdate" },
+    { "AI", "DozerAIUpdate" },
     { "AI", "ConstructionYardAIUpdate" },
     { "AI", "AIGateUpdate" },
     { "AI", "DeployStyleAIUpdate" },
