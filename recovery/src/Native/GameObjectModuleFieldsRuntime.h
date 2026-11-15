@@ -40,6 +40,7 @@ const ModuleChoice* FindModule(U32 type) {
     for(const auto& choice:assistChoices) if(choice.type==type) return &choice;
     for(const auto& choice:economyChoices) if(choice.type==type) return &choice;
     for(const auto& choice:aiUpdateChoices) if(choice.type==type) return &choice;
+    if(type==dozerAIUpdateChoice.type) return &dozerAIUpdateChoice;
     for(const auto& choice:crateChoices) if(choice.type==type) return &choice;
     for(const auto& choice:healingChoices) if(choice.type==type) return &choice;
     if(type==weaponSetChoice.type) return &weaponSetChoice;

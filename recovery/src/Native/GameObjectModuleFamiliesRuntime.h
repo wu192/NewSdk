@@ -395,8 +395,9 @@ void EndianCrate(unsigned char* output,unsigned kind) {
 }
 // Concrete fields precede the AI base, matching original reference/allocation order.
 void MarshalAIUpdate(const GameObjectChild& input,unsigned char* output,unsigned kind,Relo::Tracker& data) {
-    unsigned group=kind-104;
-    if(group) MarshalModuleFieldSet(input,output,aiUpdateFieldSets[group],data);
+    unsigned group=kind==291?0:kind-104;
+    if(kind==291) MarshalModuleFieldSet(input,output,dozerAIUpdateFieldSet,data);
+    else if(group) MarshalModuleFieldSet(input,output,aiUpdateFieldSets[group],data);
     MarshalModuleFieldSet(input,output,aiUpdateFieldSets[0],data);
     for(const auto& child:input.children) if(child.name=="UnitAITargetChooserData") {
         auto at=static_cast<unsigned char*>(data.Push(reinterpret_cast<void**>(output+68),40,1));
@@ -405,8 +406,9 @@ void MarshalAIUpdate(const GameObjectChild& input,unsigned char* output,unsigned
     }
 }
 void EndianAIUpdate(unsigned char* output,unsigned kind) {
-    unsigned group=kind-104;
-    if(group) EndianModuleFieldSet(output,aiUpdateFieldSets[group]);
+    unsigned group=kind==291?0:kind-104;
+    if(kind==291) EndianModuleFieldSet(output,dozerAIUpdateFieldSet);
+    else if(group) EndianModuleFieldSet(output,aiUpdateFieldSets[group]);
     EndianModuleFieldSet(output,aiUpdateFieldSets[0]);
     auto chooser=*reinterpret_cast<unsigned char**>(output+68);
     if(chooser) EndianWeaponSetNode(chooser,8);

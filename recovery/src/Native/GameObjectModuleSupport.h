@@ -123,8 +123,9 @@ bool GameObjectModuleAttributeSupported(const std::string& typeId,const std::str
         if(group==3 || group==4) for(unsigned i=0;i<economyFieldSets[0].count;++i) if(attribute==economyFieldSets[0].fields[i].name) return true;
         return false;
     }
-    if(choice->kind>=104 && choice->kind<=111) {
-        for(const auto& set:{aiUpdateFieldSets[choice->kind-104],aiUpdateFieldSets[0]}) for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
+    if((choice->kind>=104 && choice->kind<=111) || choice->kind==291) {
+        const auto& own=choice->kind==291?dozerAIUpdateFieldSet:aiUpdateFieldSets[choice->kind-104];
+        for(const auto& set:{own,aiUpdateFieldSets[0]}) for(unsigned i=0;i<set.count;++i) if(attribute==set.fields[i].name) return true;
         return false;
     }
     if(choice->kind>=96 && choice->kind<=103) {
@@ -362,7 +363,7 @@ unsigned GameObjectModuleNodeKind(unsigned kind,const std::string& path) {
         if(kind==118) {if(path=="RotationSpeed" || path=="UnitSpacing" || path=="Filter") return 1;if(path=="Filter/IncludeThing" || path=="Filter/ExcludeThing") return 3;}
         return 0;
     }
-    if(kind>=104 && kind<=111) {
+    if((kind>=104 && kind<=111) || kind==291) {
         if(path=="UnitAITargetChooserData" || path=="UnitAITargetChooserData/ObjectVisionRange/Filter") return 1;
         if(path=="UnitAITargetChooserData/ObjectVisionRange") return 2;
         if(path=="UnitAITargetChooserData/ObjectVisionRange/Filter/IncludeThing" || path=="UnitAITargetChooserData/ObjectVisionRange/Filter/ExcludeThing") return 3;
@@ -570,7 +571,7 @@ bool GameObjectModuleNodeAttribute(unsigned kind,const std::string& path,const s
         if(kind==118 && (path=="RotationSpeed" || path=="UnitSpacing")) return attribute=="x" || attribute=="y" || attribute=="z";
         return false;
     }
-    if(kind>=104 && kind<=111) {
+    if((kind>=104 && kind<=111) || kind==291) {
         if(path=="UnitAITargetChooserData") {
             if(attribute=="TargetingCompareList") return true;
             for(unsigned i=0;i<weaponSetFieldSets[8].count;++i) if(attribute==weaponSetFieldSets[8].fields[i].name) return true;

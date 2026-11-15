@@ -39,7 +39,7 @@ void EndianModule(U32* input) {
     if(choice && choice->kind>=123 && choice->kind<=125) EndianSpawnUpdate(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=119 && choice->kind<=122) EndianAssist(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=112 && choice->kind<=118) EndianEconomy(reinterpret_cast<unsigned char*>(input),choice->kind);
-    if(choice && choice->kind>=104 && choice->kind<=111) EndianAIUpdate(reinterpret_cast<unsigned char*>(input),choice->kind);
+    if(choice && ((choice->kind>=104 && choice->kind<=111) || choice->kind==291)) EndianAIUpdate(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=96 && choice->kind<=103) EndianCrate(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind>=92 && choice->kind<=95) EndianHealing(reinterpret_cast<unsigned char*>(input),choice->kind);
     if(choice && choice->kind==91) EndianWeaponSetNode(reinterpret_cast<unsigned char*>(input),0);
@@ -126,7 +126,7 @@ void MarshalModule(const GameObjectChild& input,void** slot,Relo::Tracker& data)
     if(choice && choice->kind>=123 && choice->kind<=125) MarshalSpawnUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=119 && choice->kind<=122) MarshalAssist(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=112 && choice->kind<=118) MarshalEconomy(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
-    if(choice && choice->kind>=104 && choice->kind<=111) MarshalAIUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
+    if(choice && ((choice->kind>=104 && choice->kind<=111) || choice->kind==291)) MarshalAIUpdate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=96 && choice->kind<=103) MarshalCrate(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind>=92 && choice->kind<=95) MarshalHealing(input,reinterpret_cast<unsigned char*>(target),choice->kind,data);
     if(choice && choice->kind==91) MarshalWeaponSetNode(input,reinterpret_cast<unsigned char*>(target),0,data);

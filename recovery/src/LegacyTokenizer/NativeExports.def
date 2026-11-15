@@ -1,0 +1,4 @@
+LIBRARY BinaryAssetBuilder.Tokenizer
+EXPORTS
+    LegacyTokenizerCompile
+    LegacyTokenizerFree
