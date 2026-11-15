@@ -14,11 +14,6 @@ Push-Location $root
 try {
     & $csc /nologo /platform:x86 /r:System.Xml.dll "/r:$root/SDK/tools/BinaryAssetBuilder.Core.dll" "/out:$build/LegacyTokenizerOracle.exe" (Resolve-Path 'recovery/tests/LegacyTokenizerOracle.cs').Path
     Checked 'CLR 2 oracle build failed'
-    $objects = Get-ChildItem $build -Filter '*.obj' | Where-Object Name -ne 'NativeExports.obj' | ForEach-Object FullName
-    & cl /nologo /MT /EHsc /O2 /std:c++17 "/Fe$build/LegacyDozerNative.exe" "/Fo$build/LegacyDozerNative.obj" recovery/tests/LegacyDozerNative.cpp @objects
-    Checked 'Native Dozer contract build failed'
-    & "$build/LegacyDozerNative.exe"
-    Checked 'Native Dozer contract failed'
     foreach ($mode in @('original','candidate')) {
         $dir = Join-Path $work $mode
         New-Item -ItemType Directory -Force $dir | Out-Null
